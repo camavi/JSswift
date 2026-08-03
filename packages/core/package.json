@@ -1,6 +1,6 @@
 {
   "name": "@cmswift/core",
-  "version": "1.0.29",
+  "version": "1.0.30",
   "description": "CMSwift core runtime: renderer, reactive, rod, lifecycle and platform modules",
   "license": "MIT",
   "type": "module",

@@ -32,6 +32,15 @@
       return top;
     };
 
+    const isOverlayInteractivePortal = (target) => {
+      let node = target;
+      while (node && node !== document) {
+        if (node.nodeType === 1 && node.getAttribute?.("data-cms-overlay-portal") === "true") return true;
+        node = node.parentNode;
+      }
+      return false;
+    };
+
     const open = (content, opts = {}) => {
       const id = `ov_${++seq}`;
 
@@ -136,6 +145,7 @@
         const top = getTop();
         if (!top || top.id !== id) return;
         if (opts.closeOnOutside === false) return;
+        if (isOverlayInteractivePortal(e.target)) return;
         if (!panel.contains(e.target)) close(id);
       };
       document.addEventListener("mousedown", onDocClick, true);

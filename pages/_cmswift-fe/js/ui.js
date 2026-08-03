@@ -3959,6 +3959,7 @@ const unitCover = (v, name = 'size') => {
     });
     const menu = _.div({
       class: uiClass(["cms-search-menu", "cms-singularity-menu-select", props.menuClass, uiWhen(props.fill, "cms-select-menu-fill")]),
+      "data-cms-overlay-portal": "true",
       onClick: (event) => event.stopPropagation()
     }, resultsWrap);
     const root = _.div({
@@ -4602,7 +4603,11 @@ const unitCover = (v, name = 'size') => {
         ? color
         : (uiUnwrap(menuProps.state) || "");
     });
-    const menu = _.div({ class: uiClass(["cms-select-menu", "cms-singularity-menu-select", stateMenu, menuProps.class, uiWhen(props.fill, "cms-select-menu-fill")]), onClick: (e) => e.stopPropagation() },
+    const menu = _.div({
+      class: uiClass(["cms-select-menu", "cms-singularity-menu-select", stateMenu, menuProps.class, uiWhen(props.fill, "cms-select-menu-fill")]),
+      "data-cms-overlay-portal": "true",
+      onClick: (e) => e.stopPropagation()
+    },
       filterWrap, optionsWrap
     );
     let menuPortalFrame = 0;

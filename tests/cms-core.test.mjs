@@ -1063,6 +1063,50 @@ test("overlay keeps stack, scroll lock and listener cleanup coherent", async () 
   assert.deepEqual(closed, ["second", "first"]);
 });
 
+test("overlay outside click ignores interactive UI portals", async () => {
+  const CMS = await loadCMS();
+  let closed = 0;
+  const entry = CMS.overlay.open(() => CMS.div("dialog"), {
+    closeOnOutside: true,
+    onClose: () => {
+      closed += 1;
+    }
+  });
+  const portal = document.createElement("div");
+  portal.setAttribute("data-cms-overlay-portal", "true");
+  const option = document.createElement("div");
+  portal.appendChild(option);
+  document.body.appendChild(portal);
+
+  document.dispatchEvent({ type: "mousedown", target: option });
+
+  assert.equal(CMS.overlay._stack.has(entry.id), true);
+  assert.equal(closed, 0);
+
+  document.dispatchEvent({ type: "mousedown", target: document.body });
+
+  assert.equal(CMS.overlay._stack.has(entry.id), false);
+  assert.equal(closed, 1);
+});
+
+test("overlay outside click closes from regular outside targets", async () => {
+  const CMS = await loadCMS();
+  let closed = 0;
+  const entry = CMS.overlay.open(() => CMS.div("dialog"), {
+    closeOnOutside: true,
+    onClose: () => {
+      closed += 1;
+    }
+  });
+  const outside = document.createElement("button");
+  document.body.appendChild(outside);
+
+  document.dispatchEvent({ type: "mousedown", target: outside });
+
+  assert.equal(CMS.overlay._stack.has(entry.id), false);
+  assert.equal(closed, 1);
+});
+
 test("auth plugin updates public state for login, role checks and logout", async () => {
   const CMS = await loadCMS();
   const calls = [];
