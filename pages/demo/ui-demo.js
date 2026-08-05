@@ -94,6 +94,7 @@ CMSwift.ready(() => {
             parallelUploads: 2,
             autoUpload: false,
             clickable: false,
+            uploadButton: false,
             upload: demoUploader,
             onAdded: (item) => addUploadEvent(`Added ${item.name}`),
             onRejected: (item, ctx) => addUploadEvent(`Rejected ${item.name}: ${ctx.reason}`),

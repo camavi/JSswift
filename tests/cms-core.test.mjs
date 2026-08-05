@@ -1465,6 +1465,47 @@ test("UI.Upload requeues max-files rejection after removing an active file", asy
   assert.equal(findNodes(upload, (node) => node.classList?.contains("cms-upload-summary"))[0].textContent, "1 file • 20 B");
 });
 
+test("UI.Upload supports native form mode and visibility controls", async () => {
+  const CMS = await loadCMS();
+  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const source = await fs.readFile(filename, "utf8");
+  vm.runInThisContext(source, { filename });
+
+  const calls = [];
+  const upload = CMS.Upload({
+    name: "attachment",
+    submitMode: "form",
+    autoUpload: true,
+    status: "success",
+    showFiles: false,
+    upload: async () => {
+      calls.push("upload");
+    }
+  });
+
+  await upload._addFiles([{ name: "invoice.pdf", size: 128, type: "application/pdf" }]);
+
+  const buttons = findNodes(upload, (node) => node.tagName === "BUTTON").map(collectText);
+  const input = findNodes(upload, (node) => node.tagName === "INPUT" && node.type === "file")[0];
+  const list = findNodes(upload, (node) => node.classList?.contains("cms-upload-list"))[0];
+  const summary = findNodes(upload, (node) => node.classList?.contains("cms-upload-summary"))[0];
+
+  assert.equal(input.getAttribute("name"), "attachment");
+  assert.equal(buttons.some((text) => text.includes("Upload")), false);
+  assert.equal(buttons.some((text) => text.includes("Browse")), true);
+  assert.equal(buttons.some((text) => text.includes("Clear")), true);
+  assert.deepEqual(calls, []);
+  assert.equal(upload.classList.contains("is-form-mode"), true);
+  assert.equal(upload.classList.contains("is-files-hidden"), true);
+  assert.equal(upload.classList.contains("cms-state-success"), true);
+  assert.equal(list.hidden, true);
+  assert.equal(summary.hidden, true);
+
+  const manualUpload = CMS.Upload({ submitMode: "manual" });
+  const manualButtons = findNodes(manualUpload, (node) => node.tagName === "BUTTON").map(collectText);
+  assert.equal(manualButtons.some((text) => text.includes("Upload")), true);
+});
+
 test("UI.BoxUpload and UI.boxUpload expose boxed upload variant", async () => {
   const CMS = await loadCMS();
   const filename = path.resolve("pages/_cmswift-fe/js/ui.js");

@@ -12378,8 +12378,8 @@ a.cms-breadcrumb {
 }
 
 .cms-dense {
-  padding: 1px 2px;
-  margin: 2px;
+  padding: 1px 2px !important;
+  margin: 2px !important;
 }
 
 .cms-shadow {

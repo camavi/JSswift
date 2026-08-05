@@ -1,7 +1,7 @@
 {
   "name": "cmswift",
   "private": true,
-  "version": "1.0.33",
+  "version": "1.0.34",
   "description": "CMSwift UI + reactive runtime framework",
   "author": "Carlos Malleux",
   "license": "MIT",

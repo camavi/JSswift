@@ -3544,6 +3544,15 @@
 
     const isDisabled = () => !!uiUnwrap(props.disabled) || !!uiUnwrap(props.readonly);
     const isMultiple = () => props.multiple !== false && props.single !== true;
+    const isFormSubmitMode = () => ["form", "native", "submit", "external"].includes(String(uiUnwrap(props.submitMode ?? props.modeSubmit ?? props.uploadMode) || "").toLowerCase());
+    const showBrowse = () => uiUnwrap(props.showBrowse ?? props.browseButton) !== false;
+    const showUpload = () => !isFormSubmitMode() && uiUnwrap(props.showUpload ?? props.uploadButton) !== false;
+    const showClear = () => uiUnwrap(props.showClear ?? props.clearButton) !== false;
+    const showFiles = () => uiUnwrap(props.showFiles ?? props.files) !== false;
+    const getStatusClass = () => {
+      const state = normalizeState(uiUnwrap(props.state) || uiUnwrap(props.status));
+      return state ? `cms-state-${state}` : "";
+    };
     const getFieldName = () => props.fieldName || props.paramName || props.name || "file";
     const getParallel = () => Math.max(1, Number(uiUnwrap(props.parallelUploads ?? props.parallel) || 1));
     const getRetry = () => {
@@ -3675,7 +3684,7 @@
         if (!isMultiple()) break;
       }
       refresh();
-      if (added.length && props.autoUpload) upload();
+      if (added.length && props.autoUpload && !isFormSubmitMode()) upload();
       return added;
     };
     const clear = (opts = {}) => {
@@ -3883,6 +3892,7 @@
     const input = _.input({
       type: "file",
       class: "cms-upload-input",
+      name: getFieldName(),
       accept: getAccepted() || null,
       multiple: isMultiple(),
       capture: props.capture || null,
@@ -3895,12 +3905,16 @@
     const listEl = _.div({ class: "cms-upload-list" });
     const summaryEl = _.div({ class: "cms-upload-summary" });
     const actionsEl = _.div({ class: "cms-upload-actions" });
+    let currentStatusClass = getStatusClass();
     const root = _.div({
       class: uiClass([
         "cms-upload",
         "cms-singularity",
+        currentStatusClass,
         uiWhen(props.box || props.variant === "box", "cms-upload-box"),
         uiWhen(props.compact, "is-compact"),
+        uiWhen(isFormSubmitMode(), "is-form-mode"),
+        uiWhen(!showFiles(), "is-files-hidden"),
         props.class
       ]),
       tabindex: isDisabled() ? "-1" : "0",
@@ -3927,11 +3941,18 @@
       reset: clear
     };
     const renderActions = () => {
-      const ctx = { api, files: getFiles().slice(), busy: getBusy(), disabled: isDisabled() };
-      const browseNode = CMSwift.ui.renderSlot(slots, "browse", ctx, UI.Btn({ size: "sm", icon: "folder_open", label: props.browseText || "Browse", onClick: browse }));
-      const uploadNode = CMSwift.ui.renderSlot(slots, "upload", ctx, UI.Btn({ size: "sm", color: "primary", icon: "upload", label: props.uploadText || "Upload", loading: getBusy(), disabled: isDisabled() || !getFiles().some((item) => ["queued", "error", "canceled"].includes(item.status)), onClick: () => upload() }));
-      const clearNode = CMSwift.ui.renderSlot(slots, "clear", ctx, UI.Btn({ size: "sm", color: "secondary", outline: true, icon: "delete", label: props.clearText || "Clear", disabled: isDisabled() || !getFiles().length, onClick: () => clear() }));
-      return renderSlotToArray(slots, "actions", ctx, [browseNode, uploadNode, clearNode]);
+      const ctx = { api, files: getFiles().slice(), busy: getBusy(), disabled: isDisabled(), submitMode: isFormSubmitMode() ? "form" : "upload" };
+      const actionNodes = [];
+      if (showBrowse()) {
+        actionNodes.push(CMSwift.ui.renderSlot(slots, "browse", ctx, UI.Btn({ size: "sm", icon: "folder_open", label: props.browseText || "Browse", onClick: browse })));
+      }
+      if (showUpload()) {
+        actionNodes.push(CMSwift.ui.renderSlot(slots, "upload", ctx, UI.Btn({ size: "sm", color: "primary", icon: "upload", label: props.uploadText || "Upload", loading: getBusy(), disabled: isDisabled() || !getFiles().some((item) => ["queued", "error", "canceled"].includes(item.status)), onClick: () => upload() })));
+      }
+      if (showClear()) {
+        actionNodes.push(CMSwift.ui.renderSlot(slots, "clear", ctx, UI.Btn({ size: "sm", color: "secondary", outline: true, icon: "delete", label: props.clearText || "Clear", disabled: isDisabled() || !getFiles().length, onClick: () => clear() })));
+      }
+      return renderSlotToArray(slots, "actions", ctx, actionNodes);
     };
     const renderFile = (item, index) => {
       const ctx = {
@@ -3972,6 +3993,8 @@
       const files = getFiles();
       actionsEl.replaceChildren(...renderActions());
       listEl.replaceChildren();
+      summaryEl.hidden = !showFiles();
+      listEl.hidden = !showFiles();
       if (!files.length) {
         const empty = CMSwift.ui.renderSlot(slots, "empty", { api }, props.emptyText || "No files selected");
         listEl.appendChild(_.div({ class: "cms-upload-empty" }, ...renderSlotToArray(null, "default", {}, empty)));
@@ -4032,14 +4055,24 @@
     CMSwift.reactive.effect(() => { render(); }, "UI.Upload:render");
     CMSwift.reactive.effect(() => {
       root.classList.toggle("is-disabled", isDisabled());
+      root.classList.toggle("is-form-mode", isFormSubmitMode());
+      root.classList.toggle("is-files-hidden", !showFiles());
+      const nextStatusClass = getStatusClass();
+      if (nextStatusClass !== currentStatusClass) {
+        if (currentStatusClass) root.classList.remove(currentStatusClass);
+        if (nextStatusClass) root.classList.add(nextStatusClass);
+        currentStatusClass = nextStatusClass;
+      }
       root.setAttribute("aria-disabled", isDisabled() ? "true" : "false");
       input.disabled = isDisabled();
       input.multiple = isMultiple();
+      input.name = getFieldName();
     }, "UI.Upload:disabled");
     root._upload = api;
     root._addFiles = addFiles;
     root._browse = browse;
     root._uploadFiles = upload;
+    root._input = input;
     root._dispose = () => {
       if (disposed) return;
       disposed = true;
@@ -4078,10 +4111,22 @@
         retry: "boolean|{ attempts, delay, factor }",
         withCredentials: "boolean",
         sendRaw: "boolean",
+        submitMode: "\"upload\"|\"form\"",
+        uploadMode: "Alias of submitMode",
+        showBrowse: "boolean",
+        showUpload: "boolean",
+        showClear: "boolean",
+        showFiles: "boolean",
+        browseButton: "Alias of showBrowse",
+        uploadButton: "Alias of showUpload",
+        clearButton: "Alias of showClear",
         drag: "boolean",
         clickable: "boolean",
         box: "boolean",
         compact: "boolean",
+        color: "semantic state or CSS color",
+        status: "semantic state alias",
+        state: "semantic state alias",
         title: "String|Node|Function",
         subtitle: "String|Node|Function",
         emptyText: "string",
