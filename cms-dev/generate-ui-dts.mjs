@@ -77,6 +77,8 @@ async function generateOnce() {
   }
 
   mergeComponents(cmswiftUiComponents, [...uiComponents.values()]);
+  applyUiAliases(uiComponents);
+  applyUiAliases(cmswiftUiComponents);
 
   const uiNames = [...uiComponents.keys()].sort((a, b) => a.localeCompare(b));
   const cmswiftNames = [...cmswiftComponents.keys()].sort((a, b) => a.localeCompare(b));
@@ -166,6 +168,17 @@ async function generateOnce() {
 
   const totalComponents = uiNames.length + cmswiftNames.length + cmswiftUiNames.length;
   console.log(`Generated ${totalComponents} components -> ${OUTPUT_PATH}`);
+}
+
+function applyUiAliases(map) {
+  const aliases = {
+    boxUpload: "BoxUpload"
+  };
+  for (const [alias, sourceName] of Object.entries(aliases)) {
+    if (!map.has(alias) && map.has(sourceName)) {
+      map.set(alias, { ...map.get(sourceName), name: alias });
+    }
+  }
 }
 
 async function loadTablerIconIds() {

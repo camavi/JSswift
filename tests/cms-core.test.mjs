@@ -1107,6 +1107,31 @@ test("overlay outside click closes from regular outside targets", async () => {
   assert.equal(closed, 1);
 });
 
+test("overlay close runs child cleanup before removing portalized UI", async () => {
+  const CMS = await loadCMS();
+  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const source = await fs.readFile(filename, "utf8");
+  vm.runInThisContext(source, { filename });
+
+  const select = CMS.Select({
+    placeholder: "Categories",
+    options: ["Biography", "Business", "Education"]
+  });
+  const entry = CMS.overlay.open(() => select, { closeOnOutside: true });
+  const control = findNodes(select, (node) => node.classList?.contains("cms-select-control"))[0];
+  const menu = findNodes(select, (node) => node.classList?.contains("cms-select-menu"))[0];
+
+  control.dispatchEvent({ type: "click", target: control });
+  await tick();
+
+  assert.equal(menu?.parentNode, document.body);
+
+  CMS.overlay.close(entry.id);
+
+  assert.notEqual(menu.parentNode, document.body);
+  assert.equal(CMS.overlay._stack.has(entry.id), false);
+});
+
 test("auth plugin updates public state for login, role checks and logout", async () => {
   const CMS = await loadCMS();
   const calls = [];
@@ -1308,6 +1333,127 @@ test("UI.Button aliases UI.Btn", async () => {
   assert.equal(out.classList.contains("cms-btn"), true);
   assert.equal(uiOut.tagName, "BUTTON");
   assert.equal(collectText(uiOut), "Annulla");
+});
+
+test("UI.Upload validates files and uploads through custom uploader", async () => {
+  const CMS = await loadCMS();
+  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const source = await fs.readFile(filename, "utf8");
+  vm.runInThisContext(source, { filename });
+
+  const events = [];
+  const upload = CMS.Upload({
+    accept: ".txt",
+    maxFiles: 2,
+    upload: async (_file, { progress }) => {
+      progress(40);
+      await tick();
+      progress(100);
+      return { ok: true };
+    },
+    onAdded: (item) => events.push(`added:${item.name}`),
+    onRejected: (item, ctx) => events.push(`rejected:${item.name}:${ctx.reason}`),
+    onSuccess: (item) => events.push(`success:${item.name}`)
+  });
+
+  await upload._addFiles([
+    { name: "draft.txt", size: 12, type: "text/plain" },
+    { name: "cover.png", size: 20, type: "image/png" }
+  ]);
+
+  assert.equal(upload._upload.files().length, 2);
+  assert.deepEqual(events.slice(0, 2), ["added:draft.txt", "rejected:cover.png:accept"]);
+  const findButton = (label) => findNodes(upload, (node) => node.tagName === "BUTTON" && collectText(node).includes(label))[0];
+
+  assert.equal(findButton("Upload").disabled, false);
+  assert.equal(findButton("Clear").disabled, false);
+
+  upload._uploadFiles();
+  await tick();
+  await tick();
+
+  const files = upload._upload.files();
+  assert.equal(files[0].status, "done");
+  assert.equal(files[0].progress, 100);
+  assert.equal(files[1].status, "rejected");
+  assert.equal(events.includes("success:draft.txt"), true);
+  assert.equal(findButton("Upload").disabled, true);
+  assert.equal(findButton("Clear").disabled, false);
+});
+
+test("UI.Upload action buttons stay wired after files change", async () => {
+  const CMS = await loadCMS();
+  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const source = await fs.readFile(filename, "utf8");
+  vm.runInThisContext(source, { filename });
+
+  const events = [];
+  const upload = CMS.Upload({
+    upload: async (file, { progress }) => {
+      events.push(`upload:${file.name}`);
+      progress(100);
+      return { ok: true };
+    }
+  });
+  const findButton = (label) => findNodes(upload, (node) => node.tagName === "BUTTON" && collectText(node).includes(label))[0];
+
+  await upload._addFiles([{ name: "manual.pdf", size: 100, type: "application/pdf" }]);
+  const uploadButton = findButton("Upload");
+  const clearButton = findButton("Clear");
+
+  assert.equal(uploadButton.disabled, false);
+  assert.equal(clearButton.disabled, false);
+
+  uploadButton.dispatchEvent({ type: "click" });
+  await tick();
+  await tick();
+
+  assert.deepEqual(events, ["upload:manual.pdf"]);
+  assert.equal(upload._upload.files()[0].status, "done");
+  assert.equal(findButton("Upload").disabled, true);
+
+  findButton("Clear").dispatchEvent({ type: "click" });
+  assert.equal(upload._upload.files().length, 0);
+  assert.equal(findButton("Clear").disabled, true);
+});
+
+test("UI.Upload requeues max-files rejection after removing an active file", async () => {
+  const CMS = await loadCMS();
+  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const source = await fs.readFile(filename, "utf8");
+  vm.runInThisContext(source, { filename });
+
+  const upload = CMS.Upload({ maxFiles: 1 });
+  await upload._addFiles([
+    { name: "first.pdf", size: 10, type: "application/pdf" },
+    { name: "second.pdf", size: 20, type: "application/pdf" }
+  ]);
+
+  assert.deepEqual(upload._upload.files().map((item) => item.status), ["queued", "rejected"]);
+  assert.equal(upload._upload.files()[1].error, "max-files");
+
+  await upload._upload.remove(upload._upload.files()[0]);
+  await tick();
+
+  assert.deepEqual(upload._upload.files().map((item) => item.status), ["queued"]);
+  assert.equal(upload._upload.files()[0].name, "second.pdf");
+  assert.equal(findNodes(upload, (node) => node.classList?.contains("cms-upload-summary"))[0].textContent, "1 file • 20 B");
+});
+
+test("UI.BoxUpload and UI.boxUpload expose boxed upload variant", async () => {
+  const CMS = await loadCMS();
+  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const source = await fs.readFile(filename, "utf8");
+  vm.runInThisContext(source, { filename });
+
+  const boxed = CMS.BoxUpload({ title: "Manuscript" });
+  const boxedAlias = CMS.boxUpload({ title: "Alias" });
+
+  assert.equal(boxed.classList.contains("cms-upload"), true);
+  assert.equal(boxed.classList.contains("cms-upload-box"), true);
+  assert.equal(boxedAlias.classList.contains("cms-upload-box"), true);
+  assert.equal(typeof boxed._upload.addFiles, "function");
+  assert.equal(CMS.ui.meta.Upload.signature, "UI.Upload(props)");
 });
 
 test("UI.Icon uses built-in inline sprite fallback without external URL", async () => {

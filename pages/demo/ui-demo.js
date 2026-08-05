@@ -9,6 +9,17 @@ CMSwift.ready(() => {
   const roleModel = _.rod("developer");
   const searchModel = _.rod("");
   const dateModel = _.rod("");
+  const uploadEvents = _.rod([]);
+  const addUploadEvent = (text) => {
+    uploadEvents.value = [text, ...uploadEvents.value].slice(0, 6);
+  };
+  const demoUploader = async (file, { progress }) => {
+    for (const value of [18, 42, 68, 91, 100]) {
+      await new Promise((resolve) => setTimeout(resolve, 140));
+      progress(value);
+    }
+    return { ok: true, name: file.name };
+  };
   const searchItems = [
     { title: "Dashboard", description: "Panoramica e metriche principali", value: "dashboard" },
     { title: "Utenti", description: "Gestione account e ruoli", value: "users" },
@@ -71,6 +82,49 @@ CMSwift.ready(() => {
           _.input({ placeholder: 'prova', name: "test" }),
           _.Input({ placeholder: 'prova', name: "test", iconRight: _.Icon({name:'search', tooltip:"Cerca"}) }),
           _.Date({ model: dateModel, mode: "range", label: t("updatesLabel") }),
+          _.h3("Upload"),
+          _.Upload({
+            title: "Document upload",
+            subtitle: "Drop TXT, PDF or images. Max 3 files, 2 MB each.",
+            accept: ".txt,.pdf,image/*",
+            maxFiles: 3,
+            maxFileSize: 2 * 1024 * 1024,
+            parallelUploads: 2,
+            autoUpload: false,
+            clickable: false,
+            upload: demoUploader,
+            onAdded: (item) => addUploadEvent(`Added ${item.name}`),
+            onRejected: (item, ctx) => addUploadEvent(`Rejected ${item.name}: ${ctx.reason}`),
+            onSuccess: (item) => addUploadEvent(`Uploaded ${item.name}`),
+            onError: (item) => addUploadEvent(`Error ${item.name}`),
+            onCancel: (item) => addUploadEvent(`Canceled ${item.name}`),
+            slots: {
+              empty: "Drop files or use Browse",
+              fileMeta: ({ item }) => {
+                if (item.status === "done") return "Ready on demo server";
+                if (item.status === "queued") return "Waiting in queue";
+                if (item.status === "uploading") return `Uploading ${item.progress}%`;
+                if (item.status === "rejected") return `Rejected: ${item.error}`;
+                if (item.status === "error") return `Failed: ${item.error?.message || item.error}`;
+                return item.status;
+              },
+            },
+          }),
+          _.BoxUpload({
+            title: "BoxUpload manuscript",
+            subtitle: "Styled drop area for the manuscript flow.",
+            accept: ".doc,.docx,.pdf,.txt",
+            maxFiles: 1,
+            autoUpload: false,
+            clickable: false,
+            upload: demoUploader,
+            browseText: "Choose manuscript",
+            uploadText: "Send",
+            clearText: "Reset",
+            onAdded: (item) => addUploadEvent(`Box added ${item.name}`),
+            onSuccess: (item) => addUploadEvent(`Box uploaded ${item.name}`),
+            onRejected: (item, ctx) => addUploadEvent(`Box rejected ${item.name}: ${ctx.reason}`),
+          }),
           _.div(
 
             _.Btn(
@@ -94,6 +148,12 @@ CMSwift.ready(() => {
           _.p(() => t("liveName", { value: nameModel.value })),
           _.p(() => t("liveRole", { value: roleModel.value })),
           _.p(() => `Search: ${searchModel.value || "-"}`),
+          _.div(
+            _.h4("Upload events"),
+            () => uploadEvents.value.length
+              ? _.ul(...uploadEvents.value.map((event) => _.li(event)))
+              : _.p("-"),
+          ),
           _.p(() => (getUpdates() ? t("liveUpdatesOn") : t("liveUpdatesOff"))),
         ),
       ),

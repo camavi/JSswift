@@ -753,6 +753,7 @@
 
       if (entry.opts.lockScroll) unlockScroll();
 
+      if (typeof cleanupNodeTree === "function") cleanupNodeTree(entry.overlay);
       entry.overlay?.remove();
 
       entry.onClose?.();

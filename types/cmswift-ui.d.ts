@@ -5998,8 +5998,6 @@ declare global {
       name?: IconName | object | Function | any[] | null | undefined;
       size?: number | string;
       color?: string;
-      tooltip?: any;
-      tooltipProps?: Record<string, any>;
       slots?: { default?: any };
       class?: string;
       style?: object;
@@ -6010,13 +6008,19 @@ declare global {
       [key: string]: any;
     };
 
-    function AppShell(...args: any[]): HTMLElement;
+    function Alert(...args: any[]): HTMLElement;
+
+    function AppShell(...args: any[]): HTMLElement | DocumentFragment | any;
 
     function Avatar(...args: any[]): HTMLElement;
 
     function Badge(...args: any[]): HTMLElement;
 
     function Banner(...args: any[]): HTMLElement;
+
+    function boxUpload(props?: Record<string, any>): HTMLElement | DocumentFragment | any;
+
+    function BoxUpload(props?: Record<string, any>): HTMLElement | DocumentFragment | any;
 
     function Breadcrumbs(...args: any[]): HTMLElement;
 
@@ -6025,13 +6029,13 @@ declare global {
 
     function Card(...args: any[]): HTMLElement;
 
-    function CardBody(...args: any[]): HTMLElement;
+    function cardBody(...args: any[]): HTMLElement | DocumentFragment | any;
 
-    function CardFooter(...args: any[]): HTMLElement;
+    function cardFooter(...args: any[]): HTMLElement | DocumentFragment | any;
 
-    function CardHeader(...args: any[]): HTMLElement;
+    function cardHeader(...args: any[]): HTMLElement | DocumentFragment | any;
 
-    function Checkbox(...args: any[]): HTMLElement;
+    function Checkbox(...args: any[]): HTMLElement | DocumentFragment | any;
 
     function Chip(...args: any[]): HTMLElement;
 
@@ -6039,13 +6043,15 @@ declare global {
 
     function Container(...args: any[]): HTMLElement;
 
-    function ContextMenu(props?: Record<string, any>): HTMLElement | DocumentFragment | any;
+    function ContextMenu(...args: any[]): any;
 
-    function Date(...args: any[]): HTMLElement;
+    function Date(...args: any[]): HTMLElement | DocumentFragment | any;
 
     function Dialog(...args: any[]): HTMLElement | DocumentFragment | any;
 
     function Drawer(...args: any[]): HTMLElement | DocumentFragment | any;
+
+    function EmptyState(...args: any[]): HTMLElement;
 
     function Footer(...args: any[]): HTMLElement;
 
@@ -6053,7 +6059,7 @@ declare global {
 
     function FormField(props?: Record<string, any>): HTMLElement;
 
-    function Grid(...args: any[]): HTMLElement;
+    function Grid(...args: any[]): HTMLElement | DocumentFragment | any;
 
     function GridCol(...args: any[]): HTMLElement;
 
@@ -6065,86 +6071,84 @@ declare global {
 
     function Input(props?: Record<string, any>): HTMLElement;
 
-    function InputRaw(props?: Record<string, any>): HTMLElement;
-
-    function Textarea(props?: Record<string, any>): HTMLElement;
+    function InputRaw(props?: Record<string, any>): HTMLElement | DocumentFragment | any;
 
     function Item(...args: any[]): HTMLElement;
 
-    function Layout(props?: {
-        aside?: any;
-        class?: string | string[] | null | undefined;
-        drawerBreakpoint?: number;
-        drawerOpen?: any;
-        drawerWidth?: number;
-        escClose?: boolean;
-        footer?: any;
-        header?: any;
-        noDrawer?: boolean;
-        overlayClose?: boolean;
-        page?: any;
-        slots?: any;
-        stickyAside?: boolean;
-        stickyFooter?: boolean;
-        stickyHeader?: boolean;
-        tagPage?: boolean;
-      }
-    ): HTMLElement;
+    function Kpi(...args: any[]): HTMLElement;
+
+    function Layout(...args: any[]): any;
 
     function List(...args: any[]): HTMLElement | DocumentFragment | any;
 
     function LoadingBar(...args: any[]): HTMLElement | DocumentFragment | any;
 
-    function Menu(props?: Record<string, any>): HTMLElement | DocumentFragment | any;
+    function Menu(...args: any[]): any;
 
-    function Notify(props?: Record<string, any>): HTMLElement | DocumentFragment | any;
+    function Notify(...args: any[]): HTMLElement | DocumentFragment | any;
 
     function Page(...args: any[]): HTMLElement;
 
-    function Pagination(...args: any[]): HTMLElement;
+    function Pagination(...args: any[]): HTMLElement | DocumentFragment | any;
 
-    function Parallax(...args: any[]): HTMLElement;
+    function Parallax(...args: any[]): HTMLElement | DocumentFragment | any;
 
-    function Popover(props?: Record<string, any>): HTMLElement | DocumentFragment | any;
+    function Popover(...args: any[]): HTMLElement | DocumentFragment | any;
 
     function Progress(...args: any[]): HTMLElement;
 
-    function Radio(...args: any[]): HTMLElement;
+    function Radio(...args: any[]): HTMLElement | DocumentFragment | any;
 
-    function Rating(...args: any[]): HTMLElement;
+    function Rating(...args: any[]): HTMLElement | DocumentFragment | any;
 
     function RouteTab(...args: any[]): HTMLElement;
 
     function Row(...args: any[]): HTMLElement;
 
+    function Search(props?: Record<string, any>): HTMLElement;
+
     function Select(props?: Record<string, any>): HTMLElement | DocumentFragment | any;
 
-    function Separator(...args: any[]): HTMLElement;
+    function Separator(...args: any[]): HTMLElement | DocumentFragment | any;
 
-    function Slider(...args: any[]): HTMLElement;
+    function Slider(...args: any[]): HTMLElement | DocumentFragment | any;
 
-    function Spacer(...args: any[]): HTMLElement;
+    function Spacer(...args: any[]): HTMLElement | DocumentFragment | any;
 
-    function Spinner(...args: any[]): HTMLElement;
+    function Spinner(...args: any[]): HTMLElement | DocumentFragment | any;
 
-    function Table(...args: any[]): HTMLElement;
+    function Stat(...args: any[]): HTMLElement;
+
+    function Table(...args: any[]): HTMLElement | DocumentFragment | any;
+
+    function TabPanel(...args: any[]): HTMLElement | DocumentFragment | any;
 
     function Tabs(...args: any[]): HTMLElement | DocumentFragment | any;
 
-    function Time(...args: any[]): HTMLElement;
+    function Textarea(props?: Record<string, any>): HTMLElement;
 
-    function Toggle(...args: any[]): HTMLElement;
+    function Time(...args: any[]): HTMLElement | DocumentFragment | any;
+
+    function Toggle(...args: any[]): HTMLElement | DocumentFragment | any;
 
     function Toolbar(...args: any[]): HTMLElement;
 
     function Tooltip(...args: any[]): HTMLElement | DocumentFragment | any;
+
+    function Upload(props?: Record<string, any>): HTMLElement | DocumentFragment | any;
   }
   namespace CMSwift {
+    function _registerCleanup(...args: any[]): any;
+
     function Can(...args: any[]): any;
 
     function component(...args: any[]): any;
 
+    function docTable(...args: any[]): HTMLElement | DocumentFragment | any;
+
     function enableAutoCleanup(): any;
+
+    function getTheme(props?: Record<string, any>): any;
 
     function isDev(): any;
 
@@ -6160,13 +6164,17 @@ declare global {
 
     function rodModel(...args: any[]): any;
 
+    function setTheme(...args: any[]): any;
+
     function signalModel(...args: any[]): any;
+
+    function toggleTheme(...args: any[]): any;
 
     function uiNormalizeArgs(...args: any[]): any;
 
-    function use(...args: any[]): any;
+    function useForm(...args: any[]): any;
 
-    function useForm(props?: Record<string, any>): any;
+    function usePlugin(...args: any[]): any;
 
     function useRoute(...args: any[]): any;
 
@@ -6200,8 +6208,6 @@ declare global {
       function put(...args: any[]): any;
 
       function putJSON(...args: any[]): any;
-
-      function request(): any;
 
       function state(): any;
     }

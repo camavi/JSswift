@@ -224,6 +224,11 @@ class FakeNode extends FakeEventTarget {
     return node;
   }
 
+  replaceChildren(...nodes) {
+    while (this.firstChild) this.removeChild(this.firstChild);
+    nodes.forEach((node) => this.appendChild(node));
+  }
+
   remove() {
     if (this.parentNode) this.parentNode.removeChild(this);
   }
@@ -301,6 +306,8 @@ class FakeNode extends FakeEventTarget {
   }
 
   focus() { }
+
+  scrollIntoView() { }
 }
 
 function findNodeById(node, id) {
