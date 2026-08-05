@@ -332,6 +332,8 @@ UI.Radio
 UI.Toggle
 UI.Slider
 UI.Rating
+UI.Datepicker
+UI.Calendar
 UI.Date
 UI.Time
 UI.Tabs

@@ -1335,6 +1335,31 @@ test("UI.Button aliases UI.Btn", async () => {
   assert.equal(collectText(uiOut), "Annulla");
 });
 
+test("UI.Datepicker aliases UI.Date and UI.Calendar persists model", async () => {
+  const CMS = await loadCMS();
+  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const source = await fs.readFile(filename, "utf8");
+  vm.runInThisContext(source, { filename });
+
+  assert.equal(CMS.Date, CMS.Datepicker);
+  assert.equal(CMS.ui.Date, CMS.ui.Datepicker);
+  assert.equal(typeof CMS.Calendar, "function");
+  assert.equal(CMS.ui.meta.Date.signature, "UI.Datepicker(props)");
+  assert.equal(CMS.ui.meta.Calendar.signature, "UI.Calendar(props)");
+
+  const model = _.rod("2026-08-05");
+  const calendar = CMS.Calendar({ model });
+
+  assert.equal(calendar.classList.contains("cms-date-panel"), true);
+  assert.equal(calendar.classList.contains("cms-date-calendar"), true);
+  assert.equal(calendar._getValue(), "2026-08-05");
+
+  calendar._select("2026-08-06");
+
+  assert.equal(model.value, "2026-08-06");
+  assert.equal(calendar._getValue(), "2026-08-06");
+});
+
 test("UI.Upload validates files and uploads through custom uploader", async () => {
   const CMS = await loadCMS();
   const filename = path.resolve("pages/_cmswift-fe/js/ui.js");

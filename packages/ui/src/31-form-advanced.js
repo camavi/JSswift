@@ -1530,8 +1530,9 @@
     });
   };
 
-  UI.Date = (...args) => {
+  const buildDateControl = (args, options = {}) => {
     const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const isCalendar = options.calendar === true;
     const slots = props.slots || {};
     const sizeValue = uiComputed(props.size, () => {
       const value = String(uiUnwrap(props.size) || "").toLowerCase();
@@ -1551,7 +1552,7 @@
         ? "range"
         : (requestedMode === "multiple" ? "multiple" : "single"));
     const valueBinding = props.model || ((uiIsSignal(props.value) || uiIsRod(props.value)) ? props.value : null);
-    const model = resolveModel(valueBinding, "UI.Date:model");
+    const model = resolveModel(valueBinding, isCalendar ? "UI.Calendar:model" : "UI.Datepicker:model");
     const initialRawValue = model ? model.get() : uiUnwrap(props.value);
     const rangeAsArray = uiUnwrap(props.rangeAs ?? props.rangeModel) === "array" || Array.isArray(initialRawValue);
     const rangeMultipleAsArray = uiUnwrap(props.rangeMultipleAs ?? props.multipleRangeAs) === "array"
@@ -1952,7 +1953,7 @@
         ? "Seleziona intervalli"
         : (mode === "multiple" ? "Seleziona date" : "Seleziona data"));
 
-    const displayInput = _.input({
+    const displayInput = isCalendar ? null : _.input({
       class: uiClass(["cms-input", "cms-date-display", sizeValue, uiWhen(props.manualInput, "is-manual"), props.inputClass]),
       type: "text",
       autocomplete: "off",
@@ -1962,9 +1963,9 @@
       value: formatDisplayValue(localValue, localTimeValue)
     });
     const hiddenHost = _.div({ style: { display: "contents" } });
-    const controlNode = _.div({ class: "cms-date-control", style: { display: "contents" } }, displayInput, hiddenHost);
+    const controlNode = isCalendar ? null : _.div({ class: "cms-date-control", style: { display: "contents" } }, displayInput, hiddenHost);
 
-    const field = UI.FormField({
+    const field = isCalendar ? null : UI.FormField({
       ...fieldProps,
       iconRight: props.iconRight ?? "calendar_month",
       control: controlNode,
@@ -2029,12 +2030,13 @@
     };
 
     const syncDisplay = () => {
+      if (isCalendar) return;
       displayInput.readOnly = !uiUnwrap(props.manualInput);
       displayInput.disabled = !!uiUnwrap(props.disabled);
       displayInput.setAttribute("aria-expanded", entry ? "true" : "false");
       displayInput.value = formatDisplayValue(localValue, localTimeValue);
       syncHiddenInputs();
-      field._refresh?.();
+      field?._refresh?.();
     };
 
     const setDateValue = (nextValue, event, options = {}) => {
@@ -2164,6 +2166,7 @@
       if (options.render !== false) renderPanel();
     };
     const shouldCloseOnSelect = () => {
+      if (isCalendar) return false;
       if (uiUnwrap(props.confirm)) return false;
       if (props.closeOnSelect === false) return false;
       if (mode === "multiple" || mode === "range-multiple") return !!props.closeOnSelect;
@@ -2524,7 +2527,8 @@
           onKeydown: (event) => {
             if (event.key === "Escape") {
               event.preventDefault();
-              closePanel();
+              if (isCalendar) props.onEscape?.(event);
+              else closePanel();
             }
           }
         },
@@ -2585,15 +2589,31 @@
       overlayLeave(toClose, () => CMSwift.overlay.close(toClose.id));
     }
 
-    displayInput.addEventListener("focus", (event) => {
+    if (isCalendar) {
+      const fallback = (mode === "range" || mode === "range-multiple") ? 2 : 1;
+      const raw = Number(uiUnwrap(props.monthsToShow) ?? fallback);
+      panelRoot = _.div({
+        class: uiClassStatic([
+          "cms-date-panel",
+          "cms-date-calendar",
+          uiUnwrap(sizeValue),
+          uiWhen(raw > 1, "multi-month"),
+          props.panelClass,
+          props.class
+        ]),
+        style: props.style
+      });
+    }
+
+    if (!isCalendar) displayInput.addEventListener("focus", (event) => {
       props.onFocus?.(event);
       if (props.openOnFocus !== false) openPanel();
     });
-    displayInput.addEventListener("click", (event) => {
+    if (!isCalendar) displayInput.addEventListener("click", (event) => {
       props.onClick?.(event);
       openPanel();
     });
-    displayInput.addEventListener("keydown", (event) => {
+    if (!isCalendar) displayInput.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
         if (entry) {
           event.preventDefault();
@@ -2610,7 +2630,7 @@
         clearValue();
       }
     });
-    if (uiUnwrap(props.manualInput)) {
+    if (!isCalendar && uiUnwrap(props.manualInput)) {
       displayInput.addEventListener("input", (event) => {
         props.onTyping?.(displayInput.value, event);
       });
@@ -2624,7 +2644,7 @@
         if (displayInput.value === "") clearValue();
         else setDateValue(parsed, event, { timeValue: uiExtractTimeFromValue(displayInput.value, getTimeOptions()), preserveTime: !uiExtractTimeFromValue(displayInput.value, getTimeOptions()) });
       });
-    } else {
+    } else if (!isCalendar) {
       displayInput.addEventListener("blur", (event) => props.onBlur?.(event));
     }
 
@@ -2641,7 +2661,7 @@
         syncViewMonth(localValue);
         syncDisplay();
         renderPanel();
-      }, "UI.Date:watch");
+      }, isCalendar ? "UI.Calendar:watch" : "UI.Datepicker:watch");
     }
 
     CMSwift.reactive.effect(() => {
@@ -2657,7 +2677,21 @@
       syncDisplay();
       renderPanel();
       if (entry && uiUnwrap(props.disabled)) closePanel();
-    }, "UI.Date:render");
+    }, isCalendar ? "UI.Calendar:render" : "UI.Datepicker:render");
+
+    if (isCalendar) {
+      panelRoot._calendar = panelRoot;
+      panelRoot._date = panelRoot;
+      panelRoot._getValue = () => exportCurrentValue(localValue, localTimeValue);
+      panelRoot._setValue = (value) => setDateValue(value, null, { emit: false, timeValue: resolveDateTimeTimeValue(value) });
+      panelRoot._clear = clearValue;
+      panelRoot._select = (value) => {
+        const iso = normalizeDateOnly(value);
+        if (iso) selectDate(iso, null);
+      };
+      panelRoot._time = () => uiCloneTimeParts(localTimeValue);
+      return panelRoot;
+    }
 
     field._input = displayInput;
     field._date = displayInput;
@@ -2670,10 +2704,16 @@
 
     return field;
   };
+  UI.Datepicker = (...args) => buildDateControl(args);
+  UI.Calendar = (...args) => buildDateControl(args, { calendar: true });
+  UI.Date = UI.Datepicker;
+  CMSwift.ui.Datepicker = UI.Datepicker;
+  CMSwift.ui.Calendar = UI.Calendar;
+  CMSwift.ui.Date = UI.Date;
   if (CMSwift.isDev?.()) {
     UI.meta = UI.meta || {};
-    UI.meta.Date = {
-      signature: "UI.Date(props)",
+    UI.meta.Datepicker = {
+      signature: "UI.Datepicker(props)",
       props: {
         value: "string | { from, to } | string[] | Array<{ from, to }> | Array<[from, to]>",
         model: "rod | [get,set] signal",
@@ -2740,10 +2780,17 @@
         onNavigate: "({ month, year })"
       },
       returns: "HTMLDivElement (field wrapper) con ._input, ._open(), ._close(), ._getValue(), ._setValue(value)",
-      description: "Reactive date picker with fixed overlay, single/range/multiple/multi-range modes, model, min/max, presets, xs-xl sizes, and optional time support in a unified interface."
+      description: "Reactive datepicker input with fixed overlay, single/range/multiple/multi-range modes, model, min/max, presets, xs-xl sizes, and optional time support in a unified interface."
     };
+    UI.meta.Calendar = {
+      ...UI.meta.Datepicker,
+      signature: "UI.Calendar(props)",
+      returns: "HTMLDivElement calendar panel con ._getValue(), ._setValue(value), ._clear(), ._select(value)",
+      description: "Standalone interactive calendar panel using the same engine and styling as UI.Datepicker, with direct model persistence."
+    };
+    UI.meta.Date = UI.meta.Datepicker;
   }
-  // Esempio: CMSwift.ui.Date({ value: "2024-01-01" })
+  // Esempio: CMSwift.ui.Datepicker({ value: "2024-01-01" })
 
   UI.Time = (...args) => {
     const { props, children } = CMSwift.uiNormalizeArgs(args);

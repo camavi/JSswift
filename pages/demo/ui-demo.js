@@ -9,6 +9,7 @@ CMSwift.ready(() => {
   const roleModel = _.rod("developer");
   const searchModel = _.rod("");
   const dateModel = _.rod("");
+  const calendarModel = _.rod("");
   const uploadEvents = _.rod([]);
   const addUploadEvent = (text) => {
     uploadEvents.value = [text, ...uploadEvents.value].slice(0, 6);
@@ -81,7 +82,8 @@ CMSwift.ready(() => {
           _.Checkbox({ model: [getUpdates, setUpdates] }, t("updatesLabel")),
           _.input({ placeholder: 'prova', name: "test" }),
           _.Input({ placeholder: 'prova', name: "test", iconRight: _.Icon({name:'search', tooltip:"Cerca"}) }),
-          _.Date({ model: dateModel, mode: "range", label: t("updatesLabel") }),
+          _.Datepicker({ model: dateModel, mode: "range", label: t("updatesLabel") }),
+          _.Calendar({ model: calendarModel, size: "sm" }),
           _.h3("Upload"),
           _.Upload({
             title: "Document upload",
@@ -148,6 +150,7 @@ CMSwift.ready(() => {
           _.p(() => t("liveName", { value: nameModel.value })),
           _.p(() => t("liveRole", { value: roleModel.value })),
           _.p(() => `Search: ${searchModel.value || "-"}`),
+          _.p(() => `Calendar: ${calendarModel.value || "-"}`),
           _.div(
             _.h4("Upload events"),
             () => uploadEvents.value.length

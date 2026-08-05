@@ -6027,6 +6027,8 @@ declare global {
     function Btn(props: BtnProps, ...children: any[]): HTMLElement;
     function Btn(...args: any[]): HTMLElement;
 
+    function Calendar(...args: any[]): HTMLElement | DocumentFragment | any;
+
     function Card(...args: any[]): HTMLElement;
 
     function cardBody(...args: any[]): HTMLElement | DocumentFragment | any;
@@ -6045,7 +6047,7 @@ declare global {
 
     function ContextMenu(...args: any[]): any;
 
-    function Date(...args: any[]): HTMLElement | DocumentFragment | any;
+    function Datepicker(...args: any[]): HTMLElement | DocumentFragment | any;
 
     function Dialog(...args: any[]): HTMLElement | DocumentFragment | any;
 

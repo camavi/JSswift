@@ -4007,7 +4007,9 @@
 
 /* >>> ui-components.css */
 /* - NATIVE */
-
+*{
+  box-sizing: border-box;
+}
 input,
 select,
 button {
@@ -6807,8 +6809,7 @@ select {
   flex-direction: column;
   gap: 12px;
   min-height: 180px;
-  padding: 16px;
-  cursor: pointer;
+  padding: 16px; 
   box-sizing: border-box;
 }
 
