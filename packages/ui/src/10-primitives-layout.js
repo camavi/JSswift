@@ -1202,10 +1202,12 @@
     const cls = uiClass(["cms-clear-set", "cms-btn", "cms-singularity", "cms-clickable", state, uiWhen(props.outline, "outline"), props.class]);
 
     const p = CMSwift.omit(props, [
-      "icon", "iconRight", "label", "loading", "outline", "iconAlign", "slots",
+      "icon", "iconRight", "label", "loading", "loadingText", "disabled", "outline", "iconAlign", "slots",
       "shortcode", "shortcut", "hotkey", "showShortcode", "showShortcut"
     ]);
     p.class = cls;
+    const isLoading = () => !!uiUnwrap(props.loading);
+    const isDisabled = () => !!uiUnwrap(props.disabled) || isLoading();
 
     const iconFallback = props.icon != null
       ? (typeof props.icon === "string" ? UI.Icon({ name: props.icon }) : props.icon)
@@ -1242,13 +1244,25 @@
 
     if (content.length === 0) content.push(_.span("Button"));
 
-    const disabled = !!props.disabled || !!props.loading;
-
-    const onClick = props.loading ? null : props.onClick;
+    const loadingNode = _.span({ class: "cms-btn-loading", hidden: true });
+    const contentNode = _.span({ class: "cms-btn-content" }, ...content);
+    let loadingVisible = false;
+    const renderLoadingContent = () => {
+      const fallback = UI.Spinner
+        ? UI.Spinner({
+            size: props.loadingSize || props.spinnerSize || 16,
+            thickness: props.loadingThickness || 2,
+            color: props.loadingColor || "currentColor",
+            label: props.loadingText || null,
+            "aria-label": props.loadingText ? null : "Loading"
+          })
+        : _.span({ class: "cms-muted", style: { marginRight: "8px" } }, props.loadingText || "Loading");
+      return renderSlotToArray(null, "default", {}, CMSwift.ui.renderSlot(slots, "loading", {}, fallback));
+    };
 
     const onPointerDown = (e) => {
       props.onPointerDown?.(e);
-      if (disabled || !e?.currentTarget) return;
+      if (isDisabled() || !e?.currentTarget) return;
       const btn = e.currentTarget;
       const rect = btn.getBoundingClientRect();
       const x = typeof e.clientX === "number" ? e.clientX - rect.left : rect.width / 2;
@@ -1260,24 +1274,42 @@
       btn.classList.add("cms-btn-burst");
     };
 
-    if (props.loading) {
-      content.unshift(_.span({ class: "cms-muted", style: { marginRight: "8px" } }, "⏳"));
-    }
-
     const btn = _.button({
       ...p,
-      disabled,
-      onClick,
+      disabled: isDisabled(),
+      onClick: (event) => {
+        if (isDisabled()) {
+          event?.preventDefault?.();
+          return false;
+        }
+        return props.onClick?.(event);
+      },
       onPointerDown,
-      "aria-disabled": disabled ? "true" : null,
-      "aria-busy": props.loading ? "true" : null
-    }, ...content);
+      "aria-disabled": isDisabled() ? "true" : null,
+      "aria-busy": isLoading() ? "true" : null
+    }, loadingNode, contentNode);
+
+    const stopState = CMSwift.reactive.effect(() => {
+      const loading = isLoading();
+      const disabled = isDisabled();
+      btn.disabled = disabled;
+      btn.classList.toggle("is-loading", loading);
+      btn.setAttribute("aria-disabled", disabled ? "true" : "false");
+      if (loading) btn.setAttribute("aria-busy", "true");
+      else btn.removeAttribute("aria-busy");
+      loadingNode.hidden = !loading;
+      if (loading !== loadingVisible) {
+        loadingNode.replaceChildren(...(loading ? renderLoadingContent() : []));
+        loadingVisible = loading;
+      }
+    }, "UI.Btn:state");
+    CMSwift._registerCleanup?.(btn, stopState);
 
     setPropertyProps(btn, props);
     uiRegisterShortcode(btn, props, {
-      isEnabled: () => !disabled,
+      isEnabled: () => !isDisabled(),
       action: () => {
-        if (disabled) return false;
+        if (isDisabled()) return false;
         btn.click();
       }
     });
@@ -1297,10 +1329,14 @@
         color: `primary|secondary|warning|danger|success|info|light|dark`,
         outline: "boolean",
         loading: "boolean",
+        loadingText: "string|Node|Function|Array",
+        loadingSize: "number|string",
+        loadingColor: "string",
+        loadingThickness: "number|string",
         disabled: "boolean",
         shortcode: "string|Array<string>|object",
         showShortcode: "boolean",
-        slots: "{ icon?, label?, default? }",
+        slots: "{ icon?, iconRight?, label?, loading?, default? }",
         class: "string",
         style: "object"
       },

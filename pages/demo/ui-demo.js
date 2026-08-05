@@ -10,6 +10,7 @@ CMSwift.ready(() => {
   const searchModel = _.rod("");
   const dateModel = _.rod("");
   const calendarModel = _.rod("");
+  const buttonLoading = _.rod(false);
   const uploadEvents = _.rod([]);
   const addUploadEvent = (text) => {
     uploadEvents.value = [text, ...uploadEvents.value].slice(0, 6);
@@ -21,6 +22,7 @@ CMSwift.ready(() => {
     }
     return { ok: true, name: file.name };
   };
+  const demoSave = async () => new Promise((resolve) => setTimeout(resolve, 900));
   const searchItems = [
     { title: "Dashboard", description: "Panoramica e metriche principali", value: "dashboard" },
     { title: "Utenti", description: "Gestione account e ruoli", value: "users" },
@@ -128,6 +130,26 @@ CMSwift.ready(() => {
             onSuccess: (item) => addUploadEvent(`Box uploaded ${item.name}`),
             onRejected: (item, ctx) => addUploadEvent(`Box rejected ${item.name}: ${ctx.reason}`),
           }),
+          _.div(
+            _.Btn({
+              label: "Salva",
+              loading: buttonLoading,
+              class: "cms-m-r-sm",
+              loadingSize: 16,
+              color: "primary",
+              onClick: async () => {
+                buttonLoading.value = true;
+                await demoSave();
+                buttonLoading.value = false;
+              }
+            }),
+            _.Btn({
+              label: "Salva",
+              loading: true,
+              loadingSize: 16,
+              color: "primary",
+            })
+          ),
           _.div(
 
             _.Btn(

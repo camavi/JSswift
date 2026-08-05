@@ -6160,6 +6160,32 @@ select {
   cursor: not-allowed;
 }
 
+.cms-btn-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: inherit;
+  min-width: 0;
+}
+
+.cms-btn-loading {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cms-btn-loading[hidden] {
+  display: none;
+}
+
+.cms-btn.is-loading .cms-btn-loading .cms-spinner {
+  color: inherit;
+}
+
 .cms-shortcode {
   display: inline-flex;
   align-items: center;

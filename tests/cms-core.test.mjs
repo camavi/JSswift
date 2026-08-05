@@ -1335,6 +1335,54 @@ test("UI.Button aliases UI.Btn", async () => {
   assert.equal(collectText(uiOut), "Annulla");
 });
 
+test("UI.Btn loading supports reactive rods", async () => {
+  const CMS = await loadCMS();
+  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const source = await fs.readFile(filename, "utf8");
+  vm.runInThisContext(source, { filename });
+
+  const loading = _.rod(false);
+  let clicks = 0;
+  let prevented = 0;
+  const btn = CMS.Btn({
+    label: "Invia",
+    loading,
+    onClick: () => {
+      clicks += 1;
+    }
+  });
+
+  assert.equal(btn.disabled, false);
+  assert.equal(btn.getAttribute("aria-busy"), null);
+  assert.equal(btn.classList.contains("is-loading"), false);
+  assert.equal(collectText(btn), "Invia");
+
+  btn.dispatchEvent({ type: "click" });
+  assert.equal(clicks, 1);
+
+  loading.value = true;
+  await tick();
+
+  assert.equal(btn.disabled, true);
+  assert.equal(btn.getAttribute("aria-busy"), "true");
+  assert.equal(btn.classList.contains("is-loading"), true);
+  assert.equal(findNodes(btn, (node) => node.classList?.contains("cms-spinner")).length, 1);
+  assert.equal(collectText(btn), "Invia");
+
+  btn.dispatchEvent({ type: "click", preventDefault: () => { prevented += 1; } });
+  assert.equal(clicks, 1);
+  assert.equal(prevented, 1);
+
+  loading.value = false;
+  await tick();
+
+  assert.equal(btn.disabled, false);
+  assert.equal(btn.getAttribute("aria-busy"), null);
+  assert.equal(btn.classList.contains("is-loading"), false);
+  assert.equal(findNodes(btn, (node) => node.classList?.contains("cms-spinner")).length, 0);
+  assert.equal(collectText(btn), "Invia");
+});
+
 test("UI.Datepicker aliases UI.Date and UI.Calendar persists model", async () => {
   const CMS = await loadCMS();
   const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
