@@ -15,7 +15,8 @@ CMSwift.ready(() => {
   // bindings read these rods while the parent effect is collecting dependencies.
   // Updating either model therefore recreates the whole subtree.
   const bugNameModel = _.rod("Carlos");
-  const bugRoleModel = _.rod("developer");
+  const bugRoleModel = _.rod("");
+  const bugRoleTextareaModel = _.rod("developer");
   const bugRenderTick = _.rod(0);
   const uploadEvents = _.rod([]);
   const addUploadEvent = (text) => {
@@ -47,12 +48,16 @@ CMSwift.ready(() => {
       }, _.Select({
         label: "Role (click to reproduce the immediate close)",
         model: bugRoleModel,
-        options: ["developer", "designer", "operator"],
+        options: [{ value: "", label: "Empty option" }, { value: "developer", label: "Developer" }, { value: "designer", label: "Designer" }, { value: "operator", label: "Operator" }],
         //color: "success",
       })),
       _.Input({
         label: "Name (type here)",
         model: bugNameModel,
+      }),
+      _.Textarea({
+        label: "Name (type here)",
+        model: bugRoleTextareaModel,
       }),
     );
   }

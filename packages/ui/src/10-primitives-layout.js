@@ -1379,6 +1379,8 @@
 
     const controlEl = typeof props.control === "function" ? props.control() : props.control;
     const getHasValue = () => {
+      if (typeof props.hasValue === "function") return !!props.hasValue();
+      if (props.hasValue != null) return !!uiUnwrap(props.hasValue);
       const v = props.getValue ? props.getValue() : null;
       return !(v == null || v === "");
     };
@@ -3463,6 +3465,15 @@
       unmountMenuPortal();
     };
 
+    const selectHasValue = () => {
+      const v = getValue();
+      if (isMulti) return Array.isArray(v) && v.length > 0;
+      if (v == null) return false;
+      if (v !== "") return true;
+
+      return getFlat().some((opt) => opt.value === "");
+    };
+
     // Wrap in FormField
     const field = UI.FormField({
       ...fieldProps,
@@ -3470,6 +3481,7 @@
       clearable: props.clearable,
       disabled: isDisabled(),
       readonly: false,
+      hasValue: selectHasValue,
       getValue: () => {
         const v = getValue();
         return isMulti ? (Array.isArray(v) && v.length ? v : "") : v;

@@ -1,6 +1,6 @@
 {
   "name": "cmswift",
-  "version": "1.0.36",
+  "version": "1.0.37",
   "description": "Umbrella package for CMSwift core + UI",
   "license": "MIT",
   "type": "module",

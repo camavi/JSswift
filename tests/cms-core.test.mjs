@@ -1416,6 +1416,31 @@ test("UI model controls do not subscribe dynamic parents during setup", async ()
   assert.equal(selectParentRenders, 1);
 });
 
+test("UI.Select treats empty-string option values as selected values", async () => {
+  const CMS = await loadCMS();
+  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const source = await fs.readFile(filename, "utf8");
+  vm.runInThisContext(source, { filename });
+
+  const model = _.rod("");
+  const select = CMS.Select({
+    label: "Role",
+    model,
+    options: [
+      { value: "", label: "Empty" },
+      { value: "developer", label: "Developer" }
+    ]
+  });
+
+  await tick();
+
+  const valueNode = findNodes(select, (node) => node.classList?.contains("cms-select-value"))[0];
+  const control = findNodes(select, (node) => node.classList?.contains("cms-control"))[0];
+
+  assert.equal(valueNode.textContent, "Empty");
+  assert.equal(control.classList.contains("has-value"), true);
+});
+
 test("UI.Datepicker aliases UI.Date and UI.Calendar persists model", async () => {
   const CMS = await loadCMS();
   const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
