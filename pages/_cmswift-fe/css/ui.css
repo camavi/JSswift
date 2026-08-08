@@ -6467,7 +6467,7 @@ select {
   position: fixed;
   display: block;
   z-index: 2000;
-  background-color: var(--cms-select-bg-default);
+  background-color: var(--cms-theme-color-1);
   border-color: var(--set-border-color, var(--cms-border-color) rgba(93, 95, 100, 0.35));
 }
 
@@ -6664,8 +6664,12 @@ select {
 }
 
 .cms-select-option:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.06);
+  background-color: color-mix(in srgb, var(--set-background-color, color-mix(in srgb, var(--cms-theme-color-1) 20%, transparent)) 20%, transparent);
+  background-image: var(--set-glossy-active, none), var(--set-gradient-active, none);
+  box-shadow: var(--set-shadow-active, 0 0 0 0), var(--set-glow-active, 0 0 0 0);
+  color: var(--set-color);
+  border-color: var(--set-border-color);
+  transition: all 260ms ease;
 }
 
 .cms-select-option.selected {
@@ -12702,7 +12706,7 @@ a.cms-breadcrumb {
 }
 
 .cms-singularity-menu-select>.cms-select-options>.cms-select-option {
-  color: var(--set-color-4);
+  color: var(--set-color-3);
   border-radius: var(--set-border-radius, var(--cms-b-radius-default, 2px));
 }
 

@@ -1383,6 +1383,39 @@ test("UI.Btn loading supports reactive rods", async () => {
   assert.equal(collectText(btn), "Invia");
 });
 
+test("UI model controls do not subscribe dynamic parents during setup", async () => {
+  const CMS = await loadCMS();
+  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const source = await fs.readFile(filename, "utf8");
+  vm.runInThisContext(source, { filename });
+
+  const inputModel = _.rod("Carlos");
+  let inputParentRenders = 0;
+  CMS.div(() => {
+    inputParentRenders += 1;
+    return CMS.Input({ label: "Name", model: inputModel });
+  });
+
+  inputModel.value = "Ada";
+  await tick();
+  assert.equal(inputParentRenders, 1);
+
+  const selectModel = _.rod("developer");
+  let selectParentRenders = 0;
+  CMS.div(() => {
+    selectParentRenders += 1;
+    return CMS.Select({
+      label: "Role",
+      model: selectModel,
+      options: ["developer", "designer", "operator"]
+    });
+  });
+
+  selectModel.value = "designer";
+  await tick();
+  assert.equal(selectParentRenders, 1);
+});
+
 test("UI.Datepicker aliases UI.Date and UI.Calendar persists model", async () => {
   const CMS = await loadCMS();
   const filename = path.resolve("pages/_cmswift-fe/js/ui.js");

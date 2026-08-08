@@ -11,6 +11,12 @@ CMSwift.ready(() => {
   const dateModel = _.rod("");
   const calendarModel = _.rod("");
   const buttonLoading = _.rod(false);
+  // Reproduction: controls are created inside a dynamic child. Their model
+  // bindings read these rods while the parent effect is collecting dependencies.
+  // Updating either model therefore recreates the whole subtree.
+  const bugNameModel = _.rod("Carlos");
+  const bugRoleModel = _.rod("developer");
+  const bugRenderTick = _.rod(0);
   const uploadEvents = _.rod([]);
   const addUploadEvent = (text) => {
     uploadEvents.value = [text, ...uploadEvents.value].slice(0, 6);
@@ -34,6 +40,22 @@ CMSwift.ready(() => {
   Themes.action((v) => {
     _.setTheme(v ? "dark" : "light");
   });
+  function testBug() {
+    return _.div({ class: "cms-text-center" },
+      _.div({
+        
+      }, _.Select({
+        label: "Role (click to reproduce the immediate close)",
+        model: bugRoleModel,
+        options: ["developer", "designer", "operator"],
+        //color: "success",
+      })),
+      _.Input({
+        label: "Name (type here)",
+        model: bugNameModel,
+      }),
+    );
+  }
   _.mount(
     root,
     _.div(
@@ -183,6 +205,15 @@ CMSwift.ready(() => {
           _.p(() => (getUpdates() ? t("liveUpdatesOn") : t("liveUpdatesOff"))),
         ),
       ),
+      _.Card(
+        _.cardBody(
+          _.h3('Bug test'),
+          _.p('The select is destroyed by an external parent update while opening; the input is destroyed when its model changes, so it loses focus after the first character.'),
+          () =>_.div(
+            () => testBug()
+          )
+        )
+      )
     ),
   );
 });

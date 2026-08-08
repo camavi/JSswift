@@ -2910,6 +2910,7 @@ const unitCover = (v, name = 'size') => {
       const v = props.getValue ? props.getValue() : null;
       return !(v == null || v === "");
     };
+    const getHasValueUntracked = () => CMSwift.reactive.untracked(getHasValue);
     const clear = () => {
       if (props.disabled || props.readonly) return;
       props.onClear?.();
@@ -2921,7 +2922,7 @@ const unitCover = (v, name = 'size') => {
       clear,
       disabled: !!props.disabled,
       readonly: !!props.readonly,
-      hasValue: getHasValue()
+      hasValue: getHasValueUntracked()
     }, null);
 
     let control = null;
@@ -2968,7 +2969,7 @@ const unitCover = (v, name = 'size') => {
 
         disabled: !!props.disabled,
         readonly: !!props.readonly,
-        hasValue: getHasValue()
+        hasValue: getHasValueUntracked()
       }, defaultClear);
 
       if (clearNode) {
@@ -3064,7 +3065,7 @@ const unitCover = (v, name = 'size') => {
     };
 
     // initial states
-    setHasValue();
+    CMSwift.reactive.untracked(setHasValue);
     control?.classList?.toggle("disabled", !!props.disabled);
 
     wrap.appendChild(control);
@@ -3349,7 +3350,9 @@ const unitCover = (v, name = 'size') => {
           try { updateFromRod(v); } finally { syncing = false; }
         });
 
-        updateFromRod(rod.value);
+        // Component setup may run inside a dynamic parent render. This initial
+        // hydration must not make that parent subscribe to the control model.
+        CMSwift.reactive.untracked(() => updateFromRod(rod.value));
 
         const onInput = (e) => {
           if (syncing || e?.isComposing) return;
@@ -3372,7 +3375,7 @@ const unitCover = (v, name = 'size') => {
       if (typeof model === "object" && typeof model._bind === "function") {
         bindInputRod(model);
       } else if (Array.isArray(model) && typeof model[0] === "function" && typeof model[1] === "function") {
-        const r = CMSwift.rodFromSignal(model[0], model[1]);
+        const r = CMSwift.reactive.untracked(() => CMSwift.rodFromSignal(model[0], model[1]));
         bindInputRod(r);
       }
     }
@@ -3531,7 +3534,7 @@ const unitCover = (v, name = 'size') => {
           try { updateFromRod(v); } finally { syncing = false; }
         });
 
-        updateFromRod(rod.value);
+        CMSwift.reactive.untracked(() => updateFromRod(rod.value));
 
         const onInput = (e) => {
           if (syncing || e?.isComposing) return;
@@ -3554,7 +3557,7 @@ const unitCover = (v, name = 'size') => {
       if (typeof model === "object" && typeof model._bind === "function") {
         bindTextareaRod(model);
       } else if (Array.isArray(model) && typeof model[0] === "function" && typeof model[1] === "function") {
-        const r = CMSwift.rodFromSignal(model[0], model[1]);
+        const r = CMSwift.reactive.untracked(() => CMSwift.rodFromSignal(model[0], model[1]));
         bindTextareaRod(r);
       }
     }
@@ -4342,7 +4345,11 @@ const unitCover = (v, name = 'size') => {
     };
     const normalizeValue = (v) => isMulti ? toArray(v) : v;
     const initialValue = valueBinding
-      ? (typeof valueBinding === "object" && typeof valueBinding._bind === "function" ? valueBinding.value : valueBinding[0]())
+      ? CMSwift.reactive.untracked(() => (
+        typeof valueBinding === "object" && typeof valueBinding._bind === "function"
+          ? valueBinding.value
+          : valueBinding[0]()
+      ))
       : props.value;
 
     // state
@@ -4359,7 +4366,7 @@ const unitCover = (v, name = 'size') => {
     // model binding
     if (valueBinding) {
       if (typeof valueBinding === "object" && typeof valueBinding._bind === "function") {
-        setValue(normalizeValue(valueBinding.value));
+        CMSwift.reactive.untracked(() => setValue(normalizeValue(valueBinding.value)));
         valueBinding.action((v) => setValue(normalizeValue(v)));
         modelSet = (v) => {
           const next = normalizeValue(v);
@@ -4368,7 +4375,9 @@ const unitCover = (v, name = 'size') => {
       } else if (Array.isArray(valueBinding) && typeof valueBinding[0] === "function" && typeof valueBinding[1] === "function") {
         const get = valueBinding[0];
         const set = valueBinding[1];
-        CMSwift.reactive.effect(() => { setValue(normalizeValue(get())); }, "UI.Select:model");
+        CMSwift.reactive.untracked(() => {
+          CMSwift.reactive.effect(() => { setValue(normalizeValue(get())); }, "UI.Select:model");
+        });
         modelSet = (v) => set(normalizeValue(v));
       }
     }
@@ -4620,7 +4629,7 @@ const unitCover = (v, name = 'size') => {
       filterInput = nodes.length === 1 && nodes[0] && nodes[0].tagName === "INPUT" ? nodes[0] : null;
       if (filterInput) filterInput.value = getFilter() || "";
     };
-    renderFilterSlot();
+    CMSwift.reactive.untracked(renderFilterSlot);
     CMSwift.reactive.effect(() => {
       const next = getFilter() || "";
       if (filterInput && "value" in filterInput && filterInput.value !== next) {
