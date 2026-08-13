@@ -186,6 +186,14 @@
     Object.defineProperty(patchedRod, uiRodPathEnhanced, { value: true, configurable: false });
     window._.rod = patchedRod;
   };
+  app.ui.withoutRodPathCapture = (fn) => {
+    const length = uiRodPathReadBuffer.length;
+    try {
+      return fn();
+    } finally {
+      uiRodPathReadBuffer.length = length;
+    }
+  };
   const uiPatchValueForH = (value, cursor, keyHint = "") => {
     if (Array.isArray(value)) {
       let changed = false;

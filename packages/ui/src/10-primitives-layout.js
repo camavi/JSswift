@@ -2921,7 +2921,9 @@
       let raw;
 
       try {
-        const v = (typeof src === "function") ? src() : src;
+        const v = (typeof src === "function")
+          ? CMSwift.ui.withoutRodPathCapture(() => src())
+          : src;
         if (v && typeof v.then === "function") {
           setLoading(true);
           raw = await v;

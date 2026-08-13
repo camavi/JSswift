@@ -1441,6 +1441,31 @@ test("UI.Select treats empty-string option values as selected values", async () 
   assert.equal(control.classList.contains("has-value"), true);
 });
 
+test("UI.Select option sources do not leak rod-path functions into display values", async () => {
+  const CMS = await loadCMS();
+  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const source = await fs.readFile(filename, "utf8");
+  vm.runInThisContext(source, { filename });
+
+  const tones = _.rod([{ id: 3, name: "Bright" }]);
+  const selectedTone = _.rod(3);
+  const select = CMS.Select({
+    label: "Tone",
+    model: selectedTone,
+    options: () => tones.value.map((tone) => ({
+      value: tone.id,
+      label: `#${tone.id} · ${tone.name}`
+    }))
+  });
+
+  await tick();
+
+  const valueNode = findNodes(select, (node) => node.classList?.contains("cms-select-value"))[0];
+
+  assert.equal(valueNode.textContent, "#3 · Bright");
+  assert.equal(valueNode.textContent.includes("uiReadRodPath"), false);
+});
+
 test("UI.Datepicker aliases UI.Date and UI.Calendar persists model", async () => {
   const CMS = await loadCMS();
   const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
