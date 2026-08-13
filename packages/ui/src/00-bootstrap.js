@@ -288,7 +288,9 @@
   const uiPatchHyperscript = () => {
     if (!window._ || window._[uiRodPathPatchedH]) return;
     Object.defineProperty(window._, uiRodPathPatchedH, { value: true, configurable: false });
+    const skipKeys = new Set(["rod", "rodBind", "rodFromSignal"]);
     for (const key of Object.keys(window._)) {
+      if (skipKeys.has(key)) continue;
       const base = window._[key];
       if (typeof base !== "function") continue;
       window._[key] = function uiWrappedHyperscript(...args) {

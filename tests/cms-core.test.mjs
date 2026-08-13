@@ -1466,6 +1466,34 @@ test("UI.Select option sources do not leak rod-path functions into display value
   assert.equal(valueNode.textContent.includes("uiReadRodPath"), false);
 });
 
+test("_.rod factory is not patched by prior rod-path reads", async () => {
+  const CMS = await loadCMS();
+  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const source = await fs.readFile(filename, "utf8");
+  vm.runInThisContext(source, { filename });
+
+  const samples = _.rod([{ tone_id: 1 }]);
+  const sample = samples.value[0];
+  const toneId = _.rod(Number(sample.tone_id || 3));
+
+  assert.equal(toneId.value, 1);
+  assert.equal(typeof toneId.value, "number");
+
+  const select = CMS.Select({
+    label: "Tone",
+    model: toneId,
+    options: [
+      { value: 1, label: "#1 · whisper" },
+      { value: 2, label: "#2 · shout" }
+    ]
+  });
+
+  await tick();
+
+  const valueNode = findNodes(select, (node) => node.classList?.contains("cms-select-value"))[0];
+  assert.equal(valueNode.textContent, "#1 · whisper");
+});
+
 test("UI.Datepicker aliases UI.Date and UI.Calendar persists model", async () => {
   const CMS = await loadCMS();
   const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
