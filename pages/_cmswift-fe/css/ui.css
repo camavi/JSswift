@@ -6166,6 +6166,7 @@ select {
   justify-content: center;
   gap: inherit;
   min-width: 0;
+  vertical-align: middle;
 }
 
 .cms-btn-loading {
