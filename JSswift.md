@@ -1,40 +1,40 @@
-# CMSwift App Builder Skill
+# JSswift App Builder Skill
 
-This skill teaches an AI how to build applications with CMSwift. It is not a maintenance guide for editing the CMSwift framework itself. Use CMSwift as the application framework: compose UI with `CMSwift.ui.*`, manage state with `CMSwift.reactive`, mount views with `CMSwift.mount`, route with `CMSwift.router`, and use the metadata catalog below to choose component props, slots, events, and methods.
+This skill teaches an AI how to build applications with JSswift. It is not a maintenance guide for editing the JSswift framework itself. Use JSswift as the application framework: compose UI with `JSswift.ui.*`, manage state with `JSswift.reactive`, mount views with `JSswift.mount`, route with `JSswift.router`, and use the metadata catalog below to choose component props, slots, events, and methods.
 
 ## Mission
 
-- Build real application screens using CMSwift components, not raw HTML-first pages.
-- Prefer `CMSwift.ui.*` components for layout, forms, navigation, data, feedback, dialogs, and overlays.
-- Use hyperscript helpers such as `CMSwift.div`, `CMSwift.span`, `CMSwift.section`, and `CMSwift.fragment` only for small structural gaps around components.
+- Build real application screens using JSswift components, not raw HTML-first pages.
+- Prefer `JSswift.ui.*` components for layout, forms, navigation, data, feedback, dialogs, and overlays.
+- Use hyperscript helpers such as `JSswift.div`, `JSswift.span`, `JSswift.section`, and `JSswift.fragment` only for small structural gaps around components.
 - Use the `model: [get, set]` convention for two-way inputs and controlled UI state.
 - Use slots when a component offers them; do not rebuild the component internals manually.
-- Use responsive props directly on CMSwift UI components: root props are mobile/default, `tablet` overrides from `768px`, and `pc` overrides from `1024px`.
+- Use responsive props directly on JSswift UI components: root props are mobile/default, `tablet` overrides from `768px`, and `pc` overrides from `1024px`.
 - Use component metadata in this file as the authority for available component props, slots, events, methods, examples, and usage notes.
 
 ## Runtime Identity
 
 - Workspace package version: `1.0.25`.
-- Global runtime: `window.CMSwift`.
-- Legacy alias: `window._` points to `CMSwift`; prefer `CMSwift` in generated app code unless the project already uses `_`.
-- Component shortcut exists both as `CMSwift.ui.Btn(...)` and generally as `CMSwift.Btn(...)`; prefer `CMSwift.ui.*` because it makes intent clear.
-- HTML helpers are functions on `CMSwift`, for example `CMSwift.div({ class: "panel" }, "Text")`.
+- Global runtime: `window.JSswift`.
+- Legacy alias: `window._` points to `JSswift`; prefer `JSswift` in generated app code unless the project already uses `_`.
+- Component shortcut exists both as `JSswift.ui.Btn(...)` and generally as `JSswift.Btn(...)`; prefer `JSswift.ui.*` because it makes intent clear.
+- HTML helpers are functions on `JSswift`, for example `JSswift.div({ class: "panel" }, "Text")`.
 
 ## App Bootstrap
 
-Use `CMSwift.ready` for DOM-ready work and `CMSwift.mount` to attach the root view. A CMSwift view can return DOM nodes, arrays, fragments, UI components, or reactive render functions.
+Use `JSswift.ready` for DOM-ready work and `JSswift.mount` to attach the root view. A JSswift view can return DOM nodes, arrays, fragments, UI components, or reactive render functions.
 
 ```js
-CMSwift.ready(() => {
-  CMSwift.mount("#app", App());
+JSswift.ready(() => {
+  JSswift.mount("#app", App());
 });
 
 function App() {
-  return CMSwift.ui.AppShell({
-    header: CMSwift.ui.Header({ title: "My App" }),
-    drawer: CMSwift.ui.Drawer({}, CMSwift.ui.List({ items: navItems })),
-    page: CMSwift.ui.Page({}, DashboardPage()),
-    footer: CMSwift.ui.Footer({}, "CMSwift")
+  return JSswift.ui.AppShell({
+    header: JSswift.ui.Header({ title: "My App" }),
+    drawer: JSswift.ui.Drawer({}, JSswift.ui.List({ items: navItems })),
+    page: JSswift.ui.Page({}, DashboardPage()),
+    footer: JSswift.ui.Footer({}, "JSswift")
   });
 }
 ```
@@ -53,15 +53,15 @@ function App() {
 
 ## Reactivity
 
-Use `CMSwift.reactive.signal(initial)` for state. It returns `[get, set, dispose]`. A component prop can receive a function getter when it should update reactively.
+Use `JSswift.reactive.signal(initial)` for state. It returns `[get, set, dispose]`. A component prop can receive a function getter when it should update reactively.
 
 ```js
-const [getCount, setCount] = CMSwift.reactive.signal(0);
+const [getCount, setCount] = JSswift.reactive.signal(0);
 
-const counter = CMSwift.ui.Row({ align: "center", gap: "sm" },
-  CMSwift.ui.Btn({ icon: "minus", onClick: () => setCount(getCount() - 1) }),
-  CMSwift.ui.Badge({ label: () => String(getCount()), color: "primary" }),
-  CMSwift.ui.Btn({ icon: "plus", color: "primary", onClick: () => setCount(getCount() + 1) })
+const counter = JSswift.ui.Row({ align: "center", gap: "sm" },
+  JSswift.ui.Btn({ icon: "minus", onClick: () => setCount(getCount() - 1) }),
+  JSswift.ui.Badge({ label: () => String(getCount()), color: "primary" }),
+  JSswift.ui.Btn({ icon: "plus", color: "primary", onClick: () => setCount(getCount() + 1) })
 );
 ```
 
@@ -69,27 +69,27 @@ Use `computed` for derived state, `effect` for side effects, `untracked` to read
 
 ## Forms
 
-Use `CMSwift.useForm` for form state, validation, touched/dirty flags, and submit flow. Bind fields with `form.model("fieldName")` when available or `[get, set]` model pairs.
+Use `JSswift.useForm` for form state, validation, touched/dirty flags, and submit flow. Bind fields with `form.model("fieldName")` when available or `[get, set]` model pairs.
 
 ```js
 function ProfileForm() {
-  const form = CMSwift.useForm({
+  const form = JSswift.useForm({
     values: { name: "", email: "" },
     rules: {
       name: [(value) => value ? true : "Name is required"],
       email: [(value) => value.includes("@") ? true : "Valid email required"]
     },
     onSubmit: async (values) => {
-      await CMSwift.http.postJSON("/api/profile", values);
-      CMSwift.notify.success("Profile saved");
+      await JSswift.http.postJSON("/api/profile", values);
+      JSswift.notify.success("Profile saved");
     }
   });
 
-  return CMSwift.ui.Form({ form },
-    CMSwift.ui.Input({ label: "Name", model: form.model("name") }),
-    CMSwift.ui.Input({ label: "Email", type: "email", model: form.model("email") }),
-    CMSwift.ui.Toolbar({ align: "end" },
-      CMSwift.ui.Btn({ type: "submit", color: "primary", icon: "device-floppy" }, "Save")
+  return JSswift.ui.Form({ form },
+    JSswift.ui.Input({ label: "Name", model: form.model("name") }),
+    JSswift.ui.Input({ label: "Email", type: "email", model: form.model("email") }),
+    JSswift.ui.Toolbar({ align: "end" },
+      JSswift.ui.Btn({ type: "submit", color: "primary", icon: "device-floppy" }, "Save")
     )
   );
 }
@@ -97,29 +97,29 @@ function ProfileForm() {
 
 ## Routing
 
-Use `CMSwift.router` for app navigation. Set an outlet, add routes, then start the router. Use `RouteTab`, `Breadcrumbs`, buttons with `to`, or explicit `CMSwift.router.navigate(to)`.
+Use `JSswift.router` for app navigation. Set an outlet, add routes, then start the router. Use `RouteTab`, `Breadcrumbs`, buttons with `to`, or explicit `JSswift.router.navigate(to)`.
 
 ```js
-CMSwift.router.setOutlet("#app");
-CMSwift.router.add("/", () => DashboardPage());
-CMSwift.router.add("/settings", () => SettingsPage());
-CMSwift.router.notFound(() => CMSwift.ui.EmptyState({ title: "Page not found" }));
-CMSwift.router.start();
+JSswift.router.setOutlet("#app");
+JSswift.router.add("/", () => DashboardPage());
+JSswift.router.add("/settings", () => SettingsPage());
+JSswift.router.notFound(() => JSswift.ui.EmptyState({ title: "Page not found" }));
+JSswift.router.start();
 ```
 
 ## Store And HTTP
 
-- Use `CMSwift.store.get`, `set`, `remove`, `watch`, and `signal` for persisted or shared app state.
-- Use `CMSwift.http.getJSON`, `postJSON`, `putJSON`, `patchJSON`, and `delJSON` for JSON APIs.
-- Use `CMSwift.http.onBefore`, `onAfter`, and `onError` for request hooks.
-- Use `CMSwift.auth` and `CMSwift.Can` when the app has permissions or protected UI.
+- Use `JSswift.store.get`, `set`, `remove`, `watch`, and `signal` for persisted or shared app state.
+- Use `JSswift.http.getJSON`, `postJSON`, `putJSON`, `patchJSON`, and `delJSON` for JSON APIs.
+- Use `JSswift.http.onBefore`, `onAfter`, and `onError` for request hooks.
+- Use `JSswift.auth` and `JSswift.Can` when the app has permissions or protected UI.
 
 ```js
-const [getThemePref, setThemePref] = CMSwift.store.signal("theme", "light");
-CMSwift.reactive.effect(() => CMSwift.setTheme(getThemePref()));
+const [getThemePref, setThemePref] = JSswift.store.signal("theme", "light");
+JSswift.reactive.effect(() => JSswift.setTheme(getThemePref()));
 
 async function loadRows() {
-  return CMSwift.http.getJSON("/api/rows");
+  return JSswift.http.getJSON("/api/rows");
 }
 ```
 
@@ -128,12 +128,12 @@ async function loadRows() {
 Root props are the mobile/default behavior. `tablet` and `pc` override only the props they contain.
 
 ```js
-CMSwift.ui.Grid({ cols: 1, gap: "md", tablet: { cols: 2 }, pc: { cols: 4 } },
-  CMSwift.ui.GridCol({}, CMSwift.ui.Card({}, "A")),
-  CMSwift.ui.GridCol({}, CMSwift.ui.Card({}, "B"))
+JSswift.ui.Grid({ cols: 1, gap: "md", tablet: { cols: 2 }, pc: { cols: 4 } },
+  JSswift.ui.GridCol({}, JSswift.ui.Card({}, "A")),
+  JSswift.ui.GridCol({}, JSswift.ui.Card({}, "B"))
 );
 
-CMSwift.ui.Btn({
+JSswift.ui.Btn({
   width: "100%",
   tablet: { width: "220px" },
   pc: { width: "320px" }
@@ -142,29 +142,29 @@ CMSwift.ui.Btn({
 
 ## Slots
 
-Many CMSwift UI components accept named slots through props or slot helpers. Prefer the slot documented in `CMSwift.ui.meta.Component.slots` instead of custom DOM surgery.
+Many JSswift UI components accept named slots through props or slot helpers. Prefer the slot documented in `JSswift.ui.meta.Component.slots` instead of custom DOM surgery.
 
 ```js
-CMSwift.ui.Card({
-  header: CMSwift.ui.Toolbar({},
-    CMSwift.ui.Icon({ name: "chart-bar" }),
-    CMSwift.span("Analytics")
+JSswift.ui.Card({
+  header: JSswift.ui.Toolbar({},
+    JSswift.ui.Icon({ name: "chart-bar" }),
+    JSswift.span("Analytics")
   ),
-  footer: CMSwift.ui.Btn({ color: "primary" }, "Open")
-}, CMSwift.ui.Table({ rows, columns }));
+  footer: JSswift.ui.Btn({ color: "primary" }, "Open")
+}, JSswift.ui.Table({ rows, columns }));
 ```
 
 ## App Screen Pattern
 
 ```js
 function DashboardPage() {
-  const [getRows, setRows] = CMSwift.reactive.signal([]);
-  const [getLoading, setLoading] = CMSwift.reactive.signal(false);
+  const [getRows, setRows] = JSswift.reactive.signal([]);
+  const [getLoading, setLoading] = JSswift.reactive.signal(false);
 
   async function refresh() {
     setLoading(true);
     try {
-      setRows(await CMSwift.http.getJSON("/api/dashboard"));
+      setRows(await JSswift.http.getJSON("/api/dashboard"));
     } finally {
       setLoading(false);
     }
@@ -172,20 +172,20 @@ function DashboardPage() {
 
   refresh();
 
-  return CMSwift.ui.Page({},
-    CMSwift.ui.Toolbar({},
-      CMSwift.ui.Breadcrumbs({ items: [{ label: "Home", to: "/" }, { label: "Dashboard" }] }),
-      CMSwift.ui.Spacer(),
-      CMSwift.ui.Btn({ icon: "refresh", onClick: refresh }, "Refresh")
+  return JSswift.ui.Page({},
+    JSswift.ui.Toolbar({},
+      JSswift.ui.Breadcrumbs({ items: [{ label: "Home", to: "/" }, { label: "Dashboard" }] }),
+      JSswift.ui.Spacer(),
+      JSswift.ui.Btn({ icon: "refresh", onClick: refresh }, "Refresh")
     ),
-    CMSwift.ui.Grid({ cols: 1, tablet: { cols: 2 }, pc: { cols: 4 }, gap: "md" },
-      CMSwift.ui.GridCol({}, CMSwift.ui.Kpi({ title: "Revenue", value: "$128k", delta: "+12%" })),
-      CMSwift.ui.GridCol({}, CMSwift.ui.Kpi({ title: "Orders", value: "342", delta: "+8%" }))
+    JSswift.ui.Grid({ cols: 1, tablet: { cols: 2 }, pc: { cols: 4 }, gap: "md" },
+      JSswift.ui.GridCol({}, JSswift.ui.Kpi({ title: "Revenue", value: "$128k", delta: "+12%" })),
+      JSswift.ui.GridCol({}, JSswift.ui.Kpi({ title: "Orders", value: "342", delta: "+8%" }))
     ),
-    CMSwift.ui.Card({ title: "Rows" },
+    JSswift.ui.Card({ title: "Rows" },
       () => getLoading()
-        ? CMSwift.ui.Spinner({ label: "Loading" })
-        : CMSwift.ui.Table({ rows: getRows(), columns: [{ key: "name" }, { key: "status" }] })
+        ? JSswift.ui.Spinner({ label: "Loading" })
+        : JSswift.ui.Table({ rows: getRows(), columns: [{ key: "name" }, { key: "status" }] })
     )
   );
 }
@@ -254,344 +254,344 @@ function DashboardPage() {
 
 ## App-Facing Function Catalog
 
-Use these CMSwift functions when building apps. Some low-level renderer and helper functions are included because app code can call them directly.
+Use these JSswift functions when building apps. Some low-level renderer and helper functions are included because app code can call them directly.
 
-- `CMSwift.a`
-- `CMSwift.abbr`
-- `CMSwift.address`
-- `CMSwift.Alert`
-- `CMSwift.AppShell`
-- `CMSwift.article`
-- `CMSwift.aside`
-- `CMSwift.asNodeArray`
-- `CMSwift.audio`
-- `CMSwift.Avatar`
-- `CMSwift.b`
-- `CMSwift.Badge`
-- `CMSwift.Banner`
-- `CMSwift.base`
-- `CMSwift.batch`
-- `CMSwift.bdi`
-- `CMSwift.bdo`
-- `CMSwift.blockquote`
-- `CMSwift.body`
-- `CMSwift.br`
-- `CMSwift.Breadcrumbs`
-- `CMSwift.Btn`
-- `CMSwift.button`
-- `CMSwift.Can`
-- `CMSwift.canvas`
-- `CMSwift.caption`
-- `CMSwift.Card`
-- `CMSwift.cardBody`
-- `CMSwift.cardFooter`
-- `CMSwift.cardHeader`
-- `CMSwift.Checkbox`
-- `CMSwift.Chip`
-- `CMSwift.circle`
-- `CMSwift.cite`
-- `CMSwift.clipPath`
-- `CMSwift.code`
-- `CMSwift.col`
-- `CMSwift.Col`
-- `CMSwift.colgroup`
-- `CMSwift.component`
-- `CMSwift.computed`
-- `CMSwift.Container`
-- `CMSwift.ContextMenu`
-- `CMSwift.data`
-- `CMSwift.datalist`
-- `CMSwift.Date`
-- `CMSwift.dd`
-- `CMSwift.debug.enabled`
-- `CMSwift.debug.error`
-- `CMSwift.debug.inc`
-- `CMSwift.debug.log`
-- `CMSwift.debug.reset`
-- `CMSwift.debug.stats`
-- `CMSwift.debug.warn`
-- `CMSwift.defs`
-- `CMSwift.details`
-- `CMSwift.dfn`
-- `CMSwift.Dialog`
-- `CMSwift.dialog.alert`
-- `CMSwift.dialog.confirm`
-- `CMSwift.dialog.prompt`
-- `CMSwift.div`
-- `CMSwift.dl`
-- `CMSwift.docTable`
-- `CMSwift.dom.attr`
-- `CMSwift.dom.q`
-- `CMSwift.dom.qa`
-- `CMSwift.Drawer`
-- `CMSwift.dt`
-- `CMSwift.dynamic`
-- `CMSwift.effect`
-- `CMSwift.ellipse`
-- `CMSwift.em`
-- `CMSwift.embed`
-- `CMSwift.EmptyState`
-- `CMSwift.enableAutoCleanup`
-- `CMSwift.feBlend`
-- `CMSwift.feColorMatrix`
-- `CMSwift.feGaussianBlur`
-- `CMSwift.feOffset`
-- `CMSwift.fieldset`
-- `CMSwift.filter`
-- `CMSwift.footer`
-- `CMSwift.Footer`
-- `CMSwift.form`
-- `CMSwift.Form`
-- `CMSwift.FormField`
-- `CMSwift.fragment`
-- `CMSwift.g`
-- `CMSwift.getTheme`
-- `CMSwift.Grid`
-- `CMSwift.GridCol`
-- `CMSwift.h1`
-- `CMSwift.h2`
-- `CMSwift.h3`
-- `CMSwift.h4`
-- `CMSwift.h5`
-- `CMSwift.h6`
-- `CMSwift.head`
-- `CMSwift.header`
-- `CMSwift.Header`
-- `CMSwift.hr`
-- `CMSwift.html`
-- `CMSwift.http.del`
-- `CMSwift.http.delJSON`
-- `CMSwift.http.get`
-- `CMSwift.http.getJSON`
-- `CMSwift.http.onAfter`
-- `CMSwift.http.onBefore`
-- `CMSwift.http.onError`
-- `CMSwift.http.patch`
-- `CMSwift.http.patchJSON`
-- `CMSwift.http.post`
-- `CMSwift.http.postJSON`
-- `CMSwift.http.put`
-- `CMSwift.http.putJSON`
-- `CMSwift.http.request`
-- `CMSwift.http.state`
-- `CMSwift.i`
-- `CMSwift.Icon`
-- `CMSwift.iframe`
-- `CMSwift.img`
-- `CMSwift.input`
-- `CMSwift.Input`
-- `CMSwift.InputRaw`
-- `CMSwift.isDev`
-- `CMSwift.isListItemNode`
-- `CMSwift.isUIPlainObject`
-- `CMSwift.Item`
-- `CMSwift.kbd`
-- `CMSwift.Kpi`
-- `CMSwift.label`
-- `CMSwift.Layout`
-- `CMSwift.legend`
-- `CMSwift.li`
-- `CMSwift.line`
-- `CMSwift.linearGradient`
-- `CMSwift.link`
-- `CMSwift.List`
-- `CMSwift.loading.hide`
-- `CMSwift.loading.progress`
-- `CMSwift.loading.show`
-- `CMSwift.loading.wrap`
-- `CMSwift.LoadingBar`
-- `CMSwift.main`
-- `CMSwift.mark`
-- `CMSwift.mask`
-- `CMSwift.Menu`
-- `CMSwift.meter`
-- `CMSwift.mount`
-- `CMSwift.nav`
-- `CMSwift.noscript`
-- `CMSwift.Notify`
-- `CMSwift.notify.clear`
-- `CMSwift.notify.error`
-- `CMSwift.notify.info`
-- `CMSwift.notify.primary`
-- `CMSwift.notify.promise`
-- `CMSwift.notify.remove`
-- `CMSwift.notify.secondary`
-- `CMSwift.notify.show`
-- `CMSwift.notify.success`
-- `CMSwift.notify.update`
-- `CMSwift.notify.warning`
-- `CMSwift.object`
-- `CMSwift.ol`
-- `CMSwift.omit`
-- `CMSwift.optgroup`
-- `CMSwift.option`
-- `CMSwift.output`
-- `CMSwift.overlay.close`
-- `CMSwift.overlay.closeTop`
-- `CMSwift.overlay.open`
-- `CMSwift.p`
-- `CMSwift.Page`
-- `CMSwift.Pagination`
-- `CMSwift.Parallax`
-- `CMSwift.param`
-- `CMSwift.path`
-- `CMSwift.pattern`
-- `CMSwift.perf.enable`
-- `CMSwift.perf.inc`
-- `CMSwift.perf.mark`
-- `CMSwift.perf.reset`
-- `CMSwift.perf.slowEffects`
-- `CMSwift.perf.stats`
-- `CMSwift.perf.tick`
-- `CMSwift.perf.time`
-- `CMSwift.perf.timeline`
-- `CMSwift.picture`
-- `CMSwift.plugins.auth.install`
-- `CMSwift.plugins.debug.install`
-- `CMSwift.plugins.forms.install`
-- `CMSwift.polygon`
-- `CMSwift.polyline`
-- `CMSwift.Popover`
-- `CMSwift.pre`
-- `CMSwift.progress`
-- `CMSwift.Progress`
-- `CMSwift.q`
-- `CMSwift.radialGradient`
-- `CMSwift.Radio`
-- `CMSwift.Rating`
-- `CMSwift.reactive.batch`
-- `CMSwift.reactive.computed`
-- `CMSwift.reactive.effect`
-- `CMSwift.reactive.signal`
-- `CMSwift.reactive.untracked`
-- `CMSwift.ready`
-- `CMSwift.rect`
-- `CMSwift.rod`
-- `CMSwift.rodBind`
-- `CMSwift.rodFromSignal`
-- `CMSwift.rodModel`
-- `CMSwift.router.add`
-- `CMSwift.router.beforeEach`
-- `CMSwift.router.current`
-- `CMSwift.router.history`
-- `CMSwift.router.inspect`
-- `CMSwift.router.isActive`
-- `CMSwift.router.navigate`
-- `CMSwift.router.notFound`
-- `CMSwift.router.setBase`
-- `CMSwift.router.setOutlet`
-- `CMSwift.router.setURLOnly`
-- `CMSwift.router.start`
-- `CMSwift.router.status`
-- `CMSwift.router.subscribe`
-- `CMSwift.router.trace`
-- `CMSwift.RouteTab`
-- `CMSwift.Row`
-- `CMSwift.rp`
-- `CMSwift.rt`
-- `CMSwift.ruby`
-- `CMSwift.s`
-- `CMSwift.samp`
-- `CMSwift.script`
-- `CMSwift.Search`
-- `CMSwift.section`
-- `CMSwift.select`
-- `CMSwift.Select`
-- `CMSwift.Separator`
-- `CMSwift.setTheme`
-- `CMSwift.signal`
-- `CMSwift.signalModel`
-- `CMSwift.Slider`
-- `CMSwift.slot`
-- `CMSwift.small`
-- `CMSwift.source`
-- `CMSwift.Spacer`
-- `CMSwift.span`
-- `CMSwift.Spinner`
-- `CMSwift.Stat`
-- `CMSwift.stop`
-- `CMSwift.store.autoForm`
-- `CMSwift.store.bind`
-- `CMSwift.store.bindAll`
-- `CMSwift.store.clear`
-- `CMSwift.store.computed`
-- `CMSwift.store.configure`
-- `CMSwift.store.get`
-- `CMSwift.store.inspect`
-- `CMSwift.store.migrate`
-- `CMSwift.store.model`
-- `CMSwift.store.remove`
-- `CMSwift.store.set`
-- `CMSwift.store.signal`
-- `CMSwift.store.stats`
-- `CMSwift.store.watch`
-- `CMSwift.strong`
-- `CMSwift.style`
-- `CMSwift.sub`
-- `CMSwift.summary`
-- `CMSwift.sup`
-- `CMSwift.svg`
-- `CMSwift.symbol`
-- `CMSwift.table`
-- `CMSwift.Table`
-- `CMSwift.TabPanel`
-- `CMSwift.Tabs`
-- `CMSwift.tbody`
-- `CMSwift.td`
-- `CMSwift.template`
-- `CMSwift.text`
-- `CMSwift.textarea`
-- `CMSwift.tfoot`
-- `CMSwift.th`
-- `CMSwift.thead`
-- `CMSwift.time`
-- `CMSwift.Time`
-- `CMSwift.title`
-- `CMSwift.Toggle`
-- `CMSwift.toggleTheme`
-- `CMSwift.Toolbar`
-- `CMSwift.Tooltip`
-- `CMSwift.tr`
-- `CMSwift.track`
-- `CMSwift.tspan`
-- `CMSwift.u`
-- `CMSwift.ui.can`
-- `CMSwift.ui.canAll`
-- `CMSwift.ui.canAny`
-- `CMSwift.ui.getSlot`
-- `CMSwift.ui.inspect`
-- `CMSwift.ui.renderSlot`
-- `CMSwift.ui.slot`
-- `CMSwift.ui.slots`
-- `CMSwift.uiApplyResponsiveProps`
-- `CMSwift.uiClass`
-- `CMSwift.uiClassStatic`
-- `CMSwift.uiClassValue`
-- `CMSwift.uiComputed`
-- `CMSwift.uiIsReactive`
-- `CMSwift.uiNormalizeArgs`
-- `CMSwift.uiResponsiveClasses`
-- `CMSwift.uiResponsiveHasConfig`
-- `CMSwift.uiResponsiveHasProp`
-- `CMSwift.uiResponsivePropsFor`
-- `CMSwift.uiResponsiveStyleRules.10.mapValue`
-- `CMSwift.uiResponsiveStyleRules.11.mapValue`
-- `CMSwift.uiResponsiveStyleRules.2.mapValue`
-- `CMSwift.uiResponsiveStyleRules.9.mapValue`
-- `CMSwift.uiStyleValue`
-- `CMSwift.uiUnwrap`
-- `CMSwift.uiWhen`
-- `CMSwift.ul`
-- `CMSwift.untracked`
-- `CMSwift.use`
-- `CMSwift.useForm`
-- `CMSwift.usePlugin`
-- `CMSwift.useRoute`
-- `CMSwift.useRouter`
-- `CMSwift.useStore`
-- `CMSwift.var`
-- `CMSwift.video`
-- `CMSwift.wbr`
+- `JSswift.a`
+- `JSswift.abbr`
+- `JSswift.address`
+- `JSswift.Alert`
+- `JSswift.AppShell`
+- `JSswift.article`
+- `JSswift.aside`
+- `JSswift.asNodeArray`
+- `JSswift.audio`
+- `JSswift.Avatar`
+- `JSswift.b`
+- `JSswift.Badge`
+- `JSswift.Banner`
+- `JSswift.base`
+- `JSswift.batch`
+- `JSswift.bdi`
+- `JSswift.bdo`
+- `JSswift.blockquote`
+- `JSswift.body`
+- `JSswift.br`
+- `JSswift.Breadcrumbs`
+- `JSswift.Btn`
+- `JSswift.button`
+- `JSswift.Can`
+- `JSswift.canvas`
+- `JSswift.caption`
+- `JSswift.Card`
+- `JSswift.cardBody`
+- `JSswift.cardFooter`
+- `JSswift.cardHeader`
+- `JSswift.Checkbox`
+- `JSswift.Chip`
+- `JSswift.circle`
+- `JSswift.cite`
+- `JSswift.clipPath`
+- `JSswift.code`
+- `JSswift.col`
+- `JSswift.Col`
+- `JSswift.colgroup`
+- `JSswift.component`
+- `JSswift.computed`
+- `JSswift.Container`
+- `JSswift.ContextMenu`
+- `JSswift.data`
+- `JSswift.datalist`
+- `JSswift.Date`
+- `JSswift.dd`
+- `JSswift.debug.enabled`
+- `JSswift.debug.error`
+- `JSswift.debug.inc`
+- `JSswift.debug.log`
+- `JSswift.debug.reset`
+- `JSswift.debug.stats`
+- `JSswift.debug.warn`
+- `JSswift.defs`
+- `JSswift.details`
+- `JSswift.dfn`
+- `JSswift.Dialog`
+- `JSswift.dialog.alert`
+- `JSswift.dialog.confirm`
+- `JSswift.dialog.prompt`
+- `JSswift.div`
+- `JSswift.dl`
+- `JSswift.docTable`
+- `JSswift.dom.attr`
+- `JSswift.dom.q`
+- `JSswift.dom.qa`
+- `JSswift.Drawer`
+- `JSswift.dt`
+- `JSswift.dynamic`
+- `JSswift.effect`
+- `JSswift.ellipse`
+- `JSswift.em`
+- `JSswift.embed`
+- `JSswift.EmptyState`
+- `JSswift.enableAutoCleanup`
+- `JSswift.feBlend`
+- `JSswift.feColorMatrix`
+- `JSswift.feGaussianBlur`
+- `JSswift.feOffset`
+- `JSswift.fieldset`
+- `JSswift.filter`
+- `JSswift.footer`
+- `JSswift.Footer`
+- `JSswift.form`
+- `JSswift.Form`
+- `JSswift.FormField`
+- `JSswift.fragment`
+- `JSswift.g`
+- `JSswift.getTheme`
+- `JSswift.Grid`
+- `JSswift.GridCol`
+- `JSswift.h1`
+- `JSswift.h2`
+- `JSswift.h3`
+- `JSswift.h4`
+- `JSswift.h5`
+- `JSswift.h6`
+- `JSswift.head`
+- `JSswift.header`
+- `JSswift.Header`
+- `JSswift.hr`
+- `JSswift.html`
+- `JSswift.http.del`
+- `JSswift.http.delJSON`
+- `JSswift.http.get`
+- `JSswift.http.getJSON`
+- `JSswift.http.onAfter`
+- `JSswift.http.onBefore`
+- `JSswift.http.onError`
+- `JSswift.http.patch`
+- `JSswift.http.patchJSON`
+- `JSswift.http.post`
+- `JSswift.http.postJSON`
+- `JSswift.http.put`
+- `JSswift.http.putJSON`
+- `JSswift.http.request`
+- `JSswift.http.state`
+- `JSswift.i`
+- `JSswift.Icon`
+- `JSswift.iframe`
+- `JSswift.img`
+- `JSswift.input`
+- `JSswift.Input`
+- `JSswift.InputRaw`
+- `JSswift.isDev`
+- `JSswift.isListItemNode`
+- `JSswift.isUIPlainObject`
+- `JSswift.Item`
+- `JSswift.kbd`
+- `JSswift.Kpi`
+- `JSswift.label`
+- `JSswift.Layout`
+- `JSswift.legend`
+- `JSswift.li`
+- `JSswift.line`
+- `JSswift.linearGradient`
+- `JSswift.link`
+- `JSswift.List`
+- `JSswift.loading.hide`
+- `JSswift.loading.progress`
+- `JSswift.loading.show`
+- `JSswift.loading.wrap`
+- `JSswift.LoadingBar`
+- `JSswift.main`
+- `JSswift.mark`
+- `JSswift.mask`
+- `JSswift.Menu`
+- `JSswift.meter`
+- `JSswift.mount`
+- `JSswift.nav`
+- `JSswift.noscript`
+- `JSswift.Notify`
+- `JSswift.notify.clear`
+- `JSswift.notify.error`
+- `JSswift.notify.info`
+- `JSswift.notify.primary`
+- `JSswift.notify.promise`
+- `JSswift.notify.remove`
+- `JSswift.notify.secondary`
+- `JSswift.notify.show`
+- `JSswift.notify.success`
+- `JSswift.notify.update`
+- `JSswift.notify.warning`
+- `JSswift.object`
+- `JSswift.ol`
+- `JSswift.omit`
+- `JSswift.optgroup`
+- `JSswift.option`
+- `JSswift.output`
+- `JSswift.overlay.close`
+- `JSswift.overlay.closeTop`
+- `JSswift.overlay.open`
+- `JSswift.p`
+- `JSswift.Page`
+- `JSswift.Pagination`
+- `JSswift.Parallax`
+- `JSswift.param`
+- `JSswift.path`
+- `JSswift.pattern`
+- `JSswift.perf.enable`
+- `JSswift.perf.inc`
+- `JSswift.perf.mark`
+- `JSswift.perf.reset`
+- `JSswift.perf.slowEffects`
+- `JSswift.perf.stats`
+- `JSswift.perf.tick`
+- `JSswift.perf.time`
+- `JSswift.perf.timeline`
+- `JSswift.picture`
+- `JSswift.plugins.auth.install`
+- `JSswift.plugins.debug.install`
+- `JSswift.plugins.forms.install`
+- `JSswift.polygon`
+- `JSswift.polyline`
+- `JSswift.Popover`
+- `JSswift.pre`
+- `JSswift.progress`
+- `JSswift.Progress`
+- `JSswift.q`
+- `JSswift.radialGradient`
+- `JSswift.Radio`
+- `JSswift.Rating`
+- `JSswift.reactive.batch`
+- `JSswift.reactive.computed`
+- `JSswift.reactive.effect`
+- `JSswift.reactive.signal`
+- `JSswift.reactive.untracked`
+- `JSswift.ready`
+- `JSswift.rect`
+- `JSswift.rod`
+- `JSswift.rodBind`
+- `JSswift.rodFromSignal`
+- `JSswift.rodModel`
+- `JSswift.router.add`
+- `JSswift.router.beforeEach`
+- `JSswift.router.current`
+- `JSswift.router.history`
+- `JSswift.router.inspect`
+- `JSswift.router.isActive`
+- `JSswift.router.navigate`
+- `JSswift.router.notFound`
+- `JSswift.router.setBase`
+- `JSswift.router.setOutlet`
+- `JSswift.router.setURLOnly`
+- `JSswift.router.start`
+- `JSswift.router.status`
+- `JSswift.router.subscribe`
+- `JSswift.router.trace`
+- `JSswift.RouteTab`
+- `JSswift.Row`
+- `JSswift.rp`
+- `JSswift.rt`
+- `JSswift.ruby`
+- `JSswift.s`
+- `JSswift.samp`
+- `JSswift.script`
+- `JSswift.Search`
+- `JSswift.section`
+- `JSswift.select`
+- `JSswift.Select`
+- `JSswift.Separator`
+- `JSswift.setTheme`
+- `JSswift.signal`
+- `JSswift.signalModel`
+- `JSswift.Slider`
+- `JSswift.slot`
+- `JSswift.small`
+- `JSswift.source`
+- `JSswift.Spacer`
+- `JSswift.span`
+- `JSswift.Spinner`
+- `JSswift.Stat`
+- `JSswift.stop`
+- `JSswift.store.autoForm`
+- `JSswift.store.bind`
+- `JSswift.store.bindAll`
+- `JSswift.store.clear`
+- `JSswift.store.computed`
+- `JSswift.store.configure`
+- `JSswift.store.get`
+- `JSswift.store.inspect`
+- `JSswift.store.migrate`
+- `JSswift.store.model`
+- `JSswift.store.remove`
+- `JSswift.store.set`
+- `JSswift.store.signal`
+- `JSswift.store.stats`
+- `JSswift.store.watch`
+- `JSswift.strong`
+- `JSswift.style`
+- `JSswift.sub`
+- `JSswift.summary`
+- `JSswift.sup`
+- `JSswift.svg`
+- `JSswift.symbol`
+- `JSswift.table`
+- `JSswift.Table`
+- `JSswift.TabPanel`
+- `JSswift.Tabs`
+- `JSswift.tbody`
+- `JSswift.td`
+- `JSswift.template`
+- `JSswift.text`
+- `JSswift.textarea`
+- `JSswift.tfoot`
+- `JSswift.th`
+- `JSswift.thead`
+- `JSswift.time`
+- `JSswift.Time`
+- `JSswift.title`
+- `JSswift.Toggle`
+- `JSswift.toggleTheme`
+- `JSswift.Toolbar`
+- `JSswift.Tooltip`
+- `JSswift.tr`
+- `JSswift.track`
+- `JSswift.tspan`
+- `JSswift.u`
+- `JSswift.ui.can`
+- `JSswift.ui.canAll`
+- `JSswift.ui.canAny`
+- `JSswift.ui.getSlot`
+- `JSswift.ui.inspect`
+- `JSswift.ui.renderSlot`
+- `JSswift.ui.slot`
+- `JSswift.ui.slots`
+- `JSswift.uiApplyResponsiveProps`
+- `JSswift.uiClass`
+- `JSswift.uiClassStatic`
+- `JSswift.uiClassValue`
+- `JSswift.uiComputed`
+- `JSswift.uiIsReactive`
+- `JSswift.uiNormalizeArgs`
+- `JSswift.uiResponsiveClasses`
+- `JSswift.uiResponsiveHasConfig`
+- `JSswift.uiResponsiveHasProp`
+- `JSswift.uiResponsivePropsFor`
+- `JSswift.uiResponsiveStyleRules.10.mapValue`
+- `JSswift.uiResponsiveStyleRules.11.mapValue`
+- `JSswift.uiResponsiveStyleRules.2.mapValue`
+- `JSswift.uiResponsiveStyleRules.9.mapValue`
+- `JSswift.uiStyleValue`
+- `JSswift.uiUnwrap`
+- `JSswift.uiWhen`
+- `JSswift.ul`
+- `JSswift.untracked`
+- `JSswift.use`
+- `JSswift.useForm`
+- `JSswift.usePlugin`
+- `JSswift.useRoute`
+- `JSswift.useRouter`
+- `JSswift.useStore`
+- `JSswift.var`
+- `JSswift.video`
+- `JSswift.wbr`
 
 ## HTML And SVG Helper Catalog
 
@@ -32248,7 +32248,7 @@ Use these CMSwift functions when building apps. Some low-level renderer and help
 
 ## Component Metadata Catalog
 
-Every block below is the runtime `CMSwift.ui.meta.*` object for one component. Use it to decide valid props, slots, events, methods, examples, and behavior.
+Every block below is the runtime `JSswift.ui.meta.*` object for one component. Use it to decide valid props, slots, events, methods, examples, and behavior.
 
 ### Alert
 
@@ -64058,4 +64058,4 @@ Every block below is the runtime `CMSwift.ui.meta.*` object for one component. U
 
 ## Final Rule
 
-When generating a CMSwift app, first choose the closest UI components from the metadata catalog, then compose them with signals, models, slots, router, store, and HTTP. Only use raw DOM helpers for simple wrappers or text structure that no CMSwift component covers.
+When generating a JSswift app, first choose the closest UI components from the metadata catalog, then compose them with signals, models, slots, router, store, and HTTP. Only use raw DOM helpers for simple wrappers or text structure that no JSswift component covers.

@@ -5,10 +5,10 @@ This folder contains the minimal local framework demo: a few HTML pages, compati
 ## Contents
 
 - `pages/index.html`
-  local landing page with access to UI, CMSwift core, and the developer view
+  local landing page with access to UI, JSswift core, and the developer view
 - `pages/ui.html`
   UI demo with small real examples
-- `pages/cmswift.html`
+- `pages/jsswift.html`
   core demo with `signal`, `computed`, `batch`, and components
 - `pages/developers.html`
   narrative page meant to explain the framework to developers

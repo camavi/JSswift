@@ -70,6 +70,6 @@ http
     }
   })
   .listen(PORT, () => {
-    console.log(`🚀 CMSwift DEV → http://localhost:${PORT}`);
+    console.log(`🚀 JSswift DEV → http://localhost:${PORT}`);
     console.log(`📁 Serving static from: ${PUBLIC_ROOT}`);
   });

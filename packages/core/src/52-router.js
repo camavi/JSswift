@@ -1,5 +1,5 @@
   // -- ROUTER --
-  CMSwift.router = (() => {
+  JSswift.router = (() => {
     let mode = "history"; // "history" | "hash" | "auto"
     let routes = [];
     let outlet = null;
@@ -18,7 +18,7 @@
       parseQuery,
       matchRoute,
       pushHistoryEntry
-    } = CMSwift._routerShared;
+    } = JSswift._routerShared;
 
     const meta = {
       setOutlet: { description: "imposta il contenitore del router" },
@@ -118,7 +118,7 @@
 
     async function render(urlLike, { replace = false } = {}) {
       if (!outlet) {
-        console.warn("[router] outlet non impostato. Usa CMSwift.router.setOutlet('#app').");
+        console.warn("[router] outlet non impostato. Usa JSswift.router.setOutlet('#app').");
         return;
       }
 
@@ -164,9 +164,9 @@
       if (!m) {
         const view404 = routes._notFound;
         if (view404) {
-          unmountCurrent = CMSwift.mount(outlet, () => view404(ctx), { clear: true });
+          unmountCurrent = JSswift.mount(outlet, () => view404(ctx), { clear: true });
         } else {
-          unmountCurrent = CMSwift.mount(outlet, _.div("404"), { clear: true });
+          unmountCurrent = JSswift.mount(outlet, _.div("404"), { clear: true });
         }
         notifyRoute(ctx);
         _currentCtx = ctx;
@@ -190,7 +190,7 @@
         }
 
         // monta child (clear true)
-        childMounted = CMSwift.mount(childOutlet, () => ctx._child.view(ctx._child.ctx), { clear: true });
+        childMounted = JSswift.mount(childOutlet, () => ctx._child.view(ctx._child.ctx), { clear: true });
         return childMounted;
       };
 
@@ -210,11 +210,11 @@
         };
 
         // mount layout sul root outlet
-        unmountCurrent = CMSwift.mount(outlet, () => parent.view(ctx), { clear: true });
+        unmountCurrent = JSswift.mount(outlet, () => parent.view(ctx), { clear: true });
       } else {
         // non nested
         ctx._child = null;
-        unmountCurrent = CMSwift.mount(outlet, () => view(ctx), { clear: true });
+        unmountCurrent = JSswift.mount(outlet, () => view(ctx), { clear: true });
       }
 
       notifyRoute(ctx);
@@ -281,7 +281,7 @@
     }
 
     function setOutlet(target) {
-      outlet = typeof target === "string" ? CMSwift.dom.q(target) : target;
+      outlet = typeof target === "string" ? JSswift.dom.q(target) : target;
       return outlet;
     }
 
@@ -360,7 +360,7 @@
         timestamp: new Date().toISOString()
       };
 
-      console.groupCollapsed(`[CMSwift.router.inspect] ${label}`);
+      console.groupCollapsed(`[JSswift.router.inspect] ${label}`);
       console.log(info);
       console.log("history:", _history.slice());
       console.groupEnd();
@@ -370,7 +370,7 @@
 
     function routeTrace(on = true) {
       _tracing = !!on;
-      console.log("[CMSwift.router.trace]", _tracing ? "ON" : "OFF");
+      console.log("[JSswift.router.trace]", _tracing ? "ON" : "OFF");
     }
 
     function routeHistory() {
@@ -394,6 +394,6 @@
     };
   })();
 
-  if (CMSwift.config?.debug) {
-    window.$router = CMSwift.router;
+  if (JSswift.config?.debug) {
+    window.$router = JSswift.router;
   }

@@ -286,21 +286,21 @@
       });
     };
 
-    CMSwift._registerCleanup(el, detach);
+    JSswift._registerCleanup(el, detach);
 
     if (isRod(value)) {
-      const stop = CMSwift.reactive.effect(() => {
+      const stop = JSswift.reactive.effect(() => {
         apply(value.value);
       });
-      CMSwift._registerCleanup(el, stop);
+      JSswift._registerCleanup(el, stop);
       return;
     }
 
     if (hasDynamicEventValue(value, isRod)) {
-      const stop = CMSwift.reactive.effect(() => {
+      const stop = JSswift.reactive.effect(() => {
         apply(value);
       });
-      CMSwift._registerCleanup(el, stop);
+      JSswift._registerCleanup(el, stop);
       return;
     }
 

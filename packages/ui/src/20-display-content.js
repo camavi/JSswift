@@ -75,12 +75,12 @@
       sizeClass,
       props.class
     ]);
-    const p = CMSwift.omit(props, ["name", "size", "class", "style", "label", "border", "color", "icon", "iconRight", "removable", "onRemove", "dense", "flat", "glossy", "outline", "slots", "spriteUrl", "tooltip", "tooltipProps"]);
+    const p = JSswift.omit(props, ["name", "size", "class", "style", "label", "border", "color", "icon", "iconRight", "removable", "onRemove", "dense", "flat", "glossy", "outline", "slots", "spriteUrl", "tooltip", "tooltipProps"]);
     p.class = cls;
     if (Object.keys(style).length) p.style = style;
 
     if (typeof name === "function" || (name && typeof name === "object")) {
-      const customNode = CMSwift.ui.renderSlot(slots, "default", {}, name);
+      const customNode = JSswift.ui.renderSlot(slots, "default", {}, name);
       const content = renderSlotToArray(null, "default", {}, customNode);
       const icon = _.span({ ...p, "data-icon": "custom" }, ...content);
       setPropertyProps(icon, props);
@@ -93,8 +93,8 @@
     if (useHref) {
       const spriteUrl =
         props.spriteUrl ||
-        CMSwift.config?.iconSpriteUrl ||
-        (typeof globalThis !== "undefined" ? globalThis.CMSwift_setting?.iconSpriteUrl : null);
+        JSswift.config?.iconSpriteUrl ||
+        (typeof globalThis !== "undefined" ? globalThis.JSswift_setting?.iconSpriteUrl : null);
       const symbolId = useHref.slice(useHref.indexOf("#") + 1);
       const svg = spriteUrl
         ? _.svg(
@@ -113,7 +113,7 @@
 
     if (size != null) {
       let v = size;
-      if (CMSwift.uiSizes.includes(size)) {
+      if (JSswift.uiSizes.includes(size)) {
         v = `var(--cms-icon-size-${size})`;
       }
       v = typeof v === "number" ? v + "px" : String(v);
@@ -123,7 +123,7 @@
     setPropertyProps(icon, props);
     return wrapIcon(icon);
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Icon = {
       signature: "UI.Icon(name) | UI.Icon(props) | UI.Icon(props, ...children)",
@@ -156,10 +156,10 @@
       description: "Sprite- or text-based icon with configurable size/color."
     };
   }
-  // Esempio: CMSwift.ui.Icon({ name: "home", size: 18 })
+  // Esempio: JSswift.ui.Icon({ name: "home", size: 18 })
 
   UI.Badge = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const sizeClass = uiComputed(props.size, () => {
       const v = uiUnwrap(props.size);
@@ -173,7 +173,7 @@
       uiWhen(props.outline, "outline"),
       props.class
     ]);
-    const p = CMSwift.omit(props, [
+    const p = JSswift.omit(props, [
       "label",
       "color",
       "outline",
@@ -204,7 +204,7 @@
     const renderNamedSlotToArray = (names, ctx, fallback) => {
       const list = Array.isArray(names) ? names : [names];
       for (const name of list) {
-        if (CMSwift.ui.getSlot(slots, name) != null) {
+        if (JSswift.ui.getSlot(slots, name) != null) {
           return renderSlotToArray(slots, name, ctx, fallback);
         }
       }
@@ -236,7 +236,7 @@
       const raw = uiUnwrap(source);
       if (raw == null || raw === false || raw === "") return null;
       if (typeof raw === "string") return UI.Icon({ name: raw, size: resolveIconSize() });
-      return CMSwift.ui.slot(raw, { as });
+      return JSswift.ui.slot(raw, { as });
     };
 
     const renderIconAnchor = (slotNames, propKey, position) => _.dynamic(() => {
@@ -297,7 +297,7 @@
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Badge = {
       signature: "UI.Badge(...children) | UI.Badge(props, ...children)",
@@ -337,7 +337,7 @@
       description: "Inline badge with reactive notification and 6 positionable icon slots."
     };
   }
-  // Esempio: CMSwift.ui.Badge({ label: "New" })
+  // Esempio: JSswift.ui.Badge({ label: "New" })
 
   const avatarGetInitials = (value) => {
     if (value == null || value === false) return "";
@@ -395,11 +395,11 @@
   };
 
   UI.Avatar = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const sizeClass = uiComputed(props.size, () => {
       const v = uiUnwrap(props.size);
-      return (typeof v === "string" && CMSwift.uiSizes?.includes(v)) ? `cms-size-${v}` : "";
+      return (typeof v === "string" && JSswift.uiSizes?.includes(v)) ? `cms-size-${v}` : "";
     });
     const stateClass = uiComputed([props.color, props.state], () => {
       const v = uiUnwrap(props.color) || uiUnwrap(props.state) || "";
@@ -417,7 +417,7 @@
       props.class
     ]);
 
-    const p = CMSwift.omit(props, [
+    const p = JSswift.omit(props, [
       "src", "srcset", "srcSet", "sizes", "alt", "label", "name", "initials", "text",
       "size", "fontSize", "textSize", "radius", "rounded", "square", "elevated",
       "icon", "iconSize", "media", "fit", "badge", "notification", "status",
@@ -428,7 +428,7 @@
 
     const style = { ...(props.style || {}) };
     const sizeStyle = uiStyleValue(props.size, (value) => {
-      if (typeof value === "string" && CMSwift.uiSizes?.includes(value)) return "";
+      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return "";
       return toCssSize(value);
     }, "");
     if (sizeStyle != null) {
@@ -440,7 +440,7 @@
     const fontSizeStyle = fontSizeValue != null
       ? uiStyleValue(fontSizeValue, toCssSize)
       : uiStyleValue(props.size, (value) => {
-        if (typeof value === "string" && CMSwift.uiSizes?.includes(value)) return "";
+        if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return "";
         return `clamp(11px, calc(${toCssSize(value)} * 0.34), 28px)`;
       }, "");
     if (fontSizeStyle != null) style.fontSize = fontSizeStyle;
@@ -463,7 +463,7 @@
     const iconFallback = props.icon != null
       ? (typeof props.icon === "string"
         ? UI.Icon({ name: props.icon, size: props.iconSize || props.size || "sm" })
-        : CMSwift.ui.slot(props.icon, { as: "icon" }))
+        : JSswift.ui.slot(props.icon, { as: "icon" }))
       : null;
     const labelFallback = uiComputed([props.initials, props.text, props.label, props.name], () => {
       const explicit = uiUnwrap(props.initials) ?? uiUnwrap(props.text);
@@ -534,7 +534,7 @@
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Avatar = {
       signature: "UI.Avatar(...children) | UI.Avatar(props, ...children)",
@@ -590,10 +590,10 @@
       description: "Flexible avatar with image, smart fallbacks, states, badge, and overlay slots."
     };
   }
-  // Esempio: CMSwift.ui.Avatar({ label: "CM" })
+  // Esempio: JSswift.ui.Avatar({ label: "CM" })
 
   UI.Chip = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const sizeClass = uiComputed(props.size, () => {
       const v = uiUnwrap(props.size);
@@ -606,20 +606,20 @@
       sizeClass,
       props.class
     ]);
-    const p = CMSwift.omit(props, ["label", "border", "color", "icon", "iconRight", "removable", "onRemove", "dense", "flat", "glossy", "outline", "slots"]);
+    const p = JSswift.omit(props, ["label", "border", "color", "icon", "iconRight", "removable", "onRemove", "dense", "flat", "glossy", "outline", "slots"]);
     p.class = cls;
     p.style = {
       ...(props.style || {})
     };
 
     const iconFallback = props.icon
-      ? (typeof props.icon === "string" ? UI.Icon({ name: props.icon, size: props?.size ?? null }) : CMSwift.ui.slot(props.icon, { as: "icon" }))
+      ? (typeof props.icon === "string" ? UI.Icon({ name: props.icon, size: props?.size ?? null }) : JSswift.ui.slot(props.icon, { as: "icon" }))
       : null;
     const iconRightFallback = props.iconRight
-      ? (typeof props.iconRight === "string" ? UI.Icon({ name: props.iconRight, size: props?.size ?? null }) : CMSwift.ui.slot(props.iconRight, { as: "iconRight" }))
+      ? (typeof props.iconRight === "string" ? UI.Icon({ name: props.iconRight, size: props?.size ?? null }) : JSswift.ui.slot(props.iconRight, { as: "iconRight" }))
       : null;
-    const iconNode = CMSwift.ui.renderSlot(slots, "icon", {}, iconFallback);
-    const iconRightNode = CMSwift.ui.renderSlot(slots, "iconRight", {}, iconRightFallback);
+    const iconNode = JSswift.ui.renderSlot(slots, "icon", {}, iconFallback);
+    const iconRightNode = JSswift.ui.renderSlot(slots, "iconRight", {}, iconRightFallback);
     const labelNodes = renderSlotToArray(slots, "label", {}, props.label);
     const labelNode = labelNodes.length ? labelNodes : renderSlotToArray(slots, "default", {}, children);
 
@@ -639,7 +639,7 @@
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Chip = {
       signature: "UI.Chip(...children) | UI.Chip(props, ...children)",
@@ -668,10 +668,10 @@
       description: "Chip with optional icon and removal."
     };
   }
-  // Esempio: CMSwift.ui.Chip({ label: "Tag", removable: true })
+  // Esempio: JSswift.ui.Chip({ label: "Tag", removable: true })
 
   UI.Stat = (...args) => {
-    const { props: rawProps, children } = CMSwift.uiNormalizeArgs(args);
+    const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
     const slots = rawProps.slots || {};
     const resolveStateValue = () => normalizeState(uiUnwrap(rawProps.state) || uiUnwrap(rawProps.color) || "");
     const stateClass = uiComputed([rawProps.state, rawProps.color], () => {
@@ -687,7 +687,7 @@
     });
 
     const props = { ...rawProps };
-    const p = CMSwift.omit(props, [
+    const p = JSswift.omit(props, [
       "actions",
       "aside",
       "delta",
@@ -726,7 +726,7 @@
       ? null
       : (typeof rawProps.icon === "string"
         ? UI.Icon({ name: rawProps.icon, size: rawProps.iconSize || "md" })
-        : CMSwift.ui.slot(rawProps.icon, { as: "icon" }));
+        : JSswift.ui.slot(rawProps.icon, { as: "icon" }));
 
     const eyebrowNodes = renderNamed("eyebrow", rawProps.eyebrow);
     const labelNodes = renderNamed("label", rawProps.label ?? rawProps.title);
@@ -777,7 +777,7 @@
     setPropertyProps(stat, rawProps);
     return stat;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Stat = {
       signature: "UI.Stat(...children) | UI.Stat(props, ...children)",
@@ -817,10 +817,10 @@
       description: "Compact surface for single metrics, trends, and operational metadata."
     };
   }
-  // Esempio: CMSwift.ui.Stat({ label: "Revenue", value: "€ 128k", delta: "+18%" })
+  // Esempio: JSswift.ui.Stat({ label: "Revenue", value: "€ 128k", delta: "+18%" })
 
   UI.Kpi = (...args) => {
-    const { props: rawProps, children } = CMSwift.uiNormalizeArgs(args);
+    const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
     const slots = rawProps.slots || {};
     const resolveStateValue = () => normalizeState(uiUnwrap(rawProps.state) || uiUnwrap(rawProps.color) || "");
     const stateClass = uiComputed([rawProps.state, rawProps.color], () => {
@@ -829,7 +829,7 @@
     });
 
     const props = { ...rawProps };
-    const p = CMSwift.omit(props, [
+    const p = JSswift.omit(props, [
       "actions",
       "aside",
       "delta",
@@ -868,7 +868,7 @@
       ? null
       : (typeof rawProps.icon === "string"
         ? UI.Icon({ name: rawProps.icon, size: rawProps.iconSize || "lg" })
-        : CMSwift.ui.slot(rawProps.icon, { as: "icon" }));
+        : JSswift.ui.slot(rawProps.icon, { as: "icon" }));
 
     const eyebrowNodes = renderNamed("eyebrow", rawProps.eyebrow);
     const titleNodes = renderNamed("title", rawProps.title ?? rawProps.label);
@@ -922,7 +922,7 @@
     setPropertyProps(kpi, rawProps);
     return kpi;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Kpi = {
       signature: "UI.Kpi(...children) | UI.Kpi(props, ...children)",
@@ -964,7 +964,7 @@
       description: "Richer surface for KPIs, headline metrics, and mini dashboard summaries."
     };
   }
-  // Esempio: CMSwift.ui.Kpi({ title: "Orders", value: "342", delta: "+12%" })
+  // Esempio: JSswift.ui.Kpi({ title: "Orders", value: "342", delta: "+12%" })
 
   const overlayAnimDuration = (el, fallback = 180) => {
     const d = getComputedStyle(el).transitionDuration;

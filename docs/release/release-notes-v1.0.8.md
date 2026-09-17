@@ -1,4 +1,4 @@
-# CMSwift v1.0.8 Release Notes
+# JSswift v1.0.8 Release Notes
 
 Status:
 
@@ -30,9 +30,9 @@ register shortcuts through props such as `shortcode`, `shortcut`, `hotkey`, or
 - `Checkbox`, `Radio`, and `Toggle` can show shortcut badges and toggle through
   shortcode bindings
 - package versions bumped to `1.0.8` across:
-  - `@cmswift/core`
-  - `@cmswift/ui`
-  - `cmswift`
+  - `@jsswift/core`
+  - `@jsswift/ui`
+  - `jsswift`
 
 ## Compatibility
 

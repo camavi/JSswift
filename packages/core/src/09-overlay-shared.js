@@ -1,7 +1,7 @@
   // ===============================
   // Overlay shared helpers
   // ===============================
-  CMSwift._overlayShared = (() => {
+  JSswift._overlayShared = (() => {
     const focusSelector = [
       "button:not([disabled])",
       "[href]",
@@ -24,7 +24,7 @@
       }
 
       if (!document.body && !el) {
-        CMSwift.ready(() => {
+        JSswift.ready(() => {
           let readyEl = document.getElementById("cms-overlay-root");
           if (!readyEl) {
             readyEl = document.createElement("div");

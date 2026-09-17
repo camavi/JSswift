@@ -3,7 +3,7 @@ import path from "node:path";
 
 const ROOT = process.cwd();
 const SOURCE_DIR = path.join(ROOT, "packages", "ui", "src", "css");
-const LEGACY_SOURCE_DIR = path.join(ROOT, "pages", "_cmswift-fe", "css");
+const LEGACY_SOURCE_DIR = path.join(ROOT, "pages", "_jsswift-fe", "css");
 const DIST_DIR = path.join(ROOT, "packages", "ui", "dist", "css");
 const FALLBACK_SOURCE_DIR = DIST_DIR;
 const CSS_SOURCE_DIR = fs.existsSync(path.join(SOURCE_DIR, "base.css"))

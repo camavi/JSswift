@@ -1,27 +1,27 @@
 (() => {
 
   /* ===============================
-     CMSwift core mini (ready + dom + reactive)
+     JSswift core mini (ready + dom + reactive)
      =============================== */
 
-  window.CMSwift = window.CMSwift || {};
-  const CMSwift = window.CMSwift;
-  window._ = window.CMSwift; // legacy alias, deprecated: use `_.`
+  window.JSswift = window.JSswift || {};
+  const JSswift = window.JSswift;
+  window._ = window.JSswift; // legacy alias, deprecated: use `_.`
 
 
-  CMSwift.config = CMSwift.config || {};
-  const CMSwiftBootstrapSetting =
-    typeof globalThis !== "undefined" && globalThis.CMSwift_setting
-      ? globalThis.CMSwift_setting
+  JSswift.config = JSswift.config || {};
+  const JSswiftBootstrapSetting =
+    typeof globalThis !== "undefined" && globalThis.JSswift_setting
+      ? globalThis.JSswift_setting
       : {};
-  CMSwift.config.debug = CMSwiftBootstrapSetting.modeDev ?? false;
+  JSswift.config.debug = JSswiftBootstrapSetting.modeDev ?? false;
 
-  CMSwift.isDev = function () {
-    return CMSwift.config.debug;
+  JSswift.isDev = function () {
+    return JSswift.config.debug;
   };
 
   // UTILITIES
-  CMSwift.uiNormalizeArgs = function (args) {
+  JSswift.uiNormalizeArgs = function (args) {
     let props = {};
     let children = args;
 
@@ -38,9 +38,9 @@
     }
     return { props, children };
   }
-  CMSwift.uiSizes = ["xxs", "xs", "sm", "md", "lg", "xl", "xxl", "xxxl"];
-  CMSwift.uiColors = ["primary", "secondary", "success", "warning", "danger", "info", "light", "dark"];
-  CMSwift.meta = CMSwift.meta || {
+  JSswift.uiSizes = ["xxs", "xs", "sm", "md", "lg", "xl", "xxl", "xxxl"];
+  JSswift.uiColors = ["primary", "secondary", "success", "warning", "danger", "info", "light", "dark"];
+  JSswift.meta = JSswift.meta || {
     version: "1.0.23",
     policy: {
       sourceOfTruth: "docs/reference/core.md",
@@ -59,7 +59,7 @@
       },
       reactive: {
         description: "Core minimale signal/effect usato come base della reattivita.",
-        entrypoints: ["CMSwift.reactive.signal", "CMSwift.reactive.effect", "CMSwift.reactive.computed", "CMSwift.reactive.untracked", "CMSwift.reactive.batch"],
+        entrypoints: ["JSswift.reactive.signal", "JSswift.reactive.effect", "JSswift.reactive.computed", "JSswift.reactive.untracked", "JSswift.reactive.batch"],
         status: "milestone-2-closed",
         knownLimits: [
           "La protezione loop copre i loop sincroni per singolo effect, non ancora i cicli complessi tra effect multipli.",
@@ -69,17 +69,17 @@
       },
       rod: {
         description: "Layer reattivo di alto livello per binding DOM, model e interpolazioni.",
-        entrypoints: ["_.rod", "CMSwift.rodBind", "CMSwift.rodModel"],
+        entrypoints: ["_.rod", "JSswift.rodBind", "JSswift.rodModel"],
         status: "milestone-2-closed",
         knownLimits: [
-          "Va chiarito meglio il rapporto con CMSwift.reactive oltre al primo riallineamento strutturale.",
+          "Va chiarito meglio il rapporto con JSswift.reactive oltre al primo riallineamento strutturale.",
           "Restano casi avanzati di model/binding da esplorare oltre al primo giro coperto dai test.",
           "Il modulo e piu pulito internamente ma non e ancora il punto finale della convergenza con il renderer."
         ]
       },
       mount: {
         description: "Mount, component instances e cleanup automatico del tree DOM.",
-        entrypoints: ["CMSwift.mount", "CMSwift.component", "CMSwift.enableAutoCleanup"],
+        entrypoints: ["JSswift.mount", "JSswift.component", "JSswift.enableAutoCleanup"],
         status: "milestone-2-closed",
         knownLimits: [
           "Il lifecycle e piu pulito internamente ma resta da chiarire meglio la semantica su multi-mount e cloni.",
@@ -88,7 +88,7 @@
       },
       platform: {
         description: "Moduli applicativi nel core: overlay, store, auth, http, router, UI meta.",
-        entrypoints: ["CMSwift.overlay", "CMSwift.store", "CMSwift.plugins.auth", "CMSwift.http", "CMSwift.router", "CMSwift.ui.meta"],
+        entrypoints: ["JSswift.overlay", "JSswift.store", "JSswift.plugins.auth", "JSswift.http", "JSswift.router", "JSswift.ui.meta"],
         status: "milestone-2-closed",
         knownLimits: [
           "Il secondo giro ha ripulito i moduli interni, ma mancano ancora demo separate per modulo e una validazione piu formale di alcune superfici pubbliche.",
@@ -100,7 +100,7 @@
     }
   };
 
-  CMSwift.omit = (obj, keys) => {
+  JSswift.omit = (obj, keys) => {
     const out = {};
     const skip = new Set(keys || []);
     for (const k in (obj || {})) {
@@ -113,17 +113,17 @@
   // ===============================
   // Cleanup registry (DOM -> disposers)
   // ===============================
-  CMSwift._cleanupRegistry = new WeakMap();
-  CMSwift._registerCleanup = function (node, disposer) {
+  JSswift._cleanupRegistry = new WeakMap();
+  JSswift._registerCleanup = function (node, disposer) {
     if (!node || typeof disposer !== "function") return disposer;
-    const list = CMSwift._cleanupRegistry.get(node) || [];
+    const list = JSswift._cleanupRegistry.get(node) || [];
     list.push(disposer);
-    CMSwift._cleanupRegistry.set(node, list);
+    JSswift._cleanupRegistry.set(node, list);
     return disposer;
   };
 
 
-  CMSwift.dom = {
+  JSswift.dom = {
     q(sel, root = document) { return root.querySelector(sel); },
     qa(sel, root = document) { return Array.from(root.querySelectorAll(sel)); },
     attr(el, name, value) {
@@ -146,15 +146,15 @@
       const q = _queue.slice();
       _queue.length = 0;
       for (const fn of q) {
-        try { fn(); } catch (e) { console.error("[CMSwift.ready] error:", e); }
+        try { fn(); } catch (e) { console.error("[JSswift.ready] error:", e); }
       }
     }
 
-    CMSwift.ready = function (fn) {
+    JSswift.ready = function (fn) {
       if (typeof fn !== "function") return;
       if (_ready || document.readyState === "interactive" || document.readyState === "complete") {
         queueMicrotask(() => {
-          try { fn(); } catch (e) { console.error("[CMSwift.ready] error:", e); }
+          try { fn(); } catch (e) { console.error("[JSswift.ready] error:", e); }
         });
       } else {
         _queue.push(fn);
@@ -165,7 +165,7 @@
   })();
 
   // REACTIVE core
-  CMSwift.reactive = (() => {
+  JSswift.reactive = (() => {
     let CURRENT_EFFECT = null;
     const EFFECT_STACK = [];
     const MAX_SYNC_EFFECT_RERUNS = 100;
@@ -179,7 +179,7 @@
       const mode = options?.flush;
       if (mode == null || mode === "sync") return "sync";
       if (mode === "microtask") return "microtask";
-      throw new Error("CMSwift.reactive.batch: options.flush must be 'sync' or 'microtask'");
+      throw new Error("JSswift.reactive.batch: options.flush must be 'sync' or 'microtask'");
     }
 
     function flushPendingRunners() {
@@ -224,7 +224,7 @@
       if (typeof record._cleanup === "function") {
         const cleanup = record._cleanup;
         record._cleanup = null;
-        try { cleanup(); } catch (e) { console.error("[CMSwift.reactive.effect] cleanup error:", e); }
+        try { cleanup(); } catch (e) { console.error("[JSswift.reactive.effect] cleanup error:", e); }
       }
     }
 
@@ -283,7 +283,7 @@
 
             if (reruns >= MAX_SYNC_EFFECT_RERUNS) {
               record._queued = false;
-              console.warn("[CMSwift.reactive.effect] loop guard triggered: too many synchronous reruns", {
+              console.warn("[JSswift.reactive.effect] loop guard triggered: too many synchronous reruns", {
                 max: MAX_SYNC_EFFECT_RERUNS,
                 effect: fn.name || "anonymous"
               });
@@ -330,7 +330,7 @@
     }
 
     function computed(fn) {
-      if (typeof fn !== "function") throw new Error("CMSwift.reactive.computed: fn must be a function");
+      if (typeof fn !== "function") throw new Error("JSswift.reactive.computed: fn must be a function");
 
       const [get, set, disposeSignal] = signal(undefined);
       const disposeEffect = effect(() => {
@@ -349,7 +349,7 @@
     }
 
     function untracked(fn) {
-      if (typeof fn !== "function") throw new Error("CMSwift.reactive.untracked: fn must be a function");
+      if (typeof fn !== "function") throw new Error("JSswift.reactive.untracked: fn must be a function");
 
       const prevEffect = CURRENT_EFFECT;
       CURRENT_EFFECT = null;
@@ -361,7 +361,7 @@
     }
 
     function batch(fn, options) {
-      if (typeof fn !== "function") throw new Error("CMSwift.reactive.batch: fn must be a function");
+      if (typeof fn !== "function") throw new Error("JSswift.reactive.batch: fn must be a function");
       const flushMode = normalizeFlushMode(options);
 
       if (BATCH_DEPTH === 0) {
@@ -394,7 +394,7 @@
   // ===============================
   // Overlay shared helpers
   // ===============================
-  CMSwift._overlayShared = (() => {
+  JSswift._overlayShared = (() => {
     const focusSelector = [
       "button:not([disabled])",
       "[href]",
@@ -417,7 +417,7 @@
       }
 
       if (!document.body && !el) {
-        CMSwift.ready(() => {
+        JSswift.ready(() => {
           let readyEl = document.getElementById("cms-overlay-root");
           if (!readyEl) {
             readyEl = document.createElement("div");
@@ -553,7 +553,7 @@
       applyAnchoredPosition
     };
   })();
-  CMSwift.overlay = (() => {
+  JSswift.overlay = (() => {
     let seq = 0;
     const stack = new Map(); // id -> entry
     let root = null;
@@ -562,7 +562,7 @@
       focusFirst,
       trapFocus,
       applyAnchoredPosition
-    } = CMSwift._overlayShared;
+    } = JSswift._overlayShared;
     const ensureRoot = () => ensureOverlayRoot(() => root, (nextRoot) => {
       root = nextRoot;
     });
@@ -630,7 +630,7 @@
 
       // mount content
       const node = (typeof content === "function") ? content({ close: () => close(id) }) : content;
-      const normalized = CMSwift.ui.slot(node);
+      const normalized = JSswift.ui.slot(node);
       if (Array.isArray(normalized)) normalized.forEach(n => n && panel.appendChild(n));
       else if (normalized) panel.appendChild(normalized);
 
@@ -1265,21 +1265,21 @@
       });
     };
 
-    CMSwift._registerCleanup(el, detach);
+    JSswift._registerCleanup(el, detach);
 
     if (isRod(value)) {
-      const stop = CMSwift.reactive.effect(() => {
+      const stop = JSswift.reactive.effect(() => {
         apply(value.value);
       });
-      CMSwift._registerCleanup(el, stop);
+      JSswift._registerCleanup(el, stop);
       return;
     }
 
     if (hasDynamicEventValue(value, isRod)) {
-      const stop = CMSwift.reactive.effect(() => {
+      const stop = JSswift.reactive.effect(() => {
         apply(value);
       });
-      CMSwift._registerCleanup(el, stop);
+      JSswift._registerCleanup(el, stop);
       return;
     }
 
@@ -1297,8 +1297,8 @@
 
     function createRodTextNode(rod) {
       const t = document.createTextNode("");
-      const unbind = CMSwift.rodBind(t, rod);
-      CMSwift._registerCleanup(t, unbind);
+      const unbind = JSswift.rodBind(t, rod);
+      JSswift._registerCleanup(t, unbind);
       return t;
     }
 
@@ -1309,10 +1309,10 @@
     function appendInterpolatedText(segments) {
       const t = document.createTextNode("");
       el.appendChild(t);
-      const stop = CMSwift.reactive.effect(() => {
+      const stop = JSswift.reactive.effect(() => {
         t.textContent = renderInterpolatedSegments(segments);
       });
-      CMSwift._registerCleanup(t, stop);
+      JSswift._registerCleanup(t, stop);
     }
 
     function normalizeDynamicChildNodes(value) {
@@ -1351,7 +1351,7 @@
       el.appendChild(anchor);
       let currentNodes = [];
 
-      const stop = CMSwift.reactive.effect(() => {
+      const stop = JSswift.reactive.effect(() => {
         currentNodes.forEach((node) => {
           cleanupNodeTree(node);
           if (node.parentNode) node.parentNode.removeChild(node);
@@ -1370,7 +1370,7 @@
         currentNodes = nextNodes;
       });
 
-      CMSwift._registerCleanup(anchor, () => {
+      JSswift._registerCleanup(anchor, () => {
         stop();
         currentNodes.forEach((node) => cleanupNodeTree(node));
         currentNodes = [];
@@ -1493,7 +1493,7 @@
     }
   }
 /* ===============================
-   _h hyperscript (usa CMSwift.reactive.effect)
+   _h hyperscript (usa JSswift.reactive.effect)
    =============================== */
 
 const SVG_NS = "http://www.w3.org/2000/svg";
@@ -1557,8 +1557,8 @@ function createElement(tag, ...args) {
   } = domBridge;
 
   function registerNodeEffect(run) {
-    const stop = CMSwift.reactive.effect(run);
-    CMSwift._registerCleanup(el, stop);
+    const stop = JSswift.reactive.effect(run);
+    JSswift._registerCleanup(el, stop);
     return stop;
   }
 
@@ -1608,7 +1608,7 @@ function createElement(tag, ...args) {
     };
 
     control.addEventListener(eventName, onValueChange);
-    CMSwift._registerCleanup(control, () => {
+    JSswift._registerCleanup(control, () => {
       control.removeEventListener(eventName, onValueChange);
     });
   }
@@ -1625,7 +1625,7 @@ function createElement(tag, ...args) {
     };
 
     control.addEventListener("change", onCheckedChange);
-    CMSwift._registerCleanup(control, () => {
+    JSswift._registerCleanup(control, () => {
       control.removeEventListener("change", onCheckedChange);
     });
   }
@@ -1646,7 +1646,7 @@ function createElement(tag, ...args) {
     };
 
     control.addEventListener("change", onCheckedChange);
-    CMSwift._registerCleanup(control, () => {
+    JSswift._registerCleanup(control, () => {
       control.removeEventListener("change", onCheckedChange);
     });
   }
@@ -1674,7 +1674,7 @@ function createElement(tag, ...args) {
     };
 
     control.addEventListener("change", onFilesChange);
-    CMSwift._registerCleanup(control, () => {
+    JSswift._registerCleanup(control, () => {
       control.removeEventListener("change", onFilesChange);
     });
   }
@@ -1711,7 +1711,7 @@ function createElement(tag, ...args) {
     };
 
     control.addEventListener("change", onValueChange);
-    CMSwift._registerCleanup(control, () => {
+    JSswift._registerCleanup(control, () => {
       control.removeEventListener("change", onValueChange);
     });
   }
@@ -1735,7 +1735,7 @@ function createElement(tag, ...args) {
     };
 
     queueMicrotask(attachParent);
-    CMSwift._registerCleanup(optionEl, () => {
+    JSswift._registerCleanup(optionEl, () => {
       parentSelect?.removeEventListener("change", onParentChange);
     });
   }
@@ -1820,8 +1820,8 @@ function createElement(tag, ...args) {
       return;
     }
     if (isRod(value)) {
-      const unbind = CMSwift.rodBind(el, value, { key });
-      CMSwift._registerCleanup(el, unbind);
+      const unbind = JSswift.rodBind(el, value, { key });
+      JSswift._registerCleanup(el, unbind);
       return;
     }
     setProp(key, value);
@@ -2042,7 +2042,7 @@ _.dynamic = function (renderFn) {
 
   let current = null;
 
-  CMSwift.reactive.effect(() => {
+  JSswift.reactive.effect(() => {
     const next = renderFn();
 
     // rimuovi current
@@ -2076,9 +2076,9 @@ _.dynamic = function (renderFn) {
     const queue = new Set();
     function flush() {
       queued = false;
-      CMSwift.debug?.inc("rodFlushes");
-      CMSwift.perf?.inc("rodFlushes");
-      CMSwift.perf?.mark("rod:flush");
+      JSswift.debug?.inc("rodFlushes");
+      JSswift.perf?.inc("rodFlushes");
+      JSswift.perf?.mark("rod:flush");
       const jobs = Array.from(queue);
       queue.clear();
       for (const fn of jobs) {
@@ -2173,7 +2173,7 @@ _.dynamic = function (renderFn) {
         if (this._disposed) return;
         const __t0 = performance.now();
 
-        CMSwift.perf?.inc("rodNotifies");
+        JSswift.perf?.inc("rodNotifies");
 
         this._bindings = this._bindings.filter(b => {
           const el = b.el;
@@ -2191,8 +2191,8 @@ _.dynamic = function (renderFn) {
         for (const fn of this._actions) {
           try { fn(this.value); } catch (e) { console.error("[rod] action error:", e); }
         }
-        CMSwift.debug?.inc("rodNotifies");
-        CMSwift.perf?.tick("rod:notify", performance.now() - __t0, {
+        JSswift.debug?.inc("rodNotifies");
+        JSswift.perf?.tick("rod:notify", performance.now() - __t0, {
           bindings: this._bindings?.length || 0,
           actions: this._actions?.length || 0
         });
@@ -2218,8 +2218,8 @@ _.dynamic = function (renderFn) {
     let _set = null;
     let _disposeSignal = null;
 
-    if (CMSwift?.reactive?.signal) {
-      [_get, _set, _disposeSignal] = CMSwift.reactive.signal(_val);
+    if (JSswift?.reactive?.signal) {
+      [_get, _set, _disposeSignal] = JSswift.reactive.signal(_val);
       if (_disposeSignal && typeof obj.onDispose === "function") {
         obj.onDispose(_disposeSignal);
       }
@@ -2285,46 +2285,46 @@ _.dynamic = function (renderFn) {
     const comp = rodCreateComponent(data);
     rodMakeReactive(comp, key);
 
-    CMSwift.rod._all = CMSwift.rod._all || new Set();
-    CMSwift.rod._all.add(comp);
+    JSswift.rod._all = JSswift.rod._all || new Set();
+    JSswift.rod._all.add(comp);
 
     if (typeof comp.onDispose === "function") {
-      comp.onDispose(() => CMSwift.rod._all.delete(comp));
+      comp.onDispose(() => JSswift.rod._all.delete(comp));
     }
     return comp;
   }; // legacy alias, deprecated: use `_.rod`
 
-  CMSwift.rodBind = function (el, react, config = { key: "auto" }) {
-    CMSwift.debug?.inc("rodBinds");
+  JSswift.rodBind = function (el, react, config = { key: "auto" }) {
+    JSswift.debug?.inc("rodBinds");
 
     if (!el) {
-      CMSwift.debug?.inc("rodBindNull");
-      CMSwift.debug?.warn("rodBind: target element è null/undefined", config);
+      JSswift.debug?.inc("rodBindNull");
+      JSswift.debug?.warn("rodBind: target element è null/undefined", config);
       return () => { };
     }
     if (!react || react.type !== "rod") {
-      throw new Error("CMSwift.rodBind: react must be a rod object");
+      throw new Error("JSswift.rodBind: react must be a rod object");
     }
     return react._bind(el, config);
   };
 
 
-  CMSwift.rodFromSignal = function (get, set) {
+  JSswift.rodFromSignal = function (get, set) {
     const r = _.rod(get());
     let syncing = false;
 
-    const stopRodToSignal = CMSwift.reactive.effect(() => {
+    const stopRodToSignal = JSswift.reactive.effect(() => {
       const v = r.value;
-      const currentSignal = CMSwift.reactive.untracked(() => get());
+      const currentSignal = JSswift.reactive.untracked(() => get());
       if (syncing) return;
       if (currentSignal === v) return;
       syncing = true;
       try { set(v); } finally { syncing = false; }
     });
 
-    const stopEffect = CMSwift.reactive.effect(() => {
+    const stopEffect = JSswift.reactive.effect(() => {
       const v = get();
-      const currentRod = CMSwift.reactive.untracked(() => r.value);
+      const currentRod = JSswift.reactive.untracked(() => r.value);
       if (currentRod === v) return;
       syncing = true;
       try { r._setSilent(v); } finally { syncing = false; }
@@ -2365,9 +2365,9 @@ _.dynamic = function (renderFn) {
     return null;
   }
 
-  CMSwift.rodModel = function (target, rodObj, opts = {}) {
+  JSswift.rodModel = function (target, rodObj, opts = {}) {
     if (!rodObj || rodObj.type !== "rod") {
-      throw new Error("[CMSwift.rodModel] rodObj deve essere un rod");
+      throw new Error("[JSswift.rodModel] rodObj deve essere un rod");
     }
 
     // Supporta singolo elemento o lista (radio)
@@ -2490,9 +2490,9 @@ _.dynamic = function (renderFn) {
 
 
   // input <-> signal (sugar)
-  CMSwift.signalModel = function (inputEl, get, set, opts = {}) {
-    const r = CMSwift.rodFromSignal(get, set);
-    return CMSwift.rodModel(inputEl, r, opts);
+  JSswift.signalModel = function (inputEl, get, set, opts = {}) {
+    const r = JSswift.rodFromSignal(get, set);
+    return JSswift.rodModel(inputEl, r, opts);
   };
   // ===============================
   // Lifecycle helpers
@@ -2501,12 +2501,12 @@ _.dynamic = function (renderFn) {
   function cleanupNodeTree(node) {
     if (!node) return;
 
-    const disposers = CMSwift._cleanupRegistry.get(node);
+    const disposers = JSswift._cleanupRegistry.get(node);
     if (disposers) {
       for (const d of disposers) {
         try { d(); } catch (e) { console.error("[cleanup] error:", e); }
       }
-      CMSwift._cleanupRegistry.delete(node);
+      JSswift._cleanupRegistry.delete(node);
     }
 
     if (node.childNodes && node.childNodes.length) {
@@ -2517,7 +2517,7 @@ _.dynamic = function (renderFn) {
   }
 
   function toMountTargets(target) {
-    const toEl = (t) => (typeof t === "string" ? CMSwift.dom.q(t) : t);
+    const toEl = (t) => (typeof t === "string" ? JSswift.dom.q(t) : t);
     return Array.isArray(target) ? target.map(toEl).filter(Boolean) : [toEl(target)].filter(Boolean);
   }
 
@@ -2554,14 +2554,14 @@ _.dynamic = function (renderFn) {
         return;
       }
 
-      console.warn("[CMSwift.mount] contenuto non supportato:", value);
+      console.warn("[JSswift.mount] contenuto non supportato:", value);
     };
 
     add(content);
     return { nodes, disposers };
   }
 
-  function createOnceDisposer(disposers = [], label = "[CMSwift.mount] dispose error:") {
+  function createOnceDisposer(disposers = [], label = "[JSswift.mount] dispose error:") {
     let done = false;
     return () => {
       if (done) return;
@@ -2579,24 +2579,24 @@ _.dynamic = function (renderFn) {
     ], "[component] dispose error:");
   }
   // ===============================
-  // CMSwift.mount (Node | array | string | function)
+  // JSswift.mount (Node | array | string | function)
   // ===============================
   // ===============================
-  // CMSwift.mount (target singolo o array) + component cleanup
+  // JSswift.mount (target singolo o array) + component cleanup
   // content può essere:
   // - Node | array | string/number
   // - function -> uno dei precedenti
   // - { node, dispose }
   // - function -> { node, dispose }  (component instance)
   // ===============================
-  CMSwift.mount = function (target, content, opts = {}) {
+  JSswift.mount = function (target, content, opts = {}) {
     const targets = toMountTargets(target);
 
     const clear = opts.clear ?? true;
     const isMulti = targets.length > 1;
 
     if (targets.length === 0) {
-      console.warn("[CMSwift.mount] nessun target valido:", target);
+      console.warn("[JSswift.mount] nessun target valido:", target);
       return () => { };
     }
 
@@ -2619,7 +2619,7 @@ _.dynamic = function (renderFn) {
       if (isMulti && typeof content !== "function") {
         nodes = rawNodes.map(n => n.cloneNode(true));
         if (disposers.length) {
-          console.warn("[CMSwift.mount] multi-target con dispose: usa content come function per istanze separate.");
+          console.warn("[JSswift.mount] multi-target con dispose: usa content come function per istanze separate.");
         }
       }
 
@@ -2632,7 +2632,7 @@ _.dynamic = function (renderFn) {
       // registra cleanup automatico per ogni nodo root montato
       for (const n of nodes) {
         if (!n || !n.nodeType) continue;
-        CMSwift._registerCleanup(n, disposeMounted);
+        JSswift._registerCleanup(n, disposeMounted);
       }
     }
 
@@ -2653,10 +2653,10 @@ _.dynamic = function (renderFn) {
   };
 
   // ===============================
-  // CMSwift.component (istanza con cleanup)
+  // JSswift.component (istanza con cleanup)
   // ===============================
-  CMSwift.component = function (renderFn) {
-    if (typeof renderFn !== "function") throw new Error("CMSwift.component: renderFn must be a function");
+  JSswift.component = function (renderFn) {
+    if (typeof renderFn !== "function") throw new Error("JSswift.component: renderFn must be a function");
 
     // ritorna una factory: props -> { node(s), dispose }
     return function ComponentInstance(props = {}) {
@@ -2690,9 +2690,9 @@ _.dynamic = function (renderFn) {
   // ===============================
   // Auto cleanup observer (opt-in)
   // ===============================
-  CMSwift.enableAutoCleanup = function () {
-    if (CMSwift._autoCleanupEnabled) return;
-    CMSwift._autoCleanupEnabled = true;
+  JSswift.enableAutoCleanup = function () {
+    if (JSswift._autoCleanupEnabled) return;
+    JSswift._autoCleanupEnabled = true;
 
     const observer = new MutationObserver((mutations) => {
       for (const m of mutations) {
@@ -2707,12 +2707,12 @@ _.dynamic = function (renderFn) {
       subtree: true
     });
 
-    CMSwift._cleanupObserver = observer;
+    JSswift._cleanupObserver = observer;
   };
   // ===============================
   // Debug utilities
   // ===============================
-  CMSwift.debug = (() => {
+  JSswift.debug = (() => {
     const counters = {
       rodFlushes: 0,
       rodNotifies: 0,
@@ -2722,12 +2722,12 @@ _.dynamic = function (renderFn) {
     };
 
     function enabled() {
-      return !!CMSwift.config.debug;
+      return !!JSswift.config.debug;
     }
 
-    function log(...a) { if (enabled()) console.log("[CMSwift]", ...a); }
-    function warn(...a) { if (enabled()) console.warn("[CMSwift]", ...a); }
-    function error(...a) { console.error("[CMSwift]", ...a); } // error sempre
+    function log(...a) { if (enabled()) console.log("[JSswift]", ...a); }
+    function warn(...a) { if (enabled()) console.warn("[JSswift]", ...a); }
+    function error(...a) { console.error("[JSswift]", ...a); } // error sempre
 
     function inc(name, by = 1) {
       if (!counters[name]) counters[name] = 0;
@@ -2749,7 +2749,7 @@ _.dynamic = function (renderFn) {
   // ===============================
   // Performance DevTools
   // ===============================
-  CMSwift.perf = (() => {
+  JSswift.perf = (() => {
     let enabled = false;
 
     const counters = {
@@ -2795,9 +2795,9 @@ _.dynamic = function (renderFn) {
 
     function patchEffect() {
       if (_origEffect) return;
-      _origEffect = CMSwift.reactive.effect;
+      _origEffect = JSswift.reactive.effect;
 
-      CMSwift.reactive.effect = function (fn, meta) {
+      JSswift.reactive.effect = function (fn, meta) {
         // meta opzionale (string/object) per identificare
         const wrapped = (...args) => {
           const t0 = now();
@@ -2820,7 +2820,7 @@ _.dynamic = function (renderFn) {
 
     function unpatchEffect() {
       if (_origEffect) {
-        CMSwift.reactive.effect = _origEffect;
+        JSswift.reactive.effect = _origEffect;
         _origEffect = null;
       }
     }
@@ -2888,11 +2888,11 @@ _.dynamic = function (renderFn) {
   // ===============================
   // Rod DevTools micro
   // ===============================
-  CMSwift.rod = CMSwift.rod || {};
+  JSswift.rod = JSswift.rod || {};
 
-  CMSwift.rod.inspect = function (r, label = "rod") {
+  JSswift.rod.inspect = function (r, label = "rod") {
     if (!r || r.type !== "rod") {
-      console.warn("[CMSwift.rod.inspect] non è un rod:", r);
+      console.warn("[JSswift.rod.inspect] non è un rod:", r);
       return null;
     }
 
@@ -2912,8 +2912,8 @@ _.dynamic = function (renderFn) {
       disposed: !!r._disposed
     };
 
-    if (CMSwift.config.debug) {
-      console.groupCollapsed(`[CMSwift.rod.inspect] ${label}`);
+    if (JSswift.config.debug) {
+      console.groupCollapsed(`[JSswift.rod.inspect] ${label}`);
       console.log(info);
       console.groupEnd();
     } else {
@@ -2923,15 +2923,15 @@ _.dynamic = function (renderFn) {
     return info;
   };
 
-  CMSwift.rod.inspectAll = function () {
-    const all = CMSwift.rod._all ? Array.from(CMSwift.rod._all) : [];
-    all.forEach((r, i) => CMSwift.rod.inspect(r, `rod#${i + 1}`));
+  JSswift.rod.inspectAll = function () {
+    const all = JSswift.rod._all ? Array.from(JSswift.rod._all) : [];
+    all.forEach((r, i) => JSswift.rod.inspect(r, `rod#${i + 1}`));
     return all.length;
   };
   // ===============================
   // Store shared helpers
   // ===============================
-  CMSwift._storeShared = (() => {
+  JSswift._storeShared = (() => {
     function scopeId(scope) {
       return `${scope.storage}::${scope.prefix}`;
     }
@@ -2989,11 +2989,11 @@ _.dynamic = function (renderFn) {
     };
   })();
   // ===============================
-  // CMSwift.store v1 (persisted reactive state)
+  // JSswift.store v1 (persisted reactive state)
   // ===============================
-  CMSwift.store = (() => {
+  JSswift.store = (() => {
     const config = {
-      prefix: "CMSwift:",
+      prefix: "JSswift:",
       storage: "local", // "local" | "session"
       syncTabs: true,
       writeDelay: 0, // ms (0 = microtask)
@@ -3009,7 +3009,7 @@ _.dynamic = function (renderFn) {
       safeParse,
       safeStringify,
       clearScopedMapEntries
-    } = CMSwift._storeShared;
+    } = JSswift._storeShared;
     const {
       getScope,
       getStorage,
@@ -3023,8 +3023,8 @@ _.dynamic = function (renderFn) {
       if (!set) return;
       for (const fn of set) {
         try {
-          if (CMSwift.reactive?.untracked) {
-            CMSwift.reactive.untracked(() => fn(value));
+          if (JSswift.reactive?.untracked) {
+            JSswift.reactive.untracked(() => fn(value));
           } else {
             fn(value);
           }
@@ -3126,10 +3126,10 @@ _.dynamic = function (renderFn) {
       });
 
       const hydrated = get(key, initial, scope);
-      const [getSig, setSig, disposeSignal] = CMSwift.reactive.signal(hydrated);
+      const [getSig, setSig, disposeSignal] = JSswift.reactive.signal(hydrated);
 
       // quando cambia signal -> store, deve restare nello scope corretto
-      const stopEffect = CMSwift.reactive.effect(() => {
+      const stopEffect = JSswift.reactive.effect(() => {
         const v = getSig();
         set(key, v, scope);
       });
@@ -3194,9 +3194,9 @@ _.dynamic = function (renderFn) {
   // ===============================
   // 1) store.computed (derivato, non persistito)
   // ===============================
-  CMSwift.store.computed = function (fn) {
+  JSswift.store.computed = function (fn) {
     if (typeof fn !== "function") throw new Error("store.computed: fn must be a function");
-    return CMSwift.reactive.computed(fn);
+    return JSswift.reactive.computed(fn);
   };
 
 
@@ -3206,9 +3206,9 @@ _.dynamic = function (renderFn) {
   // targetVersion: numero intero (es. 3)
   // steps: object { 0: fn, 1: fn, 2: fn } dove la chiave è la versione "from"
   //   step[v] porta da v -> v+1
-  CMSwift.store.migrate = function (targetVersion, steps, opts = {}) {
+  JSswift.store.migrate = function (targetVersion, steps, opts = {}) {
     const versionKey = opts.versionKey ?? "__version";
-    const from = Number(CMSwift.store.get(versionKey, 0) ?? 0);
+    const from = Number(JSswift.store.get(versionKey, 0) ?? 0);
     const to = Number(targetVersion ?? 0);
 
     if (!Number.isFinite(to) || to < 0) throw new Error("store.migrate: targetVersion non valido");
@@ -3220,7 +3220,7 @@ _.dynamic = function (renderFn) {
       const step = steps?.[v];
       if (typeof step === "function") {
         try {
-          step(CMSwift.store);
+          step(JSswift.store);
         } catch (e) {
           console.error("[store.migrate] step error at version", v, e);
           // puoi scegliere se interrompere qui: io continuo ma è discutibile.
@@ -3229,7 +3229,7 @@ _.dynamic = function (renderFn) {
       }
       applied++;
       // salva versione raggiunta (più sicuro step-by-step)
-      CMSwift.store.set(versionKey, v + 1);
+      JSswift.store.set(versionKey, v + 1);
     }
 
     return { from, to, applied };
@@ -3243,20 +3243,20 @@ _.dynamic = function (renderFn) {
   // key: string per storage
   // initial: valore iniziale se non presente
   // opts: { storage, prefix, event, parse, format }
-  CMSwift.store.model = function (elOrList, key, initial, opts = {}) {
+  JSswift.store.model = function (elOrList, key, initial, opts = {}) {
     if (typeof key !== "string" || !key) throw new Error("store.model: key deve essere una stringa non vuota");
 
     // signal persistente
-    const [get, set, disposeSignal] = CMSwift.store.signal(key, initial, {
+    const [get, set, disposeSignal] = JSswift.store.signal(key, initial, {
       storage: opts.storage,
       prefix: opts.prefix,
     });
 
     // bridge signal <-> rod
-    const r = CMSwift.rodFromSignal(get, set);
+    const r = JSswift.rodFromSignal(get, set);
 
     // two-way con elementi form (checkbox/radio/select/text/number)
-    const unbindModel = CMSwift.rodModel(elOrList, r, {
+    const unbindModel = JSswift.rodModel(elOrList, r, {
       event: opts.event,
       parse: opts.parse,
       format: opts.format
@@ -3277,7 +3277,7 @@ _.dynamic = function (renderFn) {
   // key: string storage key
   // initial: valore iniziale
   // opts: { storage, prefix, event, parse, format }
-  CMSwift.store.bind = function (selectorOrEl, key, initial, opts = {}) {
+  JSswift.store.bind = function (selectorOrEl, key, initial, opts = {}) {
     let target = selectorOrEl;
 
     // risolve selector string
@@ -3286,25 +3286,25 @@ _.dynamic = function (renderFn) {
       if (selectorOrEl.includes("[") || selectorOrEl.includes(" ")) {
         target = document.querySelectorAll(selectorOrEl);
       } else {
-        target = CMSwift.dom.q(selectorOrEl);
+        target = JSswift.dom.q(selectorOrEl);
       }
     }
 
     if (!target) {
-      if (CMSwift.config?.debug) {
+      if (JSswift.config?.debug) {
         console.warn("[store.bind] target non trovato:", selectorOrEl);
       }
       return () => { };
     }
 
-    return CMSwift.store.model(target, key, initial, opts);
+    return JSswift.store.model(target, key, initial, opts);
   };
 
   // ===============================
   // store.bindAll (form -> store)
   // ===============================
-  CMSwift.store.bindAll = function (formEl, schema = {}, opts = {}) {
-    if (typeof formEl === "string") formEl = CMSwift.dom.q(formEl);
+  JSswift.store.bindAll = function (formEl, schema = {}, opts = {}) {
+    if (typeof formEl === "string") formEl = JSswift.dom.q(formEl);
     if (!formEl || !formEl.querySelectorAll) {
       console.warn("[store.bindAll] form non valido:", formEl);
       return () => { };
@@ -3316,7 +3316,7 @@ _.dynamic = function (renderFn) {
       const els = formEl.querySelectorAll(`[name="${name}"]`);
       if (!els.length) continue;
 
-      const unbind = CMSwift.store.model(
+      const unbind = JSswift.store.model(
         els.length === 1 ? els[0] : els,
         name,
         initial,
@@ -3331,19 +3331,19 @@ _.dynamic = function (renderFn) {
   // ===============================
   // store.inspect (DevTools)
   // ===============================
-  CMSwift.store.inspect = function () {
+  JSswift.store.inspect = function () {
     const info = {
-      ...CMSwift.store.stats(),
+      ...JSswift.store.stats(),
       keys: Array.from(
         (function () {
-          const st = CMSwift.store.stats().storage === "session"
+          const st = JSswift.store.stats().storage === "session"
             ? sessionStorage
             : localStorage;
           const out = [];
           for (let i = 0; i < st.length; i++) {
             const k = st.key(i);
-            if (k && k.startsWith(CMSwift.store.stats().prefix)) {
-              out.push(k.replace(CMSwift.store.stats().prefix, ""));
+            if (k && k.startsWith(JSswift.store.stats().prefix)) {
+              out.push(k.replace(JSswift.store.stats().prefix, ""));
             }
           }
           return out;
@@ -3351,7 +3351,7 @@ _.dynamic = function (renderFn) {
       )
     };
 
-    console.groupCollapsed("[CMSwift.store.inspect]");
+    console.groupCollapsed("[JSswift.store.inspect]");
     console.table(info.keys);
     console.log(info);
     console.groupEnd();
@@ -3362,10 +3362,10 @@ _.dynamic = function (renderFn) {
   // ===============================
   // store.autoForm (autosave + restore)
   // ===============================
-  CMSwift.store.autoForm = function (formEl, schema = {}, opts = {}) {
-    const unbind = CMSwift.store.bindAll(formEl, schema, opts);
+  JSswift.store.autoForm = function (formEl, schema = {}, opts = {}) {
+    const unbind = JSswift.store.bindAll(formEl, schema, opts);
 
-    if (CMSwift.config?.debug) {
+    if (JSswift.config?.debug) {
       console.log("[store.autoForm] autosave attivo:", schema);
     }
 
@@ -3375,8 +3375,8 @@ _.dynamic = function (renderFn) {
   // ===============================
   // useStore (hook-style, component-aware)
   // ===============================
-  CMSwift.useStore = function (key, initial, ctx, opts = {}) {
-    const [get, set, dispose] = CMSwift.store.signal(key, initial, opts);
+  JSswift.useStore = function (key, initial, ctx, opts = {}) {
+    const [get, set, dispose] = JSswift.store.signal(key, initial, opts);
 
     // se siamo dentro un component, cleanup automatico
     if (ctx && typeof ctx.onDispose === "function" && typeof dispose === "function") {
@@ -3386,51 +3386,51 @@ _.dynamic = function (renderFn) {
     return [get, set];
   };
   // ===============================
-  // Plugin system (CMSwift.usePlugin)
+  // Plugin system (JSswift.usePlugin)
   // ===============================
-  CMSwift._plugins = new Set();
+  JSswift._plugins = new Set();
 
-  CMSwift.usePlugin = function (plugin, options) {
+  JSswift.usePlugin = function (plugin, options) {
     if (!plugin) return;
 
     // evita doppia installazione
-    if (CMSwift._plugins.has(plugin)) {
-      if (CMSwift.config?.debug) {
-        console.warn("[CMSwift.usePlugin] plugin già installato:", plugin.name || plugin);
+    if (JSswift._plugins.has(plugin)) {
+      if (JSswift.config?.debug) {
+        console.warn("[JSswift.usePlugin] plugin già installato:", plugin.name || plugin);
       }
       return;
     }
 
     // funzione-plugin
     if (typeof plugin === "function") {
-      plugin(CMSwift, options);
-      CMSwift._plugins.add(plugin);
+      plugin(JSswift, options);
+      JSswift._plugins.add(plugin);
       return;
     }
 
     // oggetto-plugin { install(app, opts) }
     if (plugin && typeof plugin.install === "function") {
-      plugin.install(CMSwift, options);
-      CMSwift._plugins.add(plugin);
+      plugin.install(JSswift, options);
+      JSswift._plugins.add(plugin);
       return;
     }
 
-    console.warn("[CMSwift.usePlugin] plugin non valido:", plugin);
+    console.warn("[JSswift.usePlugin] plugin non valido:", plugin);
   };
 
   //-- RESTA come esempio --
-  CMSwift.plugins = CMSwift.plugins || {};
-  CMSwift.plugins.debug = {
+  JSswift.plugins = JSswift.plugins || {};
+  JSswift.plugins.debug = {
     install(app) {
       app.config.debug = true;
-      console.log("[CMSwift] Debug mode ON");
+      console.log("[JSswift] Debug mode ON");
     }
   };
 
   // ===============================
   // Plugin Forms (validation + UX)
   // ===============================
-  CMSwift.plugins.forms = {
+  JSswift.plugins.forms = {
     install(app) {
       const forms = {};
 
@@ -3551,7 +3551,7 @@ _.dynamic = function (renderFn) {
   // ===============================
   // Auth shared helpers
   // ===============================
-  CMSwift._authShared = (() => {
+  JSswift._authShared = (() => {
     function createPermissionApi(getUser) {
       const roles = () => getUser()?.roles || [];
       const perms = () => getUser()?.permissions || [];
@@ -3653,7 +3653,7 @@ _.dynamic = function (renderFn) {
           }
         };
 
-        console.groupCollapsed(`[CMSwift.auth.inspect] ${label}`);
+        console.groupCollapsed(`[JSswift.auth.inspect] ${label}`);
         console.log("status:", status());
         console.log(info);
         if (expiresInMs != null) {
@@ -3667,7 +3667,7 @@ _.dynamic = function (renderFn) {
 
       function trace(on = true) {
         tracing = !!on;
-        console.log("[CMSwift.auth.trace]", tracing ? "ON" : "OFF");
+        console.log("[JSswift.auth.trace]", tracing ? "ON" : "OFF");
       }
 
       if (typeof auth.fetch === "function" && !auth._fetchWrapped) {
@@ -3701,13 +3701,13 @@ _.dynamic = function (renderFn) {
   // Auth Plugin + Roles / Permissions
   // Auth Plugin (async + refresh token)
   // ===============================
-  CMSwift.plugins.auth = {
+  JSswift.plugins.auth = {
     install(app, opts = {}) {
       const {
         createPermissionApi,
         matchesProtectedPath,
         attachDevTools
-      } = CMSwift._authShared;
+      } = JSswift._authShared;
       const options = {
         key: opts.key || "auth",
         loginRoute: opts.loginRoute || "/login",
@@ -3864,15 +3864,15 @@ _.dynamic = function (renderFn) {
         return app.auth;
       };
 
-      attachDevTools(CMSwift, app.auth);
+      attachDevTools(JSswift, app.auth);
     }
   };
   // ===============================
   // HTTP shared helpers
   // ===============================
-  CMSwift._httpShared = (() => {
-    function createReactiveState(CMSwift) {
-      const reactive = CMSwift.reactive;
+  JSswift._httpShared = (() => {
+    function createReactiveState(JSswift) {
+      const reactive = JSswift.reactive;
       const [getInFlight, setInFlight] = reactive.signal(0);
       const [getStatus, setStatus] = reactive.signal("idle");
       const [getLastRequest, setLastRequest] = reactive.signal(null);
@@ -3935,8 +3935,8 @@ _.dynamic = function (renderFn) {
       const state = {
         inFlight: getInFlight,
         status: getStatus,
-        isLoading: CMSwift.store?.computed
-          ? CMSwift.store.computed(() => getInFlight() > 0)
+        isLoading: JSswift.store?.computed
+          ? JSswift.store.computed(() => getInFlight() > 0)
           : () => getInFlight() > 0,
         lastRequest: getLastRequest,
         lastResponse: getLastResponse,
@@ -4113,20 +4113,20 @@ _.dynamic = function (renderFn) {
     runHooks,
     wrapResponse,
     withJSON
-  } = CMSwift._httpShared;
-  const CMSwiftHttpSetting =
-    typeof globalThis !== "undefined" && globalThis.CMSwift_setting
-      ? globalThis.CMSwift_setting
+  } = JSswift._httpShared;
+  const JSswiftHttpSetting =
+    typeof globalThis !== "undefined" && globalThis.JSswift_setting
+      ? globalThis.JSswift_setting
       : {};
   const configHTTP = {
-    baseURL: CMSwiftHttpSetting.http?.baseURL || "",
-    timeout: CMSwiftHttpSetting.http?.timeout ?? 0, // ms, 0 = no timeout
-    retry: CMSwiftHttpSetting.http?.retry || { attempts: 0, delay: 250, factor: 2 }, // attempts extra
-    headers: CMSwiftHttpSetting.http?.headers || {},
-    credentials: CMSwiftHttpSetting.http?.credentials, // "include" etc (optional)
-    debug: CMSwiftHttpSetting.debug ?? false
+    baseURL: JSswiftHttpSetting.http?.baseURL || "",
+    timeout: JSswiftHttpSetting.http?.timeout ?? 0, // ms, 0 = no timeout
+    retry: JSswiftHttpSetting.http?.retry || { attempts: 0, delay: 250, factor: 2 }, // attempts extra
+    headers: JSswiftHttpSetting.http?.headers || {},
+    credentials: JSswiftHttpSetting.http?.credentials, // "include" etc (optional)
+    debug: JSswiftHttpSetting.debug ?? false
   };
-  const httpState = createHttpReactiveState(CMSwift);
+  const httpState = createHttpReactiveState(JSswift);
   const now = () => (typeof performance !== "undefined" && performance.now ? performance.now() : Date.now());
 
   const hooksHTTP = {
@@ -4137,8 +4137,8 @@ _.dynamic = function (renderFn) {
 
   async function coreFetch(req) {
     // Auth integration: se esiste auth.fetch usa quello
-    const f = (CMSwift.auth && typeof CMSwift.auth.fetch === "function")
-      ? CMSwift.auth.fetch.bind(CMSwift.auth)
+    const f = (JSswift.auth && typeof JSswift.auth.fetch === "function")
+      ? JSswift.auth.fetch.bind(JSswift.auth)
       : fetch;
     const init = {
       method: req.method,
@@ -4180,8 +4180,8 @@ _.dynamic = function (renderFn) {
         try {
           if (configHTTP.debug) console.log("[http.request]", effectiveReq.method, effectiveReq.url);
 
-          CMSwift.perf?.inc("httpRequests");
-          CMSwift.perf?.mark("http:req", { url: req.url, method: req.method });
+          JSswift.perf?.inc("httpRequests");
+          JSswift.perf?.mark("http:req", { url: req.url, method: req.method });
 
 
           const res = await coreFetch(effectiveReq);
@@ -4191,7 +4191,7 @@ _.dynamic = function (renderFn) {
           const outRes = await runHooks(hooksHTTP.afterResponse, res, effectiveReq);
           const dt = now() - attemptAt;
 
-          CMSwift.perf?.tick("http:res", dt, { status: res.status, url: req.url });
+          JSswift.perf?.tick("http:res", dt, { status: res.status, url: req.url });
 
           // retryable status?
           if (attempt < maxAttempts && isRetryable(null, outRes)) {
@@ -4236,32 +4236,32 @@ _.dynamic = function (renderFn) {
   }
 
   // shortcuts
-  CMSwift.http = {};
-  CMSwift.http.request = request;
-  CMSwift.http.state = () => httpState.state;
-  CMSwift.http.get = (url, init) => request(url, { ...init, method: "GET" });
-  CMSwift.http.del = (url, init) => request(url, { ...init, method: "DELETE" });
-  CMSwift.http.post = (url, body, init) => withJSON(request, "POST", url, body, init);
-  CMSwift.http.put = (url, body, init) => withJSON(request, "PUT", url, body, init);
-  CMSwift.http.patch = (url, body, init) => withJSON(request, "PATCH", url, body, init);
+  JSswift.http = {};
+  JSswift.http.request = request;
+  JSswift.http.state = () => httpState.state;
+  JSswift.http.get = (url, init) => request(url, { ...init, method: "GET" });
+  JSswift.http.del = (url, init) => request(url, { ...init, method: "DELETE" });
+  JSswift.http.post = (url, body, init) => withJSON(request, "POST", url, body, init);
+  JSswift.http.put = (url, body, init) => withJSON(request, "PUT", url, body, init);
+  JSswift.http.patch = (url, body, init) => withJSON(request, "PATCH", url, body, init);
 
-  CMSwift.http.getJSON = async (url, init) => (await request(url, { ...init, method: "GET" })).jsonStrict();
-  CMSwift.http.delJSON = async (url, init) => (await request(url, { ...init, method: "DELETE" })).jsonStrict();
-  CMSwift.http.postJSON = async (url, body, init) => (await withJSON(request, "POST", url, body, init)).jsonStrict();
-  CMSwift.http.putJSON = async (url, body, init) => (await withJSON(request, "PUT", url, body, init)).jsonStrict();
-  CMSwift.http.patchJSON = async (url, body, init) => (await withJSON(request, "PATCH", url, body, init)).jsonStrict();
+  JSswift.http.getJSON = async (url, init) => (await request(url, { ...init, method: "GET" })).jsonStrict();
+  JSswift.http.delJSON = async (url, init) => (await request(url, { ...init, method: "DELETE" })).jsonStrict();
+  JSswift.http.postJSON = async (url, body, init) => (await withJSON(request, "POST", url, body, init)).jsonStrict();
+  JSswift.http.putJSON = async (url, body, init) => (await withJSON(request, "PUT", url, body, init)).jsonStrict();
+  JSswift.http.patchJSON = async (url, body, init) => (await withJSON(request, "PATCH", url, body, init)).jsonStrict();
 
-  CMSwift.http.onBefore = function (fn) { hooksHTTP.beforeRequest.add(fn); return () => hooksHTTP.beforeRequest.delete(fn); };
-  CMSwift.http.onAfter = function (fn) { hooksHTTP.afterResponse.add(fn); return () => hooksHTTP.afterResponse.delete(fn); };
-  CMSwift.http.onError = function (fn) { hooksHTTP.onError.add(fn); return () => hooksHTTP.onError.delete(fn); };
+  JSswift.http.onBefore = function (fn) { hooksHTTP.beforeRequest.add(fn); return () => hooksHTTP.beforeRequest.delete(fn); };
+  JSswift.http.onAfter = function (fn) { hooksHTTP.afterResponse.add(fn); return () => hooksHTTP.afterResponse.delete(fn); };
+  JSswift.http.onError = function (fn) { hooksHTTP.onError.add(fn); return () => hooksHTTP.onError.delete(fn); };
 
   // shortcuts per browser global
-  window._http = CMSwift.http;
+  window._http = JSswift.http;
   // ===============================
   // useRouter (hook-style)
   // ===============================
-  CMSwift.useRouter = function (ctx) {
-    const router = CMSwift.router;
+  JSswift.useRouter = function (ctx) {
+    const router = JSswift.router;
 
     // nessun cleanup necessario ora, ma pronto per future estensioni
     if (ctx && typeof ctx.onDispose === "function") {
@@ -4280,11 +4280,11 @@ _.dynamic = function (renderFn) {
   // ===============================
   // useRoute (hook-style, reattivo)
   // ===============================
-  CMSwift.useRoute = function (ctx) {
-    const [getPath, setPath] = CMSwift.reactive.signal("");
-    const [getParams, setParams] = CMSwift.reactive.signal({});
-    const [getQuery, setQuery] = CMSwift.reactive.signal({});
-    const [getHash, setHash] = CMSwift.reactive.signal("");
+  JSswift.useRoute = function (ctx) {
+    const [getPath, setPath] = JSswift.reactive.signal("");
+    const [getParams, setParams] = JSswift.reactive.signal({});
+    const [getQuery, setQuery] = JSswift.reactive.signal({});
+    const [getHash, setHash] = JSswift.reactive.signal("");
 
     // handler aggiornamento
     const update = (routeCtx) => {
@@ -4295,7 +4295,7 @@ _.dynamic = function (renderFn) {
     };
 
     // subscribe router
-    const unsubscribe = CMSwift.router.subscribe(update);
+    const unsubscribe = JSswift.router.subscribe(update);
 
     // cleanup automatico
     if (ctx && typeof ctx.onDispose === "function") {
@@ -4316,7 +4316,7 @@ _.dynamic = function (renderFn) {
   // ===============================
   // Router shared helpers
   // ===============================
-  CMSwift._routerShared = (() => {
+  JSswift._routerShared = (() => {
     function normalizePath(path) {
       if (!path) return "/";
       if (!path.startsWith("/")) path = "/" + path;
@@ -4415,7 +4415,7 @@ _.dynamic = function (renderFn) {
   // ===============================
   // UI meta shared helpers
   // ===============================
-  CMSwift._uiMetaShared = (() => {
+  JSswift._uiMetaShared = (() => {
     function resolveDocComponents(_) {
       return {
         hasTabPanel: typeof _.TabPanel === "function",
@@ -4528,11 +4528,11 @@ _.dynamic = function (renderFn) {
       normalizeSlotRows
     };
   })();
-  CMSwift.ui = CMSwift.ui || {};
-  CMSwift.ui.meta = CMSwift.ui.meta || {};
+  JSswift.ui = JSswift.ui || {};
+  JSswift.ui.meta = JSswift.ui.meta || {};
 
-  CMSwift.ui.slot = function slot(value, opts = {}) {
-    const UI = CMSwift.ui;
+  JSswift.ui.slot = function slot(value, opts = {}) {
+    const UI = JSswift.ui;
     const {
       as = "node",          // "node" | "text" | "icon"
       wrap = "span",        // "span" | "text" | null
@@ -4582,10 +4582,10 @@ _.dynamic = function (renderFn) {
     if (Array.isArray(out)) return out.filter(Boolean);
     return out;
   };
-  CMSwift.ui.slots = function slots(...values) {
+  JSswift.ui.slots = function slots(...values) {
     const out = [];
     for (const v of values) {
-      const r = CMSwift.ui.slot(v);
+      const r = JSswift.ui.slot(v);
       if (!r) continue;
       if (Array.isArray(r)) out.push(...r);
       else out.push(r);
@@ -4594,8 +4594,8 @@ _.dynamic = function (renderFn) {
   };
 
   // docTable genera una tabella di documentazione
-  CMSwift.docTable = (name) => {
-    if (!CMSwift.isDev()) return _.div(); // non fa niente in prod
+  JSswift.docTable = (name) => {
+    if (!JSswift.isDev()) return _.div(); // non fa niente in prod
 
     const {
       resolveDocComponents,
@@ -4603,8 +4603,8 @@ _.dynamic = function (renderFn) {
       renderTabGroupFallback,
       normalizeEventRows,
       normalizeSlotRows
-    } = CMSwift._uiMetaShared;
-    const meta = CMSwift.ui.meta?.[name];
+    } = JSswift._uiMetaShared;
+    const meta = JSswift.ui.meta?.[name];
     if (!meta) return _.div({ class: "cms-muted" }, `Meta non trovata: ${name}`);
     const { hasTabPanel, Card, Chip } = resolveDocComponents(_);
 
@@ -4689,10 +4689,10 @@ _.dynamic = function (renderFn) {
     );
   };
 
-  CMSwift.ui.inspect = (name) => console.log(CMSwift.ui.meta?.[name] || "meta not found");
+  JSswift.ui.inspect = (name) => console.log(JSswift.ui.meta?.[name] || "meta not found");
 
-  CMSwift.ui.can = function (ctx, permOrRole, render, elseRender = null) {
-    const auth = CMSwift.useAuth ? CMSwift.useAuth(ctx) : CMSwift.auth;
+  JSswift.ui.can = function (ctx, permOrRole, render, elseRender = null) {
+    const auth = JSswift.useAuth ? JSswift.useAuth(ctx) : JSswift.auth;
     if (!auth) return typeof elseRender === "function" ? elseRender() : null;
 
     const ok =
@@ -4704,15 +4704,15 @@ _.dynamic = function (renderFn) {
     return typeof elseRender === "function" ? elseRender() : elseRender;
   };
 
-  CMSwift.ui.canAny = function (ctx, list, render, elseRender = null) {
-    const auth = CMSwift.useAuth ? CMSwift.useAuth(ctx) : CMSwift.auth;
+  JSswift.ui.canAny = function (ctx, list, render, elseRender = null) {
+    const auth = JSswift.useAuth ? JSswift.useAuth(ctx) : JSswift.auth;
     const ok = !!auth?.canAny?.(list);
     return ok ? (typeof render === "function" ? render() : render)
       : (typeof elseRender === "function" ? elseRender() : elseRender);
   };
 
-  CMSwift.ui.canAll = function (ctx, list, render, elseRender = null) {
-    const auth = CMSwift.useAuth ? CMSwift.useAuth(ctx) : CMSwift.auth;
+  JSswift.ui.canAll = function (ctx, list, render, elseRender = null) {
+    const auth = JSswift.useAuth ? JSswift.useAuth(ctx) : JSswift.auth;
     const ok = !!auth?.canAll?.(list);
     return ok ? (typeof render === "function" ? render() : render)
       : (typeof elseRender === "function" ? elseRender() : elseRender);
@@ -4720,8 +4720,8 @@ _.dynamic = function (renderFn) {
   // ===============================
   // Can component (hyperscript-friendly)
   // ===============================
-  CMSwift.Can = function Can(props, ctx) {
-    const auth = CMSwift.useAuth ? CMSwift.useAuth(ctx) : CMSwift.auth;
+  JSswift.Can = function Can(props, ctx) {
+    const auth = JSswift.useAuth ? JSswift.useAuth(ctx) : JSswift.auth;
 
     const pred = () => {
       if (!auth) return false;
@@ -4738,7 +4738,7 @@ _.dynamic = function (renderFn) {
       : (typeof props.else === "function" ? props.else() : props.else ?? null);
   };
   // -- ROUTER --
-  CMSwift.router = (() => {
+  JSswift.router = (() => {
     let mode = "history"; // "history" | "hash" | "auto"
     let routes = [];
     let outlet = null;
@@ -4757,7 +4757,7 @@ _.dynamic = function (renderFn) {
       parseQuery,
       matchRoute,
       pushHistoryEntry
-    } = CMSwift._routerShared;
+    } = JSswift._routerShared;
 
     const meta = {
       setOutlet: { description: "imposta il contenitore del router" },
@@ -4857,7 +4857,7 @@ _.dynamic = function (renderFn) {
 
     async function render(urlLike, { replace = false } = {}) {
       if (!outlet) {
-        console.warn("[router] outlet non impostato. Usa CMSwift.router.setOutlet('#app').");
+        console.warn("[router] outlet non impostato. Usa JSswift.router.setOutlet('#app').");
         return;
       }
 
@@ -4903,9 +4903,9 @@ _.dynamic = function (renderFn) {
       if (!m) {
         const view404 = routes._notFound;
         if (view404) {
-          unmountCurrent = CMSwift.mount(outlet, () => view404(ctx), { clear: true });
+          unmountCurrent = JSswift.mount(outlet, () => view404(ctx), { clear: true });
         } else {
-          unmountCurrent = CMSwift.mount(outlet, _.div("404"), { clear: true });
+          unmountCurrent = JSswift.mount(outlet, _.div("404"), { clear: true });
         }
         notifyRoute(ctx);
         _currentCtx = ctx;
@@ -4929,7 +4929,7 @@ _.dynamic = function (renderFn) {
         }
 
         // monta child (clear true)
-        childMounted = CMSwift.mount(childOutlet, () => ctx._child.view(ctx._child.ctx), { clear: true });
+        childMounted = JSswift.mount(childOutlet, () => ctx._child.view(ctx._child.ctx), { clear: true });
         return childMounted;
       };
 
@@ -4949,11 +4949,11 @@ _.dynamic = function (renderFn) {
         };
 
         // mount layout sul root outlet
-        unmountCurrent = CMSwift.mount(outlet, () => parent.view(ctx), { clear: true });
+        unmountCurrent = JSswift.mount(outlet, () => parent.view(ctx), { clear: true });
       } else {
         // non nested
         ctx._child = null;
-        unmountCurrent = CMSwift.mount(outlet, () => view(ctx), { clear: true });
+        unmountCurrent = JSswift.mount(outlet, () => view(ctx), { clear: true });
       }
 
       notifyRoute(ctx);
@@ -5020,7 +5020,7 @@ _.dynamic = function (renderFn) {
     }
 
     function setOutlet(target) {
-      outlet = typeof target === "string" ? CMSwift.dom.q(target) : target;
+      outlet = typeof target === "string" ? JSswift.dom.q(target) : target;
       return outlet;
     }
 
@@ -5099,7 +5099,7 @@ _.dynamic = function (renderFn) {
         timestamp: new Date().toISOString()
       };
 
-      console.groupCollapsed(`[CMSwift.router.inspect] ${label}`);
+      console.groupCollapsed(`[JSswift.router.inspect] ${label}`);
       console.log(info);
       console.log("history:", _history.slice());
       console.groupEnd();
@@ -5109,7 +5109,7 @@ _.dynamic = function (renderFn) {
 
     function routeTrace(on = true) {
       _tracing = !!on;
-      console.log("[CMSwift.router.trace]", _tracing ? "ON" : "OFF");
+      console.log("[JSswift.router.trace]", _tracing ? "ON" : "OFF");
     }
 
     function routeHistory() {
@@ -5133,15 +5133,15 @@ _.dynamic = function (renderFn) {
     };
   })();
 
-  if (CMSwift.config?.debug) {
-    window.$router = CMSwift.router;
+  if (JSswift.config?.debug) {
+    window.$router = JSswift.router;
   }
   // alias per compatibilità
-  CMSwift.signal = CMSwift.reactive.signal;
-  CMSwift.effect = CMSwift.reactive.effect;
-  CMSwift.computed = CMSwift.reactive.computed;
-  CMSwift.untracked = CMSwift.reactive.untracked;
-  CMSwift.batch = CMSwift.reactive.batch;
+  JSswift.signal = JSswift.reactive.signal;
+  JSswift.effect = JSswift.reactive.effect;
+  JSswift.computed = JSswift.reactive.computed;
+  JSswift.untracked = JSswift.reactive.untracked;
+  JSswift.batch = JSswift.reactive.batch;
 
   function normalizeThemeName(theme) {
     if (theme == null) return null;
@@ -5170,7 +5170,7 @@ _.dynamic = function (renderFn) {
     if (typeof document !== "undefined" && document.documentElement) {
       return document.documentElement;
     }
-    return CMSwift.dom?.q ? CMSwift.dom.q("html") : null;
+    return JSswift.dom?.q ? JSswift.dom.q("html") : null;
   }
 
   function getThemeStorage() {
@@ -5182,7 +5182,7 @@ _.dynamic = function (renderFn) {
   }
 
   function getThemeStorageKey() {
-    return normalizeThemeName(CMSwift.theme?.storageKey) || "cmswift:theme";
+    return normalizeThemeName(JSswift.theme?.storageKey) || "jsswift:theme";
   }
 
   function readSavedTheme() {
@@ -5211,10 +5211,10 @@ _.dynamic = function (renderFn) {
     const html = getThemeRoot();
     const candidates = [
       themes,
-      CMSwift.theme?.themes,
-      CMSwift.config?.themes,
-      typeof globalThis !== "undefined" ? globalThis.CMSwift_setting?.themes : null,
-      typeof globalThis !== "undefined" ? globalThis.CMSwift_setting?.themeList : null,
+      JSswift.theme?.themes,
+      JSswift.config?.themes,
+      typeof globalThis !== "undefined" ? globalThis.JSswift_setting?.themes : null,
+      typeof globalThis !== "undefined" ? globalThis.JSswift_setting?.themeList : null,
       html?.getAttribute?.("data-themes"),
     ];
 
@@ -5225,13 +5225,13 @@ _.dynamic = function (renderFn) {
     return [];
   }
 
-  CMSwift.theme = CMSwift.theme || {};
-  CMSwift.theme.storageKey = getThemeStorageKey();
-  if (!normalizeThemeList(CMSwift.theme.themes).length) {
-    CMSwift.theme.themes = resolveThemeList();
+  JSswift.theme = JSswift.theme || {};
+  JSswift.theme.storageKey = getThemeStorageKey();
+  if (!normalizeThemeList(JSswift.theme.themes).length) {
+    JSswift.theme.themes = resolveThemeList();
   }
 
-  CMSwift.setTheme = function (theme, opts = {}) {
+  JSswift.setTheme = function (theme, opts = {}) {
     const value = normalizeThemeName(theme);
     const html = getThemeRoot();
     if (html) {
@@ -5242,7 +5242,7 @@ _.dynamic = function (renderFn) {
     return html;
   };
 
-  CMSwift.getTheme = function (opts = {}) {
+  JSswift.getTheme = function (opts = {}) {
     const html = getThemeRoot();
     const current = normalizeThemeName(html?.getAttribute?.("data-theme"));
     if (current) return current;
@@ -5256,25 +5256,25 @@ _.dynamic = function (renderFn) {
     return saved;
   };
 
-  CMSwift.toggleTheme = function (themes, opts = {}) {
+  JSswift.toggleTheme = function (themes, opts = {}) {
     const list = resolveThemeList(themes);
     const activeList = list.length
       ? list
-      : normalizeThemeList([CMSwift.getTheme({ sync: false }), "light", "dark"]);
-    const current = CMSwift.getTheme({ sync: false });
+      : normalizeThemeList([JSswift.getTheme({ sync: false }), "light", "dark"]);
+    const current = JSswift.getTheme({ sync: false });
     const fallback = normalizeThemeName(opts.fallback) || activeList[0] || "light";
     const currentIndex = current ? activeList.indexOf(current) : -1;
     const nextTheme = currentIndex >= 0
       ? activeList[(currentIndex + 1) % activeList.length]
       : fallback;
 
-    CMSwift.theme.themes = activeList.slice();
-    CMSwift.setTheme(nextTheme, opts);
+    JSswift.theme.themes = activeList.slice();
+    JSswift.setTheme(nextTheme, opts);
     return nextTheme;
   };
 
   const bootTheme = readSavedTheme();
   if (bootTheme) {
-    CMSwift.setTheme(bootTheme, { persist: false });
+    JSswift.setTheme(bootTheme, { persist: false });
   }
 })();

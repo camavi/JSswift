@@ -53,7 +53,7 @@
       if (entry.icon === false || entry.icon === null) return null;
       if (entry.icon != null) {
         const resolvedIcon = resolveNotifyRender(entry.icon);
-        return typeof resolvedIcon === "string" ? UI.Icon({ name: resolvedIcon, size: "sm" }) : CMSwift.ui.slot(resolvedIcon, { as: "icon" });
+        return typeof resolvedIcon === "string" ? UI.Icon({ name: resolvedIcon, size: "sm" }) : JSswift.ui.slot(resolvedIcon, { as: "icon" });
       }
       const iconName = notifyIconMap[entry.type];
       return iconName ? UI.Icon({ name: iconName, size: "sm" }) : null;
@@ -135,7 +135,7 @@
         );
         root.appendChild(wrap);
       }
-    }, "CMSwiftUI:toasts");
+    }, "JSswiftUI:toasts");
 
     return root;
   }

@@ -1,27 +1,27 @@
 (() => {
 
   /* ===============================
-     CMSwift core mini (ready + dom + reactive)
+     JSswift core mini (ready + dom + reactive)
      =============================== */
 
-  window.CMSwift = window.CMSwift || {};
-  const CMSwift = window.CMSwift;
-  window._ = window.CMSwift; // legacy alias, deprecated: use `_.`
+  window.JSswift = window.JSswift || {};
+  const JSswift = window.JSswift;
+  window._ = window.JSswift; // legacy alias, deprecated: use `_.`
 
 
-  CMSwift.config = CMSwift.config || {};
-  const CMSwiftBootstrapSetting =
-    typeof globalThis !== "undefined" && globalThis.CMSwift_setting
-      ? globalThis.CMSwift_setting
+  JSswift.config = JSswift.config || {};
+  const JSswiftBootstrapSetting =
+    typeof globalThis !== "undefined" && globalThis.JSswift_setting
+      ? globalThis.JSswift_setting
       : {};
-  CMSwift.config.debug = CMSwiftBootstrapSetting.modeDev ?? false;
+  JSswift.config.debug = JSswiftBootstrapSetting.modeDev ?? false;
 
-  CMSwift.isDev = function () {
-    return CMSwift.config.debug;
+  JSswift.isDev = function () {
+    return JSswift.config.debug;
   };
 
   // UTILITIES
-  CMSwift.uiNormalizeArgs = function (args) {
+  JSswift.uiNormalizeArgs = function (args) {
     let props = {};
     let children = args;
 
@@ -38,9 +38,9 @@
     }
     return { props, children };
   }
-  CMSwift.uiSizes = ["xxs", "xs", "sm", "md", "lg", "xl", "xxl", "xxxl"];
-  CMSwift.uiColors = ["primary", "secondary", "success", "warning", "danger", "info", "light", "dark"];
-  CMSwift.meta = CMSwift.meta || {
+  JSswift.uiSizes = ["xxs", "xs", "sm", "md", "lg", "xl", "xxl", "xxxl"];
+  JSswift.uiColors = ["primary", "secondary", "success", "warning", "danger", "info", "light", "dark"];
+  JSswift.meta = JSswift.meta || {
     version: "1.0.23",
     policy: {
       sourceOfTruth: "docs/reference/core.md",
@@ -59,7 +59,7 @@
       },
       reactive: {
         description: "Core minimale signal/effect usato come base della reattivita.",
-        entrypoints: ["CMSwift.reactive.signal", "CMSwift.reactive.effect", "CMSwift.reactive.computed", "CMSwift.reactive.untracked", "CMSwift.reactive.batch"],
+        entrypoints: ["JSswift.reactive.signal", "JSswift.reactive.effect", "JSswift.reactive.computed", "JSswift.reactive.untracked", "JSswift.reactive.batch"],
         status: "milestone-2-closed",
         knownLimits: [
           "La protezione loop copre i loop sincroni per singolo effect, non ancora i cicli complessi tra effect multipli.",
@@ -69,17 +69,17 @@
       },
       rod: {
         description: "Layer reattivo di alto livello per binding DOM, model e interpolazioni.",
-        entrypoints: ["_.rod", "CMSwift.rodBind", "CMSwift.rodModel"],
+        entrypoints: ["_.rod", "JSswift.rodBind", "JSswift.rodModel"],
         status: "milestone-2-closed",
         knownLimits: [
-          "Va chiarito meglio il rapporto con CMSwift.reactive oltre al primo riallineamento strutturale.",
+          "Va chiarito meglio il rapporto con JSswift.reactive oltre al primo riallineamento strutturale.",
           "Restano casi avanzati di model/binding da esplorare oltre al primo giro coperto dai test.",
           "Il modulo e piu pulito internamente ma non e ancora il punto finale della convergenza con il renderer."
         ]
       },
       mount: {
         description: "Mount, component instances e cleanup automatico del tree DOM.",
-        entrypoints: ["CMSwift.mount", "CMSwift.component", "CMSwift.enableAutoCleanup"],
+        entrypoints: ["JSswift.mount", "JSswift.component", "JSswift.enableAutoCleanup"],
         status: "milestone-2-closed",
         knownLimits: [
           "Il lifecycle e piu pulito internamente ma resta da chiarire meglio la semantica su multi-mount e cloni.",
@@ -88,7 +88,7 @@
       },
       platform: {
         description: "Moduli applicativi nel core: overlay, store, auth, http, router, UI meta.",
-        entrypoints: ["CMSwift.overlay", "CMSwift.store", "CMSwift.plugins.auth", "CMSwift.http", "CMSwift.router", "CMSwift.ui.meta"],
+        entrypoints: ["JSswift.overlay", "JSswift.store", "JSswift.plugins.auth", "JSswift.http", "JSswift.router", "JSswift.ui.meta"],
         status: "milestone-2-closed",
         knownLimits: [
           "Il secondo giro ha ripulito i moduli interni, ma mancano ancora demo separate per modulo e una validazione piu formale di alcune superfici pubbliche.",
@@ -100,7 +100,7 @@
     }
   };
 
-  CMSwift.omit = (obj, keys) => {
+  JSswift.omit = (obj, keys) => {
     const out = {};
     const skip = new Set(keys || []);
     for (const k in (obj || {})) {
@@ -113,17 +113,17 @@
   // ===============================
   // Cleanup registry (DOM -> disposers)
   // ===============================
-  CMSwift._cleanupRegistry = new WeakMap();
-  CMSwift._registerCleanup = function (node, disposer) {
+  JSswift._cleanupRegistry = new WeakMap();
+  JSswift._registerCleanup = function (node, disposer) {
     if (!node || typeof disposer !== "function") return disposer;
-    const list = CMSwift._cleanupRegistry.get(node) || [];
+    const list = JSswift._cleanupRegistry.get(node) || [];
     list.push(disposer);
-    CMSwift._cleanupRegistry.set(node, list);
+    JSswift._cleanupRegistry.set(node, list);
     return disposer;
   };
 
 
-  CMSwift.dom = {
+  JSswift.dom = {
     q(sel, root = document) { return root.querySelector(sel); },
     qa(sel, root = document) { return Array.from(root.querySelectorAll(sel)); },
     attr(el, name, value) {
@@ -146,15 +146,15 @@
       const q = _queue.slice();
       _queue.length = 0;
       for (const fn of q) {
-        try { fn(); } catch (e) { console.error("[CMSwift.ready] error:", e); }
+        try { fn(); } catch (e) { console.error("[JSswift.ready] error:", e); }
       }
     }
 
-    CMSwift.ready = function (fn) {
+    JSswift.ready = function (fn) {
       if (typeof fn !== "function") return;
       if (_ready || document.readyState === "interactive" || document.readyState === "complete") {
         queueMicrotask(() => {
-          try { fn(); } catch (e) { console.error("[CMSwift.ready] error:", e); }
+          try { fn(); } catch (e) { console.error("[JSswift.ready] error:", e); }
         });
       } else {
         _queue.push(fn);
@@ -165,7 +165,7 @@
   })();
 
   // REACTIVE core
-  CMSwift.reactive = (() => {
+  JSswift.reactive = (() => {
     let CURRENT_EFFECT = null;
     const EFFECT_STACK = [];
     const MAX_SYNC_EFFECT_RERUNS = 100;
@@ -179,7 +179,7 @@
       const mode = options?.flush;
       if (mode == null || mode === "sync") return "sync";
       if (mode === "microtask") return "microtask";
-      throw new Error("CMSwift.reactive.batch: options.flush must be 'sync' or 'microtask'");
+      throw new Error("JSswift.reactive.batch: options.flush must be 'sync' or 'microtask'");
     }
 
     function flushPendingRunners() {
@@ -224,7 +224,7 @@
       if (typeof record._cleanup === "function") {
         const cleanup = record._cleanup;
         record._cleanup = null;
-        try { cleanup(); } catch (e) { console.error("[CMSwift.reactive.effect] cleanup error:", e); }
+        try { cleanup(); } catch (e) { console.error("[JSswift.reactive.effect] cleanup error:", e); }
       }
     }
 
@@ -283,7 +283,7 @@
 
             if (reruns >= MAX_SYNC_EFFECT_RERUNS) {
               record._queued = false;
-              console.warn("[CMSwift.reactive.effect] loop guard triggered: too many synchronous reruns", {
+              console.warn("[JSswift.reactive.effect] loop guard triggered: too many synchronous reruns", {
                 max: MAX_SYNC_EFFECT_RERUNS,
                 effect: fn.name || "anonymous"
               });
@@ -330,7 +330,7 @@
     }
 
     function computed(fn) {
-      if (typeof fn !== "function") throw new Error("CMSwift.reactive.computed: fn must be a function");
+      if (typeof fn !== "function") throw new Error("JSswift.reactive.computed: fn must be a function");
 
       const [get, set, disposeSignal] = signal(undefined);
       const disposeEffect = effect(() => {
@@ -349,7 +349,7 @@
     }
 
     function untracked(fn) {
-      if (typeof fn !== "function") throw new Error("CMSwift.reactive.untracked: fn must be a function");
+      if (typeof fn !== "function") throw new Error("JSswift.reactive.untracked: fn must be a function");
 
       const prevEffect = CURRENT_EFFECT;
       CURRENT_EFFECT = null;
@@ -361,7 +361,7 @@
     }
 
     function batch(fn, options) {
-      if (typeof fn !== "function") throw new Error("CMSwift.reactive.batch: fn must be a function");
+      if (typeof fn !== "function") throw new Error("JSswift.reactive.batch: fn must be a function");
       const flushMode = normalizeFlushMode(options);
 
       if (BATCH_DEPTH === 0) {

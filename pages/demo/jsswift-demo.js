@@ -1,8 +1,8 @@
-CMSwift.ready(() => {
-  const root = document.getElementById("cmswift-playground");
+JSswift.ready(() => {
+  const root = document.getElementById("jsswift-playground");
   if (!root) return;
   const t = (key, replacements = {}) =>
-    window.CMSwiftDemoI18n?.t(`playground.core.${key}`, replacements) ?? key;
+    window.JSswiftDemoI18n?.t(`playground.core.${key}`, replacements) ?? key;
 
   const [count, setCount] = _.signal(1);
   const [step, setStep] = _.signal(2);

@@ -6139,7 +6139,7 @@ declare global {
 
     function Upload(props?: Record<string, any>): HTMLElement | DocumentFragment | any;
   }
-  namespace CMSwift {
+  namespace JSswift {
     function _registerCleanup(...args: any[]): any;
 
     function Can(...args: any[]): any;
@@ -6350,7 +6350,7 @@ declare global {
     feColorMatrix: DomHFactory;
   };
 
-  const cms = CMSwift;
+  const cms = JSswift;
   const _ui = UI;
-  const _http = CMSwift.http;
+  const _http = JSswift.http;
 }

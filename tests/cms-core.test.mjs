@@ -186,13 +186,13 @@ test("theme helpers persist theme values and cycle custom theme lists", async ()
   CMS.setTheme("midnight");
 
   assert.equal(document.documentElement.getAttribute("data-theme"), "midnight");
-  assert.equal(window.localStorage.getItem("cmswift:theme"), "midnight");
+  assert.equal(window.localStorage.getItem("jsswift:theme"), "midnight");
   assert.equal(CMS.getTheme(), "midnight");
 
   const nextTheme = CMS.toggleTheme(["light", "dark", "midnight"]);
   assert.equal(nextTheme, "light");
   assert.equal(CMS.getTheme(), "light");
-  assert.equal(window.localStorage.getItem("cmswift:theme"), "light");
+  assert.equal(window.localStorage.getItem("jsswift:theme"), "light");
 
   const nextAfterLight = CMS.toggleTheme(["light", "dark", "midnight"]);
   assert.equal(nextAfterLight, "dark");
@@ -202,7 +202,7 @@ test("theme helpers persist theme values and cycle custom theme lists", async ()
 test("getTheme restores saved theme from localStorage when DOM has no theme", async () => {
   const CMS = await loadCMS();
 
-  window.localStorage.setItem("cmswift:theme", "sepia");
+  window.localStorage.setItem("jsswift:theme", "sepia");
   document.documentElement.removeAttribute("data-theme");
 
   assert.equal(CMS.getTheme(), "sepia");
@@ -1109,7 +1109,7 @@ test("overlay outside click closes from regular outside targets", async () => {
 
 test("overlay close runs child cleanup before removing portalized UI", async () => {
   const CMS = await loadCMS();
-  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const filename = path.resolve("pages/_jsswift-fe/js/ui.js");
   const source = await fs.readFile(filename, "utf8");
   vm.runInThisContext(source, { filename });
 
@@ -1317,7 +1317,7 @@ test("ui.meta docTable renders missing-meta fallback", async () => {
 
 test("UI.Button aliases UI.Btn", async () => {
   const CMS = await loadCMS();
-  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const filename = path.resolve("pages/_jsswift-fe/js/ui.js");
   const source = await fs.readFile(filename, "utf8");
   vm.runInThisContext(source, { filename });
 
@@ -1337,7 +1337,7 @@ test("UI.Button aliases UI.Btn", async () => {
 
 test("UI.Btn loading supports reactive rods", async () => {
   const CMS = await loadCMS();
-  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const filename = path.resolve("pages/_jsswift-fe/js/ui.js");
   const source = await fs.readFile(filename, "utf8");
   vm.runInThisContext(source, { filename });
 
@@ -1385,7 +1385,7 @@ test("UI.Btn loading supports reactive rods", async () => {
 
 test("UI model controls do not subscribe dynamic parents during setup", async () => {
   const CMS = await loadCMS();
-  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const filename = path.resolve("pages/_jsswift-fe/js/ui.js");
   const source = await fs.readFile(filename, "utf8");
   vm.runInThisContext(source, { filename });
 
@@ -1418,7 +1418,7 @@ test("UI model controls do not subscribe dynamic parents during setup", async ()
 
 test("UI.Select treats empty-string option values as selected values", async () => {
   const CMS = await loadCMS();
-  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const filename = path.resolve("pages/_jsswift-fe/js/ui.js");
   const source = await fs.readFile(filename, "utf8");
   vm.runInThisContext(source, { filename });
 
@@ -1443,7 +1443,7 @@ test("UI.Select treats empty-string option values as selected values", async () 
 
 test("UI.Select option sources do not leak rod-path functions into display values", async () => {
   const CMS = await loadCMS();
-  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const filename = path.resolve("pages/_jsswift-fe/js/ui.js");
   const source = await fs.readFile(filename, "utf8");
   vm.runInThisContext(source, { filename });
 
@@ -1468,7 +1468,7 @@ test("UI.Select option sources do not leak rod-path functions into display value
 
 test("_.rod factory is not patched by prior rod-path reads", async () => {
   const CMS = await loadCMS();
-  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const filename = path.resolve("pages/_jsswift-fe/js/ui.js");
   const source = await fs.readFile(filename, "utf8");
   vm.runInThisContext(source, { filename });
 
@@ -1496,7 +1496,7 @@ test("_.rod factory is not patched by prior rod-path reads", async () => {
 
 test("UI.Datepicker aliases UI.Date and UI.Calendar persists model", async () => {
   const CMS = await loadCMS();
-  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const filename = path.resolve("pages/_jsswift-fe/js/ui.js");
   const source = await fs.readFile(filename, "utf8");
   vm.runInThisContext(source, { filename });
 
@@ -1521,7 +1521,7 @@ test("UI.Datepicker aliases UI.Date and UI.Calendar persists model", async () =>
 
 test("UI.Upload validates files and uploads through custom uploader", async () => {
   const CMS = await loadCMS();
-  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const filename = path.resolve("pages/_jsswift-fe/js/ui.js");
   const source = await fs.readFile(filename, "utf8");
   vm.runInThisContext(source, { filename });
 
@@ -1567,7 +1567,7 @@ test("UI.Upload validates files and uploads through custom uploader", async () =
 
 test("UI.Upload action buttons stay wired after files change", async () => {
   const CMS = await loadCMS();
-  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const filename = path.resolve("pages/_jsswift-fe/js/ui.js");
   const source = await fs.readFile(filename, "utf8");
   vm.runInThisContext(source, { filename });
 
@@ -1603,7 +1603,7 @@ test("UI.Upload action buttons stay wired after files change", async () => {
 
 test("UI.Upload requeues max-files rejection after removing an active file", async () => {
   const CMS = await loadCMS();
-  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const filename = path.resolve("pages/_jsswift-fe/js/ui.js");
   const source = await fs.readFile(filename, "utf8");
   vm.runInThisContext(source, { filename });
 
@@ -1626,7 +1626,7 @@ test("UI.Upload requeues max-files rejection after removing an active file", asy
 
 test("UI.Upload supports native form mode and visibility controls", async () => {
   const CMS = await loadCMS();
-  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const filename = path.resolve("pages/_jsswift-fe/js/ui.js");
   const source = await fs.readFile(filename, "utf8");
   vm.runInThisContext(source, { filename });
 
@@ -1667,7 +1667,7 @@ test("UI.Upload supports native form mode and visibility controls", async () => 
 
 test("UI.BoxUpload and UI.boxUpload expose boxed upload variant", async () => {
   const CMS = await loadCMS();
-  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const filename = path.resolve("pages/_jsswift-fe/js/ui.js");
   const source = await fs.readFile(filename, "utf8");
   vm.runInThisContext(source, { filename });
 
@@ -1683,12 +1683,12 @@ test("UI.BoxUpload and UI.boxUpload expose boxed upload variant", async () => {
 
 test("UI.Icon uses built-in inline sprite fallback without external URL", async () => {
   const CMS = await loadCMS();
-  const filename = path.resolve("pages/_cmswift-fe/js/ui.js");
+  const filename = path.resolve("pages/_jsswift-fe/js/ui.js");
   const source = await fs.readFile(filename, "utf8");
   vm.runInThisContext(source, { filename });
 
   delete CMS.config.iconSpriteUrl;
-  delete globalThis.CMSwift_setting.iconSpriteUrl;
+  delete globalThis.JSswift_setting.iconSpriteUrl;
 
   const out = CMS.Icon("#chevron-down");
   const uses = findNodes(out, (node) => node.tagName === "USE");

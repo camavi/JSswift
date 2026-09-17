@@ -10,8 +10,8 @@
 
     function createRodTextNode(rod) {
       const t = document.createTextNode("");
-      const unbind = CMSwift.rodBind(t, rod);
-      CMSwift._registerCleanup(t, unbind);
+      const unbind = JSswift.rodBind(t, rod);
+      JSswift._registerCleanup(t, unbind);
       return t;
     }
 
@@ -22,10 +22,10 @@
     function appendInterpolatedText(segments) {
       const t = document.createTextNode("");
       el.appendChild(t);
-      const stop = CMSwift.reactive.effect(() => {
+      const stop = JSswift.reactive.effect(() => {
         t.textContent = renderInterpolatedSegments(segments);
       });
-      CMSwift._registerCleanup(t, stop);
+      JSswift._registerCleanup(t, stop);
     }
 
     function normalizeDynamicChildNodes(value) {
@@ -64,7 +64,7 @@
       el.appendChild(anchor);
       let currentNodes = [];
 
-      const stop = CMSwift.reactive.effect(() => {
+      const stop = JSswift.reactive.effect(() => {
         currentNodes.forEach((node) => {
           cleanupNodeTree(node);
           if (node.parentNode) node.parentNode.removeChild(node);
@@ -83,7 +83,7 @@
         currentNodes = nextNodes;
       });
 
-      CMSwift._registerCleanup(anchor, () => {
+      JSswift._registerCleanup(anchor, () => {
         stop();
         currentNodes.forEach((node) => cleanupNodeTree(node));
         currentNodes = [];

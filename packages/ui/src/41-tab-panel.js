@@ -1,5 +1,5 @@
   UI.TabPanel = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const rawTabs = Array.isArray(props.tabs)
       ? props.tabs
@@ -17,7 +17,7 @@
     const resolveAccent = (value) => {
       const raw = uiUnwrap(value);
       if (raw == null || raw === "") return null;
-      return CMSwift.uiColors.includes(raw) ? `var(--cms-${raw})` : String(raw);
+      return JSswift.uiColors.includes(raw) ? `var(--cms-${raw})` : String(raw);
     };
 
     const orientation = normalizeOrientation(props.orientation || props.orient || props.direction);
@@ -93,7 +93,7 @@
       uiWhen(navPosition === "after", "nav-after"),
       props.class
     ]);
-    const wrapProps = CMSwift.omit(props, [
+    const wrapProps = JSswift.omit(props, [
       "tabs", "items", "value", "default", "defaultValue", "model",
       "orientation", "orient", "direction",
       "navPosition", "barPosition", "position",
@@ -170,7 +170,7 @@
 
     const makeLabelNodes = (tab, index, isActive) => {
       const ctx = createCtx(tab, index, isActive);
-      const labelNode = CMSwift.ui.renderSlot(slots, "label", ctx, tab.labelFallback);
+      const labelNode = JSswift.ui.renderSlot(slots, "label", ctx, tab.labelFallback);
       return renderSlotToArray(null, "default", {}, labelNode);
     };
 
@@ -301,7 +301,7 @@
       const tabId = `${componentId}-tab-${index}`;
       const panelId = `${componentId}-panel-${index}`;
       const ctx = createCtx(tab, index, isActive);
-      const panelNode = CMSwift.ui.renderSlot(slots, "panel", ctx, tab.panelFallback);
+      const panelNode = JSswift.ui.renderSlot(slots, "panel", ctx, tab.panelFallback);
       const panel = _.div({
         class: uiClass([
           "cms-tabpanel-panel",
@@ -325,7 +325,7 @@
     };
 
     const defaultNavNodes = tabs.map((tab, index) => makeTabNode(tab, index));
-    const navContent = CMSwift.ui.renderSlot(slots, "nav", {
+    const navContent = JSswift.ui.renderSlot(slots, "nav", {
       tabs,
       active: () => (activeIndex >= 0 ? tabs[activeIndex]?.name : null),
       activeIndex: () => activeIndex,
@@ -535,7 +535,7 @@
     wrap._prev = goPrev;
     return wrap;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.TabPanel = {
       signature: "UI.TabPanel(props) | UI.TabPanel(props, ...children)",
@@ -753,8 +753,8 @@
       messageNodes.length ? _.p(...messageNodes) : null,
       ...contentNodes,
       _.div({ class: "cms-dialog-actions" },
-        showCancel ? CMSwift.ui.Btn({ onClick: onCancel }, cancelText || "Annulla") : null,
-        CMSwift.ui.Btn({ color: "primary", onClick: onOk }, okText || "OK")
+        showCancel ? JSswift.ui.Btn({ onClick: onCancel }, cancelText || "Annulla") : null,
+        JSswift.ui.Btn({ color: "primary", onClick: onOk }, okText || "OK")
       )
     );
 
@@ -801,7 +801,7 @@
 
   app.dialog.prompt = function (opts = {}) {
     return new Promise((resolve) => {
-      const input = CMSwift.ui.Input({
+      const input = JSswift.ui.Input({
         class: "cms-dialog-input",
         type: opts.type || "text",
         placeholder: opts.placeholder || ""

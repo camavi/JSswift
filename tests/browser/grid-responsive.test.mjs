@@ -78,7 +78,7 @@ const runChromeMobileEval = async (chromePath, pageUrl, evaluateExpression, opti
   assert.ok(hasDevtoolsWebSocket(), "Node WebSocket API is required for mobile browser emulation tests");
   const port = options.port || 19000 + Math.floor(Math.random() * 2000);
   const baseUrl = `http://127.0.0.1:${port}`;
-  const userDataDir = await mkdtemp(path.join(os.tmpdir(), "cmswift-chrome-cdp-"));
+  const userDataDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-chrome-cdp-"));
   const chrome = spawn(chromePath, [
     `--remote-debugging-port=${port}`,
     `--user-data-dir=${userDataDir}`,
@@ -182,7 +182,7 @@ test("Grid responsive columns keep display:grid and render four desktop tracks",
   skip: findChrome() ? false : "Chrome/Chromium is not available"
 }, async () => {
   const chromePath = findChrome();
-  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "cmswift-grid-responsive-"));
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-grid-responsive-"));
   const htmlFile = path.join(tmpDir, "index.html");
   const coreUrl = pathToFileURL(path.join(ROOT_DIR, "packages/core/dist/cms.js")).href;
   const uiUrl = pathToFileURL(path.join(ROOT_DIR, "packages/ui/dist/ui.js")).href;
@@ -209,7 +209,7 @@ test("Grid responsive columns keep display:grid and render four desktop tracks",
     };
 
     try {
-      const UI = window._ || window.CMSwift?.ui;
+      const UI = window._ || window.JSswift?.ui;
       const cells = Array.from({ length: 8 }, (_, index) =>
         UI.div({ class: "probe-cell" }, "cell " + (index + 1))
       );
@@ -273,7 +273,7 @@ test("GridCol col alias uses grid vars without generic grid-column vars", {
   skip: findChrome() ? false : "Chrome/Chromium is not available"
 }, async () => {
   const chromePath = findChrome();
-  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "cmswift-gridcol-responsive-"));
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-gridcol-responsive-"));
   const htmlFile = path.join(tmpDir, "index.html");
   const coreUrl = pathToFileURL(path.join(ROOT_DIR, "packages/core/dist/cms.js")).href;
   const uiUrl = pathToFileURL(path.join(ROOT_DIR, "packages/ui/dist/ui.js")).href;
@@ -300,7 +300,7 @@ test("GridCol col alias uses grid vars without generic grid-column vars", {
     };
 
     try {
-      const UI = window._ || window.CMSwift?.ui;
+      const UI = window._ || window.JSswift?.ui;
       const toolbar = UI.Toolbar({
         class: "probe-toolbar",
         gap: "sm",
@@ -381,7 +381,7 @@ test("Avatar applies common responsive props", {
   skip: findChrome() ? false : "Chrome/Chromium is not available"
 }, async () => {
   const chromePath = findChrome();
-  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "cmswift-avatar-responsive-"));
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-avatar-responsive-"));
   const htmlFile = path.join(tmpDir, "index.html");
   const coreUrl = pathToFileURL(path.join(ROOT_DIR, "packages/core/dist/cms.js")).href;
   const uiUrl = pathToFileURL(path.join(ROOT_DIR, "packages/ui/dist/ui.js")).href;
@@ -406,7 +406,7 @@ test("Avatar applies common responsive props", {
     };
 
     try {
-      const UI = window._ || window.CMSwift?.ui;
+      const UI = window._ || window.JSswift?.ui;
       const avatar = UI.Avatar({
         label: "Probe",
         width: "40px",
@@ -447,7 +447,7 @@ test("Nested GridCol does not inherit span variables from parent GridCol", {
   skip: findChrome() ? false : "Chrome/Chromium is not available"
 }, async () => {
   const chromePath = findChrome();
-  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "cmswift-nested-gridcol-responsive-"));
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-nested-gridcol-responsive-"));
   const htmlFile = path.join(tmpDir, "index.html");
   const coreUrl = pathToFileURL(path.join(ROOT_DIR, "packages/core/dist/cms.js")).href;
   const uiUrl = pathToFileURL(path.join(ROOT_DIR, "packages/ui/dist/ui.js")).href;
@@ -474,7 +474,7 @@ test("Nested GridCol does not inherit span variables from parent GridCol", {
     };
 
     try {
-      const UI = window._ || window.CMSwift?.ui;
+      const UI = window._ || window.JSswift?.ui;
       const childA = UI.GridCol({ class: "inner-cell inner-a" }, "A");
       const childB = UI.GridCol({ class: "inner-cell inner-b" }, "B");
       const innerGrid = UI.Grid({
@@ -536,7 +536,7 @@ test("Toolbar responsive gap and direction apply across mobile tablet and pc", {
   skip: findChrome() ? false : "Chrome/Chromium is not available"
 }, async () => {
   const chromePath = findChrome();
-  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "cmswift-toolbar-responsive-"));
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-toolbar-responsive-"));
   const htmlFile = path.join(tmpDir, "index.html");
   const coreUrl = pathToFileURL(path.join(ROOT_DIR, "packages/core/dist/cms.js")).href;
   const uiUrl = pathToFileURL(path.join(ROOT_DIR, "packages/ui/dist/ui.js")).href;
@@ -561,7 +561,7 @@ test("Toolbar responsive gap and direction apply across mobile tablet and pc", {
     };
 
     try {
-      const UI = window._ || window.CMSwift?.ui;
+      const UI = window._ || window.JSswift?.ui;
       const toolbar = UI.Toolbar({
         gap: "sm",
         direction: "column",
@@ -617,7 +617,7 @@ test("Card sections apply responsive gap padding justify and direction", {
   skip: findChrome() ? false : "Chrome/Chromium is not available"
 }, async () => {
   const chromePath = findChrome();
-  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "cmswift-card-section-responsive-"));
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-card-section-responsive-"));
   const htmlFile = path.join(tmpDir, "index.html");
   const coreUrl = pathToFileURL(path.join(ROOT_DIR, "packages/core/dist/cms.js")).href;
   const uiUrl = pathToFileURL(path.join(ROOT_DIR, "packages/ui/dist/ui.js")).href;
@@ -642,7 +642,7 @@ test("Card sections apply responsive gap padding justify and direction", {
     };
 
     try {
-      const UI = window._ || window.CMSwift?.ui;
+      const UI = window._ || window.JSswift?.ui;
       const header = UI.cardHeader({
         gap: "sm",
         tablet: { gap: "md", justify: "space-between" }
@@ -733,7 +733,7 @@ test("Menu responsive width stays clamped inside mobile viewport", {
   skip: findChrome() ? false : "Chrome/Chromium is not available"
 }, async () => {
   const chromePath = findChrome();
-  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "cmswift-menu-mobile-clamp-"));
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-menu-mobile-clamp-"));
   const htmlFile = path.join(tmpDir, "index.html");
   const coreUrl = pathToFileURL(path.join(ROOT_DIR, "packages/core/dist/cms.js")).href;
   const uiUrl = pathToFileURL(path.join(ROOT_DIR, "packages/ui/dist/ui.js")).href;
@@ -760,7 +760,7 @@ test("Menu responsive width stays clamped inside mobile viewport", {
     };
 
     try {
-      const UI = window._ || window.CMSwift?.ui;
+      const UI = window._ || window.JSswift?.ui;
       const menu = UI.Menu({
         width: "calc(100vw - 32px)",
         tablet: { width: "320px" },
@@ -809,7 +809,7 @@ test("ContextMenu responsive width stays clamped inside mobile viewport", {
   skip: findChrome() ? false : "Chrome/Chromium is not available"
 }, async () => {
   const chromePath = findChrome();
-  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "cmswift-context-menu-mobile-clamp-"));
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-context-menu-mobile-clamp-"));
   const htmlFile = path.join(tmpDir, "index.html");
   const coreUrl = pathToFileURL(path.join(ROOT_DIR, "packages/core/dist/cms.js")).href;
   const uiUrl = pathToFileURL(path.join(ROOT_DIR, "packages/ui/dist/ui.js")).href;
@@ -839,7 +839,7 @@ test("ContextMenu responsive width stays clamped inside mobile viewport", {
     };
 
     try {
-      const UI = window._ || window.CMSwift?.ui;
+      const UI = window._ || window.JSswift?.ui;
       const surface = document.getElementById("surface");
       const ctx = UI.ContextMenu({
         width: "calc(100vw - 32px)",
@@ -888,7 +888,7 @@ test("Menu repositions when panel width grows after open", {
   skip: findChrome() ? false : "Chrome/Chromium is not available"
 }, async () => {
   const chromePath = findChrome();
-  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "cmswift-menu-resize-clamp-"));
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-menu-resize-clamp-"));
   const htmlFile = path.join(tmpDir, "index.html");
   const coreUrl = pathToFileURL(path.join(ROOT_DIR, "packages/core/dist/cms.js")).href;
   const uiUrl = pathToFileURL(path.join(ROOT_DIR, "packages/ui/dist/ui.js")).href;
@@ -915,7 +915,7 @@ test("Menu repositions when panel width grows after open", {
     };
 
     try {
-      const UI = window._ || window.CMSwift?.ui;
+      const UI = window._ || window.JSswift?.ui;
       const menu = UI.Menu({
         width: "220px",
         items: [
@@ -962,7 +962,7 @@ test("Dialog fullscreen stays inside the mobile viewport without overscan", {
     : (!hasDevtoolsWebSocket() ? "Node WebSocket API is not available" : false)
 }, async () => {
   const chromePath = findChrome();
-  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "cmswift-dialog-fullscreen-mobile-"));
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-dialog-fullscreen-mobile-"));
   const htmlFile = path.join(tmpDir, "index.html");
   const coreUrl = pathToFileURL(path.join(ROOT_DIR, "packages/core/dist/cms.js")).href;
   const uiUrl = pathToFileURL(path.join(ROOT_DIR, "packages/ui/dist/ui.js")).href;
@@ -987,7 +987,7 @@ test("Dialog fullscreen stays inside the mobile viewport without overscan", {
     };
 
     try {
-      const UI = window._ || window.CMSwift?.ui;
+      const UI = window._ || window.JSswift?.ui;
       const dialog = UI.Dialog({
         size: "full",
         fullscreen: true,

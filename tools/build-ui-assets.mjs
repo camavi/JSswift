@@ -5,11 +5,11 @@ const ROOT = process.cwd();
 
 const targets = [
   {
-    from: path.join(ROOT, "pages", "_cmswift-fe", "fonts"),
+    from: path.join(ROOT, "pages", "_jsswift-fe", "fonts"),
     to: path.join(ROOT, "packages", "ui", "dist", "fonts"),
   },
   {
-    from: path.join(ROOT, "pages", "_cmswift-fe", "img"),
+    from: path.join(ROOT, "pages", "_jsswift-fe", "img"),
     to: path.join(ROOT, "packages", "ui", "dist", "img"),
   },
 ];

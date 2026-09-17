@@ -10,20 +10,20 @@
     runHooks,
     wrapResponse,
     withJSON
-  } = CMSwift._httpShared;
-  const CMSwiftHttpSetting =
-    typeof globalThis !== "undefined" && globalThis.CMSwift_setting
-      ? globalThis.CMSwift_setting
+  } = JSswift._httpShared;
+  const JSswiftHttpSetting =
+    typeof globalThis !== "undefined" && globalThis.JSswift_setting
+      ? globalThis.JSswift_setting
       : {};
   const configHTTP = {
-    baseURL: CMSwiftHttpSetting.http?.baseURL || "",
-    timeout: CMSwiftHttpSetting.http?.timeout ?? 0, // ms, 0 = no timeout
-    retry: CMSwiftHttpSetting.http?.retry || { attempts: 0, delay: 250, factor: 2 }, // attempts extra
-    headers: CMSwiftHttpSetting.http?.headers || {},
-    credentials: CMSwiftHttpSetting.http?.credentials, // "include" etc (optional)
-    debug: CMSwiftHttpSetting.debug ?? false
+    baseURL: JSswiftHttpSetting.http?.baseURL || "",
+    timeout: JSswiftHttpSetting.http?.timeout ?? 0, // ms, 0 = no timeout
+    retry: JSswiftHttpSetting.http?.retry || { attempts: 0, delay: 250, factor: 2 }, // attempts extra
+    headers: JSswiftHttpSetting.http?.headers || {},
+    credentials: JSswiftHttpSetting.http?.credentials, // "include" etc (optional)
+    debug: JSswiftHttpSetting.debug ?? false
   };
-  const httpState = createHttpReactiveState(CMSwift);
+  const httpState = createHttpReactiveState(JSswift);
   const now = () => (typeof performance !== "undefined" && performance.now ? performance.now() : Date.now());
 
   const hooksHTTP = {
@@ -34,8 +34,8 @@
 
   async function coreFetch(req) {
     // Auth integration: se esiste auth.fetch usa quello
-    const f = (CMSwift.auth && typeof CMSwift.auth.fetch === "function")
-      ? CMSwift.auth.fetch.bind(CMSwift.auth)
+    const f = (JSswift.auth && typeof JSswift.auth.fetch === "function")
+      ? JSswift.auth.fetch.bind(JSswift.auth)
       : fetch;
     const init = {
       method: req.method,
@@ -77,8 +77,8 @@
         try {
           if (configHTTP.debug) console.log("[http.request]", effectiveReq.method, effectiveReq.url);
 
-          CMSwift.perf?.inc("httpRequests");
-          CMSwift.perf?.mark("http:req", { url: req.url, method: req.method });
+          JSswift.perf?.inc("httpRequests");
+          JSswift.perf?.mark("http:req", { url: req.url, method: req.method });
 
 
           const res = await coreFetch(effectiveReq);
@@ -88,7 +88,7 @@
           const outRes = await runHooks(hooksHTTP.afterResponse, res, effectiveReq);
           const dt = now() - attemptAt;
 
-          CMSwift.perf?.tick("http:res", dt, { status: res.status, url: req.url });
+          JSswift.perf?.tick("http:res", dt, { status: res.status, url: req.url });
 
           // retryable status?
           if (attempt < maxAttempts && isRetryable(null, outRes)) {
@@ -133,25 +133,25 @@
   }
 
   // shortcuts
-  CMSwift.http = {};
-  CMSwift.http.request = request;
-  CMSwift.http.state = () => httpState.state;
-  CMSwift.http.get = (url, init) => request(url, { ...init, method: "GET" });
-  CMSwift.http.del = (url, init) => request(url, { ...init, method: "DELETE" });
-  CMSwift.http.post = (url, body, init) => withJSON(request, "POST", url, body, init);
-  CMSwift.http.put = (url, body, init) => withJSON(request, "PUT", url, body, init);
-  CMSwift.http.patch = (url, body, init) => withJSON(request, "PATCH", url, body, init);
+  JSswift.http = {};
+  JSswift.http.request = request;
+  JSswift.http.state = () => httpState.state;
+  JSswift.http.get = (url, init) => request(url, { ...init, method: "GET" });
+  JSswift.http.del = (url, init) => request(url, { ...init, method: "DELETE" });
+  JSswift.http.post = (url, body, init) => withJSON(request, "POST", url, body, init);
+  JSswift.http.put = (url, body, init) => withJSON(request, "PUT", url, body, init);
+  JSswift.http.patch = (url, body, init) => withJSON(request, "PATCH", url, body, init);
 
-  CMSwift.http.getJSON = async (url, init) => (await request(url, { ...init, method: "GET" })).jsonStrict();
-  CMSwift.http.delJSON = async (url, init) => (await request(url, { ...init, method: "DELETE" })).jsonStrict();
-  CMSwift.http.postJSON = async (url, body, init) => (await withJSON(request, "POST", url, body, init)).jsonStrict();
-  CMSwift.http.putJSON = async (url, body, init) => (await withJSON(request, "PUT", url, body, init)).jsonStrict();
-  CMSwift.http.patchJSON = async (url, body, init) => (await withJSON(request, "PATCH", url, body, init)).jsonStrict();
+  JSswift.http.getJSON = async (url, init) => (await request(url, { ...init, method: "GET" })).jsonStrict();
+  JSswift.http.delJSON = async (url, init) => (await request(url, { ...init, method: "DELETE" })).jsonStrict();
+  JSswift.http.postJSON = async (url, body, init) => (await withJSON(request, "POST", url, body, init)).jsonStrict();
+  JSswift.http.putJSON = async (url, body, init) => (await withJSON(request, "PUT", url, body, init)).jsonStrict();
+  JSswift.http.patchJSON = async (url, body, init) => (await withJSON(request, "PATCH", url, body, init)).jsonStrict();
 
-  CMSwift.http.onBefore = function (fn) { hooksHTTP.beforeRequest.add(fn); return () => hooksHTTP.beforeRequest.delete(fn); };
-  CMSwift.http.onAfter = function (fn) { hooksHTTP.afterResponse.add(fn); return () => hooksHTTP.afterResponse.delete(fn); };
-  CMSwift.http.onError = function (fn) { hooksHTTP.onError.add(fn); return () => hooksHTTP.onError.delete(fn); };
+  JSswift.http.onBefore = function (fn) { hooksHTTP.beforeRequest.add(fn); return () => hooksHTTP.beforeRequest.delete(fn); };
+  JSswift.http.onAfter = function (fn) { hooksHTTP.afterResponse.add(fn); return () => hooksHTTP.afterResponse.delete(fn); };
+  JSswift.http.onError = function (fn) { hooksHTTP.onError.add(fn); return () => hooksHTTP.onError.delete(fn); };
 
   // shortcuts per browser global
-  window._http = CMSwift.http;
+  window._http = JSswift.http;
   // ===============================

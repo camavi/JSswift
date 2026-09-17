@@ -1,19 +1,19 @@
-# CMSwift v1.0.7 Release Notes
+# JSswift v1.0.7 Release Notes
 
 Status:
 
-- patch release prepared to ship the official CMSwift SVG logo, local demo branding, and package-level logo asset exports
+- patch release prepared to ship the official JSswift SVG logo, local demo branding, and package-level logo asset exports
 
 ## Summary
 
-`v1.0.7` makes the CMSwift logo a real runtime asset instead of an external reference. The local demos now use the official SVG as favicon and visible brand mark, and consumers can import the same logo directly from the published UI and umbrella packages.
+`v1.0.7` makes the JSswift logo a real runtime asset instead of an external reference. The local demos now use the official SVG as favicon and visible brand mark, and consumers can import the same logo directly from the published UI and umbrella packages.
 
 ## Added
 
-- official CMSwift logo asset at `pages/_cmswift-fe/img/logo.svg`
+- official JSswift logo asset at `pages/_jsswift-fe/img/logo.svg`
 - published asset exports:
-  - `@cmswift/ui/img/logo.svg`
-  - `cmswift/img/logo.svg`
+  - `@jsswift/ui/img/logo.svg`
+  - `jsswift/img/logo.svg`
 - visible brand lockup in the local demo pages
 - SVG favicon coverage for the demo pages
 

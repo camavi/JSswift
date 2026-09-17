@@ -1,5 +1,5 @@
 UI.Banner = (...args) => {
-  const { props: rawProps, children } = CMSwift.uiNormalizeArgs(args);
+  const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
   const slots = rawProps.slots || {};
 
   const resolveStateValue = () => normalizeState(uiUnwrap(rawProps.type) || uiUnwrap(rawProps.state) || "");
@@ -20,7 +20,7 @@ UI.Banner = (...args) => {
   const stackClass = uiComputed(rawProps.stack, () => uiUnwrap(rawProps.stack) ? "cms-banner-stack" : "");
 
   const props = { ...rawProps };
-  const p = CMSwift.omit(props, [
+  const p = JSswift.omit(props, [
     "actions", "actionsPlacement", "accent", "aside", "body", "closeLabel", "description",
     "dismiss", "dismissible", "icon", "iconSize", "message", "meta", "onDismiss", "slots",
     "stack", "state", "subtitle", "title", "type", "variant"
@@ -78,7 +78,7 @@ UI.Banner = (...args) => {
     if (rawProps.icon != null) {
       return typeof rawProps.icon === "string"
         ? UI.Icon({ name: rawProps.icon, size: rawProps.iconSize || rawProps.size || "md" })
-        : CMSwift.ui.slot(rawProps.icon, { as: "icon" });
+        : JSswift.ui.slot(rawProps.icon, { as: "icon" });
     }
     const state = resolveStateValue();
     const iconName = state ? autoIconMap[state] : null;
@@ -155,7 +155,7 @@ UI.Banner = (...args) => {
   setPropertyProps(bannerEl, rawProps);
   return bannerEl;
 };
-if (CMSwift.isDev?.()) {
+if (JSswift.isDev?.()) {
   UI.meta = UI.meta || {};
   UI.meta.Banner = {
     signature: "UI.Banner(...children) | UI.Banner(props, ...children)",
@@ -198,10 +198,10 @@ if (CMSwift.isDev?.()) {
     description: "Structured banner with tone, actions, dismiss, and composable slots."
   };
 }
-// Esempio: CMSwift.ui.Banner({ type: "warning", title: "Pagamento in sospeso", message: "Aggiorna il batch entro le 18:00" })
+// Esempio: JSswift.ui.Banner({ type: "warning", title: "Pagamento in sospeso", message: "Aggiorna il batch entro le 18:00" })
 
 UI.Alert = (...args) => {
-  const { props: rawProps, children } = CMSwift.uiNormalizeArgs(args);
+  const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
   const slots = rawProps.slots || {};
 
   const resolveStateValue = () => normalizeState(uiUnwrap(rawProps.type) || uiUnwrap(rawProps.state) || uiUnwrap(rawProps.color) || "warning");
@@ -211,7 +211,7 @@ UI.Alert = (...args) => {
   });
 
   const props = { ...rawProps };
-  const p = CMSwift.omit(props, [
+  const p = JSswift.omit(props, [
     "actions", "aside", "closeLabel", "description", "dismiss", "dismissible",
     "icon", "iconSize", "message", "meta", "onDismiss", "slots", "state",
     "subtitle", "title", "type", "variant"
@@ -242,7 +242,7 @@ UI.Alert = (...args) => {
     if (rawProps.icon != null) {
       return typeof rawProps.icon === "string"
         ? UI.Icon({ name: rawProps.icon, size: rawProps.iconSize || "sm" })
-        : CMSwift.ui.slot(rawProps.icon, { as: "icon" });
+        : JSswift.ui.slot(rawProps.icon, { as: "icon" });
     }
     const iconName = autoIconMap[resolveStateValue()] || autoIconMap.warning;
     return UI.Icon({ name: iconName, size: rawProps.iconSize || "sm" });
@@ -296,7 +296,7 @@ UI.Alert = (...args) => {
   setPropertyProps(alertEl, rawProps);
   return alertEl;
 };
-if (CMSwift.isDev?.()) {
+if (JSswift.isDev?.()) {
   UI.meta = UI.meta || {};
   UI.meta.Alert = {
     signature: "UI.Alert(...children) | UI.Alert(props, ...children)",
@@ -333,10 +333,10 @@ if (CMSwift.isDev?.()) {
     description: "Alert compatto per warning inline, policy note e feedback persistente dentro page o card."
   };
 }
-// Esempio: CMSwift.ui.Alert({ type: "warning", title: "Review richiesta", message: "Controlla il batch prima del go-live" })
+// Esempio: JSswift.ui.Alert({ type: "warning", title: "Review richiesta", message: "Controlla il batch prima del go-live" })
 
 UI.EmptyState = (...args) => {
-  const { props: rawProps, children } = CMSwift.uiNormalizeArgs(args);
+  const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
   const slots = rawProps.slots || {};
   const resolveStateValue = () => normalizeState(uiUnwrap(rawProps.state) || uiUnwrap(rawProps.color) || "");
   const stateClass = uiComputed([rawProps.state, rawProps.color], () => {
@@ -345,7 +345,7 @@ UI.EmptyState = (...args) => {
   });
 
   const props = { ...rawProps };
-  const p = CMSwift.omit(props, [
+  const p = JSswift.omit(props, [
     "actions", "description", "eyebrow", "icon", "iconSize", "illustration", "media",
     "message", "meta", "slots", "state", "title"
   ]);
@@ -365,7 +365,7 @@ UI.EmptyState = (...args) => {
     : (rawProps.icon != null
       ? (typeof rawProps.icon === "string"
         ? UI.Icon({ name: rawProps.icon, size: rawProps.iconSize || "xl" })
-        : CMSwift.ui.slot(rawProps.icon, { as: "icon" }))
+        : JSswift.ui.slot(rawProps.icon, { as: "icon" }))
       : UI.Icon({ name: "inbox", size: rawProps.iconSize || "xl" }));
 
   const illustrationNodes = renderSlotToArray(slots, "illustration", {}, rawProps.illustration ?? rawProps.media);
@@ -396,7 +396,7 @@ UI.EmptyState = (...args) => {
   setPropertyProps(emptyState, rawProps);
   return emptyState;
 };
-if (CMSwift.isDev?.()) {
+if (JSswift.isDev?.()) {
   UI.meta = UI.meta || {};
   UI.meta.EmptyState = {
     signature: "UI.EmptyState(...children) | UI.EmptyState(props, ...children)",
@@ -432,16 +432,16 @@ if (CMSwift.isDev?.()) {
     description: "Surface per zero-results, onboarding vuoti e pannelli senza dati con CTA di recupero."
   };
 }
-// Esempio: CMSwift.ui.EmptyState({ title: "No results", message: "Prova a cambiare i filtri" })
+// Esempio: JSswift.ui.EmptyState({ title: "No results", message: "Prova a cambiare i filtri" })
 
 // -------------------------------
 // 3) APP SHELL
 // -------------------------------
-let drawerStateKey = "cmswift:drawer-open";
+let drawerStateKey = "jsswift:drawer-open";
 const drawerToggleIcons = new Set();
 const drawerElsByKey = new Map();
 const readDrawerOpen = (key = drawerStateKey) => {
-  const store = CMSwift?.store;
+  const store = JSswift?.store;
   if (store?.get) {
     const stored = store.get(key, undefined);
     if (typeof stored === "boolean") return stored;
@@ -453,7 +453,7 @@ const readDrawerOpen = (key = drawerStateKey) => {
   }
 };
 const writeDrawerOpen = (open, key = drawerStateKey) => {
-  const store = CMSwift?.store;
+  const store = JSswift?.store;
   if (store?.set) {
     store.set(key, !!open);
     return;

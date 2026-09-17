@@ -1,5 +1,5 @@
   UI.Dialog = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const stateList = ["primary", "secondary", "warning", "danger", "success", "info", "light", "dark"];
     const sizeList = ["xs", "sm", "md", "lg", "xl", "full"];
@@ -162,7 +162,7 @@
       const iconFallback = opts.icon != null
         ? (typeof opts.icon === "string"
           ? UI.Icon({ name: opts.icon, size: opts.iconSize || "md" })
-          : CMSwift.ui.slot(opts.icon, { as: "icon" }))
+          : JSswift.ui.slot(opts.icon, { as: "icon" }))
         : null;
       const eyebrowNodes = renderSlotToArray(slots, "eyebrow", ctx, resolveRender(opts.eyebrow, ctx));
       const titleNodes = renderSlotToArray(slots, "title", ctx, resolveRender(opts.title ?? opts.heading ?? opts.header, ctx));
@@ -288,7 +288,7 @@
       lastActive = document.activeElement;
       const opts = getOptions();
       const persistent = opts.persistent === true;
-      entry = CMSwift.overlay.open(() => buildContent(), {
+      entry = JSswift.overlay.open(() => buildContent(), {
         type: "dialog",
         backdrop: opts.backdrop !== false,
         lockScroll: opts.lockScroll !== false,
@@ -322,7 +322,7 @@
     const close = () => {
       if (!entry) return;
       const toClose = entry;
-      overlayLeave(toClose, () => CMSwift.overlay.close(toClose.id));
+      overlayLeave(toClose, () => JSswift.overlay.close(toClose.id));
     };
 
     const isOpen = () => !!entry;
@@ -331,7 +331,7 @@
 
     return api;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Dialog = {
       signature: "UI.Dialog(props) | UI.Dialog(props, ...children) -> { open, close, toggle, update, isOpen }",

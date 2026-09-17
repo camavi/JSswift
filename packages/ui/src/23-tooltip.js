@@ -1,5 +1,5 @@
   UI.Tooltip = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     let entry = null;
     let openTimer = null;
@@ -28,7 +28,7 @@
       if (!entry) return;
       const toClose = entry;
       entry = null;
-      overlayLeave(toClose, () => CMSwift.overlay.close(toClose.id));
+      overlayLeave(toClose, () => JSswift.overlay.close(toClose.id));
     };
     const parseTriggers = (value) => {
       if (value == null || value === true) return new Set(["hover", "focus"]);
@@ -61,7 +61,7 @@
       const iconFallback = props.icon
         ? (typeof props.icon === "string"
           ? UI.Icon({ name: props.icon, size: props.iconSize || props.size || "sm" })
-          : CMSwift.ui.slot(props.icon, { as: "icon" }))
+          : JSswift.ui.slot(props.icon, { as: "icon" }))
         : null;
       const titleNodes = renderSlotToArray(slots, "title", ctx, props.title ?? props.heading);
       const iconNodes = renderSlotToArray(slots, "icon", ctx, iconFallback);
@@ -101,7 +101,7 @@
       const shouldCloseOnOutside = props.closeOnOutside ?? (allowClick || uiUnwrap(props.interactive));
       const shouldCloseOnEsc = props.closeOnEsc ?? (allowClick || uiUnwrap(props.interactive));
       let currentRef = null;
-      entry = CMSwift.overlay.open(() => buildContent(), {
+      entry = JSswift.overlay.open(() => buildContent(), {
         type: "tooltip",
         anchorEl: anchor,
         placement: props.placement || "top",
@@ -200,7 +200,7 @@
       };
       if (hasOwn("open")) {
         if (uiIsReactive(props.open)) {
-          CMSwift.reactive.effect(() => {
+          JSswift.reactive.effect(() => {
             if (!boundEl) return;
             if (uiUnwrap(props.open)) open(boundEl);
             else hide(true);
@@ -247,7 +247,7 @@
 
     if (targetNode) {
       const cls = uiClass(["cms-tooltip-wrap", props.wrapClass, props.targetClass]);
-      const p = CMSwift.omit(props, [
+      const p = JSswift.omit(props, [
         "actions", "anchorEl", "body", "closeOnEsc", "closeOnOutside", "content", "delay", "description",
         "disabled", "footer", "heading", "hideDelay", "icon", "iconSize", "interactive", "label",
         "maxWidth", "minWidth", "offset", "offsetX", "offsetY", "onClose", "onOpen", "onTriggerClick",
@@ -256,7 +256,7 @@
       ]);
       p.class = cls;
       p.style = { display: "inline-flex", alignItems: "center", ...(props.wrapStyle || props.targetStyle || {}) };
-      const target = CMSwift.ui.renderSlot(slots, "target", {
+      const target = JSswift.ui.renderSlot(slots, "target", {
         open: () => open(boundEl),
         show: () => show(boundEl),
         hide: () => hide(true),
@@ -271,7 +271,7 @@
 
     return { bind, open, show, hide, close: closeNow, toggle, isOpen };
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Tooltip = {
       signature: "UI.Tooltip(props, target?) | UI.Tooltip(target, content)",
@@ -322,5 +322,5 @@
       description: "Anchored tooltip with hover/focus/click triggers, rich content, and imperative API."
     };
   }
-  // Esempio: CMSwift.ui.Tooltip({ title: "Info", text: "Dettaglio rapido" }, CMSwift.ui.Icon({ name: "info" }))
+  // Esempio: JSswift.ui.Tooltip({ title: "Info", text: "Dettaglio rapido" }, JSswift.ui.Icon({ name: "info" }))
 

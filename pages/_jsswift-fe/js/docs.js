@@ -7,7 +7,7 @@ const DOC_STATUS_COLORS = {
 
 const docNodes = (value) => {
   if (value == null || value === false || value === "") return [];
-  const out = CMSwift.ui.slot(value);
+  const out = JSswift.ui.slot(value);
   return _.asNodeArray(out);
 };
 
@@ -83,7 +83,7 @@ const renderDocPattern = (item) => {
 };
 
 _.ComponentDocs = (...args) => {
-  const { props, children } = CMSwift.uiNormalizeArgs(args);
+  const { props, children } = JSswift.uiNormalizeArgs(args);
   const doc = _.isUIPlainObject(props.doc) ? props.doc : {};
   const rawName = props.name || doc.name || doc.component || "";
   const meta = _.meta?.[rawName] || null;
@@ -203,7 +203,7 @@ _.ComponentDocs = (...args) => {
     })
     : _.div({ class: "cms-component-docs-stack" }, ...tabs.map((tab) => _.Grid({ gap: 18, cols: 1, class: "cms-p-sm" }, tab.content)));
 
-  const rootProps = CMSwift.omit(props, [
+  const rootProps = JSswift.omit(props, [
     "doc", "name", "title", "summary", "signature", "status", "tags", "quickFacts",
     "essentialProps", "useWhen", "avoidWhen", "anatomy", "slots", "patterns",
     "accessibility", "gotchas", "api", "class", "style"
@@ -216,7 +216,7 @@ _.ComponentDocs = (...args) => {
   return _.Grid(rootProps, hero, panel);
 };
 
-if (CMSwift.isDev?.()) {
+if (JSswift.isDev?.()) {
   _.meta = _.meta || {};
   _.meta.ComponentDocs = {
     signature: "_.ComponentDocs({ doc, api? })",

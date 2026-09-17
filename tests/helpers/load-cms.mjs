@@ -404,7 +404,7 @@ export async function loadCMS() {
   };
   globalThis.atob = (value) => Buffer.from(String(value), "base64").toString("binary");
   globalThis.performance = globalThis.performance || { now: () => Date.now() };
-  globalThis.CMSwift_setting = {
+  globalThis.JSswift_setting = {
     modeDev: true,
     http: {
       baseURL: "",
@@ -414,12 +414,12 @@ export async function loadCMS() {
     }
   };
 
-  delete globalThis.CMSwift;
-  delete globalThis.CMSwift;
+  delete globalThis.JSswift;
+  delete globalThis.JSswift;
   delete globalThis._;
 
-  const filename = path.resolve("pages/_cmswift-fe/js/cms.js");
+  const filename = path.resolve("pages/_jsswift-fe/js/cms.js");
   const source = await fs.readFile(filename, "utf8");
   vm.runInThisContext(source, { filename });
-  return globalThis.CMSwift;
+  return globalThis.JSswift;
 }

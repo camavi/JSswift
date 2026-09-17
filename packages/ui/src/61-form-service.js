@@ -1,9 +1,9 @@
   // useForm + UI.Form
-  CMSwift.form = CMSwift.form || {};
+  JSswift.form = JSswift.form || {};
 
-  CMSwift.form._isPromise = (v) => v && typeof v.then === "function";
+  JSswift.form._isPromise = (v) => v && typeof v.then === "function";
 
-  CMSwift.form._normalizeRules = (rules) => {
+  JSswift.form._normalizeRules = (rules) => {
     // rules: { fieldName: [fn|{rule, message}] } or { fieldName: fn } etc.
     const out = {};
     for (const k in (rules || {})) {
@@ -14,7 +14,7 @@
   };
 
   // rule returns: true (ok) | false (generic error) | string (error msg)
-  CMSwift.form._runRule = async (rule, value, ctx) => {
+  JSswift.form._runRule = async (rule, value, ctx) => {
     let fn = rule;
     let msg = null;
 
@@ -24,7 +24,7 @@
     }
 
     const res = fn ? fn(value, ctx) : true;
-    const v = CMSwift.form._isPromise(res) ? await res : res;
+    const v = JSswift.form._isPromise(res) ? await res : res;
 
     if (v === true) return null;
     if (typeof v === "string") return v;
@@ -32,9 +32,9 @@
     return v ? null : (msg || "Valore non valido");
   };
 
-  CMSwift.useForm = (options = {}) => {
+  JSswift.useForm = (options = {}) => {
     const model = options.model || {};
-    const rules = CMSwift.form._normalizeRules(options.rules || {});
+    const rules = JSswift.form._normalizeRules(options.rules || {});
     const validateOn = options.validateOn || "submit"; // "input" | "blur" | "submit"
     const initial = options.initial || null;
 
@@ -97,7 +97,7 @@
 
       for (const rule of list) {
         if (!rule) continue;
-        const msg = await CMSwift.form._runRule(rule, value, ctx);
+        const msg = await JSswift.form._runRule(rule, value, ctx);
         if (msg) {
           setError(name, msg);
           return false;
@@ -244,12 +244,12 @@
   };
 
   UI.Form = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const form = props.form; // required-ish
     const onSubmit = props.onSubmit; // async (model, form) => ...
     const cls = uiClass(["cms-form", props.class]);
 
-    const p = CMSwift.omit(props, ["form", "onSubmit"]);
+    const p = JSswift.omit(props, ["form", "onSubmit"]);
     p.class = cls;
 
     const el = _.form({
@@ -265,7 +265,7 @@
     const content = [];
     for (const ch of (children || [])) {
       const v = (typeof ch === "function") ? ch(form) : ch;
-      const out = CMSwift.ui.slot(v);
+      const out = JSswift.ui.slot(v);
       if (!out) continue;
       if (Array.isArray(out)) content.push(...out);
       else content.push(out);
@@ -275,14 +275,14 @@
 
     // disable fields/buttons while submitting (optional UX)
     if (form && form.submitting) {
-      CMSwift.reactive.effect(() => {
+      JSswift.reactive.effect(() => {
         el.classList.toggle("is-submitting", !!form.submitting.value);
       }, "UI.Form:submitting");
     }
 
     return el;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Form = {
       signature: "UI.Form({ form, onSubmit, ...props }, ...children)",
@@ -318,10 +318,10 @@
   }
 
   UI.cardHeader = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const cls = uiClass(["cms-card-header", uiWhen(props.divider, "divider"), props.class]);
-    const p = CMSwift.omit(props, ["divider", "align", "justify", "gap", "wrap", "direction", "slots"]);
+    const p = JSswift.omit(props, ["divider", "align", "justify", "gap", "wrap", "direction", "slots"]);
     p.class = cls;
 
     const style = { ...(props.style || {}) };
@@ -336,31 +336,31 @@
     const gap = uiStyleValue(props.gap, toCssSize);
     if (gap != null && !uiHasResponsiveOverride(props, "gap")) style.gap = gap;
     if (Object.keys(style).length) p.style = style;
-    CMSwift.uiApplyResponsiveProps(p, props, CMSwift.uiResponsiveStyleRules);
+    JSswift.uiApplyResponsiveProps(p, props, JSswift.uiResponsiveStyleRules);
 
     const el = _.div(p, ...renderSlotToArray(slots, "default", {}, children));
     setPropertyProps(el, props);
     return el;
   };
   UI.cardBody = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const cls = uiClass(["cms-card-body", props.class]);
-    const p = CMSwift.omit(props, [
+    const p = JSswift.omit(props, [
       "slots", "display", "direction", "wrap", "align", "justify", "gap",
       "rowGap", "columnGap", "padding", "width"
     ]);
     p.class = cls;
-    CMSwift.uiApplyResponsiveProps(p, props, CMSwift.uiResponsiveStyleRules);
+    JSswift.uiApplyResponsiveProps(p, props, JSswift.uiResponsiveStyleRules);
     const el = _.div(p, ...renderSlotToArray(slots, "default", {}, children));
     setPropertyProps(el, props);
     return el;
   };
   UI.cardFooter = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const cls = uiClass(["cms-card-footer", uiWhen(props.divider, "divider"), props.class]);
-    const p = CMSwift.omit(props, ["divider", "align", "justify", "gap", "wrap", "direction", "slots"]);
+    const p = JSswift.omit(props, ["divider", "align", "justify", "gap", "wrap", "direction", "slots"]);
     p.class = cls;
 
     const style = { ...(props.style || {}) };
@@ -375,13 +375,13 @@
     const gap = uiStyleValue(props.gap, toCssSize);
     if (gap != null && !uiHasResponsiveOverride(props, "gap")) style.gap = gap;
     if (Object.keys(style).length) p.style = style;
-    CMSwift.uiApplyResponsiveProps(p, props, CMSwift.uiResponsiveStyleRules);
+    JSswift.uiApplyResponsiveProps(p, props, JSswift.uiResponsiveStyleRules);
 
     const el = _.div(p, ...renderSlotToArray(slots, "default", {}, children));
     setPropertyProps(el, props);
     return el;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.cardHeader = {
       signature: "UI.cardHeader(...children) | UI.cardHeader(props, ...children)",

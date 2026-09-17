@@ -1,5 +1,5 @@
   UI.List = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const ordered = !!uiUnwrap(props.number ?? props.ordered);
     const marker = uiUnwrap(props.marker);
@@ -85,7 +85,7 @@
       uiWhen(marker === false || marker === "none", "cms-list-no-marker"),
       props.class
     ]);
-    const p = CMSwift.omit(props, [
+    const p = JSswift.omit(props, [
       "dense", "divider", "slots", "number", "ordered", "items", "itemClass", "itemStyle", "itemProps",
       "empty", "marker", "gap"
     ]);
@@ -102,7 +102,7 @@
     const list = _[ordered ? "ol" : "ul"](p, ...content);
     return list;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.List = {
       signature: "UI.List(...children) | UI.List(props, ...children)",
@@ -131,10 +131,10 @@
       description: "Lista dichiarativa con supporto items, slot item, ordered/marker ed empty state."
     };
   }
-  // Esempio: CMSwift.ui.List({}, CMSwift.ui.Item({}, "Item"))
+  // Esempio: JSswift.ui.List({}, JSswift.ui.Item({}, "Item"))
 
   UI.Item = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     if (props.state != null && props.color == null) props.color = props.state;
     applyCommonProps(props);
     const slots = props.slots || {};
@@ -150,7 +150,7 @@
       const raw = uiUnwrap(value);
       if (raw == null || raw === false || raw === "") return null;
       if (typeof raw === "string") return UI.Icon({ name: raw, size: size || "sm" });
-      return CMSwift.ui.slot(raw, { as });
+      return JSswift.ui.slot(raw, { as });
     };
 
     const iconNodes = renderSlotToArray(slots, "icon", {}, resolveIcon(props.icon, props.iconSize || props.size, "icon"));
@@ -182,7 +182,7 @@
       uiWhen(props.disabled, "is-disabled"),
       props.class
     ]);
-    const p = CMSwift.omit(props, [
+    const p = JSswift.omit(props, [
       "divider", "slots", "label", "title", "subtitle", "caption", "description", "meta", "eyebrow",
       "body", "content", "children", "node", "icon", "iconRight", "iconSize", "aside", "trailing",
       "actions", "footer", "clickable", "to", "active", "selected", "disabled", "state",
@@ -200,9 +200,9 @@
       userOnClick?.(e);
       if (e.defaultPrevented || uiUnwrap(props.disabled)) return;
       const to = uiUnwrap(props.to);
-      if (to && CMSwift.router?.navigate) {
+      if (to && JSswift.router?.navigate) {
         e.preventDefault();
-        CMSwift.router.navigate(to);
+        JSswift.router.navigate(to);
       }
     };
     const onKeydown = (e) => {
@@ -250,7 +250,7 @@
     setPropertyProps(item, props);
     return item;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Item = {
       signature: "UI.Item(...children) | UI.Item(props, ...children)",
@@ -301,12 +301,12 @@
       description: "Structured item for simple lists, feeds, task lists, and clickable rows."
     };
   }
-  // Esempio: CMSwift.ui.Item({}, "Elemento")
+  // Esempio: JSswift.ui.Item({}, "Elemento")
 
   UI.Separator = (...args) => {
-    const { props } = CMSwift.uiNormalizeArgs(args);
+    const { props } = JSswift.uiNormalizeArgs(args);
     const cls = uiClass(["cms-separator", uiWhen(props.vertical, "vertical"), props.class]);
-    const p = CMSwift.omit(props, ["vertical", "size", "slots"]);
+    const p = JSswift.omit(props, ["vertical", "size", "slots"]);
     p.class = cls;
     const style = { borderColor: "var(--cms-border)", ...(props.style || {}) };
     const sizeValue = uiUnwrap(props.size);
@@ -319,7 +319,7 @@
     p.style = style;
     return _.hr(p);
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Separator = {
       signature: "UI.Separator() | UI.Separator(props)",
@@ -337,5 +337,5 @@
       description: "Separatore orizzontale o verticale."
     };
   }
-  // Esempio: CMSwift.ui.Separator()
+  // Esempio: JSswift.ui.Separator()
 

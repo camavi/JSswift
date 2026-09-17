@@ -1,7 +1,7 @@
   // ===============================
   // Debug utilities
   // ===============================
-  CMSwift.debug = (() => {
+  JSswift.debug = (() => {
     const counters = {
       rodFlushes: 0,
       rodNotifies: 0,
@@ -11,12 +11,12 @@
     };
 
     function enabled() {
-      return !!CMSwift.config.debug;
+      return !!JSswift.config.debug;
     }
 
-    function log(...a) { if (enabled()) console.log("[CMSwift]", ...a); }
-    function warn(...a) { if (enabled()) console.warn("[CMSwift]", ...a); }
-    function error(...a) { console.error("[CMSwift]", ...a); } // error sempre
+    function log(...a) { if (enabled()) console.log("[JSswift]", ...a); }
+    function warn(...a) { if (enabled()) console.warn("[JSswift]", ...a); }
+    function error(...a) { console.error("[JSswift]", ...a); } // error sempre
 
     function inc(name, by = 1) {
       if (!counters[name]) counters[name] = 0;
@@ -38,7 +38,7 @@
   // ===============================
   // Performance DevTools
   // ===============================
-  CMSwift.perf = (() => {
+  JSswift.perf = (() => {
     let enabled = false;
 
     const counters = {
@@ -84,9 +84,9 @@
 
     function patchEffect() {
       if (_origEffect) return;
-      _origEffect = CMSwift.reactive.effect;
+      _origEffect = JSswift.reactive.effect;
 
-      CMSwift.reactive.effect = function (fn, meta) {
+      JSswift.reactive.effect = function (fn, meta) {
         // meta opzionale (string/object) per identificare
         const wrapped = (...args) => {
           const t0 = now();
@@ -109,7 +109,7 @@
 
     function unpatchEffect() {
       if (_origEffect) {
-        CMSwift.reactive.effect = _origEffect;
+        JSswift.reactive.effect = _origEffect;
         _origEffect = null;
       }
     }

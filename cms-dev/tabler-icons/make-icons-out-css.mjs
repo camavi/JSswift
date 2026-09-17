@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const SRC_DIR = path.resolve("outline");
-const OUT_FILE = path.resolve("../../src/_cmswift-fe/css/tabler-icons-out.css");
+const OUT_FILE = path.resolve("../../src/_jsswift-fe/css/tabler-icons-out.css");
 
 // sprite SVG che userai nel CSS
 const SPRITE_URL = "../img/svg/tabler-icons-outline-sprite.svg";

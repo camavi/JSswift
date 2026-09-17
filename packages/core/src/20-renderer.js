@@ -1,5 +1,5 @@
 /* ===============================
-   _h hyperscript (usa CMSwift.reactive.effect)
+   _h hyperscript (usa JSswift.reactive.effect)
    =============================== */
 
 const SVG_NS = "http://www.w3.org/2000/svg";
@@ -63,8 +63,8 @@ function createElement(tag, ...args) {
   } = domBridge;
 
   function registerNodeEffect(run) {
-    const stop = CMSwift.reactive.effect(run);
-    CMSwift._registerCleanup(el, stop);
+    const stop = JSswift.reactive.effect(run);
+    JSswift._registerCleanup(el, stop);
     return stop;
   }
 
@@ -114,7 +114,7 @@ function createElement(tag, ...args) {
     };
 
     control.addEventListener(eventName, onValueChange);
-    CMSwift._registerCleanup(control, () => {
+    JSswift._registerCleanup(control, () => {
       control.removeEventListener(eventName, onValueChange);
     });
   }
@@ -131,7 +131,7 @@ function createElement(tag, ...args) {
     };
 
     control.addEventListener("change", onCheckedChange);
-    CMSwift._registerCleanup(control, () => {
+    JSswift._registerCleanup(control, () => {
       control.removeEventListener("change", onCheckedChange);
     });
   }
@@ -152,7 +152,7 @@ function createElement(tag, ...args) {
     };
 
     control.addEventListener("change", onCheckedChange);
-    CMSwift._registerCleanup(control, () => {
+    JSswift._registerCleanup(control, () => {
       control.removeEventListener("change", onCheckedChange);
     });
   }
@@ -180,7 +180,7 @@ function createElement(tag, ...args) {
     };
 
     control.addEventListener("change", onFilesChange);
-    CMSwift._registerCleanup(control, () => {
+    JSswift._registerCleanup(control, () => {
       control.removeEventListener("change", onFilesChange);
     });
   }
@@ -217,7 +217,7 @@ function createElement(tag, ...args) {
     };
 
     control.addEventListener("change", onValueChange);
-    CMSwift._registerCleanup(control, () => {
+    JSswift._registerCleanup(control, () => {
       control.removeEventListener("change", onValueChange);
     });
   }
@@ -241,7 +241,7 @@ function createElement(tag, ...args) {
     };
 
     queueMicrotask(attachParent);
-    CMSwift._registerCleanup(optionEl, () => {
+    JSswift._registerCleanup(optionEl, () => {
       parentSelect?.removeEventListener("change", onParentChange);
     });
   }
@@ -326,8 +326,8 @@ function createElement(tag, ...args) {
       return;
     }
     if (isRod(value)) {
-      const unbind = CMSwift.rodBind(el, value, { key });
-      CMSwift._registerCleanup(el, unbind);
+      const unbind = JSswift.rodBind(el, value, { key });
+      JSswift._registerCleanup(el, unbind);
       return;
     }
     setProp(key, value);
@@ -548,7 +548,7 @@ _.dynamic = function (renderFn) {
 
   let current = null;
 
-  CMSwift.reactive.effect(() => {
+  JSswift.reactive.effect(() => {
     const next = renderFn();
 
     // rimuovi current

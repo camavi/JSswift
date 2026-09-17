@@ -1,4 +1,4 @@
-  const uiResponsiveToken = (className, tokenSet = CMSwift.uiSizes) => (value) => {
+  const uiResponsiveToken = (className, tokenSet = JSswift.uiSizes) => (value) => {
     const key = String(value).trim();
     return tokenSet?.includes(key) ? `${className}-${key}` : "";
   };
@@ -31,12 +31,12 @@
   };
   const uiHasResponsiveOverride = (props, names) => {
     const list = Array.isArray(names) ? names : [names];
-    return CMSwift.uiResponsiveDevices.some((device) => {
-      const deviceProps = CMSwift.uiResponsivePropsFor(props, device);
+    return JSswift.uiResponsiveDevices.some((device) => {
+      const deviceProps = JSswift.uiResponsivePropsFor(props, device);
       return !!deviceProps && list.some((name) => Object.prototype.hasOwnProperty.call(deviceProps, name));
     });
   };
-  const uiResponsiveDevice = (key) => CMSwift.uiResponsiveDevices.find((device) => device.key === key);
+  const uiResponsiveDevice = (key) => JSswift.uiResponsiveDevices.find((device) => device.key === key);
   const uiResponsiveLayoutRules = [
     { prop: "gap", class: "gap", map: uiResponsiveToken("gap") },
     { prop: "rowGap", class: "gap-y", map: uiResponsiveToken("gap-y") },
@@ -81,18 +81,18 @@
     { prop: "place", class: "place-self", map: uiResponsiveRaw("place-self") },
     ...uiResponsiveBoxRules
   ];
-  const uiResponsiveGridColStyleRules = (CMSwift.uiResponsiveStyleRules || []).filter((rule) => {
+  const uiResponsiveGridColStyleRules = (JSswift.uiResponsiveStyleRules || []).filter((rule) => {
     const props = Array.isArray(rule.prop) ? rule.prop : [rule.prop];
     return !props.includes("span") && !props.includes("gridColumn");
   });
 
   UI.Row = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const renderArea = (names, fallback, ctx = {}) => {
       const list = Array.isArray(names) ? names : [names];
       for (const name of list) {
-        if (CMSwift.ui.getSlot(slots, name) != null) {
+        if (JSswift.ui.getSlot(slots, name) != null) {
           return renderSlotToArray(slots, name, ctx, fallback);
         }
       }
@@ -102,29 +102,29 @@
     const rowSpaceValue = (value) => {
       if (value == null || value === false || value === "") return "";
       if (typeof value === "number") return `${value}px`;
-      if (typeof value === "string" && CMSwift.uiSizes?.includes(value)) return `var(--cms-s-${value})`;
+      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return `var(--cms-s-${value})`;
       return String(value);
     };
     const rowWidthValue = (value) => {
       if (value == null || value === false || value === "") return "";
       if (typeof value === "number") return `${value}px`;
-      if (typeof value === "string" && CMSwift.uiSizes?.includes(value)) return `var(--cms-w-${value})`;
+      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return `var(--cms-w-${value})`;
       return String(value);
     };
 
-    const p = CMSwift.omit(props, [
+    const p = JSswift.omit(props, [
       "slots",
       "start", "left", "startClass",
       "body", "center", "bodyClass", "centerClass",
       "end", "right", "endClass",
       "align", "justify", "wrap", "gap", "rowGap", "columnGap",
       "direction", "reverse", "inline", "full", "width", "minWidth", "maxWidth",
-      ...CMSwift.uiResponsiveOmitProps
+      ...JSswift.uiResponsiveOmitProps
     ]);
     p.class = uiClass([
       "cms-row",
-      CMSwift.uiResponsiveClasses({ mobile: props }, uiResponsiveLayoutRules),
-      CMSwift.uiResponsiveClasses(props, uiResponsiveLayoutRules),
+      JSswift.uiResponsiveClasses({ mobile: props }, uiResponsiveLayoutRules),
+      JSswift.uiResponsiveClasses(props, uiResponsiveLayoutRules),
       props.class
     ]);
 
@@ -167,19 +167,19 @@
     if (maxWidth != null && !uiHasResponsiveOverride(props, "maxWidth")) style.maxWidth = maxWidth;
     if (full != null) style.width = full;
     if (Object.keys(style).length) p.style = style;
-    CMSwift.uiApplyResponsiveProps(p, props, CMSwift.uiResponsiveStyleRules);
+    JSswift.uiApplyResponsiveProps(p, props, JSswift.uiResponsiveStyleRules);
 
     const ctx = { props };
     const startNodes = renderArea(["start", "left"], props.start ?? props.left, ctx);
     const bodyNodes = renderArea(["body", "center", "default"], props.body ?? props.center ?? children, ctx);
     const endNodes = renderArea(["end", "right"], props.end ?? props.right, ctx);
     const hasStructuredContent = startNodes.length || endNodes.length || props.body != null || props.center != null || props.startClass || props.bodyClass || props.centerClass || props.endClass
-      || CMSwift.ui.getSlot(slots, "start") != null
-      || CMSwift.ui.getSlot(slots, "left") != null
-      || CMSwift.ui.getSlot(slots, "body") != null
-      || CMSwift.ui.getSlot(slots, "center") != null
-      || CMSwift.ui.getSlot(slots, "end") != null
-      || CMSwift.ui.getSlot(slots, "right") != null;
+      || JSswift.ui.getSlot(slots, "start") != null
+      || JSswift.ui.getSlot(slots, "left") != null
+      || JSswift.ui.getSlot(slots, "body") != null
+      || JSswift.ui.getSlot(slots, "center") != null
+      || JSswift.ui.getSlot(slots, "end") != null
+      || JSswift.ui.getSlot(slots, "right") != null;
 
     if (!hasStructuredContent) {
       const content = renderSlotToArray(slots, "default", ctx, children);
@@ -224,7 +224,7 @@
     setPropertyProps(el, props);
     return el;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Row = {
       signature: "UI.Row(...children) | UI.Row(props, ...children)",
@@ -365,22 +365,22 @@
     return map ? map(value) : value;
   }
 
-  CMSwift.uiIsReactive = uiIsReactive;
-  CMSwift.uiUnwrap = uiUnwrap;
-  CMSwift.uiClass = uiClass;
-  CMSwift.uiClassStatic = uiClassStatic;
-  CMSwift.uiWhen = uiWhen;
-  CMSwift.uiClassValue = uiClassValue;
-  CMSwift.uiComputed = uiComputed;
-  CMSwift.uiStyleValue = uiStyleValue;
+  JSswift.uiIsReactive = uiIsReactive;
+  JSswift.uiUnwrap = uiUnwrap;
+  JSswift.uiClass = uiClass;
+  JSswift.uiClassStatic = uiClassStatic;
+  JSswift.uiWhen = uiWhen;
+  JSswift.uiClassValue = uiClassValue;
+  JSswift.uiComputed = uiComputed;
+  JSswift.uiStyleValue = uiStyleValue;
   UI.Col = (...args) => {
-    const { props: rawProps, children } = CMSwift.uiNormalizeArgs(args);
+    const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
     const slots = rawProps.slots || {};
     const hasOwn = (key) => Object.prototype.hasOwnProperty.call(rawProps, key);
     const renderArea = (names, fallback, ctx = {}) => {
       const list = Array.isArray(names) ? names : [names];
       for (const name of list) {
-        if (CMSwift.ui.getSlot(slots, name) != null) {
+        if (JSswift.ui.getSlot(slots, name) != null) {
           return renderSlotToArray(slots, name, ctx, fallback);
         }
       }
@@ -389,12 +389,12 @@
     const resolveSpaceValue = (value) => {
       if (value == null || value === false || value === "") return "";
       if (typeof value === "number") return `${value}px`;
-      if (typeof value === "string" && CMSwift.uiSizes?.includes(value)) return `var(--cms-s-${value})`;
+      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return `var(--cms-s-${value})`;
       return String(value);
     };
     const resolveSizeValue = (value) => {
       if (value == null || value === false || value === "") return "";
-      if (typeof value === "string" && CMSwift.uiSizes?.includes(value)) return unitCover(value, "size");
+      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return unitCover(value, "size");
       return toCssSize(value);
     };
     const resolveSpanClass = (value, prefix) => {
@@ -436,7 +436,7 @@
       return resolveSpanClass(spanSource, "cms-col-") || "cms-col";
     });
 
-    const p = CMSwift.omit(rawProps, [
+    const p = JSswift.omit(rawProps, [
       "slots",
       "col", "span", "sm", "md", "lg", "auto",
       "size", "width", "minWidth", "maxWidth",
@@ -448,7 +448,7 @@
       "start", "top", "header", "before", "startClass", "topClass", "headerClass",
       "body", "content", "bodyClass", "contentClass",
       "end", "bottom", "footer", "after", "endClass", "bottomClass", "footerClass",
-      ...CMSwift.uiResponsiveOmitProps
+      ...JSswift.uiResponsiveOmitProps
     ]);
 
     const style = { ...(rawProps.style || {}) };
@@ -514,16 +514,16 @@
       || hasOwn("end") || hasOwn("bottom") || hasOwn("footer") || hasOwn("after")
       || rawProps.startClass || rawProps.bodyClass || rawProps.contentClass || rawProps.endClass
       || rawProps.topClass || rawProps.headerClass || rawProps.bottomClass || rawProps.footerClass
-      || CMSwift.ui.getSlot(slots, "start") != null
-      || CMSwift.ui.getSlot(slots, "top") != null
-      || CMSwift.ui.getSlot(slots, "header") != null
-      || CMSwift.ui.getSlot(slots, "before") != null
-      || CMSwift.ui.getSlot(slots, "body") != null
-      || CMSwift.ui.getSlot(slots, "content") != null
-      || CMSwift.ui.getSlot(slots, "end") != null
-      || CMSwift.ui.getSlot(slots, "bottom") != null
-      || CMSwift.ui.getSlot(slots, "footer") != null
-      || CMSwift.ui.getSlot(slots, "after") != null;
+      || JSswift.ui.getSlot(slots, "start") != null
+      || JSswift.ui.getSlot(slots, "top") != null
+      || JSswift.ui.getSlot(slots, "header") != null
+      || JSswift.ui.getSlot(slots, "before") != null
+      || JSswift.ui.getSlot(slots, "body") != null
+      || JSswift.ui.getSlot(slots, "content") != null
+      || JSswift.ui.getSlot(slots, "end") != null
+      || JSswift.ui.getSlot(slots, "bottom") != null
+      || JSswift.ui.getSlot(slots, "footer") != null
+      || JSswift.ui.getSlot(slots, "after") != null;
 
     const useFlexLayout = uiComputed([
       rawProps.stack, rawProps.gap, rawProps.rowGap, rawProps.columnGap,
@@ -548,8 +548,8 @@
       uiComputed(rawProps.sm, () => resolveSpanClass(rawProps.sm, "cms-sm-col-")),
       uiComputed(rawProps.md, () => resolveSpanClass(rawProps.md, "cms-md-col-")),
       uiComputed(rawProps.lg, () => resolveSpanClass(rawProps.lg, "cms-lg-col-")),
-      CMSwift.uiResponsiveClasses({ mobile: rawProps }, uiResponsiveColRules),
-      CMSwift.uiResponsiveClasses(rawProps, uiResponsiveColRules),
+      JSswift.uiResponsiveClasses({ mobile: rawProps }, uiResponsiveColRules),
+      JSswift.uiResponsiveClasses(rawProps, uiResponsiveColRules),
       uiWhen(useFlexLayout, "cms-col-flex"),
       uiWhen(rawProps.inline, "cms-col-inline"),
       rawProps.class
@@ -563,7 +563,7 @@
     if (justify != null && !uiHasResponsiveOverride(rawProps, "justify")) style.justifyContent = justify;
     else if (center != null && center !== "") style.justifyContent = center ? "center" : "";
     if (Object.keys(style).length) p.style = style;
-    CMSwift.uiApplyResponsiveProps(p, rawProps, CMSwift.uiResponsiveStyleRules);
+    JSswift.uiApplyResponsiveProps(p, rawProps, JSswift.uiResponsiveStyleRules);
 
     if (!hasStructuredContent) {
       const el = _.div(p, ...renderSlotToArray(slots, "default", ctx, children));
@@ -602,7 +602,7 @@
     setPropertyProps(el, rawProps);
     return el;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Col = {
       signature: "UI.Col(...children) | UI.Col(props, ...children)",
@@ -671,14 +671,14 @@
   }
 
   UI.Spacer = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
-    const p = CMSwift.omit(props, ["slots"]);
+    const p = JSswift.omit(props, ["slots"]);
     p.class = uiClass(["cms-spacer", props.class]);
     const content = renderSlotToArray(slots, "default", {}, children);
     return _.div(p, ...content);
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Spacer = {
       signature: "UI.Spacer() | UI.Spacer(props)",
@@ -696,7 +696,7 @@
   }
 
   UI.Container = (...args) => {
-    const { props: rawProps, children } = CMSwift.uiNormalizeArgs(args);
+    const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
     const slots = rawProps.slots || {};
     const props = { ...rawProps };
     const hasOwn = (key) => Object.prototype.hasOwnProperty.call(rawProps, key);
@@ -723,7 +723,7 @@
     const resolveSpaceValue = (value) => {
       if (value == null || value === false || value === "") return "";
       if (typeof value === "number") return `${value}px`;
-      if (typeof value === "string" && CMSwift.uiSizes?.includes(value)) return `var(--cms-s-${value})`;
+      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return `var(--cms-s-${value})`;
       return String(value);
     };
     const resolveColsValue = (value) => {
@@ -754,14 +754,14 @@
       host.appendChild(document.createTextNode(String(value)));
     };
     const renderPropNodes = (name, fallback) => {
-      const slot = CMSwift.ui.getSlot(slots, name);
+      const slot = JSswift.ui.getSlot(slots, name);
       if (slot !== null && slot !== undefined) {
         return renderSlotToArray(slots, name, ctx, null);
       }
       if (typeof fallback === "function") {
         const host = _.div({ class: `cms-container-slot-${name}` });
-        CMSwift.reactive.effect(() => {
-          const normalized = flattenSlotValue(CMSwift.ui.slot(fallback(ctx)));
+        JSswift.reactive.effect(() => {
+          const normalized = flattenSlotValue(JSswift.ui.slot(fallback(ctx)));
           host.replaceChildren();
           if (Array.isArray(normalized)) normalized.forEach((item) => appendResolvedValue(host, item));
           else appendResolvedValue(host, normalized);
@@ -789,15 +789,15 @@
     const footerNodes = renderPropNodes("footer", rawProps.footer);
     const afterNodes = renderPropNodes("after", rawProps.after ?? rawProps.bottom);
     const hasShellSections = beforeNodes.length || headerNodes.length || startNodes.length || endNodes.length || footerNodes.length || afterNodes.length
-      || CMSwift.ui.getSlot(slots, "before") != null
-      || CMSwift.ui.getSlot(slots, "header") != null
-      || CMSwift.ui.getSlot(slots, "left") != null
-      || CMSwift.ui.getSlot(slots, "start") != null
-      || CMSwift.ui.getSlot(slots, "right") != null
-      || CMSwift.ui.getSlot(slots, "end") != null
-      || CMSwift.ui.getSlot(slots, "footer") != null
-      || CMSwift.ui.getSlot(slots, "after") != null;
-    const hasStructuredLayout = !!hasShellSections || (bodyNodes.length > 0 && (CMSwift.ui.getSlot(slots, "body") != null || hasShellSections));
+      || JSswift.ui.getSlot(slots, "before") != null
+      || JSswift.ui.getSlot(slots, "header") != null
+      || JSswift.ui.getSlot(slots, "left") != null
+      || JSswift.ui.getSlot(slots, "start") != null
+      || JSswift.ui.getSlot(slots, "right") != null
+      || JSswift.ui.getSlot(slots, "end") != null
+      || JSswift.ui.getSlot(slots, "footer") != null
+      || JSswift.ui.getSlot(slots, "after") != null;
+    const hasStructuredLayout = !!hasShellSections || (bodyNodes.length > 0 && (JSswift.ui.getSlot(slots, "body") != null || hasShellSections));
     const resolveLayoutMode = () => {
       const explicit = String(uiUnwrap(rawProps.layout ?? rawProps.display) || "").trim().toLowerCase();
       if (["flex", "grid", "stack"].includes(explicit)) return explicit;
@@ -838,7 +838,7 @@
     assignStyle("--cms-container-direction", uiStyleValue(rawProps.direction, (value) => String(value)));
     assignStyle("--cms-container-wrap", uiStyleValue(rawProps.wrap, resolveWrapValue));
 
-    const p = CMSwift.omit(props, [
+    const p = JSswift.omit(props, [
       "after", "afterClass", "align", "as", "before", "beforeClass", "body", "bodyClass",
       "bottom", "cols", "content", "contentClass", "direction", "display", "end",
       "endClass", "fluid", "footer", "footerClass", "gap", "grid", "gutter", "header",
@@ -854,7 +854,7 @@
       props.class
     ]);
     p.style = rootStyle;
-    CMSwift.uiApplyResponsiveProps(p, rawProps, CMSwift.uiResponsiveStyleRules);
+    JSswift.uiApplyResponsiveProps(p, rawProps, JSswift.uiResponsiveStyleRules);
 
     const createSection = (name, nodes, extraClass) => {
       if (!nodes.length) return null;
@@ -892,7 +892,7 @@
     setPropertyProps(el, rawProps);
     return el;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Container = {
       signature: "UI.Container(...children) | UI.Container(props, ...children)",
@@ -944,7 +944,7 @@
   }
 
   UI.Card = (...args) => {
-    const { props: rawProps, children } = CMSwift.uiNormalizeArgs(args);
+    const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
     const slots = rawProps.slots || {};
     const props = { ...rawProps };
     applyCommonProps(props);
@@ -955,7 +955,7 @@
     const renderIconFallback = (value) => {
       if (value == null) return null;
       if (typeof value === "string") return UI.Icon({ name: value, size: rawProps.iconSize || rawProps.size || "lg" });
-      return CMSwift.ui.slot(value, { as: "icon" });
+      return JSswift.ui.slot(value, { as: "icon" });
     };
     const iconFallback = renderIconFallback(rawProps.icon);
     const coverFallback = rawProps.image
@@ -1059,7 +1059,7 @@
     const hasIdentifier = identifierNodes.length || sectionNodes.identifier.length;
     const hasTopVisual = coverNodes.length || sectionNodes.cover.length || mediaNodes.length || sectionNodes.media.length;
 
-    const p = CMSwift.omit(props, [
+    const p = JSswift.omit(props, [
       "actions", "aside", "asideClass", "body", "bodyClass", "clickable", "cover", "coverClass",
       "coverHeight", "dense", "eyebrow", "eyebrowClass", "flat", "footer", "footerClass", "header",
       "headerAside", "headerClass", "headerContentClass", "icon", "iconSize", "identifier",
@@ -1084,7 +1084,7 @@
     if (rawProps.coverHeight != null) {
       p.style["--cms-card-cover-height"] = toCssSize(uiUnwrap(rawProps.coverHeight));
     }
-    CMSwift.uiApplyResponsiveProps(p, rawProps, CMSwift.uiResponsiveStyleRules);
+    JSswift.uiApplyResponsiveProps(p, rawProps, JSswift.uiResponsiveStyleRules);
 
     const userOnClick = rawProps.onClick;
     const userOnKeydown = rawProps.onKeydown;
@@ -1092,9 +1092,9 @@
       userOnClick?.(e);
       if (e.defaultPrevented) return;
       const to = uiUnwrap(rawProps.to);
-      if (to && CMSwift.router?.navigate) {
+      if (to && JSswift.router?.navigate) {
         e.preventDefault();
-        CMSwift.router.navigate(to);
+        JSswift.router.navigate(to);
       }
     };
     const onKeydown = (e) => {
@@ -1131,7 +1131,7 @@
     setPropertyProps(el, rawProps);
     return el;
   }
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Card = {
       signature: "UI.Card(...children) | UI.Card(props, ...children)",
@@ -1189,7 +1189,7 @@
     };
   }
   UI.Btn = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
 
     const state = uiComputed([props.color, props.state], () => {
@@ -1201,7 +1201,7 @@
 
     const cls = uiClass(["cms-clear-set", "cms-btn", "cms-singularity", "cms-clickable", state, uiWhen(props.outline, "outline"), props.class]);
 
-    const p = CMSwift.omit(props, [
+    const p = JSswift.omit(props, [
       "icon", "iconRight", "label", "loading", "loadingText", "disabled", "outline", "iconAlign", "slots",
       "shortcode", "shortcut", "hotkey", "showShortcode", "showShortcut"
     ]);
@@ -1215,9 +1215,9 @@
     const iconRightFallback = props.iconRight != null
       ? (typeof props.iconRight === "string" ? UI.Icon({ name: props.iconRight }) : props.iconRight)
       : null;
-    const icon = CMSwift.ui.renderSlot(slots, "icon", {}, iconFallback);
-    const iconRight = CMSwift.ui.renderSlot(slots, "iconRight", {}, iconRightFallback);
-    const label = CMSwift.ui.renderSlot(slots, "label", {}, props.label);
+    const icon = JSswift.ui.renderSlot(slots, "icon", {}, iconFallback);
+    const iconRight = JSswift.ui.renderSlot(slots, "iconRight", {}, iconRightFallback);
+    const label = JSswift.ui.renderSlot(slots, "label", {}, props.label);
     const slotChildren = renderSlotToArray(slots, "default", {}, children);
 
     const content = [];
@@ -1257,7 +1257,7 @@
             "aria-label": props.loadingText ? null : "Loading"
           })
         : _.span({ class: "cms-muted", style: { marginRight: "8px" } }, props.loadingText || "Loading");
-      return renderSlotToArray(null, "default", {}, CMSwift.ui.renderSlot(slots, "loading", {}, fallback));
+      return renderSlotToArray(null, "default", {}, JSswift.ui.renderSlot(slots, "loading", {}, fallback));
     };
 
     const onPointerDown = (e) => {
@@ -1289,7 +1289,7 @@
       "aria-busy": isLoading() ? "true" : null
     }, loadingNode, contentNode);
 
-    const stopState = CMSwift.reactive.effect(() => {
+    const stopState = JSswift.reactive.effect(() => {
       const loading = isLoading();
       const disabled = isDisabled();
       btn.disabled = disabled;
@@ -1303,7 +1303,7 @@
         loadingVisible = loading;
       }
     }, "UI.Btn:state");
-    CMSwift._registerCleanup?.(btn, stopState);
+    JSswift._registerCleanup?.(btn, stopState);
 
     setPropertyProps(btn, props);
     uiRegisterShortcode(btn, props, {
@@ -1316,9 +1316,9 @@
     return btn;
   }
   UI.Button = UI.Btn;
-  CMSwift.ui.Btn = UI.Btn;
-  CMSwift.ui.Button = UI.Button;
-  if (CMSwift.isDev?.()) {
+  JSswift.ui.Btn = UI.Btn;
+  JSswift.ui.Button = UI.Button;
+  if (JSswift.isDev?.()) {
     UI.meta.Btn = {
       signature: "UI.Btn(...children) | UI.Btn(props, ...children)",
       props: {
@@ -1351,7 +1351,7 @@
     };
     UI.meta.Button = UI.meta.Btn;
   }
-  // Esempio: CMSwift.ui.QBtn({ color: "primary", icon: "save", label: "Salva" })
+  // Esempio: JSswift.ui.QBtn({ color: "primary", icon: "save", label: "Salva" })
 
   // Input: supporta value come rod (two-way) oppure rod via props.model
   // props: { model: rod OR [get,set] signal OR plain, placeholder, type }
@@ -1384,14 +1384,14 @@
       const v = props.getValue ? props.getValue() : null;
       return !(v == null || v === "");
     };
-    const getHasValueUntracked = () => CMSwift.reactive.untracked(getHasValue);
+    const getHasValueUntracked = () => JSswift.reactive.untracked(getHasValue);
     const clear = () => {
       if (props.disabled || props.readonly) return;
       props.onClear?.();
       props.onFocus?.();
     };
 
-    const controlSlot = CMSwift.ui.renderSlot(slots, "control", {
+    const controlSlot = JSswift.ui.renderSlot(slots, "control", {
       control: controlEl,
       clear,
       disabled: !!props.disabled,
@@ -1414,8 +1414,8 @@
       const iconFallback = props.icon != null
         ? (typeof props.icon === "string" ? UI.Icon({ name: props.icon }) : props.icon)
         : null;
-      const iconNode = CMSwift.ui.renderSlot(slots, "icon", {}, iconFallback);
-      const prefixNode = CMSwift.ui.renderSlot(slots, "prefix", {}, props.prefix);
+      const iconNode = JSswift.ui.renderSlot(slots, "icon", {}, iconFallback);
+      const prefixNode = JSswift.ui.renderSlot(slots, "prefix", {}, props.prefix);
       renderSlotToArray(null, "default", {}, iconNode).forEach(n => left.appendChild(n));
       renderSlotToArray(null, "default", {}, prefixNode).forEach(n => left.appendChild(n));
       if (left.childNodes.length) control.appendChild(left);
@@ -1439,7 +1439,7 @@
         onClick: clear
       }, UI.Icon({ name: "close" })) : null;
 
-      const clearNode = CMSwift.ui.renderSlot(slots, "clear", {
+      const clearNode = JSswift.ui.renderSlot(slots, "clear", {
 
         disabled: !!props.disabled,
         readonly: !!props.readonly,
@@ -1464,9 +1464,9 @@
       const iconRightFallback = props.iconRight != null
         ? (typeof props.iconRight === "string" ? UI.Icon({ name: props.iconRight }) : props.iconRight)
         : null;
-      const iconRightNode = CMSwift.ui.renderSlot(slots, "iconRight", {}, iconRightFallback);
-      const suffixNode = CMSwift.ui.renderSlot(slots, "suffix", {}, props.suffix);
-      const shortcodeNode = CMSwift.ui.renderSlot(slots, "shortcode", { props }, uiCreateShortcodeHint(props, { className: "cms-shortcode cms-field-shortcode" }));
+      const iconRightNode = JSswift.ui.renderSlot(slots, "iconRight", {}, iconRightFallback);
+      const suffixNode = JSswift.ui.renderSlot(slots, "suffix", {}, props.suffix);
+      const shortcodeNode = JSswift.ui.renderSlot(slots, "shortcode", { props }, uiCreateShortcodeHint(props, { className: "cms-shortcode cms-field-shortcode" }));
       renderSlotToArray(null, "default", {}, suffixNode).forEach(n => right.appendChild(n));
       renderSlotToArray(null, "default", {}, iconRightNode).forEach(n => right.appendChild(n));
       renderSlotToArray(null, "default", {}, shortcodeNode).forEach(n => right.appendChild(n));
@@ -1539,15 +1539,15 @@
     };
 
     // initial states
-    CMSwift.reactive.untracked(setHasValue);
+    JSswift.reactive.untracked(setHasValue);
     control?.classList?.toggle("disabled", !!props.disabled);
 
     wrap.appendChild(control);
-    const errorSlot = CMSwift.ui.getSlot(slots, "errorMessage");
-    const warningSlot = CMSwift.ui.getSlot(slots, "warning");
-    const successSlot = CMSwift.ui.getSlot(slots, "success");
-    const noteSlot = CMSwift.ui.getSlot(slots, "note");
-    const hintSlot = CMSwift.ui.getSlot(slots, "hint");
+    const errorSlot = JSswift.ui.getSlot(slots, "errorMessage");
+    const warningSlot = JSswift.ui.getSlot(slots, "warning");
+    const successSlot = JSswift.ui.getSlot(slots, "success");
+    const noteSlot = JSswift.ui.getSlot(slots, "note");
+    const hintSlot = JSswift.ui.getSlot(slots, "hint");
     const canReact = !!(props.error?.action || props.warning?.action || props.success?.action || props.note?.action || props.hint?.action)
       || (Array.isArray(props.error) && typeof props.error[0] === "function")
       || (Array.isArray(props.warning) && typeof props.warning[0] === "function")
@@ -1565,7 +1565,7 @@
       || typeof noteSlot === "function"
       || typeof hintSlot === "function";
     if (canReact) {
-      CMSwift.reactive.effect(() => { renderMessage(); }, "UI.FormField:message");
+      JSswift.reactive.effect(() => { renderMessage(); }, "UI.FormField:message");
     } else {
       renderMessage();
     }
@@ -1577,7 +1577,7 @@
 
     return wrap;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.FormField = {
       signature: "UI.FormField(props)",
@@ -1826,7 +1826,7 @@
 
         // Component setup may run inside a dynamic parent render. This initial
         // hydration must not make that parent subscribe to the control model.
-        CMSwift.reactive.untracked(() => updateFromRod(rod.value));
+        JSswift.reactive.untracked(() => updateFromRod(rod.value));
 
         const onInput = (e) => {
           if (syncing || e?.isComposing) return;
@@ -1849,12 +1849,12 @@
       if (typeof model === "object" && typeof model._bind === "function") {
         bindInputRod(model);
       } else if (Array.isArray(model) && typeof model[0] === "function" && typeof model[1] === "function") {
-        const r = CMSwift.reactive.untracked(() => CMSwift.rodFromSignal(model[0], model[1]));
+        const r = JSswift.reactive.untracked(() => JSswift.rodFromSignal(model[0], model[1]));
         bindInputRod(r);
       }
     }
 
-    const inputSlot = CMSwift.ui.renderSlot(slots, "input", { input, props }, input);
+    const inputSlot = JSswift.ui.renderSlot(slots, "input", { input, props }, input);
     const controlNode = Array.isArray(inputSlot)
       ? _.div({ style: { display: "contents" } }, ...inputSlot)
       : inputSlot;
@@ -1885,7 +1885,7 @@
 
     return field;
   }
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
 
     UI.meta.Input = {
@@ -2008,7 +2008,7 @@
           try { updateFromRod(v); } finally { syncing = false; }
         });
 
-        CMSwift.reactive.untracked(() => updateFromRod(rod.value));
+        JSswift.reactive.untracked(() => updateFromRod(rod.value));
 
         const onInput = (e) => {
           if (syncing || e?.isComposing) return;
@@ -2031,13 +2031,13 @@
       if (typeof model === "object" && typeof model._bind === "function") {
         bindTextareaRod(model);
       } else if (Array.isArray(model) && typeof model[0] === "function" && typeof model[1] === "function") {
-        const r = CMSwift.reactive.untracked(() => CMSwift.rodFromSignal(model[0], model[1]));
+        const r = JSswift.reactive.untracked(() => JSswift.rodFromSignal(model[0], model[1]));
         bindTextareaRod(r);
       }
     }
 
-    const textareaSlotName = CMSwift.ui.getSlot(slots, "textarea") != null ? "textarea" : "input";
-    const textareaSlot = CMSwift.ui.renderSlot(slots, textareaSlotName, { textarea, input: textarea, props }, textarea);
+    const textareaSlotName = JSswift.ui.getSlot(slots, "textarea") != null ? "textarea" : "input";
+    const textareaSlot = JSswift.ui.renderSlot(slots, textareaSlotName, { textarea, input: textarea, props }, textarea);
     const controlNode = Array.isArray(textareaSlot)
       ? _.div({ style: { display: "contents" } }, ...textareaSlot)
       : textareaSlot;
@@ -2066,7 +2066,7 @@
 
     return field;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
 
     UI.meta.Textarea = {
@@ -2146,12 +2146,12 @@
       ? (typeof valueBinding === "object" && typeof valueBinding._bind === "function" ? valueBinding.value : valueBinding[0]())
       : uiUnwrap(props.value);
 
-    const [getQuery, setQueryState] = CMSwift.reactive.signal(initialValue == null ? "" : String(initialValue));
-    const [getOpen, setOpen] = CMSwift.reactive.signal(false);
-    const [getLoading, setLoading] = CMSwift.reactive.signal(false);
-    const [getError, setError] = CMSwift.reactive.signal(null);
-    const [getResults, setResults] = CMSwift.reactive.signal([]);
-    const [getActive, setActive] = CMSwift.reactive.signal(-1);
+    const [getQuery, setQueryState] = JSswift.reactive.signal(initialValue == null ? "" : String(initialValue));
+    const [getOpen, setOpen] = JSswift.reactive.signal(false);
+    const [getLoading, setLoading] = JSswift.reactive.signal(false);
+    const [getError, setError] = JSswift.reactive.signal(null);
+    const [getResults, setResults] = JSswift.reactive.signal([]);
+    const [getActive, setActive] = JSswift.reactive.signal(-1);
 
     const uid = `cms-search-${Math.random().toString(36).slice(2, 10)}`;
     const cache = new Map();
@@ -2234,8 +2234,8 @@
     const hasPanelContent = () => {
       if (getLoading() || getError() || getResults().length) return true;
       const query = getQuery().trim();
-      if (query.length >= minLength()) return !!(props.emptyText || CMSwift.ui.getSlot(slots, "empty") != null);
-      return !!(props.startText || CMSwift.ui.getSlot(slots, "empty") != null);
+      if (query.length >= minLength()) return !!(props.emptyText || JSswift.ui.getSlot(slots, "empty") != null);
+      return !!(props.startText || JSswift.ui.getSlot(slots, "empty") != null);
     };
     const open = () => {
       if (isDisabled()) return;
@@ -2441,7 +2441,7 @@
       menu.style.width = "";
     };
 
-    const hasFloatingLabel = props.label != null || CMSwift.ui.getSlot(slots, "label") != null;
+    const hasFloatingLabel = props.label != null || JSswift.ui.getSlot(slots, "label") != null;
     const syncPlaceholder = () => {
       if (!hasFloatingLabel) {
         input.placeholder = uiUnwrap(props.placeholder) || "";
@@ -2493,11 +2493,11 @@
       } else if (Array.isArray(valueBinding) && typeof valueBinding[0] === "function" && typeof valueBinding[1] === "function") {
         const get = valueBinding[0];
         const set = valueBinding[1];
-        CMSwift.reactive.effect(() => { setQuery(get(), { fromModel: true }); }, "UI.Search:model");
+        JSswift.reactive.effect(() => { setQuery(get(), { fromModel: true }); }, "UI.Search:model");
         modelSet = (v) => set(v);
       }
     } else if (uiIsReactive(props.value)) {
-      CMSwift.reactive.effect(() => { setQuery(uiUnwrap(props.value), { fromModel: true }); }, "UI.Search:value");
+      JSswift.reactive.effect(() => { setQuery(uiUnwrap(props.value), { fromModel: true }); }, "UI.Search:value");
     }
 
     input.addEventListener("input", (event) => {
@@ -2571,7 +2571,7 @@
     };
     document.addEventListener("click", onDocClick, true);
 
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       const openNow = getOpen();
       root.classList.toggle("open", openNow);
       input.setAttribute("aria-expanded", openNow ? "true" : "false");
@@ -2579,7 +2579,7 @@
       else unmountMenuPortal();
     }, "UI.Search:open");
 
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       const d = isDisabled();
       const r = isReadonly();
       root.classList.toggle("disabled", d);
@@ -2588,7 +2588,7 @@
       input.readOnly = r;
     }, "UI.Search:disabled");
 
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       const loading = getLoading();
       const error = getError();
       const results = getResults();
@@ -2598,16 +2598,16 @@
       lastActive = -1;
 
       if (loading) {
-        const loadingNode = CMSwift.ui.renderSlot(slots, "loading", { query }, props.loadingText || "Caricamento...");
+        const loadingNode = JSswift.ui.renderSlot(slots, "loading", { query }, props.loadingText || "Caricamento...");
         resultsWrap.appendChild(_.div({ class: "cms-search-empty is-loading" }, ...renderSlotToArray(null, "default", {}, loadingNode)));
       } else if (error) {
-        const errorNode = CMSwift.ui.renderSlot(slots, "error", { error, query }, props.errorText || "Errore ricerca");
+        const errorNode = JSswift.ui.renderSlot(slots, "error", { error, query }, props.errorText || "Errore ricerca");
         resultsWrap.appendChild(_.div({ class: "cms-search-empty is-error" }, ...renderSlotToArray(null, "default", {}, errorNode)));
       } else if (!results.length) {
         const enoughQuery = query.trim().length >= minLength();
         const emptyDefault = enoughQuery ? (props.emptyText || "Nessun risultato") : (props.startText || "");
-        const emptyNode = CMSwift.ui.renderSlot(slots, "empty", { query }, emptyDefault);
-        if (emptyDefault || CMSwift.ui.getSlot(slots, "empty") != null) {
+        const emptyNode = JSswift.ui.renderSlot(slots, "empty", { query }, emptyDefault);
+        if (emptyDefault || JSswift.ui.getSlot(slots, "empty") != null) {
           resultsWrap.appendChild(_.div({ class: "cms-search-empty" }, ...renderSlotToArray(null, "default", {}, emptyNode)));
         }
       } else {
@@ -2616,7 +2616,7 @@
           const label = getLabel(item);
           const value = getValue(item);
           const select = (event) => selectResult(item, event);
-          const content = CMSwift.ui.renderSlot(slots, "result", {
+          const content = JSswift.ui.renderSlot(slots, "result", {
             item,
             index,
             active: selected,
@@ -2642,7 +2642,7 @@
       scheduleMenuPosition();
     }, "UI.Search:render");
 
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       const active = getActive();
       if (active === lastActive) return;
       if (resultNodes[lastActive]) {
@@ -2694,7 +2694,7 @@
       if (activeController) activeController.abort();
       unmountMenuPortal();
     };
-    CMSwift._registerCleanup?.(field, field._dispose);
+    JSswift._registerCleanup?.(field, field._dispose);
     uiRegisterShortcode(input, props, {
       isEnabled: () => !input.disabled,
       action: () => uiFocusShortcutTarget(input, { selectText: !!props.selectOnShortcode })
@@ -2706,7 +2706,7 @@
 
     return field;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Search = {
       signature: "UI.Search(props)",
@@ -2819,7 +2819,7 @@
     };
     const normalizeValue = (v) => isMulti ? toArray(v) : v;
     const initialValue = valueBinding
-      ? CMSwift.reactive.untracked(() => (
+      ? JSswift.reactive.untracked(() => (
         typeof valueBinding === "object" && typeof valueBinding._bind === "function"
           ? valueBinding.value
           : valueBinding[0]()
@@ -2827,20 +2827,20 @@
       : props.value;
 
     // state
-    const [getOpen, setOpen] = CMSwift.reactive.signal(false);
-    const [getFilter, setFilter] = CMSwift.reactive.signal("");
-    const [getValue, setValue] = CMSwift.reactive.signal(isMulti ? toArray(initialValue) : (initialValue ?? ""));
-    const [getLoading, setLoading] = CMSwift.reactive.signal(false);
-    const [getList, setList] = CMSwift.reactive.signal([]);      // normalized flat list
-    const [getFlat, setFlat] = CMSwift.reactive.signal([]);      // flat selectable options only (no groups)
-    const [getActive, setActive] = CMSwift.reactive.signal(-1);  // active index in flat selectable list
+    const [getOpen, setOpen] = JSswift.reactive.signal(false);
+    const [getFilter, setFilter] = JSswift.reactive.signal("");
+    const [getValue, setValue] = JSswift.reactive.signal(isMulti ? toArray(initialValue) : (initialValue ?? ""));
+    const [getLoading, setLoading] = JSswift.reactive.signal(false);
+    const [getList, setList] = JSswift.reactive.signal([]);      // normalized flat list
+    const [getFlat, setFlat] = JSswift.reactive.signal([]);      // flat selectable options only (no groups)
+    const [getActive, setActive] = JSswift.reactive.signal(-1);  // active index in flat selectable list
 
     let modelSet = null;
 
     // model binding
     if (valueBinding) {
       if (typeof valueBinding === "object" && typeof valueBinding._bind === "function") {
-        CMSwift.reactive.untracked(() => setValue(normalizeValue(valueBinding.value)));
+        JSswift.reactive.untracked(() => setValue(normalizeValue(valueBinding.value)));
         valueBinding.action((v) => setValue(normalizeValue(v)));
         modelSet = (v) => {
           const next = normalizeValue(v);
@@ -2849,8 +2849,8 @@
       } else if (Array.isArray(valueBinding) && typeof valueBinding[0] === "function" && typeof valueBinding[1] === "function") {
         const get = valueBinding[0];
         const set = valueBinding[1];
-        CMSwift.reactive.untracked(() => {
-          CMSwift.reactive.effect(() => { setValue(normalizeValue(get())); }, "UI.Select:model");
+        JSswift.reactive.untracked(() => {
+          JSswift.reactive.effect(() => { setValue(normalizeValue(get())); }, "UI.Select:model");
         });
         modelSet = (v) => set(normalizeValue(v));
       }
@@ -2922,7 +2922,7 @@
 
       try {
         const v = (typeof src === "function")
-          ? CMSwift.ui.withoutRodPathCapture(() => src())
+          ? JSswift.ui.withoutRodPathCapture(() => src())
           : src;
         if (v && typeof v.then === "function") {
           setLoading(true);
@@ -3017,7 +3017,7 @@
     const valueNode = _.div({
       class: uiClass(["cms-select-value", isMulti ? "cms-select-value-multi" : ""])
     });
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       const flat = getFlat();
       valueNode.innerHTML = "";
       if (isMulti) {
@@ -3064,8 +3064,8 @@
     }, "UI.Select:value");
 
     const arrowWrap = _.div({ class: "cms-select-arrow" });
-    CMSwift.reactive.effect(() => {
-      const arrowNode = CMSwift.ui.renderSlot(slots, "arrow", { open: getOpen() }, UI.Icon("#chevron-down"));
+    JSswift.reactive.effect(() => {
+      const arrowNode = JSswift.ui.renderSlot(slots, "arrow", { open: getOpen() }, UI.Icon("#chevron-down"));
       arrowWrap.innerHTML = "";
       renderSlotToArray(null, "default", {}, arrowNode).forEach(n => arrowWrap.appendChild(n));
     }, "UI.Select:arrow");
@@ -3090,7 +3090,7 @@
       onInput: (e) => setFilter(e.target.value || "")
     });
     const renderFilterSlot = () => {
-      const filterNode = CMSwift.ui.renderSlot(slots, "filter", {
+      const filterNode = JSswift.ui.renderSlot(slots, "filter", {
         value: getFilter(),
         setValue: (v) => {
           const next = v == null ? "" : String(v);
@@ -3105,8 +3105,8 @@
       filterInput = nodes.length === 1 && nodes[0] && nodes[0].tagName === "INPUT" ? nodes[0] : null;
       if (filterInput) filterInput.value = getFilter() || "";
     };
-    CMSwift.reactive.untracked(renderFilterSlot);
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.untracked(renderFilterSlot);
+    JSswift.reactive.effect(() => {
       const next = getFilter() || "";
       if (filterInput && "value" in filterInput && filterInput.value !== next) {
         filterInput.value = next;
@@ -3216,7 +3216,7 @@
     root.appendChild(menu);
 
     // open class + aria
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       const o = getOpen();
       root.classList.toggle("open", o);
       root.setAttribute("aria-expanded", o ? "true" : "false");
@@ -3224,7 +3224,7 @@
       else unmountMenuPortal();
     }, "UI.Select:open");
 
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       const d = isDisabled();
       root.classList.toggle("disabled", d);
       root.tabIndex = d ? -1 : 0;
@@ -3246,7 +3246,7 @@
       if (active >= 0) optionNodes[active]?.scrollIntoView({ block: "nearest" });
     }
 
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       const display = getList();
       const flat = getFlat();
       const filter = (getFilter() || "").toLowerCase().trim();
@@ -3279,7 +3279,7 @@
           else { commit(opt.value); close(); }
         };
 
-        const content = CMSwift.ui.renderSlot(slots, "option", {
+        const content = JSswift.ui.renderSlot(slots, "option", {
           opt,
           selected,
           active: flatIndex === activeSnapshot,
@@ -3305,7 +3305,7 @@
       if (filter) {
         const filtered = flat.filter(o => o.label.toLowerCase().includes(filter));
         if (filtered.length === 0) {
-          const emptyNode = CMSwift.ui.renderSlot(slots, "empty", { filter }, props.emptyText || "Nessuna opzione");
+          const emptyNode = JSswift.ui.renderSlot(slots, "empty", { filter }, props.emptyText || "Nessuna opzione");
           optionsWrap.appendChild(_.div({ class: "cms-select-empty" }, ...renderSlotToArray(null, "default", {}, emptyNode)));
           if (getOpen()) scheduleMenuPosition();
           return;
@@ -3316,7 +3316,7 @@
         let hadAnyOption = false;
         for (const item of display) {
           if (item.type === "group") {
-            const groupNode = CMSwift.ui.renderSlot(slots, "group", { label: item.label }, item.label);
+            const groupNode = JSswift.ui.renderSlot(slots, "group", { label: item.label }, item.label);
             nodes.push(_.div({ class: "cms-select-group" }, ...renderSlotToArray(null, "default", {}, groupNode)));
           } else {
             hadAnyOption = true;
@@ -3324,7 +3324,7 @@
           }
         }
         if (!hadAnyOption) {
-          const emptyNode = CMSwift.ui.renderSlot(slots, "empty", { filter }, props.emptyText || "Nessuna opzione");
+          const emptyNode = JSswift.ui.renderSlot(slots, "empty", { filter }, props.emptyText || "Nessuna opzione");
           optionsWrap.appendChild(_.div({ class: "cms-select-empty" }, ...renderSlotToArray(null, "default", {}, emptyNode)));
           if (getOpen()) scheduleMenuPosition();
           return;
@@ -3332,7 +3332,7 @@
       }
 
       if (loading) {
-        const loadingNode = CMSwift.ui.renderSlot(slots, "loading", {}, "Caricamento...");
+        const loadingNode = JSswift.ui.renderSlot(slots, "loading", {}, "Caricamento...");
         optionsWrap.appendChild(_.div({ class: "cms-select-empty" }, ...renderSlotToArray(null, "default", {}, loadingNode)));
         if (getOpen()) scheduleMenuPosition();
         return;
@@ -3343,7 +3343,7 @@
       if (getOpen()) scheduleMenuPosition();
     }, "UI.Select:render");
 
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       paintActive();
     }, "UI.Select:paintActive");
 
@@ -3500,11 +3500,11 @@
     });
 
     // refresh has-value when value changes
-    CMSwift.reactive.effect(() => { field._refresh?.(); }, "UI.Select:fieldRefresh");
+    JSswift.reactive.effect(() => { field._refresh?.(); }, "UI.Select:fieldRefresh");
 
     field._select = root;
     field._dispose = root._dispose;
-    CMSwift._registerCleanup?.(field, field._dispose);
+    JSswift._registerCleanup?.(field, field._dispose);
     uiRegisterShortcode(field, props, {
       isEnabled: () => !isDisabled(),
       action: () => {
@@ -3518,7 +3518,7 @@
 
     return field;
   }
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Select = {
       signature: "UI.Select(props)",
@@ -3594,10 +3594,10 @@
   UI.Upload = (props = {}) => {
     applyCommonProps(props);
     const slots = props.slots || {};
-    const [getFiles, setFiles] = CMSwift.reactive.signal([]);
-    const [getDragging, setDragging] = CMSwift.reactive.signal(false);
-    const [getBusy, setBusy] = CMSwift.reactive.signal(false);
-    const [getError, setError] = CMSwift.reactive.signal(null);
+    const [getFiles, setFiles] = JSswift.reactive.signal([]);
+    const [getDragging, setDragging] = JSswift.reactive.signal(false);
+    const [getBusy, setBusy] = JSswift.reactive.signal(false);
+    const [getError, setError] = JSswift.reactive.signal(null);
     let seq = 0;
     let disposed = false;
 
@@ -4003,13 +4003,13 @@
       const ctx = { api, files: getFiles().slice(), busy: getBusy(), disabled: isDisabled(), submitMode: isFormSubmitMode() ? "form" : "upload" };
       const actionNodes = [];
       if (showBrowse()) {
-        actionNodes.push(CMSwift.ui.renderSlot(slots, "browse", ctx, UI.Btn({ size: "sm", icon: "folder_open", label: props.browseText || "Browse", onClick: browse })));
+        actionNodes.push(JSswift.ui.renderSlot(slots, "browse", ctx, UI.Btn({ size: "sm", icon: "folder_open", label: props.browseText || "Browse", onClick: browse })));
       }
       if (showUpload()) {
-        actionNodes.push(CMSwift.ui.renderSlot(slots, "upload", ctx, UI.Btn({ size: "sm", color: "primary", icon: "upload", label: props.uploadText || "Upload", loading: getBusy(), disabled: isDisabled() || !getFiles().some((item) => ["queued", "error", "canceled"].includes(item.status)), onClick: () => upload() })));
+        actionNodes.push(JSswift.ui.renderSlot(slots, "upload", ctx, UI.Btn({ size: "sm", color: "primary", icon: "upload", label: props.uploadText || "Upload", loading: getBusy(), disabled: isDisabled() || !getFiles().some((item) => ["queued", "error", "canceled"].includes(item.status)), onClick: () => upload() })));
       }
       if (showClear()) {
-        actionNodes.push(CMSwift.ui.renderSlot(slots, "clear", ctx, UI.Btn({ size: "sm", color: "secondary", outline: true, icon: "delete", label: props.clearText || "Clear", disabled: isDisabled() || !getFiles().length, onClick: () => clear() })));
+        actionNodes.push(JSswift.ui.renderSlot(slots, "clear", ctx, UI.Btn({ size: "sm", color: "secondary", outline: true, icon: "delete", label: props.clearText || "Clear", disabled: isDisabled() || !getFiles().length, onClick: () => clear() })));
       }
       return renderSlotToArray(slots, "actions", ctx, actionNodes);
     };
@@ -4045,7 +4045,7 @@
           )
         )
       );
-      const custom = CMSwift.ui.renderSlot(slots, "file", ctx, fallback);
+      const custom = JSswift.ui.renderSlot(slots, "file", ctx, fallback);
       return _.div({ class: "cms-upload-file-wrap", "data-status": item.status, "data-id": item.id }, ...renderSlotToArray(null, "default", {}, custom));
     };
     const render = () => {
@@ -4055,7 +4055,7 @@
       summaryEl.hidden = !showFiles();
       listEl.hidden = !showFiles();
       if (!files.length) {
-        const empty = CMSwift.ui.renderSlot(slots, "empty", { api }, props.emptyText || "No files selected");
+        const empty = JSswift.ui.renderSlot(slots, "empty", { api }, props.emptyText || "No files selected");
         listEl.appendChild(_.div({ class: "cms-upload-empty" }, ...renderSlotToArray(null, "default", {}, empty)));
       } else {
         files.forEach((item, index) => listEl.appendChild(renderFile(item, index)));
@@ -4063,9 +4063,9 @@
       const summaryFiles = files.filter((item) => item.status !== "rejected" && item.status !== "removed");
       summaryEl.textContent = `${summaryFiles.length} file • ${formatBytes(summaryFiles.reduce((sum, item) => sum + Number(item.size || 0), 0))}`;
     };
-    const iconNode = CMSwift.ui.renderSlot(slots, "icon", { api }, UI.Icon({ name: props.icon || "cloud_upload" }));
-    const titleNode = CMSwift.ui.renderSlot(slots, "title", { api }, props.title || "Upload files");
-    const subtitleNode = CMSwift.ui.renderSlot(slots, "subtitle", { api }, props.subtitle || (getAccepted() ? `Accepted: ${getAccepted()}` : "Drag files here or browse from your device"));
+    const iconNode = JSswift.ui.renderSlot(slots, "icon", { api }, UI.Icon({ name: props.icon || "cloud_upload" }));
+    const titleNode = JSswift.ui.renderSlot(slots, "title", { api }, props.title || "Upload files");
+    const subtitleNode = JSswift.ui.renderSlot(slots, "subtitle", { api }, props.subtitle || (getAccepted() ? `Accepted: ${getAccepted()}` : "Drag files here or browse from your device"));
     const dropzone = _.div({
       class: "cms-upload-dropzone",
       onClick: (event) => {
@@ -4107,12 +4107,12 @@
       summaryEl,
       listEl
     );
-    const header = CMSwift.ui.renderSlot(slots, "header", { api }, null);
+    const header = JSswift.ui.renderSlot(slots, "header", { api }, null);
     renderSlotToArray(null, "default", {}, header).forEach((node) => root.appendChild(node));
     root.appendChild(input);
     renderSlotToArray(slots, "default", { api, dropzone }, dropzone).forEach((node) => root.appendChild(node));
-    CMSwift.reactive.effect(() => { render(); }, "UI.Upload:render");
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => { render(); }, "UI.Upload:render");
+    JSswift.reactive.effect(() => {
       root.classList.toggle("is-disabled", isDisabled());
       root.classList.toggle("is-form-mode", isFormSubmitMode());
       root.classList.toggle("is-files-hidden", !showFiles());
@@ -4137,15 +4137,15 @@
       disposed = true;
       abortAll();
     };
-    CMSwift._registerCleanup?.(root, root._dispose);
+    JSswift._registerCleanup?.(root, root._dispose);
     return root;
   };
   UI.BoxUpload = (props = {}) => UI.Upload({ ...props, box: true });
   UI.boxUpload = (props = {}) => UI.BoxUpload(props);
-  CMSwift.ui.Upload = UI.Upload;
-  CMSwift.ui.BoxUpload = UI.BoxUpload;
-  CMSwift.ui.boxUpload = UI.boxUpload;
-  if (CMSwift.isDev?.()) {
+  JSswift.ui.Upload = UI.Upload;
+  JSswift.ui.BoxUpload = UI.BoxUpload;
+  JSswift.ui.boxUpload = UI.boxUpload;
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Upload = {
       signature: "UI.Upload(props)",
@@ -4294,15 +4294,15 @@
     return rows.length ? rows.map((row) => `"${row.join(" ")}"`).join(" ") : null;
   };
   UI.Layout = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const hasOwn = (obj, key) => !!obj && Object.prototype.hasOwnProperty.call(obj, key);
     const getViewportWidth = () => typeof window === "undefined" ? 1024 : window.innerWidth;
     const getResponsiveProps = () => {
       const width = getViewportWidth();
-      const mobileProps = CMSwift.uiResponsivePropsFor(props, uiResponsiveDevice("mobile")) || {};
-      const tabletProps = width >= 768 ? (CMSwift.uiResponsivePropsFor(props, uiResponsiveDevice("tablet")) || {}) : {};
-      const pcProps = width >= 1024 ? (CMSwift.uiResponsivePropsFor(props, uiResponsiveDevice("pc")) || {}) : {};
+      const mobileProps = JSswift.uiResponsivePropsFor(props, uiResponsiveDevice("mobile")) || {};
+      const tabletProps = width >= 768 ? (JSswift.uiResponsivePropsFor(props, uiResponsiveDevice("tablet")) || {}) : {};
+      const pcProps = width >= 1024 ? (JSswift.uiResponsivePropsFor(props, uiResponsiveDevice("pc")) || {}) : {};
       return { ...mobileProps, ...tabletProps, ...pcProps };
     };
     const resolveProp = (...keys) => {
@@ -4319,7 +4319,7 @@
       return resolveProp(...keys);
     };
     const resolveLayoutDeviceProp = (...keys) => {
-      const responsiveProps = CMSwift.uiResponsivePropsFor(props, uiResponsiveDevice(getResponsiveDeviceKey())) || {};
+      const responsiveProps = JSswift.uiResponsivePropsFor(props, uiResponsiveDevice(getResponsiveDeviceKey())) || {};
       for (const key of keys) {
         if (hasOwn(responsiveProps, key)) return responsiveProps[key];
       }
@@ -4381,10 +4381,10 @@
     const getNavMaxWidth = () => toLayoutPx(uiUnwrap(resolveLayoutProp("navMaxWidth")), null);
     const initialDrawerWidthPx = toLayoutPx(uiUnwrap(resolveLayoutProp("drawerWidth")), 280);
     const initialNavWidthPx = toLayoutPx(uiUnwrap(resolveLayoutProp("navWidth")) ?? uiUnwrap(resolveLayoutProp("asideRightWidth")), 280);
-    const [getDrawerWidthPx, setDrawerWidthPx] = CMSwift.reactive.signal(
+    const [getDrawerWidthPx, setDrawerWidthPx] = JSswift.reactive.signal(
       clampLayoutWidth(initialDrawerWidthPx, getDrawerMinWidth(), getDrawerMaxWidth())
     );
-    const [getNavWidthPx, setNavWidthPx] = CMSwift.reactive.signal(
+    const [getNavWidthPx, setNavWidthPx] = JSswift.reactive.signal(
       clampLayoutWidth(initialNavWidthPx, getNavMinWidth(), getNavMaxWidth())
     );
 
@@ -4392,7 +4392,7 @@
     const initialOpen = controlledDrawer
       ? !!controlledDrawer.get()
       : (typeof props.drawerOpen === "boolean" ? !!props.drawerOpen : true);
-    const [getOpen, syncOpen] = CMSwift.reactive.signal(initialOpen);
+    const [getOpen, syncOpen] = JSswift.reactive.signal(initialOpen);
     const setOpen = (value) => {
       const next = !!value;
       if (getOpen() !== next) syncOpen(next);
@@ -4407,7 +4407,7 @@
     const initialNavOpen = controlledNav
       ? !!controlledNav.get()
       : (typeof props.navOpen === "boolean" ? !!props.navOpen : true);
-    const [getNavOpen, syncNavOpen] = CMSwift.reactive.signal(initialNavOpen);
+    const [getNavOpen, syncNavOpen] = JSswift.reactive.signal(initialNavOpen);
     const setNavOpen = (value) => {
       const next = !!value;
       if (getNavOpen() !== next) syncNavOpen(next);
@@ -4428,8 +4428,8 @@
       const width = getViewportWidth();
       return width >= 1024 ? "pc" : (width >= 768 ? "tablet" : "mobile");
     };
-    const [getMobile, setMobile] = CMSwift.reactive.signal(false);
-    const [getResponsiveKey, setResponsiveKey] = CMSwift.reactive.signal(getResponsiveDeviceKey());
+    const [getMobile, setMobile] = JSswift.reactive.signal(false);
+    const [getResponsiveKey, setResponsiveKey] = JSswift.reactive.signal(getResponsiveDeviceKey());
     const checkMobile = () => {
       if (typeof window === "undefined") return;
       setResponsiveKey(getResponsiveDeviceKey());
@@ -4470,11 +4470,11 @@
     const cls = uiClass([
       "cms-app",
       "cms-layout",
-      CMSwift.uiResponsiveClasses({ mobile: props }, uiResponsiveLayoutRules),
-      CMSwift.uiResponsiveClasses(props, uiResponsiveLayoutRules),
+      JSswift.uiResponsiveClasses({ mobile: props }, uiResponsiveLayoutRules),
+      JSswift.uiResponsiveClasses(props, uiResponsiveLayoutRules),
       props.class
     ]);
-    const p = CMSwift.omit(props, [
+    const p = JSswift.omit(props, [
       "header", "headerContent",
       "aside", "drawer",
       "nav", "asideRight", "drawerRight",
@@ -4498,7 +4498,7 @@
     ]);
     p.class = cls;
     p.style = { ...(props.style || {}) };
-    CMSwift.uiApplyResponsiveProps(p, props, CMSwift.uiResponsiveStyleRules);
+    JSswift.uiApplyResponsiveProps(p, props, JSswift.uiResponsiveStyleRules);
 
     const root = _.div(p);
     const tagPage = uiUnwrap(resolveLayoutProp("tagPage")) === true;
@@ -4765,33 +4765,33 @@
       hasHeaderContent = fillWrap(headerWrap, normalizeUpdateNodes(value));
       syncHeaderHeight();
       syncLayoutState();
-      if (newUrl) CMSwift.router.setURLOnly(newUrl);
+      if (newUrl) JSswift.router.setURLOnly(newUrl);
       return headerWrap;
     };
     const asideUpdate = (value, newUrl) => {
       hasDrawerContent = fillWrap(asideContentWrap, normalizeUpdateNodes(value));
       if (!hasDrawerContent) setOpen(false);
       syncLayoutState();
-      if (newUrl) CMSwift.router.setURLOnly(newUrl);
+      if (newUrl) JSswift.router.setURLOnly(newUrl);
       return asideWrap;
     };
     const navUpdate = (value, newUrl) => {
       hasNavContent = fillWrap(navContentWrap, normalizeUpdateNodes(value));
       if (!hasNavContent) setNavOpen(false);
       syncLayoutState();
-      if (newUrl) CMSwift.router.setURLOnly(newUrl);
+      if (newUrl) JSswift.router.setURLOnly(newUrl);
       return navWrap;
     };
     const pageUpdate = (value, newUrl) => {
       hasPageContent = fillWrap(mainWrap, normalizeUpdateNodes(value));
       syncLayoutState();
-      if (newUrl) CMSwift.router.setURLOnly(newUrl);
+      if (newUrl) JSswift.router.setURLOnly(newUrl);
       return mainWrap;
     };
     const footerUpdate = (value, newUrl) => {
       hasFooterContent = fillWrap(footerWrap, normalizeUpdateNodes(value));
       syncLayoutState();
-      if (newUrl) CMSwift.router.setURLOnly(newUrl);
+      if (newUrl) JSswift.router.setURLOnly(newUrl);
       return footerWrap;
     };
 
@@ -4807,7 +4807,7 @@
     }
     syncHeaderHeight();
 
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       getResponsiveKey();
       getMobile();
       getOpen();
@@ -4864,7 +4864,7 @@
     syncLayoutState();
     return root;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Layout = {
       signature: "UI.Layout(...children) | UI.Layout(props, ...children)",
@@ -4957,10 +4957,10 @@
       description: "Composable shell layout with independent left drawer and right nav, configurable widths, optional resize with min/max, optional floating mode, and runtime section updates."
     };
   }
-  // Esempio: CMSwift.ui.Layout({ header, aside, page, footer })
+  // Esempio: JSswift.ui.Layout({ header, aside, page, footer })
 
   UI.Footer = (...args) => {
-    const { props: rawProps, children } = CMSwift.uiNormalizeArgs(args);
+    const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
     const slots = rawProps.slots || {};
     const hasOwn = (key) => Object.prototype.hasOwnProperty.call(rawProps, key);
     const ctx = { props: rawProps };
@@ -4977,16 +4977,16 @@
       host.appendChild(document.createTextNode(String(value)));
     };
     const renderPropNodes = (name, fallback, map = (value) => value) => {
-      const slot = CMSwift.ui.getSlot(slots, name);
+      const slot = JSswift.ui.getSlot(slots, name);
       if (slot !== null && slot !== undefined) {
         return renderSlotToArray(slots, name, ctx, null);
       }
       if (typeof fallback === "function") {
         const inlineNames = new Set(["eyebrow", "title", "subtitle"]);
         const host = _[inlineNames.has(name) ? "span" : "div"]({ class: `cms-footer-slot-${name}` });
-        CMSwift.reactive.effect(() => {
+        JSswift.reactive.effect(() => {
           const nextValue = map(fallback(ctx));
-          const normalized = flattenSlotValue(CMSwift.ui.slot(nextValue));
+          const normalized = flattenSlotValue(JSswift.ui.slot(nextValue));
           host.replaceChildren();
           if (Array.isArray(normalized)) normalized.forEach((item) => appendResolvedValue(host, item));
           else appendResolvedValue(host, normalized);
@@ -4999,7 +4999,7 @@
     const renderIconValue = (value, as = "icon", sizeFallback = rawProps.iconSize || rawProps.size || "md") => {
       if (value == null || value === false) return null;
       if (typeof value === "string") return UI.Icon({ name: value, size: sizeFallback });
-      return CMSwift.ui.slot(value, { as });
+      return JSswift.ui.slot(value, { as });
     };
 
     const startFallback = hasOwn("left") ? rawProps.left : rawProps.start;
@@ -5065,7 +5065,7 @@
       );
     }
 
-    const p = CMSwift.omit(rawProps, [
+    const p = JSswift.omit(rawProps, [
       "actions", "actionsClass", "align", "body", "bodyClass", "center", "centerClass", "content",
       "contentClass", "dense", "description", "divider", "elevated", "end", "endClass", "eyebrow",
       "eyebrowClass", "gap", "icon", "iconSize", "kicker", "label", "left", "meta", "metaClass",
@@ -5091,7 +5091,7 @@
     if (wrap != null) p.style.flexWrap = wrap;
     if (rawProps.gap != null) p.style["--cms-footer-gap"] = toCssSize(uiUnwrap(rawProps.gap));
     if (rawProps.minHeight != null) p.style.minHeight = toCssSize(uiUnwrap(rawProps.minHeight));
-    CMSwift.uiApplyResponsiveProps(p, rawProps, CMSwift.uiResponsiveStyleRules);
+    JSswift.uiApplyResponsiveProps(p, rawProps, JSswift.uiResponsiveStyleRules);
 
     const el = _.footer(
       p,
@@ -5102,7 +5102,7 @@
     setPropertyProps(el, rawProps);
     return el;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Footer = {
       signature: "UI.Footer(...children) | UI.Footer(props, ...children)",
@@ -5153,12 +5153,12 @@
       description: "Structured footer with start/body/end regions, optional copy, actions, and composable slots."
     };
   }
-  // Esempio: CMSwift.ui.Footer({}, "Footer")
+  // Esempio: JSswift.ui.Footer({}, "Footer")
 
   const normalizeChildren = (children) => {
     const out = [];
     for (const ch of (children || [])) {
-      const v = flattenSlotValue(CMSwift.ui.slot(ch));
+      const v = flattenSlotValue(JSswift.ui.slot(ch));
       if (!v) continue;
       if (Array.isArray(v)) out.push(...v);
       else out.push(v);
@@ -5167,24 +5167,24 @@
   };
 
   const slotToArray = (value, opts) => {
-    const v = flattenSlotValue(CMSwift.ui.slot(value, opts));
+    const v = flattenSlotValue(JSswift.ui.slot(value, opts));
     if (!v) return [];
     return Array.isArray(v) ? v : [v];
   };
 
   const toCssSize = (v) => {
     if (typeof v === "number") return `${v}px`;
-    if (typeof v === "string" && CMSwift.uiSizes?.includes(v)) return `var(--cms-size-${v})`;
+    if (typeof v === "string" && JSswift.uiSizes?.includes(v)) return `var(--cms-size-${v})`;
     return String(v);
   };
 
   UI.Toolbar = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const renderArea = (names, fallback, ctx = {}) => {
       const list = Array.isArray(names) ? names : [names];
       for (const name of list) {
-        if (CMSwift.ui.getSlot(slots, name) != null) {
+        if (JSswift.ui.getSlot(slots, name) != null) {
           return renderSlotToArray(slots, name, ctx, fallback);
         }
       }
@@ -5192,7 +5192,7 @@
     };
     const hasArea = (names) => {
       const list = Array.isArray(names) ? names : [names];
-      return list.some((name) => CMSwift.ui.getSlot(slots, name) != null);
+      return list.some((name) => JSswift.ui.getSlot(slots, name) != null);
     };
 
     const ctx = { props };
@@ -5224,7 +5224,7 @@
       props.class
     ]);
 
-    const p = CMSwift.omit(props, [
+    const p = JSswift.omit(props, [
       "actions", "after", "afterClass", "align", "before", "beforeClass", "body", "bodyClass", "center", "centerClass",
       "content", "contentClass", "copyClass", "dense", "divider", "elevated", "end", "endClass", "gap", "justify",
       "left", "meta", "metaClass", "right", "size", "slots", "start", "startClass", "sticky", "subtitle", "subtitleClass",
@@ -5261,7 +5261,7 @@
       if (wrap != null) style.flexWrap = wrap;
     }
     if (Object.keys(style).length) p.style = style;
-    CMSwift.uiApplyResponsiveProps(p, props, CMSwift.uiResponsiveStyleRules);
+    JSswift.uiApplyResponsiveProps(p, props, JSswift.uiResponsiveStyleRules);
 
     if (!hasStructuredContent) {
       const content = renderSlotToArray(slots, "default", ctx, children);
@@ -5331,7 +5331,7 @@
     setPropertyProps(el, props);
     return el;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Toolbar = {
       signature: "UI.Toolbar(...children) | UI.Toolbar(props, ...children)",
@@ -5396,12 +5396,12 @@
       returns: "HTMLDivElement"
     };
   }
-  // Esempio: CMSwift.ui.Toolbar({}, CMSwift.ui.Btn({}, "Azione"))
+  // Esempio: JSswift.ui.Toolbar({}, JSswift.ui.Btn({}, "Azione"))
 
   const isGridColNode = (value) => value && value.nodeType === 1 && value.classList?.contains("cms-grid-col");
 
   UI.Grid = (...args) => {
-    const { props: rawProps, children } = CMSwift.uiNormalizeArgs(args);
+    const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
     const slots = rawProps.slots || {};
     const itemSource = uiUnwrap(rawProps.items);
     const items = Array.isArray(itemSource) ? itemSource : (itemSource == null ? [] : [itemSource]);
@@ -5478,26 +5478,26 @@
 
     const cls = uiClass([
       "cms-grid",
-      CMSwift.uiResponsiveClasses({ mobile: rawProps }, uiResponsiveGridRules),
-      CMSwift.uiResponsiveClasses(rawProps, uiResponsiveGridRules),
+      JSswift.uiResponsiveClasses({ mobile: rawProps }, uiResponsiveGridRules),
+      JSswift.uiResponsiveClasses(rawProps, uiResponsiveGridRules),
       uiWhen(rawProps.dense, "dense"),
       uiWhen(rawProps.inline, "cms-grid-inline"),
       uiWhen(rawProps.debug, "cms-grid-debug"),
       rawProps.class
     ]);
 
-    const p = CMSwift.omit(rawProps, [
+    const p = JSswift.omit(rawProps, [
       "gap", "rowGap", "columnGap", "colGap", "cols", "columns", "rows", "areas", "align", "justify",
       "alignItems", "justifyItems", "placeItems", "placeContent", "dense", "flow", "inline", "debug",
       "autoFit", "autoFill", "min", "max", "autoRows", "items", "itemClass", "itemStyle", "itemProps",
       "empty", "slots", "full", "width", "minWidth", "maxWidth", "padding",
-      ...CMSwift.uiResponsiveOmitProps
+      ...JSswift.uiResponsiveOmitProps
     ]);
     p.class = cls;
 
     const style = { ...(rawProps.style || {}) };
     if (
-      CMSwift.uiResponsiveHasConfig?.(rawProps)
+      JSswift.uiResponsiveHasConfig?.(rawProps)
       && rawProps.display == null
       && !uiHasResponsiveOverride(rawProps, "display")
       && style.display == null
@@ -5570,13 +5570,13 @@
     const padding = uiStyleValue(rawProps.padding, toCssSize);
     if (padding != null && !uiHasResponsiveOverride(rawProps, "padding")) style.padding = padding;
     if (Object.keys(style).length) p.style = style;
-    CMSwift.uiApplyResponsiveProps(p, rawProps, CMSwift.uiResponsiveStyleRules);
+    JSswift.uiApplyResponsiveProps(p, rawProps, JSswift.uiResponsiveStyleRules);
 
     const el = _.div(p, ...content);
     setPropertyProps(el, rawProps);
     return el;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Grid = {
       signature: "UI.Grid(...children) | UI.Grid(props, ...children)",
@@ -5630,16 +5630,16 @@
       description: "Griglia dichiarativa per layout responsive: supporta children, items/slot item, auto-fit, template custom e empty state."
     };
   }
-  // Esempio: CMSwift.ui.Grid({}, CMSwift.ui.GridCol({ span: 12 }, "Col"))
+  // Esempio: JSswift.ui.Grid({}, JSswift.ui.GridCol({ span: 12 }, "Col"))
 
   UI.GridCol = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const hasOwn = (key) => Object.prototype.hasOwnProperty.call(props, key);
     const renderArea = (names, fallback, ctx = {}) => {
       const list = Array.isArray(names) ? names : [names];
       for (const name of list) {
-        if (CMSwift.ui.getSlot(slots, name) != null) {
+        if (JSswift.ui.getSlot(slots, name) != null) {
           return renderSlotToArray(slots, name, ctx, fallback);
         }
       }
@@ -5647,12 +5647,12 @@
     };
     const resolveSpaceValue = (value) => {
       if (value == null || value === false || value === "") return "";
-      if (typeof value === "string" && CMSwift.uiSizes?.includes(value)) return `var(--cms-s-${value})`;
+      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return `var(--cms-s-${value})`;
       return toCssSize(value);
     };
     const resolveSizeValue = (value) => {
       if (value == null || value === false || value === "") return "";
-      if (typeof value === "string" && CMSwift.uiSizes?.includes(value)) return unitCover(value, "size");
+      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return unitCover(value, "size");
       return toCssSize(value);
     };
 
@@ -5684,8 +5684,8 @@
     const sm = uiStyleValue(props.sm, toGridSpan);
     const md = uiStyleValue(props.md, toGridSpan);
     const lg = uiStyleValue(props.lg, toGridSpan);
-    const tabletProps = CMSwift.uiResponsivePropsFor(props, uiResponsiveDevice("tablet")) || {};
-    const pcProps = CMSwift.uiResponsivePropsFor(props, uiResponsiveDevice("pc")) || {};
+    const tabletProps = JSswift.uiResponsivePropsFor(props, uiResponsiveDevice("tablet")) || {};
+    const pcProps = JSswift.uiResponsivePropsFor(props, uiResponsiveDevice("pc")) || {};
     const tabletSpanSource = tabletProps.span ?? tabletProps.col;
     const pcSpanSource = pcProps.span ?? pcProps.col;
     const tabletSpan = uiStyleValue(tabletSpanSource, toGridSpan);
@@ -5736,16 +5736,16 @@
       || hasOwn("end") || hasOwn("bottom") || hasOwn("footer") || hasOwn("after")
       || props.startClass || props.bodyClass || props.contentClass || props.endClass
       || props.topClass || props.headerClass || props.bottomClass || props.footerClass
-      || CMSwift.ui.getSlot(slots, "start") != null
-      || CMSwift.ui.getSlot(slots, "top") != null
-      || CMSwift.ui.getSlot(slots, "header") != null
-      || CMSwift.ui.getSlot(slots, "before") != null
-      || CMSwift.ui.getSlot(slots, "body") != null
-      || CMSwift.ui.getSlot(slots, "content") != null
-      || CMSwift.ui.getSlot(slots, "end") != null
-      || CMSwift.ui.getSlot(slots, "bottom") != null
-      || CMSwift.ui.getSlot(slots, "footer") != null
-      || CMSwift.ui.getSlot(slots, "after") != null;
+      || JSswift.ui.getSlot(slots, "start") != null
+      || JSswift.ui.getSlot(slots, "top") != null
+      || JSswift.ui.getSlot(slots, "header") != null
+      || JSswift.ui.getSlot(slots, "before") != null
+      || JSswift.ui.getSlot(slots, "body") != null
+      || JSswift.ui.getSlot(slots, "content") != null
+      || JSswift.ui.getSlot(slots, "end") != null
+      || JSswift.ui.getSlot(slots, "bottom") != null
+      || JSswift.ui.getSlot(slots, "footer") != null
+      || JSswift.ui.getSlot(slots, "after") != null;
     const useStackLayout = uiComputed([
       props.stack, props.gap, props.rowGap, props.columnGap,
       props.contentAlign, props.contentJustify, props.direction, props.center
@@ -5779,8 +5779,8 @@
     const cls = uiClass([
       "cms-grid-col",
       surfaceClasses,
-      CMSwift.uiResponsiveClasses({ mobile: props }, uiResponsiveGridColRules),
-      CMSwift.uiResponsiveClasses(props, uiResponsiveGridColRules),
+      JSswift.uiResponsiveClasses({ mobile: props }, uiResponsiveGridColRules),
+      JSswift.uiResponsiveClasses(props, uiResponsiveGridColRules),
       uiWhen(props.panel, "cms-grid-col-panel"),
       uiWhen(props.auto, "is-auto"),
       uiWhen(useStackLayout, "cms-grid-col-stack"),
@@ -5789,7 +5789,7 @@
       props.class
     ]);
 
-    const p = CMSwift.omit(props, [
+    const p = JSswift.omit(props, [
       "span", "col", "sm", "md", "lg", "auto",
       "row", "rowSpan", "area", "align", "justify", "place",
       "gap", "rowGap", "columnGap", "padding",
@@ -5803,7 +5803,7 @@
       "clickable", "dense", "flat", "border", "glossy", "glow", "glass", "shadow",
       "outline", "rounded", "gradient", "textGradient", "lightShadow", "color", "textColor",
       "size", "radius",
-      ...CMSwift.uiResponsiveOmitProps
+      ...JSswift.uiResponsiveOmitProps
     ]);
     p.class = cls;
 
@@ -5839,7 +5839,7 @@
     else if (centerContent != null && centerContent !== "") style.justifyContent = centerContent ? "center" : "";
     if (scroll != null && scroll !== "") style.overflow = scroll;
     if (Object.keys(style).length) p.style = style;
-    CMSwift.uiApplyResponsiveProps(p, props, uiResponsiveGridColStyleRules);
+    JSswift.uiApplyResponsiveProps(p, props, uiResponsiveGridColStyleRules);
 
     const userOnClick = props.onClick;
     const userOnKeydown = props.onKeydown;
@@ -5848,9 +5848,9 @@
       userOnClick?.(e);
       if (e.defaultPrevented) return;
       const to = uiUnwrap(props.to);
-      if (to && CMSwift.router?.navigate) {
+      if (to && JSswift.router?.navigate) {
         e.preventDefault();
-        CMSwift.router.navigate(to);
+        JSswift.router.navigate(to);
       }
     };
     const onKeydown = (e) => {
@@ -5905,7 +5905,7 @@
     setPropertyProps(el, props);
     return el;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.GridCol = {
       signature: "UI.GridCol(...children) | UI.GridCol(props, ...children)",
@@ -5969,4 +5969,4 @@
       description: "CSS Grid item with responsive spans, optional internal stack layout, start/body/end regions, and lightweight visual variants."
     };
   }
-  // Esempio: CMSwift.ui.GridCol({ span: 6, sm: 12 }, "Colonna")
+  // Esempio: JSswift.ui.GridCol({ span: 6, sm: 12 }, "Colonna")

@@ -1,5 +1,5 @@
   const buildChoiceControl = (type, args, options = {}) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const isRadio = type === "radio";
     const isToggle = options.appearance === "toggle";
@@ -10,7 +10,7 @@
       options.modelName || (isRadio ? "UI.Radio:model" : "UI.Checkbox:model")
     );
 
-    const inputProps = CMSwift.omit(props, [
+    const inputProps = JSswift.omit(props, [
       "model", "label", "checked", "class", "style", "dense", "onChange", "onInput", "slots",
       "icon", "iconOn", "iconOff", "iconStandby", "checkedIcon", "uncheckedIcon", "standbyIcon",
       "indeterminateIcon", "inputClass", "iconSize", "color", "size", "outline", "behavior", "mode",
@@ -29,7 +29,7 @@
     const shortcodeHint = uiCreateShortcodeHint(props, { className: "cms-shortcode cms-choice-shortcode" });
     const finalLabelContent = shortcodeHint ? [...labelContent, shortcodeHint] : labelContent;
 
-    const wrapProps = CMSwift.omit(props, [
+    const wrapProps = JSswift.omit(props, [
       "model", "label", "checked", "onChange", "onInput", "value", "name", "id", "type", "dense",
       "inputClass", "slots", "icon", "iconOn", "iconOff", "iconStandby", "checkedIcon",
       "uncheckedIcon", "standbyIcon", "indeterminateIcon", "iconSize", "color", "size", "behavior",
@@ -52,7 +52,7 @@
     wrapProps.style = { ...(props.style || {}) };
 
     const sizeValue = uiUnwrap(props.size);
-    if (sizeValue != null && !(typeof sizeValue === "string" && CMSwift.uiSizes?.includes(sizeValue))) {
+    if (sizeValue != null && !(typeof sizeValue === "string" && JSswift.uiSizes?.includes(sizeValue))) {
       wrapProps.style["--cms-choice-size"] = toCssSize(sizeValue);
     }
 
@@ -141,22 +141,22 @@
       const ctx = { checked, state, indeterminate: state == null, value: props.value, id, type };
       let iconNode = null;
       if (state === true) {
-        iconNode = CMSwift.ui.renderSlot(slots, "checkedIcon", ctx, null);
-        if (iconNode == null) iconNode = CMSwift.ui.renderSlot(slots, "iconOn", ctx, null);
+        iconNode = JSswift.ui.renderSlot(slots, "checkedIcon", ctx, null);
+        if (iconNode == null) iconNode = JSswift.ui.renderSlot(slots, "iconOn", ctx, null);
       } else if (state === false) {
-        iconNode = CMSwift.ui.renderSlot(slots, "uncheckedIcon", ctx, null);
-        if (iconNode == null) iconNode = CMSwift.ui.renderSlot(slots, "iconOff", ctx, null);
+        iconNode = JSswift.ui.renderSlot(slots, "uncheckedIcon", ctx, null);
+        if (iconNode == null) iconNode = JSswift.ui.renderSlot(slots, "iconOff", ctx, null);
       } else {
-        iconNode = CMSwift.ui.renderSlot(slots, "indeterminateIcon", ctx, null);
-        if (iconNode == null) iconNode = CMSwift.ui.renderSlot(slots, "standbyIcon", ctx, null);
-        if (iconNode == null) iconNode = CMSwift.ui.renderSlot(slots, "iconStandby", ctx, null);
+        iconNode = JSswift.ui.renderSlot(slots, "indeterminateIcon", ctx, null);
+        if (iconNode == null) iconNode = JSswift.ui.renderSlot(slots, "standbyIcon", ctx, null);
+        if (iconNode == null) iconNode = JSswift.ui.renderSlot(slots, "iconStandby", ctx, null);
       }
-      if (iconNode == null) iconNode = CMSwift.ui.renderSlot(slots, "icon", ctx, null);
+      if (iconNode == null) iconNode = JSswift.ui.renderSlot(slots, "icon", ctx, null);
       if (iconNode == null) {
         const source = resolveIconSource(state);
         if (typeof source === "string") iconNode = UI.Icon({ name: source, size: iconSize, ...(isToggle ? { textColor: props.color, outline: true } : {}) });
         else if (source != null) {
-          iconNode = CMSwift.ui.slot(source, {
+          iconNode = JSswift.ui.slot(source, {
             checked,
             state,
             indeterminate: state == null,
@@ -214,7 +214,7 @@
   };
 
   UI.Checkbox = (...args) => buildChoiceControl("checkbox", args);
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Checkbox = {
       signature: "UI.Checkbox(...children) | UI.Checkbox(props, ...children)",
@@ -254,10 +254,10 @@
       description: "Checkbox con label e supporto model."
     };
   }
-  // Esempio: CMSwift.ui.Checkbox({ label: "Accetto", model: [get,set] })
+  // Esempio: JSswift.ui.Checkbox({ label: "Accetto", model: [get,set] })
 
   UI.Radio = (...args) => buildChoiceControl("radio", args);
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Radio = {
       signature: "UI.Radio(...children) | UI.Radio(props, ...children)",
@@ -299,10 +299,10 @@
       description: "Radio con label e supporto model."
     };
   }
-  // Esempio: CMSwift.ui.Radio({ name: "r1", value: "a", label: "A", model: [get,set] })
+  // Esempio: JSswift.ui.Radio({ name: "r1", value: "a", label: "A", model: [get,set] })
 
   UI.Toggle = (...args) => {
-    const { props } = CMSwift.uiNormalizeArgs(args);
+    const { props } = JSswift.uiNormalizeArgs(args);
     const behavior = String(props.behavior ?? props.mode ?? props.type ?? "checkbox").toLowerCase() === "radio"
       ? "radio"
       : "checkbox";
@@ -311,7 +311,7 @@
       modelName: "UI.Toggle:model"
     });
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Toggle = {
       signature: "UI.Toggle(...children) | UI.Toggle(props, ...children)",
@@ -356,15 +356,15 @@
       description: "Toggle switch con supporto model e comportamento checkbox/radio."
     };
   }
-  // Esempio: CMSwift.ui.Toggle({ label: "Attivo", model: [get,set] })
+  // Esempio: JSswift.ui.Toggle({ label: "Attivo", model: [get,set] })
 
   UI.Slider = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const boundValue = props.model || ((uiIsSignal(props.value) || uiIsRod(props.value)) ? props.value : null);
     const model = resolveModel(boundValue, "UI.Slider:model");
 
-    const inputProps = CMSwift.omit(props, [
+    const inputProps = JSswift.omit(props, [
       "model", "value", "class", "style", "onChange", "onInput", "slots",
       "label", "icon", "iconRight", "thumbIcon", "iconThumb", "pointIcon",
       "markers", "markerLabels", "labelMarks", "leftLabel", "rightLabel",
@@ -379,7 +379,7 @@
     const sliderStyle = { ...(props.style || {}) };
     const sizeValue = uiUnwrap(props.size);
     if (sizeValue != null) {
-      const sliderSize = (typeof sizeValue === "string" && CMSwift.uiSizes?.includes(sizeValue))
+      const sliderSize = (typeof sizeValue === "string" && JSswift.uiSizes?.includes(sizeValue))
         ? `var(--cms-size-${sizeValue})`
         : toCssSize(sizeValue);
       sliderStyle["--cms-slider-size"] = sliderSize;
@@ -531,7 +531,7 @@
       const ratio = uiUnwrap(props.reverse) ? (1 - raw) : raw;
       return Math.max(0, Math.min(1, ratio));
     };
-    const [getValue, setValue] = CMSwift.reactive.signal(normalizeValue(
+    const [getValue, setValue] = JSswift.reactive.signal(normalizeValue(
       model ? model.get() : (uiUnwrap(props.value) ?? uiUnwrap(props.min) ?? 0)
     ));
 
@@ -630,11 +630,11 @@
           current: getValue(),
           input
         };
-        let markerNode = CMSwift.ui.renderSlot(slots, "marker", markerCtx, null);
+        let markerNode = JSswift.ui.renderSlot(slots, "marker", markerCtx, null);
         if (markerNode == null && marker.icon != null) {
           markerNode = typeof marker.icon === "string"
             ? UI.Icon({ name: marker.icon, size: 12 })
-            : CMSwift.ui.slot(marker.icon, { ...markerCtx, as: "marker" });
+            : JSswift.ui.slot(marker.icon, { ...markerCtx, as: "marker" });
         }
         const markerTick = _.span({
           class: "cms-slider-marker-tick",
@@ -745,7 +745,7 @@
       setSliderValue(model.get(), { fromModel: true });
       model.watch((v) => { setSliderValue(v, { fromModel: true }); }, "UI.Slider:watch");
     } else if (uiIsReactive(props.value)) {
-      CMSwift.reactive.effect(() => {
+      JSswift.reactive.effect(() => {
         setSliderValue(uiUnwrap(props.value), { fromModel: true });
       }, "UI.Slider:value");
     } else {
@@ -769,7 +769,7 @@
       props.onChange?.(next, e);
     });
 
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       renderHeader();
       renderAddons();
       renderThumb();
@@ -795,7 +795,7 @@
 
     return wrap;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Slider = {
       signature: "UI.Slider(...children) | UI.Slider(props, ...children)",
@@ -859,15 +859,15 @@
       description: "Reactive slider with label, icons, custom thumb, markers, and model/QItem support."
     };
   }
-  // Esempio: CMSwift.ui.Slider({ min: 0, max: 10, model: [get,set] })
+  // Esempio: JSswift.ui.Slider({ min: 0, max: 10, model: [get,set] })
 
   UI.Rating = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const boundValue = props.model || ((uiIsSignal(props.value) || uiIsRod(props.value)) ? props.value : null);
     const model = resolveModel(boundValue, "UI.Rating:model");
     const id = props.id || (`cms-rating-` + Math.random().toString(36).slice(2));
-    const inputProps = CMSwift.omit(props, [
+    const inputProps = JSswift.omit(props, [
       "model", "value", "max", "class", "style", "dense", "readonly", "disabled", "clearable",
       "half", "allowHalf", "noDimming", "label", "slots", "onChange", "onInput", "onHover",
       "icon", "checkedIcon", "uncheckedIcon", "halfIcon", "hoveredIcon", "iconSelected", "iconHalf",
@@ -881,7 +881,7 @@
     inputProps.class = uiClass(["cms-rating-input", "cms-choice-input", props.inputClass]);
     const input = _.input(inputProps);
 
-    const wrapProps = CMSwift.omit(props, [
+    const wrapProps = JSswift.omit(props, [
       "model", "value", "max", "id", "name", "type", "class", "style", "dense", "readonly",
       "disabled", "clearable", "half", "allowHalf", "noDimming", "label", "slots", "onChange",
       "onInput", "onHover", "icon", "checkedIcon", "uncheckedIcon", "halfIcon", "hoveredIcon",
@@ -900,7 +900,7 @@
     ]);
     wrapProps.style = { ...(props.style || {}) };
     const sizeValue = uiUnwrap(props.size);
-    if (sizeValue != null && !(typeof sizeValue === "string" && CMSwift.uiSizes?.includes(sizeValue))) {
+    if (sizeValue != null && !(typeof sizeValue === "string" && JSswift.uiSizes?.includes(sizeValue))) {
       wrapProps.style["--cms-rating-size"] = toCssSize(sizeValue);
     }
     const gapValue = uiUnwrap(props.gap);
@@ -1180,7 +1180,7 @@
       }, "UI.Rating:watch");
     }
 
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       if (!model && props.value != null) {
         localValue = normalizeValue(uiUnwrap(props.value));
       }
@@ -1189,7 +1189,7 @@
 
     return wrap;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Rating = {
       signature: "UI.Rating(...children) | UI.Rating(props, ...children)",
@@ -1245,7 +1245,7 @@
       description: "Reactive rating with label, custom icons, half rating, clearable behavior, and model support."
     };
   }
-  // Esempio: CMSwift.ui.Rating({ max: 5, model: [get,set] })
+  // Esempio: JSswift.ui.Rating({ max: 5, model: [get,set] })
 
   const uiCloneTimeParts = (value) => {
     if (!value) return null;
@@ -1394,19 +1394,19 @@
     const renderNamedSlot = (name, ctx, fallback) => {
       const candidates = [prefixed(name), name].filter(Boolean);
       for (const candidate of candidates) {
-        const slotValue = CMSwift.ui.getSlot(slots, candidate);
+        const slotValue = JSswift.ui.getSlot(slots, candidate);
         if (slotValue == null) continue;
-        const rendered = CMSwift.ui.renderSlot(slots, candidate, ctx, fallback);
+        const rendered = JSswift.ui.renderSlot(slots, candidate, ctx, fallback);
         if (rendered != null) return rendered;
       }
-      return CMSwift.ui.slot(fallback, ctx);
+      return JSswift.ui.slot(fallback, ctx);
     };
     const renderPointNodes = (ctx) => {
       let pointNode = renderNamedSlot("point", ctx, null);
       if (pointNode == null && config.pointIcon != null && ctx.selected) {
         pointNode = typeof config.pointIcon === "string"
           ? UI.Icon({ name: config.pointIcon, size: embedded ? 10 : 12 })
-          : CMSwift.ui.slot(config.pointIcon, ctx);
+          : JSswift.ui.slot(config.pointIcon, ctx);
       }
       return renderSlotToArray(null, "default", ctx, pointNode);
     };
@@ -1531,7 +1531,7 @@
   };
 
   const buildDateControl = (args, options = {}) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const isCalendar = options.calendar === true;
     const slots = props.slots || {};
     const sizeValue = uiComputed(props.size, () => {
@@ -1946,7 +1946,7 @@
       ...props,
       label: props.label ?? props.placeholder
     };
-    const hasFloatingLabel = fieldProps.label != null || CMSwift.ui.getSlot(slots, "label") != null;
+    const hasFloatingLabel = fieldProps.label != null || JSswift.ui.getSlot(slots, "label") != null;
     const defaultPlaceholder = mode === "range"
       ? "Seleziona andata e ritorno"
       : (mode === "range-multiple"
@@ -2280,12 +2280,12 @@
       const pickerValue = getCurrentValue();
 
       const buildDayPoint = (ctx) => {
-        let pointNode = CMSwift.ui.renderSlot(slots, "point", ctx, null);
-        if (pointNode == null) pointNode = CMSwift.ui.renderSlot(slots, "dayPoint", ctx, null);
+        let pointNode = JSswift.ui.renderSlot(slots, "point", ctx, null);
+        if (pointNode == null) pointNode = JSswift.ui.renderSlot(slots, "dayPoint", ctx, null);
         if (pointNode == null && props.pointIcon != null && (ctx.selected || ctx.inRange || ctx.today)) {
           pointNode = typeof props.pointIcon === "string"
             ? UI.Icon({ name: props.pointIcon, size: 10 })
-            : CMSwift.ui.slot(props.pointIcon, ctx);
+            : JSswift.ui.slot(props.pointIcon, ctx);
         }
         return renderSlotToArray(null, "default", ctx, pointNode);
       };
@@ -2325,7 +2325,7 @@
             select: () => selectDate(iso, null, { visibleMonthOffset: monthOffset })
           };
           const pointNodes = buildDayPoint(ctx);
-          const labelNode = CMSwift.ui.renderSlot(slots, "day", ctx, String(date.getDate()));
+          const labelNode = JSswift.ui.renderSlot(slots, "day", ctx, String(date.getDate()));
           const labelNodes = renderSlotToArray(null, "default", ctx, labelNode);
           const dayBtn = _.button({
             type: "button",
@@ -2547,7 +2547,7 @@
       hoverDate = null;
       mouseSelectedDate = null;
       syncViewMonth(workingValue);
-      entry = CMSwift.overlay.open(({ close }) => {
+      entry = JSswift.overlay.open(({ close }) => {
         const fallback = (mode === "range" || mode === "range-multiple") ? 2 : 1;
         const raw = Number(uiUnwrap(props.monthsToShow) ?? fallback);
         panelRoot = _.div({ class: uiClassStatic(["cms-date-panel", uiUnwrap(sizeValue), uiWhen(raw > 1, "multi-month"), props.panelClass]) });
@@ -2586,7 +2586,7 @@
       if (!entry) return;
       mouseSelectedDate = null;
       const toClose = entry;
-      overlayLeave(toClose, () => CMSwift.overlay.close(toClose.id));
+      overlayLeave(toClose, () => JSswift.overlay.close(toClose.id));
     }
 
     if (isCalendar) {
@@ -2664,7 +2664,7 @@
       }, isCalendar ? "UI.Calendar:watch" : "UI.Datepicker:watch");
     }
 
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       if (!model && props.value != null) {
         localValue = normalizeValue(uiUnwrap(props.value));
         workingValue = cloneValue(localValue);
@@ -2707,10 +2707,10 @@
   UI.Datepicker = (...args) => buildDateControl(args);
   UI.Calendar = (...args) => buildDateControl(args, { calendar: true });
   UI.Date = UI.Datepicker;
-  CMSwift.ui.Datepicker = UI.Datepicker;
-  CMSwift.ui.Calendar = UI.Calendar;
-  CMSwift.ui.Date = UI.Date;
-  if (CMSwift.isDev?.()) {
+  JSswift.ui.Datepicker = UI.Datepicker;
+  JSswift.ui.Calendar = UI.Calendar;
+  JSswift.ui.Date = UI.Date;
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Datepicker = {
       signature: "UI.Datepicker(props)",
@@ -2790,10 +2790,10 @@
     };
     UI.meta.Date = UI.meta.Datepicker;
   }
-  // Esempio: CMSwift.ui.Datepicker({ value: "2024-01-01" })
+  // Esempio: JSswift.ui.Datepicker({ value: "2024-01-01" })
 
   UI.Time = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const sizeValue = uiComputed(props.size, () => {
       const value = String(uiUnwrap(props.size) || "").toLowerCase();
@@ -2836,7 +2836,7 @@
       ...props,
       label: props.label ?? props.placeholder
     };
-    const hasFloatingLabel = fieldProps.label != null || CMSwift.ui.getSlot(slots, "label") != null;
+    const hasFloatingLabel = fieldProps.label != null || JSswift.ui.getSlot(slots, "label") != null;
 
     const displayInput = _.input({
       class: uiClass(["cms-input", "cms-time-display", sizeValue, uiWhen(props.manualInput, "is-manual"), props.inputClass]),
@@ -2993,7 +2993,7 @@
     function openPanel() {
       if (entry || uiUnwrap(props.disabled) || uiUnwrap(props.readonly)) return entry;
       workingValue = uiCloneTimeParts(localValue);
-      entry = CMSwift.overlay.open(() => {
+      entry = JSswift.overlay.open(() => {
         panelRoot = _.div({ class: uiClassStatic(["cms-time-panel", uiUnwrap(sizeValue), props.panelClass]) });
         renderPanel();
         return panelRoot;
@@ -3029,7 +3029,7 @@
     function closePanel() {
       if (!entry) return;
       const toClose = entry;
-      overlayLeave(toClose, () => CMSwift.overlay.close(toClose.id));
+      overlayLeave(toClose, () => JSswift.overlay.close(toClose.id));
     }
 
     displayInput.addEventListener("focus", (event) => {
@@ -3080,7 +3080,7 @@
       }, "UI.Time:watch");
     }
 
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       if (!model && props.value != null) {
         localValue = uiCloneTimeParts(parseTypedValue(uiUnwrap(props.value)));
         workingValue = uiCloneTimeParts(localValue);
@@ -3100,7 +3100,7 @@
 
     return field;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Time = {
       signature: "UI.Time(props)",
@@ -3145,5 +3145,5 @@
       description: "Reactive time picker with fixed overlay, label/icon slots, point icon, shortcuts, confirm, and model."
     };
   }
-  // Esempio: CMSwift.ui.Time({ value: "09:30" })
+  // Esempio: JSswift.ui.Time({ value: "09:30" })
 

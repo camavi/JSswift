@@ -1,5 +1,5 @@
   UI.Spinner = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
 
     const makeCssVarValue = (value, mapper, fallback) => {
@@ -50,7 +50,7 @@
       props.class
     ]);
 
-    const p = CMSwift.omit(props, [
+    const p = JSswift.omit(props, [
       "ariaLabel", "block", "center", "color", "indicatorClass", "indicatorStyle",
       "label", "note", "pause", "paused", "reverse", "size", "slots", "speed",
       "state", "thickness", "trackColor", "vertical"
@@ -107,7 +107,7 @@
     setPropertyProps(root, props);
     return root;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Spinner = {
       signature: "UI.Spinner(...children) | UI.Spinner(props, ...children)",
@@ -143,10 +143,10 @@
       description: "Animated spinner with flexible layout, optional content, and controls for size, speed, and track."
     };
   }
-  // Esempio: CMSwift.ui.Spinner({ size: 24 })
+  // Esempio: JSswift.ui.Spinner({ size: 24 })
 
   UI.Progress = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const boundValue = props.model || ((uiIsSignal(props.value) || uiIsRod(props.value)) ? props.value : null);
     const model = resolveModel(boundValue, "UI.Progress:model");
@@ -247,10 +247,10 @@
       return value;
     };
 
-    const [getValue, setValue] = CMSwift.reactive.signal(normalizeValue(
+    const [getValue, setValue] = JSswift.reactive.signal(normalizeValue(
       model ? model.get() : (uiUnwrap(props.value) ?? uiUnwrap(props.min) ?? 0)
     ));
-    const [getBuffer, setBuffer] = CMSwift.reactive.signal(clampBuffer(
+    const [getBuffer, setBuffer] = JSswift.reactive.signal(clampBuffer(
       uiUnwrap(props.buffer) ?? (model ? model.get() : (uiUnwrap(props.value) ?? uiUnwrap(props.min) ?? 0))
     ));
 
@@ -267,7 +267,7 @@
       return next;
     };
 
-    const wrapProps = CMSwift.omit(props, [
+    const wrapProps = JSswift.omit(props, [
       "model", "value", "min", "max", "buffer", "class", "style", "slots",
       "label", "note", "showValue", "valueLabel", "insideLabel", "formatValue",
       "icon", "iconRight", "iconSize", "startLabel", "endLabel", "leftLabel", "rightLabel",
@@ -366,7 +366,7 @@
         ? resolveContentProp(props.valueLabel)
         : resolveDisplayValue(value, percent, ctx);
       const showValue = uiUnwrap(props.showValue);
-      const outsideValueNodes = (showValue === true || props.valueLabel != null || CMSwift.ui.getSlot(slots, "value") != null)
+      const outsideValueNodes = (showValue === true || props.valueLabel != null || JSswift.ui.getSlot(slots, "value") != null)
         ? renderSlotToArray(slots, "value", ctx, valueFallback)
         : [];
 
@@ -414,7 +414,7 @@
       const insideFallback = props.insideLabel != null
         ? resolveContentProp(props.insideLabel)
         : resolveDisplayValue(value, percent, ctx);
-      const insideNodes = (showValue === "inside" || props.insideLabel != null || CMSwift.ui.getSlot(slots, "inside") != null)
+      const insideNodes = (showValue === "inside" || props.insideLabel != null || JSswift.ui.getSlot(slots, "inside") != null)
         ? renderSlotToArray(slots, "inside", ctx, insideFallback)
         : [];
       renderInto(insideHost, insideNodes, "inline-flex");
@@ -445,7 +445,7 @@
       wrap.style.setProperty("--cms-progress-height", getTrackHeight());
       if (customRadius != null) {
         if (typeof customRadius === "number") wrap.style.setProperty("--cms-progress-radius", `${customRadius}px`);
-        else if (typeof customRadius === "string" && CMSwift.uiSizes.includes(customRadius)) wrap.style.setProperty("--cms-progress-radius", `var(--cms-r-${customRadius})`);
+        else if (typeof customRadius === "string" && JSswift.uiSizes.includes(customRadius)) wrap.style.setProperty("--cms-progress-radius", `var(--cms-r-${customRadius})`);
         else wrap.style.setProperty("--cms-progress-radius", String(customRadius));
       } else {
         wrap.style.removeProperty("--cms-progress-radius");
@@ -502,7 +502,7 @@
       setProgressValue(model.get(), { fromModel: true });
       model.watch((value) => { setProgressValue(value, { fromModel: true }); }, "UI.Progress:watch");
     } else if (uiIsReactive(props.value)) {
-      CMSwift.reactive.effect(() => {
+      JSswift.reactive.effect(() => {
         setProgressValue(uiUnwrap(props.value), { fromModel: true });
       }, "UI.Progress:value");
     } else {
@@ -510,14 +510,14 @@
     }
 
     if (uiIsReactive(props.buffer)) {
-      CMSwift.reactive.effect(() => {
+      JSswift.reactive.effect(() => {
         setProgressBuffer(uiUnwrap(props.buffer));
       }, "UI.Progress:buffer");
     } else {
       setProgressBuffer(props.buffer ?? props.value ?? props.min ?? 0);
     }
 
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       renderHeader();
       renderEdgeLabels();
       renderInsideValue();
@@ -534,7 +534,7 @@
 
     return wrap;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Progress = {
       signature: "UI.Progress(...children) | UI.Progress(props, ...children)",
@@ -586,10 +586,10 @@
       description: "Standardized progress bar with optional header, buffer, semantic state, and reactive support."
     };
   }
-  // Esempio: CMSwift.ui.Progress({ value: 45 })
+  // Esempio: JSswift.ui.Progress({ value: 45 })
 
   UI.LoadingBar = function LoadingBar(...args) {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const getNumber = (value, fallback) => {
       const next = Number(value);
       return Number.isFinite(next) ? next : fallback;
@@ -626,9 +626,9 @@
     const bufferModel = resolveModel(bufferBinding, "UI.LoadingBar:buffer");
     const initialValue = valueModel ? valueModel.get() : (uiUnwrap(props.value) ?? getMin());
     const initialBuffer = bufferModel ? bufferModel.get() : (uiUnwrap(props.buffer) ?? initialValue);
-    const [getValue, setValueSignal] = CMSwift.reactive.signal(clampValue(initialValue));
-    const [getBuffer, setBufferSignal] = CMSwift.reactive.signal(Math.max(clampValue(initialBuffer), clampValue(initialValue)));
-    const [getVisible, setVisibleSignal] = CMSwift.reactive.signal(
+    const [getValue, setValueSignal] = JSswift.reactive.signal(clampValue(initialValue));
+    const [getBuffer, setBufferSignal] = JSswift.reactive.signal(Math.max(clampValue(initialBuffer), clampValue(initialValue)));
+    const [getVisible, setVisibleSignal] = JSswift.reactive.signal(
       props.visible != null ? !!uiUnwrap(props.visible) : (clampValue(initialValue) > getMin() || !!uiUnwrap(props.indeterminate))
     );
 
@@ -690,7 +690,7 @@
       }, interval);
     };
 
-    const shellProps = CMSwift.omit(props, [
+    const shellProps = JSswift.omit(props, [
       "model", "value", "min", "max", "buffer", "class", "style", "slots",
       "label", "note", "showValue", "valueLabel", "insideLabel", "formatValue",
       "icon", "iconRight", "iconSize", "startLabel", "endLabel", "leftLabel", "rightLabel",
@@ -706,7 +706,7 @@
     shellProps.class = uiClass(["cms-loading-bar", props.class]);
     shellProps.style = { ...(props.style || {}) };
 
-    const progressProps = CMSwift.omit(props, [
+    const progressProps = JSswift.omit(props, [
       "target", "mount", "position", "top", "right", "bottom", "left", "inset", "zIndex",
       "visible", "autoStart", "hideOnZero", "startValue", "step", "trickle", "trickleStep",
       "trickleInterval", "trickleMax", "trickleTo", "doneValue", "doneDelay", "hideDelay",
@@ -812,7 +812,7 @@
     if (valueModel) {
       valueModel.watch((value) => { syncValue(value, { fromExternal: true }); showIfNeeded(clampValue(value)); }, "UI.LoadingBar:watch");
     } else if (uiIsReactive(props.value)) {
-      CMSwift.reactive.effect(() => {
+      JSswift.reactive.effect(() => {
         const next = clampValue(uiUnwrap(props.value));
         syncValue(next, { fromExternal: true });
         showIfNeeded(next);
@@ -822,12 +822,12 @@
     if (bufferModel) {
       bufferModel.watch((value) => { syncBuffer(value, { fromExternal: true }); }, "UI.LoadingBar:bufferWatch");
     } else if (uiIsReactive(props.buffer)) {
-      CMSwift.reactive.effect(() => {
+      JSswift.reactive.effect(() => {
         syncBuffer(uiUnwrap(props.buffer), { fromExternal: true });
       }, "UI.LoadingBar:buffer");
     }
 
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       const min = getMin();
       const max = getMax();
       const current = Math.min(max, Math.max(min, getValue()));
@@ -836,12 +836,12 @@
       if (bufferCurrent !== getBuffer()) setBufferSignal(bufferCurrent);
     }, "UI.LoadingBar:range");
 
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       if (props.visible == null) return;
       syncVisibility(uiUnwrap(props.visible), { fromExternal: true });
     }, "UI.LoadingBar:visible");
 
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       const position = uiUnwrap(props.position) || "fixed";
       const inset = uiUnwrap(props.inset);
       const top = uiUnwrap(props.top);
@@ -890,7 +890,7 @@
     if (uiUnwrap(props.autoStart)) start();
     return root;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.LoadingBar = {
       signature: "UI.LoadingBar(...children) | UI.LoadingBar(props, ...children)",
@@ -961,7 +961,7 @@
       description: "Loading bar based on UI.Progress, mountable on body or a custom container, controllable via model or imperative API."
     };
   }
-  // Esempio: const lb = CMSwift.ui.LoadingBar({ autoStart: true }); lb.done();
+  // Esempio: const lb = JSswift.ui.LoadingBar({ autoStart: true }); lb.done();
 
   const NOTIFY_POSITIONS = new Set([
     "top-left",
@@ -1053,7 +1053,7 @@
     }
 
     if (uiIsPlainObject(args[0])) {
-      const { props, children } = CMSwift.uiNormalizeArgs(args);
+      const { props, children } = JSswift.uiNormalizeArgs(args);
       const next = { ...props };
       if (!next.type && !next.state && !next.color && forcedType) next.type = forcedType;
       if (next.title == null && defaultTitle) next.title = defaultTitle;
@@ -1153,7 +1153,7 @@
       throw error;
     }
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Notify = {
       signature: "UI.Notify(message, title?, opts?) | UI.Notify(opts, ...children)",

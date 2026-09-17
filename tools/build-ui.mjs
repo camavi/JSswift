@@ -7,9 +7,9 @@ const outputFile = path.resolve("packages/ui/dist/ui.js");
 const minOutputFile = path.resolve("packages/ui/dist/min-ui.js");
 const minAliasOutputFile = path.resolve("packages/ui/dist/ui.min.js");
 const manifestFile = path.join(rootDir, "modules.json");
-const legacyOutputFile = path.resolve("pages/_cmswift-fe/js/ui.js");
-const legacyMinOutputFile = path.resolve("pages/_cmswift-fe/js/min-ui.js");
-const legacyMinAliasOutputFile = path.resolve("pages/_cmswift-fe/js/ui.min.js");
+const legacyOutputFile = path.resolve("pages/_jsswift-fe/js/ui.js");
+const legacyMinOutputFile = path.resolve("pages/_jsswift-fe/js/min-ui.js");
+const legacyMinAliasOutputFile = path.resolve("pages/_jsswift-fe/js/ui.min.js");
 
 async function readModule(name) {
   const filename = path.join(rootDir, name);

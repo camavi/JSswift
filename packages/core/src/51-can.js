@@ -1,8 +1,8 @@
   // ===============================
   // Can component (hyperscript-friendly)
   // ===============================
-  CMSwift.Can = function Can(props, ctx) {
-    const auth = CMSwift.useAuth ? CMSwift.useAuth(ctx) : CMSwift.auth;
+  JSswift.Can = function Can(props, ctx) {
+    const auth = JSswift.useAuth ? JSswift.useAuth(ctx) : JSswift.auth;
 
     const pred = () => {
       if (!auth) return false;

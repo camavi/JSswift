@@ -1,6 +1,6 @@
 ## UI Source Modules
 
-This folder contains the modular source structure of the CMSwift UI layer.
+This folder contains the modular source structure of the JSswift UI layer.
 
 Current status:
 
@@ -8,7 +8,7 @@ Current status:
 - the old `ui.js` monolith has been split into modules under `packages/ui/src/*`
 - `99-legacy-ui.js` is no longer used in the build
 - public runtime output is generated into `packages/ui/dist/`
-- a compatibility mirror remains in `pages/_cmswift-fe/js/`
+- a compatibility mirror remains in `pages/_jsswift-fe/js/`
 
 Manifest:
 
@@ -37,10 +37,10 @@ Responsive source of truth:
 - responsive CSS is generated, not edited by hand
 - edit `cms-dev/make-responsive-css.mjs`
 - run `node cms-dev/make-responsive-css.mjs`
-- then run `npm run build:ui` and `npm run build:cmswift`
+- then run `npm run build:ui` and `npm run build:jsswift`
 - generated package files:
   - `packages/ui/dist/css/responsive.css`
-  - `packages/cmswift/dist/css/responsive.css`
+  - `packages/jsswift/dist/css/responsive.css`
 
 Responsive component contract:
 
@@ -48,7 +48,7 @@ Responsive component contract:
 - `mobile`, `tablet`, and `pc` objects override only the props they contain
 - `tablet` starts at `768px`
 - `pc` starts at `1024px`
-- responsive props are omitted from DOM attributes by the shared `CMSwift.omit`
+- responsive props are omitted from DOM attributes by the shared `JSswift.omit`
   helper
 
 Examples:
@@ -84,8 +84,8 @@ Implementation notes:
   keeps undefined custom properties out of the cascade and still lets responsive
   values override defaults from `ui-components.css`
 - grid child rules use `.cms-grid.cms-grid > .cms-grid-col` for the same reason
-- layout primitives use `CMSwift.uiResponsiveStyleRules`
-- generic/shared props use `CMSwift.uiResponsiveCommonStyleRules` through
+- layout primitives use `JSswift.uiResponsiveStyleRules`
+- generic/shared props use `JSswift.uiResponsiveCommonStyleRules` through
   `setPropertyProps`
 
 Recommended module order:
@@ -137,7 +137,7 @@ Planned families:
 - shell/app:
   `Header`, `Drawer`, `Page`, `AppShell`, `Parallax`
 - form/service:
-  `CMSwift.form`, `CMSwift.useForm`, `Form`, `cardHeader`, `cardBody`, `cardFooter`, dialog bootstrap
+  `JSswift.form`, `JSswift.useForm`, `Form`, `cardHeader`, `cardBody`, `cardFooter`, dialog bootstrap
 - dialog:
   `Dialog`
 - menu/overlays:

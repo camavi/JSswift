@@ -1,22 +1,22 @@
   // ===============================
-  // CMSwift.mount (Node | array | string | function)
+  // JSswift.mount (Node | array | string | function)
   // ===============================
   // ===============================
-  // CMSwift.mount (target singolo o array) + component cleanup
+  // JSswift.mount (target singolo o array) + component cleanup
   // content può essere:
   // - Node | array | string/number
   // - function -> uno dei precedenti
   // - { node, dispose }
   // - function -> { node, dispose }  (component instance)
   // ===============================
-  CMSwift.mount = function (target, content, opts = {}) {
+  JSswift.mount = function (target, content, opts = {}) {
     const targets = toMountTargets(target);
 
     const clear = opts.clear ?? true;
     const isMulti = targets.length > 1;
 
     if (targets.length === 0) {
-      console.warn("[CMSwift.mount] nessun target valido:", target);
+      console.warn("[JSswift.mount] nessun target valido:", target);
       return () => { };
     }
 
@@ -39,7 +39,7 @@
       if (isMulti && typeof content !== "function") {
         nodes = rawNodes.map(n => n.cloneNode(true));
         if (disposers.length) {
-          console.warn("[CMSwift.mount] multi-target con dispose: usa content come function per istanze separate.");
+          console.warn("[JSswift.mount] multi-target con dispose: usa content come function per istanze separate.");
         }
       }
 
@@ -52,7 +52,7 @@
       // registra cleanup automatico per ogni nodo root montato
       for (const n of nodes) {
         if (!n || !n.nodeType) continue;
-        CMSwift._registerCleanup(n, disposeMounted);
+        JSswift._registerCleanup(n, disposeMounted);
       }
     }
 
@@ -73,10 +73,10 @@
   };
 
   // ===============================
-  // CMSwift.component (istanza con cleanup)
+  // JSswift.component (istanza con cleanup)
   // ===============================
-  CMSwift.component = function (renderFn) {
-    if (typeof renderFn !== "function") throw new Error("CMSwift.component: renderFn must be a function");
+  JSswift.component = function (renderFn) {
+    if (typeof renderFn !== "function") throw new Error("JSswift.component: renderFn must be a function");
 
     // ritorna una factory: props -> { node(s), dispose }
     return function ComponentInstance(props = {}) {
@@ -110,9 +110,9 @@
   // ===============================
   // Auto cleanup observer (opt-in)
   // ===============================
-  CMSwift.enableAutoCleanup = function () {
-    if (CMSwift._autoCleanupEnabled) return;
-    CMSwift._autoCleanupEnabled = true;
+  JSswift.enableAutoCleanup = function () {
+    if (JSswift._autoCleanupEnabled) return;
+    JSswift._autoCleanupEnabled = true;
 
     const observer = new MutationObserver((mutations) => {
       for (const m of mutations) {
@@ -127,5 +127,5 @@
       subtree: true
     });
 
-    CMSwift._cleanupObserver = observer;
+    JSswift._cleanupObserver = observer;
   };

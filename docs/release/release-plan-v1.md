@@ -1,4 +1,4 @@
-# CMSwift v1 Pre-release Checklist
+# JSswift v1 Pre-release Checklist
 
 Historical note:
 
@@ -6,7 +6,7 @@ Historical note:
 - the first actual npm publish for this repository was `v1.0.1`
 - keep this file as a historical checklist and as a base for future release gates
 
-This document records the minimum release discipline required before calling CMSwift a `v1` product.
+This document records the minimum release discipline required before calling JSswift a `v1` product.
 
 ## Goals
 
@@ -44,7 +44,7 @@ Status: `PARTIAL`
 
 What had to be clear before release:
 
-- what CMSwift is
+- what JSswift is
 - who it is for
 - what the core covers
 - what the UI layer covers
@@ -112,8 +112,8 @@ Official entry points had to be explicit:
 - `packages/core/dist/min-cms.js`
 - `packages/ui/dist/ui.js`
 - `packages/ui/dist/min-ui.js`
-- `packages/cmswift/dist/cmswift.js`
-- `packages/cmswift/dist/min-cmswift.js`
+- `packages/jsswift/dist/jsswift.js`
+- `packages/jsswift/dist/min-jsswift.js`
 
 Required before release:
 

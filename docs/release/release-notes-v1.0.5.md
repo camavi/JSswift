@@ -1,4 +1,4 @@
-# CMSwift v1.0.5 Release Notes
+# JSswift v1.0.5 Release Notes
 
 Status:
 
@@ -21,4 +21,4 @@ Status:
 ## Compatibility
 
 - the release is backward-compatible and keeps the existing package entry points unchanged
-- consumers importing CMSwift CSS receive the native `input` baseline style automatically
+- consumers importing JSswift CSS receive the native `input` baseline style automatically

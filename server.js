@@ -27,5 +27,5 @@ app.get("*", (req, res, next) => {
 });
 
 app.listen(5173, () =>
-  console.log("CMSwift → http://localhost:5173")
+  console.log("JSswift → http://localhost:5173")
 );

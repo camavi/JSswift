@@ -1,10 +1,10 @@
-# CMSwift
+# JSswift
 
 <p align="center">
-  <img src="pages/_cmswift-fe/img/logo.svg" alt="CMSwift logo" width="112" />
+  <img src="pages/_jsswift-fe/img/logo.svg" alt="JSswift logo" width="112" />
 </p>
 
-CMSwift is a lightweight, browser-first web framework with:
+JSswift is a lightweight, browser-first web framework with:
 
 - a custom DOM and reactivity core
 - a composable UI layer
@@ -13,21 +13,21 @@ CMSwift is a lightweight, browser-first web framework with:
 
 Published packages:
 
-- `@cmswift/core`
-- `@cmswift/ui`
-- `cmswift`
+- `@jsswift/core`
+- `@jsswift/ui`
+- `jsswift`
 
 Official site:
 
-- https://www.cmswift.com/
+- https://www.jsswift.com/
 
 ## Which Package To Use
 
-- `@cmswift/core`
+- `@jsswift/core`
   if you want the renderer, `signal`, `computed`, `effect`, `rod`, lifecycle helpers, and platform modules without the UI layer
-- `@cmswift/ui`
-  if you want the UI components on top of `@cmswift/core`
-- `cmswift`
+- `@jsswift/ui`
+  if you want the UI components on top of `@jsswift/core`
+- `jsswift`
   if you want a single package with everything included
 
 ## Installation
@@ -35,19 +35,19 @@ Official site:
 Core only:
 
 ```bash
-npm install @cmswift/core
+npm install @jsswift/core
 ```
 
 Core + UI:
 
 ```bash
-npm install @cmswift/core @cmswift/ui
+npm install @jsswift/core @jsswift/ui
 ```
 
 Single package:
 
 ```bash
-npm install cmswift
+npm install jsswift
 ```
 
 ## CDN
@@ -57,9 +57,9 @@ Single package via jsDelivr:
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/cmswift@1.0.25/dist/css/ui.css"
+  href="https://cdn.jsdelivr.net/npm/jsswift@1.0.25/dist/css/ui.css"
 />
-<script src="https://cdn.jsdelivr.net/npm/cmswift@1.0.25/dist/cmswift.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsswift@1.0.25/dist/jsswift.js"></script>
 ```
 
 Minified single package:
@@ -67,9 +67,9 @@ Minified single package:
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/cmswift@1.0.25/dist/css/ui.min.css"
+  href="https://cdn.jsdelivr.net/npm/jsswift@1.0.25/dist/css/ui.min.css"
 />
-<script src="https://cdn.jsdelivr.net/npm/cmswift@1.0.25/dist/cmswift.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsswift@1.0.25/dist/jsswift.min.js"></script>
 ```
 
 Split core + UI via jsDelivr:
@@ -77,10 +77,10 @@ Split core + UI via jsDelivr:
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@cmswift/ui@1.0.25/dist/css/ui.css"
+  href="https://cdn.jsdelivr.net/npm/@jsswift/ui@1.0.25/dist/css/ui.css"
 />
-<script src="https://cdn.jsdelivr.net/npm/@cmswift/core@1.0.25/dist/cms.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@cmswift/ui@1.0.25/dist/ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@jsswift/core@1.0.25/dist/cms.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@jsswift/ui@1.0.25/dist/ui.js"></script>
 ```
 
 Minified split core + UI:
@@ -88,17 +88,17 @@ Minified split core + UI:
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@cmswift/ui@1.0.25/dist/css/ui.min.css"
+  href="https://cdn.jsdelivr.net/npm/@jsswift/ui@1.0.25/dist/css/ui.min.css"
 />
-<script src="https://cdn.jsdelivr.net/npm/@cmswift/core@1.0.25/dist/cms.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@cmswift/ui@1.0.25/dist/ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@jsswift/core@1.0.25/dist/cms.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@jsswift/ui@1.0.25/dist/ui.min.js"></script>
 ```
 
 For production:
 
 - pin explicit versions, for example `@1.0.25`
 - prefer minified bundles when you do not need readable builds
-- use `dist/cmswift.min.js` or `dist/min-cmswift.js` for `cmswift`
+- use `dist/jsswift.min.js` or `dist/min-jsswift.js` for `jsswift`
 - use `dist/cms.min.js` and `dist/ui.min.js` for split core and UI
 
 ## Quick Start
@@ -106,8 +106,8 @@ For production:
 Example with the single package:
 
 ```js
-import "cmswift";
-import "cmswift/css/ui.css";
+import "jsswift";
+import "jsswift/css/ui.css";
 
 const _ = window._;
 const root = document.getElementById("app");
@@ -118,7 +118,7 @@ _.mount(
   root,
   _.Card(
     _.cardBody(
-      _.h1("CMSwift"),
+      _.h1("JSswift"),
       _.Btn(
         {
           color: "primary",
@@ -140,7 +140,7 @@ Minimal HTML:
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CMSwift app</title>
+    <title>JSswift app</title>
   </head>
   <body>
     <div id="app"></div>
@@ -149,12 +149,12 @@ Minimal HTML:
 </html>
 ```
 
-## Using `@cmswift/core` + `@cmswift/ui`
+## Using `@jsswift/core` + `@jsswift/ui`
 
 ```js
-import "@cmswift/core";
-import "@cmswift/ui";
-import "@cmswift/ui/css/ui.css";
+import "@jsswift/core";
+import "@jsswift/ui";
+import "@jsswift/ui/css/ui.css";
 ```
 
 ## Theme Helper
@@ -162,9 +162,9 @@ import "@cmswift/ui/css/ui.css";
 Use the theme helpers to control `data-theme` on the root `html` element:
 
 ```js
-CMSwift.setTheme("dark");
-CMSwift.getTheme();
-CMSwift.toggleTheme(["light", "dark", "sepia"]);
+JSswift.setTheme("dark");
+JSswift.getTheme();
+JSswift.toggleTheme(["light", "dark", "sepia"]);
 ```
 
 This sets `data-theme` on `<html>`:
@@ -175,49 +175,49 @@ This sets `data-theme` on `<html>`:
 
 Behavior:
 
-- `CMSwift.setTheme(theme)` applies the theme and persists it to `localStorage`
-- `CMSwift.getTheme()` reads the current theme from `html[data-theme]`, with fallback to the saved value
-- `CMSwift.toggleTheme(themes)` cycles through any number of themes, not only `light/dark`
-- on startup, CMSwift restores the saved theme automatically if one exists
+- `JSswift.setTheme(theme)` applies the theme and persists it to `localStorage`
+- `JSswift.getTheme()` reads the current theme from `html[data-theme]`, with fallback to the saved value
+- `JSswift.toggleTheme(themes)` cycles through any number of themes, not only `light/dark`
+- on startup, JSswift restores the saved theme automatically if one exists
 
 If you want multi-theme toggling without passing the list every time, set:
 
 ```js
-CMSwift.theme.themes = ["light", "dark", "sepia", "midnight"];
-CMSwift.toggleTheme();
+JSswift.theme.themes = ["light", "dark", "sepia", "midnight"];
+JSswift.toggleTheme();
 ```
 
 ## Available CSS Exports
 
-With `@cmswift/ui`:
+With `@jsswift/ui`:
 
-- `@cmswift/ui/css/ui.css`
-- `@cmswift/ui/css/min-ui.css`
-- `@cmswift/ui/css/ui.min.css`
-- `@cmswift/ui/css/base.css`
-- `@cmswift/ui/css/responsive.css`
-- `@cmswift/ui/css/animation.css`
-- `@cmswift/ui/css/ui-components.css`
-- `@cmswift/ui/css/docs.css`
+- `@jsswift/ui/css/ui.css`
+- `@jsswift/ui/css/min-ui.css`
+- `@jsswift/ui/css/ui.min.css`
+- `@jsswift/ui/css/base.css`
+- `@jsswift/ui/css/responsive.css`
+- `@jsswift/ui/css/animation.css`
+- `@jsswift/ui/css/ui-components.css`
+- `@jsswift/ui/css/docs.css`
 
-With `cmswift`:
+With `jsswift`:
 
-- `cmswift/css/ui.css`
-- `cmswift/css/min-ui.css`
-- `cmswift/css/ui.min.css`
-- `cmswift/css/base.css`
-- `cmswift/css/responsive.css`
-- `cmswift/css/animation.css`
-- `cmswift/css/ui-components.css`
-- `cmswift/css/docs.css`
+- `jsswift/css/ui.css`
+- `jsswift/css/min-ui.css`
+- `jsswift/css/ui.min.css`
+- `jsswift/css/base.css`
+- `jsswift/css/responsive.css`
+- `jsswift/css/animation.css`
+- `jsswift/css/ui-components.css`
+- `jsswift/css/docs.css`
 
 ## Brand Asset
 
-The official CMSwift logo is available as a lightweight SVG:
+The official JSswift logo is available as a lightweight SVG:
 
-- local demo/runtime asset: `/_cmswift-fe/img/logo.svg`
-- published UI package asset: `@cmswift/ui/img/logo.svg`
-- published umbrella package asset: `cmswift/img/logo.svg`
+- local demo/runtime asset: `/_jsswift-fe/img/logo.svg`
+- published UI package asset: `@jsswift/ui/img/logo.svg`
+- published umbrella package asset: `jsswift/img/logo.svg`
 
 ## Repository Structure
 
@@ -225,7 +225,7 @@ The official CMSwift logo is available as a lightweight SVG:
   renderer, reactive core, `rod`, lifecycle, and platform modules
 - `packages/ui`
   UI components plus CSS, font, and image assets
-- `packages/cmswift`
+- `packages/jsswift`
   umbrella bundle with JS, CSS, and assets included
 - `pages`
   local HTML demos and manual smoke coverage
@@ -269,9 +269,9 @@ npm run gen:ui-dts
 - `packages/ui/dist/css/ui.css`
 - `packages/ui/dist/css/min-ui.css`
 - `packages/ui/dist/css/ui.min.css`
-- `packages/cmswift/dist/cmswift.js`
-- `packages/cmswift/dist/min-cmswift.js`
-- `packages/cmswift/dist/cmswift.min.js`
+- `packages/jsswift/dist/jsswift.js`
+- `packages/jsswift/dist/min-jsswift.js`
+- `packages/jsswift/dist/jsswift.min.js`
 
 ## Documentation
 

@@ -1,6 +1,6 @@
-# CMSwift UI Reference
+# JSswift UI Reference
 
-This document describes the CMSwift UI layer as a practical reference for developers and AI tooling.
+This document describes the JSswift UI layer as a practical reference for developers and AI tooling.
 
 The canonical runtime source remains:
 
@@ -49,7 +49,7 @@ Maintenance rules:
 ## Routing Conventions
 
 - some components accept `to`
-- when router support is available they call `CMSwift.router.navigate(...)`
+- when router support is available they call `JSswift.router.navigate(...)`
 
 ## Meta Normalization
 
@@ -83,12 +83,12 @@ Common defaults:
 
 ## Runtime Inspection
 
-- browser console: `CMSwift.ui.meta.Card`
-- helper: `CMSwift.ui.inspect("Card")`
+- browser console: `JSswift.ui.meta.Card`
+- helper: `JSswift.ui.inspect("Card")`
 
 ## Responsive System
 
-CMSwift UI components are responsive by default through a shared prop contract.
+JSswift UI components are responsive by default through a shared prop contract.
 
 Breakpoints:
 
@@ -145,7 +145,7 @@ CSS source rules:
 
 - edit `cms-dev/make-responsive-css.mjs`, not generated responsive CSS files
 - generated CSS entry: `packages/ui/dist/css/responsive.css`
-- umbrella generated CSS entry: `packages/cmswift/dist/css/responsive.css`
+- umbrella generated CSS entry: `packages/jsswift/dist/css/responsive.css`
 - bundled UI CSS includes responsive rules before component rules; responsive
   custom-property selectors are activated per property and breakpoint so an
   undefined responsive variable never resets component defaults from
@@ -171,7 +171,7 @@ Use this pattern when a flow is driven by reactive state and validation.
 
 Typical stack:
 
-- `CMSwift.useForm()`
+- `JSswift.useForm()`
 - `Form`
 - `Input`
 - `Select`
@@ -264,8 +264,8 @@ Practical generation rules:
 - `Date`
 - `Time`
 - `Form`
-- `CMSwift.form`
-- `CMSwift.useForm`
+- `JSswift.form`
+- `JSswift.useForm`
 
 ### Navigation
 

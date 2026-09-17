@@ -26,7 +26,7 @@
       "file": "00-bootstrap.js",
       "status": "migrated",
       "scope": [
-        "IIFE initCMSwiftUI",
+        "IIFE initJSswiftUI",
         "rod path proxy",
         "base helper UI",
         "token sets iniziali"
@@ -139,8 +139,8 @@
       "file": "61-form-service.js",
       "status": "migrated",
       "scope": [
-        "CMSwift.form helpers",
-        "CMSwift.useForm",
+        "JSswift.form helpers",
+        "JSswift.useForm",
         "Form",
         "cardHeader",
         "cardBody",

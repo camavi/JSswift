@@ -1,4 +1,4 @@
-# CMSwift v1.0.21 Release Notes
+# JSswift v1.0.21 Release Notes
 
 Release date: 2026-04-30
 
@@ -15,9 +15,9 @@ Release date: 2026-04-30
 
 ## Changed
 
-- Package versions bumped to `1.0.21` for `@cmswift/core`, `@cmswift/ui`, and `cmswift`.
+- Package versions bumped to `1.0.21` for `@jsswift/core`, `@jsswift/ui`, and `jsswift`.
 - CDN examples now pin `1.0.21`.
-- Public README now points to the official site: `https://www.cmswift.com/`.
+- Public README now points to the official site: `https://www.jsswift.com/`.
 
 ## Fixed
 

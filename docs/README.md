@@ -1,4 +1,4 @@
-# CMSwift Docs
+# JSswift Docs
 
 Index of the technical documentation for the framework repository.
 

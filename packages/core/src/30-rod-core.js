@@ -7,9 +7,9 @@
     const queue = new Set();
     function flush() {
       queued = false;
-      CMSwift.debug?.inc("rodFlushes");
-      CMSwift.perf?.inc("rodFlushes");
-      CMSwift.perf?.mark("rod:flush");
+      JSswift.debug?.inc("rodFlushes");
+      JSswift.perf?.inc("rodFlushes");
+      JSswift.perf?.mark("rod:flush");
       const jobs = Array.from(queue);
       queue.clear();
       for (const fn of jobs) {
@@ -104,7 +104,7 @@
         if (this._disposed) return;
         const __t0 = performance.now();
 
-        CMSwift.perf?.inc("rodNotifies");
+        JSswift.perf?.inc("rodNotifies");
 
         this._bindings = this._bindings.filter(b => {
           const el = b.el;
@@ -122,8 +122,8 @@
         for (const fn of this._actions) {
           try { fn(this.value); } catch (e) { console.error("[rod] action error:", e); }
         }
-        CMSwift.debug?.inc("rodNotifies");
-        CMSwift.perf?.tick("rod:notify", performance.now() - __t0, {
+        JSswift.debug?.inc("rodNotifies");
+        JSswift.perf?.tick("rod:notify", performance.now() - __t0, {
           bindings: this._bindings?.length || 0,
           actions: this._actions?.length || 0
         });
@@ -149,8 +149,8 @@
     let _set = null;
     let _disposeSignal = null;
 
-    if (CMSwift?.reactive?.signal) {
-      [_get, _set, _disposeSignal] = CMSwift.reactive.signal(_val);
+    if (JSswift?.reactive?.signal) {
+      [_get, _set, _disposeSignal] = JSswift.reactive.signal(_val);
       if (_disposeSignal && typeof obj.onDispose === "function") {
         obj.onDispose(_disposeSignal);
       }
@@ -216,46 +216,46 @@
     const comp = rodCreateComponent(data);
     rodMakeReactive(comp, key);
 
-    CMSwift.rod._all = CMSwift.rod._all || new Set();
-    CMSwift.rod._all.add(comp);
+    JSswift.rod._all = JSswift.rod._all || new Set();
+    JSswift.rod._all.add(comp);
 
     if (typeof comp.onDispose === "function") {
-      comp.onDispose(() => CMSwift.rod._all.delete(comp));
+      comp.onDispose(() => JSswift.rod._all.delete(comp));
     }
     return comp;
   }; // legacy alias, deprecated: use `_.rod`
 
-  CMSwift.rodBind = function (el, react, config = { key: "auto" }) {
-    CMSwift.debug?.inc("rodBinds");
+  JSswift.rodBind = function (el, react, config = { key: "auto" }) {
+    JSswift.debug?.inc("rodBinds");
 
     if (!el) {
-      CMSwift.debug?.inc("rodBindNull");
-      CMSwift.debug?.warn("rodBind: target element è null/undefined", config);
+      JSswift.debug?.inc("rodBindNull");
+      JSswift.debug?.warn("rodBind: target element è null/undefined", config);
       return () => { };
     }
     if (!react || react.type !== "rod") {
-      throw new Error("CMSwift.rodBind: react must be a rod object");
+      throw new Error("JSswift.rodBind: react must be a rod object");
     }
     return react._bind(el, config);
   };
 
 
-  CMSwift.rodFromSignal = function (get, set) {
+  JSswift.rodFromSignal = function (get, set) {
     const r = _.rod(get());
     let syncing = false;
 
-    const stopRodToSignal = CMSwift.reactive.effect(() => {
+    const stopRodToSignal = JSswift.reactive.effect(() => {
       const v = r.value;
-      const currentSignal = CMSwift.reactive.untracked(() => get());
+      const currentSignal = JSswift.reactive.untracked(() => get());
       if (syncing) return;
       if (currentSignal === v) return;
       syncing = true;
       try { set(v); } finally { syncing = false; }
     });
 
-    const stopEffect = CMSwift.reactive.effect(() => {
+    const stopEffect = JSswift.reactive.effect(() => {
       const v = get();
-      const currentRod = CMSwift.reactive.untracked(() => r.value);
+      const currentRod = JSswift.reactive.untracked(() => r.value);
       if (currentRod === v) return;
       syncing = true;
       try { r._setSilent(v); } finally { syncing = false; }

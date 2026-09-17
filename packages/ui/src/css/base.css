@@ -1,6 +1,6 @@
-/* CMSwift UI base */
+/* JSswift UI base */
 /* =====================================================================
-   CMSwift UI — Design Tokens v1 (PRO)
+   JSswift UI — Design Tokens v1 (PRO)
    - Full color scales 50..950
    - Semantic tokens for dev experience
    - Light default + Dark via data-theme="dark"
@@ -11,7 +11,7 @@
   /* ======================
      0) Meta / Layout tokens
      ====================== */
-  --cms-brand: "CMSwift";
+  --cms-brand: "JSswift";
 
   --cms-space-1: 4px;
   --cms-space-2: 8px;

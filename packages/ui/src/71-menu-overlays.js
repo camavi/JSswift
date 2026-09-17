@@ -1,5 +1,5 @@
   UI.Menu = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const stateList = ["primary", "secondary", "warning", "danger", "success", "info", "light", "dark"];
     const sizeList = ["xs", "sm", "md", "lg", "xl"];
@@ -212,9 +212,9 @@
           getOptions().onItemClick?.(raw, itemCtx, e);
           const result = raw.onClick?.(itemCtx, e);
           if (e.defaultPrevented) return;
-          if (to && CMSwift.router?.navigate) {
+          if (to && JSswift.router?.navigate) {
             e.preventDefault();
-            CMSwift.router.navigate(to);
+            JSswift.router.navigate(to);
           }
           if (result === false) return;
           if (closeOnSelect) close();
@@ -354,7 +354,7 @@
       if (!entry) return;
       const toClose = entry;
       entry = null;
-      overlayLeave(toClose, () => CMSwift.overlay.close(toClose.id));
+      overlayLeave(toClose, () => JSswift.overlay.close(toClose.id));
     };
     const update = (nextProps = {}) => {
       if (nextProps && typeof nextProps === "object") currentProps = { ...currentProps, ...nextProps };
@@ -395,7 +395,7 @@
       if (entry) close();
       lastActive = document.activeElement;
       let currentRef = null;
-      entry = CMSwift.overlay.open(() => buildContent(), {
+      entry = JSswift.overlay.open(() => buildContent(), {
         type: "menu",
         anchorEl: anchor,
         placement: getPlacement(opts),
@@ -534,7 +534,7 @@
       };
       if (hasOwn(opts, "open")) {
         if (uiIsReactive(opts.open)) {
-          CMSwift.reactive.effect(() => {
+          JSswift.reactive.effect(() => {
             if (!boundEl) return;
             if (uiUnwrap(getOptions().open)) open(boundEl);
             else hide(true);
@@ -593,7 +593,7 @@
 
     return api;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Menu = {
       signature: "UI.Menu(props) | UI.Menu(props, ...children) -> { open, close, show, hide, toggle, update, bind, isOpen }",
@@ -674,7 +674,7 @@
   }
 
   UI.Popover = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const stateList = ["primary", "secondary", "warning", "danger", "success", "info", "light", "dark"];
     const sizeList = ["xs", "sm", "md", "lg", "xl"];
@@ -794,7 +794,7 @@
       const iconFallback = opts.icon != null
         ? (typeof opts.icon === "string"
           ? UI.Icon({ name: opts.icon, size: opts.iconSize || "md" })
-          : CMSwift.ui.slot(opts.icon, { as: "icon" }))
+          : JSswift.ui.slot(opts.icon, { as: "icon" }))
         : null;
       const eyebrowNodes = renderSlotToArray(slots, "eyebrow", ctx, resolveRender(opts.eyebrow, ctx));
       const titleNodes = renderSlotToArray(slots, "title", ctx, resolveRender(opts.title ?? opts.heading ?? opts.label, ctx));
@@ -913,7 +913,7 @@
       if (!entry) return;
       const toClose = entry;
       entry = null;
-      overlayLeave(toClose, () => CMSwift.overlay.close(toClose.id));
+      overlayLeave(toClose, () => JSswift.overlay.close(toClose.id));
     };
     const update = (nextProps = {}) => {
       if (nextProps && typeof nextProps === "object") currentProps = { ...currentProps, ...nextProps };
@@ -941,7 +941,7 @@
       const allowHover = activeTriggers.has("hover");
       const allowFocus = activeTriggers.has("focus");
       let currentRef = null;
-      entry = CMSwift.overlay.open(() => buildContent(), {
+      entry = JSswift.overlay.open(() => buildContent(), {
         type: "popover",
         anchorEl: anchor,
         placement: getPlacement(opts),
@@ -1041,7 +1041,7 @@
       };
       if (hasOwn(opts, "open")) {
         if (uiIsReactive(opts.open)) {
-          CMSwift.reactive.effect(() => {
+          JSswift.reactive.effect(() => {
             if (!boundEl) return;
             if (uiUnwrap(getOptions().open)) open(boundEl);
             else hide(true);
@@ -1100,7 +1100,7 @@
 
     return api;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Popover = {
       signature: "UI.Popover(props) | UI.Popover(props, ...children) -> { open, close, show, hide, toggle, update, bind, isOpen }",
@@ -1173,7 +1173,7 @@
   }
 
   UI.ContextMenu = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     let currentProps = { ...props };
     let lastPoint = null;
     let lastAnchor = null;
@@ -1361,7 +1361,7 @@
 
     return api;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.ContextMenu = {
       signature: "UI.ContextMenu(props) | UI.ContextMenu(props, ...children) -> { open, openAt, openFromEvent, show, hide, close, toggle, update, bind, isOpen }",
@@ -1439,4 +1439,4 @@
       description: "Menu specialization for right-click and context-menu key interactions, with items, rich slots, runtime overrides, and coordinate-based positioning."
     };
   }
-})(CMSwift);
+})(JSswift);

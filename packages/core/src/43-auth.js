@@ -3,13 +3,13 @@
   // Auth Plugin + Roles / Permissions
   // Auth Plugin (async + refresh token)
   // ===============================
-  CMSwift.plugins.auth = {
+  JSswift.plugins.auth = {
     install(app, opts = {}) {
       const {
         createPermissionApi,
         matchesProtectedPath,
         attachDevTools
-      } = CMSwift._authShared;
+      } = JSswift._authShared;
       const options = {
         key: opts.key || "auth",
         loginRoute: opts.loginRoute || "/login",
@@ -166,6 +166,6 @@
         return app.auth;
       };
 
-      attachDevTools(CMSwift, app.auth);
+      attachDevTools(JSswift, app.auth);
     }
   };

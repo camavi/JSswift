@@ -1,9 +1,9 @@
   // ===============================
-  // CMSwift.store v1 (persisted reactive state)
+  // JSswift.store v1 (persisted reactive state)
   // ===============================
-  CMSwift.store = (() => {
+  JSswift.store = (() => {
     const config = {
-      prefix: "CMSwift:",
+      prefix: "JSswift:",
       storage: "local", // "local" | "session"
       syncTabs: true,
       writeDelay: 0, // ms (0 = microtask)
@@ -19,7 +19,7 @@
       safeParse,
       safeStringify,
       clearScopedMapEntries
-    } = CMSwift._storeShared;
+    } = JSswift._storeShared;
     const {
       getScope,
       getStorage,
@@ -33,8 +33,8 @@
       if (!set) return;
       for (const fn of set) {
         try {
-          if (CMSwift.reactive?.untracked) {
-            CMSwift.reactive.untracked(() => fn(value));
+          if (JSswift.reactive?.untracked) {
+            JSswift.reactive.untracked(() => fn(value));
           } else {
             fn(value);
           }
@@ -136,10 +136,10 @@
       });
 
       const hydrated = get(key, initial, scope);
-      const [getSig, setSig, disposeSignal] = CMSwift.reactive.signal(hydrated);
+      const [getSig, setSig, disposeSignal] = JSswift.reactive.signal(hydrated);
 
       // quando cambia signal -> store, deve restare nello scope corretto
-      const stopEffect = CMSwift.reactive.effect(() => {
+      const stopEffect = JSswift.reactive.effect(() => {
         const v = getSig();
         set(key, v, scope);
       });

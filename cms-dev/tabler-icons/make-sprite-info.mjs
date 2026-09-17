@@ -3,7 +3,7 @@ import path from "node:path";
 
 const SRC_DIR_OUT = path.resolve("outline");
 const SRC_DIR_FILL = path.resolve("filled");
-const OUT_FILE = path.resolve("../../src/_cmswift-fe/js/tabler-icons-info.json");
+const OUT_FILE = path.resolve("../../src/_jsswift-fe/js/tabler-icons-info.json");
 
 // Personalizza come vuoi:
 const ID_PREFIX = "";         // es. "tabler-" oppure "" se vuoi solo nomefile

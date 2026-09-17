@@ -8,9 +8,9 @@
     "lib": ["ES2020", "DOM"]
   },
   "include": [
-    "types/cmswift-ui.d.ts",
+    "types/jsswift-ui.d.ts",
     "pages/**/*.js",
     "src/**/*.js",
-    "_cmswift/**/*.js"
+    "_jsswift/**/*.js"
   ]
 }

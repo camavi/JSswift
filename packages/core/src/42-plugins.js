@@ -1,49 +1,49 @@
   // ===============================
-  // Plugin system (CMSwift.usePlugin)
+  // Plugin system (JSswift.usePlugin)
   // ===============================
-  CMSwift._plugins = new Set();
+  JSswift._plugins = new Set();
 
-  CMSwift.usePlugin = function (plugin, options) {
+  JSswift.usePlugin = function (plugin, options) {
     if (!plugin) return;
 
     // evita doppia installazione
-    if (CMSwift._plugins.has(plugin)) {
-      if (CMSwift.config?.debug) {
-        console.warn("[CMSwift.usePlugin] plugin già installato:", plugin.name || plugin);
+    if (JSswift._plugins.has(plugin)) {
+      if (JSswift.config?.debug) {
+        console.warn("[JSswift.usePlugin] plugin già installato:", plugin.name || plugin);
       }
       return;
     }
 
     // funzione-plugin
     if (typeof plugin === "function") {
-      plugin(CMSwift, options);
-      CMSwift._plugins.add(plugin);
+      plugin(JSswift, options);
+      JSswift._plugins.add(plugin);
       return;
     }
 
     // oggetto-plugin { install(app, opts) }
     if (plugin && typeof plugin.install === "function") {
-      plugin.install(CMSwift, options);
-      CMSwift._plugins.add(plugin);
+      plugin.install(JSswift, options);
+      JSswift._plugins.add(plugin);
       return;
     }
 
-    console.warn("[CMSwift.usePlugin] plugin non valido:", plugin);
+    console.warn("[JSswift.usePlugin] plugin non valido:", plugin);
   };
 
   //-- RESTA come esempio --
-  CMSwift.plugins = CMSwift.plugins || {};
-  CMSwift.plugins.debug = {
+  JSswift.plugins = JSswift.plugins || {};
+  JSswift.plugins.debug = {
     install(app) {
       app.config.debug = true;
-      console.log("[CMSwift] Debug mode ON");
+      console.log("[JSswift] Debug mode ON");
     }
   };
 
   // ===============================
   // Plugin Forms (validation + UX)
   // ===============================
-  CMSwift.plugins.forms = {
+  JSswift.plugins.forms = {
     install(app) {
       const forms = {};
 

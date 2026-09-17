@@ -1,8 +1,17 @@
 {
-  "name": "@cmswift/core",
+  "name": "@jsswift/core",
   "version": "1.0.41",
-  "description": "CMSwift core runtime: renderer, reactive, rod, lifecycle and platform modules",
+  "description": "JSswift core runtime: renderer, reactive, rod, lifecycle and platform modules",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camavi/JSswift.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/camavi/JSswift#readme",
+  "bugs": {
+    "url": "https://github.com/camavi/JSswift/issues"
+  },
   "type": "module",
   "main": "./dist/cms.js",
   "module": "./dist/cms.js",

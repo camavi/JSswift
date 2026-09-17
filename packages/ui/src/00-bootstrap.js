@@ -1,7 +1,7 @@
 // ===============================
-// CMSwift UI Kit MVP
+// JSswift UI Kit MVP
 // ===============================
-(function initCMSwiftUI(app) {
+(function initJSswiftUI(app) {
   app.ui = app.ui || {};
   app.services = app.services || {};
   app.services.notify = app.services.notify || {};
@@ -308,8 +308,8 @@
   };
 
   uiPatchRodFactory();
-  if (CMSwift.rod?._all instanceof Set) {
-    CMSwift.rod._all.forEach((rod) => uiEnhanceRodPath(rod));
+  if (JSswift.rod?._all instanceof Set) {
+    JSswift.rod._all.forEach((rod) => uiEnhanceRodPath(rod));
   }
   uiPatchHyperscript();
   uiInstallUIProxy();

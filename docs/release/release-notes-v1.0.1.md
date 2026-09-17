@@ -1,4 +1,4 @@
-# CMSwift v1.0.1 Release Notes
+# JSswift v1.0.1 Release Notes
 
 Status:
 
@@ -7,32 +7,32 @@ Status:
 
 ## Summary
 
-`v1.0.1` is the first CMSwift release published and verified in a real npm and browser project.
+`v1.0.1` is the first JSswift release published and verified in a real npm and browser project.
 
 Included packages:
 
-- `@cmswift/core@1.0.1`
-- `@cmswift/ui@1.0.1`
-- `cmswift@1.0.1`
+- `@jsswift/core@1.0.1`
+- `@jsswift/ui@1.0.1`
+- `jsswift@1.0.1`
 
 ## Included In v1.0.1
 
 Core:
 
-- safe bootstrap even when `window.CMSwift_setting` is not defined
+- safe bootstrap even when `window.JSswift_setting` is not defined
 - safe fallback behavior for HTTP configuration
 
 UI:
 
-- package aligned to `@cmswift/core@^1.0.1`
+- package aligned to `@jsswift/core@^1.0.1`
 - CSS exports verified in a real npm installation
 
 Umbrella:
 
-- `cmswift` published as a single-package distribution
+- `jsswift` published as a single-package distribution
 - self-contained `dist/` with:
-  - `cmswift.js`
-  - `min-cmswift.js`
+  - `jsswift.js`
+  - `min-jsswift.js`
   - CSS
   - fonts
   - images
@@ -41,29 +41,29 @@ Umbrella:
 
 npm:
 
-- `@cmswift/core`
-- `@cmswift/ui`
-- `cmswift`
+- `@jsswift/core`
+- `@jsswift/ui`
+- `jsswift`
 
 Readable:
 
 - `packages/core/dist/cms.js`
 - `packages/ui/dist/ui.js`
-- `packages/cmswift/dist/cmswift.js`
+- `packages/jsswift/dist/jsswift.js`
 
 Minified:
 
 - `packages/core/dist/min-cms.js`
 - `packages/ui/dist/min-ui.js`
-- `packages/cmswift/dist/min-cmswift.js`
+- `packages/jsswift/dist/min-jsswift.js`
 
 ## Validation
 
 Executed checks:
 
 - repository runtime build
-- real npm test with `@cmswift/core + @cmswift/ui`
-- real npm test with the single package `cmswift`
+- real npm test with `@jsswift/core + @jsswift/ui`
+- real npm test with the single package `jsswift`
 - browser/Vite build in the external test project
 
 ## Notes

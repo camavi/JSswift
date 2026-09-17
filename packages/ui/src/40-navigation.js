@@ -1,5 +1,5 @@
   UI.Tabs = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const hasOwn = (obj, key) => !!obj && Object.prototype.hasOwnProperty.call(obj, key);
     const normalizeOrientation = (value) => String(uiUnwrap(value) || "horizontal").toLowerCase() === "vertical" ? "vertical" : "horizontal";
@@ -12,7 +12,7 @@
     const resolveAccent = (value) => {
       const raw = uiUnwrap(value);
       if (raw == null || raw === "") return null;
-      return CMSwift.uiColors?.includes(raw) ? `var(--cms-${raw})` : String(raw);
+      return JSswift.uiColors?.includes(raw) ? `var(--cms-${raw})` : String(raw);
     };
     const isSameValue = (a, b) => Object.is(a, b) || (a != null && b != null && a == b);
 
@@ -83,7 +83,7 @@
         : (hasOwn(props, "value") ? uiUnwrap(props.value) : (props.defaultValue ?? props.default)),
       true
     );
-    const [getValue, setValue] = CMSwift.reactive.signal(initialValue);
+    const [getValue, setValue] = JSswift.reactive.signal(initialValue);
 
     const cls = uiClass([
       "cms-clear-set",
@@ -97,7 +97,7 @@
       uiWhen(disabledAll, "disabled"),
       props.class
     ]);
-    const wrapProps = CMSwift.omit(props, [
+    const wrapProps = JSswift.omit(props, [
       "tabs", "items", "value", "defaultValue", "default", "model",
       "orientation", "orient", "direction",
       "variant", "pills", "soft",
@@ -237,7 +237,7 @@
           : tab.iconFallback)
         : null;
       const iconNodes = renderSlotToArray(slots, "icon", ctx, iconFallback);
-      const labelNodes = renderSlotToArray(null, "default", {}, CMSwift.ui.renderSlot(slots, "label", ctx, tab.labelFallback));
+      const labelNodes = renderSlotToArray(null, "default", {}, JSswift.ui.renderSlot(slots, "label", ctx, tab.labelFallback));
       const noteNodes = renderSlotToArray(slots, "note", ctx, tab.noteFallback);
       const badgeNodes = renderSlotToArray(slots, "badge", ctx, tab.badgeFallback);
       const fallbackContent = _.span({ class: "cms-tabs-tab-inner" },
@@ -344,7 +344,7 @@
 
     if (tabs.length) {
       const defaultNavNodes = tabs.map((tab, index) => makeTabNode(tab, index));
-      const navContent = CMSwift.ui.renderSlot(slots, "nav", {
+      const navContent = JSswift.ui.renderSlot(slots, "nav", {
         ...createRootCtx(),
         nodes: defaultNavNodes
       }, defaultNavNodes);
@@ -356,7 +356,7 @@
 
     const extraCtx = createRootCtx();
     const extraNodes = [
-      ...renderSlotToArray(null, "default", {}, CMSwift.ui.renderSlot(slots, "extra", extraCtx, null)),
+      ...renderSlotToArray(null, "default", {}, JSswift.ui.renderSlot(slots, "extra", extraCtx, null)),
       ...renderSlotToArray(slots, "default", extraCtx, children)
     ];
     bar.appendChild(nav);
@@ -385,7 +385,7 @@
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Tabs = {
       signature: "UI.Tabs(props) | UI.Tabs(props, ...children)",
@@ -435,12 +435,12 @@
       description: "Standardized tab bar with controlled/uncontrolled support, structured slots, badge/note/icon, and keyboard navigation."
     };
   }
-  // Esempio: CMSwift.ui.Tabs({ tabs: [{ label: "Overview", value: "overview", icon: "dashboard" }], model: [get,set] })
+  // Esempio: JSswift.ui.Tabs({ tabs: [{ label: "Overview", value: "overview", icon: "dashboard" }], model: [get,set] })
 
   UI.RouteTab = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
-    const router = CMSwift.router || app?.router || null;
+    const router = JSswift.router || app?.router || null;
     const hasOwn = (key) => Object.prototype.hasOwnProperty.call(props, key);
     const hasExplicitActive = hasOwn("active") || hasOwn("selected");
     const normalizeVariant = (value) => {
@@ -452,7 +452,7 @@
     const resolveAccent = (value) => {
       const raw = uiUnwrap(value);
       if (raw == null || raw === "") return null;
-      return CMSwift.uiColors?.includes(raw) ? `var(--cms-${raw})` : String(raw);
+      return JSswift.uiColors?.includes(raw) ? `var(--cms-${raw})` : String(raw);
     };
     const resolvePath = (value) => {
       if (value == null || value === "") return "";
@@ -512,7 +512,7 @@
       ? normalizeState(uiUnwrap(props.state))
       : "";
     const stateClass = normalizedState ? `cms-state-${normalizedState}` : "";
-    const p = CMSwift.omit(props, [
+    const p = JSswift.omit(props, [
       "active", "selected", "label", "title", "text", "to", "icon", "iconRight", "iconSize",
       "note", "subtitle", "caption", "description", "badge", "counter", "count", "aside", "trailing",
       "slots", "state", "color", "dense", "outline", "flat", "glossy", "glow", "glass", "gradient",
@@ -543,7 +543,7 @@
       const raw = uiUnwrap(value);
       if (raw == null || raw === false || raw === "") return null;
       if (typeof raw === "string") return UI.Icon({ name: raw, size: iconSize });
-      return CMSwift.ui.slot(raw, { as });
+      return JSswift.ui.slot(raw, { as });
     };
     const ctx = () => ({
       active: getActive(),
@@ -644,7 +644,7 @@
     if (!hasExplicitActive && getTo() && router?.subscribe) {
       router.subscribe(() => syncState());
     }
-    CMSwift.reactive.effect(() => {
+    JSswift.reactive.effect(() => {
       syncState();
     }, "UI.RouteTab:render");
 
@@ -657,7 +657,7 @@
     wrap._navigate = (event) => ctx().navigate(event);
     return wrap;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.RouteTab = {
       signature: "UI.RouteTab(...children) | UI.RouteTab(props, ...children)",
@@ -701,16 +701,16 @@
       description: "Standardized tab/link for router or href navigation, with structured slots, states, and badges."
     };
   }
-  // Esempio: CMSwift.ui.RouteTab({ label: "Home", to: "/" })
+  // Esempio: JSswift.ui.RouteTab({ label: "Home", to: "/" })
 
   UI.Breadcrumbs = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
-    const router = CMSwift.router || app?.router || null;
+    const router = JSswift.router || app?.router || null;
     const model = resolveModel(props.model, "UI.Breadcrumbs:model");
     const sizeClass = uiComputed(props.size, () => {
       const v = uiUnwrap(props.size);
-      return (typeof v === "string" && CMSwift.uiSizes?.includes(v)) ? `cms-size-${v}` : "";
+      return (typeof v === "string" && JSswift.uiSizes?.includes(v)) ? `cms-size-${v}` : "";
     });
     const variantClass = uiComputed(props.variant, () => {
       const raw = String(uiUnwrap(props.variant || (props.pills ? "pills" : (props.soft ? "soft" : "line"))) || "").toLowerCase();
@@ -745,7 +745,7 @@
     const resolveAccent = (value) => {
       const raw = uiUnwrap(value);
       if (raw == null || raw === "") return null;
-      return CMSwift.uiColors?.includes(raw) ? `var(--cms-${raw})` : String(raw);
+      return JSswift.uiColors?.includes(raw) ? `var(--cms-${raw})` : String(raw);
     };
     const isExternalLink = (entry) => {
       if (!entry) return false;
@@ -763,11 +763,11 @@
       nodes.forEach((node) => host.appendChild(node));
     };
     const renderNamedSlot = (slotBag, name, ctx, fallback, alias = null) => {
-      const primary = CMSwift.ui.getSlot(slotBag, name) != null
+      const primary = JSswift.ui.getSlot(slotBag, name) != null
         ? renderSlotToArray(slotBag, name, ctx, fallback)
         : [];
       if (primary.length) return primary;
-      if (alias && CMSwift.ui.getSlot(slotBag, alias) != null) {
+      if (alias && JSswift.ui.getSlot(slotBag, alias) != null) {
         return renderSlotToArray(slotBag, alias, ctx, fallback);
       }
       return renderSlotToArray(null, "default", ctx, fallback);
@@ -776,7 +776,7 @@
       const raw = uiUnwrap(value);
       if (raw == null || raw === false || raw === "") return null;
       if (typeof raw === "string") return UI.Icon({ name: raw, size });
-      return CMSwift.ui.slot(raw, { as });
+      return JSswift.ui.slot(raw, { as });
     };
     const normalizeItems = () => {
       const source = model ? model.get() : uiUnwrap(props.items ?? props.value ?? props.breadcrumbs);
@@ -1065,7 +1065,7 @@
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Breadcrumbs = {
       signature: "UI.Breadcrumbs(props)",
@@ -1114,10 +1114,10 @@
       description: "Breadcrumbs standardizzati con item strutturati, slot completi, collapse automatico e supporto a link/router."
     };
   }
-  // Esempio: CMSwift.ui.Breadcrumbs({ items: [{ label: "Home", to: "/" }, { label: "Pagina" }] })
+  // Esempio: JSswift.ui.Breadcrumbs({ items: [{ label: "Home", to: "/" }, { label: "Pagina" }] })
 
   UI.Pagination = (...args) => {
-    const { props } = CMSwift.uiNormalizeArgs(args);
+    const { props } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const model = resolveModel(props.model, "UI.Pagination:model");
     const sizeClass = uiComputed(props.size, () => {
@@ -1256,11 +1256,11 @@
       return items;
     };
     const renderNamedSlot = (name, fallback, ctx, alias = null) => {
-      const primary = CMSwift.ui.getSlot(slots, name) != null
+      const primary = JSswift.ui.getSlot(slots, name) != null
         ? renderSlotToArray(slots, name, ctx, fallback)
         : [];
       if (primary.length) return primary;
-      if (alias && CMSwift.ui.getSlot(slots, alias) != null) {
+      if (alias && JSswift.ui.getSlot(slots, alias) != null) {
         return renderSlotToArray(slots, alias, ctx, fallback);
       }
       return renderSlotToArray(null, "default", ctx, fallback);
@@ -1397,7 +1397,7 @@
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Pagination = {
       signature: "UI.Pagination(props)",
@@ -1450,5 +1450,5 @@
       description: "Paginazione standard con controlli edge, numeri, ellissi, summary e supporto total/pageSize."
     };
   }
-  // Esempio: CMSwift.ui.Pagination({ total: 120, pageSize: 12, model: [get,set], showEdges: true })
+  // Esempio: JSswift.ui.Pagination({ total: 120, pageSize: 12, model: [get,set], showEdges: true })
 

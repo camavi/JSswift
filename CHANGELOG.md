@@ -1,6 +1,6 @@
 # Changelog
 
-All significant CMSwift changes are documented here.
+All significant JSswift changes are documented here.
 
 The format is kept intentionally simple:
 
@@ -64,7 +64,7 @@ The format is kept intentionally simple:
 
 - package versions bumped to `1.0.21`
 - README CDN examples now pin `1.0.21`
-- README now links the official site at `https://www.cmswift.com/`
+- README now links the official site at `https://www.jsswift.com/`
 
 ### Fixed
 
@@ -79,8 +79,8 @@ The format is kept intentionally simple:
 
 ### Added
 
-- official CMSwift SVG logo added as a local runtime asset
-- package exports for `@cmswift/ui/img/logo.svg` and `cmswift/img/logo.svg`
+- official JSswift SVG logo added as a local runtime asset
+- package exports for `@jsswift/ui/img/logo.svg` and `jsswift/img/logo.svg`
 - demo header branding and SVG favicon coverage across the local pages
 
 ### Changed
@@ -113,14 +113,14 @@ The format is kept intentionally simple:
 
 ### Added
 
-- `CMSwift.getTheme()` to read the active theme from `html[data-theme]` with storage fallback
-- `CMSwift.toggleTheme()` to cycle through any number of themes instead of assuming only `light/dark`
+- `JSswift.getTheme()` to read the active theme from `html[data-theme]` with storage fallback
+- `JSswift.toggleTheme()` to cycle through any number of themes instead of assuming only `light/dark`
 - automatic theme restore from `localStorage` during core bootstrap
 - core tests for theme persistence and multi-theme toggling
 
 ### Changed
 
-- `CMSwift.setTheme()` now persists the selected theme in `localStorage`
+- `JSswift.setTheme()` now persists the selected theme in `localStorage`
 - theme helpers are now documented in the public README and core technical reference
 - demo theme switching was aligned with the updated runtime helper behavior
 
@@ -138,7 +138,7 @@ The format is kept intentionally simple:
 
 - removed the obsolete icon sprite CSS artifact from generated UI CSS outputs and package exports
 - removed Tabler icon sprite CSS from `ui.css`, `min-ui.css`, and `ui.min.css`
-- removed the same CSS from the umbrella `cmswift` package output
+- removed the same CSS from the umbrella `jsswift` package output
 
 ### Changed
 
@@ -158,8 +158,8 @@ The format is kept intentionally simple:
   - `packages/core/dist/cms.min.js`
   - `packages/ui/dist/ui.min.js`
   - `packages/ui/dist/css/ui.min.css`
-  - `packages/cmswift/dist/cmswift.min.js`
-  - `packages/cmswift/dist/css/ui.min.css`
+  - `packages/jsswift/dist/jsswift.min.js`
+  - `packages/jsswift/dist/css/ui.min.css`
 - package exports for the new minified aliases
 - README CDN examples for readable and minified builds
 
@@ -176,23 +176,23 @@ The format is kept intentionally simple:
 
 ### Added
 
-- npm publish of `@cmswift/core`
-- npm publish of `@cmswift/ui`
-- npm publish of the umbrella package `cmswift`
+- npm publish of `@jsswift/core`
+- npm publish of `@jsswift/ui`
+- npm publish of the umbrella package `jsswift`
 - public README coverage for npm and CDN usage
-- a self-contained `cmswift` package tarball with `dist/cmswift.js`, CSS, and bundled assets
+- a self-contained `jsswift` package tarball with `dist/jsswift.js`, CSS, and bundled assets
 
 ### Fixed
 
-- core bootstrap now works even when `window.CMSwift_setting` is not defined
+- core bootstrap now works even when `window.JSswift_setting` is not defined
 - core HTTP configuration now uses safe fallbacks when the global config is missing
-- browser-first npm consumption is more robust in projects that import `@cmswift/core` without legacy setup
-- CSS exports in `cmswift` now point only to files inside the package
+- browser-first npm consumption is more robust in projects that import `@jsswift/core` without legacy setup
+- CSS exports in `jsswift` now point only to files inside the package
 - umbrella package build now includes aligned JS, CSS, fonts, and images
 
 ### Docs
 
-- updated the public quick start for `@cmswift/core`, `@cmswift/ui`, and `cmswift`
+- updated the public quick start for `@jsswift/core`, `@jsswift/ui`, and `jsswift`
 - added dedicated release notes for `v1.0.1`
 - reclassified `v1.0.0` release material as historical pre-release archive
 
@@ -207,7 +207,7 @@ The format is kept intentionally simple:
   - `min-cms.js`
   - `ui.js`
   - `min-ui.js`
-- umbrella bundles `cmswift.js` and `min-cmswift.js`
+- umbrella bundles `jsswift.js` and `min-jsswift.js`
 - internal technical documentation for core and UI
 - `v1` pre-release checklist
 - stability and compatibility policy

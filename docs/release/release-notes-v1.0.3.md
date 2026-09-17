@@ -1,4 +1,4 @@
-# CMSwift v1.0.3 Release Notes
+# JSswift v1.0.3 Release Notes
 
 Status:
 
@@ -6,7 +6,7 @@ Status:
 
 ## Summary
 
-`v1.0.3` removes the obsolete generated icon sprite CSS artifact from CMSwift UI and umbrella package outputs.
+`v1.0.3` removes the obsolete generated icon sprite CSS artifact from JSswift UI and umbrella package outputs.
 
 ## Removed
 
@@ -30,7 +30,7 @@ The CSS build now copies only the active CSS files and removes stale CSS outputs
 
 The removed CSS file should not be used as a public import path. Consumers should use:
 
-- `@cmswift/ui/css/ui.css`
-- `@cmswift/ui/css/ui.min.css`
-- `cmswift/css/ui.css`
-- `cmswift/css/ui.min.css`
+- `@jsswift/ui/css/ui.css`
+- `@jsswift/ui/css/ui.min.css`
+- `jsswift/css/ui.css`
+- `jsswift/css/ui.min.css`

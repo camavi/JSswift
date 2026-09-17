@@ -1,10 +1,18 @@
 {
-  "name": "cmswift",
+  "name": "jsswift",
   "private": true,
   "version": "1.0.41",
-  "description": "CMSwift UI + reactive runtime framework",
+  "description": "JSswift UI + reactive runtime framework",
   "author": "Carlos Malleux",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camavi/JSswift.git"
+  },
+  "homepage": "https://github.com/camavi/JSswift#readme",
+  "bugs": {
+    "url": "https://github.com/camavi/JSswift/issues"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,8 +21,8 @@
     "build:ui:assets": "node tools/build-ui-assets.mjs",
     "build:ui:css": "node tools/build-ui-css.mjs",
     "build:ui": "npm run build:ui:assets && npm run build:ui:css && node tools/build-ui.mjs",
-    "build:cmswift": "node tools/build-cmswift.mjs",
-    "build:runtime": "npm run build:cms && npm run build:ui && npm run build:cmswift",
+    "build:jsswift": "node tools/build-jsswift.mjs",
+    "build:runtime": "npm run build:cms && npm run build:ui && npm run build:jsswift",
     "preview": "vite preview",
     "test": "node --test tests/*.test.mjs",
     "test:browser": "node --test tests/browser/*.test.mjs",

@@ -1,6 +1,6 @@
-# CMSwift Core Reference
+# JSswift Core Reference
 
-Operational reference for the CMSwift core.
+Operational reference for the JSswift core.
 
 ## Purpose
 
@@ -14,12 +14,12 @@ Operational reference for the CMSwift core.
 - source modules: `packages/core/src`
 - readable runtime: `packages/core/dist/cms.js`
 - minified runtime: `packages/core/dist/min-cms.js`
-- local compatibility mirror: `pages/_cmswift-fe/js/*`
+- local compatibility mirror: `pages/_jsswift-fe/js/*`
 
 Update rules:
 
 - when a core module changes, update this document
-- when AI or tooling-facing machine metadata changes, update `CMSwift.meta` in `packages/core/src/00-bootstrap.js`
+- when AI or tooling-facing machine metadata changes, update `JSswift.meta` in `packages/core/src/00-bootstrap.js`
 - rebuild the runtime with `npm run build:cms`
 - run `npm test`
 
@@ -92,11 +92,11 @@ Known limits:
 
 Primary surface:
 
-- `CMSwift.reactive.signal`
-- `CMSwift.reactive.effect`
-- `CMSwift.reactive.computed`
-- `CMSwift.reactive.untracked`
-- `CMSwift.reactive.batch`
+- `JSswift.reactive.signal`
+- `JSswift.reactive.effect`
+- `JSswift.reactive.computed`
+- `JSswift.reactive.untracked`
+- `JSswift.reactive.batch`
 
 Contract:
 
@@ -124,9 +124,9 @@ Known limits:
 Primary surface:
 
 - `_.rod`
-- `CMSwift.rodBind`
-- `CMSwift.rodModel`
-- `CMSwift.rodFromSignal`
+- `JSswift.rodBind`
+- `JSswift.rodModel`
+- `JSswift.rodFromSignal`
 
 Role:
 
@@ -148,8 +148,8 @@ Known limits:
 
 Primary surface:
 
-- `CMSwift.mount`
-- `CMSwift.component`
+- `JSswift.mount`
+- `JSswift.component`
 - cleanup registry
 - auto-cleanup helpers
 
@@ -180,7 +180,7 @@ This group includes:
 - http
 - router
 - theme helper
-- `CMSwift.ui.meta`
+- `JSswift.ui.meta`
 
 Current status:
 
@@ -193,7 +193,7 @@ Module notes:
 - `store`: scope, persistence, and watcher behavior are substantially cleaner
 - `router`: path, query, and history helpers are better isolated
 - `http`: request normalization and state surface are clearer
-- `setTheme`: sets `data-theme` on the root `html` element through `CMSwift.setTheme(theme)`
+- `setTheme`: sets `data-theme` on the root `html` element through `JSswift.setTheme(theme)`
 - `getTheme`: reads the active theme from the root element with storage fallback
 - `toggleTheme`: cycles through a provided or configured theme list and persists the result
 - `overlay`: anchored and stacked behavior is more stable
@@ -202,21 +202,21 @@ Module notes:
 
 Theme helper contract:
 
-- `CMSwift.setTheme(theme)` finds the root `html` element, sets `data-theme="<theme>"`, and persists the value in `localStorage`
-- `CMSwift.getTheme()` reads the current `html[data-theme]`; if missing, it falls back to the saved theme and syncs the DOM
-- `CMSwift.toggleTheme(themes)` cycles through a theme list; the list can contain any number of themes
+- `JSswift.setTheme(theme)` finds the root `html` element, sets `data-theme="<theme>"`, and persists the value in `localStorage`
+- `JSswift.getTheme()` reads the current `html[data-theme]`; if missing, it falls back to the saved theme and syncs the DOM
+- `JSswift.toggleTheme(themes)` cycles through a theme list; the list can contain any number of themes
 - returns the `html` element when available, otherwise `null`
-- `CMSwift.theme.themes` can hold the default cycle order for `toggleTheme()`
-- default storage key: `cmswift:theme`
+- `JSswift.theme.themes` can hold the default cycle order for `toggleTheme()`
+- default storage key: `jsswift:theme`
 - on startup, the core restores the saved theme automatically if present
 - intended for simple runtime theme switching without introducing extra framework state manager
 
 Example:
 
 ```js
-CMSwift.setTheme("dark");
-CMSwift.getTheme();
-CMSwift.toggleTheme(["light", "dark", "sepia"]);
+JSswift.setTheme("dark");
+JSswift.getTheme();
+JSswift.toggleTheme(["light", "dark", "sepia"]);
 ```
 
 Known limits:
@@ -248,7 +248,7 @@ When changing the core:
 2. rebuild with `npm run build:cms`
 3. run `npm test`
 4. update this document if the technical contract changed
-5. update `CMSwift.meta` when tooling-visible machine metadata changed
+5. update `JSswift.meta` when tooling-visible machine metadata changed
 
 ## Build And Test Commands
 
@@ -269,7 +269,7 @@ npm test
 Important core milestones reached during the current package-oriented phase:
 
 - core separated into internal modules under `packages/core/src/*`
-- initial `CMSwift.meta` established for tooling-facing introspection
+- initial `JSswift.meta` established for tooling-facing introspection
 - renderer semantics hardened around class, style, events, and dynamic children
 - reactive core gained `batch(...)`, `untracked`, and stronger cleanup behavior
 - `rod` realigned around shared DOM semantics

@@ -1,7 +1,7 @@
   // ===============================
   // Auth shared helpers
   // ===============================
-  CMSwift._authShared = (() => {
+  JSswift._authShared = (() => {
     function createPermissionApi(getUser) {
       const roles = () => getUser()?.roles || [];
       const perms = () => getUser()?.permissions || [];
@@ -103,7 +103,7 @@
           }
         };
 
-        console.groupCollapsed(`[CMSwift.auth.inspect] ${label}`);
+        console.groupCollapsed(`[JSswift.auth.inspect] ${label}`);
         console.log("status:", status());
         console.log(info);
         if (expiresInMs != null) {
@@ -117,7 +117,7 @@
 
       function trace(on = true) {
         tracing = !!on;
-        console.log("[CMSwift.auth.trace]", tracing ? "ON" : "OFF");
+        console.log("[JSswift.auth.trace]", tracing ? "ON" : "OFF");
       }
 
       if (typeof auth.fetch === "function" && !auth._fetchWrapped) {

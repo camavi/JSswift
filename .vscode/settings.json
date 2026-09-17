@@ -45,7 +45,7 @@
     "editor.tabSize": 2,
     "editor.defaultFormatter": "vscode.css-language-features"
   },
-  "cSpell.words": ["cmswift"],
+  "cSpell.words": ["jsswift"],
   "tabnine.codeLensEnabled": true,
   "tabnine.disableFileRegex": []
 }

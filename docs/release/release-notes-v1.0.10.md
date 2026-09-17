@@ -1,4 +1,4 @@
-# CMSwift v1.0.10 Release Notes
+# JSswift v1.0.10 Release Notes
 
 Status:
 

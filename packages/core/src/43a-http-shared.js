@@ -1,9 +1,9 @@
   // ===============================
   // HTTP shared helpers
   // ===============================
-  CMSwift._httpShared = (() => {
-    function createReactiveState(CMSwift) {
-      const reactive = CMSwift.reactive;
+  JSswift._httpShared = (() => {
+    function createReactiveState(JSswift) {
+      const reactive = JSswift.reactive;
       const [getInFlight, setInFlight] = reactive.signal(0);
       const [getStatus, setStatus] = reactive.signal("idle");
       const [getLastRequest, setLastRequest] = reactive.signal(null);
@@ -66,8 +66,8 @@
       const state = {
         inFlight: getInFlight,
         status: getStatus,
-        isLoading: CMSwift.store?.computed
-          ? CMSwift.store.computed(() => getInFlight() > 0)
+        isLoading: JSswift.store?.computed
+          ? JSswift.store.computed(() => getInFlight() > 0)
           : () => getInFlight() > 0,
         lastRequest: getLastRequest,
         lastResponse: getLastResponse,

@@ -1,7 +1,7 @@
   // ===============================
   // Router shared helpers
   // ===============================
-  CMSwift._routerShared = (() => {
+  JSswift._routerShared = (() => {
     function normalizePath(path) {
       if (!path) return "/";
       if (!path.startsWith("/")) path = "/" + path;

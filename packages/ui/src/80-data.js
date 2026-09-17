@@ -1,5 +1,5 @@
   UI.Table = (...args) => {
-    const { props, children } = CMSwift.uiNormalizeArgs(args);
+    const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const columns = Array.isArray(props.columns) ? props.columns : [];
     const basePageSizes = tableNormalizePageSizes(props.pageSizeOptions, [5, 10, 20, 50]);
@@ -53,7 +53,7 @@
       }, "UI.Table:queryWatch");
     }
 
-    const wrapProps = CMSwift.omit(props, [
+    const wrapProps = JSswift.omit(props, [
       "columns", "rows", "rowKey", "loading", "page", "pageSize", "pageSizeOptions", "pagination",
       "initialSort", "sortBy", "sortDir", "search", "query", "searchable", "searchPlaceholder",
       "searchKeys", "searchBy", "searchPredicate", "searchModel", "queryModel", "filter",
@@ -431,7 +431,7 @@
     wrapProps.body = shell;
     return UI.Card(wrapProps);
   };
-  if (CMSwift.isDev?.()) {
+  if (JSswift.isDev?.()) {
     UI.meta = UI.meta || {};
     UI.meta.Table = {
       signature: "UI.Table(props)",

@@ -1,4 +1,4 @@
-# CMSwift v1.0.20 Release Notes
+# JSswift v1.0.20 Release Notes
 
 Status:
 
@@ -45,5 +45,5 @@ matches the failing repro much more closely.
 - `UI.Dialog` public API is unchanged
 - the change affects only fullscreen dialog sizing and placement
 - standard dialogs remain unchanged
-- Vite dev servers that already optimized a previous `cmswift` build may need
+- Vite dev servers that already optimized a previous `jsswift` build may need
   a restart or dependency re-optimization to pick up the new bundle

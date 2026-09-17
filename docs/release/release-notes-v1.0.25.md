@@ -2,9 +2,9 @@
 
 ## Published Packages
 
-- `@cmswift/core@1.0.25`
-- `@cmswift/ui@1.0.25`
-- `cmswift@1.0.25`
+- `@jsswift/core@1.0.25`
+- `@jsswift/ui@1.0.25`
+- `jsswift@1.0.25`
 
 ## Changes
 

@@ -1,9 +1,9 @@
   // alias per compatibilità
-  CMSwift.signal = CMSwift.reactive.signal;
-  CMSwift.effect = CMSwift.reactive.effect;
-  CMSwift.computed = CMSwift.reactive.computed;
-  CMSwift.untracked = CMSwift.reactive.untracked;
-  CMSwift.batch = CMSwift.reactive.batch;
+  JSswift.signal = JSswift.reactive.signal;
+  JSswift.effect = JSswift.reactive.effect;
+  JSswift.computed = JSswift.reactive.computed;
+  JSswift.untracked = JSswift.reactive.untracked;
+  JSswift.batch = JSswift.reactive.batch;
 
   function normalizeThemeName(theme) {
     if (theme == null) return null;
@@ -32,7 +32,7 @@
     if (typeof document !== "undefined" && document.documentElement) {
       return document.documentElement;
     }
-    return CMSwift.dom?.q ? CMSwift.dom.q("html") : null;
+    return JSswift.dom?.q ? JSswift.dom.q("html") : null;
   }
 
   function getThemeStorage() {
@@ -44,7 +44,7 @@
   }
 
   function getThemeStorageKey() {
-    return normalizeThemeName(CMSwift.theme?.storageKey) || "cmswift:theme";
+    return normalizeThemeName(JSswift.theme?.storageKey) || "jsswift:theme";
   }
 
   function readSavedTheme() {
@@ -73,10 +73,10 @@
     const html = getThemeRoot();
     const candidates = [
       themes,
-      CMSwift.theme?.themes,
-      CMSwift.config?.themes,
-      typeof globalThis !== "undefined" ? globalThis.CMSwift_setting?.themes : null,
-      typeof globalThis !== "undefined" ? globalThis.CMSwift_setting?.themeList : null,
+      JSswift.theme?.themes,
+      JSswift.config?.themes,
+      typeof globalThis !== "undefined" ? globalThis.JSswift_setting?.themes : null,
+      typeof globalThis !== "undefined" ? globalThis.JSswift_setting?.themeList : null,
       html?.getAttribute?.("data-themes"),
     ];
 
@@ -87,13 +87,13 @@
     return [];
   }
 
-  CMSwift.theme = CMSwift.theme || {};
-  CMSwift.theme.storageKey = getThemeStorageKey();
-  if (!normalizeThemeList(CMSwift.theme.themes).length) {
-    CMSwift.theme.themes = resolveThemeList();
+  JSswift.theme = JSswift.theme || {};
+  JSswift.theme.storageKey = getThemeStorageKey();
+  if (!normalizeThemeList(JSswift.theme.themes).length) {
+    JSswift.theme.themes = resolveThemeList();
   }
 
-  CMSwift.setTheme = function (theme, opts = {}) {
+  JSswift.setTheme = function (theme, opts = {}) {
     const value = normalizeThemeName(theme);
     const html = getThemeRoot();
     if (html) {
@@ -104,7 +104,7 @@
     return html;
   };
 
-  CMSwift.getTheme = function (opts = {}) {
+  JSswift.getTheme = function (opts = {}) {
     const html = getThemeRoot();
     const current = normalizeThemeName(html?.getAttribute?.("data-theme"));
     if (current) return current;
@@ -118,25 +118,25 @@
     return saved;
   };
 
-  CMSwift.toggleTheme = function (themes, opts = {}) {
+  JSswift.toggleTheme = function (themes, opts = {}) {
     const list = resolveThemeList(themes);
     const activeList = list.length
       ? list
-      : normalizeThemeList([CMSwift.getTheme({ sync: false }), "light", "dark"]);
-    const current = CMSwift.getTheme({ sync: false });
+      : normalizeThemeList([JSswift.getTheme({ sync: false }), "light", "dark"]);
+    const current = JSswift.getTheme({ sync: false });
     const fallback = normalizeThemeName(opts.fallback) || activeList[0] || "light";
     const currentIndex = current ? activeList.indexOf(current) : -1;
     const nextTheme = currentIndex >= 0
       ? activeList[(currentIndex + 1) % activeList.length]
       : fallback;
 
-    CMSwift.theme.themes = activeList.slice();
-    CMSwift.setTheme(nextTheme, opts);
+    JSswift.theme.themes = activeList.slice();
+    JSswift.setTheme(nextTheme, opts);
     return nextTheme;
   };
 
   const bootTheme = readSavedTheme();
   if (bootTheme) {
-    CMSwift.setTheme(bootTheme, { persist: false });
+    JSswift.setTheme(bootTheme, { persist: false });
   }
 })();

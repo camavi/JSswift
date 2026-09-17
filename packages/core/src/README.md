@@ -1,6 +1,6 @@
 ## CMS Source Modules
 
-This folder contains the internal source modules of the CMSwift core.
+This folder contains the internal source modules of the JSswift core.
 
 Manifest:
 
@@ -48,7 +48,7 @@ Generated outputs:
 
 - `packages/core/dist/cms.js`
 - `packages/core/dist/min-cms.js`
-- compatibility mirror in `pages/_cmswift-fe/js/`
+- compatibility mirror in `pages/_jsswift-fe/js/`
 
 Rules:
 

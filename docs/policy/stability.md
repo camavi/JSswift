@@ -1,6 +1,6 @@
-# CMSwift Stability And Compatibility Policy
+# JSswift Stability And Compatibility Policy
 
-This policy defines how CMSwift handles:
+This policy defines how JSswift handles:
 
 - API stability
 - cross-version compatibility
@@ -14,7 +14,7 @@ Goal:
 
 ## 1. Versioning
 
-CMSwift follows `SemVer`:
+JSswift follows `SemVer`:
 
 - `MAJOR.MINOR.PATCH`
 
@@ -32,7 +32,7 @@ Examples:
 
 ## 2. API Classes
 
-CMSwift uses four API classes.
+JSswift uses four API classes.
 
 ### 2.1 Stable
 
@@ -107,7 +107,7 @@ Examples:
 
 ## 3. Guaranteed Compatibility
 
-CMSwift guarantees semver compatibility only for:
+JSswift guarantees semver compatibility only for:
 
 - APIs classified as `stable`
 - official documented runtime entry points
@@ -170,20 +170,20 @@ Readable:
 
 - `packages/core/dist/cms.js`
 - `packages/ui/dist/ui.js`
-- `packages/cmswift/dist/cmswift.js`
+- `packages/jsswift/dist/jsswift.js`
 
 Minified:
 
 - `packages/core/dist/min-cms.js`
 - `packages/ui/dist/min-ui.js`
-- `packages/cmswift/dist/min-cmswift.js`
+- `packages/jsswift/dist/min-jsswift.js`
 
 Compatible local mirror:
 
-- `pages/_cmswift-fe/js/cms.js`
-- `pages/_cmswift-fe/js/min-cms.js`
-- `pages/_cmswift-fe/js/ui.js`
-- `pages/_cmswift-fe/js/min-ui.js`
+- `pages/_jsswift-fe/js/cms.js`
+- `pages/_jsswift-fe/js/min-cms.js`
+- `pages/_jsswift-fe/js/ui.js`
+- `pages/_jsswift-fe/js/min-ui.js`
 
 Rules:
 

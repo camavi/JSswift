@@ -1,7 +1,7 @@
   // useRouter (hook-style)
   // ===============================
-  CMSwift.useRouter = function (ctx) {
-    const router = CMSwift.router;
+  JSswift.useRouter = function (ctx) {
+    const router = JSswift.router;
 
     // nessun cleanup necessario ora, ma pronto per future estensioni
     if (ctx && typeof ctx.onDispose === "function") {
@@ -20,11 +20,11 @@
   // ===============================
   // useRoute (hook-style, reattivo)
   // ===============================
-  CMSwift.useRoute = function (ctx) {
-    const [getPath, setPath] = CMSwift.reactive.signal("");
-    const [getParams, setParams] = CMSwift.reactive.signal({});
-    const [getQuery, setQuery] = CMSwift.reactive.signal({});
-    const [getHash, setHash] = CMSwift.reactive.signal("");
+  JSswift.useRoute = function (ctx) {
+    const [getPath, setPath] = JSswift.reactive.signal("");
+    const [getParams, setParams] = JSswift.reactive.signal({});
+    const [getQuery, setQuery] = JSswift.reactive.signal({});
+    const [getHash, setHash] = JSswift.reactive.signal("");
 
     // handler aggiornamento
     const update = (routeCtx) => {
@@ -35,7 +35,7 @@
     };
 
     // subscribe router
-    const unsubscribe = CMSwift.router.subscribe(update);
+    const unsubscribe = JSswift.router.subscribe(update);
 
     // cleanup automatico
     if (ctx && typeof ctx.onDispose === "function") {

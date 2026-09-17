@@ -1,4 +1,4 @@
-# CMSwift v1.0.14 Release Notes
+# JSswift v1.0.14 Release Notes
 
 Status:
 
@@ -7,7 +7,7 @@ Status:
 
 ## Summary
 
-`v1.0.14` closes two remaining responsive edge cases in CMSwift UI. `UI.Avatar`
+`v1.0.14` closes two remaining responsive edge cases in JSswift UI. `UI.Avatar`
 now participates in the shared common responsive prop engine, and nested
 `GridCol` children no longer inherit grid span custom properties from a parent
 `GridCol`.

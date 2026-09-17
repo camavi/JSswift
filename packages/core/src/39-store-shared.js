@@ -1,7 +1,7 @@
   // ===============================
   // Store shared helpers
   // ===============================
-  CMSwift._storeShared = (() => {
+  JSswift._storeShared = (() => {
     function scopeId(scope) {
       return `${scope.storage}::${scope.prefix}`;
     }

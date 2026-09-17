@@ -1,8 +1,8 @@
-  CMSwift.ui = CMSwift.ui || {};
-  CMSwift.ui.meta = CMSwift.ui.meta || {};
+  JSswift.ui = JSswift.ui || {};
+  JSswift.ui.meta = JSswift.ui.meta || {};
 
-  CMSwift.ui.slot = function slot(value, opts = {}) {
-    const UI = CMSwift.ui;
+  JSswift.ui.slot = function slot(value, opts = {}) {
+    const UI = JSswift.ui;
     const {
       as = "node",          // "node" | "text" | "icon"
       wrap = "span",        // "span" | "text" | null
@@ -52,10 +52,10 @@
     if (Array.isArray(out)) return out.filter(Boolean);
     return out;
   };
-  CMSwift.ui.slots = function slots(...values) {
+  JSswift.ui.slots = function slots(...values) {
     const out = [];
     for (const v of values) {
-      const r = CMSwift.ui.slot(v);
+      const r = JSswift.ui.slot(v);
       if (!r) continue;
       if (Array.isArray(r)) out.push(...r);
       else out.push(r);
@@ -64,8 +64,8 @@
   };
 
   // docTable genera una tabella di documentazione
-  CMSwift.docTable = (name) => {
-    if (!CMSwift.isDev()) return _.div(); // non fa niente in prod
+  JSswift.docTable = (name) => {
+    if (!JSswift.isDev()) return _.div(); // non fa niente in prod
 
     const {
       resolveDocComponents,
@@ -73,8 +73,8 @@
       renderTabGroupFallback,
       normalizeEventRows,
       normalizeSlotRows
-    } = CMSwift._uiMetaShared;
-    const meta = CMSwift.ui.meta?.[name];
+    } = JSswift._uiMetaShared;
+    const meta = JSswift.ui.meta?.[name];
     if (!meta) return _.div({ class: "cms-muted" }, `Meta non trovata: ${name}`);
     const { hasTabPanel, Card, Chip } = resolveDocComponents(_);
 
@@ -159,10 +159,10 @@
     );
   };
 
-  CMSwift.ui.inspect = (name) => console.log(CMSwift.ui.meta?.[name] || "meta not found");
+  JSswift.ui.inspect = (name) => console.log(JSswift.ui.meta?.[name] || "meta not found");
 
-  CMSwift.ui.can = function (ctx, permOrRole, render, elseRender = null) {
-    const auth = CMSwift.useAuth ? CMSwift.useAuth(ctx) : CMSwift.auth;
+  JSswift.ui.can = function (ctx, permOrRole, render, elseRender = null) {
+    const auth = JSswift.useAuth ? JSswift.useAuth(ctx) : JSswift.auth;
     if (!auth) return typeof elseRender === "function" ? elseRender() : null;
 
     const ok =
@@ -174,15 +174,15 @@
     return typeof elseRender === "function" ? elseRender() : elseRender;
   };
 
-  CMSwift.ui.canAny = function (ctx, list, render, elseRender = null) {
-    const auth = CMSwift.useAuth ? CMSwift.useAuth(ctx) : CMSwift.auth;
+  JSswift.ui.canAny = function (ctx, list, render, elseRender = null) {
+    const auth = JSswift.useAuth ? JSswift.useAuth(ctx) : JSswift.auth;
     const ok = !!auth?.canAny?.(list);
     return ok ? (typeof render === "function" ? render() : render)
       : (typeof elseRender === "function" ? elseRender() : elseRender);
   };
 
-  CMSwift.ui.canAll = function (ctx, list, render, elseRender = null) {
-    const auth = CMSwift.useAuth ? CMSwift.useAuth(ctx) : CMSwift.auth;
+  JSswift.ui.canAll = function (ctx, list, render, elseRender = null) {
+    const auth = JSswift.useAuth ? JSswift.useAuth(ctx) : JSswift.auth;
     const ok = !!auth?.canAll?.(list);
     return ok ? (typeof render === "function" ? render() : render)
       : (typeof elseRender === "function" ? elseRender() : elseRender);

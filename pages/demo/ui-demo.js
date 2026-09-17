@@ -1,11 +1,11 @@
-CMSwift.ready(() => {
+JSswift.ready(() => {
   const root = document.getElementById("ui-playground");
   if (!root || typeof _.Card !== "function") return;
   const t = (key, replacements = {}) =>
-    window.CMSwiftDemoI18n?.t(`playground.ui.${key}`, replacements) ?? key;
+    window.JSswiftDemoI18n?.t(`playground.ui.${key}`, replacements) ?? key;
 
   const nameModel = _.rod("Carlos");
-  const bioModel = _.rod("Frontend CMSwift");
+  const bioModel = _.rod("Frontend JSswift");
   const roleModel = _.rod("developer");
   const searchModel = _.rod("");
   const dateModel = _.rod("");
@@ -33,7 +33,7 @@ CMSwift.ready(() => {
   const searchItems = [
     { title: "Dashboard", description: "Panoramica e metriche principali", value: "dashboard" },
     { title: "Utenti", description: "Gestione account e ruoli", value: "users" },
-    { title: "Componenti UI", description: "Catalogo dei componenti CMSwift", value: "ui-components" },
+    { title: "Componenti UI", description: "Catalogo dei componenti JSswift", value: "ui-components" },
     { title: "Impostazioni", description: "Preferenze e configurazione", value: "settings" },
   ];
   const [getUpdates, setUpdates] = _.signal(true);

@@ -1,4 +1,4 @@
-# CMSwift v1 Browser Smoke Checklist
+# JSswift v1 Browser Smoke Checklist
 
 Minimum manual checklist to execute before a `v1` release.
 
@@ -18,10 +18,10 @@ Reference preflight status:
 - local HTTP preflight executed on `2026-04-14`
 - `200 OK` verified for:
   - `pages/index.html`
-  - `pages/_cmswift-fe/js/cms.js`
-  - `pages/_cmswift-fe/js/ui.js`
-  - `pages/_cmswift-fe/js/min-cms.js`
-  - `pages/_cmswift-fe/js/min-ui.js`
+  - `pages/_jsswift-fe/js/cms.js`
+  - `pages/_jsswift-fe/js/ui.js`
+  - `pages/_jsswift-fe/js/min-cms.js`
+  - `pages/_jsswift-fe/js/min-ui.js`
 - interactive browser validation is still required for future releases
 
 Reference smoke status:
@@ -32,15 +32,15 @@ Reference smoke status:
 
 ## 1. Runtime Files
 
-- [x] `pages/_cmswift-fe/js/cms.js` loads without errors
-- [x] `pages/_cmswift-fe/js/ui.js` loads without errors
-- [x] `pages/_cmswift-fe/js/min-cms.js` loads without errors
-- [x] `pages/_cmswift-fe/js/min-ui.js` loads without errors
+- [x] `pages/_jsswift-fe/js/cms.js` loads without errors
+- [x] `pages/_jsswift-fe/js/ui.js` loads without errors
+- [x] `pages/_jsswift-fe/js/min-cms.js` loads without errors
+- [x] `pages/_jsswift-fe/js/min-ui.js` loads without errors
 
 ## 2. Demo Shell
 
-- [x] [index.html](/Users/cmalleux/Sites/CMSwift-FE/pages/index.html) returns `200 OK` in local HTTP preflight
-- [x] [index.html](/Users/cmalleux/Sites/CMSwift-FE/pages/index.html) loads without console errors
+- [x] [index.html](../../pages/index.html) returns `200 OK` in local HTTP preflight
+- [x] [index.html](../../pages/index.html) loads without console errors
 - [x] demo routing works
 - [x] main shell drawer works
 - [x] main layout is responsive in a quick desktop/mobile check

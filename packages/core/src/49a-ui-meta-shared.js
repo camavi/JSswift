@@ -1,7 +1,7 @@
   // ===============================
   // UI meta shared helpers
   // ===============================
-  CMSwift._uiMetaShared = (() => {
+  JSswift._uiMetaShared = (() => {
     function resolveDocComponents(_) {
       return {
         hasTabPanel: typeof _.TabPanel === "function",

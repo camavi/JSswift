@@ -1,4 +1,4 @@
-# CMSwift v1.0.0 Release Notes
+# JSswift v1.0.0 Release Notes
 
 Status:
 
@@ -13,7 +13,7 @@ Note:
 
 ## Summary
 
-`v1.0.0` marks the first disciplined release baseline for CMSwift as a runtime and UI framework with:
+`v1.0.0` marks the first disciplined release baseline for JSswift as a runtime and UI framework with:
 
 - a modular core
 - standard and minified runtime builds
@@ -83,20 +83,20 @@ Readable:
 
 - `packages/core/dist/cms.js`
 - `packages/ui/dist/ui.js`
-- `packages/cmswift/dist/cmswift.js`
+- `packages/jsswift/dist/jsswift.js`
 
 Minified:
 
 - `packages/core/dist/min-cms.js`
 - `packages/ui/dist/min-ui.js`
-- `packages/cmswift/dist/min-cmswift.js`
+- `packages/jsswift/dist/min-jsswift.js`
 
 Legacy local mirror:
 
-- `pages/_cmswift-fe/js/cms.js`
-- `pages/_cmswift-fe/js/min-cms.js`
-- `pages/_cmswift-fe/js/ui.js`
-- `pages/_cmswift-fe/js/min-ui.js`
+- `pages/_jsswift-fe/js/cms.js`
+- `pages/_jsswift-fe/js/min-cms.js`
+- `pages/_jsswift-fe/js/ui.js`
+- `pages/_jsswift-fe/js/min-ui.js`
 
 ## Notes
 

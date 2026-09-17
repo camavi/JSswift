@@ -5,12 +5,12 @@
   function cleanupNodeTree(node) {
     if (!node) return;
 
-    const disposers = CMSwift._cleanupRegistry.get(node);
+    const disposers = JSswift._cleanupRegistry.get(node);
     if (disposers) {
       for (const d of disposers) {
         try { d(); } catch (e) { console.error("[cleanup] error:", e); }
       }
-      CMSwift._cleanupRegistry.delete(node);
+      JSswift._cleanupRegistry.delete(node);
     }
 
     if (node.childNodes && node.childNodes.length) {
@@ -21,7 +21,7 @@
   }
 
   function toMountTargets(target) {
-    const toEl = (t) => (typeof t === "string" ? CMSwift.dom.q(t) : t);
+    const toEl = (t) => (typeof t === "string" ? JSswift.dom.q(t) : t);
     return Array.isArray(target) ? target.map(toEl).filter(Boolean) : [toEl(target)].filter(Boolean);
   }
 
@@ -58,14 +58,14 @@
         return;
       }
 
-      console.warn("[CMSwift.mount] contenuto non supportato:", value);
+      console.warn("[JSswift.mount] contenuto non supportato:", value);
     };
 
     add(content);
     return { nodes, disposers };
   }
 
-  function createOnceDisposer(disposers = [], label = "[CMSwift.mount] dispose error:") {
+  function createOnceDisposer(disposers = [], label = "[JSswift.mount] dispose error:") {
     let done = false;
     return () => {
       if (done) return;

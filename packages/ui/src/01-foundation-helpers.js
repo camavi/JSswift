@@ -44,9 +44,9 @@ const asNodeArray = (value) => {
   return Array.isArray(value) ? value : [value];
 };
 
-CMSwift.isUIPlainObject = isUIPlainObject;
-CMSwift.isListItemNode = isListItemNode;
-CMSwift.asNodeArray = asNodeArray;
+JSswift.isUIPlainObject = isUIPlainObject;
+JSswift.isListItemNode = isListItemNode;
+JSswift.asNodeArray = asNodeArray;
 
 const UI_RESPONSIVE_DEVICES = [
   { key: "mobile", aliases: ["mobile", "mobil"], prefix: "cms-" },
@@ -118,7 +118,7 @@ const uiResponsiveDefaultValue = (value, rule = {}) => {
   if (value == null || value === "" || (value === false && !rule.allowFalse)) return "";
   if (typeof rule.mapValue === "function") return rule.mapValue(value, rule);
   if (typeof value === "number") return rule.number === "raw" ? String(value) : `${value}px`;
-  if (rule.token && typeof value === "string" && CMSwift.uiSizes?.includes(value)) {
+  if (rule.token && typeof value === "string" && JSswift.uiSizes?.includes(value)) {
     return `var(--cms-${rule.token}-${value})`;
   }
   return String(value);
@@ -171,16 +171,16 @@ const uiApplyResponsiveProps = (target, props = {}, rules = []) => {
   return target;
 };
 
-CMSwift.uiResponsiveDevices = UI_RESPONSIVE_DEVICES;
-CMSwift.uiResponsiveOmitProps = UI_RESPONSIVE_PROP_KEYS;
-CMSwift.uiResponsivePropsFor = uiResponsivePropsFor;
-CMSwift.uiResponsiveHasConfig = uiResponsiveHasConfig;
-CMSwift.uiResponsiveHasProp = uiResponsiveHasProp;
-CMSwift.uiResponsiveClasses = uiResponsiveClassList;
-CMSwift.uiApplyResponsiveProps = uiApplyResponsiveProps;
+JSswift.uiResponsiveDevices = UI_RESPONSIVE_DEVICES;
+JSswift.uiResponsiveOmitProps = UI_RESPONSIVE_PROP_KEYS;
+JSswift.uiResponsivePropsFor = uiResponsivePropsFor;
+JSswift.uiResponsiveHasConfig = uiResponsiveHasConfig;
+JSswift.uiResponsiveHasProp = uiResponsiveHasProp;
+JSswift.uiResponsiveClasses = uiResponsiveClassList;
+JSswift.uiApplyResponsiveProps = uiApplyResponsiveProps;
 
-const uiOmitBase = CMSwift.omit;
-CMSwift.omit = (obj, keys = []) => {
+const uiOmitBase = JSswift.omit;
+JSswift.omit = (obj, keys = []) => {
   const allKeys = Array.isArray(keys)
     ? keys.concat(UI_RESPONSIVE_PROP_KEYS)
     : UI_RESPONSIVE_PROP_KEYS;
@@ -247,12 +247,12 @@ const applyCommonProps = (props = {}) => {
   if (uiIsReactive(props.size)) {
     classTokens.push(() => {
       const v = uiUnwrap(props.size);
-      if (typeof v === "string" && CMSwift.uiSizes?.includes(v)) return `cms-size-${v}`;
+      if (typeof v === "string" && JSswift.uiSizes?.includes(v)) return `cms-size-${v}`;
       return "";
     });
   } else {
     const size = props.size;
-    if (typeof size === "string" && CMSwift.uiSizes?.includes(size)) {
+    if (typeof size === "string" && JSswift.uiSizes?.includes(size)) {
       classTokens.push(`cms-size-${size}`);
     }
   }
@@ -285,8 +285,8 @@ const applyCommonProps = (props = {}) => {
   }
 };
 
-const normalizeArgsBase = CMSwift.uiNormalizeArgs;
-CMSwift.uiNormalizeArgs = function (args) {
+const normalizeArgsBase = JSswift.uiNormalizeArgs;
+JSswift.uiNormalizeArgs = function (args) {
   const out = normalizeArgsBase(args);
   const props = out.props || {};
   if (props && Object.prototype.hasOwnProperty.call(props, "children")) {
@@ -568,8 +568,8 @@ const META_PROP_DEFAULTS = {
   flat: false,
   elevated: false
 };
-const DEFAULT_SIZE = [...CMSwift.uiSizes];
-const DEFAULT_COLOR = [...CMSwift.uiColors];
+const DEFAULT_SIZE = [...JSswift.uiSizes];
+const DEFAULT_COLOR = [...JSswift.uiColors];
 const META_PROP_VALUES = {
   size: ["number", "CSS units", ...DEFAULT_SIZE],
   color: DEFAULT_COLOR,
@@ -863,8 +863,8 @@ const UI_RESPONSIVE_COMMON_STYLE_RULES = UI_RESPONSIVE_STYLE_RULES.filter((rule)
     || props.includes("borderRadius")
     || props.includes("radius");
 });
-CMSwift.uiResponsiveStyleRules = UI_RESPONSIVE_STYLE_RULES;
-CMSwift.uiResponsiveCommonStyleRules = UI_RESPONSIVE_COMMON_STYLE_RULES;
+JSswift.uiResponsiveStyleRules = UI_RESPONSIVE_STYLE_RULES;
+JSswift.uiResponsiveCommonStyleRules = UI_RESPONSIVE_COMMON_STYLE_RULES;
 const camelToCssProperty = (name) => name.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
 const applyStyleProp = (obj, value, name, tokenName) => {
   if (value == null || value === false || value === "") return;
@@ -874,7 +874,7 @@ function setPropertyProps(obj, props) {
   if (props.size) {
     if (typeof props.size === "number") {
       obj.style.setProperty("--cms-font-size", `${props.size}px`);
-    } else if (CMSwift.uiSizes.includes(props.size)) {
+    } else if (JSswift.uiSizes.includes(props.size)) {
       obj.style.setProperty("--cms-font-size", `var(--cms-font-size-${props.size})`);
     }
   }
@@ -895,7 +895,7 @@ function setPropertyProps(obj, props) {
   if (props.radius) {
     if (typeof props.radius == "number") {
       obj.style.setProperty("--set-border-radius", `${props.radius}px`);
-    } else if (CMSwift.uiSizes.includes(props.radius)) {
+    } else if (JSswift.uiSizes.includes(props.radius)) {
       obj.style.setProperty("--set-border-radius", `var(--cms-r-${props.radius})`);
     } else {
       obj.style.setProperty("--set-border-radius", `${props.radius}`);
@@ -926,21 +926,21 @@ function uiOptionNode(props = {}, ...children) {
   return el;
 }
 
-CMSwift.ui.getSlot = (slots, name) => {
+JSswift.ui.getSlot = (slots, name) => {
   if (!slots) return null;
   return Object.prototype.hasOwnProperty.call(slots, name) ? slots[name] : null;
 };
 
-CMSwift.ui.renderSlot = (slots, name, ctx, fallback) => {
-  const slot = CMSwift.ui.getSlot(slots, name);
+JSswift.ui.renderSlot = (slots, name, ctx, fallback) => {
+  const slot = JSswift.ui.getSlot(slots, name);
   const hasSlot = slot !== null && slot !== undefined;
   const raw = hasSlot ? (typeof slot === "function" ? slot(ctx || {}) : slot) : fallback;
   if (raw == null) return null;
-  return flattenSlotValue(CMSwift.ui.slot(raw));
+  return flattenSlotValue(JSswift.ui.slot(raw));
 };
 
 const renderSlotToArray = (slots, name, ctx, fallback) => {
-  const v = CMSwift.ui.renderSlot(slots, name, ctx, fallback);
+  const v = JSswift.ui.renderSlot(slots, name, ctx, fallback);
   if (!v) return [];
   return Array.isArray(v) ? v : [v];
 };
@@ -1182,7 +1182,7 @@ const uiRegisterShortcode = (anchor, props = {}, options = {}) => {
     uiDetachShortcodeListenerIfEmpty();
   };
 
-  CMSwift._registerCleanup(anchor, dispose);
+  JSswift._registerCleanup(anchor, dispose);
   return dispose;
 };
 
@@ -1201,7 +1201,7 @@ const uiFocusShortcutTarget = (target, options = {}) => {
 
 const unitCover = (v, name = 'size') => {
   if (typeof v === "number") return v + "px";
-  if (CMSwift.uiSizes.includes(v)) return `var(--cms-${name}-${v})`;
+  if (JSswift.uiSizes.includes(v)) return `var(--cms-${name}-${v})`;
   if (typeof v === "string") return v;
   return v;
 };

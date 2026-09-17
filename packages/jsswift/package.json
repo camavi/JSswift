@@ -1,15 +1,24 @@
 {
-  "name": "cmswift",
+  "name": "jsswift",
   "version": "1.0.41",
-  "description": "Umbrella package for CMSwift core + UI",
+  "description": "Umbrella package for JSswift core + UI",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camavi/JSswift.git",
+    "directory": "packages/jsswift"
+  },
+  "homepage": "https://github.com/camavi/JSswift#readme",
+  "bugs": {
+    "url": "https://github.com/camavi/JSswift/issues"
+  },
   "type": "module",
-  "main": "./dist/cmswift.js",
-  "module": "./dist/cmswift.js",
+  "main": "./dist/jsswift.js",
+  "module": "./dist/jsswift.js",
   "exports": {
-    ".": "./dist/cmswift.js",
-    "./min": "./dist/min-cmswift.js",
-    "./cmswift.min.js": "./dist/cmswift.min.js",
+    ".": "./dist/jsswift.js",
+    "./min": "./dist/min-jsswift.js",
+    "./jsswift.min.js": "./dist/jsswift.min.js",
     "./img/logo.svg": "./dist/img/logo.svg",
     "./img/svg/tabler-icons-sprite.svg": "./dist/img/svg/tabler-icons-sprite.svg",
     "./css/base.css": "./dist/css/base.css",

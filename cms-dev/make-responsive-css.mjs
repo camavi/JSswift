@@ -19,7 +19,7 @@ const MEDIA_BREAKPOINTS = [...PRIMARY_MEDIA_BREAKPOINTS, ...LEGACY_MEDIA_BREAKPO
   .sort((a, b) => a.size - b.size);
 const OUT_FILES = [
   path.join(ROOT_DIR, "packages/ui/dist/css/responsive.css"),
-  path.join(ROOT_DIR, "packages/cmswift/dist/css/responsive.css"),
+  path.join(ROOT_DIR, "packages/jsswift/dist/css/responsive.css"),
 ];
 
 // prefisso classe
@@ -580,7 +580,7 @@ function main() {
   validateDefaultSizes(DEFAULT_SIZE, UI_SIZES, DEFAULT_SIZE_GROUPS);
   const lines = [];
   lines.push("/* AUTO-GENERATED FILE – DO NOT EDIT */");
-  lines.push("/* CMSwift responsive – CSS classes */");
+  lines.push("/* JSswift responsive – CSS classes */");
   lines.push("");
 
   //creare il root:

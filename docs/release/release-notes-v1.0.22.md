@@ -1,4 +1,4 @@
-# CMSwift v1.0.22 Release Notes
+# JSswift v1.0.22 Release Notes
 
 Release date: 2026-04-30
 
@@ -12,7 +12,7 @@ Release date: 2026-04-30
 
 ## Changed
 
-- Package versions bumped to `1.0.22` for `@cmswift/core`, `@cmswift/ui`, and `cmswift`.
+- Package versions bumped to `1.0.22` for `@jsswift/core`, `@jsswift/ui`, and `jsswift`.
 - CDN examples now pin `1.0.22`.
 
 ## Verification

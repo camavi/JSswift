@@ -26,9 +26,9 @@
     return null;
   }
 
-  CMSwift.rodModel = function (target, rodObj, opts = {}) {
+  JSswift.rodModel = function (target, rodObj, opts = {}) {
     if (!rodObj || rodObj.type !== "rod") {
-      throw new Error("[CMSwift.rodModel] rodObj deve essere un rod");
+      throw new Error("[JSswift.rodModel] rodObj deve essere un rod");
     }
 
     // Supporta singolo elemento o lista (radio)
@@ -151,7 +151,7 @@
 
 
   // input <-> signal (sugar)
-  CMSwift.signalModel = function (inputEl, get, set, opts = {}) {
-    const r = CMSwift.rodFromSignal(get, set);
-    return CMSwift.rodModel(inputEl, r, opts);
+  JSswift.signalModel = function (inputEl, get, set, opts = {}) {
+    const r = JSswift.rodFromSignal(get, set);
+    return JSswift.rodModel(inputEl, r, opts);
   };

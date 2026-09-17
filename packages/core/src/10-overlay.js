@@ -1,4 +1,4 @@
-  CMSwift.overlay = (() => {
+  JSswift.overlay = (() => {
     let seq = 0;
     const stack = new Map(); // id -> entry
     let root = null;
@@ -7,7 +7,7 @@
       focusFirst,
       trapFocus,
       applyAnchoredPosition
-    } = CMSwift._overlayShared;
+    } = JSswift._overlayShared;
     const ensureRoot = () => ensureOverlayRoot(() => root, (nextRoot) => {
       root = nextRoot;
     });
@@ -75,7 +75,7 @@
 
       // mount content
       const node = (typeof content === "function") ? content({ close: () => close(id) }) : content;
-      const normalized = CMSwift.ui.slot(node);
+      const normalized = JSswift.ui.slot(node);
       if (Array.isArray(normalized)) normalized.forEach(n => n && panel.appendChild(n));
       else if (normalized) panel.appendChild(normalized);
 

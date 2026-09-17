@@ -3,7 +3,7 @@ class Start {
     this.start();
   }
   start() {
-    this.loadDependenceJS('_cmswift-fe/js/cms.js');
+    this.loadDependenceJS('_jsswift-fe/js/cms.js');
   }
 
   isCssUploaded = (linkCSS) => {

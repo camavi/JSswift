@@ -1,11 +1,11 @@
   // ===============================
   // Rod DevTools micro
   // ===============================
-  CMSwift.rod = CMSwift.rod || {};
+  JSswift.rod = JSswift.rod || {};
 
-  CMSwift.rod.inspect = function (r, label = "rod") {
+  JSswift.rod.inspect = function (r, label = "rod") {
     if (!r || r.type !== "rod") {
-      console.warn("[CMSwift.rod.inspect] non è un rod:", r);
+      console.warn("[JSswift.rod.inspect] non è un rod:", r);
       return null;
     }
 
@@ -25,8 +25,8 @@
       disposed: !!r._disposed
     };
 
-    if (CMSwift.config.debug) {
-      console.groupCollapsed(`[CMSwift.rod.inspect] ${label}`);
+    if (JSswift.config.debug) {
+      console.groupCollapsed(`[JSswift.rod.inspect] ${label}`);
       console.log(info);
       console.groupEnd();
     } else {
@@ -36,8 +36,8 @@
     return info;
   };
 
-  CMSwift.rod.inspectAll = function () {
-    const all = CMSwift.rod._all ? Array.from(CMSwift.rod._all) : [];
-    all.forEach((r, i) => CMSwift.rod.inspect(r, `rod#${i + 1}`));
+  JSswift.rod.inspectAll = function () {
+    const all = JSswift.rod._all ? Array.from(JSswift.rod._all) : [];
+    all.forEach((r, i) => JSswift.rod.inspect(r, `rod#${i + 1}`));
     return all.length;
   };

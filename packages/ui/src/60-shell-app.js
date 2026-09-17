@@ -1,5 +1,5 @@
 UI.Header = (...args) => {
-  const { props: rawProps, children } = CMSwift.uiNormalizeArgs(args);
+  const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
   const slots = rawProps.slots || {};
   const props = { ...rawProps };
   applyCommonProps(props);
@@ -37,16 +37,16 @@ UI.Header = (...args) => {
     host.appendChild(document.createTextNode(String(value)));
   };
   const renderPropNodes = (name, fallback, map = (value) => value) => {
-    const slot = CMSwift.ui.getSlot(slots, name);
+    const slot = JSswift.ui.getSlot(slots, name);
     if (slot !== null && slot !== undefined) {
       return renderSlotToArray(slots, name, ctx, null);
     }
     if (typeof fallback === "function") {
       const inlineNames = new Set(["eyebrow", "title", "subtitle"]);
       const host = _[inlineNames.has(name) ? "span" : "div"]({ class: `cms-header-slot-${name}` });
-      CMSwift.reactive.effect(() => {
+      JSswift.reactive.effect(() => {
         const nextValue = map(fallback(ctx));
-        const normalized = flattenSlotValue(CMSwift.ui.slot(nextValue));
+        const normalized = flattenSlotValue(JSswift.ui.slot(nextValue));
         host.replaceChildren();
         if (Array.isArray(normalized)) normalized.forEach((item) => appendResolvedValue(host, item));
         else appendResolvedValue(host, normalized);
@@ -59,13 +59,13 @@ UI.Header = (...args) => {
   const renderIconValue = (value, as = "icon", sizeFallback = rawProps.iconSize || rawProps.size || "md") => {
     if (value == null || value === false) return null;
     if (typeof value === "string") return UI.Icon({ name: value, size: sizeFallback });
-    return CMSwift.ui.slot(value, { as });
+    return JSswift.ui.slot(value, { as });
   };
   const renderDrawerToggleValue = (open) => {
     const value = open ? (rawProps.drawerOpenIcon ?? "✕") : (rawProps.drawerCloseIcon ?? "☰");
     if (value == null || value === false) return null;
     if (typeof value === "string") return value;
-    return CMSwift.ui.slot(value, { as: open ? "drawerOpenIcon" : "drawerCloseIcon" });
+    return JSswift.ui.slot(value, { as: open ? "drawerOpenIcon" : "drawerCloseIcon" });
   };
 
   const toggleIconHost = _.span({ class: "cms-header-toggle-icon" });
@@ -82,7 +82,7 @@ UI.Header = (...args) => {
     onClick: toggleDrawer,
     "aria-label": rawProps.toggleLabel || "Toggle navigation"
   }, toggleIconHost);
-  if (rawProps.left == null && rawProps.left !== false && !CMSwift.ui.getSlot(slots, "left")) {
+  if (rawProps.left == null && rawProps.left !== false && !JSswift.ui.getSlot(slots, "left")) {
     drawerToggleIcons.add({ update: paintToggleIcon });
   }
 
@@ -140,7 +140,7 @@ UI.Header = (...args) => {
     ...(actionNodes.length ? [_.div({ class: uiClass(["cms-header-actions", rawProps.actionsClass]) }, ...actionNodes)] : [])
   ];
 
-  const p = CMSwift.omit(props, [
+  const p = JSswift.omit(props, [
     "actions", "actionsClass", "body", "bodyClass", "centerClass", "content", "contentClass",
     "description", "divider", "drawerCloseIcon", "drawerOpenIcon", "drawerStateKey", "elevated",
     "end", "eyebrow", "eyebrowClass", "icon", "iconSize", "kicker", "label", "left", "meta",
@@ -176,7 +176,7 @@ UI.Header = (...args) => {
   setPropertyProps(el, rawProps);
   return el;
 };
-if (CMSwift.isDev?.()) {
+if (JSswift.isDev?.()) {
   UI.meta = UI.meta || {};
   UI.meta.Header = {
     signature: "UI.Header(...children) | UI.Header(props, ...children)",
@@ -225,7 +225,7 @@ if (CMSwift.isDev?.()) {
 }
 
 UI.Drawer = (...args) => {
-  const { props: rawProps, children } = CMSwift.uiNormalizeArgs(args);
+  const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
   const slots = rawProps.slots || {};
   const props = { ...rawProps };
   const hasOwn = (key) => Object.prototype.hasOwnProperty.call(rawProps, key);
@@ -249,7 +249,7 @@ UI.Drawer = (...args) => {
     toggleAside: toggleDrawer
   };
 
-  const store = CMSwift?.store;
+  const store = JSswift?.store;
   const canStore = !!(store?.get && store?.set);
   const groupStateKey = `${currentStateKey}:groups`;
   const activeStateKey = `${currentStateKey}:active`;
@@ -267,7 +267,7 @@ UI.Drawer = (...args) => {
   const renderArea = (names, fallback, localCtx = ctx) => {
     const list = Array.isArray(names) ? names : [names];
     for (const name of list) {
-      if (CMSwift.ui.getSlot(slots, name) != null) {
+      if (JSswift.ui.getSlot(slots, name) != null) {
         return renderSlotToArray(slots, name, localCtx, fallback);
       }
     }
@@ -275,7 +275,7 @@ UI.Drawer = (...args) => {
   };
   const hasArea = (names) => {
     const list = Array.isArray(names) ? names : [names];
-    return list.some((name) => CMSwift.ui.getSlot(slots, name) != null);
+    return list.some((name) => JSswift.ui.getSlot(slots, name) != null);
   };
 
   const isExternalLink = (it) => {
@@ -340,7 +340,7 @@ UI.Drawer = (...args) => {
     if (raw == null || raw === false) return [];
     const slotValue = typeof raw === "string"
       ? UI.Icon({ name: raw, size: localCtx.iconSize ?? itemIconSize })
-      : CMSwift.ui.slot(raw, { ...localCtx, as: "icon" });
+      : JSswift.ui.slot(raw, { ...localCtx, as: "icon" });
     return renderSlotToArray(null, "default", localCtx, slotValue);
   };
   const wrapIconNodes = (icon, side, localCtx = {}) => {
@@ -680,7 +680,7 @@ UI.Drawer = (...args) => {
   const footerNodes = renderArea(["footer"], rawProps.footer);
   const finalBodyNodes = bodyNodes.length ? bodyNodes : renderArea(["empty"], emptyFallback);
 
-  const p = CMSwift.omit(props, [
+  const p = JSswift.omit(props, [
     "items", "header", "footer", "before", "beforeItems", "after", "afterItems",
     "title", "subtitle", "eyebrow", "icon", "content", "meta", "actions",
     "empty", "emptyText", "closeOnSelect", "groupOpenIcon", "groupCloseIcon",
@@ -722,7 +722,7 @@ UI.Drawer = (...args) => {
   syncActiveClasses();
   return drawerEl;
 };
-if (CMSwift.isDev?.()) {
+if (JSswift.isDev?.()) {
   UI.meta = UI.meta || {};
   UI.meta.Drawer = {
     signature: "UI.Drawer(props)",
@@ -785,7 +785,7 @@ if (CMSwift.isDev?.()) {
 }
 
 UI.Page = (...args) => {
-  const { props: rawProps, children } = CMSwift.uiNormalizeArgs(args);
+  const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
   const slots = rawProps.slots || {};
   const props = { ...rawProps };
 
@@ -795,7 +795,7 @@ UI.Page = (...args) => {
   const renderIconFallback = (value) => {
     if (value == null) return null;
     if (typeof value === "string") return UI.Icon({ name: value, size: rawProps.iconSize || rawProps.size || "xl" });
-    return CMSwift.ui.slot(value, { as: "icon" });
+    return JSswift.ui.slot(value, { as: "icon" });
   };
 
   const ctx = {
@@ -817,16 +817,16 @@ UI.Page = (...args) => {
     host.appendChild(document.createTextNode(String(value)));
   };
   const renderPropNodes = (name, fallback, map = (value) => value) => {
-    const slot = CMSwift.ui.getSlot(slots, name);
+    const slot = JSswift.ui.getSlot(slots, name);
     if (slot !== null && slot !== undefined) {
       return renderSlotToArray(slots, name, ctx, null);
     }
     if (typeof fallback === "function") {
       const inlineNames = new Set(["eyebrow", "title", "subtitle"]);
       const host = _[inlineNames.has(name) ? "span" : "div"]({ class: `cms-page-slot-${name}` });
-      CMSwift.reactive.effect(() => {
+      JSswift.reactive.effect(() => {
         const nextValue = map(fallback(ctx));
-        const normalized = flattenSlotValue(CMSwift.ui.slot(nextValue));
+        const normalized = flattenSlotValue(JSswift.ui.slot(nextValue));
         host.replaceChildren();
         if (Array.isArray(normalized)) normalized.forEach((item) => appendResolvedValue(host, item));
         else appendResolvedValue(host, normalized);
@@ -905,7 +905,7 @@ UI.Page = (...args) => {
 
   const hasHero = !!(heroNodes.length || sectionNodes.hero.length);
   const hasHeader = !!(hasStructuredHeader || sectionNodes.header.length);
-  const p = CMSwift.omit(props, [
+  const p = JSswift.omit(props, [
     "actions", "aside", "asideClass", "banner", "body", "bodyClass", "centered", "content",
     "dense", "description", "eyebrow", "eyebrowClass", "flat", "footer", "footerClass",
     "gap", "header", "headerClass", "headerContentClass", "headerGap", "hero", "heroClass",
@@ -959,7 +959,7 @@ UI.Page = (...args) => {
   setPropertyProps(el, rawProps);
   return el;
 };
-if (CMSwift.isDev?.()) {
+if (JSswift.isDev?.()) {
   UI.meta = UI.meta || {};
   UI.meta.Page = {
     signature: "UI.Page(...children) | UI.Page(props, ...children)",
@@ -1007,7 +1007,7 @@ if (CMSwift.isDev?.()) {
 }
 
 UI.AppShell = (...args) => {
-  const { props, children } = CMSwift.uiNormalizeArgs(args);
+  const { props, children } = JSswift.uiNormalizeArgs(args);
   const slots = props.slots || {};
   const hasOwn = (obj, key) => !!obj && Object.prototype.hasOwnProperty.call(obj, key);
 
@@ -1095,7 +1095,7 @@ UI.AppShell = (...args) => {
     props.class
   ]);
 
-  const p = CMSwift.omit(props, [
+  const p = JSswift.omit(props, [
     "header", "drawer", "page", "footer", "content",
     "title", "subtitle", "left", "right",
     "items", "drawerItems", "drawerHeader",
@@ -1152,7 +1152,7 @@ UI.AppShell = (...args) => {
   setPropertyProps(root, props);
   return root;
 };
-if (CMSwift.isDev?.()) {
+if (JSswift.isDev?.()) {
   UI.meta = UI.meta || {};
   UI.meta.AppShell = {
     signature: "UI.AppShell(...children) | UI.AppShell(props, ...children)",
@@ -1201,7 +1201,7 @@ if (CMSwift.isDev?.()) {
 }
 
 UI.Parallax = function Parallax(...args) {
-  const { props: rawProps, children } = CMSwift.uiNormalizeArgs(args);
+  const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
   const slots = rawProps.slots || {};
   const props = { ...rawProps };
 
@@ -1286,7 +1286,7 @@ UI.Parallax = function Parallax(...args) {
     )
     : null;
 
-  const wrapProps = CMSwift.omit(props, [
+  const wrapProps = JSswift.omit(props, [
     "actions", "align", "aside", "asideClass", "background", "backgroundContent", "backgroundContentClass",
     "badge", "badgeClass", "bgClass", "bgPosition", "bgRepeat", "bgSize", "body", "bodyClass", "color",
     "content", "contentClass", "contentMaxWidth", "disabled", "eyebrow", "eyebrowClass", "footer",
@@ -1412,7 +1412,7 @@ UI.Parallax = function Parallax(...args) {
   setPropertyProps(wrap, rawProps);
   return wrap;
 };
-if (CMSwift.isDev?.()) {
+if (JSswift.isDev?.()) {
   UI.meta = UI.meta || {};
   UI.meta.Parallax = {
     signature: "UI.Parallax(...children) | UI.Parallax(props, ...children)",

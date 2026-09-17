@@ -1,4 +1,4 @@
-# CMSwift v1.0.4 Release Notes
+# JSswift v1.0.4 Release Notes
 
 Status:
 
@@ -6,13 +6,13 @@ Status:
 
 ## Summary
 
-`v1.0.4` adds a complete lightweight theme API to the CMSwift core and aligns the demo theme toggle with that runtime behavior.
+`v1.0.4` adds a complete lightweight theme API to the JSswift core and aligns the demo theme toggle with that runtime behavior.
 
 ## Added
 
-- `CMSwift.setTheme(theme)`
-- `CMSwift.getTheme()`
-- `CMSwift.toggleTheme(themes)`
+- `JSswift.setTheme(theme)`
+- `JSswift.getTheme()`
+- `JSswift.toggleTheme(themes)`
 - automatic saved-theme restore from `localStorage`
 - multi-theme toggle support that works with any ordered list of theme names
 
@@ -29,5 +29,5 @@ Status:
 ## Compatibility
 
 - existing CSS rules based on `:root[data-theme="..."]` keep working unchanged
-- consumers can keep calling `CMSwift.setTheme("dark")` as before
-- projects that need more than two themes can now pass an explicit ordered list to `CMSwift.toggleTheme([...])`
+- consumers can keep calling `JSswift.setTheme("dark")` as before
+- projects that need more than two themes can now pass an explicit ordered list to `JSswift.toggleTheme([...])`
