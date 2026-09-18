@@ -32,8 +32,7 @@
     "gen:ui-dts:watch": "node cms-dev/generate-ui-dts.mjs --watch"
   },
   "devDependencies": {
-    "vite": "^7.2.4",
-    "express": "^5.2.1"
-  },
-  "dependencies": {}
+    "express": "^5.2.1",
+    "vite": "^8.3.0"
+  }
 }
