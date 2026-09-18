@@ -232,7 +232,7 @@ The format is kept intentionally simple:
 ### Docs
 
 - added the public `README.md`
-- added `docs/reference/core.md` and `docs/reference/ui.md` as technical references
+- added `docDevelop/reference/core.md` and `docDevelop/reference/ui.md` as technical references
 - added `LICENSE`
 
 ## Notes

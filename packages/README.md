@@ -20,6 +20,6 @@ This folder contains the package-oriented structure of the framework.
 ## Documentation
 
 - `../README.md`
-- `../docs/reference/core.md`
-- `../docs/reference/ui.md`
-- `../docs/policy/stability.md`
+- `../docDevelop/reference/core.md`
+- `../docDevelop/reference/ui.md`
+- `../docDevelop/policy/stability.md`

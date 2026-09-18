@@ -43,8 +43,8 @@
   JSswift.meta = JSswift.meta || {
     version: "1.0.23",
     policy: {
-      sourceOfTruth: "docs/reference/core.md",
-      syncRule: "Quando cambia un modulo core, aggiornare sia questo meta sia docs/reference/core.md."
+      sourceOfTruth: "docDevelop/reference/core.md",
+      syncRule: "Quando cambia un modulo core, aggiornare sia questo meta sia docDevelop/reference/core.md."
     },
     modules: {
       render: {

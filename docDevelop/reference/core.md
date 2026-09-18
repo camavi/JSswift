@@ -36,7 +36,7 @@ Current product reading:
 
 - the core is structurally usable
 - the next steps are mostly product discipline, documentation, and targeted hardening
-- the main release gate now lives in `docs/release/release-plan-v1.md`
+- the main release gate now lives in `docDevelop/release/release-plan-v1.md`
 
 ## Core Areas
 
@@ -278,6 +278,6 @@ Important core milestones reached during the current package-oriented phase:
 
 This document intentionally focuses on the current contract rather than preserving every intermediate milestone note. Historical release details remain in:
 
-- `docs/release/release-plan-v1.md`
-- `docs/release/release-notes-v1.0.0.md`
-- `docs/release/release-notes-v1.0.1.md`
+- `docDevelop/release/release-plan-v1.md`
+- `docDevelop/release/release-notes-v1.0.0.md`
+- `docDevelop/release/release-notes-v1.0.1.md`

@@ -1,4 +1,4 @@
-# JSswift Docs
+# JSswift technical reference index
 
 Index of the technical documentation for the framework repository.
 

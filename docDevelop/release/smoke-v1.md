@@ -85,4 +85,4 @@ The release can continue only if:
 
 - [x] all checks above have passed
 - [x] any failures are documented and closed
-- [x] no blockers remain open in `docs/release/release-plan-v1.md`
+- [x] no blockers remain open in `docDevelop/release/release-plan-v1.md`

@@ -150,7 +150,7 @@ Rules:
 - migrate one family at a time
 - rebuild the UI package
 - verify against the relevant demos
-- update `docs/reference/ui.md`
+- update `docDevelop/reference/ui.md`
 
 Notes:
 

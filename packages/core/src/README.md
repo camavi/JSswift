@@ -55,4 +55,4 @@ Rules:
 - edit files in `packages/core/src/`
 - rebuild the core package
 - run `npm test`
-- update `docs/reference/core.md` if the technical contract changes
+- update `docDevelop/reference/core.md` if the technical contract changes

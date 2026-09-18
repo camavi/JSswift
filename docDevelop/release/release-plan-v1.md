@@ -82,7 +82,7 @@ Required artifacts:
 
 Historical closure:
 
-- baseline policy landed in `docs/policy/stability.md`
+- baseline policy landed in `docDevelop/policy/stability.md`
 - stable vs unstable boundaries were fixed for the initial baseline
 
 ### 1.3 Browser Release Smoke
@@ -98,7 +98,7 @@ Required before release:
 
 Historical closure:
 
-- smoke checklist created in `docs/release/smoke-v1.md`
+- smoke checklist created in `docDevelop/release/smoke-v1.md`
 - local HTTP preflight was executed outside sandbox
 - manual browser smoke was recorded as passed
 
