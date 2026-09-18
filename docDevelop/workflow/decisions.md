@@ -19,3 +19,9 @@ Record only decisions that change future framework work: context, decision, cons
 - Context: Vite's updated dependency tree exposed low and moderate advisories in transitive Express dependencies.
 - Decision: apply the `npm audit fix` remediation without `--force`.
 - Consequences: `body-parser` and `qs` are patched without a direct dependency or API change.
+
+## 2026-09-18 — Use absolute Vite multi-page inputs
+
+- Context: Vite 8 resolves dependency-scan inputs relative to the configured `pages` root.
+- Decision: generate absolute HTML entry paths for the Rollup input map.
+- Consequences: production builds and development dependency scanning resolve the same entries.

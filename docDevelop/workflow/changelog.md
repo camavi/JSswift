@@ -19,3 +19,9 @@ Record significant completed framework work: date, outcome, affected areas, and 
 - Outcome: resolved the `body-parser` and `qs` audit advisories through compatible transitive dependency updates.
 - Areas: root package lockfile.
 - Verification: `npm audit` reports zero vulnerabilities; `npm run build` and `npm test` pass.
+
+## 2026-09-18 — Vite 8 HTML entry resolution
+
+- Outcome: made the Vite multi-page HTML inputs absolute so dependency scanning works with `root: "pages"`.
+- Areas: Vite configuration.
+- Verification: `npm run build` and a Vite development request to `/developers.html` complete without a dependency-scan error.

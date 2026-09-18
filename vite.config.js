@@ -19,7 +19,7 @@ export default defineConfig({
     outDir: "../dist",
     emptyOutDir: true,
     rollupOptions: {
-      input: getHtmlEntries("pages"),
+      input: getHtmlEntries(path.resolve("pages")),
     },
   },
 });
