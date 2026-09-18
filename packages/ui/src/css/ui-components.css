@@ -8608,7 +8608,7 @@ a.cms-breadcrumb {
 }
 
 .cms-singularity-check.cms-choice-wrap.is-checked .cms-choice-mark .cms-icon {
-  color: color-mix(in srgb, var(--set-hover), var(--cms-theme-color-9) 50%);
+  color: var(--set-color-1);
 }
 
 .cms-singularity-field.cms-field-fill>.cms-control {

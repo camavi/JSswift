@@ -146,10 +146,10 @@ CSS source rules:
 - edit `cms-dev/make-responsive-css.mjs`, not generated responsive CSS files
 - generated CSS entry: `packages/ui/dist/css/responsive.css`
 - umbrella generated CSS entry: `packages/jsswift/dist/css/responsive.css`
-- bundled UI CSS includes responsive rules before component rules; responsive
-  custom-property selectors are activated per property and breakpoint so an
-  undefined responsive variable never resets component defaults from
-  `ui-components.css`
+- bundled UI CSS places component rules before responsive rules, so documented
+  responsive values win over component defaults when normal cascade rules apply
+- responsive custom-property selectors are activated per property and breakpoint,
+  so an undefined responsive variable never resets component defaults
 
 ## Canonical Usage Patterns
 

@@ -15,17 +15,17 @@ const LEGACY_DIR = LEGACY_SOURCE_DIR;
 
 const COPY_FILES = [
   "base.css",
-  "responsive.css",
   "animation.css",
   "docs.css",
   "ui-components.css",
+  "responsive.css",
 ];
 
 const BUNDLE_FILES = [
   "base.css",
-  "responsive.css",
   "animation.css",
   "ui-components.css",
+  "responsive.css",
 ];
 
 fs.mkdirSync(DIST_DIR, { recursive: true });

@@ -15,7 +15,9 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node tools/dev.mjs",
+    "dev:vite": "vite",
+    "watch:ui:css": "node tools/watch-ui-css.mjs",
     "build": "vite build",
     "build:cms": "node tools/build-cms.mjs",
     "build:ui:assets": "node tools/build-ui-assets.mjs",
