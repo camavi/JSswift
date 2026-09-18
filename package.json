@@ -32,6 +32,7 @@
     "gen:ui-dts:watch": "node cms-dev/generate-ui-dts.mjs --watch"
   },
   "devDependencies": {
+    "esbuild": "^0.28.2",
     "express": "^5.2.1",
     "vite": "^8.3.0"
   }

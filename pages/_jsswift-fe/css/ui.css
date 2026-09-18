@@ -9354,8 +9354,15 @@ a.cms-breadcrumb {
   --set-color: var(--set-color-1);
 }
 
-.cms-singularity-check.cms-choice-wrap.is-checked .cms-choice-mark .cms-icon {
+.cms-singularity-check:not([class*='cms-state-']) .cms-choice-mark {
+  color: var(--set-color);
+  background-color: var(--cms-theme-color-3);
+}
+[class*='cms-state-'].cms-singularity-check.cms-choice-wrap.is-checked .cms-choice-mark .cms-icon {
   color: var(--set-color-1);
+}
+[class*='cms-state-light'].cms-singularity-check.cms-choice-wrap.is-checked .cms-choice-mark .cms-icon {
+  color: black;
 }
 
 .cms-singularity-field.cms-field-fill>.cms-control {
