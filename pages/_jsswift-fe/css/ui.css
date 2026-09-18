@@ -9016,10 +9016,10 @@ a.cms-breadcrumb {
   color: var(--cms-primary-text);
 }
 
-.cms-state-secondary,
+.cms-state-secondary:not(.cms-outline, .cms-dialog, .cms-menu-panel),
 .cms-state-secondary>.cms-control {
   --set-border-color: var(--cms-secondary-hover);
-  --set-color: var(--cms-secondary-text);
+  --set-color: var(--set-color-1);
   --set-background-color: var(--cms-secondary);
   --set-shadow: 0 3px 6px color-mix(in srgb, var(--cms-gray-600) 40%, transparent);
   --set-hover: var(--cms-secondary-hover);
@@ -9346,12 +9346,14 @@ a.cms-breadcrumb {
 }
 
 /*tutti che iniziano con cms-state-*/
-[class*='cms-state-']:not(.cms-outline, .cms-state-secondary, .cms-dialog) {
+.cms-btn:not([class*='cms-state-']):not(.cms-outline, .cms-state-secondary, .cms-dialog, .cms-menu-panel) {
+  --set-color: var(--cms-text);
+}
+[class*='cms-state-']:not(.cms-outline, .cms-state-secondary, .cms-dialog, .cms-menu-panel) {
   --set-color: var(--set-color-1);
 }
-
-.cms-state-secondary:not(.cms-outline, .cms-dialog) {
-  --set-color: var(--set-color-1);
+[class*='cms-state-light']:not(.cms-outline, .cms-state-secondary, .cms-dialog, .cms-menu-panel) {
+  --set-color: var(--cms-dark);
 }
 
 .cms-singularity-check:not([class*='cms-state-']) .cms-choice-mark {

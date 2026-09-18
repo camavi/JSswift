@@ -109,9 +109,6 @@ JSswift.ready(() => {
             placeholder: "Cerca pagine...",
           }),
           _.Checkbox({ model: [getUpdates, setUpdates] }, t("updatesLabel")),
-          _.Checkbox({ color: "success", model: [getUpdates, setUpdates] }, t("updatesLabel")),
-          _.Checkbox({ color: "dark", model: [getUpdates, setUpdates] }, t("updatesLabel")),
-          _.Checkbox({ color: "light", model: [getUpdates, setUpdates] }, t("updatesLabel")),
           _.input({ placeholder: 'prova', name: "test" }),
           _.Input({ placeholder: 'prova', name: "test", iconRight: _.Icon({name:'search', tooltip:"Cerca"}) }),
           _.Datepicker({ model: dateModel, mode: "range", label: t("updatesLabel") }),
@@ -178,7 +175,18 @@ JSswift.ready(() => {
               loading: true,
               loadingSize: 16,
               color: "primary",
-            })
+            }),
+            _.Btn({
+              label: "None",
+            }),
+            _.Btn({
+              label: "Dark",
+              color: "dark",
+            }),
+            _.Btn({
+              label: "Light",
+              color: "light",
+            }),
           ),
           _.div(
 
