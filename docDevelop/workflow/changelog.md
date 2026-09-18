@@ -13,3 +13,9 @@ Record significant completed framework work: date, outcome, affected areas, and 
 - Outcome: upgraded Vite from 7.3.2 to 8.3.0.
 - Areas: root package manifest and lockfile.
 - Verification: `npm run build`, `npm test` (55 passing), and `npm run test:browser` (10 passing).
+
+## 2026-09-18 — Dependency security remediation
+
+- Outcome: resolved the `body-parser` and `qs` audit advisories through compatible transitive dependency updates.
+- Areas: root package lockfile.
+- Verification: `npm audit` reports zero vulnerabilities; `npm run build` and `npm test` pass.
