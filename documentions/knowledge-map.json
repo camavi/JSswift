@@ -4,6 +4,24 @@
   "entrypoint": "README.md",
   "topics": [
     {
+      "id": "ai-quick-start",
+      "title": "AI quick start and shared styling",
+      "keywords": [
+        "AI.md",
+        "quick start",
+        "percorso breve",
+        "esempi minimi",
+        "callback",
+        "common props",
+        "proprietà comuni",
+        "CSS"
+      ],
+      "paths": [
+        "AI.md",
+        "ui/common-props.md"
+      ]
+    },
+    {
       "id": "getting-started",
       "title": "First application or screen",
       "keywords": [

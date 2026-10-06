@@ -385,56 +385,7 @@
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Tabs = {
-      signature: "UI.Tabs(props) | UI.Tabs(props, ...children)",
-      props: {
-        tabs: "Array<{ value|name|id|key, label|title, note|subtitle|description, icon, badge|counter, disabled, hidden, onClick }>",
-        items: "Alias of tabs",
-        value: "any",
-        defaultValue: "any",
-        default: "Alias of defaultValue",
-        model: "[get,set] signal",
-        orientation: "horizontal|vertical",
-        variant: "line|pills|soft",
-        fill: "boolean",
-        wrap: "boolean",
-        disabled: "boolean",
-        color: "string",
-        state: "string",
-        gap: "string|number",
-        tabGap: "string|number",
-        align: "string",
-        justify: "string",
-        size: "string|number",
-        dense: "boolean",
-        navClass: "string",
-        tabClass: "string",
-        itemClass: "string",
-        slots: "{ nav?, tab?, label?, icon?, note?, badge?, extra?, empty?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        nav: "Full nav renderer",
-        tab: "Single tab renderer",
-        label: "Label renderer",
-        icon: "Icon renderer",
-        note: "Note renderer",
-        badge: "Badge/counter renderer",
-        extra: "Extra area next to the nav",
-        empty: "Fallback when tabs/items are empty",
-        default: "Children / extra content fallback"
-      },
-      events: {
-        onChange: "(value, tab, event, index)"
-      },
-      keyboard: ["Enter/Space", "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"],
-      returns: "HTMLDivElement con ._getValue(), ._setValue(value), ._select(value), ._next(), ._prev(), ._getTabs()",
-      description: "Standardized tab bar with controlled/uncontrolled support, structured slots, badge/note/icon, and keyboard navigation."
-    };
-  }
+
   // Esempio: JSswift.ui.Tabs({ tabs: [{ label: "Overview", value: "overview", icon: "dashboard" }], model: [get,set] })
 
   UI.RouteTab = (...args) => {
@@ -657,50 +608,7 @@
     wrap._navigate = (event) => ctx().navigate(event);
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.RouteTab = {
-      signature: "UI.RouteTab(...children) | UI.RouteTab(props, ...children)",
-      props: {
-        label: "String|Node|Function|Array",
-        to: "string",
-        href: "string",
-        active: "boolean",
-        selected: "Alias of active",
-        match: "\"exact\"|\"startsWith\"|RegExp|Function|string",
-        matchMode: "\"exact\"|\"startsWith\"",
-        exact: "boolean",
-        startsWith: "boolean",
-        note: "String|Node|Function|Array",
-        badge: "String|Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        iconRight: "String|Node|Function|Array",
-        aside: "Node|Function|Array",
-        variant: "\"line\"|\"pills\"|\"soft\"",
-        disabled: "boolean",
-        block: "boolean",
-        state: "string",
-        color: "string",
-        slots: "{ icon?, label?, note?, badge?, aside?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        icon: "Leading icon content",
-        label: "Main label content",
-        note: "Secondary note/caption",
-        badge: "Badge / counter area",
-        aside: "Trailing visual/action area",
-        default: "Extra content under the note"
-      },
-      events: {
-        onClick: "MouseEvent",
-        onNavigate: "(to, event)"
-      },
-      returns: "HTMLAnchorElement con ._isActive(), ._setActive(boolean|null), ._navigate(event?)",
-      description: "Standardized tab/link for router or href navigation, with structured slots, states, and badges."
-    };
-  }
+
   // Esempio: JSswift.ui.RouteTab({ label: "Home", to: "/" })
 
   UI.Breadcrumbs = (...args) => {
@@ -1065,55 +973,7 @@
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Breadcrumbs = {
-      signature: "UI.Breadcrumbs(props)",
-      props: {
-        items: "Array<string|number|Node|Function|{ label?, to?, href?, icon?, note?, badge?, current?, disabled?, hidden?, slots? }>",
-        model: "[get,set] signal|Array",
-        home: "boolean|Object",
-        separator: "string|Node|Function",
-        before: "Node|Function|Array",
-        after: "Node|Function|Array",
-        empty: "Node|Function|Array",
-        variant: "\"line\"|\"pills\"|\"soft\"",
-        max: "number",
-        leadingCount: "number",
-        trailingCount: "number",
-        dense: "boolean",
-        wrap: "boolean",
-        nowrap: "boolean",
-        linkCurrent: "boolean",
-        color: "string",
-        state: "string",
-        itemSize: "string|number",
-        ariaLabel: "string",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        before: "Content before breadcrumb list",
-        after: "Content after breadcrumb list",
-        item: "Full renderer for a breadcrumb entry",
-        icon: "Leading icon for each breadcrumb",
-        label: "Main breadcrumb label",
-        note: "Secondary line for the breadcrumb",
-        badge: "Badge/counter area",
-        aside: "Trailing area",
-        default: "Extra content under note",
-        separator: "Separator renderer",
-        collapsed: "Renderer for collapsed middle items",
-        empty: "Renderer for empty state"
-      },
-      events: {
-        onItemClick: "(item, ctx, event)",
-        onNavigate: "(toOrHref, item, event)"
-      },
-      returns: "HTMLElement <nav> con .getItems(), .getVisibleItems(), .refresh(), .setItems(items)",
-      description: "Breadcrumbs standardizzati con item strutturati, slot completi, collapse automatico e supporto a link/router."
-    };
-  }
+
   // Esempio: JSswift.ui.Breadcrumbs({ items: [{ label: "Home", to: "/" }, { label: "Pagina" }] })
 
   UI.Pagination = (...args) => {
@@ -1397,58 +1257,6 @@
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Pagination = {
-      signature: "UI.Pagination(props)",
-      props: {
-        max: "number",
-        pages: "number",
-        total: "number",
-        pageSize: "number",
-        value: "number",
-        page: "number",
-        model: "[get,set] signal",
-        showPages: "boolean",
-        showSummary: "boolean",
-        showLabel: "boolean",
-        showPrev: "boolean",
-        showNext: "boolean",
-        showFirst: "boolean",
-        showLast: "boolean",
-        showEdges: "boolean",
-        siblings: "number",
-        boundaryCount: "number",
-        hideOnSinglePage: "boolean",
-        size: "xxs|xs|sm|md|lg|xl|xxl|xxxl",
-        dense: "boolean",
-        simple: "boolean",
-        color: "primary|secondary|warning|danger|success|info|light|dark",
-        state: "primary|secondary|warning|danger|success|info|light|dark",
-        slots: "{ start?, end?, first?, prev?, page?, item?, ellipsis?, next?, last?, summary?, label? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        start: "Content before the controls",
-        end: "Content after the controls",
-        first: "First button content",
-        prev: "Prev button content",
-        page: "Page item content (ctx: { page, active, pages })",
-        item: "Alias of page",
-        ellipsis: "Ellipsis content",
-        next: "Next button content",
-        last: "Last button content",
-        summary: "Summary content",
-        label: "Alias legacy di summary"
-      },
-      events: {
-        onChange: "(page, ctx, event)",
-        onPageChange: "(page, ctx, event)"
-      },
-      returns: "HTMLElement <nav>",
-      description: "Paginazione standard con controlli edge, numeri, ellissi, summary e supporto total/pageSize."
-    };
-  }
+
   // Esempio: JSswift.ui.Pagination({ total: 120, pageSize: 12, model: [get,set], showEdges: true })
 

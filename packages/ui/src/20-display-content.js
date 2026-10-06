@@ -123,39 +123,7 @@
     setPropertyProps(icon, props);
     return wrapIcon(icon);
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Icon = {
-      signature: "UI.Icon(name) | UI.Icon(props) | UI.Icon(props, ...children)",
-      props: {
-        name: "string|Node|Function",
-        size: "number|string",
-        color: "string",
-        shadow: "boolean|string",
-        lightShadow: "boolean",
-        clickable: "boolean",
-        border: "boolean",
-        glossy: "boolean",
-        glow: "boolean",
-        glass: "boolean",
-        gradient: "boolean|number",
-        outline: "boolean",
-        textGradient: "boolean",
-        radius: "number|string",
-        spriteUrl: "string",
-        tooltip: "String|Node|Function|Object",
-        tooltipProps: "object",
-        slots: "{ default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "Custom icon content"
-      },
-      returns: "HTMLSpanElement",
-      description: "Sprite- or text-based icon with configurable size/color."
-    };
-  }
+
   // Esempio: JSswift.ui.Icon({ name: "home", size: 18 })
 
   UI.Badge = (...args) => {
@@ -297,46 +265,7 @@
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Badge = {
-      signature: "UI.Badge(...children) | UI.Badge(props, ...children)",
-      props: {
-        label: "String|Node|Function|Array",
-        color: "string",
-        size: "string|number",
-        outline: "boolean",
-        notification: "string|number|Node|Function|[get,set] signal",
-        iconSize: "string|number",
-        topLeft: "String|Node|Function|Array",
-        topRight: "String|Node|Function|Array",
-        bottomLeft: "String|Node|Function|Array",
-        bottomRight: "String|Node|Function|Array",
-        centerLeft: "String|Node|Function|Array",
-        centerRight: "String|Node|Function|Array",
-        left: "String|Node|Function|Array",
-        right: "String|Node|Function|Array",
-        slots: "{ label?, default?, notification?, topLeft?, topRight?, bottomLeft?, bottomRight?, left?, right? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        label: "Badge label content",
-        default: "Fallback content",
-        notification: "Notification badge content",
-        topLeft: "Icon anchored top-left",
-        topRight: "Icon anchored top-right",
-        bottomLeft: "Icon anchored bottom-left",
-        bottomRight: "Icon anchored bottom-right",
-        centerLeft: "Icon anchored center-left",
-        centerRight: "Icon anchored center-right",
-        left: "Icon anchored left",
-        right: "Icon anchored right"
-      },
-      returns: "HTMLSpanElement",
-      description: "Inline badge with reactive notification and 6 positionable icon slots."
-    };
-  }
+
   // Esempio: JSswift.ui.Badge({ label: "New" })
 
   const avatarGetInitials = (value) => {
@@ -534,62 +463,7 @@
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Avatar = {
-      signature: "UI.Avatar(...children) | UI.Avatar(props, ...children)",
-      props: {
-        src: "string",
-        srcset: "string",
-        sizes: "string",
-        alt: "string",
-        label: "String|Node|Function|Array",
-        name: "string",
-        initials: "string|Node|Function|Array",
-        text: "string|Node|Function|Array",
-        size: "number|string",
-        fontSize: "number|string",
-        radius: "number|string",
-        square: "boolean",
-        elevated: "boolean",
-        color: "string",
-        state: "string",
-        icon: "string|Node|Function|Array",
-        iconSize: "number|string",
-        media: "Node|Function|Array",
-        fit: "cover|contain|fill|scale-down|none",
-        badge: "string|number|Node|Function|Array",
-        notification: "string|number|Node|Function|Array",
-        status: "boolean|string|number|Node|Function|Array",
-        statusColor: "success|warning|danger|info|primary|secondary|dark|light|string",
-        topLeft: "Node|Function|Array",
-        topRight: "Node|Function|Array",
-        bottomLeft: "Node|Function|Array",
-        bottomRight: "Node|Function|Array",
-        slots: "{ media?, default?, fallback?, label?, icon?, badge?, status?, topLeft?, topRight?, bottomLeft?, bottomRight? }",
-        mobile: "{ width?, height?, minWidth?, maxWidth?, padding?, margin?, radius? }",
-        tablet: "{ width?, height?, minWidth?, maxWidth?, padding?, margin?, radius? }",
-        pc: "{ width?, height?, minWidth?, maxWidth?, padding?, margin?, radius? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        media: "Custom main media",
-        default: "Custom main content instead of image or fallback",
-        fallback: "Fallback custom quando non c'e immagine",
-        label: "Fallback testuale / initials",
-        icon: "Fallback icon",
-        badge: "Badge overlay, di default top-right",
-        status: "Presence dot or overlay content, bottom-right by default",
-        topLeft: "Top-left overlay content",
-        topRight: "Top-right overlay content",
-        bottomLeft: "Bottom-left overlay content",
-        bottomRight: "Bottom-right overlay content"
-      },
-      returns: "HTMLDivElement",
-      description: "Flexible avatar with image, smart fallbacks, states, badge, and overlay slots."
-    };
-  }
+
   // Esempio: JSswift.ui.Avatar({ label: "CM" })
 
   UI.Chip = (...args) => {
@@ -639,35 +513,7 @@
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Chip = {
-      signature: "UI.Chip(...children) | UI.Chip(props, ...children)",
-      props: {
-        label: "String|Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        iconRight: "String|Node|Function|Array",
-        removable: "boolean",
-        onRemove: "function",
-        dense: "boolean",
-        outline: "boolean|string|number",
-        slots: "{ icon?, label?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        icon: "Chip icon content",
-        iconRight: "Chip right icon content",
-        label: "Chip label content",
-        default: "Fallback content"
-      },
-      events: {
-        onRemove: "MouseEvent"
-      },
-      returns: "HTMLSpanElement",
-      description: "Chip with optional icon and removal."
-    };
-  }
+
   // Esempio: JSswift.ui.Chip({ label: "Tag", removable: true })
 
   UI.Stat = (...args) => {
@@ -777,46 +623,7 @@
     setPropertyProps(stat, rawProps);
     return stat;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Stat = {
-      signature: "UI.Stat(...children) | UI.Stat(props, ...children)",
-      props: {
-        eyebrow: "String|Node|Function|Array",
-        label: "String|Node|Function|Array",
-        title: "Alias of label",
-        value: "String|Number|Node|Function|Array",
-        delta: "String|Node|Function|Array",
-        trend: "up|down|flat|positive|negative|neutral",
-        note: "String|Node|Function|Array",
-        subtitle: "Alias of note",
-        meta: "Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        aside: "Node|Function|Array",
-        footer: "Node|Function|Array",
-        actions: "Node|Function|Array",
-        state: "primary|secondary|success|warning|danger|info|light|dark",
-        slots: "{ eyebrow?, label?, value?, delta?, note?, meta?, icon?, aside?, footer?, actions?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        eyebrow: "Small kicker above the stat label",
-        label: "Main stat label",
-        value: "Primary metric value",
-        delta: "Trend / delta content",
-        note: "Supporting note",
-        meta: "Extra meta badges or info",
-        icon: "Leading icon or avatar",
-        aside: "Right-side support content",
-        footer: "Footer/supporting bottom content",
-        actions: "Footer actions cluster",
-        default: "Extra body content"
-      },
-      returns: "HTMLElement",
-      description: "Compact surface for single metrics, trends, and operational metadata."
-    };
-  }
+
   // Esempio: JSswift.ui.Stat({ label: "Revenue", value: "€ 128k", delta: "+18%" })
 
   UI.Kpi = (...args) => {
@@ -922,48 +729,7 @@
     setPropertyProps(kpi, rawProps);
     return kpi;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Kpi = {
-      signature: "UI.Kpi(...children) | UI.Kpi(props, ...children)",
-      props: {
-        eyebrow: "String|Node|Function|Array",
-        title: "String|Node|Function|Array",
-        label: "Alias of title",
-        value: "String|Number|Node|Function|Array",
-        delta: "String|Node|Function|Array",
-        trend: "up|down|flat|positive|negative|neutral",
-        note: "String|Node|Function|Array",
-        subtitle: "Alias of note",
-        meta: "Node|Function|Array",
-        media: "Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        aside: "Node|Function|Array",
-        footer: "Node|Function|Array",
-        actions: "Node|Function|Array",
-        state: "primary|secondary|success|warning|danger|info|light|dark",
-        slots: "{ eyebrow?, title?, value?, delta?, note?, meta?, media?, icon?, aside?, footer?, actions?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        eyebrow: "Kicker content",
-        title: "KPI title content",
-        value: "Primary KPI value",
-        delta: "Delta/trend content",
-        note: "Supporting note",
-        meta: "Extra meta badges or inline info",
-        media: "Secondary data view or mini-visual content",
-        icon: "Leading icon or avatar",
-        aside: "Top-right support content",
-        footer: "Bottom support content",
-        actions: "Footer actions cluster",
-        default: "Extra body content"
-      },
-      returns: "HTMLElement",
-      description: "Richer surface for KPIs, headline metrics, and mini dashboard summaries."
-    };
-  }
+
   // Esempio: JSswift.ui.Kpi({ title: "Orders", value: "342", delta: "+12%" })
 
   const overlayAnimDuration = (el, fallback = 180) => {

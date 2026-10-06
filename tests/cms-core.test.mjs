@@ -1503,8 +1503,8 @@ test("UI.Datepicker aliases UI.Date and UI.Calendar persists model", async () =>
   assert.equal(CMS.Date, CMS.Datepicker);
   assert.equal(CMS.ui.Date, CMS.ui.Datepicker);
   assert.equal(typeof CMS.Calendar, "function");
-  assert.equal(CMS.ui.meta.Date.signature, "UI.Datepicker(props)");
-  assert.equal(CMS.ui.meta.Calendar.signature, "UI.Calendar(props)");
+  assert.equal(CMS.ui.meta.Date, undefined);
+  assert.equal(CMS.ui.meta.Calendar, undefined);
 
   const model = _.rod("2026-08-05");
   const calendar = CMS.Calendar({ model });
@@ -1678,7 +1678,7 @@ test("UI.BoxUpload and UI.boxUpload expose boxed upload variant", async () => {
   assert.equal(boxed.classList.contains("cms-upload-box"), true);
   assert.equal(boxedAlias.classList.contains("cms-upload-box"), true);
   assert.equal(typeof boxed._upload.addFiles, "function");
-  assert.equal(CMS.ui.meta.Upload.signature, "UI.Upload(props)");
+  assert.equal(CMS.ui.meta.Upload, undefined);
 });
 
 test("UI.Icon uses built-in inline sprite fallback without external URL", async () => {

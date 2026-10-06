@@ -16,7 +16,7 @@ Core owns rendering, reactivity, rod, lifecycle, overlay, store, auth, HTTP, rou
 - Build: npm run build:ui
 - Outputs: packages/ui/dist and pages/_jsswift-fe
 
-UI owns components, responsive behavior, forms, navigation, feedback, shells, overlays, and JSswift.ui.meta contracts.
+UI owns components, responsive behavior, forms, navigation, feedback, shells, overlays, and component implementations. Component contracts live separately in documentions/components.
 
 ## Website and package
 

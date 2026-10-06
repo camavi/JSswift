@@ -224,54 +224,7 @@
     setPropertyProps(el, props);
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Row = {
-      signature: "UI.Row(...children) | UI.Row(props, ...children)",
-      props: {
-        start: "Node|Function|Array",
-        left: "Alias of start",
-        body: "Node|Function|Array",
-        center: "Alias of body",
-        end: "Node|Function|Array",
-        right: "Alias of end",
-        align: `stretch|flex-start|center|flex-end|baseline`,
-        justify: `flex-start|center|flex-end|space-between|space-around|space-evenly`,
-        wrap: "boolean|string",
-        direction: `row|row-reverse|column|column-reverse`,
-        reverse: "boolean",
-        gap: "string|number",
-        rowGap: "string|number",
-        columnGap: "string|number",
-        inline: "boolean",
-        full: "boolean",
-        width: "string|number",
-        minWidth: "string|number",
-        maxWidth: "string|number",
-        mobile: "{ gap?, direction?, wrap?, align?, justify?, width?, minWidth?, maxWidth? }",
-        tablet: "{ gap?, direction?, wrap?, align?, justify?, width?, minWidth?, maxWidth? }",
-        pc: "{ gap?, direction?, wrap?, align?, justify?, width?, minWidth?, maxWidth? }",
-        startClass: "string",
-        bodyClass: "string",
-        centerClass: "Alias of bodyClass",
-        endClass: "string",
-        slots: "{ start?, left?, body?, center?, end?, right?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        start: "Leading content area",
-        left: "Alias of start",
-        body: "Main content area",
-        center: "Alias of body",
-        end: "Trailing content area",
-        right: "Alias of end",
-        default: "Fallback content / children"
-      },
-      returns: "HTMLDivElement",
-      description: "Wrapper flex in riga con children, slot strutturati e props di layout per gap, allineamento, wrap e direction."
-    };
-  }
+
   function uiIsSignal(v) {
     return Array.isArray(v) && v.length === 2 && typeof v[0] === "function" && typeof v[1] === "function";
   }
@@ -602,73 +555,7 @@
     setPropertyProps(el, rawProps);
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Col = {
-      signature: "UI.Col(...children) | UI.Col(props, ...children)",
-      props: {
-        col: "number|string",
-        span: "Alias of col",
-        sm: "number|string",
-        md: "number|string",
-        lg: "number|string",
-        auto: "boolean",
-        gap: "number|string",
-        rowGap: "number|string",
-        columnGap: "number|string",
-        align: "string",
-        justify: "string",
-        inline: "boolean",
-        stack: "boolean",
-        center: "boolean",
-        width: "number|string",
-        size: "Alias of width",
-        minWidth: "number|string",
-        maxWidth: "number|string",
-        height: "number|string",
-        minHeight: "number|string",
-        maxHeight: "number|string",
-        flex: "string",
-        fill: "boolean",
-        grow: "number",
-        shrink: "number",
-        basis: "number|string",
-        self: "string",
-        order: "number|string",
-        scroll: "boolean",
-        mobile: "{ col?, span?, gap?, direction?, align?, justify?, width?, height? }",
-        tablet: "{ col?, span?, gap?, direction?, align?, justify?, width?, height? }",
-        pc: "{ col?, span?, gap?, direction?, align?, justify?, width?, height? }",
-        start: "Node|Function|Array",
-        top: "Alias of start",
-        header: "Alias of start",
-        body: "Node|Function|Array",
-        content: "Alias of body",
-        end: "Node|Function|Array",
-        bottom: "Alias of end",
-        footer: "Alias of end",
-        startClass: "string",
-        bodyClass: "string",
-        endClass: "string",
-        slots: "{ start?, top?, header?, body?, content?, end?, bottom?, footer?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        start: "Column leading area",
-        top: "Alias of start",
-        header: "Alias of start",
-        body: "Column main area",
-        content: "Alias of body",
-        end: "Column trailing area",
-        bottom: "Alias of end",
-        footer: "Alias of end",
-        default: "Column fallback content"
-      },
-      returns: "HTMLDivElement",
-      description: "Responsive 24-column wrapper. By default it behaves like a regular container and enables vertical flex layout when using gap/alignment, structured regions, or `stack`."
-    };
-  }
+
 
   UI.Spacer = (...args) => {
     const { props, children } = JSswift.uiNormalizeArgs(args);
@@ -678,22 +565,7 @@
     const content = renderSlotToArray(slots, "default", {}, children);
     return _.div(p, ...content);
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Spacer = {
-      signature: "UI.Spacer() | UI.Spacer(props)",
-      props: {
-        slots: "{ default?: Slot }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "Optional spacer content"
-      },
-      returns: "HTMLDivElement",
-      description: "Flex spacer."
-    };
-  }
+
 
   UI.Container = (...args) => {
     const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
@@ -892,56 +764,7 @@
     setPropertyProps(el, rawProps);
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Container = {
-      signature: "UI.Container(...children) | UI.Container(props, ...children)",
-      props: {
-        tag: "string",
-        fluid: "boolean",
-        maxWidth: "number|string",
-        minWidth: "number|string",
-        width: "number|string",
-        padding: "number|string",
-        paddingX: "number|string",
-        paddingY: "number|string",
-        gap: "number|string",
-        sectionGap: "number|string",
-        layout: '"block|flex|grid|stack|inline"',
-        direction: '"row|column"',
-        wrap: "boolean|string",
-        align: "string",
-        justify: "string",
-        cols: "number|string",
-        before: "String|Node|Function|Array",
-        header: "String|Node|Function|Array",
-        start: "String|Node|Function|Array",
-        body: "String|Node|Function|Array",
-        content: "String|Node|Function|Array",
-        end: "String|Node|Function|Array",
-        footer: "String|Node|Function|Array",
-        after: "String|Node|Function|Array",
-        slots: "{ before?, header?, left?, start?, body?, content?, default?, right?, end?, footer?, after? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        before: "Top content before the main container body",
-        header: "Structured header area",
-        left: "Alias for start",
-        start: "Leading area inside the main body",
-        body: "Custom body renderer overriding start/content/end wrappers",
-        content: "Explicit main content",
-        default: "Fallback content from children",
-        right: "Alias for end",
-        end: "Trailing area inside the main body",
-        footer: "Structured footer area",
-        after: "Bottom content after the main container body"
-      },
-      returns: "HTMLDivElement",
-      description: "Composable container with max-width, spacing, layout props, and optional sections."
-    };
-  }
+
 
   UI.Card = (...args) => {
     const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
@@ -1131,63 +954,7 @@
     setPropertyProps(el, rawProps);
     return el;
   }
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Card = {
-      signature: "UI.Card(...children) | UI.Card(props, ...children)",
-      description: "Sectioned card with structured header, cover/media, body, and footer/actions.",
-      props: {
-        title: "String|Node|Function|Array",
-        subtitle: "String|Node|Function|Array",
-        eyebrow: "String|Node|Function|Array",
-        header: "String|Node|Function|Array",
-        body: "String|Node|Function|Array",
-        footer: "String|Node|Function|Array",
-        actions: "Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        aside: "Node|Function|Array",
-        identifier: "String|Node|Function|Array",
-        media: "Node|Function|Array",
-        cover: "Node|Function|Array",
-        image: "string",
-        imageAlt: "string",
-        coverHeight: "string|number",
-        clickable: "boolean",
-        to: "string",
-        dense: "boolean",
-        flat: "boolean",
-        display: "string",
-        direction: "row|column|string",
-        gap: "string|number",
-        cols: "number|string",
-        mobile: "{ display?, direction?, gap?, cols? }",
-        tablet: "{ display?, direction?, gap?, cols? }",
-        pc: "{ display?, direction?, gap?, cols? }",
-        headerClass: "string",
-        bodyClass: "string",
-        footerClass: "string",
-        slots: "{ identifier?, cover?, media?, icon?, eyebrow?, title?, subtitle?, header?, aside?, body?, footer?, actions?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        identifier: "Badge/top identifier content",
-        cover: "Top visual/cover content",
-        media: "Media section above header/body",
-        icon: "Header icon content",
-        eyebrow: "Eyebrow/kicker content",
-        title: "Card title content",
-        subtitle: "Card subtitle content",
-        header: "Header support content",
-        aside: "Right side header content",
-        body: "Body content",
-        footer: "Footer content",
-        actions: "Footer actions slot",
-        default: "Fallback body content or raw card sections"
-      },
-      returns: "HTMLDivElement"
-    };
-  }
+
   UI.Btn = (...args) => {
     const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
@@ -1318,39 +1085,7 @@
   UI.Button = UI.Btn;
   JSswift.ui.Btn = UI.Btn;
   JSswift.ui.Button = UI.Button;
-  if (JSswift.isDev?.()) {
-    UI.meta.Btn = {
-      signature: "UI.Btn(...children) | UI.Btn(props, ...children)",
-      props: {
-        label: "String|Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        iconRight: "String|Node|Function|Array",
-        iconAlign: `before|after|left|right`,
-        color: `primary|secondary|warning|danger|success|info|light|dark`,
-        outline: "boolean",
-        loading: "boolean",
-        loadingText: "string|Node|Function|Array",
-        loadingSize: "number|string",
-        loadingColor: "string",
-        loadingThickness: "number|string",
-        disabled: "boolean",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-        slots: "{ icon?, iconRight?, label?, loading?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        icon: "Icon slot",
-        iconRight: "Right icon slot",
-        label: "Label slot",
-        default: "Button content"
-      },
-      events: ["click", "pointerdown", "focus", "blur"],
-      returns: "HTMLButtonElement"
-    };
-    UI.meta.Button = UI.meta.Btn;
-  }
+
   // Esempio: JSswift.ui.QBtn({ color: "primary", icon: "save", label: "Salva" })
 
   // Input: supporta value come rod (two-way) oppure rod via props.model
@@ -1577,54 +1312,7 @@
 
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.FormField = {
-      signature: "UI.FormField(props)",
-      description: "Wrapper field con label floating, hint/error/success/warning/note, clear e addons slot-based.",
-      props: {
-        label: "String|Node|Function",
-        topLabel: "String|Node|Function",
-        hint: "String|Node|Function",
-        error: "String|Node|Function",
-        success: "String|Node|Function",
-        warning: "String|Node|Function",
-        note: "String|Node|Function",
-        icon: "String|Node|Function",
-        iconRight: "String|Node|Function",
-        prefix: "String|Node|Function",
-        suffix: "String|Node|Function",
-        clearable: "boolean",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-        disabled: "boolean",
-        readonly: "boolean",
-        control: "Node|Function",
-        getValue: "() => any",
-        onClear: "() => void",
-        onFocus: "() => void",
-        wrapClass: "string",
-        slots: "{ label?, topLabel?, prefix?, suffix?, shortcode?, icon?, iconRight?, clear?, hint?, error?, control? }"
-      },
-      slots: {
-        label: "Floating label content",
-        topLabel: "Top label content",
-        prefix: "Left addon content",
-        suffix: "Right addon content",
-        icon: "Left icon content",
-        iconRight: "Right icon content",
-        shortcode: "Shortcut badge content",
-        clear: "Clear button slot (ctx: { clear, disabled, readonly, hasValue })",
-        hint: "Hint content",
-        errorMessage: "Error content",
-        success: "Success content",
-        warning: "Warning content",
-        note: "Note content",
-        control: "Override control wrapper (ctx: { control, clear, disabled, readonly, hasValue })"
-      },
-      returns: "HTMLDivElement (wrapper) con ._refresh()"
-    };
-  }
+
   UI.InputRaw = (props = {}) => {
     const el = _.input({
       class: uiClass(["cms-input-raw", props.class]),
@@ -1885,76 +1573,7 @@
 
     return field;
   }
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
 
-    UI.meta.Input = {
-      signature: "UI.Input(props)",
-      description: "Input field with floating label, hint/error/success/warning/note, clearable control, icon, prefix/suffix, and reactive support (rod/signal).",
-      props: {
-        // value & model
-        model: "rod | [get,set] signal",
-        value: "string",
-
-        // input native
-        type: "string (default: 'text')",
-        name: "string",
-        autocomplete: "string",
-        inputmode: "string",
-        disabled: "boolean",
-        readonly: "boolean",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-
-        // UI / UX
-        label: "String|Node|Function (floating label)",
-        topLabel: "String|Node|Function (label above, not floating)",
-        placeholder: "String|Node|Function (alias of label when label is not set)",
-        hint: "String|Node|Function",
-        error: "String|Node|Function",
-        success: "String|Node|Function",
-        warning: "String|Node|Function",
-        note: "String|Node|Function",
-        clearable: "boolean",
-
-        // addons
-        icon: "String|Node|Function",
-        iconRight: "String|Node|Function",
-        prefix: "String|Node|Function",
-        suffix: "String|Node|Function",
-
-        // style
-        class: "string (applicata all'input)",
-        wrapClass: "string (applicata al field wrapper)",
-        style: "object",
-
-        // events
-        onInput: "(value:string) => void",
-        onChange: "(value:string) => void",
-        onFocus: "(event) => void",
-        onBlur: "(event) => void"
-      },
-
-      slots: {
-        label: "Floating label (via FormField slots.label)",
-        topLabel: "Top label (via FormField slots.topLabel)",
-        prefix: "Left addon (via FormField slots.prefix)",
-        suffix: "Right addon (via FormField slots.suffix)",
-        shortcode: "Shortcut badge (via FormField slots.shortcode)",
-        icon: "Left icon (via FormField slots.icon)",
-        iconRight: "Right icon (via FormField slots.iconRight)",
-        clear: "Clear button (via FormField slots.clear)",
-        hint: "Hint content (via FormField slots.hint)",
-        errorMessage: "Error content (via FormField slots.errorMessage)",
-        success: "Success content (via FormField slots.success)",
-        warning: "Warning content (via FormField slots.warning)",
-        note: "Note content (via FormField slots.note)",
-        input: "Custom input node (ctx: { input, props })"
-      },
-
-      returns: "HTMLDivElement (field wrapper) con ._input = HTMLInputElement"
-    };
-  }
 
   UI.Textarea = (props = {}) => {
     const slots = props.slots || {};
@@ -2066,75 +1685,7 @@
 
     return field;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
 
-    UI.meta.Textarea = {
-      signature: "UI.Textarea(props)",
-      description: "Textarea field with floating label, hint/error/success/warning/note, clearable control, icon, prefix/suffix, and reactive support (rod/signal).",
-      props: {
-        model: "rod | [get,set] signal",
-        value: "string",
-
-        name: "string",
-        autocomplete: "string",
-        inputmode: "string",
-        rows: "number|string",
-        cols: "number|string",
-        maxLength: "number|string",
-        minLength: "number|string",
-        wrap: "string",
-        disabled: "boolean",
-        readonly: "boolean",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-
-        label: "String|Node|Function (floating label)",
-        topLabel: "String|Node|Function (label above, not floating)",
-        placeholder: "String|Node|Function (alias of label when label is not set)",
-        hint: "String|Node|Function",
-        error: "String|Node|Function",
-        success: "String|Node|Function",
-        warning: "String|Node|Function",
-        note: "String|Node|Function",
-        clearable: "boolean",
-
-        icon: "String|Node|Function",
-        iconRight: "String|Node|Function",
-        prefix: "String|Node|Function",
-        suffix: "String|Node|Function",
-
-        class: "string (applicata alla textarea)",
-        wrapClass: "string (applicata al field wrapper)",
-        style: "object",
-
-        onInput: "(value:string) => void",
-        onChange: "(value:string) => void",
-        onFocus: "(event) => void",
-        onBlur: "(event) => void"
-      },
-
-      slots: {
-        label: "Floating label (via FormField slots.label)",
-        topLabel: "Top label (via FormField slots.topLabel)",
-        prefix: "Left addon (via FormField slots.prefix)",
-        suffix: "Right addon (via FormField slots.suffix)",
-        shortcode: "Shortcut badge (via FormField slots.shortcode)",
-        icon: "Left icon (via FormField slots.icon)",
-        iconRight: "Right icon (via FormField slots.iconRight)",
-        clear: "Clear button (via FormField slots.clear)",
-        hint: "Hint content (via FormField slots.hint)",
-        errorMessage: "Error content (via FormField slots.errorMessage)",
-        success: "Success content (via FormField slots.success)",
-        warning: "Warning content (via FormField slots.warning)",
-        note: "Note content (via FormField slots.note)",
-        textarea: "Custom textarea node (ctx: { textarea, input, props })",
-        input: "Alias slot for custom textarea node (ctx: { textarea, input, props })"
-      },
-
-      returns: "HTMLDivElement (field wrapper) con ._textarea = HTMLTextAreaElement"
-    };
-  }
 
   UI.Search = (props = {}) => {
     const slots = props.slots || {};
@@ -2706,97 +2257,7 @@
 
     return field;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Search = {
-      signature: "UI.Search(props)",
-      description: "Professional search with FormField, GET fetch, debounce, AbortController, overlay results, optional cache, reactive binding, and keyboard navigation.",
-      props: {
-        model: "rod | [get,set] signal",
-        value: "string | rod | [get,set] signal",
-        endpoint: "string | (query, ctx) => string",
-        url: "Alias of endpoint",
-        method: "'GET' (internal)",
-        queryParam: "string (default: 'q')",
-        params: "object | (query, ctx) => object",
-        headers: "object",
-        credentials: "RequestCredentials",
-        parseResponse: "(Response) => Promise<any>",
-        mapResponse: "(payload, query) => Array",
-        items: "Array | (query, ctx) => Array|Promise<Array>",
-        options: "Local alias of items",
-        suggestions: "Local alias of items",
-        filter: "(item, query) => boolean",
-        getLabel: "(item) => string",
-        getValue: "(item) => any",
-        minLength: "number (default: endpoint ? 1 : 0)",
-        debounce: "number ms (default: 250)",
-        cache: "boolean (default: true)",
-        highlight: "boolean (default: true)",
-        clearable: "boolean",
-        label: "String|Node|Function",
-        topLabel: "String|Node|Function",
-        placeholder: "string",
-        icon: "String|Node|Function (default: 'search')",
-        iconRight: "String|Node|Function",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-        openOnFocus: "boolean",
-        searchOnFocus: "boolean",
-        searchOnInput: "boolean",
-        searchOnMount: "boolean",
-        autoSearch: "Alias of searchOnMount",
-        closeOnSelect: "boolean",
-        commitValue: "'label'|'value'|false",
-        disabled: "boolean|Function|rod",
-        readonly: "boolean|Function|rod",
-        loadingText: "string",
-        emptyText: "string",
-        errorText: "string",
-        startText: "string",
-        class: "string",
-        inputClass: "string",
-        menuClass: "string",
-        wrapClass: "string",
-        style: "object"
-      },
-      slots: {
-        result: "Result renderer ({ item, index, active, label, value, query, select })",
-        empty: "Empty state ({ query })",
-        loading: "Loading state ({ query })",
-        error: "Error state ({ error, query })",
-        label: "Floating label",
-        topLabel: "Top label",
-        prefix: "Left addon",
-        suffix: "Right addon",
-        icon: "Left icon",
-        iconRight: "Right icon",
-        shortcode: "Shortcut badge",
-        clear: "Clear button"
-      },
-      events: {
-        onInput: "(query, event)",
-        onChange: "(query, event)",
-        onSearch: "(query)",
-        onResults: "(results, query)",
-        onSelect: "(item, { value, label, query, event })",
-        onSubmit: "(query, event)",
-        onClear: "()",
-        onError: "(error, query)",
-        onFocus: "(event)",
-        onBlur: "(event)"
-      },
-      keyboard: {
-        ArrowDown: "Opens/moves to the next result",
-        ArrowUp: "Moves to the previous result",
-        Enter: "Selects the active result or submits the query",
-        Escape: "Closes the overlay",
-        "Cmd/Ctrl+Home": "First result",
-        "Cmd/Ctrl+End": "Last result"
-      },
-      returns: "HTMLDivElement (field wrapper) with ._input, ._open(), ._close(), ._searchNow(), ._getResults(), ._setValue(value), ._dispose()"
-    };
-  }
+
 
   UI.Select = (props = {}) => {
     const fieldProps = {
@@ -3518,78 +2979,7 @@
 
     return field;
   }
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Select = {
-      signature: "UI.Select(props)",
-      description: "Select premium: keyboard nav, option groups, async options, filter, clearable, multi select, valori custom da filtro. Wrappato in UI.FormField.",
 
-      props: {
-        options: "Array<option|group> | () => Array<option|group> | async () => Promise<Array<option|group>>",
-        value: "any",
-        model: "rod | [get,set] signal",
-
-        label: "String|Node|Function (floating)",
-        placeholder: "String|Node|Function (alias of label when label is not set)",
-        topLabel: "String|Node|Function",
-        hint: "String|Node|Function",
-        error: "String|Node|Function",
-        success: "String|Node|Function",
-        warning: "String|Node|Function",
-        note: "String|Node|Function",
-
-        clearable: "boolean",
-        filterable: "boolean",
-        multiple: "boolean",
-        multi: "boolean (alias multiple)",
-        allowCustom: "boolean (consenti valori custom dal filtro)",
-        allowCustomValue: "boolean (alias allowCustom)",
-        filterPlaceholder: "string",
-        emptyText: "string",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-
-        icon: "String|Node|Function",
-        iconRight: "String|Node|Function",
-        prefix: "String|Node|Function",
-        suffix: "String|Node|Function",
-
-        disabled: "boolean | () => boolean",
-        dense: "boolean",
-        class: "string",
-        wrapClass: "string",
-        slots: "{ clear?, arrow?, filter?, option?, group?, empty?, loading? }",
-
-        onChange: "(value:any) => void"
-      },
-
-      slots: {
-        clear: "Clear button (via FormField slots.clear)",
-        arrow: "Arrow slot (ctx: { open })",
-        filter: "Filter input slot (ctx: { value, setValue, close })",
-        option: "Option renderer (ctx: { opt, selected, active, disabled, select })",
-        group: "Group header (ctx: { label })",
-        empty: "Empty state (ctx: { filter })",
-        loading: "Loading state (ctx: {})",
-        label: "Floating label (via FormField slots.label)",
-        topLabel: "Top label (via FormField slots.topLabel)",
-        prefix: "Left addon (via FormField slots.prefix)",
-        suffix: "Right addon (via FormField slots.suffix)",
-        shortcode: "Shortcut badge (via FormField slots.shortcode)",
-        icon: "Left icon (via FormField slots.icon)",
-        iconRight: "Right icon (via FormField slots.iconRight)",
-        hint: "Hint content (via FormField slots.hint)",
-        errorMessage: "Error content (via FormField slots.errorMessage)",
-        success: "Success content (via FormField slots.success)",
-        warning: "Warning content (via FormField slots.warning)",
-        note: "Note content (via FormField slots.note)"
-      },
-
-      keyboard: ["Enter/Space", "ArrowUp", "ArrowDown", "Home", "End", "Escape"],
-
-      returns: "HTMLDivElement (wrapper field) con ._select, ._dispose()"
-    };
-  }
 
   UI.Upload = (props = {}) => {
     applyCommonProps(props);
@@ -4145,74 +3535,7 @@
   JSswift.ui.Upload = UI.Upload;
   JSswift.ui.BoxUpload = UI.BoxUpload;
   JSswift.ui.boxUpload = UI.boxUpload;
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Upload = {
-      signature: "UI.Upload(props)",
-      description: "Professional uploader with drag/drop, validation, queue, retry, factory options, XHR progress, custom upload and slot-based rendering.",
-      props: {
-        url: "string",
-        method: "POST|PUT|PATCH|string",
-        fieldName: "string",
-        paramName: "Alias of fieldName",
-        headers: "object|Array|Headers|(file, ctx)=>headers",
-        formFields: "object|Array|(file, ctx)=>fields",
-        factory: "(file, ctx)=>object|Promise<object>",
-        upload: "(file, ctx)=>Promise<any> custom uploader",
-        multiple: "boolean",
-        accept: "string",
-        acceptedFiles: "Alias of accept",
-        maxFiles: "number",
-        maxFileSize: "number bytes",
-        maxTotalSize: "number bytes",
-        autoUpload: "boolean",
-        parallelUploads: "number",
-        retry: "boolean|{ attempts, delay, factor }",
-        withCredentials: "boolean",
-        sendRaw: "boolean",
-        submitMode: "\"upload\"|\"form\"",
-        uploadMode: "Alias of submitMode",
-        showBrowse: "boolean",
-        showUpload: "boolean",
-        showClear: "boolean",
-        showFiles: "boolean",
-        browseButton: "Alias of showBrowse",
-        uploadButton: "Alias of showUpload",
-        clearButton: "Alias of showClear",
-        drag: "boolean",
-        clickable: "boolean",
-        box: "boolean",
-        compact: "boolean",
-        color: "semantic state or CSS color",
-        status: "semantic state alias",
-        state: "semantic state alias",
-        title: "String|Node|Function",
-        subtitle: "String|Node|Function",
-        emptyText: "string",
-        slots: "{ header?, default?, icon?, title?, subtitle?, actions?, browse?, upload?, clear?, file?, fileName?, fileMeta?, fileActions?, empty? }"
-      },
-      slots: {
-        header: "Content before the uploader",
-        default: "Dropzone override (ctx: { api, dropzone })",
-        icon: "Main icon",
-        title: "Title content",
-        subtitle: "Subtitle content",
-        actions: "Actions area",
-        browse: "Browse button",
-        upload: "Upload button",
-        clear: "Clear button",
-        file: "Full file row renderer",
-        fileName: "File name slot",
-        fileMeta: "Status/error slot",
-        fileActions: "Per-file actions",
-        empty: "Empty list state"
-      },
-      events: ["change", "added", "rejected", "remove", "start", "progress", "success", "error", "complete", "finish", "cancel", "drop", "factoryFailed"],
-      returns: "HTMLDivElement with ._upload API, ._addFiles(files), ._uploadFiles(), ._browse(), ._dispose()"
-    };
-    UI.meta.BoxUpload = { ...UI.meta.Upload, signature: "UI.BoxUpload(props)", description: "Box-styled variant of UI.Upload." };
-    UI.meta.boxUpload = UI.meta.BoxUpload;
-  }
+
 
   function resolveModel(model, name) {
     if (!model) return null;
@@ -4864,99 +4187,7 @@
     syncLayoutState();
     return root;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Layout = {
-      signature: "UI.Layout(...children) | UI.Layout(props, ...children)",
-      props: {
-        header: "Node|Function|Array",
-        headerContent: "Node|Function|Array",
-        aside: "Node|Function|Array|false",
-        drawer: "Node|Function|Array|false",
-        nav: "Node|Function|Array|false",
-        asideRight: "Node|Function|Array|false",
-        drawerRight: "Node|Function|Array|false",
-        page: "Node|Function|Array",
-        main: "Node|Function|Array",
-        content: "Node|Function|Array",
-        body: "Node|Function|Array",
-        footer: "Node|Function|Array",
-        footerContent: "Node|Function|Array",
-        noDrawer: "boolean",
-        drawerEnabled: "boolean",
-        asideEnabled: "boolean",
-        noNav: "boolean",
-        navEnabled: "boolean",
-        asideRightEnabled: "boolean",
-        drawerOpen: "rod | [get,set] signal | boolean",
-        navOpen: "rod | [get,set] signal | boolean",
-        layoutBreakpoint: "number(px)",
-        drawerBreakpoint: "number(px)",
-        navBreakpoint: "number(px)",
-        drawerWidth: "number|string",
-        drawerResizable: "boolean",
-        drawerMinWidth: "number|string",
-        drawerMaxWidth: "number|string",
-        navWidth: "number|string",
-        navResizable: "boolean",
-        navMinWidth: "number|string",
-        navMaxWidth: "number|string",
-        asideRightWidth: "number|string",
-        drawerPeek: "number|string",
-        navPeek: "number|string",
-        asideRightPeek: "number|string",
-        drawerFloating: "boolean",
-        navFloating: "boolean",
-        overlayClose: "boolean",
-        escClose: "boolean",
-        stickyHeader: "boolean",
-        stickyFooter: "boolean",
-        stickyAside: "boolean",
-        stickyNav: "boolean",
-        tagPage: "boolean",
-        mode: "local|global",
-        layoutMode: "alias di mode",
-        disposition: "classic|classicRight|sidebarFullLeft|sidebarFullRight|appShell|dashboard|website|documentation|landing",
-        layoutDisposition: "alias di disposition",
-        layout: "alias di disposition",
-        gap: "number|string",
-        headerOffset: "number|string",
-        minHeight: "number|string",
-        areas: "string|array",
-        gridTemplateAreas: "string|array",
-        templateAreas: "string|array",
-        mobile: "{ disposition?, mode?, gap?, minHeight?, areas?, gridTemplateAreas?, drawerWidth?, navWidth?, drawerFloating?, navFloating?, noDrawer?, noNav? }",
-        tablet: "{ disposition?, mode?, gap?, minHeight?, areas?, gridTemplateAreas?, drawerWidth?, navWidth?, drawerFloating?, navFloating?, noDrawer?, noNav? }",
-        pc: "{ disposition?, mode?, gap?, minHeight?, areas?, gridTemplateAreas?, drawerWidth?, navWidth?, drawerFloating?, navFloating?, noDrawer?, noNav? }",
-        shellClass: "string",
-        headerClass: "string",
-        asideClass: "string",
-        navClass: "string",
-        pageClass: "string",
-        footerClass: "string",
-        overlayClass: "string",
-        slots: "{ header?, aside?, drawer?, nav?, asideRight?, drawerRight?, page?, main?, footer?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        header: "Header content",
-        aside: "Aside / drawer content",
-        drawer: "Alias of aside",
-        nav: "Right-side panel content",
-        asideRight: "Alias of nav",
-        drawerRight: "Alias of nav",
-        page: "Page content",
-        main: "Alias of page",
-        footer: "Footer content",
-        default: "Fallback page content"
-      },
-      returns: "HTMLDivElement with openAside/closeAside/toggleAside/openNav/closeNav/toggleNav methods, " +
-        "isDrawerOpen/isNavOpen/isMobile/reflow, header()/aside()/nav()/page()/footer(), " +
-        "headerUpdate/asideUpdate/navUpdate/pageUpdate/mainUpdate/footerUpdate and _dispose()",
-      description: "Composable shell layout with independent left drawer and right nav, configurable widths, optional resize with min/max, optional floating mode, and runtime section updates."
-    };
-  }
+
   // Esempio: JSswift.ui.Layout({ header, aside, page, footer })
 
   UI.Footer = (...args) => {
@@ -5102,57 +4333,7 @@
     setPropertyProps(el, rawProps);
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Footer = {
-      signature: "UI.Footer(...children) | UI.Footer(props, ...children)",
-      props: {
-        title: "String|Node|Function|Array",
-        subtitle: "String|Node|Function|Array",
-        eyebrow: "String|Node|Function|Array",
-        content: "Node|Function|Array",
-        meta: "Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        left: "Node|Function|Array",
-        start: "Alias of left",
-        right: "Node|Function|Array",
-        end: "Alias of right",
-        body: "Alias of content",
-        actions: "Node|Function|Array",
-        sticky: "boolean",
-        dense: "boolean",
-        elevated: "boolean",
-        divider: "boolean",
-        align: `left|center|right`,
-        justify: `flex-start|center|flex-end|space-between|space-around|space-evenly`,
-        wrap: "boolean",
-        stack: "boolean",
-        gap: "string|number",
-        minHeight: "string|number",
-        slots: "{ left?, start?, right?, end?, center?, body?, icon?, eyebrow?, title?, subtitle?, meta?, content?, actions?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        left: "Footer leading area",
-        start: "Alias/addon for the leading area",
-        right: "Footer trailing area",
-        end: "Alias/addon for the trailing area",
-        center: "Full override for the central body",
-        body: "Alias of center",
-        icon: "Leading icon",
-        eyebrow: "Eyebrow / kicker",
-        title: "Main title",
-        subtitle: "Subtitle or note",
-        meta: "Meta info next to the central content",
-        content: "Extra content or children fallback",
-        actions: "Actions grouped in the trailing area",
-        default: "Fallback content for the body area"
-      },
-      returns: "HTMLElement <footer>",
-      description: "Structured footer with start/body/end regions, optional copy, actions, and composable slots."
-    };
-  }
+
   // Esempio: JSswift.ui.Footer({}, "Footer")
 
   const normalizeChildren = (children) => {
@@ -5331,71 +4512,7 @@
     setPropertyProps(el, props);
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Toolbar = {
-      signature: "UI.Toolbar(...children) | UI.Toolbar(props, ...children)",
-      props: {
-        before: "Node|Function|Array",
-        start: "Node|Function|Array",
-        left: "Alias of start",
-        center: "Node|Function|Array",
-        body: "Alias of center",
-        content: "Alias of center",
-        title: "String|Node|Function|Array",
-        subtitle: "String|Node|Function|Array",
-        meta: "String|Node|Function|Array",
-        end: "Node|Function|Array",
-        right: "Alias of end",
-        actions: "Alias of end",
-        after: "Node|Function|Array",
-        dense: "boolean",
-        divider: "boolean",
-        elevated: "boolean",
-        sticky: "boolean",
-        wrap: "boolean|string",
-        align: `stretch|flex-start|center|flex-end|baseline`,
-        justify: `flex-start|center|flex-end|space-between|space-around|space-evenly`,
-        gap: "string|number (e.g. '8px' or 'var(--cms-s-md)')",
-        size: "xxs|xs|sm|md|lg|xl|xxl",
-        beforeClass: "string",
-        startClass: "string",
-        bodyClass: "string",
-        centerClass: "Alias of bodyClass",
-        contentClass: "Alias of bodyClass",
-        copyClass: "string",
-        titleClass: "string",
-        subtitleClass: "string",
-        metaClass: "string",
-        endClass: "string",
-        afterClass: "string",
-        slots: "{ before?, start?, left?, center?, body?, content?, title?, subtitle?, meta?, end?, right?, actions?, after?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        before: "Optional top row",
-        start: "Leading content area",
-        left: "Alias of start",
-        center: "Main content area",
-        body: "Alias of center",
-        content: "Alias of center",
-        title: "Toolbar main title",
-        subtitle: "Subtitle or operational note",
-        meta: "Meta info/chips above or next to the title",
-        end: "Trailing actions area",
-        right: "Alias of end",
-        actions: "Alias of end",
-        after: "Optional bottom row",
-        default: "Fallback content / children"
-      },
-      events: {
-        onClick: "MouseEvent"
-      },
-      description: "Composable toolbar with before/start/center/end/after regions, optional copy, and fallback compatible with simple flex usage.",
-      returns: "HTMLDivElement"
-    };
-  }
+
   // Esempio: JSswift.ui.Toolbar({}, JSswift.ui.Btn({}, "Azione"))
 
   const isGridColNode = (value) => value && value.nodeType === 1 && value.classList?.contains("cms-grid-col");
@@ -5576,60 +4693,7 @@
     setPropertyProps(el, rawProps);
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Grid = {
-      signature: "UI.Grid(...children) | UI.Grid(props, ...children)",
-      props: {
-        cols: "number|string",
-        columns: "alias di cols",
-        min: "string|number (auto-fit/auto-fill min width)",
-        max: "string|number (max track size, default 1fr)",
-        gap: "string|number",
-        rowGap: "string|number",
-        columnGap: "string|number",
-        colGap: "alias di columnGap",
-        rows: "number|string",
-        autoRows: "string|number",
-        areas: "string|array",
-        flow: "row|column|dense|row dense|column dense",
-        align: `stretch|start|center|end`,
-        alignItems: "alias di align",
-        justify: `start|center|end|space-between|space-around|space-evenly`,
-        justifyItems: `stretch|start|center|end`,
-        placeItems: "string",
-        placeContent: "string",
-        dense: "boolean",
-        inline: "boolean",
-        debug: "boolean",
-        autoFit: "boolean",
-        autoFill: "boolean",
-        full: "boolean",
-        width: "string|number",
-        minWidth: "string|number",
-        maxWidth: "string|number",
-        padding: "string|number",
-        mobile: "{ cols?, gap?, flow?, width?, padding? }",
-        tablet: "{ cols?, gap?, flow?, width?, padding? }",
-        pc: "{ cols?, gap?, flow?, width?, padding? }",
-        items: "Array<Node|Object|string>",
-        itemClass: "string",
-        itemStyle: "object",
-        itemProps: "object",
-        empty: "String|Node|Function|Array",
-        slots: "{ default?, item?, empty? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "Grid content fallback",
-        item: "Render custom di ogni item ({ item, index, count, first, last })",
-        empty: "Empty state della griglia"
-      },
-      returns: "HTMLDivElement",
-      description: "Griglia dichiarativa per layout responsive: supporta children, items/slot item, auto-fit, template custom e empty state."
-    };
-  }
+
   // Esempio: JSswift.ui.Grid({}, JSswift.ui.GridCol({ span: 12 }, "Col"))
 
   UI.GridCol = (...args) => {
@@ -5905,68 +4969,5 @@
     setPropertyProps(el, props);
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.GridCol = {
-      signature: "UI.GridCol(...children) | UI.GridCol(props, ...children)",
-      props: {
-        span: "number|string",
-        col: "alias di span",
-        sm: "number|string",
-        md: "number|string",
-        lg: "number|string",
-        auto: "boolean",
-        row: "number|string",
-        rowSpan: "number|string",
-        area: "string",
-        align: "string (align-self)",
-        justify: "string (justify-self)",
-        place: "string (place-self)",
-        gap: "string|number",
-        rowGap: "string|number",
-        columnGap: "string|number",
-        padding: "string|number",
-        width: "string|number",
-        height: "string|number",
-        minHeight: "string|number",
-        maxHeight: "string|number",
-        fullHeight: "boolean",
-        stack: "boolean",
-        inline: "boolean",
-        direction: "column|row|string",
-        contentAlign: "string",
-        contentJustify: "string",
-        center: "boolean",
-        scroll: "boolean|string",
-        panel: "boolean",
-        clickable: "boolean",
-        to: "string",
-        mobile: "{ span?, col?, gap?, direction?, contentAlign?, contentJustify? }",
-        tablet: "{ span?, col?, gap?, direction?, contentAlign?, contentJustify? }",
-        pc: "{ span?, col?, gap?, direction?, contentAlign?, contentJustify? }",
-        start: "Node|Function|Array",
-        body: "Node|Function|Array",
-        end: "Node|Function|Array",
-        color: "string",
-        outline: "boolean",
-        shadow: "boolean|string",
-        radius: "number|string",
-        slots: "{ start?, body?, end?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        start: "Top/header region",
-        body: "Main body region",
-        end: "Bottom/footer region",
-        default: "Fallback content"
-      },
-      events: {
-        onClick: "MouseEvent",
-        onKeydown: "KeyboardEvent"
-      },
-      returns: "HTMLDivElement",
-      description: "CSS Grid item with responsive spans, optional internal stack layout, start/body/end regions, and lightweight visual variants."
-    };
-  }
+
   // Esempio: JSswift.ui.GridCol({ span: 6, sm: 12 }, "Colonna")

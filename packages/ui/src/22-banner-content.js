@@ -155,49 +155,7 @@ UI.Banner = (...args) => {
   setPropertyProps(bannerEl, rawProps);
   return bannerEl;
 };
-if (JSswift.isDev?.()) {
-  UI.meta = UI.meta || {};
-  UI.meta.Banner = {
-    signature: "UI.Banner(...children) | UI.Banner(props, ...children)",
-    props: {
-      title: "String|Node|Function|Array",
-      message: "String|Node|Function|Array",
-      description: "String|Node|Function|Array",
-      meta: "String|Node|Function|Array",
-      icon: "String|Node|Function|Array|false",
-      actions: "Node|Function|Array",
-      aside: "Node|Function|Array",
-      body: "Node|Function|Array",
-      dismissible: "boolean",
-      dismiss: "Node|Function|Array",
-      onDismiss: "function",
-      closeLabel: "string",
-      type: "success|warning|danger|error|info|primary|secondary|light|dark",
-      state: "success|warning|danger|error|info|primary|secondary|light|dark",
-      accent: "string",
-      variant: "soft|solid|outline|ghost",
-      actionsPlacement: "end|bottom",
-      dense: "boolean",
-      stack: "boolean",
-      slots: "{ icon?, title?, message?, description?, meta?, actions?, aside?, dismiss?, default? }",
-      class: "string",
-      style: "object"
-    },
-    slots: {
-      icon: "Leading visual/icon content",
-      title: "Banner title content",
-      message: "Primary message content",
-      description: "Secondary/supporting text",
-      meta: "Meta information content",
-      actions: "Actions area content",
-      aside: "Right side support content",
-      dismiss: "Custom dismiss control",
-      default: "Extra banner body content"
-    },
-    returns: "HTMLDivElement",
-    description: "Structured banner with tone, actions, dismiss, and composable slots."
-  };
-}
+
 // Esempio: JSswift.ui.Banner({ type: "warning", title: "Pagamento in sospeso", message: "Aggiorna il batch entro le 18:00" })
 
 UI.Alert = (...args) => {
@@ -296,43 +254,7 @@ UI.Alert = (...args) => {
   setPropertyProps(alertEl, rawProps);
   return alertEl;
 };
-if (JSswift.isDev?.()) {
-  UI.meta = UI.meta || {};
-  UI.meta.Alert = {
-    signature: "UI.Alert(...children) | UI.Alert(props, ...children)",
-    props: {
-      title: "String|Node|Function|Array",
-      message: "String|Node|Function|Array",
-      description: "String|Node|Function|Array",
-      meta: "Node|Function|Array",
-      icon: "String|Node|Function|Array|false",
-      actions: "Node|Function|Array",
-      aside: "Node|Function|Array",
-      dismissible: "boolean",
-      dismiss: "Node|Function|Array",
-      onDismiss: "function",
-      closeLabel: "string",
-      type: "success|warning|danger|error|info|primary|secondary|light|dark",
-      state: "success|warning|danger|error|info|primary|secondary|light|dark",
-      slots: "{ icon?, title?, message?, description?, meta?, actions?, aside?, dismiss?, default? }",
-      class: "string",
-      style: "object"
-    },
-    slots: {
-      icon: "Leading alert icon content",
-      title: "Alert title content",
-      message: "Primary alert copy",
-      description: "Secondary/supporting text",
-      meta: "Inline meta content",
-      actions: "Alert actions cluster",
-      aside: "Right side support content",
-      dismiss: "Custom dismiss control",
-      default: "Fallback alert message content"
-    },
-    returns: "HTMLDivElement",
-    description: "Alert compatto per warning inline, policy note e feedback persistente dentro page o card."
-  };
-}
+
 // Esempio: JSswift.ui.Alert({ type: "warning", title: "Review richiesta", message: "Controlla il batch prima del go-live" })
 
 UI.EmptyState = (...args) => {
@@ -396,42 +318,7 @@ UI.EmptyState = (...args) => {
   setPropertyProps(emptyState, rawProps);
   return emptyState;
 };
-if (JSswift.isDev?.()) {
-  UI.meta = UI.meta || {};
-  UI.meta.EmptyState = {
-    signature: "UI.EmptyState(...children) | UI.EmptyState(props, ...children)",
-    props: {
-      eyebrow: "String|Node|Function|Array",
-      title: "String|Node|Function|Array",
-      message: "String|Node|Function|Array",
-      description: "String|Node|Function|Array",
-      meta: "Node|Function|Array",
-      icon: "String|Node|Function|Array|false",
-      illustration: "Node|Function|Array",
-      media: "Alias of illustration",
-      actions: "Node|Function|Array",
-      compact: "boolean",
-      inline: "boolean",
-      state: "primary|secondary|success|warning|danger|info|light|dark",
-      slots: "{ illustration?, icon?, eyebrow?, title?, message?, description?, meta?, actions?, default? }",
-      class: "string",
-      style: "object"
-    },
-    slots: {
-      illustration: "Top visual / illustration content",
-      icon: "Leading empty-state icon",
-      eyebrow: "Small kicker content",
-      title: "Primary empty-state heading",
-      message: "Primary message content",
-      description: "Secondary supporting text",
-      meta: "Meta badges or summary content",
-      actions: "Actions cluster",
-      default: "Extra empty-state body content"
-    },
-    returns: "HTMLElement",
-    description: "Surface per zero-results, onboarding vuoti e pannelli senza dati con CTA di recupero."
-  };
-}
+
 // Esempio: JSswift.ui.EmptyState({ title: "No results", message: "Prova a cambiare i filtri" })
 
 // -------------------------------

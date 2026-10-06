@@ -176,53 +176,7 @@ UI.Header = (...args) => {
   setPropertyProps(el, rawProps);
   return el;
 };
-if (JSswift.isDev?.()) {
-  UI.meta = UI.meta || {};
-  UI.meta.Header = {
-    signature: "UI.Header(...children) | UI.Header(props, ...children)",
-    props: {
-      title: "String|Node|Function|Array",
-      subtitle: "String|Node|Function|Array",
-      eyebrow: "String|Node|Function|Array",
-      content: "Node|Function|Array",
-      meta: "Node|Function|Array",
-      icon: "String|Node|Function|Array",
-      left: "Node|Function|Array|false",
-      right: "Node|Function|Array",
-      actions: "Node|Function|Array",
-      drawerOpenIcon: "string|Node",
-      drawerCloseIcon: "string|Node",
-      drawerStateKey: "string",
-      sticky: "boolean",
-      stack: "boolean",
-      dense: "boolean",
-      elevated: "boolean",
-      divider: "boolean",
-      gap: "string|number",
-      minHeight: "string|number",
-      slots: "{ left?, start?, right?, end?, center?, body?, icon?, eyebrow?, title?, subtitle?, meta?, content?, actions? }",
-      class: "string",
-      style: "object"
-    },
-    slots: {
-      left: "Left area, falls back to the drawer toggle",
-      start: "Alias/addon for the left area",
-      right: "Main right area",
-      end: "Alias/addon for the right area",
-      center: "Full override for the central body",
-      body: "Alias of center",
-      icon: "Leading icon",
-      eyebrow: "Eyebrow / kicker",
-      title: "Title",
-      subtitle: "Subtitle",
-      meta: "Meta info next to the central content",
-      content: "Extra content below the subtitle",
-      actions: "Actions grouped in the right area"
-    },
-    returns: "HTMLDivElement",
-    description: "Structured header with start/body/end regions, integrated drawer toggle, metadata, and composable slots."
-  };
-}
+
 
 UI.Drawer = (...args) => {
   const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
@@ -722,67 +676,7 @@ UI.Drawer = (...args) => {
   syncActiveClasses();
   return drawerEl;
 };
-if (JSswift.isDev?.()) {
-  UI.meta = UI.meta || {};
-  UI.meta.Drawer = {
-    signature: "UI.Drawer(props)",
-    props: {
-      items: "Array",
-      header: "Node|Function|Array",
-      footer: "Node|Function|Array",
-      before: "Node|Function|Array",
-      after: "Node|Function|Array",
-      title: "String|Node|Function|Array",
-      subtitle: "String|Node|Function|Array",
-      eyebrow: "String|Node|Function|Array",
-      icon: "String|Node|Function|Array",
-      content: "Node|Function|Array",
-      meta: "Node|Function|Array",
-      actions: "Node|Function|Array",
-      empty: "Node|Function|Array",
-      emptyText: "string",
-      stateKey: "string",
-      closeOnSelect: "boolean",
-      groupOpenIcon: "String|Node|Function|Array",
-      groupCloseIcon: "String|Node|Function|Array",
-      itemIconSize: "string|number",
-      gap: "string|number",
-      indent: "string|number",
-      padding: "string|number",
-      width: "string|number",
-      minHeight: "string|number",
-      maxHeight: "string|number",
-      onSelect: "function(item, ctx, event)",
-      sticky: "boolean",
-      slots: "{ header?, body?, footer?, before?, after?, empty?, item?, itemLabel?, itemNote?, itemBadge?, itemAside?, itemContent?, group?, groupLabel?, groupNote?, groupBadge?, groupAside?, groupContent?, sectionLabel? }",
-      class: "string",
-      style: "object"
-    },
-    slots: {
-      header: "Drawer header, full override",
-      body: "Full body override",
-      footer: "Drawer footer",
-      before: "Content before the item list",
-      after: "Content after the item list",
-      empty: "Empty state when there is no content",
-      item: "Full override for a simple item",
-      itemLabel: "Item label (ctx: { item, label, note, badge, aside, content })",
-      itemNote: "Item note/subtitle",
-      itemBadge: "Item badge",
-      itemAside: "Item aside/meta",
-      itemContent: "Extra item content",
-      group: "Full override for a group header (ctx includes toggle/isOpen)",
-      groupLabel: "Group label",
-      groupNote: "Group note",
-      groupBadge: "Group badge",
-      groupAside: "Group aside/meta",
-      groupContent: "Extra group content",
-      sectionLabel: "Label for section/heading items"
-    },
-    returns: "HTMLDivElement with openDrawer/closeDrawer/toggleDrawer/isDrawerOpen methods",
-    description: "Structured, backward-compatible drawer with header/footer, groups, extended slots, empty state, and persistent state."
-  };
-}
+
 
 UI.Page = (...args) => {
   const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
@@ -959,52 +853,7 @@ UI.Page = (...args) => {
   setPropertyProps(el, rawProps);
   return el;
 };
-if (JSswift.isDev?.()) {
-  UI.meta = UI.meta || {};
-  UI.meta.Page = {
-    signature: "UI.Page(...children) | UI.Page(props, ...children)",
-    props: {
-      hero: "Node|Function|Array",
-      icon: "String|Node|Function|Array",
-      eyebrow: "String|Node|Function|Array",
-      title: "String|Node|Function|Array",
-      subtitle: "String|Node|Function|Array",
-      header: "String|Node|Function|Array",
-      aside: "Node|Function|Array",
-      body: "Node|Function|Array",
-      footer: "Node|Function|Array",
-      actions: "Node|Function|Array",
-      dense: "boolean",
-      flat: "boolean",
-      centered: "boolean",
-      narrow: "boolean",
-      gap: "string|number",
-      padding: "string|number",
-      maxWidth: "string|number",
-      minHeight: "string|number",
-      heroPadding: "string|number",
-      headerGap: "string|number",
-      slots: "{ hero?, icon?, eyebrow?, title?, subtitle?, header?, aside?, body?, footer?, actions?, default? }",
-      class: "string",
-      style: "object"
-    },
-    slots: {
-      hero: "Top hero/banner area",
-      icon: "Page icon/visual",
-      eyebrow: "Eyebrow/kicker content",
-      title: "Page title content",
-      subtitle: "Page subtitle/description content",
-      header: "Header support content under title",
-      aside: "Top-right header content",
-      body: "Structured body content",
-      footer: "Footer meta/content",
-      actions: "Footer actions content",
-      default: "Fallback body content"
-    },
-    returns: "HTMLDivElement",
-    description: "Structured page container with hero, header, body, footer, and configurable layout."
-  };
-}
+
 
 UI.AppShell = (...args) => {
   const { props, children } = JSswift.uiNormalizeArgs(args);
@@ -1152,53 +1001,7 @@ UI.AppShell = (...args) => {
   setPropertyProps(root, props);
   return root;
 };
-if (JSswift.isDev?.()) {
-  UI.meta = UI.meta || {};
-  UI.meta.AppShell = {
-    signature: "UI.AppShell(...children) | UI.AppShell(props, ...children)",
-    props: {
-      header: "Node|Function|Array|false",
-      drawer: "Node|Function|Array|false",
-      page: "Node|Function|Array|false",
-      footer: "Node|Function|Array|false",
-      title: "string|Node|Function|Array",
-      subtitle: "string|Node|Function|Array",
-      left: "Node|Function|Array|false",
-      right: "Node|Function|Array",
-      items: "Array",
-      drawerItems: "Array",
-      drawerHeader: "Node|Function|Array",
-      content: "Node|Function|Array",
-      headerProps: "object",
-      drawerProps: "object",
-      pageProps: "object",
-      footerProps: "object",
-      footerContent: "Node|Function|Array",
-      noDrawer: "boolean",
-      reverse: "boolean",
-      stack: "boolean",
-      flush: "boolean",
-      divider: "boolean",
-      drawerStateKey: "string",
-      stateKey: "string",
-      drawerWidth: "number|string",
-      gap: "number|string",
-      padding: "number|string",
-      slots: "{ header?, drawer?, page?, footer?, default? }",
-      class: "string",
-      style: "object"
-    },
-    slots: {
-      header: "Header content",
-      drawer: "Drawer content",
-      page: "Page content",
-      footer: "Footer content",
-      default: "Fallback page content"
-    },
-    returns: "HTMLDivElement con methods openDrawer/closeDrawer/toggleDrawer/isDrawerOpen",
-    description: "Shell applicazione composabile con shortcut per Header/Drawer/Page/Footer e gestione drawer."
-  };
-}
+
 
 UI.Parallax = function Parallax(...args) {
   const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
@@ -1412,70 +1215,7 @@ UI.Parallax = function Parallax(...args) {
   setPropertyProps(wrap, rawProps);
   return wrap;
 };
-if (JSswift.isDev?.()) {
-  UI.meta = UI.meta || {};
-  UI.meta.Parallax = {
-    signature: "UI.Parallax(...children) | UI.Parallax(props, ...children)",
-    props: {
-      src: "string",
-      image: "string",
-      background: "string",
-      backgroundContent: "Node|Function|Array",
-      height: "string|number",
-      minHeight: "string|number",
-      speed: "number",
-      maxOffset: "number",
-      startTop: "number",
-      state: "success|warning|danger|info|primary|secondary|dark|light|string",
-      overlay: "string",
-      color: "string",
-      bgPosition: "string",
-      bgSize: "string",
-      bgRepeat: "string",
-      padding: "string|number",
-      gap: "string|number",
-      justify: "string",
-      align: "string",
-      contentMaxWidth: "string|number",
-      disabled: "boolean",
-      badge: "Node|Function|Array",
-      eyebrow: "String|Node|Function|Array",
-      title: "String|Node|Function|Array",
-      subtitle: "String|Node|Function|Array",
-      header: "Node|Function|Array",
-      aside: "Node|Function|Array",
-      media: "Node|Function|Array",
-      content: "Node|Function|Array",
-      footer: "Node|Function|Array",
-      actions: "Node|Function|Array",
-      bgClass: "string",
-      badgeClass: "string",
-      headerClass: "string",
-      bodyClass: "string",
-      footerClass: "string",
-      contentClass: "string",
-      slots: "{ background?, badge?, eyebrow?, title?, subtitle?, header?, aside?, media?, content?, footer?, actions?, default? }",
-      class: "string",
-      style: "object"
-    },
-    slots: {
-      background: "Decorative content inside the background layer",
-      badge: "Meta badge/chip above the main content",
-      eyebrow: "Eyebrow/kicker",
-      title: "Main title",
-      subtitle: "Subtitle or supporting text",
-      header: "Additional header content",
-      aside: "Header side area",
-      media: "Media content or foreground card",
-      content: "Main body",
-      footer: "Informational footer",
-      actions: "Actions area",
-      default: "Fallback body content"
-    },
-    returns: "HTMLDivElement with refresh/update/destroy methods",
-    description: "Standardized parallax hero/section with structured header, body, actions, slots, and minimal refresh API."
-  };
-}
+
 
 // Example:
 // _.Parallax({ src: "/assets/hero.jpg", height: "280px", speed: 0.2 }, _.h2("Hello"));

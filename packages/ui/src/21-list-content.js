@@ -102,35 +102,7 @@
     const list = _[ordered ? "ol" : "ul"](p, ...content);
     return list;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.List = {
-      signature: "UI.List(...children) | UI.List(props, ...children)",
-      props: {
-        items: "Array<Node|Object|string>",
-        ordered: "boolean",
-        number: "boolean",
-        marker: "boolean|string",
-        dense: "boolean",
-        divider: "boolean",
-        gap: "string|number",
-        empty: "String|Node|Function|Array",
-        itemClass: "string",
-        itemStyle: "object",
-        itemProps: "object",
-        slots: "{ default?, item?, empty? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "List content fallback",
-        item: "Render custom di ogni item ({ item, index, count, first, last })",
-        empty: "Empty state content"
-      },
-      returns: "HTMLUListElement|HTMLOListElement",
-      description: "Lista dichiarativa con supporto items, slot item, ordered/marker ed empty state."
-    };
-  }
+
   // Esempio: JSswift.ui.List({}, JSswift.ui.Item({}, "Item"))
 
   UI.Item = (...args) => {
@@ -250,57 +222,7 @@
     setPropertyProps(item, props);
     return item;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Item = {
-      signature: "UI.Item(...children) | UI.Item(props, ...children)",
-      props: {
-        label: "String|Node|Function|Array",
-        title: "String|Node|Function|Array",
-        subtitle: "String|Node|Function|Array",
-        meta: "String|Node|Function|Array",
-        body: "String|Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        iconRight: "String|Node|Function|Array",
-        aside: "Node|Function|Array",
-        actions: "Node|Function|Array",
-        clickable: "boolean",
-        to: "string",
-        active: "boolean",
-        selected: "boolean",
-        disabled: "boolean",
-        color: "string",
-        state: "Alias of color",
-        size: "string|number",
-        outline: "boolean",
-        shadow: "boolean|string",
-        lightShadow: "boolean",
-        border: "boolean",
-        glossy: "boolean",
-        glow: "boolean",
-        glass: "boolean",
-        gradient: "boolean|number",
-        textGradient: "boolean",
-        radius: "string|number",
-        divider: "boolean",
-        slots: "{ icon?, title?, subtitle?, meta?, body?, aside?, actions?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        icon: "Leading visual/icon",
-        title: "Main title content",
-        subtitle: "Secondary text",
-        meta: "Top meta content",
-        body: "Body content",
-        aside: "Trailing content",
-        actions: "Actions row",
-        default: "Fallback body content"
-      },
-      returns: "HTMLLIElement",
-      description: "Structured item for simple lists, feeds, task lists, and clickable rows."
-    };
-  }
+
   // Esempio: JSswift.ui.Item({}, "Elemento")
 
   UI.Separator = (...args) => {
@@ -319,23 +241,6 @@
     p.style = style;
     return _.hr(p);
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Separator = {
-      signature: "UI.Separator() | UI.Separator(props)",
-      props: {
-        vertical: "boolean",
-        size: "string|number",
-        slots: "{ default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "Unused (separator has no content)"
-      },
-      returns: "HTMLHRElement",
-      description: "Separatore orizzontale o verticale."
-    };
-  }
+
   // Esempio: JSswift.ui.Separator()
 

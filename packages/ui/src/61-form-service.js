@@ -282,22 +282,7 @@
 
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Form = {
-      signature: "UI.Form({ form, onSubmit, ...props }, ...children)",
-      props: {
-        form: "useForm() instance",
-        onSubmit: "async (model, form) => any",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "(form) => Node|Array|Node"
-      },
-      returns: "HTMLFormElement"
-    };
-  }
+
 
   // ===============================
   // Dialog Service (Modal)
@@ -381,70 +366,3 @@
     setPropertyProps(el, props);
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.cardHeader = {
-      signature: "UI.cardHeader(...children) | UI.cardHeader(props, ...children)",
-      props: {
-        divider: "boolean",
-        align: `stretch|flex-start|center|flex-end|baseline`,
-        justify: `flex-start|center|flex-end|space-between|space-around|space-evenly`,
-        wrap: "boolean",
-        direction: "row|column|string",
-        gap: "string|number",
-        mobile: "{ gap?, align?, justify?, wrap?, direction? }",
-        tablet: "{ gap?, align?, justify?, wrap?, direction? }",
-        pc: "{ gap?, align?, justify?, wrap?, direction? }",
-        slots: "{ default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "Card header content"
-      },
-      returns: "HTMLDivElement",
-      description: "Header della card con supporto layout flex."
-    };
-    UI.meta.cardBody = {
-      signature: "UI.cardBody(...children) | UI.cardBody(props, ...children)",
-      props: {
-        padding: "string|number",
-        gap: "string|number",
-        direction: "row|column|string",
-        mobile: "{ padding?, gap?, direction?, width? }",
-        tablet: "{ padding?, gap?, direction?, width? }",
-        pc: "{ padding?, gap?, direction?, width? }",
-        slots: "{ default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "Card body content"
-      },
-      returns: "HTMLDivElement",
-      description: "Body della card."
-    };
-    UI.meta.cardFooter = {
-      signature: "UI.cardFooter(...children) | UI.cardFooter(props, ...children)",
-      props: {
-        divider: "boolean",
-        align: `stretch|flex-start|center|flex-end|baseline`,
-        justify: `flex-start|center|flex-end|space-between|space-around|space-evenly`,
-        wrap: "boolean",
-        direction: "row|column|string",
-        gap: "string|number",
-        mobile: "{ gap?, align?, justify?, wrap?, direction? }",
-        tablet: "{ gap?, align?, justify?, wrap?, direction? }",
-        pc: "{ gap?, align?, justify?, wrap?, direction? }",
-        slots: "{ default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "Card footer content"
-      },
-      returns: "HTMLDivElement",
-      description: "Footer della card con supporto layout flex."
-    };
-  }
-

@@ -7,8 +7,8 @@ import { parseArgs, resolveProject } from './project.mjs';
 const options = parseArgs(process.argv.slice(2));
 const context = options.docs ? { project: options.project, version: 'development', docsRoot: options.docs } : await resolveProject(options.project);
 const knowledge = await loadKnowledge(context.docsRoot);
-const server = new McpServer({ name: 'jsswift-knowledge', version: '0.1.1' }, {
-  instructions: `Serving JSswift ${context.version} from project ${context.project}. Prefer _.Button for buttons. Use _.Component and _.signal, _.effect, _.computed, _.untracked, _.batch. Search for the feature and read selected contracts before coding. JSswift includes component CSS; read application-rules and prefer documented styling props and theme variables before custom overrides. Fonts and the Tabler catalog are optional; read getting-started for imports. This server covers application development only.`
+const server = new McpServer({ name: 'jsswift-knowledge', version: '0.1.2' }, {
+  instructions: `Serving JSswift ${context.version} from project ${context.project}. Prefer _.Button for buttons. Use _.Component and _.signal, _.effect, _.computed, _.untracked, _.batch. Start with guide:AI for a basic page and its supported examples. Search and read component contracts only for additional APIs; read guide:ui/common-props once when styling. JSswift includes component CSS; read application-rules and prefer documented styling props and theme variables before custom overrides. Fonts and the Tabler catalog are optional; read getting-started for imports. This server covers application development only.`
 });
 const annotations = { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false };
 const jsonResult = value => ({ content: [{ type: 'text', text: JSON.stringify(value) }], structuredContent: value });

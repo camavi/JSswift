@@ -107,42 +107,7 @@
     setPropertyProps(root, props);
     return root;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Spinner = {
-      signature: "UI.Spinner(...children) | UI.Spinner(props, ...children)",
-      props: {
-        size: "number|string",
-        color: "string",
-        thickness: "number|string",
-        trackColor: "string",
-        speed: "number|string",
-        state: "primary|secondary|success|warning|danger|info|light|dark",
-        label: "String|Node|Function|Array",
-        note: "String|Node|Function|Array",
-        vertical: "boolean",
-        reverse: "boolean",
-        center: "boolean",
-        block: "boolean",
-        pause: "boolean",
-        paused: "boolean",
-        ariaLabel: "string",
-        indicatorClass: "string",
-        indicatorStyle: "object",
-        slots: "{ indicator?, label?, note?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        indicator: "Custom spinner indicator",
-        label: "Primary label/content near the spinner",
-        note: "Secondary supporting text",
-        default: "Extra content rendered near the spinner"
-      },
-      returns: "HTMLDivElement",
-      description: "Animated spinner with flexible layout, optional content, and controls for size, speed, and track."
-    };
-  }
+
   // Esempio: JSswift.ui.Spinner({ size: 24 })
 
   UI.Progress = (...args) => {
@@ -534,58 +499,7 @@
 
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Progress = {
-      signature: "UI.Progress(...children) | UI.Progress(props, ...children)",
-      props: {
-        value: "number|rod|[get,set] signal",
-        model: "rod|[get,set] signal",
-        min: "number",
-        max: "number",
-        buffer: "number|rod|[get,set] signal",
-        label: "String|Node|Function|Array",
-        note: "String|Node|Function|Array",
-        showValue: "boolean|\"inside\"",
-        valueLabel: "String|Node|Function|Array",
-        insideLabel: "String|Node|Function|Array",
-        formatValue: "function(value, percent, ctx)",
-        icon: "String|Node|Function|Array",
-        iconRight: "String|Node|Function|Array",
-        startLabel: "String|Node|Function|Array",
-        endLabel: "String|Node|Function|Array",
-        leftLabel: "Alias of startLabel",
-        rightLabel: "Alias of endLabel",
-        width: "string|number",
-        size: "string|number",
-        height: "string|number",
-        thickness: "Alias of height",
-        color: "string",
-        state: "primary|secondary|success|warning|danger|info|light|dark",
-        trackColor: "string",
-        bufferColor: "string",
-        striped: "boolean",
-        animated: "boolean",
-        indeterminate: "boolean",
-        reverse: "boolean",
-        slots: "{ icon?, label?, note?, value?, inside?, startLabel?, endLabel?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        icon: "Icon before the label",
-        label: "Main progress content",
-        note: "Secondary content below the label",
-        value: "External value on the right",
-        inside: "Content inside the bar",
-        startLabel: "Label on the left of the bar",
-        endLabel: "Label on the right of the bar",
-        default: "Fallback label content"
-      },
-      returns: "HTMLDivElement",
-      description: "Standardized progress bar with optional header, buffer, semantic state, and reactive support."
-    };
-  }
+
   // Esempio: JSswift.ui.Progress({ value: 45 })
 
   UI.LoadingBar = function LoadingBar(...args) {
@@ -890,77 +804,7 @@
     if (uiUnwrap(props.autoStart)) start();
     return root;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.LoadingBar = {
-      signature: "UI.LoadingBar(...children) | UI.LoadingBar(props, ...children)",
-      props: {
-        value: "number|rod|[get,set] signal",
-        model: "rod|[get,set] signal",
-        buffer: "number|rod|[get,set] signal",
-        min: "number",
-        max: "number",
-        height: "string|number",
-        thickness: "Alias of height",
-        size: "string|number",
-        color: "string",
-        state: "primary|secondary|success|warning|danger|info|light|dark",
-        trackColor: "string",
-        bufferColor: "string",
-        striped: "boolean",
-        animated: "boolean",
-        indeterminate: "boolean",
-        reverse: "boolean",
-        width: "string|number",
-        target: "HTMLElement|string",
-        mount: "boolean",
-        position: "fixed|absolute|relative|static|sticky",
-        inset: "string|number",
-        top: "string|number",
-        right: "string|number",
-        bottom: "string|number",
-        left: "string|number",
-        zIndex: "number",
-        visible: "boolean",
-        autoStart: "boolean",
-        startValue: "number",
-        step: "number",
-        trickle: "boolean",
-        trickleStep: "number",
-        trickleInterval: "number",
-        trickleMax: "number",
-        trickleTo: "Alias of trickleMax",
-        doneValue: "number",
-        doneDelay: "Alias of hideDelay",
-        hideDelay: "number",
-        resetValue: "number",
-        label: "String|Node|Function|Array",
-        note: "String|Node|Function|Array",
-        showValue: "boolean|\"inside\"",
-        valueLabel: "String|Node|Function|Array",
-        insideLabel: "String|Node|Function|Array",
-        startLabel: "String|Node|Function|Array",
-        endLabel: "String|Node|Function|Array",
-        progressClass: "string",
-        progressStyle: "object",
-        slots: "{ icon?, label?, note?, value?, inside?, startLabel?, endLabel?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        icon: "Icon before the label",
-        label: "Main content",
-        note: "Secondary content",
-        value: "External value on the right",
-        inside: "Content inside the bar",
-        startLabel: "Label on the left of the bar",
-        endLabel: "Label on the right of the bar",
-        default: "Fallback content"
-      },
-      returns: "HTMLDivElement with imperative API: .set(), .setBuffer(), .inc(), .start(), .done(), .stop(), .reset(), .show(), .hide(), .destroy()",
-      description: "Loading bar based on UI.Progress, mountable on body or a custom container, controllable via model or imperative API."
-    };
-  }
+
   // Esempio: const lb = JSswift.ui.LoadingBar({ autoStart: true }); lb.done();
 
   const NOTIFY_POSITIONS = new Set([
@@ -1153,57 +997,3 @@
       throw error;
     }
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Notify = {
-      signature: "UI.Notify(message, title?, opts?) | UI.Notify(opts, ...children)",
-      props: {
-        id: "string",
-        type: "success|warning|danger|error|info|primary|secondary|light|dark",
-        state: "Alias of type",
-        color: "Alias of type",
-        title: "String|Node|Function|Array|false",
-        message: "String|Node|Function|Array",
-        description: "String|Node|Function|Array",
-        meta: "String|Node|Function|Array",
-        body: "Node|Function|Array",
-        icon: "String|Node|Function|Array|false",
-        actions: "Node|Function|Array",
-        dismiss: "Node|Function|Array",
-        timeout: "number|false",
-        duration: "Alias of timeout",
-        closable: "boolean",
-        dismissLabel: "string",
-        position: "top-left|top-center|top-right|bottom-left|bottom-center|bottom-right",
-        variant: "soft|solid|outline",
-        slots: "{ icon?, title?, message?, description?, meta?, actions?, dismiss?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        icon: "Leading visual/icon content",
-        title: "Toast title content",
-        message: "Primary message content",
-        description: "Secondary/supporting text",
-        meta: "Meta info or badges",
-        actions: "Actions area content",
-        dismiss: "Custom dismiss control",
-        default: "Extra body content under the message"
-      },
-      methods: {
-        show: "Alias of UI.Notify(...)",
-        success: "UI.Notify.success(message|opts, title?)",
-        error: "UI.Notify.error(message|opts, title?)",
-        warning: "UI.Notify.warning(message|opts, title?)",
-        info: "UI.Notify.info(message|opts, title?)",
-        update: "UI.Notify.update(id, patch)",
-        remove: "UI.Notify.remove(id)",
-        clear: "UI.Notify.clear()",
-        promise: "UI.Notify.promise(promise|fn, { loading?, success?, error? })"
-      },
-      returns: "string|null (toast id)",
-      description: "Standardized notify service with structured payloads, semantic shortcuts, update/remove/clear, and promise support."
-    };
-  }
-
-

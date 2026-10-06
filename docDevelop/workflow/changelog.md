@@ -2,6 +2,24 @@
 
 Record significant completed framework work: date, outcome, affected areas, and verification.
 
+## 2026-10-06 — JSswift 1.0.46 and knowledge MCP 0.1.2 release preparation
+
+- Framework and lockfiles updated to 1.0.46; MCP package, lockfile, and server identity updated to 0.1.2. Includes UI metadata removal, AI.md, shared exact contracts, updated Skill/MCP routing, and contract validation.
+- Verification: runtime/production builds, project/browser/knowledge/MCP tests, tarball inspection, version availability, and whitespace checks completed. Portable Skill regenerated.
+
+## 2026-10-06 — AI quick start and shared component contracts
+
+- Added documentions/AI.md with Vite imports, six native components, exact callback signatures, signal-based value access, validation, dialog lifecycle, CSS guidance, and focused links. Exposed jsswift/AI.md and indexed guide:AI through Knowledge Map/MCP and portable Skill.
+- Shared identical common property definitions through ui/common-props.md; preserved all component-specific definitions. Transformation verified reconstruction of every original props object. Knowledge loader validates shared references and keys.
+- Corrected Input callback documentation: implementation passes the value only. Documented existing Dialog ariaLabel. No focus/getValue/setValue methods or automatic accessibility behavior invented.
+- Verification: executable quick-start example test, discovery and packed MCP integration tests, and Skill validation passed. No benchmark rerun or token savings claimed. Changes local, not published.
+
+## 2026-10-06 — Remove component metadata from UI runtime
+
+- Removed UI.meta component registrations and descriptive normalization tables from modular UI source. Exact contracts remain in documentions/components and are served through the Knowledge Map, portable Skill, and MCP. Core utilities still support application-supplied metadata, but no component catalog is populated by UI.
+- UI minified output shrank from 473,621 to about 364,798 bytes (23%); umbrella minified runtime from 553,856 to about 445,179 bytes (19.6%).
+- Verification: UI/umbrella builds; 58 project tests, 10 browser tests, and 5 knowledge/MCP tests passed. Regression checks verify absence of registrations, normalization tables, and runtime catalog while all documented component aliases remain available. No release published for this change.
+
 ## 2026-10-06 — JSswift 1.0.45 and knowledge MCP 0.1.1 release
 
 - Prepared all framework packages at 1.0.45 and MCP at 0.1.1, including runtime server identity and lockfiles. MCP instructions route styling and optional-asset questions to focused guides.

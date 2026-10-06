@@ -214,91 +214,11 @@
   };
 
   UI.Checkbox = (...args) => buildChoiceControl("checkbox", args);
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Checkbox = {
-      signature: "UI.Checkbox(...children) | UI.Checkbox(props, ...children)",
-      props: {
-        label: "String|Node|Function|Array",
-        checked: "boolean|null",
-        model: "[get,set] signal",
-        icon: "String|Node|Function|Array",
-        iconOn: "Alias of icon/checkedIcon",
-        iconOff: "Alias of uncheckedIcon",
-        iconStandby: "Icon for null/indeterminate state",
-        checkedIcon: "String|Node|Function|Array",
-        uncheckedIcon: "String|Node|Function|Array",
-        color: "string",
-        size: "string|number",
-        outline: "boolean",
-        dense: "boolean",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-        slots: "{ label?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        label: "Checkbox label",
-        icon: "Base icon content",
-        iconStandby: "Slot for null/indeterminate icon",
-        checkedIcon: "Icon when checked",
-        uncheckedIcon: "Icon when unchecked",
-        default: "Fallback label content"
-      },
-      events: {
-        onChange: "(checked|null, event)",
-        onInput: "(checked|null, event)"
-      },
-      returns: "HTMLLabelElement",
-      description: "Checkbox con label e supporto model."
-    };
-  }
+
   // Esempio: JSswift.ui.Checkbox({ label: "Accetto", model: [get,set] })
 
   UI.Radio = (...args) => buildChoiceControl("radio", args);
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Radio = {
-      signature: "UI.Radio(...children) | UI.Radio(props, ...children)",
-      props: {
-        label: "String|Node|Function|Array",
-        value: "any",
-        name: "string",
-        checked: "boolean|null",
-        model: "[get,set] signal",
-        icon: "String|Node|Function|Array",
-        iconOn: "Alias of icon/checkedIcon",
-        iconOff: "Alias of uncheckedIcon",
-        checkedIcon: "String|Node|Function|Array",
-        uncheckedIcon: "String|Node|Function|Array",
-        color: "string",
-        size: "string|number",
-        outline: "boolean",
-        dense: "boolean",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-        slots: "{ label?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        label: "Radio label",
-        icon: "Base icon content",
-        iconOn: "Alias slot for checked icon",
-        iconOff: "Alias slot for unchecked icon",
-        checkedIcon: "Icon when checked",
-        uncheckedIcon: "Icon when unchecked",
-        default: "Fallback label content"
-      },
-      events: {
-        onChange: "(value, event)",
-        onInput: "(value, event)"
-      },
-      returns: "HTMLLabelElement",
-      description: "Radio con label e supporto model."
-    };
-  }
+
   // Esempio: JSswift.ui.Radio({ name: "r1", value: "a", label: "A", model: [get,set] })
 
   UI.Toggle = (...args) => {
@@ -311,51 +231,7 @@
       modelName: "UI.Toggle:model"
     });
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Toggle = {
-      signature: "UI.Toggle(...children) | UI.Toggle(props, ...children)",
-      props: {
-        label: "String|Node|Function|Array",
-        behavior: "\"checkbox\"|\"radio\"",
-        mode: "Alias of behavior",
-        value: "any",
-        name: "string",
-        checked: "boolean",
-        model: "[get,set] signal",
-        icon: "String|Node|Function|Array",
-        iconOn: "Alias of icon/checkedIcon",
-        iconOff: "Alias of uncheckedIcon",
-        iconStandby: "Icon for null/indeterminate state",
-        checkedIcon: "String|Node|Function|Array",
-        uncheckedIcon: "String|Node|Function|Array",
-        color: "string",
-        size: "string|number",
-        dense: "boolean",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-        slots: "{ label?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        label: "Toggle label",
-        icon: "Base icon content",
-        iconOn: "Alias slot for checked icon",
-        iconOff: "Alias slot for unchecked icon",
-        iconStandby: "Slot for null/indeterminate icon",
-        checkedIcon: "Icon when checked",
-        uncheckedIcon: "Icon when unchecked",
-        default: "Fallback label content"
-      },
-      events: {
-        onChange: "(checked|value, event)",
-        onInput: "(checked|value, event)"
-      },
-      returns: "HTMLLabelElement",
-      description: "Toggle switch con supporto model e comportamento checkbox/radio."
-    };
-  }
+
   // Esempio: JSswift.ui.Toggle({ label: "Attivo", model: [get,set] })
 
   UI.Slider = (...args) => {
@@ -795,70 +671,7 @@
 
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Slider = {
-      signature: "UI.Slider(...children) | UI.Slider(props, ...children)",
-      props: {
-        min: "number",
-        max: "number",
-        step: "number|\"any\"",
-        value: "number | rod | [get,set] signal",
-        model: "rod | [get,set] signal",
-        label: "String|Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        iconRight: "String|Node|Function|Array",
-        thumbIcon: "String|Node|Function|Array",
-        iconThumb: "Alias of thumbIcon",
-        pointIcon: "Alias of thumbIcon",
-        thumbLabel: "String|Node|Function|Array",
-        showValue: "boolean",
-        labelValue: "String|Node|Function|Array",
-        markers: "boolean|number|Array|Object",
-        markerLabels: "boolean",
-        labelMarks: "Alias of markerLabels",
-        startLabel: "String|Node|Function|Array",
-        endLabel: "String|Node|Function|Array",
-        leftLabel: "Alias of startLabel",
-        rightLabel: "Alias of endLabel",
-        minLabel: "Alias of startLabel",
-        maxLabel: "Alias of endLabel",
-        withQItem: "boolean",
-        qitem: "Alias of withQItem",
-        item: "boolean",
-        itemClass: "string",
-        itemStyle: "object",
-        selectionColor: "string",
-        trackColor: "string",
-        thumbColor: "string",
-        size: "string|number",
-        readonly: "boolean",
-        inputClass: "string",
-        slots: "{ label?, default?, value?, icon?, iconRight?, thumbIcon?, thumbLabel?, marker?, markerLabel?, startLabel?, endLabel? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        label: "Label content",
-        default: "Fallback label content",
-        value: "Header value content",
-        icon: "Left icon content",
-        iconRight: "Right icon content",
-        thumbIcon: "Thumb icon content",
-        thumbLabel: "Thumb label content",
-        marker: "Marker content",
-        markerLabel: "Marker label content",
-        startLabel: "Label on the left/start of the track",
-        endLabel: "Label on the right/end of the track"
-      },
-      events: {
-        onChange: "(value, event)",
-        onInput: "(value, event)"
-      },
-      returns: "HTMLLabelElement | HTMLLIElement (with ._input = HTMLInputElement)",
-      description: "Reactive slider with label, icons, custom thumb, markers, and model/QItem support."
-    };
-  }
+
   // Esempio: JSswift.ui.Slider({ min: 0, max: 10, model: [get,set] })
 
   UI.Rating = (...args) => {
@@ -1189,62 +1002,7 @@
 
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Rating = {
-      signature: "UI.Rating(...children) | UI.Rating(props, ...children)",
-      props: {
-        max: "number",
-        value: "number | rod | [get,set] signal",
-        model: "rod | [get,set] signal",
-        name: "string",
-        label: "String|Node|Function|Array",
-        clearable: "boolean",
-        half: "boolean",
-        allowHalf: "Alias of half",
-        noDimming: "boolean",
-        readonly: "boolean",
-        disabled: "boolean",
-        icon: "String|Node|Function|Array",
-        iconSelected: "Alias of checkedIcon",
-        checkedIcon: "String|Node|Function|Array",
-        uncheckedIcon: "String|Node|Function|Array",
-        iconHalf: "Alias of halfIcon",
-        halfIcon: "String|Node|Function|Array",
-        iconHovered: "Alias of hoveredIcon",
-        hoveredIcon: "String|Node|Function|Array",
-        color: "string",
-        colorSelected: "string",
-        colorHalf: "string",
-        colorHovered: "string",
-        colorInactive: "string",
-        iconSize: "string|number",
-        size: "string|number",
-        gap: "string|number",
-        slots: "{ label?, icon?, checkedIcon?, uncheckedIcon?, halfIcon?, hoveredIcon?, item?, star? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        label: "Label content",
-        icon: "Base icon content per item",
-        checkedIcon: "Icon when item is selected",
-        uncheckedIcon: "Icon when item is empty",
-        halfIcon: "Icon when item is half-selected",
-        hoveredIcon: "Icon while hovering selected items",
-        item: "Custom item renderer",
-        star: "Alias of item/icon"
-      },
-      events: {
-        onChange: "(value, event)",
-        onInput: "(value, event)",
-        onHover: "(value, event)"
-      },
-      keyboard: ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End", "Enter", "Space", "Delete", "Backspace", "0"],
-      returns: "HTMLLabelElement (with ._input, ._rating, ._getValue(), ._setValue(value))",
-      description: "Reactive rating with label, custom icons, half rating, clearable behavior, and model support."
-    };
-  }
+
   // Esempio: JSswift.ui.Rating({ max: 5, model: [get,set] })
 
   const uiCloneTimeParts = (value) => {
@@ -2710,86 +2468,7 @@
   JSswift.ui.Datepicker = UI.Datepicker;
   JSswift.ui.Calendar = UI.Calendar;
   JSswift.ui.Date = UI.Date;
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Datepicker = {
-      signature: "UI.Datepicker(props)",
-      props: {
-        value: "string | { from, to } | string[] | Array<{ from, to }> | Array<[from, to]>",
-        model: "rod | [get,set] signal",
-        mode: "\"single\"|\"range\"|\"multiple\"|\"range-multiple\"",
-        range: "boolean",
-        multiple: "boolean",
-        rangeMultiple: "boolean",
-        multipleRange: "Alias of rangeMultiple",
-        min: "string",
-        max: "string",
-        minDate: "Alias of min",
-        maxDate: "Alias of max",
-        minRange: "number",
-        maxRange: "number",
-        manualInput: "boolean",
-        firstDayOfWeek: "number",
-        monthsToShow: "number",
-        locale: "string",
-        shortcuts: "Array<{ label, value }>",
-        options: "Array|string|Function",
-        enableDates: "Alias of options",
-        disableDates: "Array|string|Function",
-        label: "String|Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        iconRight: "String|Node|Function|Array",
-        pointIcon: "String|Node|Function|Array",
-        withTime: "boolean",
-        timeValue: "string|Date",
-        timeMin: "string",
-        timeMax: "string",
-        timeMinuteStep: "number",
-        timeSecondStep: "number",
-        timeWithSeconds: "boolean",
-        timeShortcuts: "Array<{ label, value }>",
-        timePointIcon: "String|Node|Function|Array",
-        clearable: "boolean",
-        confirm: "boolean",
-        name: "string",
-        nameFrom: "string",
-        nameTo: "string",
-        size: "\"xs\"|\"sm\"|\"md\"|\"lg\"|\"xl\"",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        day: "Day content ({ date, selected, inRange, disabled, outside })",
-        point: "Point/icon in the day",
-        dayPoint: "Alias of point",
-        value: "Footer value renderer ({ value, displayValue, mode })",
-        timeOption: "Renderer for a time option in the integrated footer",
-        timePoint: "Point/icon in the footer time option",
-        timeShortcut: "Integrated time shortcut renderer",
-        label: "Floating label",
-        topLabel: "Top label",
-        icon: "Left icon",
-        iconRight: "Right icon",
-        default: "Fallback value content"
-      },
-      events: {
-        onChange: "(value, event)",
-        onInput: "(value, event)",
-        onOpen: "void",
-        onClose: "void",
-        onNavigate: "({ month, year })"
-      },
-      returns: "HTMLDivElement (field wrapper) con ._input, ._open(), ._close(), ._getValue(), ._setValue(value)",
-      description: "Reactive datepicker input with fixed overlay, single/range/multiple/multi-range modes, model, min/max, presets, xs-xl sizes, and optional time support in a unified interface."
-    };
-    UI.meta.Calendar = {
-      ...UI.meta.Datepicker,
-      signature: "UI.Calendar(props)",
-      returns: "HTMLDivElement calendar panel con ._getValue(), ._setValue(value), ._clear(), ._select(value)",
-      description: "Standalone interactive calendar panel using the same engine and styling as UI.Datepicker, with direct model persistence."
-    };
-    UI.meta.Date = UI.meta.Datepicker;
-  }
+
   // Esempio: JSswift.ui.Datepicker({ value: "2024-01-01" })
 
   UI.Time = (...args) => {
@@ -3100,50 +2779,6 @@
 
     return field;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Time = {
-      signature: "UI.Time(props)",
-      props: {
-        value: "string|Date",
-        model: "rod | [get,set] signal",
-        min: "string",
-        max: "string",
-        minuteStep: "number",
-        secondStep: "number",
-        withSeconds: "boolean",
-        manualInput: "boolean",
-        clearable: "boolean",
-        confirm: "boolean",
-        label: "String|Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        iconRight: "String|Node|Function|Array",
-        pointIcon: "String|Node|Function|Array",
-        shortcuts: "Array<{ label, value }>",
-        name: "string",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        option: "Renderer for a time option ({ part, value, label, selected, timeValue })",
-        point: "Point/icon in the selected time option",
-        shortcut: "Shortcut renderer",
-        value: "Footer value renderer ({ value, displayValue })",
-        label: "Floating label",
-        topLabel: "Top label",
-        icon: "Left icon",
-        iconRight: "Right icon",
-        default: "Fallback value content"
-      },
-      events: {
-        onChange: "(value, event)",
-        onInput: "(value, event)",
-        onOpen: "void",
-        onClose: "void"
-      },
-      returns: "HTMLDivElement (field wrapper) con ._input, ._open(), ._close(), ._getValue(), ._setValue(value)",
-      description: "Reactive time picker with fixed overlay, label/icon slots, point icon, shortcuts, confirm, and model."
-    };
-  }
+
   // Esempio: JSswift.ui.Time({ value: "09:30" })
 

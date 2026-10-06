@@ -60,6 +60,20 @@ export async function loadKnowledge(root = defaultRoot) {
       const block = text.match(/```json\s*([\s\S]*?)```/);
       if (!block) throw new Error(`Missing component metadata: ${entry.path}`);
       const metadata = JSON.parse(block[1]);
+      if (metadata.commonProps) {
+        const shared = metadata.commonProps;
+        if (!Array.isArray(shared.keys) || shared.keys.some(key => typeof key !== 'string') ||
+            !entries.has(`guide:${String(shared.path).replace(/\.md$/, '')}`)) {
+          throw new Error(`Invalid common props reference: ${entry.path}`);
+        }
+        const sharedText = await readFile(await safePath(shared.path), 'utf8');
+        const sharedBlock = sharedText.match(/```json\s*([\s\S]*?)```/);
+        const sharedMetadata = sharedBlock ? JSON.parse(sharedBlock[1]) : null;
+        if (shared.keys.some(key => !Object.hasOwn(sharedMetadata?.props ?? {}, key) || Object.hasOwn(metadata.props ?? {}, key))) {
+          throw new Error(`Invalid inherited property: ${entry.path}`);
+        }
+      }
+
       if (!metadata.signature?.startsWith(`_.${entry.title}(`) ||
         !entry.keywords.includes(`_.${entry.title}`) || entry.keywords.some(word => word.startsWith('JSswift.'))) {
         throw new Error(`Noncanonical application API: ${entry.path}; use _.${entry.title}`);

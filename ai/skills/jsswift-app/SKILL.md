@@ -13,7 +13,7 @@ If the JSswift knowledge MCP is connected, use `jsswift_search` with the user's 
 
 Without MCP, first check the application’s installed `node_modules/jsswift/dist/documentions/README.md` and `knowledge-map.json`, which match its framework release. For a standalone Skill, use `references/documentions/README.md` and `references/documentions/knowledge-map.json` when present in the distributed Skill. In the source checkout, use `documentions/README.md` and `documentions/knowledge-map.json` three directories above this Skill. If neither is available, locate the JSswift checkout or ask for the documentation location rather than inventing APIs.
 
-Load only the guides relevant to the feature. Read each chosen component's `documentions/components/<component>.md` before using its props, slots, events, methods, or return value. These documents contain the exact metadata contract; the map only routes to them.
+Start with `AI.md` (MCP ID `guide:AI`). Its examples and callback table cover a supported subset directly. Read a component's `components/<component>.md` only for additional APIs. Shared properties listed by `commonProps.keys` are defined in `ui/common-props.md`; read that once when styling. Load only guides relevant to the feature; the map routes to contracts rather than replacing them.
 
 ## Build the application
 

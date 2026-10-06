@@ -12,7 +12,11 @@ test('documented application aliases exist on the shared runtime namespace', asy
   for (const name of ['signal', 'effect', 'computed', 'untracked', 'batch']) {
     assert.equal(runtime[name], runtime.reactive[name], `_.${name} aliases the reactive implementation`);
   }
-  vm.runInThisContext(await readFile(new URL('../pages/_jsswift-fe/js/ui.js', import.meta.url), 'utf8'));
+  const uiSource = await readFile(new URL('../pages/_jsswift-fe/js/ui.js', import.meta.url), 'utf8');
+  assert.ok(!uiSource.includes('UI.meta'), 'UI bundle excludes component metadata registrations');
+  assert.ok(!uiSource.includes('META_PROP_DESCRIPTIONS'), 'UI bundle excludes metadata normalization tables');
+  vm.runInThisContext(uiSource);
+  assert.deepEqual(Object.keys(runtime.ui.meta), [], 'No component catalog is allocated at runtime');
   const app = globalThis._;
   assert.equal(app, runtime);
   const knowledge = await loadKnowledge();
@@ -39,6 +43,8 @@ test('documented application aliases exist on the shared runtime namespace', asy
 test('knowledge routes realistic application requests to focused contracts', async () => {
   const knowledge = await loadKnowledge();
   for (const [query, id] of [
+    ['AI.md', 'guide:AI'],
+    ['proprietà comuni', 'guide:ui/common-props'],
     ['form con validazione', 'guide:ui/forms'],
     ['layout responsive', 'guide:ui/layout-and-responsive'],
     ['stato reattività', 'guide:reactivity'],
@@ -77,4 +83,26 @@ test('knowledge rejects stale maps and references escaping the documentation roo
     await symlink(path.join(temp, 'outside.md'), path.join(root, 'escape.md'));
     await assert.rejects(loadKnowledge(root), /outside documentation root/);
   } finally { await rm(temp, { recursive: true, force: true }); }
+});
+
+
+test('AI quick-start example creates native controls and validates model values', async () => {
+  await loadCMS();
+  vm.runInThisContext(await readFile(new URL('../pages/_jsswift-fe/js/ui.js', import.meta.url), 'utf8'));
+  const text = await readFile(new URL('../documentions/AI.md', import.meta.url), 'utf8');
+  const snippet = text.match(/```js\n([\s\S]*?)```/)[1].replace(/^import .*;\n/gm, '').replace("_.mount('#app', page);", '');
+  const sample = new Function('window', snippet + '\nreturn { name, category, nameInput, categorySelect, save, errors, table, page, dialog };')(globalThis);
+  assert.ok(sample.page.nodeType);
+  assert.ok(sample.table.nodeType);
+  assert.equal(sample.nameInput._input.value, 'Prodotto 01');
+  sample.name[1]('');
+  sample.save.dispatchEvent({ type: 'click' });
+  assert.ok(sample.errors.childNodes.length > 0, 'empty name yields a visible error');
+  sample.name[1]('Prodotto aggiornato');
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(sample.nameInput._input.value, 'Prodotto aggiornato');
+  sample.category[1]('Ufficio');
+  assert.equal(sample.category[0](), 'Ufficio');
+  sample.name[2]();
+  sample.category[2]();
 });

@@ -681,408 +681,6 @@ UI.AppShell
 UI.Parallax
 */
 
-const META_PROP_DESCRIPTIONS = {
-  actions: "Content rendered in the action area, typically in a footer or trailing region.",
-  active: "Marks the item as active/selected and applies active styling/ARIA when relevant.",
-  align: "Alignment of content along the cross axis (e.g. left/center/right).",
-  allowCustom: "Allows values not present in the options list.",
-  allowCustomValue: "Accepts free-form values in addition to predefined options.",
-  aside: "Content or configuration for the aside/secondary region.",
-  auto: "Enables automatic sizing or layout behavior instead of fixed sizing.",
-  autocomplete: "Native autocomplete attribute for input elements.",
-  backdrop: "Whether to render a backdrop overlay behind the component.",
-  bgClass: "Additional CSS classes applied to the background layer.",
-  bgPosition: "CSS background-position value for the background image/layer.",
-  bgSize: "CSS background-size value for the background image/layer.",
-  cardClass: "Additional CSS classes applied to the card container.",
-  checked: "Checked state for toggleable controls (controlled).",
-  class: "Additional CSS classes applied to the component root element.",
-  clearable: "Shows a clear action to reset the current value.",
-  clickable: "Enables pointer/hover styles and click handling on the component.",
-  closeOnEsc: "Closes the component when the Escape key is pressed.",
-  closeOnOutside: "Closes the component when clicking outside its bounds.",
-  closeOnSelect: "Closes the menu/popover after selecting an item.",
-  color: "Semantic color name used to style the component.",
-  cols: "Number of columns for grid layouts.",
-  columns: "Column definitions for table-like components.",
-  content: "Main content node(s) or render function for the component body.",
-  contentClass: "Additional CSS classes applied to the content container.",
-  control: "Custom control element or render function for the input area.",
-  children: "Default child content (nodes, arrays, or render function).",
-  delay: "Delay in milliseconds before showing or hiding.",
-  dense: "Uses compact spacing and sizing.",
-  disabled: "Disables interaction and applies disabled styling/ARIA.",
-  divider: "Shows dividers between items or sections.",
-  drawer: "Content or configuration for the drawer region.",
-  drawerBreakpoint: "Viewport width where the drawer switches behavior (overlay vs persistent).",
-  drawerCloseIcon: "Icon used for the drawer close control.",
-  drawerOpen: "Controls whether the drawer is open (controlled).",
-  drawerOpenIcon: "Icon used for the drawer open control.",
-  drawerStateKey: "Storage key used to persist drawer open state.",
-  drawerWidth: "Drawer width (number interpreted as px or CSS length).",
-  elevated: "Applies elevated shadow/raised styling.",
-  emptyText: "Text shown when there is no data to display.",
-  error: "Error state or message displayed with the component.",
-  escClose: "Alias for close-on-escape behavior.",
-  filterPlaceholder: "Placeholder text for the filter/search input.",
-  filterable: "Enables filtering UI for option lists.",
-  flat: "Removes elevation/border for a flat look.",
-  footer: "Footer content node(s) or render function.",
-  form: "HTML form attribute to associate controls with a form.",
-  gap: "Gap/spacing between child elements.",
-  getValue: "Function to extract a value from an item object.",
-  groupCloseIcon: "Icon used to collapse grouped items.",
-  groupOpenIcon: "Icon used to expand grouped items.",
-  header: "Header content node(s) or render function.",
-  height: "Explicit height (number interpreted as px or CSS length).",
-  hint: "Helper text shown near the control.",
-  icon: "Icon name or node rendered with the component.",
-  iconRight: "Icon name or node rendered on the right side of the component.",
-  iconAlign: "Position of the icon relative to the label.",
-  initialSort: "Initial sort configuration for table data.",
-  inputmode: "Native inputmode attribute hint for virtual keyboards.",
-  items: "Array of items or nodes to render.",
-  justify: "Justification of items along the main axis.",
-  label: "Label text or node for the component.",
-  left: "Content or configuration for the left region.",
-  lg: "Column span at large breakpoint.",
-  loading: "Shows loading state and disables interactions where appropriate.",
-  loadingText: "Text displayed while loading.",
-  lockScroll: "Prevents body scroll while an overlay is open.",
-  max: "Maximum value for range-based controls.",
-  md: "Column span at medium breakpoint.",
-  message: "Message text shown in banners/alerts.",
-  min: "Minimum value for range-based controls.",
-  mobile: "Responsive overrides applied at the base/mobile viewport.",
-  model: "Two-way bound value (alias to value in some components).",
-  multi: "Enables multi-selection behavior.",
-  multiple: "Allows selecting multiple values.",
-  name: "HTML name attribute for form submission.",
-  noDrawer: "Disables rendering of the drawer region.",
-  note: "Secondary note text.",
-  number: "Forces numeric input/formatting where supported.",
-  offset: "General offset for positioning.",
-  offsetX: "Horizontal offset for overlay placement in pixels.",
-  offsetY: "Vertical offset for overlay placement in pixels.",
-  onBlur: "Callback fired when the control loses focus.",
-  onChange: "Callback fired when the value or selection changes.",
-  onClear: "Callback fired when the clear action is used.",
-  onClose: "Callback fired when the component closes.",
-  onFocus: "Callback fired when the control gains focus.",
-  onInput: "Callback fired on input events or while typing.",
-  onOpen: "Callback fired when the component opens.",
-  onRemove: "Callback fired when an item is removed.",
-  onSubmit: "Callback fired when a form is submitted.",
-  open: "Controls open/visible state (controlled).",
-  options: "Array of selectable options or option groups.",
-  outline: "Uses outlined visual style.",
-  overlay: "Renders content in an overlay layer or portal.",
-  overlayClose: "Closes the overlay when the backdrop is clicked.",
-  page: "Current page index (1-based unless documented otherwise).",
-  pageSize: "Number of items per page.",
-  padding: "Padding applied to the component root element.",
-  persistent: "Prevents closing via outside click or Escape.",
-  pc: "Responsive overrides applied from the desktop breakpoint upward.",
-  placeholder: "Placeholder text for inputs.",
-  placement: "Overlay placement relative to the target/anchor.",
-  prefix: "Content rendered before the main control.",
-  readonly: "Prevents editing while keeping focus and selection.",
-  removable: "Shows a remove affordance for chips/items.",
-  right: "Content or configuration for the right region.",
-  rowKey: "Key or function used to derive unique row IDs.",
-  rows: "Row data array for table-like components.",
-  margin: "Margin applied to the component root element.",
-  maxHeight: "Maximum height constraint (number interpreted as px or CSS length).",
-  maxWidth: "Maximum width constraint (number interpreted as px or CSS length).",
-  minHeight: "Minimum height constraint (number interpreted as px or CSS length).",
-  minWidth: "Minimum width constraint (number interpreted as px or CSS length).",
-  radius: "Border radius token or CSS length applied to the component.",
-  borderRadius: "Border radius token or CSS length applied to the component.",
-  separator: "Separator string/node between items.",
-  shortcode: "Keyboard shortcut string, object, or array bound to the component action.",
-  showShortcode: "Displays the configured keyboard shortcut badge when the component supports it.",
-  showLabel: "Whether to render the label text.",
-  size: "Size token, number, or CSS length for sizing.",
-  slots: "Named slots map for render overrides.",
-  sm: "Column span at small breakpoint.",
-  span: "Column span within a grid.",
-  speed: "Animation speed or duration in milliseconds.",
-  square: "Use square corners instead of rounded.",
-  src: "Image source URL.",
-  startTop: "Starting scroll offset for parallax effects.",
-  stateKey: "Storage key used to persist component state.",
-  step: "Step increment for numeric controls.",
-  sticky: "Makes the component sticky within its container.",
-  stickyAside: "Keeps the aside region sticky during scroll.",
-  stickyFooter: "Keeps the footer region sticky during scroll.",
-  stickyHeader: "Keeps the header region sticky during scroll.",
-  striped: "Applies striped row styling.",
-  style: "Inline styles applied to the component root element.",
-  subtitle: "Subtitle text or node.",
-  success: "Marks the component with success state styling.",
-  suffix: "Content rendered after the main control.",
-  tableClass: "Additional CSS classes applied to the table element.",
-  tablet: "Responsive overrides applied from the tablet breakpoint upward.",
-  tabs: "Tab definitions array.",
-  tagPage: "Query parameter name used to read/write the current page.",
-  target: "Target element or anchor used for positioning.",
-  text: "Text content for simple components.",
-  thickness: "Stroke/line thickness for progress indicators.",
-  title: "Title text or node.",
-  to: "Navigation target/route to open on click.",
-  topLabel: "Label displayed above the control.",
-  trapFocus: "Keeps focus trapped inside the dialog/popover.",
-  type: "Variant or native input type.",
-  value: "Current value (controlled).",
-  vertical: "Vertical orientation instead of horizontal.",
-  warning: "Marks the component with warning state styling.",
-  width: "Explicit width (number interpreted as px or CSS length).",
-  wrap: "Allows children to wrap to new lines.",
-  wrapClass: "Additional CSS classes applied to the outer wrapper.",
-  zIndex: "z-index for overlay stacking.",
-  shadow: "Shadow token or CSS box-shadow string applied to the component.",
-};
-
-const META_SLOT_DESCRIPTIONS = {
-  actions: "Slot for action buttons or links.",
-  arrow: "Slot for the tooltip/popover arrow element.",
-  aside: "Slot for aside/secondary content.",
-  center: "Slot for centered content within a toolbar/row.",
-  clear: "Slot for the clear control/content.",
-  content: "Slot for the main body content.",
-  control: "Slot for custom control/input rendering.",
-  default: "Primary content for the component.",
-  drawer: "Slot for drawer content.",
-  empty: "Slot for empty-state content.",
-  errorMessage: "Slot for custom error message rendering.",
-  filter: "Slot for custom filter/search UI.",
-  footer: "Slot for footer content.",
-  group: "Slot for grouped content container.",
-  groupLabel: "Slot for group label content.",
-  header: "Slot for header content.",
-  hint: "Slot for helper/hint text.",
-  icon: "Slot for icon content.",
-  iconRight: "Slot for right-aligned icon content.",
-  input: "Slot for custom input element/content.",
-  item: "Slot for custom item rendering.",
-  itemLabel: "Slot for item label rendering.",
-  label: "Slot for label content.",
-  left: "Slot for left-aligned content.",
-  loading: "Slot for loading state content.",
-  message: "Slot for message/alert content.",
-  next: "Slot for the next-page control.",
-  note: "Slot for note/secondary text.",
-  option: "Slot for custom option rendering.",
-  page: "Slot for page indicator/content.",
-  prefix: "Slot for prefix content.",
-  prev: "Slot for the previous-page control.",
-  right: "Slot for right-aligned content.",
-  separator: "Slot for separator rendering between items.",
-  star: "Slot for custom star icon/content in rating.",
-  subtitle: "Slot for subtitle content.",
-  success: "Slot for success message/content.",
-  suffix: "Slot for suffix content.",
-  tab: "Slot for custom tab label/content.",
-  target: "Slot for custom target/anchor element.",
-  title: "Slot for title content.",
-  topLabel: "Slot for top label content.",
-  warning: "Slot for warning message/content."
-};
-
-const META_PROP_DEFAULTS = {
-  dense: false,
-  disabled: false,
-  readonly: false,
-  outline: false,
-  clickable: false,
-  flat: false,
-  elevated: false
-};
-const DEFAULT_SIZE = [...JSswift.uiSizes];
-const DEFAULT_COLOR = [...JSswift.uiColors];
-const META_PROP_VALUES = {
-  size: ["number", "CSS units", ...DEFAULT_SIZE],
-  color: DEFAULT_COLOR,
-  padding: ["number", "CSS units", ...DEFAULT_SIZE],
-  margin: ["number", "CSS units", ...DEFAULT_SIZE],
-  width: ["number", "CSS units", ...DEFAULT_SIZE],
-  minWidth: ["number", "CSS units", ...DEFAULT_SIZE],
-  maxWidth: ["number", "CSS units", ...DEFAULT_SIZE],
-  height: ["number", "CSS units", ...DEFAULT_SIZE],
-  minHeight: ["number", "CSS units", ...DEFAULT_SIZE],
-  maxHeight: ["number", "CSS units", ...DEFAULT_SIZE],
-  iconAlign: ["left", "right", "before", "after"],
-  align: ["left", "center", "right"],
-  justify: ["start", "center", "end", "space-between", "space-around", "space-evenly"],
-  placement: ["top", "bottom", "left", "right", "top-start", "top-end", "bottom-start", "bottom-end"],
-  type: DEFAULT_COLOR,
-  shadow: ["none", ...DEFAULT_SIZE],
-  outline: ["number", "CSS units", ...DEFAULT_SIZE],
-  borderRadius: ["number", "CSS units", ...DEFAULT_SIZE],
-  radius: ["number", "CSS units", ...DEFAULT_SIZE],
-  icon: ["#name_tabler", "name_material", "class"],
-  iconRight: ["#name_tabler", "name_material", "class"]
-};
-
-const META_PROP_CATEGORIES = {
-  class: "style",
-  style: "style",
-  size: "style",
-  color: "style",
-  outline: "style",
-  shadow: "style",
-  borderRadius: "style",
-  radius: "style",
-  padding: "layout",
-  margin: "layout",
-  width: "layout",
-  minWidth: "layout",
-  maxWidth: "layout",
-  height: "layout",
-  minHeight: "layout",
-  maxHeight: "layout",
-  mobile: "layout",
-  tablet: "layout",
-  pc: "layout",
-  dense: "layout",
-  flat: "style",
-  elevated: "style",
-  clickable: "behavior",
-  disabled: "state",
-  readonly: "state",
-  loading: "state",
-  active: "state",
-  error: "state",
-  success: "state",
-  warning: "state",
-  note: "state",
-  hint: "state",
-  value: "data",
-  model: "data",
-  items: "data",
-  options: "data",
-  rows: "data",
-  columns: "data",
-  onClick: "events",
-  onChange: "events",
-  onInput: "events",
-  onFocus: "events",
-  onBlur: "events",
-  onSubmit: "events"
-};
-
-const normalizeMetaType = (value) => {
-  if (typeof value === "string") return value;
-  if (!value || typeof value !== "object" || Array.isArray(value)) return "unknown";
-  return value.type || value.signature || value.value || "unknown";
-};
-
-const fallbackMetaDescription = (name, kind) => {
-  if (kind === "slot") {
-    return `Slot content for "${name}". Accepts nodes, arrays, or render functions.`;
-  }
-  return `Component configuration for "${name}". When not handled internally, it is forwarded to the root element.`;
-};
-
-const normalizeMetaFields = (fields, descriptions, kind) => {
-  if (!fields || typeof fields !== "object") return fields;
-  const out = {};
-  for (const [name, value] of Object.entries(fields)) {
-    const description = descriptions[name] || fallbackMetaDescription(name, kind);
-    if (value && typeof value === "object" && !Array.isArray(value)) {
-      const type = normalizeMetaType(value);
-      out[name] = {
-        ...value,
-        type,
-        description: value.description || description,
-        default: Object.prototype.hasOwnProperty.call(value, "default") ? value.default : (META_PROP_DEFAULTS[name] ?? null),
-        values: value.values || META_PROP_VALUES[name] || null,
-        category: value.category || META_PROP_CATEGORIES[name] || (kind === "slot" ? "slot" : "general")
-      };
-    } else {
-      const type = normalizeMetaType(value);
-      out[name] = {
-        type,
-        description,
-        default: META_PROP_DEFAULTS[name] ?? null,
-        values: META_PROP_VALUES[name] || null,
-        category: META_PROP_CATEGORIES[name] || (kind === "slot" ? "slot" : "general")
-      };
-    }
-  }
-  return out;
-};
-
-const normalizeMetaEntry = (componentName, meta) => {
-  if (!meta || typeof meta !== "object") return meta;
-  if (!meta.props || typeof meta.props !== "object" || Array.isArray(meta.props)) {
-    meta.props = meta.props && typeof meta.props === "object" && !Array.isArray(meta.props) ? meta.props : {};
-  }
-  if (!Object.prototype.hasOwnProperty.call(meta.props, "children")) {
-    meta.props.children = "Node|Array|Function";
-  }
-  const commonProps = {
-    size: meta.props.size || "string|number",
-    color: meta.props.color || "string",
-    outline: meta.props.outline || "boolean",
-    clickable: meta.props.clickable || "boolean",
-    padding: meta.props.padding || "string|number",
-    margin: meta.props.margin || "string|number",
-    width: meta.props.width || "string|number",
-    minWidth: meta.props.minWidth || "string|number",
-    maxWidth: meta.props.maxWidth || "string|number",
-    height: meta.props.height || "string|number",
-    minHeight: meta.props.minHeight || "string|number",
-    maxHeight: meta.props.maxHeight || "string|number",
-    radius: meta.props.radius || "string|number",
-    borderRadius: meta.props.borderRadius || "string|number",
-    shadow: meta.props.shadow || "string|boolean",
-    mobile: meta.props.mobile || "object",
-    tablet: meta.props.tablet || "object",
-    pc: meta.props.pc || "object",
-    class: meta.props.class || "string",
-    style: meta.props.style || "object"
-  };
-  meta.props = { ...commonProps, ...meta.props };
-  if (meta.props.icon && !meta.props.iconRight) {
-    meta.props.iconRight = meta.props.icon;
-  }
-  if (meta.props) meta.props = normalizeMetaFields(meta.props, META_PROP_DESCRIPTIONS, "prop");
-  if (meta.slots) meta.slots = normalizeMetaFields(meta.slots, META_SLOT_DESCRIPTIONS, "slot");
-  if (meta.slots && meta.slots.icon && !meta.slots.iconRight) {
-    meta.slots.iconRight = { type: meta.slots.icon?.type || "Node|Array|Function", description: "Slot for right-aligned icon content." };
-  }
-  if (!meta.description) {
-    meta.description = `${componentName} component meta definition.`;
-  }
-  return meta;
-};
-
-const ensureMetaProxy = () => {
-  if (app.ui._metaProxyInstalled) return;
-  app.ui._metaProxyInstalled = true;
-  const target = app.ui.meta || {};
-  for (const key of Object.keys(target)) {
-    normalizeMetaEntry(key, target[key]);
-  }
-  const proxy = new Proxy(target, {
-    set(obj, prop, value) {
-      if (typeof prop === "symbol") {
-        obj[prop] = value;
-        return true;
-      }
-      obj[prop] = normalizeMetaEntry(prop, value);
-      return true;
-    }
-  });
-  app.ui.meta = proxy;
-  UI.meta = proxy;
-};
-
-if (app.isDev?.()) {
-  ensureMetaProxy();
-}
-
 function flattenSlotValue(value) {
   if (!value) return null;
   if (!Array.isArray(value)) return value;
@@ -1762,54 +1360,7 @@ const unitCover = (v, name = 'size') => {
     setPropertyProps(el, props);
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Row = {
-      signature: "UI.Row(...children) | UI.Row(props, ...children)",
-      props: {
-        start: "Node|Function|Array",
-        left: "Alias of start",
-        body: "Node|Function|Array",
-        center: "Alias of body",
-        end: "Node|Function|Array",
-        right: "Alias of end",
-        align: `stretch|flex-start|center|flex-end|baseline`,
-        justify: `flex-start|center|flex-end|space-between|space-around|space-evenly`,
-        wrap: "boolean|string",
-        direction: `row|row-reverse|column|column-reverse`,
-        reverse: "boolean",
-        gap: "string|number",
-        rowGap: "string|number",
-        columnGap: "string|number",
-        inline: "boolean",
-        full: "boolean",
-        width: "string|number",
-        minWidth: "string|number",
-        maxWidth: "string|number",
-        mobile: "{ gap?, direction?, wrap?, align?, justify?, width?, minWidth?, maxWidth? }",
-        tablet: "{ gap?, direction?, wrap?, align?, justify?, width?, minWidth?, maxWidth? }",
-        pc: "{ gap?, direction?, wrap?, align?, justify?, width?, minWidth?, maxWidth? }",
-        startClass: "string",
-        bodyClass: "string",
-        centerClass: "Alias of bodyClass",
-        endClass: "string",
-        slots: "{ start?, left?, body?, center?, end?, right?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        start: "Leading content area",
-        left: "Alias of start",
-        body: "Main content area",
-        center: "Alias of body",
-        end: "Trailing content area",
-        right: "Alias of end",
-        default: "Fallback content / children"
-      },
-      returns: "HTMLDivElement",
-      description: "Wrapper flex in riga con children, slot strutturati e props di layout per gap, allineamento, wrap e direction."
-    };
-  }
+
   function uiIsSignal(v) {
     return Array.isArray(v) && v.length === 2 && typeof v[0] === "function" && typeof v[1] === "function";
   }
@@ -2140,73 +1691,7 @@ const unitCover = (v, name = 'size') => {
     setPropertyProps(el, rawProps);
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Col = {
-      signature: "UI.Col(...children) | UI.Col(props, ...children)",
-      props: {
-        col: "number|string",
-        span: "Alias of col",
-        sm: "number|string",
-        md: "number|string",
-        lg: "number|string",
-        auto: "boolean",
-        gap: "number|string",
-        rowGap: "number|string",
-        columnGap: "number|string",
-        align: "string",
-        justify: "string",
-        inline: "boolean",
-        stack: "boolean",
-        center: "boolean",
-        width: "number|string",
-        size: "Alias of width",
-        minWidth: "number|string",
-        maxWidth: "number|string",
-        height: "number|string",
-        minHeight: "number|string",
-        maxHeight: "number|string",
-        flex: "string",
-        fill: "boolean",
-        grow: "number",
-        shrink: "number",
-        basis: "number|string",
-        self: "string",
-        order: "number|string",
-        scroll: "boolean",
-        mobile: "{ col?, span?, gap?, direction?, align?, justify?, width?, height? }",
-        tablet: "{ col?, span?, gap?, direction?, align?, justify?, width?, height? }",
-        pc: "{ col?, span?, gap?, direction?, align?, justify?, width?, height? }",
-        start: "Node|Function|Array",
-        top: "Alias of start",
-        header: "Alias of start",
-        body: "Node|Function|Array",
-        content: "Alias of body",
-        end: "Node|Function|Array",
-        bottom: "Alias of end",
-        footer: "Alias of end",
-        startClass: "string",
-        bodyClass: "string",
-        endClass: "string",
-        slots: "{ start?, top?, header?, body?, content?, end?, bottom?, footer?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        start: "Column leading area",
-        top: "Alias of start",
-        header: "Alias of start",
-        body: "Column main area",
-        content: "Alias of body",
-        end: "Column trailing area",
-        bottom: "Alias of end",
-        footer: "Alias of end",
-        default: "Column fallback content"
-      },
-      returns: "HTMLDivElement",
-      description: "Responsive 24-column wrapper. By default it behaves like a regular container and enables vertical flex layout when using gap/alignment, structured regions, or `stack`."
-    };
-  }
+
 
   UI.Spacer = (...args) => {
     const { props, children } = JSswift.uiNormalizeArgs(args);
@@ -2216,22 +1701,7 @@ const unitCover = (v, name = 'size') => {
     const content = renderSlotToArray(slots, "default", {}, children);
     return _.div(p, ...content);
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Spacer = {
-      signature: "UI.Spacer() | UI.Spacer(props)",
-      props: {
-        slots: "{ default?: Slot }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "Optional spacer content"
-      },
-      returns: "HTMLDivElement",
-      description: "Flex spacer."
-    };
-  }
+
 
   UI.Container = (...args) => {
     const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
@@ -2430,56 +1900,7 @@ const unitCover = (v, name = 'size') => {
     setPropertyProps(el, rawProps);
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Container = {
-      signature: "UI.Container(...children) | UI.Container(props, ...children)",
-      props: {
-        tag: "string",
-        fluid: "boolean",
-        maxWidth: "number|string",
-        minWidth: "number|string",
-        width: "number|string",
-        padding: "number|string",
-        paddingX: "number|string",
-        paddingY: "number|string",
-        gap: "number|string",
-        sectionGap: "number|string",
-        layout: '"block|flex|grid|stack|inline"',
-        direction: '"row|column"',
-        wrap: "boolean|string",
-        align: "string",
-        justify: "string",
-        cols: "number|string",
-        before: "String|Node|Function|Array",
-        header: "String|Node|Function|Array",
-        start: "String|Node|Function|Array",
-        body: "String|Node|Function|Array",
-        content: "String|Node|Function|Array",
-        end: "String|Node|Function|Array",
-        footer: "String|Node|Function|Array",
-        after: "String|Node|Function|Array",
-        slots: "{ before?, header?, left?, start?, body?, content?, default?, right?, end?, footer?, after? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        before: "Top content before the main container body",
-        header: "Structured header area",
-        left: "Alias for start",
-        start: "Leading area inside the main body",
-        body: "Custom body renderer overriding start/content/end wrappers",
-        content: "Explicit main content",
-        default: "Fallback content from children",
-        right: "Alias for end",
-        end: "Trailing area inside the main body",
-        footer: "Structured footer area",
-        after: "Bottom content after the main container body"
-      },
-      returns: "HTMLDivElement",
-      description: "Composable container with max-width, spacing, layout props, and optional sections."
-    };
-  }
+
 
   UI.Card = (...args) => {
     const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
@@ -2669,63 +2090,7 @@ const unitCover = (v, name = 'size') => {
     setPropertyProps(el, rawProps);
     return el;
   }
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Card = {
-      signature: "UI.Card(...children) | UI.Card(props, ...children)",
-      description: "Sectioned card with structured header, cover/media, body, and footer/actions.",
-      props: {
-        title: "String|Node|Function|Array",
-        subtitle: "String|Node|Function|Array",
-        eyebrow: "String|Node|Function|Array",
-        header: "String|Node|Function|Array",
-        body: "String|Node|Function|Array",
-        footer: "String|Node|Function|Array",
-        actions: "Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        aside: "Node|Function|Array",
-        identifier: "String|Node|Function|Array",
-        media: "Node|Function|Array",
-        cover: "Node|Function|Array",
-        image: "string",
-        imageAlt: "string",
-        coverHeight: "string|number",
-        clickable: "boolean",
-        to: "string",
-        dense: "boolean",
-        flat: "boolean",
-        display: "string",
-        direction: "row|column|string",
-        gap: "string|number",
-        cols: "number|string",
-        mobile: "{ display?, direction?, gap?, cols? }",
-        tablet: "{ display?, direction?, gap?, cols? }",
-        pc: "{ display?, direction?, gap?, cols? }",
-        headerClass: "string",
-        bodyClass: "string",
-        footerClass: "string",
-        slots: "{ identifier?, cover?, media?, icon?, eyebrow?, title?, subtitle?, header?, aside?, body?, footer?, actions?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        identifier: "Badge/top identifier content",
-        cover: "Top visual/cover content",
-        media: "Media section above header/body",
-        icon: "Header icon content",
-        eyebrow: "Eyebrow/kicker content",
-        title: "Card title content",
-        subtitle: "Card subtitle content",
-        header: "Header support content",
-        aside: "Right side header content",
-        body: "Body content",
-        footer: "Footer content",
-        actions: "Footer actions slot",
-        default: "Fallback body content or raw card sections"
-      },
-      returns: "HTMLDivElement"
-    };
-  }
+
   UI.Btn = (...args) => {
     const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
@@ -2856,39 +2221,7 @@ const unitCover = (v, name = 'size') => {
   UI.Button = UI.Btn;
   JSswift.ui.Btn = UI.Btn;
   JSswift.ui.Button = UI.Button;
-  if (JSswift.isDev?.()) {
-    UI.meta.Btn = {
-      signature: "UI.Btn(...children) | UI.Btn(props, ...children)",
-      props: {
-        label: "String|Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        iconRight: "String|Node|Function|Array",
-        iconAlign: `before|after|left|right`,
-        color: `primary|secondary|warning|danger|success|info|light|dark`,
-        outline: "boolean",
-        loading: "boolean",
-        loadingText: "string|Node|Function|Array",
-        loadingSize: "number|string",
-        loadingColor: "string",
-        loadingThickness: "number|string",
-        disabled: "boolean",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-        slots: "{ icon?, iconRight?, label?, loading?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        icon: "Icon slot",
-        iconRight: "Right icon slot",
-        label: "Label slot",
-        default: "Button content"
-      },
-      events: ["click", "pointerdown", "focus", "blur"],
-      returns: "HTMLButtonElement"
-    };
-    UI.meta.Button = UI.meta.Btn;
-  }
+
   // Esempio: JSswift.ui.QBtn({ color: "primary", icon: "save", label: "Salva" })
 
   // Input: supporta value come rod (two-way) oppure rod via props.model
@@ -3115,54 +2448,7 @@ const unitCover = (v, name = 'size') => {
 
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.FormField = {
-      signature: "UI.FormField(props)",
-      description: "Wrapper field con label floating, hint/error/success/warning/note, clear e addons slot-based.",
-      props: {
-        label: "String|Node|Function",
-        topLabel: "String|Node|Function",
-        hint: "String|Node|Function",
-        error: "String|Node|Function",
-        success: "String|Node|Function",
-        warning: "String|Node|Function",
-        note: "String|Node|Function",
-        icon: "String|Node|Function",
-        iconRight: "String|Node|Function",
-        prefix: "String|Node|Function",
-        suffix: "String|Node|Function",
-        clearable: "boolean",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-        disabled: "boolean",
-        readonly: "boolean",
-        control: "Node|Function",
-        getValue: "() => any",
-        onClear: "() => void",
-        onFocus: "() => void",
-        wrapClass: "string",
-        slots: "{ label?, topLabel?, prefix?, suffix?, shortcode?, icon?, iconRight?, clear?, hint?, error?, control? }"
-      },
-      slots: {
-        label: "Floating label content",
-        topLabel: "Top label content",
-        prefix: "Left addon content",
-        suffix: "Right addon content",
-        icon: "Left icon content",
-        iconRight: "Right icon content",
-        shortcode: "Shortcut badge content",
-        clear: "Clear button slot (ctx: { clear, disabled, readonly, hasValue })",
-        hint: "Hint content",
-        errorMessage: "Error content",
-        success: "Success content",
-        warning: "Warning content",
-        note: "Note content",
-        control: "Override control wrapper (ctx: { control, clear, disabled, readonly, hasValue })"
-      },
-      returns: "HTMLDivElement (wrapper) con ._refresh()"
-    };
-  }
+
   UI.InputRaw = (props = {}) => {
     const el = _.input({
       class: uiClass(["cms-input-raw", props.class]),
@@ -3423,76 +2709,7 @@ const unitCover = (v, name = 'size') => {
 
     return field;
   }
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
 
-    UI.meta.Input = {
-      signature: "UI.Input(props)",
-      description: "Input field with floating label, hint/error/success/warning/note, clearable control, icon, prefix/suffix, and reactive support (rod/signal).",
-      props: {
-        // value & model
-        model: "rod | [get,set] signal",
-        value: "string",
-
-        // input native
-        type: "string (default: 'text')",
-        name: "string",
-        autocomplete: "string",
-        inputmode: "string",
-        disabled: "boolean",
-        readonly: "boolean",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-
-        // UI / UX
-        label: "String|Node|Function (floating label)",
-        topLabel: "String|Node|Function (label above, not floating)",
-        placeholder: "String|Node|Function (alias of label when label is not set)",
-        hint: "String|Node|Function",
-        error: "String|Node|Function",
-        success: "String|Node|Function",
-        warning: "String|Node|Function",
-        note: "String|Node|Function",
-        clearable: "boolean",
-
-        // addons
-        icon: "String|Node|Function",
-        iconRight: "String|Node|Function",
-        prefix: "String|Node|Function",
-        suffix: "String|Node|Function",
-
-        // style
-        class: "string (applicata all'input)",
-        wrapClass: "string (applicata al field wrapper)",
-        style: "object",
-
-        // events
-        onInput: "(value:string) => void",
-        onChange: "(value:string) => void",
-        onFocus: "(event) => void",
-        onBlur: "(event) => void"
-      },
-
-      slots: {
-        label: "Floating label (via FormField slots.label)",
-        topLabel: "Top label (via FormField slots.topLabel)",
-        prefix: "Left addon (via FormField slots.prefix)",
-        suffix: "Right addon (via FormField slots.suffix)",
-        shortcode: "Shortcut badge (via FormField slots.shortcode)",
-        icon: "Left icon (via FormField slots.icon)",
-        iconRight: "Right icon (via FormField slots.iconRight)",
-        clear: "Clear button (via FormField slots.clear)",
-        hint: "Hint content (via FormField slots.hint)",
-        errorMessage: "Error content (via FormField slots.errorMessage)",
-        success: "Success content (via FormField slots.success)",
-        warning: "Warning content (via FormField slots.warning)",
-        note: "Note content (via FormField slots.note)",
-        input: "Custom input node (ctx: { input, props })"
-      },
-
-      returns: "HTMLDivElement (field wrapper) con ._input = HTMLInputElement"
-    };
-  }
 
   UI.Textarea = (props = {}) => {
     const slots = props.slots || {};
@@ -3604,75 +2821,7 @@ const unitCover = (v, name = 'size') => {
 
     return field;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
 
-    UI.meta.Textarea = {
-      signature: "UI.Textarea(props)",
-      description: "Textarea field with floating label, hint/error/success/warning/note, clearable control, icon, prefix/suffix, and reactive support (rod/signal).",
-      props: {
-        model: "rod | [get,set] signal",
-        value: "string",
-
-        name: "string",
-        autocomplete: "string",
-        inputmode: "string",
-        rows: "number|string",
-        cols: "number|string",
-        maxLength: "number|string",
-        minLength: "number|string",
-        wrap: "string",
-        disabled: "boolean",
-        readonly: "boolean",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-
-        label: "String|Node|Function (floating label)",
-        topLabel: "String|Node|Function (label above, not floating)",
-        placeholder: "String|Node|Function (alias of label when label is not set)",
-        hint: "String|Node|Function",
-        error: "String|Node|Function",
-        success: "String|Node|Function",
-        warning: "String|Node|Function",
-        note: "String|Node|Function",
-        clearable: "boolean",
-
-        icon: "String|Node|Function",
-        iconRight: "String|Node|Function",
-        prefix: "String|Node|Function",
-        suffix: "String|Node|Function",
-
-        class: "string (applicata alla textarea)",
-        wrapClass: "string (applicata al field wrapper)",
-        style: "object",
-
-        onInput: "(value:string) => void",
-        onChange: "(value:string) => void",
-        onFocus: "(event) => void",
-        onBlur: "(event) => void"
-      },
-
-      slots: {
-        label: "Floating label (via FormField slots.label)",
-        topLabel: "Top label (via FormField slots.topLabel)",
-        prefix: "Left addon (via FormField slots.prefix)",
-        suffix: "Right addon (via FormField slots.suffix)",
-        shortcode: "Shortcut badge (via FormField slots.shortcode)",
-        icon: "Left icon (via FormField slots.icon)",
-        iconRight: "Right icon (via FormField slots.iconRight)",
-        clear: "Clear button (via FormField slots.clear)",
-        hint: "Hint content (via FormField slots.hint)",
-        errorMessage: "Error content (via FormField slots.errorMessage)",
-        success: "Success content (via FormField slots.success)",
-        warning: "Warning content (via FormField slots.warning)",
-        note: "Note content (via FormField slots.note)",
-        textarea: "Custom textarea node (ctx: { textarea, input, props })",
-        input: "Alias slot for custom textarea node (ctx: { textarea, input, props })"
-      },
-
-      returns: "HTMLDivElement (field wrapper) con ._textarea = HTMLTextAreaElement"
-    };
-  }
 
   UI.Search = (props = {}) => {
     const slots = props.slots || {};
@@ -4244,97 +3393,7 @@ const unitCover = (v, name = 'size') => {
 
     return field;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Search = {
-      signature: "UI.Search(props)",
-      description: "Professional search with FormField, GET fetch, debounce, AbortController, overlay results, optional cache, reactive binding, and keyboard navigation.",
-      props: {
-        model: "rod | [get,set] signal",
-        value: "string | rod | [get,set] signal",
-        endpoint: "string | (query, ctx) => string",
-        url: "Alias of endpoint",
-        method: "'GET' (internal)",
-        queryParam: "string (default: 'q')",
-        params: "object | (query, ctx) => object",
-        headers: "object",
-        credentials: "RequestCredentials",
-        parseResponse: "(Response) => Promise<any>",
-        mapResponse: "(payload, query) => Array",
-        items: "Array | (query, ctx) => Array|Promise<Array>",
-        options: "Local alias of items",
-        suggestions: "Local alias of items",
-        filter: "(item, query) => boolean",
-        getLabel: "(item) => string",
-        getValue: "(item) => any",
-        minLength: "number (default: endpoint ? 1 : 0)",
-        debounce: "number ms (default: 250)",
-        cache: "boolean (default: true)",
-        highlight: "boolean (default: true)",
-        clearable: "boolean",
-        label: "String|Node|Function",
-        topLabel: "String|Node|Function",
-        placeholder: "string",
-        icon: "String|Node|Function (default: 'search')",
-        iconRight: "String|Node|Function",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-        openOnFocus: "boolean",
-        searchOnFocus: "boolean",
-        searchOnInput: "boolean",
-        searchOnMount: "boolean",
-        autoSearch: "Alias of searchOnMount",
-        closeOnSelect: "boolean",
-        commitValue: "'label'|'value'|false",
-        disabled: "boolean|Function|rod",
-        readonly: "boolean|Function|rod",
-        loadingText: "string",
-        emptyText: "string",
-        errorText: "string",
-        startText: "string",
-        class: "string",
-        inputClass: "string",
-        menuClass: "string",
-        wrapClass: "string",
-        style: "object"
-      },
-      slots: {
-        result: "Result renderer ({ item, index, active, label, value, query, select })",
-        empty: "Empty state ({ query })",
-        loading: "Loading state ({ query })",
-        error: "Error state ({ error, query })",
-        label: "Floating label",
-        topLabel: "Top label",
-        prefix: "Left addon",
-        suffix: "Right addon",
-        icon: "Left icon",
-        iconRight: "Right icon",
-        shortcode: "Shortcut badge",
-        clear: "Clear button"
-      },
-      events: {
-        onInput: "(query, event)",
-        onChange: "(query, event)",
-        onSearch: "(query)",
-        onResults: "(results, query)",
-        onSelect: "(item, { value, label, query, event })",
-        onSubmit: "(query, event)",
-        onClear: "()",
-        onError: "(error, query)",
-        onFocus: "(event)",
-        onBlur: "(event)"
-      },
-      keyboard: {
-        ArrowDown: "Opens/moves to the next result",
-        ArrowUp: "Moves to the previous result",
-        Enter: "Selects the active result or submits the query",
-        Escape: "Closes the overlay",
-        "Cmd/Ctrl+Home": "First result",
-        "Cmd/Ctrl+End": "Last result"
-      },
-      returns: "HTMLDivElement (field wrapper) with ._input, ._open(), ._close(), ._searchNow(), ._getResults(), ._setValue(value), ._dispose()"
-    };
-  }
+
 
   UI.Select = (props = {}) => {
     const fieldProps = {
@@ -5056,78 +4115,7 @@ const unitCover = (v, name = 'size') => {
 
     return field;
   }
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Select = {
-      signature: "UI.Select(props)",
-      description: "Select premium: keyboard nav, option groups, async options, filter, clearable, multi select, valori custom da filtro. Wrappato in UI.FormField.",
 
-      props: {
-        options: "Array<option|group> | () => Array<option|group> | async () => Promise<Array<option|group>>",
-        value: "any",
-        model: "rod | [get,set] signal",
-
-        label: "String|Node|Function (floating)",
-        placeholder: "String|Node|Function (alias of label when label is not set)",
-        topLabel: "String|Node|Function",
-        hint: "String|Node|Function",
-        error: "String|Node|Function",
-        success: "String|Node|Function",
-        warning: "String|Node|Function",
-        note: "String|Node|Function",
-
-        clearable: "boolean",
-        filterable: "boolean",
-        multiple: "boolean",
-        multi: "boolean (alias multiple)",
-        allowCustom: "boolean (consenti valori custom dal filtro)",
-        allowCustomValue: "boolean (alias allowCustom)",
-        filterPlaceholder: "string",
-        emptyText: "string",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-
-        icon: "String|Node|Function",
-        iconRight: "String|Node|Function",
-        prefix: "String|Node|Function",
-        suffix: "String|Node|Function",
-
-        disabled: "boolean | () => boolean",
-        dense: "boolean",
-        class: "string",
-        wrapClass: "string",
-        slots: "{ clear?, arrow?, filter?, option?, group?, empty?, loading? }",
-
-        onChange: "(value:any) => void"
-      },
-
-      slots: {
-        clear: "Clear button (via FormField slots.clear)",
-        arrow: "Arrow slot (ctx: { open })",
-        filter: "Filter input slot (ctx: { value, setValue, close })",
-        option: "Option renderer (ctx: { opt, selected, active, disabled, select })",
-        group: "Group header (ctx: { label })",
-        empty: "Empty state (ctx: { filter })",
-        loading: "Loading state (ctx: {})",
-        label: "Floating label (via FormField slots.label)",
-        topLabel: "Top label (via FormField slots.topLabel)",
-        prefix: "Left addon (via FormField slots.prefix)",
-        suffix: "Right addon (via FormField slots.suffix)",
-        shortcode: "Shortcut badge (via FormField slots.shortcode)",
-        icon: "Left icon (via FormField slots.icon)",
-        iconRight: "Right icon (via FormField slots.iconRight)",
-        hint: "Hint content (via FormField slots.hint)",
-        errorMessage: "Error content (via FormField slots.errorMessage)",
-        success: "Success content (via FormField slots.success)",
-        warning: "Warning content (via FormField slots.warning)",
-        note: "Note content (via FormField slots.note)"
-      },
-
-      keyboard: ["Enter/Space", "ArrowUp", "ArrowDown", "Home", "End", "Escape"],
-
-      returns: "HTMLDivElement (wrapper field) con ._select, ._dispose()"
-    };
-  }
 
   UI.Upload = (props = {}) => {
     applyCommonProps(props);
@@ -5683,74 +4671,7 @@ const unitCover = (v, name = 'size') => {
   JSswift.ui.Upload = UI.Upload;
   JSswift.ui.BoxUpload = UI.BoxUpload;
   JSswift.ui.boxUpload = UI.boxUpload;
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Upload = {
-      signature: "UI.Upload(props)",
-      description: "Professional uploader with drag/drop, validation, queue, retry, factory options, XHR progress, custom upload and slot-based rendering.",
-      props: {
-        url: "string",
-        method: "POST|PUT|PATCH|string",
-        fieldName: "string",
-        paramName: "Alias of fieldName",
-        headers: "object|Array|Headers|(file, ctx)=>headers",
-        formFields: "object|Array|(file, ctx)=>fields",
-        factory: "(file, ctx)=>object|Promise<object>",
-        upload: "(file, ctx)=>Promise<any> custom uploader",
-        multiple: "boolean",
-        accept: "string",
-        acceptedFiles: "Alias of accept",
-        maxFiles: "number",
-        maxFileSize: "number bytes",
-        maxTotalSize: "number bytes",
-        autoUpload: "boolean",
-        parallelUploads: "number",
-        retry: "boolean|{ attempts, delay, factor }",
-        withCredentials: "boolean",
-        sendRaw: "boolean",
-        submitMode: "\"upload\"|\"form\"",
-        uploadMode: "Alias of submitMode",
-        showBrowse: "boolean",
-        showUpload: "boolean",
-        showClear: "boolean",
-        showFiles: "boolean",
-        browseButton: "Alias of showBrowse",
-        uploadButton: "Alias of showUpload",
-        clearButton: "Alias of showClear",
-        drag: "boolean",
-        clickable: "boolean",
-        box: "boolean",
-        compact: "boolean",
-        color: "semantic state or CSS color",
-        status: "semantic state alias",
-        state: "semantic state alias",
-        title: "String|Node|Function",
-        subtitle: "String|Node|Function",
-        emptyText: "string",
-        slots: "{ header?, default?, icon?, title?, subtitle?, actions?, browse?, upload?, clear?, file?, fileName?, fileMeta?, fileActions?, empty? }"
-      },
-      slots: {
-        header: "Content before the uploader",
-        default: "Dropzone override (ctx: { api, dropzone })",
-        icon: "Main icon",
-        title: "Title content",
-        subtitle: "Subtitle content",
-        actions: "Actions area",
-        browse: "Browse button",
-        upload: "Upload button",
-        clear: "Clear button",
-        file: "Full file row renderer",
-        fileName: "File name slot",
-        fileMeta: "Status/error slot",
-        fileActions: "Per-file actions",
-        empty: "Empty list state"
-      },
-      events: ["change", "added", "rejected", "remove", "start", "progress", "success", "error", "complete", "finish", "cancel", "drop", "factoryFailed"],
-      returns: "HTMLDivElement with ._upload API, ._addFiles(files), ._uploadFiles(), ._browse(), ._dispose()"
-    };
-    UI.meta.BoxUpload = { ...UI.meta.Upload, signature: "UI.BoxUpload(props)", description: "Box-styled variant of UI.Upload." };
-    UI.meta.boxUpload = UI.meta.BoxUpload;
-  }
+
 
   function resolveModel(model, name) {
     if (!model) return null;
@@ -6402,99 +5323,7 @@ const unitCover = (v, name = 'size') => {
     syncLayoutState();
     return root;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Layout = {
-      signature: "UI.Layout(...children) | UI.Layout(props, ...children)",
-      props: {
-        header: "Node|Function|Array",
-        headerContent: "Node|Function|Array",
-        aside: "Node|Function|Array|false",
-        drawer: "Node|Function|Array|false",
-        nav: "Node|Function|Array|false",
-        asideRight: "Node|Function|Array|false",
-        drawerRight: "Node|Function|Array|false",
-        page: "Node|Function|Array",
-        main: "Node|Function|Array",
-        content: "Node|Function|Array",
-        body: "Node|Function|Array",
-        footer: "Node|Function|Array",
-        footerContent: "Node|Function|Array",
-        noDrawer: "boolean",
-        drawerEnabled: "boolean",
-        asideEnabled: "boolean",
-        noNav: "boolean",
-        navEnabled: "boolean",
-        asideRightEnabled: "boolean",
-        drawerOpen: "rod | [get,set] signal | boolean",
-        navOpen: "rod | [get,set] signal | boolean",
-        layoutBreakpoint: "number(px)",
-        drawerBreakpoint: "number(px)",
-        navBreakpoint: "number(px)",
-        drawerWidth: "number|string",
-        drawerResizable: "boolean",
-        drawerMinWidth: "number|string",
-        drawerMaxWidth: "number|string",
-        navWidth: "number|string",
-        navResizable: "boolean",
-        navMinWidth: "number|string",
-        navMaxWidth: "number|string",
-        asideRightWidth: "number|string",
-        drawerPeek: "number|string",
-        navPeek: "number|string",
-        asideRightPeek: "number|string",
-        drawerFloating: "boolean",
-        navFloating: "boolean",
-        overlayClose: "boolean",
-        escClose: "boolean",
-        stickyHeader: "boolean",
-        stickyFooter: "boolean",
-        stickyAside: "boolean",
-        stickyNav: "boolean",
-        tagPage: "boolean",
-        mode: "local|global",
-        layoutMode: "alias di mode",
-        disposition: "classic|classicRight|sidebarFullLeft|sidebarFullRight|appShell|dashboard|website|documentation|landing",
-        layoutDisposition: "alias di disposition",
-        layout: "alias di disposition",
-        gap: "number|string",
-        headerOffset: "number|string",
-        minHeight: "number|string",
-        areas: "string|array",
-        gridTemplateAreas: "string|array",
-        templateAreas: "string|array",
-        mobile: "{ disposition?, mode?, gap?, minHeight?, areas?, gridTemplateAreas?, drawerWidth?, navWidth?, drawerFloating?, navFloating?, noDrawer?, noNav? }",
-        tablet: "{ disposition?, mode?, gap?, minHeight?, areas?, gridTemplateAreas?, drawerWidth?, navWidth?, drawerFloating?, navFloating?, noDrawer?, noNav? }",
-        pc: "{ disposition?, mode?, gap?, minHeight?, areas?, gridTemplateAreas?, drawerWidth?, navWidth?, drawerFloating?, navFloating?, noDrawer?, noNav? }",
-        shellClass: "string",
-        headerClass: "string",
-        asideClass: "string",
-        navClass: "string",
-        pageClass: "string",
-        footerClass: "string",
-        overlayClass: "string",
-        slots: "{ header?, aside?, drawer?, nav?, asideRight?, drawerRight?, page?, main?, footer?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        header: "Header content",
-        aside: "Aside / drawer content",
-        drawer: "Alias of aside",
-        nav: "Right-side panel content",
-        asideRight: "Alias of nav",
-        drawerRight: "Alias of nav",
-        page: "Page content",
-        main: "Alias of page",
-        footer: "Footer content",
-        default: "Fallback page content"
-      },
-      returns: "HTMLDivElement with openAside/closeAside/toggleAside/openNav/closeNav/toggleNav methods, " +
-        "isDrawerOpen/isNavOpen/isMobile/reflow, header()/aside()/nav()/page()/footer(), " +
-        "headerUpdate/asideUpdate/navUpdate/pageUpdate/mainUpdate/footerUpdate and _dispose()",
-      description: "Composable shell layout with independent left drawer and right nav, configurable widths, optional resize with min/max, optional floating mode, and runtime section updates."
-    };
-  }
+
   // Esempio: JSswift.ui.Layout({ header, aside, page, footer })
 
   UI.Footer = (...args) => {
@@ -6640,57 +5469,7 @@ const unitCover = (v, name = 'size') => {
     setPropertyProps(el, rawProps);
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Footer = {
-      signature: "UI.Footer(...children) | UI.Footer(props, ...children)",
-      props: {
-        title: "String|Node|Function|Array",
-        subtitle: "String|Node|Function|Array",
-        eyebrow: "String|Node|Function|Array",
-        content: "Node|Function|Array",
-        meta: "Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        left: "Node|Function|Array",
-        start: "Alias of left",
-        right: "Node|Function|Array",
-        end: "Alias of right",
-        body: "Alias of content",
-        actions: "Node|Function|Array",
-        sticky: "boolean",
-        dense: "boolean",
-        elevated: "boolean",
-        divider: "boolean",
-        align: `left|center|right`,
-        justify: `flex-start|center|flex-end|space-between|space-around|space-evenly`,
-        wrap: "boolean",
-        stack: "boolean",
-        gap: "string|number",
-        minHeight: "string|number",
-        slots: "{ left?, start?, right?, end?, center?, body?, icon?, eyebrow?, title?, subtitle?, meta?, content?, actions?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        left: "Footer leading area",
-        start: "Alias/addon for the leading area",
-        right: "Footer trailing area",
-        end: "Alias/addon for the trailing area",
-        center: "Full override for the central body",
-        body: "Alias of center",
-        icon: "Leading icon",
-        eyebrow: "Eyebrow / kicker",
-        title: "Main title",
-        subtitle: "Subtitle or note",
-        meta: "Meta info next to the central content",
-        content: "Extra content or children fallback",
-        actions: "Actions grouped in the trailing area",
-        default: "Fallback content for the body area"
-      },
-      returns: "HTMLElement <footer>",
-      description: "Structured footer with start/body/end regions, optional copy, actions, and composable slots."
-    };
-  }
+
   // Esempio: JSswift.ui.Footer({}, "Footer")
 
   const normalizeChildren = (children) => {
@@ -6869,71 +5648,7 @@ const unitCover = (v, name = 'size') => {
     setPropertyProps(el, props);
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Toolbar = {
-      signature: "UI.Toolbar(...children) | UI.Toolbar(props, ...children)",
-      props: {
-        before: "Node|Function|Array",
-        start: "Node|Function|Array",
-        left: "Alias of start",
-        center: "Node|Function|Array",
-        body: "Alias of center",
-        content: "Alias of center",
-        title: "String|Node|Function|Array",
-        subtitle: "String|Node|Function|Array",
-        meta: "String|Node|Function|Array",
-        end: "Node|Function|Array",
-        right: "Alias of end",
-        actions: "Alias of end",
-        after: "Node|Function|Array",
-        dense: "boolean",
-        divider: "boolean",
-        elevated: "boolean",
-        sticky: "boolean",
-        wrap: "boolean|string",
-        align: `stretch|flex-start|center|flex-end|baseline`,
-        justify: `flex-start|center|flex-end|space-between|space-around|space-evenly`,
-        gap: "string|number (e.g. '8px' or 'var(--cms-s-md)')",
-        size: "xxs|xs|sm|md|lg|xl|xxl",
-        beforeClass: "string",
-        startClass: "string",
-        bodyClass: "string",
-        centerClass: "Alias of bodyClass",
-        contentClass: "Alias of bodyClass",
-        copyClass: "string",
-        titleClass: "string",
-        subtitleClass: "string",
-        metaClass: "string",
-        endClass: "string",
-        afterClass: "string",
-        slots: "{ before?, start?, left?, center?, body?, content?, title?, subtitle?, meta?, end?, right?, actions?, after?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        before: "Optional top row",
-        start: "Leading content area",
-        left: "Alias of start",
-        center: "Main content area",
-        body: "Alias of center",
-        content: "Alias of center",
-        title: "Toolbar main title",
-        subtitle: "Subtitle or operational note",
-        meta: "Meta info/chips above or next to the title",
-        end: "Trailing actions area",
-        right: "Alias of end",
-        actions: "Alias of end",
-        after: "Optional bottom row",
-        default: "Fallback content / children"
-      },
-      events: {
-        onClick: "MouseEvent"
-      },
-      description: "Composable toolbar with before/start/center/end/after regions, optional copy, and fallback compatible with simple flex usage.",
-      returns: "HTMLDivElement"
-    };
-  }
+
   // Esempio: JSswift.ui.Toolbar({}, JSswift.ui.Btn({}, "Azione"))
 
   const isGridColNode = (value) => value && value.nodeType === 1 && value.classList?.contains("cms-grid-col");
@@ -7114,60 +5829,7 @@ const unitCover = (v, name = 'size') => {
     setPropertyProps(el, rawProps);
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Grid = {
-      signature: "UI.Grid(...children) | UI.Grid(props, ...children)",
-      props: {
-        cols: "number|string",
-        columns: "alias di cols",
-        min: "string|number (auto-fit/auto-fill min width)",
-        max: "string|number (max track size, default 1fr)",
-        gap: "string|number",
-        rowGap: "string|number",
-        columnGap: "string|number",
-        colGap: "alias di columnGap",
-        rows: "number|string",
-        autoRows: "string|number",
-        areas: "string|array",
-        flow: "row|column|dense|row dense|column dense",
-        align: `stretch|start|center|end`,
-        alignItems: "alias di align",
-        justify: `start|center|end|space-between|space-around|space-evenly`,
-        justifyItems: `stretch|start|center|end`,
-        placeItems: "string",
-        placeContent: "string",
-        dense: "boolean",
-        inline: "boolean",
-        debug: "boolean",
-        autoFit: "boolean",
-        autoFill: "boolean",
-        full: "boolean",
-        width: "string|number",
-        minWidth: "string|number",
-        maxWidth: "string|number",
-        padding: "string|number",
-        mobile: "{ cols?, gap?, flow?, width?, padding? }",
-        tablet: "{ cols?, gap?, flow?, width?, padding? }",
-        pc: "{ cols?, gap?, flow?, width?, padding? }",
-        items: "Array<Node|Object|string>",
-        itemClass: "string",
-        itemStyle: "object",
-        itemProps: "object",
-        empty: "String|Node|Function|Array",
-        slots: "{ default?, item?, empty? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "Grid content fallback",
-        item: "Render custom di ogni item ({ item, index, count, first, last })",
-        empty: "Empty state della griglia"
-      },
-      returns: "HTMLDivElement",
-      description: "Griglia dichiarativa per layout responsive: supporta children, items/slot item, auto-fit, template custom e empty state."
-    };
-  }
+
   // Esempio: JSswift.ui.Grid({}, JSswift.ui.GridCol({ span: 12 }, "Col"))
 
   UI.GridCol = (...args) => {
@@ -7443,70 +6105,7 @@ const unitCover = (v, name = 'size') => {
     setPropertyProps(el, props);
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.GridCol = {
-      signature: "UI.GridCol(...children) | UI.GridCol(props, ...children)",
-      props: {
-        span: "number|string",
-        col: "alias di span",
-        sm: "number|string",
-        md: "number|string",
-        lg: "number|string",
-        auto: "boolean",
-        row: "number|string",
-        rowSpan: "number|string",
-        area: "string",
-        align: "string (align-self)",
-        justify: "string (justify-self)",
-        place: "string (place-self)",
-        gap: "string|number",
-        rowGap: "string|number",
-        columnGap: "string|number",
-        padding: "string|number",
-        width: "string|number",
-        height: "string|number",
-        minHeight: "string|number",
-        maxHeight: "string|number",
-        fullHeight: "boolean",
-        stack: "boolean",
-        inline: "boolean",
-        direction: "column|row|string",
-        contentAlign: "string",
-        contentJustify: "string",
-        center: "boolean",
-        scroll: "boolean|string",
-        panel: "boolean",
-        clickable: "boolean",
-        to: "string",
-        mobile: "{ span?, col?, gap?, direction?, contentAlign?, contentJustify? }",
-        tablet: "{ span?, col?, gap?, direction?, contentAlign?, contentJustify? }",
-        pc: "{ span?, col?, gap?, direction?, contentAlign?, contentJustify? }",
-        start: "Node|Function|Array",
-        body: "Node|Function|Array",
-        end: "Node|Function|Array",
-        color: "string",
-        outline: "boolean",
-        shadow: "boolean|string",
-        radius: "number|string",
-        slots: "{ start?, body?, end?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        start: "Top/header region",
-        body: "Main body region",
-        end: "Bottom/footer region",
-        default: "Fallback content"
-      },
-      events: {
-        onClick: "MouseEvent",
-        onKeydown: "KeyboardEvent"
-      },
-      returns: "HTMLDivElement",
-      description: "CSS Grid item with responsive spans, optional internal stack layout, start/body/end regions, and lightweight visual variants."
-    };
-  }
+
   // Esempio: JSswift.ui.GridCol({ span: 6, sm: 12 }, "Colonna")
   UI.Icon = (...args) => {
     let props = {};
@@ -7633,39 +6232,7 @@ const unitCover = (v, name = 'size') => {
     setPropertyProps(icon, props);
     return wrapIcon(icon);
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Icon = {
-      signature: "UI.Icon(name) | UI.Icon(props) | UI.Icon(props, ...children)",
-      props: {
-        name: "string|Node|Function",
-        size: "number|string",
-        color: "string",
-        shadow: "boolean|string",
-        lightShadow: "boolean",
-        clickable: "boolean",
-        border: "boolean",
-        glossy: "boolean",
-        glow: "boolean",
-        glass: "boolean",
-        gradient: "boolean|number",
-        outline: "boolean",
-        textGradient: "boolean",
-        radius: "number|string",
-        spriteUrl: "string",
-        tooltip: "String|Node|Function|Object",
-        tooltipProps: "object",
-        slots: "{ default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "Custom icon content"
-      },
-      returns: "HTMLSpanElement",
-      description: "Sprite- or text-based icon with configurable size/color."
-    };
-  }
+
   // Esempio: JSswift.ui.Icon({ name: "home", size: 18 })
 
   UI.Badge = (...args) => {
@@ -7807,46 +6374,7 @@ const unitCover = (v, name = 'size') => {
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Badge = {
-      signature: "UI.Badge(...children) | UI.Badge(props, ...children)",
-      props: {
-        label: "String|Node|Function|Array",
-        color: "string",
-        size: "string|number",
-        outline: "boolean",
-        notification: "string|number|Node|Function|[get,set] signal",
-        iconSize: "string|number",
-        topLeft: "String|Node|Function|Array",
-        topRight: "String|Node|Function|Array",
-        bottomLeft: "String|Node|Function|Array",
-        bottomRight: "String|Node|Function|Array",
-        centerLeft: "String|Node|Function|Array",
-        centerRight: "String|Node|Function|Array",
-        left: "String|Node|Function|Array",
-        right: "String|Node|Function|Array",
-        slots: "{ label?, default?, notification?, topLeft?, topRight?, bottomLeft?, bottomRight?, left?, right? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        label: "Badge label content",
-        default: "Fallback content",
-        notification: "Notification badge content",
-        topLeft: "Icon anchored top-left",
-        topRight: "Icon anchored top-right",
-        bottomLeft: "Icon anchored bottom-left",
-        bottomRight: "Icon anchored bottom-right",
-        centerLeft: "Icon anchored center-left",
-        centerRight: "Icon anchored center-right",
-        left: "Icon anchored left",
-        right: "Icon anchored right"
-      },
-      returns: "HTMLSpanElement",
-      description: "Inline badge with reactive notification and 6 positionable icon slots."
-    };
-  }
+
   // Esempio: JSswift.ui.Badge({ label: "New" })
 
   const avatarGetInitials = (value) => {
@@ -8044,62 +6572,7 @@ const unitCover = (v, name = 'size') => {
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Avatar = {
-      signature: "UI.Avatar(...children) | UI.Avatar(props, ...children)",
-      props: {
-        src: "string",
-        srcset: "string",
-        sizes: "string",
-        alt: "string",
-        label: "String|Node|Function|Array",
-        name: "string",
-        initials: "string|Node|Function|Array",
-        text: "string|Node|Function|Array",
-        size: "number|string",
-        fontSize: "number|string",
-        radius: "number|string",
-        square: "boolean",
-        elevated: "boolean",
-        color: "string",
-        state: "string",
-        icon: "string|Node|Function|Array",
-        iconSize: "number|string",
-        media: "Node|Function|Array",
-        fit: "cover|contain|fill|scale-down|none",
-        badge: "string|number|Node|Function|Array",
-        notification: "string|number|Node|Function|Array",
-        status: "boolean|string|number|Node|Function|Array",
-        statusColor: "success|warning|danger|info|primary|secondary|dark|light|string",
-        topLeft: "Node|Function|Array",
-        topRight: "Node|Function|Array",
-        bottomLeft: "Node|Function|Array",
-        bottomRight: "Node|Function|Array",
-        slots: "{ media?, default?, fallback?, label?, icon?, badge?, status?, topLeft?, topRight?, bottomLeft?, bottomRight? }",
-        mobile: "{ width?, height?, minWidth?, maxWidth?, padding?, margin?, radius? }",
-        tablet: "{ width?, height?, minWidth?, maxWidth?, padding?, margin?, radius? }",
-        pc: "{ width?, height?, minWidth?, maxWidth?, padding?, margin?, radius? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        media: "Custom main media",
-        default: "Custom main content instead of image or fallback",
-        fallback: "Fallback custom quando non c'e immagine",
-        label: "Fallback testuale / initials",
-        icon: "Fallback icon",
-        badge: "Badge overlay, di default top-right",
-        status: "Presence dot or overlay content, bottom-right by default",
-        topLeft: "Top-left overlay content",
-        topRight: "Top-right overlay content",
-        bottomLeft: "Bottom-left overlay content",
-        bottomRight: "Bottom-right overlay content"
-      },
-      returns: "HTMLDivElement",
-      description: "Flexible avatar with image, smart fallbacks, states, badge, and overlay slots."
-    };
-  }
+
   // Esempio: JSswift.ui.Avatar({ label: "CM" })
 
   UI.Chip = (...args) => {
@@ -8149,35 +6622,7 @@ const unitCover = (v, name = 'size') => {
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Chip = {
-      signature: "UI.Chip(...children) | UI.Chip(props, ...children)",
-      props: {
-        label: "String|Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        iconRight: "String|Node|Function|Array",
-        removable: "boolean",
-        onRemove: "function",
-        dense: "boolean",
-        outline: "boolean|string|number",
-        slots: "{ icon?, label?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        icon: "Chip icon content",
-        iconRight: "Chip right icon content",
-        label: "Chip label content",
-        default: "Fallback content"
-      },
-      events: {
-        onRemove: "MouseEvent"
-      },
-      returns: "HTMLSpanElement",
-      description: "Chip with optional icon and removal."
-    };
-  }
+
   // Esempio: JSswift.ui.Chip({ label: "Tag", removable: true })
 
   UI.Stat = (...args) => {
@@ -8287,46 +6732,7 @@ const unitCover = (v, name = 'size') => {
     setPropertyProps(stat, rawProps);
     return stat;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Stat = {
-      signature: "UI.Stat(...children) | UI.Stat(props, ...children)",
-      props: {
-        eyebrow: "String|Node|Function|Array",
-        label: "String|Node|Function|Array",
-        title: "Alias of label",
-        value: "String|Number|Node|Function|Array",
-        delta: "String|Node|Function|Array",
-        trend: "up|down|flat|positive|negative|neutral",
-        note: "String|Node|Function|Array",
-        subtitle: "Alias of note",
-        meta: "Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        aside: "Node|Function|Array",
-        footer: "Node|Function|Array",
-        actions: "Node|Function|Array",
-        state: "primary|secondary|success|warning|danger|info|light|dark",
-        slots: "{ eyebrow?, label?, value?, delta?, note?, meta?, icon?, aside?, footer?, actions?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        eyebrow: "Small kicker above the stat label",
-        label: "Main stat label",
-        value: "Primary metric value",
-        delta: "Trend / delta content",
-        note: "Supporting note",
-        meta: "Extra meta badges or info",
-        icon: "Leading icon or avatar",
-        aside: "Right-side support content",
-        footer: "Footer/supporting bottom content",
-        actions: "Footer actions cluster",
-        default: "Extra body content"
-      },
-      returns: "HTMLElement",
-      description: "Compact surface for single metrics, trends, and operational metadata."
-    };
-  }
+
   // Esempio: JSswift.ui.Stat({ label: "Revenue", value: "€ 128k", delta: "+18%" })
 
   UI.Kpi = (...args) => {
@@ -8432,48 +6838,7 @@ const unitCover = (v, name = 'size') => {
     setPropertyProps(kpi, rawProps);
     return kpi;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Kpi = {
-      signature: "UI.Kpi(...children) | UI.Kpi(props, ...children)",
-      props: {
-        eyebrow: "String|Node|Function|Array",
-        title: "String|Node|Function|Array",
-        label: "Alias of title",
-        value: "String|Number|Node|Function|Array",
-        delta: "String|Node|Function|Array",
-        trend: "up|down|flat|positive|negative|neutral",
-        note: "String|Node|Function|Array",
-        subtitle: "Alias of note",
-        meta: "Node|Function|Array",
-        media: "Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        aside: "Node|Function|Array",
-        footer: "Node|Function|Array",
-        actions: "Node|Function|Array",
-        state: "primary|secondary|success|warning|danger|info|light|dark",
-        slots: "{ eyebrow?, title?, value?, delta?, note?, meta?, media?, icon?, aside?, footer?, actions?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        eyebrow: "Kicker content",
-        title: "KPI title content",
-        value: "Primary KPI value",
-        delta: "Delta/trend content",
-        note: "Supporting note",
-        meta: "Extra meta badges or inline info",
-        media: "Secondary data view or mini-visual content",
-        icon: "Leading icon or avatar",
-        aside: "Top-right support content",
-        footer: "Bottom support content",
-        actions: "Footer actions cluster",
-        default: "Extra body content"
-      },
-      returns: "HTMLElement",
-      description: "Richer surface for KPIs, headline metrics, and mini dashboard summaries."
-    };
-  }
+
   // Esempio: JSswift.ui.Kpi({ title: "Orders", value: "342", delta: "+12%" })
 
   const overlayAnimDuration = (el, fallback = 180) => {
@@ -8626,35 +6991,7 @@ const unitCover = (v, name = 'size') => {
     const list = _[ordered ? "ol" : "ul"](p, ...content);
     return list;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.List = {
-      signature: "UI.List(...children) | UI.List(props, ...children)",
-      props: {
-        items: "Array<Node|Object|string>",
-        ordered: "boolean",
-        number: "boolean",
-        marker: "boolean|string",
-        dense: "boolean",
-        divider: "boolean",
-        gap: "string|number",
-        empty: "String|Node|Function|Array",
-        itemClass: "string",
-        itemStyle: "object",
-        itemProps: "object",
-        slots: "{ default?, item?, empty? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "List content fallback",
-        item: "Render custom di ogni item ({ item, index, count, first, last })",
-        empty: "Empty state content"
-      },
-      returns: "HTMLUListElement|HTMLOListElement",
-      description: "Lista dichiarativa con supporto items, slot item, ordered/marker ed empty state."
-    };
-  }
+
   // Esempio: JSswift.ui.List({}, JSswift.ui.Item({}, "Item"))
 
   UI.Item = (...args) => {
@@ -8774,57 +7111,7 @@ const unitCover = (v, name = 'size') => {
     setPropertyProps(item, props);
     return item;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Item = {
-      signature: "UI.Item(...children) | UI.Item(props, ...children)",
-      props: {
-        label: "String|Node|Function|Array",
-        title: "String|Node|Function|Array",
-        subtitle: "String|Node|Function|Array",
-        meta: "String|Node|Function|Array",
-        body: "String|Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        iconRight: "String|Node|Function|Array",
-        aside: "Node|Function|Array",
-        actions: "Node|Function|Array",
-        clickable: "boolean",
-        to: "string",
-        active: "boolean",
-        selected: "boolean",
-        disabled: "boolean",
-        color: "string",
-        state: "Alias of color",
-        size: "string|number",
-        outline: "boolean",
-        shadow: "boolean|string",
-        lightShadow: "boolean",
-        border: "boolean",
-        glossy: "boolean",
-        glow: "boolean",
-        glass: "boolean",
-        gradient: "boolean|number",
-        textGradient: "boolean",
-        radius: "string|number",
-        divider: "boolean",
-        slots: "{ icon?, title?, subtitle?, meta?, body?, aside?, actions?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        icon: "Leading visual/icon",
-        title: "Main title content",
-        subtitle: "Secondary text",
-        meta: "Top meta content",
-        body: "Body content",
-        aside: "Trailing content",
-        actions: "Actions row",
-        default: "Fallback body content"
-      },
-      returns: "HTMLLIElement",
-      description: "Structured item for simple lists, feeds, task lists, and clickable rows."
-    };
-  }
+
   // Esempio: JSswift.ui.Item({}, "Elemento")
 
   UI.Separator = (...args) => {
@@ -8843,24 +7130,7 @@ const unitCover = (v, name = 'size') => {
     p.style = style;
     return _.hr(p);
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Separator = {
-      signature: "UI.Separator() | UI.Separator(props)",
-      props: {
-        vertical: "boolean",
-        size: "string|number",
-        slots: "{ default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "Unused (separator has no content)"
-      },
-      returns: "HTMLHRElement",
-      description: "Separatore orizzontale o verticale."
-    };
-  }
+
   // Esempio: JSswift.ui.Separator()
 
 UI.Banner = (...args) => {
@@ -9020,49 +7290,7 @@ UI.Banner = (...args) => {
   setPropertyProps(bannerEl, rawProps);
   return bannerEl;
 };
-if (JSswift.isDev?.()) {
-  UI.meta = UI.meta || {};
-  UI.meta.Banner = {
-    signature: "UI.Banner(...children) | UI.Banner(props, ...children)",
-    props: {
-      title: "String|Node|Function|Array",
-      message: "String|Node|Function|Array",
-      description: "String|Node|Function|Array",
-      meta: "String|Node|Function|Array",
-      icon: "String|Node|Function|Array|false",
-      actions: "Node|Function|Array",
-      aside: "Node|Function|Array",
-      body: "Node|Function|Array",
-      dismissible: "boolean",
-      dismiss: "Node|Function|Array",
-      onDismiss: "function",
-      closeLabel: "string",
-      type: "success|warning|danger|error|info|primary|secondary|light|dark",
-      state: "success|warning|danger|error|info|primary|secondary|light|dark",
-      accent: "string",
-      variant: "soft|solid|outline|ghost",
-      actionsPlacement: "end|bottom",
-      dense: "boolean",
-      stack: "boolean",
-      slots: "{ icon?, title?, message?, description?, meta?, actions?, aside?, dismiss?, default? }",
-      class: "string",
-      style: "object"
-    },
-    slots: {
-      icon: "Leading visual/icon content",
-      title: "Banner title content",
-      message: "Primary message content",
-      description: "Secondary/supporting text",
-      meta: "Meta information content",
-      actions: "Actions area content",
-      aside: "Right side support content",
-      dismiss: "Custom dismiss control",
-      default: "Extra banner body content"
-    },
-    returns: "HTMLDivElement",
-    description: "Structured banner with tone, actions, dismiss, and composable slots."
-  };
-}
+
 // Esempio: JSswift.ui.Banner({ type: "warning", title: "Pagamento in sospeso", message: "Aggiorna il batch entro le 18:00" })
 
 UI.Alert = (...args) => {
@@ -9161,43 +7389,7 @@ UI.Alert = (...args) => {
   setPropertyProps(alertEl, rawProps);
   return alertEl;
 };
-if (JSswift.isDev?.()) {
-  UI.meta = UI.meta || {};
-  UI.meta.Alert = {
-    signature: "UI.Alert(...children) | UI.Alert(props, ...children)",
-    props: {
-      title: "String|Node|Function|Array",
-      message: "String|Node|Function|Array",
-      description: "String|Node|Function|Array",
-      meta: "Node|Function|Array",
-      icon: "String|Node|Function|Array|false",
-      actions: "Node|Function|Array",
-      aside: "Node|Function|Array",
-      dismissible: "boolean",
-      dismiss: "Node|Function|Array",
-      onDismiss: "function",
-      closeLabel: "string",
-      type: "success|warning|danger|error|info|primary|secondary|light|dark",
-      state: "success|warning|danger|error|info|primary|secondary|light|dark",
-      slots: "{ icon?, title?, message?, description?, meta?, actions?, aside?, dismiss?, default? }",
-      class: "string",
-      style: "object"
-    },
-    slots: {
-      icon: "Leading alert icon content",
-      title: "Alert title content",
-      message: "Primary alert copy",
-      description: "Secondary/supporting text",
-      meta: "Inline meta content",
-      actions: "Alert actions cluster",
-      aside: "Right side support content",
-      dismiss: "Custom dismiss control",
-      default: "Fallback alert message content"
-    },
-    returns: "HTMLDivElement",
-    description: "Alert compatto per warning inline, policy note e feedback persistente dentro page o card."
-  };
-}
+
 // Esempio: JSswift.ui.Alert({ type: "warning", title: "Review richiesta", message: "Controlla il batch prima del go-live" })
 
 UI.EmptyState = (...args) => {
@@ -9261,42 +7453,7 @@ UI.EmptyState = (...args) => {
   setPropertyProps(emptyState, rawProps);
   return emptyState;
 };
-if (JSswift.isDev?.()) {
-  UI.meta = UI.meta || {};
-  UI.meta.EmptyState = {
-    signature: "UI.EmptyState(...children) | UI.EmptyState(props, ...children)",
-    props: {
-      eyebrow: "String|Node|Function|Array",
-      title: "String|Node|Function|Array",
-      message: "String|Node|Function|Array",
-      description: "String|Node|Function|Array",
-      meta: "Node|Function|Array",
-      icon: "String|Node|Function|Array|false",
-      illustration: "Node|Function|Array",
-      media: "Alias of illustration",
-      actions: "Node|Function|Array",
-      compact: "boolean",
-      inline: "boolean",
-      state: "primary|secondary|success|warning|danger|info|light|dark",
-      slots: "{ illustration?, icon?, eyebrow?, title?, message?, description?, meta?, actions?, default? }",
-      class: "string",
-      style: "object"
-    },
-    slots: {
-      illustration: "Top visual / illustration content",
-      icon: "Leading empty-state icon",
-      eyebrow: "Small kicker content",
-      title: "Primary empty-state heading",
-      message: "Primary message content",
-      description: "Secondary supporting text",
-      meta: "Meta badges or summary content",
-      actions: "Actions cluster",
-      default: "Extra empty-state body content"
-    },
-    returns: "HTMLElement",
-    description: "Surface per zero-results, onboarding vuoti e pannelli senza dati con CTA di recupero."
-  };
-}
+
 // Esempio: JSswift.ui.EmptyState({ title: "No results", message: "Prova a cambiare i filtri" })
 
 // -------------------------------
@@ -9625,57 +7782,7 @@ const setDrawerOpen = (open, key = drawerStateKey) => {
 
     return { bind, open, show, hide, close: closeNow, toggle, isOpen };
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Tooltip = {
-      signature: "UI.Tooltip(props, target?) | UI.Tooltip(target, content)",
-      props: {
-        title: "String|Node|Function|Array",
-        content: "String|Node|Function|Array",
-        text: "String|Node|Function|Array",
-        body: "String|Node|Function|Array",
-        footer: "String|Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        target: "Node|Function|Array",
-        trigger: "\"hover focus\" | \"click\" | \"manual\" | Array",
-        interactive: "boolean",
-        disabled: "boolean",
-        open: "boolean | reactive",
-        placement: "string",
-        delay: "number",
-        hideDelay: "number",
-        offset: "number (legacy)",
-        offsetX: "number",
-        offsetY: "number",
-        closeOnOutside: "boolean",
-        closeOnEsc: "boolean",
-        maxWidth: "string|number",
-        minWidth: "string|number",
-        width: "string|number",
-        slots: "{ target?, icon?, title?, content?, footer?, default? }",
-        class: "string",
-        panelClass: "string",
-        wrapClass: "string",
-        style: "object",
-        targetStyle: "object"
-      },
-      slots: {
-        target: "Tooltip trigger content ({ open, show, hide, toggle, isOpen })",
-        icon: "Tooltip icon content",
-        title: "Tooltip title content",
-        content: "Tooltip body content ({ close, hide, isOpen, anchorEl })",
-        footer: "Tooltip footer content ({ close, hide, isOpen, anchorEl })",
-        default: "Fallback tooltip body content"
-      },
-      events: {
-        onOpen: "(entry) => void",
-        onClose: "() => void",
-        onTriggerClick: "(event) => void"
-      },
-      returns: "Object { bind(), open(), show(), hide(), close(), toggle(), isOpen() } | HTMLSpanElement",
-      description: "Anchored tooltip with hover/focus/click triggers, rich content, and imperative API."
-    };
-  }
+
   // Esempio: JSswift.ui.Tooltip({ title: "Info", text: "Dettaglio rapido" }, JSswift.ui.Icon({ name: "info" }))
 
   const buildChoiceControl = (type, args, options = {}) => {
@@ -9894,91 +8001,11 @@ const setDrawerOpen = (open, key = drawerStateKey) => {
   };
 
   UI.Checkbox = (...args) => buildChoiceControl("checkbox", args);
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Checkbox = {
-      signature: "UI.Checkbox(...children) | UI.Checkbox(props, ...children)",
-      props: {
-        label: "String|Node|Function|Array",
-        checked: "boolean|null",
-        model: "[get,set] signal",
-        icon: "String|Node|Function|Array",
-        iconOn: "Alias of icon/checkedIcon",
-        iconOff: "Alias of uncheckedIcon",
-        iconStandby: "Icon for null/indeterminate state",
-        checkedIcon: "String|Node|Function|Array",
-        uncheckedIcon: "String|Node|Function|Array",
-        color: "string",
-        size: "string|number",
-        outline: "boolean",
-        dense: "boolean",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-        slots: "{ label?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        label: "Checkbox label",
-        icon: "Base icon content",
-        iconStandby: "Slot for null/indeterminate icon",
-        checkedIcon: "Icon when checked",
-        uncheckedIcon: "Icon when unchecked",
-        default: "Fallback label content"
-      },
-      events: {
-        onChange: "(checked|null, event)",
-        onInput: "(checked|null, event)"
-      },
-      returns: "HTMLLabelElement",
-      description: "Checkbox con label e supporto model."
-    };
-  }
+
   // Esempio: JSswift.ui.Checkbox({ label: "Accetto", model: [get,set] })
 
   UI.Radio = (...args) => buildChoiceControl("radio", args);
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Radio = {
-      signature: "UI.Radio(...children) | UI.Radio(props, ...children)",
-      props: {
-        label: "String|Node|Function|Array",
-        value: "any",
-        name: "string",
-        checked: "boolean|null",
-        model: "[get,set] signal",
-        icon: "String|Node|Function|Array",
-        iconOn: "Alias of icon/checkedIcon",
-        iconOff: "Alias of uncheckedIcon",
-        checkedIcon: "String|Node|Function|Array",
-        uncheckedIcon: "String|Node|Function|Array",
-        color: "string",
-        size: "string|number",
-        outline: "boolean",
-        dense: "boolean",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-        slots: "{ label?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        label: "Radio label",
-        icon: "Base icon content",
-        iconOn: "Alias slot for checked icon",
-        iconOff: "Alias slot for unchecked icon",
-        checkedIcon: "Icon when checked",
-        uncheckedIcon: "Icon when unchecked",
-        default: "Fallback label content"
-      },
-      events: {
-        onChange: "(value, event)",
-        onInput: "(value, event)"
-      },
-      returns: "HTMLLabelElement",
-      description: "Radio con label e supporto model."
-    };
-  }
+
   // Esempio: JSswift.ui.Radio({ name: "r1", value: "a", label: "A", model: [get,set] })
 
   UI.Toggle = (...args) => {
@@ -9991,51 +8018,7 @@ const setDrawerOpen = (open, key = drawerStateKey) => {
       modelName: "UI.Toggle:model"
     });
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Toggle = {
-      signature: "UI.Toggle(...children) | UI.Toggle(props, ...children)",
-      props: {
-        label: "String|Node|Function|Array",
-        behavior: "\"checkbox\"|\"radio\"",
-        mode: "Alias of behavior",
-        value: "any",
-        name: "string",
-        checked: "boolean",
-        model: "[get,set] signal",
-        icon: "String|Node|Function|Array",
-        iconOn: "Alias of icon/checkedIcon",
-        iconOff: "Alias of uncheckedIcon",
-        iconStandby: "Icon for null/indeterminate state",
-        checkedIcon: "String|Node|Function|Array",
-        uncheckedIcon: "String|Node|Function|Array",
-        color: "string",
-        size: "string|number",
-        dense: "boolean",
-        shortcode: "string|Array<string>|object",
-        showShortcode: "boolean",
-        slots: "{ label?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        label: "Toggle label",
-        icon: "Base icon content",
-        iconOn: "Alias slot for checked icon",
-        iconOff: "Alias slot for unchecked icon",
-        iconStandby: "Slot for null/indeterminate icon",
-        checkedIcon: "Icon when checked",
-        uncheckedIcon: "Icon when unchecked",
-        default: "Fallback label content"
-      },
-      events: {
-        onChange: "(checked|value, event)",
-        onInput: "(checked|value, event)"
-      },
-      returns: "HTMLLabelElement",
-      description: "Toggle switch con supporto model e comportamento checkbox/radio."
-    };
-  }
+
   // Esempio: JSswift.ui.Toggle({ label: "Attivo", model: [get,set] })
 
   UI.Slider = (...args) => {
@@ -10475,70 +8458,7 @@ const setDrawerOpen = (open, key = drawerStateKey) => {
 
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Slider = {
-      signature: "UI.Slider(...children) | UI.Slider(props, ...children)",
-      props: {
-        min: "number",
-        max: "number",
-        step: "number|\"any\"",
-        value: "number | rod | [get,set] signal",
-        model: "rod | [get,set] signal",
-        label: "String|Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        iconRight: "String|Node|Function|Array",
-        thumbIcon: "String|Node|Function|Array",
-        iconThumb: "Alias of thumbIcon",
-        pointIcon: "Alias of thumbIcon",
-        thumbLabel: "String|Node|Function|Array",
-        showValue: "boolean",
-        labelValue: "String|Node|Function|Array",
-        markers: "boolean|number|Array|Object",
-        markerLabels: "boolean",
-        labelMarks: "Alias of markerLabels",
-        startLabel: "String|Node|Function|Array",
-        endLabel: "String|Node|Function|Array",
-        leftLabel: "Alias of startLabel",
-        rightLabel: "Alias of endLabel",
-        minLabel: "Alias of startLabel",
-        maxLabel: "Alias of endLabel",
-        withQItem: "boolean",
-        qitem: "Alias of withQItem",
-        item: "boolean",
-        itemClass: "string",
-        itemStyle: "object",
-        selectionColor: "string",
-        trackColor: "string",
-        thumbColor: "string",
-        size: "string|number",
-        readonly: "boolean",
-        inputClass: "string",
-        slots: "{ label?, default?, value?, icon?, iconRight?, thumbIcon?, thumbLabel?, marker?, markerLabel?, startLabel?, endLabel? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        label: "Label content",
-        default: "Fallback label content",
-        value: "Header value content",
-        icon: "Left icon content",
-        iconRight: "Right icon content",
-        thumbIcon: "Thumb icon content",
-        thumbLabel: "Thumb label content",
-        marker: "Marker content",
-        markerLabel: "Marker label content",
-        startLabel: "Label on the left/start of the track",
-        endLabel: "Label on the right/end of the track"
-      },
-      events: {
-        onChange: "(value, event)",
-        onInput: "(value, event)"
-      },
-      returns: "HTMLLabelElement | HTMLLIElement (with ._input = HTMLInputElement)",
-      description: "Reactive slider with label, icons, custom thumb, markers, and model/QItem support."
-    };
-  }
+
   // Esempio: JSswift.ui.Slider({ min: 0, max: 10, model: [get,set] })
 
   UI.Rating = (...args) => {
@@ -10869,62 +8789,7 @@ const setDrawerOpen = (open, key = drawerStateKey) => {
 
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Rating = {
-      signature: "UI.Rating(...children) | UI.Rating(props, ...children)",
-      props: {
-        max: "number",
-        value: "number | rod | [get,set] signal",
-        model: "rod | [get,set] signal",
-        name: "string",
-        label: "String|Node|Function|Array",
-        clearable: "boolean",
-        half: "boolean",
-        allowHalf: "Alias of half",
-        noDimming: "boolean",
-        readonly: "boolean",
-        disabled: "boolean",
-        icon: "String|Node|Function|Array",
-        iconSelected: "Alias of checkedIcon",
-        checkedIcon: "String|Node|Function|Array",
-        uncheckedIcon: "String|Node|Function|Array",
-        iconHalf: "Alias of halfIcon",
-        halfIcon: "String|Node|Function|Array",
-        iconHovered: "Alias of hoveredIcon",
-        hoveredIcon: "String|Node|Function|Array",
-        color: "string",
-        colorSelected: "string",
-        colorHalf: "string",
-        colorHovered: "string",
-        colorInactive: "string",
-        iconSize: "string|number",
-        size: "string|number",
-        gap: "string|number",
-        slots: "{ label?, icon?, checkedIcon?, uncheckedIcon?, halfIcon?, hoveredIcon?, item?, star? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        label: "Label content",
-        icon: "Base icon content per item",
-        checkedIcon: "Icon when item is selected",
-        uncheckedIcon: "Icon when item is empty",
-        halfIcon: "Icon when item is half-selected",
-        hoveredIcon: "Icon while hovering selected items",
-        item: "Custom item renderer",
-        star: "Alias of item/icon"
-      },
-      events: {
-        onChange: "(value, event)",
-        onInput: "(value, event)",
-        onHover: "(value, event)"
-      },
-      keyboard: ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End", "Enter", "Space", "Delete", "Backspace", "0"],
-      returns: "HTMLLabelElement (with ._input, ._rating, ._getValue(), ._setValue(value))",
-      description: "Reactive rating with label, custom icons, half rating, clearable behavior, and model support."
-    };
-  }
+
   // Esempio: JSswift.ui.Rating({ max: 5, model: [get,set] })
 
   const uiCloneTimeParts = (value) => {
@@ -12390,86 +10255,7 @@ const setDrawerOpen = (open, key = drawerStateKey) => {
   JSswift.ui.Datepicker = UI.Datepicker;
   JSswift.ui.Calendar = UI.Calendar;
   JSswift.ui.Date = UI.Date;
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Datepicker = {
-      signature: "UI.Datepicker(props)",
-      props: {
-        value: "string | { from, to } | string[] | Array<{ from, to }> | Array<[from, to]>",
-        model: "rod | [get,set] signal",
-        mode: "\"single\"|\"range\"|\"multiple\"|\"range-multiple\"",
-        range: "boolean",
-        multiple: "boolean",
-        rangeMultiple: "boolean",
-        multipleRange: "Alias of rangeMultiple",
-        min: "string",
-        max: "string",
-        minDate: "Alias of min",
-        maxDate: "Alias of max",
-        minRange: "number",
-        maxRange: "number",
-        manualInput: "boolean",
-        firstDayOfWeek: "number",
-        monthsToShow: "number",
-        locale: "string",
-        shortcuts: "Array<{ label, value }>",
-        options: "Array|string|Function",
-        enableDates: "Alias of options",
-        disableDates: "Array|string|Function",
-        label: "String|Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        iconRight: "String|Node|Function|Array",
-        pointIcon: "String|Node|Function|Array",
-        withTime: "boolean",
-        timeValue: "string|Date",
-        timeMin: "string",
-        timeMax: "string",
-        timeMinuteStep: "number",
-        timeSecondStep: "number",
-        timeWithSeconds: "boolean",
-        timeShortcuts: "Array<{ label, value }>",
-        timePointIcon: "String|Node|Function|Array",
-        clearable: "boolean",
-        confirm: "boolean",
-        name: "string",
-        nameFrom: "string",
-        nameTo: "string",
-        size: "\"xs\"|\"sm\"|\"md\"|\"lg\"|\"xl\"",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        day: "Day content ({ date, selected, inRange, disabled, outside })",
-        point: "Point/icon in the day",
-        dayPoint: "Alias of point",
-        value: "Footer value renderer ({ value, displayValue, mode })",
-        timeOption: "Renderer for a time option in the integrated footer",
-        timePoint: "Point/icon in the footer time option",
-        timeShortcut: "Integrated time shortcut renderer",
-        label: "Floating label",
-        topLabel: "Top label",
-        icon: "Left icon",
-        iconRight: "Right icon",
-        default: "Fallback value content"
-      },
-      events: {
-        onChange: "(value, event)",
-        onInput: "(value, event)",
-        onOpen: "void",
-        onClose: "void",
-        onNavigate: "({ month, year })"
-      },
-      returns: "HTMLDivElement (field wrapper) con ._input, ._open(), ._close(), ._getValue(), ._setValue(value)",
-      description: "Reactive datepicker input with fixed overlay, single/range/multiple/multi-range modes, model, min/max, presets, xs-xl sizes, and optional time support in a unified interface."
-    };
-    UI.meta.Calendar = {
-      ...UI.meta.Datepicker,
-      signature: "UI.Calendar(props)",
-      returns: "HTMLDivElement calendar panel con ._getValue(), ._setValue(value), ._clear(), ._select(value)",
-      description: "Standalone interactive calendar panel using the same engine and styling as UI.Datepicker, with direct model persistence."
-    };
-    UI.meta.Date = UI.meta.Datepicker;
-  }
+
   // Esempio: JSswift.ui.Datepicker({ value: "2024-01-01" })
 
   UI.Time = (...args) => {
@@ -12780,51 +10566,7 @@ const setDrawerOpen = (open, key = drawerStateKey) => {
 
     return field;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Time = {
-      signature: "UI.Time(props)",
-      props: {
-        value: "string|Date",
-        model: "rod | [get,set] signal",
-        min: "string",
-        max: "string",
-        minuteStep: "number",
-        secondStep: "number",
-        withSeconds: "boolean",
-        manualInput: "boolean",
-        clearable: "boolean",
-        confirm: "boolean",
-        label: "String|Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        iconRight: "String|Node|Function|Array",
-        pointIcon: "String|Node|Function|Array",
-        shortcuts: "Array<{ label, value }>",
-        name: "string",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        option: "Renderer for a time option ({ part, value, label, selected, timeValue })",
-        point: "Point/icon in the selected time option",
-        shortcut: "Shortcut renderer",
-        value: "Footer value renderer ({ value, displayValue })",
-        label: "Floating label",
-        topLabel: "Top label",
-        icon: "Left icon",
-        iconRight: "Right icon",
-        default: "Fallback value content"
-      },
-      events: {
-        onChange: "(value, event)",
-        onInput: "(value, event)",
-        onOpen: "void",
-        onClose: "void"
-      },
-      returns: "HTMLDivElement (field wrapper) con ._input, ._open(), ._close(), ._getValue(), ._setValue(value)",
-      description: "Reactive time picker with fixed overlay, label/icon slots, point icon, shortcuts, confirm, and model."
-    };
-  }
+
   // Esempio: JSswift.ui.Time({ value: "09:30" })
 
   UI.Tabs = (...args) => {
@@ -13214,56 +10956,7 @@ const setDrawerOpen = (open, key = drawerStateKey) => {
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Tabs = {
-      signature: "UI.Tabs(props) | UI.Tabs(props, ...children)",
-      props: {
-        tabs: "Array<{ value|name|id|key, label|title, note|subtitle|description, icon, badge|counter, disabled, hidden, onClick }>",
-        items: "Alias of tabs",
-        value: "any",
-        defaultValue: "any",
-        default: "Alias of defaultValue",
-        model: "[get,set] signal",
-        orientation: "horizontal|vertical",
-        variant: "line|pills|soft",
-        fill: "boolean",
-        wrap: "boolean",
-        disabled: "boolean",
-        color: "string",
-        state: "string",
-        gap: "string|number",
-        tabGap: "string|number",
-        align: "string",
-        justify: "string",
-        size: "string|number",
-        dense: "boolean",
-        navClass: "string",
-        tabClass: "string",
-        itemClass: "string",
-        slots: "{ nav?, tab?, label?, icon?, note?, badge?, extra?, empty?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        nav: "Full nav renderer",
-        tab: "Single tab renderer",
-        label: "Label renderer",
-        icon: "Icon renderer",
-        note: "Note renderer",
-        badge: "Badge/counter renderer",
-        extra: "Extra area next to the nav",
-        empty: "Fallback when tabs/items are empty",
-        default: "Children / extra content fallback"
-      },
-      events: {
-        onChange: "(value, tab, event, index)"
-      },
-      keyboard: ["Enter/Space", "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"],
-      returns: "HTMLDivElement con ._getValue(), ._setValue(value), ._select(value), ._next(), ._prev(), ._getTabs()",
-      description: "Standardized tab bar with controlled/uncontrolled support, structured slots, badge/note/icon, and keyboard navigation."
-    };
-  }
+
   // Esempio: JSswift.ui.Tabs({ tabs: [{ label: "Overview", value: "overview", icon: "dashboard" }], model: [get,set] })
 
   UI.RouteTab = (...args) => {
@@ -13486,50 +11179,7 @@ const setDrawerOpen = (open, key = drawerStateKey) => {
     wrap._navigate = (event) => ctx().navigate(event);
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.RouteTab = {
-      signature: "UI.RouteTab(...children) | UI.RouteTab(props, ...children)",
-      props: {
-        label: "String|Node|Function|Array",
-        to: "string",
-        href: "string",
-        active: "boolean",
-        selected: "Alias of active",
-        match: "\"exact\"|\"startsWith\"|RegExp|Function|string",
-        matchMode: "\"exact\"|\"startsWith\"",
-        exact: "boolean",
-        startsWith: "boolean",
-        note: "String|Node|Function|Array",
-        badge: "String|Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        iconRight: "String|Node|Function|Array",
-        aside: "Node|Function|Array",
-        variant: "\"line\"|\"pills\"|\"soft\"",
-        disabled: "boolean",
-        block: "boolean",
-        state: "string",
-        color: "string",
-        slots: "{ icon?, label?, note?, badge?, aside?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        icon: "Leading icon content",
-        label: "Main label content",
-        note: "Secondary note/caption",
-        badge: "Badge / counter area",
-        aside: "Trailing visual/action area",
-        default: "Extra content under the note"
-      },
-      events: {
-        onClick: "MouseEvent",
-        onNavigate: "(to, event)"
-      },
-      returns: "HTMLAnchorElement con ._isActive(), ._setActive(boolean|null), ._navigate(event?)",
-      description: "Standardized tab/link for router or href navigation, with structured slots, states, and badges."
-    };
-  }
+
   // Esempio: JSswift.ui.RouteTab({ label: "Home", to: "/" })
 
   UI.Breadcrumbs = (...args) => {
@@ -13894,55 +11544,7 @@ const setDrawerOpen = (open, key = drawerStateKey) => {
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Breadcrumbs = {
-      signature: "UI.Breadcrumbs(props)",
-      props: {
-        items: "Array<string|number|Node|Function|{ label?, to?, href?, icon?, note?, badge?, current?, disabled?, hidden?, slots? }>",
-        model: "[get,set] signal|Array",
-        home: "boolean|Object",
-        separator: "string|Node|Function",
-        before: "Node|Function|Array",
-        after: "Node|Function|Array",
-        empty: "Node|Function|Array",
-        variant: "\"line\"|\"pills\"|\"soft\"",
-        max: "number",
-        leadingCount: "number",
-        trailingCount: "number",
-        dense: "boolean",
-        wrap: "boolean",
-        nowrap: "boolean",
-        linkCurrent: "boolean",
-        color: "string",
-        state: "string",
-        itemSize: "string|number",
-        ariaLabel: "string",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        before: "Content before breadcrumb list",
-        after: "Content after breadcrumb list",
-        item: "Full renderer for a breadcrumb entry",
-        icon: "Leading icon for each breadcrumb",
-        label: "Main breadcrumb label",
-        note: "Secondary line for the breadcrumb",
-        badge: "Badge/counter area",
-        aside: "Trailing area",
-        default: "Extra content under note",
-        separator: "Separator renderer",
-        collapsed: "Renderer for collapsed middle items",
-        empty: "Renderer for empty state"
-      },
-      events: {
-        onItemClick: "(item, ctx, event)",
-        onNavigate: "(toOrHref, item, event)"
-      },
-      returns: "HTMLElement <nav> con .getItems(), .getVisibleItems(), .refresh(), .setItems(items)",
-      description: "Breadcrumbs standardizzati con item strutturati, slot completi, collapse automatico e supporto a link/router."
-    };
-  }
+
   // Esempio: JSswift.ui.Breadcrumbs({ items: [{ label: "Home", to: "/" }, { label: "Pagina" }] })
 
   UI.Pagination = (...args) => {
@@ -14226,59 +11828,7 @@ const setDrawerOpen = (open, key = drawerStateKey) => {
     setPropertyProps(wrap, props);
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Pagination = {
-      signature: "UI.Pagination(props)",
-      props: {
-        max: "number",
-        pages: "number",
-        total: "number",
-        pageSize: "number",
-        value: "number",
-        page: "number",
-        model: "[get,set] signal",
-        showPages: "boolean",
-        showSummary: "boolean",
-        showLabel: "boolean",
-        showPrev: "boolean",
-        showNext: "boolean",
-        showFirst: "boolean",
-        showLast: "boolean",
-        showEdges: "boolean",
-        siblings: "number",
-        boundaryCount: "number",
-        hideOnSinglePage: "boolean",
-        size: "xxs|xs|sm|md|lg|xl|xxl|xxxl",
-        dense: "boolean",
-        simple: "boolean",
-        color: "primary|secondary|warning|danger|success|info|light|dark",
-        state: "primary|secondary|warning|danger|success|info|light|dark",
-        slots: "{ start?, end?, first?, prev?, page?, item?, ellipsis?, next?, last?, summary?, label? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        start: "Content before the controls",
-        end: "Content after the controls",
-        first: "First button content",
-        prev: "Prev button content",
-        page: "Page item content (ctx: { page, active, pages })",
-        item: "Alias of page",
-        ellipsis: "Ellipsis content",
-        next: "Next button content",
-        last: "Last button content",
-        summary: "Summary content",
-        label: "Alias legacy di summary"
-      },
-      events: {
-        onChange: "(page, ctx, event)",
-        onPageChange: "(page, ctx, event)"
-      },
-      returns: "HTMLElement <nav>",
-      description: "Paginazione standard con controlli edge, numeri, ellissi, summary e supporto total/pageSize."
-    };
-  }
+
   // Esempio: JSswift.ui.Pagination({ total: 120, pageSize: 12, model: [get,set], showEdges: true })
 
   UI.Spinner = (...args) => {
@@ -14390,42 +11940,7 @@ const setDrawerOpen = (open, key = drawerStateKey) => {
     setPropertyProps(root, props);
     return root;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Spinner = {
-      signature: "UI.Spinner(...children) | UI.Spinner(props, ...children)",
-      props: {
-        size: "number|string",
-        color: "string",
-        thickness: "number|string",
-        trackColor: "string",
-        speed: "number|string",
-        state: "primary|secondary|success|warning|danger|info|light|dark",
-        label: "String|Node|Function|Array",
-        note: "String|Node|Function|Array",
-        vertical: "boolean",
-        reverse: "boolean",
-        center: "boolean",
-        block: "boolean",
-        pause: "boolean",
-        paused: "boolean",
-        ariaLabel: "string",
-        indicatorClass: "string",
-        indicatorStyle: "object",
-        slots: "{ indicator?, label?, note?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        indicator: "Custom spinner indicator",
-        label: "Primary label/content near the spinner",
-        note: "Secondary supporting text",
-        default: "Extra content rendered near the spinner"
-      },
-      returns: "HTMLDivElement",
-      description: "Animated spinner with flexible layout, optional content, and controls for size, speed, and track."
-    };
-  }
+
   // Esempio: JSswift.ui.Spinner({ size: 24 })
 
   UI.Progress = (...args) => {
@@ -14817,58 +12332,7 @@ const setDrawerOpen = (open, key = drawerStateKey) => {
 
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Progress = {
-      signature: "UI.Progress(...children) | UI.Progress(props, ...children)",
-      props: {
-        value: "number|rod|[get,set] signal",
-        model: "rod|[get,set] signal",
-        min: "number",
-        max: "number",
-        buffer: "number|rod|[get,set] signal",
-        label: "String|Node|Function|Array",
-        note: "String|Node|Function|Array",
-        showValue: "boolean|\"inside\"",
-        valueLabel: "String|Node|Function|Array",
-        insideLabel: "String|Node|Function|Array",
-        formatValue: "function(value, percent, ctx)",
-        icon: "String|Node|Function|Array",
-        iconRight: "String|Node|Function|Array",
-        startLabel: "String|Node|Function|Array",
-        endLabel: "String|Node|Function|Array",
-        leftLabel: "Alias of startLabel",
-        rightLabel: "Alias of endLabel",
-        width: "string|number",
-        size: "string|number",
-        height: "string|number",
-        thickness: "Alias of height",
-        color: "string",
-        state: "primary|secondary|success|warning|danger|info|light|dark",
-        trackColor: "string",
-        bufferColor: "string",
-        striped: "boolean",
-        animated: "boolean",
-        indeterminate: "boolean",
-        reverse: "boolean",
-        slots: "{ icon?, label?, note?, value?, inside?, startLabel?, endLabel?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        icon: "Icon before the label",
-        label: "Main progress content",
-        note: "Secondary content below the label",
-        value: "External value on the right",
-        inside: "Content inside the bar",
-        startLabel: "Label on the left of the bar",
-        endLabel: "Label on the right of the bar",
-        default: "Fallback label content"
-      },
-      returns: "HTMLDivElement",
-      description: "Standardized progress bar with optional header, buffer, semantic state, and reactive support."
-    };
-  }
+
   // Esempio: JSswift.ui.Progress({ value: 45 })
 
   UI.LoadingBar = function LoadingBar(...args) {
@@ -15173,77 +12637,7 @@ const setDrawerOpen = (open, key = drawerStateKey) => {
     if (uiUnwrap(props.autoStart)) start();
     return root;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.LoadingBar = {
-      signature: "UI.LoadingBar(...children) | UI.LoadingBar(props, ...children)",
-      props: {
-        value: "number|rod|[get,set] signal",
-        model: "rod|[get,set] signal",
-        buffer: "number|rod|[get,set] signal",
-        min: "number",
-        max: "number",
-        height: "string|number",
-        thickness: "Alias of height",
-        size: "string|number",
-        color: "string",
-        state: "primary|secondary|success|warning|danger|info|light|dark",
-        trackColor: "string",
-        bufferColor: "string",
-        striped: "boolean",
-        animated: "boolean",
-        indeterminate: "boolean",
-        reverse: "boolean",
-        width: "string|number",
-        target: "HTMLElement|string",
-        mount: "boolean",
-        position: "fixed|absolute|relative|static|sticky",
-        inset: "string|number",
-        top: "string|number",
-        right: "string|number",
-        bottom: "string|number",
-        left: "string|number",
-        zIndex: "number",
-        visible: "boolean",
-        autoStart: "boolean",
-        startValue: "number",
-        step: "number",
-        trickle: "boolean",
-        trickleStep: "number",
-        trickleInterval: "number",
-        trickleMax: "number",
-        trickleTo: "Alias of trickleMax",
-        doneValue: "number",
-        doneDelay: "Alias of hideDelay",
-        hideDelay: "number",
-        resetValue: "number",
-        label: "String|Node|Function|Array",
-        note: "String|Node|Function|Array",
-        showValue: "boolean|\"inside\"",
-        valueLabel: "String|Node|Function|Array",
-        insideLabel: "String|Node|Function|Array",
-        startLabel: "String|Node|Function|Array",
-        endLabel: "String|Node|Function|Array",
-        progressClass: "string",
-        progressStyle: "object",
-        slots: "{ icon?, label?, note?, value?, inside?, startLabel?, endLabel?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        icon: "Icon before the label",
-        label: "Main content",
-        note: "Secondary content",
-        value: "External value on the right",
-        inside: "Content inside the bar",
-        startLabel: "Label on the left of the bar",
-        endLabel: "Label on the right of the bar",
-        default: "Fallback content"
-      },
-      returns: "HTMLDivElement with imperative API: .set(), .setBuffer(), .inc(), .start(), .done(), .stop(), .reset(), .show(), .hide(), .destroy()",
-      description: "Loading bar based on UI.Progress, mountable on body or a custom container, controllable via model or imperative API."
-    };
-  }
+
   // Esempio: const lb = JSswift.ui.LoadingBar({ autoStart: true }); lb.done();
 
   const NOTIFY_POSITIONS = new Set([
@@ -15436,60 +12830,6 @@ const setDrawerOpen = (open, key = drawerStateKey) => {
       throw error;
     }
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Notify = {
-      signature: "UI.Notify(message, title?, opts?) | UI.Notify(opts, ...children)",
-      props: {
-        id: "string",
-        type: "success|warning|danger|error|info|primary|secondary|light|dark",
-        state: "Alias of type",
-        color: "Alias of type",
-        title: "String|Node|Function|Array|false",
-        message: "String|Node|Function|Array",
-        description: "String|Node|Function|Array",
-        meta: "String|Node|Function|Array",
-        body: "Node|Function|Array",
-        icon: "String|Node|Function|Array|false",
-        actions: "Node|Function|Array",
-        dismiss: "Node|Function|Array",
-        timeout: "number|false",
-        duration: "Alias of timeout",
-        closable: "boolean",
-        dismissLabel: "string",
-        position: "top-left|top-center|top-right|bottom-left|bottom-center|bottom-right",
-        variant: "soft|solid|outline",
-        slots: "{ icon?, title?, message?, description?, meta?, actions?, dismiss?, default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        icon: "Leading visual/icon content",
-        title: "Toast title content",
-        message: "Primary message content",
-        description: "Secondary/supporting text",
-        meta: "Meta info or badges",
-        actions: "Actions area content",
-        dismiss: "Custom dismiss control",
-        default: "Extra body content under the message"
-      },
-      methods: {
-        show: "Alias of UI.Notify(...)",
-        success: "UI.Notify.success(message|opts, title?)",
-        error: "UI.Notify.error(message|opts, title?)",
-        warning: "UI.Notify.warning(message|opts, title?)",
-        info: "UI.Notify.info(message|opts, title?)",
-        update: "UI.Notify.update(id, patch)",
-        remove: "UI.Notify.remove(id)",
-        clear: "UI.Notify.clear()",
-        promise: "UI.Notify.promise(promise|fn, { loading?, success?, error? })"
-      },
-      returns: "string|null (toast id)",
-      description: "Standardized notify service with structured payloads, semantic shortcuts, update/remove/clear, and promise support."
-    };
-  }
-
-
 UI.Header = (...args) => {
   const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
   const slots = rawProps.slots || {};
@@ -15668,53 +13008,7 @@ UI.Header = (...args) => {
   setPropertyProps(el, rawProps);
   return el;
 };
-if (JSswift.isDev?.()) {
-  UI.meta = UI.meta || {};
-  UI.meta.Header = {
-    signature: "UI.Header(...children) | UI.Header(props, ...children)",
-    props: {
-      title: "String|Node|Function|Array",
-      subtitle: "String|Node|Function|Array",
-      eyebrow: "String|Node|Function|Array",
-      content: "Node|Function|Array",
-      meta: "Node|Function|Array",
-      icon: "String|Node|Function|Array",
-      left: "Node|Function|Array|false",
-      right: "Node|Function|Array",
-      actions: "Node|Function|Array",
-      drawerOpenIcon: "string|Node",
-      drawerCloseIcon: "string|Node",
-      drawerStateKey: "string",
-      sticky: "boolean",
-      stack: "boolean",
-      dense: "boolean",
-      elevated: "boolean",
-      divider: "boolean",
-      gap: "string|number",
-      minHeight: "string|number",
-      slots: "{ left?, start?, right?, end?, center?, body?, icon?, eyebrow?, title?, subtitle?, meta?, content?, actions? }",
-      class: "string",
-      style: "object"
-    },
-    slots: {
-      left: "Left area, falls back to the drawer toggle",
-      start: "Alias/addon for the left area",
-      right: "Main right area",
-      end: "Alias/addon for the right area",
-      center: "Full override for the central body",
-      body: "Alias of center",
-      icon: "Leading icon",
-      eyebrow: "Eyebrow / kicker",
-      title: "Title",
-      subtitle: "Subtitle",
-      meta: "Meta info next to the central content",
-      content: "Extra content below the subtitle",
-      actions: "Actions grouped in the right area"
-    },
-    returns: "HTMLDivElement",
-    description: "Structured header with start/body/end regions, integrated drawer toggle, metadata, and composable slots."
-  };
-}
+
 
 UI.Drawer = (...args) => {
   const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
@@ -16214,67 +13508,7 @@ UI.Drawer = (...args) => {
   syncActiveClasses();
   return drawerEl;
 };
-if (JSswift.isDev?.()) {
-  UI.meta = UI.meta || {};
-  UI.meta.Drawer = {
-    signature: "UI.Drawer(props)",
-    props: {
-      items: "Array",
-      header: "Node|Function|Array",
-      footer: "Node|Function|Array",
-      before: "Node|Function|Array",
-      after: "Node|Function|Array",
-      title: "String|Node|Function|Array",
-      subtitle: "String|Node|Function|Array",
-      eyebrow: "String|Node|Function|Array",
-      icon: "String|Node|Function|Array",
-      content: "Node|Function|Array",
-      meta: "Node|Function|Array",
-      actions: "Node|Function|Array",
-      empty: "Node|Function|Array",
-      emptyText: "string",
-      stateKey: "string",
-      closeOnSelect: "boolean",
-      groupOpenIcon: "String|Node|Function|Array",
-      groupCloseIcon: "String|Node|Function|Array",
-      itemIconSize: "string|number",
-      gap: "string|number",
-      indent: "string|number",
-      padding: "string|number",
-      width: "string|number",
-      minHeight: "string|number",
-      maxHeight: "string|number",
-      onSelect: "function(item, ctx, event)",
-      sticky: "boolean",
-      slots: "{ header?, body?, footer?, before?, after?, empty?, item?, itemLabel?, itemNote?, itemBadge?, itemAside?, itemContent?, group?, groupLabel?, groupNote?, groupBadge?, groupAside?, groupContent?, sectionLabel? }",
-      class: "string",
-      style: "object"
-    },
-    slots: {
-      header: "Drawer header, full override",
-      body: "Full body override",
-      footer: "Drawer footer",
-      before: "Content before the item list",
-      after: "Content after the item list",
-      empty: "Empty state when there is no content",
-      item: "Full override for a simple item",
-      itemLabel: "Item label (ctx: { item, label, note, badge, aside, content })",
-      itemNote: "Item note/subtitle",
-      itemBadge: "Item badge",
-      itemAside: "Item aside/meta",
-      itemContent: "Extra item content",
-      group: "Full override for a group header (ctx includes toggle/isOpen)",
-      groupLabel: "Group label",
-      groupNote: "Group note",
-      groupBadge: "Group badge",
-      groupAside: "Group aside/meta",
-      groupContent: "Extra group content",
-      sectionLabel: "Label for section/heading items"
-    },
-    returns: "HTMLDivElement with openDrawer/closeDrawer/toggleDrawer/isDrawerOpen methods",
-    description: "Structured, backward-compatible drawer with header/footer, groups, extended slots, empty state, and persistent state."
-  };
-}
+
 
 UI.Page = (...args) => {
   const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
@@ -16451,52 +13685,7 @@ UI.Page = (...args) => {
   setPropertyProps(el, rawProps);
   return el;
 };
-if (JSswift.isDev?.()) {
-  UI.meta = UI.meta || {};
-  UI.meta.Page = {
-    signature: "UI.Page(...children) | UI.Page(props, ...children)",
-    props: {
-      hero: "Node|Function|Array",
-      icon: "String|Node|Function|Array",
-      eyebrow: "String|Node|Function|Array",
-      title: "String|Node|Function|Array",
-      subtitle: "String|Node|Function|Array",
-      header: "String|Node|Function|Array",
-      aside: "Node|Function|Array",
-      body: "Node|Function|Array",
-      footer: "Node|Function|Array",
-      actions: "Node|Function|Array",
-      dense: "boolean",
-      flat: "boolean",
-      centered: "boolean",
-      narrow: "boolean",
-      gap: "string|number",
-      padding: "string|number",
-      maxWidth: "string|number",
-      minHeight: "string|number",
-      heroPadding: "string|number",
-      headerGap: "string|number",
-      slots: "{ hero?, icon?, eyebrow?, title?, subtitle?, header?, aside?, body?, footer?, actions?, default? }",
-      class: "string",
-      style: "object"
-    },
-    slots: {
-      hero: "Top hero/banner area",
-      icon: "Page icon/visual",
-      eyebrow: "Eyebrow/kicker content",
-      title: "Page title content",
-      subtitle: "Page subtitle/description content",
-      header: "Header support content under title",
-      aside: "Top-right header content",
-      body: "Structured body content",
-      footer: "Footer meta/content",
-      actions: "Footer actions content",
-      default: "Fallback body content"
-    },
-    returns: "HTMLDivElement",
-    description: "Structured page container with hero, header, body, footer, and configurable layout."
-  };
-}
+
 
 UI.AppShell = (...args) => {
   const { props, children } = JSswift.uiNormalizeArgs(args);
@@ -16644,53 +13833,7 @@ UI.AppShell = (...args) => {
   setPropertyProps(root, props);
   return root;
 };
-if (JSswift.isDev?.()) {
-  UI.meta = UI.meta || {};
-  UI.meta.AppShell = {
-    signature: "UI.AppShell(...children) | UI.AppShell(props, ...children)",
-    props: {
-      header: "Node|Function|Array|false",
-      drawer: "Node|Function|Array|false",
-      page: "Node|Function|Array|false",
-      footer: "Node|Function|Array|false",
-      title: "string|Node|Function|Array",
-      subtitle: "string|Node|Function|Array",
-      left: "Node|Function|Array|false",
-      right: "Node|Function|Array",
-      items: "Array",
-      drawerItems: "Array",
-      drawerHeader: "Node|Function|Array",
-      content: "Node|Function|Array",
-      headerProps: "object",
-      drawerProps: "object",
-      pageProps: "object",
-      footerProps: "object",
-      footerContent: "Node|Function|Array",
-      noDrawer: "boolean",
-      reverse: "boolean",
-      stack: "boolean",
-      flush: "boolean",
-      divider: "boolean",
-      drawerStateKey: "string",
-      stateKey: "string",
-      drawerWidth: "number|string",
-      gap: "number|string",
-      padding: "number|string",
-      slots: "{ header?, drawer?, page?, footer?, default? }",
-      class: "string",
-      style: "object"
-    },
-    slots: {
-      header: "Header content",
-      drawer: "Drawer content",
-      page: "Page content",
-      footer: "Footer content",
-      default: "Fallback page content"
-    },
-    returns: "HTMLDivElement con methods openDrawer/closeDrawer/toggleDrawer/isDrawerOpen",
-    description: "Shell applicazione composabile con shortcut per Header/Drawer/Page/Footer e gestione drawer."
-  };
-}
+
 
 UI.Parallax = function Parallax(...args) {
   const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
@@ -16904,70 +14047,7 @@ UI.Parallax = function Parallax(...args) {
   setPropertyProps(wrap, rawProps);
   return wrap;
 };
-if (JSswift.isDev?.()) {
-  UI.meta = UI.meta || {};
-  UI.meta.Parallax = {
-    signature: "UI.Parallax(...children) | UI.Parallax(props, ...children)",
-    props: {
-      src: "string",
-      image: "string",
-      background: "string",
-      backgroundContent: "Node|Function|Array",
-      height: "string|number",
-      minHeight: "string|number",
-      speed: "number",
-      maxOffset: "number",
-      startTop: "number",
-      state: "success|warning|danger|info|primary|secondary|dark|light|string",
-      overlay: "string",
-      color: "string",
-      bgPosition: "string",
-      bgSize: "string",
-      bgRepeat: "string",
-      padding: "string|number",
-      gap: "string|number",
-      justify: "string",
-      align: "string",
-      contentMaxWidth: "string|number",
-      disabled: "boolean",
-      badge: "Node|Function|Array",
-      eyebrow: "String|Node|Function|Array",
-      title: "String|Node|Function|Array",
-      subtitle: "String|Node|Function|Array",
-      header: "Node|Function|Array",
-      aside: "Node|Function|Array",
-      media: "Node|Function|Array",
-      content: "Node|Function|Array",
-      footer: "Node|Function|Array",
-      actions: "Node|Function|Array",
-      bgClass: "string",
-      badgeClass: "string",
-      headerClass: "string",
-      bodyClass: "string",
-      footerClass: "string",
-      contentClass: "string",
-      slots: "{ background?, badge?, eyebrow?, title?, subtitle?, header?, aside?, media?, content?, footer?, actions?, default? }",
-      class: "string",
-      style: "object"
-    },
-    slots: {
-      background: "Decorative content inside the background layer",
-      badge: "Meta badge/chip above the main content",
-      eyebrow: "Eyebrow/kicker",
-      title: "Main title",
-      subtitle: "Subtitle or supporting text",
-      header: "Additional header content",
-      aside: "Header side area",
-      media: "Media content or foreground card",
-      content: "Main body",
-      footer: "Informational footer",
-      actions: "Actions area",
-      default: "Fallback body content"
-    },
-    returns: "HTMLDivElement with refresh/update/destroy methods",
-    description: "Standardized parallax hero/section with structured header, body, actions, slots, and minimal refresh API."
-  };
-}
+
 
 // Example:
 // _.Parallax({ src: "/assets/hero.jpg", height: "280px", speed: 0.2 }, _.h2("Hello"));
@@ -17423,22 +14503,7 @@ if (JSswift.isDev?.()) {
 
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Form = {
-      signature: "UI.Form({ form, onSubmit, ...props }, ...children)",
-      props: {
-        form: "useForm() instance",
-        onSubmit: "async (model, form) => any",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "(form) => Node|Array|Node"
-      },
-      returns: "HTMLFormElement"
-    };
-  }
+
 
   // ===============================
   // Dialog Service (Modal)
@@ -17522,73 +14587,6 @@ if (JSswift.isDev?.()) {
     setPropertyProps(el, props);
     return el;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.cardHeader = {
-      signature: "UI.cardHeader(...children) | UI.cardHeader(props, ...children)",
-      props: {
-        divider: "boolean",
-        align: `stretch|flex-start|center|flex-end|baseline`,
-        justify: `flex-start|center|flex-end|space-between|space-around|space-evenly`,
-        wrap: "boolean",
-        direction: "row|column|string",
-        gap: "string|number",
-        mobile: "{ gap?, align?, justify?, wrap?, direction? }",
-        tablet: "{ gap?, align?, justify?, wrap?, direction? }",
-        pc: "{ gap?, align?, justify?, wrap?, direction? }",
-        slots: "{ default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "Card header content"
-      },
-      returns: "HTMLDivElement",
-      description: "Header della card con supporto layout flex."
-    };
-    UI.meta.cardBody = {
-      signature: "UI.cardBody(...children) | UI.cardBody(props, ...children)",
-      props: {
-        padding: "string|number",
-        gap: "string|number",
-        direction: "row|column|string",
-        mobile: "{ padding?, gap?, direction?, width? }",
-        tablet: "{ padding?, gap?, direction?, width? }",
-        pc: "{ padding?, gap?, direction?, width? }",
-        slots: "{ default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "Card body content"
-      },
-      returns: "HTMLDivElement",
-      description: "Body della card."
-    };
-    UI.meta.cardFooter = {
-      signature: "UI.cardFooter(...children) | UI.cardFooter(props, ...children)",
-      props: {
-        divider: "boolean",
-        align: `stretch|flex-start|center|flex-end|baseline`,
-        justify: `flex-start|center|flex-end|space-between|space-around|space-evenly`,
-        wrap: "boolean",
-        direction: "row|column|string",
-        gap: "string|number",
-        mobile: "{ gap?, align?, justify?, wrap?, direction? }",
-        tablet: "{ gap?, align?, justify?, wrap?, direction? }",
-        pc: "{ gap?, align?, justify?, wrap?, direction? }",
-        slots: "{ default? }",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "Card footer content"
-      },
-      returns: "HTMLDivElement",
-      description: "Footer della card con supporto layout flex."
-    };
-  }
-
   UI.Dialog = (...args) => {
     const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
@@ -17922,74 +14920,6 @@ if (JSswift.isDev?.()) {
 
     return api;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Dialog = {
-      signature: "UI.Dialog(props) | UI.Dialog(props, ...children) -> { open, close, toggle, update, isOpen }",
-      props: {
-        title: "String|Node|Function|Array|({ close })=>Node",
-        subtitle: "String|Node|Function|Array|({ close })=>Node",
-        eyebrow: "String|Node|Function|Array|({ close })=>Node",
-        icon: "String|Node|Function|Array",
-        content: "Node|Function|Array|({ close })=>Node",
-        body: "Alias of content",
-        actions: "Node|Function|Array|({ close })=>Node",
-        footer: "Alias of actions",
-        size: "xs|sm|md|lg|xl|full",
-        state: "primary|secondary|warning|danger|success|info|light|dark",
-        color: "Alias of state",
-        width: "string|number",
-        minWidth: "string|number",
-        maxWidth: "string|number",
-        maxHeight: "string|number",
-        bodyMaxHeight: "string|number",
-        persistent: "boolean",
-        closable: "boolean",
-        closeButton: "boolean",
-        closeIcon: "string",
-        align: "top|center|bottom",
-        actionsAlign: "start|center|end|between|stretch",
-        stickyHeader: "boolean",
-        stickyActions: "boolean",
-        scrollable: "boolean",
-        stackActions: "boolean",
-        fullscreen: "boolean",
-        backdrop: "boolean",
-        backdropBlur: "boolean",
-        lockScroll: "boolean",
-        trapFocus: "boolean",
-        autoFocus: "boolean",
-        closeOnOutside: "boolean",
-        closeOnBackdrop: "boolean",
-        closeOnEsc: "boolean",
-        slots: "{ icon?, eyebrow?, title?, subtitle?, header?, content?, body?, footer?, actions?, close?, default? }",
-        class: "string",
-        panelClass: "string",
-        overlayClass: "string",
-        style: "object"
-      },
-      events: {
-        onOpen: "(entry)",
-        onClose: "void"
-      },
-      slots: {
-        icon: "Dialog icon ({ close })",
-        eyebrow: "Eyebrow above the title ({ close })",
-        title: "Dialog title ({ close })",
-        subtitle: "Dialog subtitle ({ close })",
-        header: "Custom header ({ close })",
-        content: "Dialog body ({ close })",
-        body: "Alias of content ({ close })",
-        footer: "Custom footer ({ close })",
-        actions: "Dialog actions ({ close })",
-        close: "Close action ({ close })",
-        default: "Fallback body content ({ close })"
-      },
-      description: "Standardized dialog overlay with variants, animations, structured slots, and imperative API.",
-      returns: "Object { open(overrides?), close(), toggle(overrides?), update(props), isOpen(), entry(), props() }"
-    };
-  }
-
   UI.TabPanel = (...args) => {
     const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
@@ -18527,201 +15457,7 @@ if (JSswift.isDev?.()) {
     wrap._prev = goPrev;
     return wrap;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.TabPanel = {
-      signature: "UI.TabPanel(props) | UI.TabPanel(props, ...children)",
-      props: {
-        tabs: {
-          type: "Array<{ name?, value?, label?, title?, note?, subtitle?, icon?, badge?, content?, panel?, body?, children?, disabled?, hidden?, tabClass?, panelClass? }>",
-          description: "Tab definition. Supports multiple aliases for label and content.",
-          category: "data"
-        },
-        items: {
-          type: "Array",
-          description: "Alias of `tabs`.",
-          category: "data"
-        },
-        value: {
-          type: "any",
-          description: "Initial or controlled value of the active tab.",
-          category: "data"
-        },
-        defaultValue: {
-          type: "any",
-          description: "Explicit alias for the initial tab when `model` is not used.",
-          category: "data"
-        },
-        model: {
-          type: "[get,set] signal",
-          description: "Reactive binding for the active tab.",
-          category: "data"
-        },
-        orientation: {
-          type: "vertical|horizontal",
-          description: "Navigation orientation.",
-          values: ["vertical", "horizontal"],
-          default: "vertical",
-          category: "layout"
-        },
-        navPosition: {
-          type: "before|after",
-          description: "Tab bar position relative to the panels.",
-          values: ["before", "after"],
-          default: "before",
-          category: "layout"
-        },
-        variant: {
-          type: "line|pills|soft",
-          description: "Visual style of the tab navigation.",
-          values: ["line", "pills", "soft"],
-          default: "line",
-          category: "style"
-        },
-        wrap: {
-          type: "boolean",
-          description: "Allows the nav to wrap when space is limited.",
-          default: false,
-          category: "layout"
-        },
-        navFill: {
-          type: "boolean",
-          description: "Distributes tabs across the available width.",
-          default: false,
-          category: "layout"
-        },
-        swipeable: {
-          type: "boolean",
-          description: "Enables swipe gestures on panels.",
-          default: false,
-          category: "behavior"
-        },
-        infinite: {
-          type: "boolean",
-          description: "When enabled, next/prev cycles from the first to the last tab.",
-          default: false,
-          category: "behavior"
-        },
-        animated: {
-          type: "boolean",
-          description: "Enables the transition between panels.",
-          default: false,
-          category: "behavior"
-        },
-        transitionDuration: {
-          type: "number",
-          description: "Animation duration in milliseconds.",
-          default: 220,
-          category: "behavior"
-        },
-        transitionEasing: {
-          type: "string",
-          description: "CSS timing function for the animation.",
-          default: "ease",
-          category: "behavior"
-        },
-        transitionPrev: {
-          type: "string",
-          description: "Custom classes applied during the transition to the previous tab.",
-          category: "behavior"
-        },
-        transitionNext: {
-          type: "string",
-          description: "Custom classes applied during the transition to the next tab.",
-          category: "behavior"
-        },
-        tabClass: {
-          type: "string",
-          description: "Additional classes for all tab buttons.",
-          category: "style"
-        },
-        tabStyle: {
-          type: "object",
-          description: "Inline style applied to all tab buttons.",
-          category: "style"
-        },
-        navClass: {
-          type: "string",
-          description: "Additional classes for the nav wrapper.",
-          category: "style"
-        },
-        panelsClass: {
-          type: "string",
-          description: "Additional classes for the panels wrapper.",
-          category: "style"
-        },
-        panelClass: {
-          type: "string",
-          description: "Common additional classes for each panel.",
-          category: "style"
-        },
-        panelStyle: {
-          type: "object",
-          description: "Common inline style for each panel.",
-          category: "style"
-        },
-        empty: {
-          type: "Node|Function|Array",
-          description: "Visual fallback when `tabs` and `items` are empty.",
-          category: "state"
-        },
-        disabled: {
-          type: "boolean",
-          description: "Disables the entire component.",
-          default: false,
-          category: "state"
-        },
-        slots: {
-          type: "{ nav?, tab?, label?, icon?, note?, badge?, panel?, empty?, default? }",
-          description: "Structured slots for customizing nav, label, badge, and content.",
-          category: "general"
-        }
-      },
-      slots: {
-        nav: {
-          type: "Function|Node|Array",
-          description: "Full navigation renderer. Receives `tabs`, `active()`, `activeTab()`, `select()`, `next()`, `prev()`, `nodes`, `orientation`, `position`, `variant`."
-        },
-        tab: {
-          type: "Function|Node|Array",
-          description: "Inner content of the tab button. Receives `tab`, `name`, `index`, `active`, `label`, `icon`, `note`, `badge`, `select()`."
-        },
-        label: {
-          type: "Function|Node|Array",
-          description: "Tab label."
-        },
-        icon: {
-          type: "Function|Node|Array",
-          description: "Tab icon."
-        },
-        note: {
-          type: "Function|Node|Array",
-          description: "Note, subtitle, or short description below the label."
-        },
-        badge: {
-          type: "Function|Node|Array",
-          description: "Badge or counter aligned to the right of the tab."
-        },
-        panel: {
-          type: "Function|Node|Array",
-          description: "Active/inactive panel renderer. Receives `tab`, `name`, `index`, `active`, `select()`, `next()`, `prev()`."
-        },
-        empty: {
-          type: "Function|Node|Array",
-          description: "Fallback when there are no tabs."
-        },
-        default: {
-          type: "Node|Array|Function",
-          description: "Extra content appended after the component."
-        }
-      },
-      events: {
-        onChange: "(name, tab, index)"
-      },
-      returns: "HTMLDivElement with API `_getValue()`, `_setValue(value)`, `_select(value)`, `_next()`, `_prev()`, `_active()`, `_tabs()`",
-      description: "Standardized tab panel with accessible nav, structured slots, reactive model, swipe, and animations."
-    };
-  }
+
 
   function closeBackdrop(backdrop) {
     if (backdrop && backdrop.parentNode) backdrop.parentNode.removeChild(backdrop);
@@ -19513,76 +16249,6 @@ transition: width 200ms ease;
     wrapProps.body = shell;
     return UI.Card(wrapProps);
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Table = {
-      signature: "UI.Table(props)",
-      props: {
-        columns: "Array<{ key, label?, sortable?, get?, value?, render?, format?, width?, minWidth?, maxWidth?, align?, compare?, style?, headerStyle?, thStyle?, cellStyle?, tdStyle?, cellClass?, headerClass?, nowrap?, searchable? }>",
-        rows: "Array|() => Array",
-        rowKey: "string|((row)=>string)",
-        loading: "boolean|() => boolean",
-        page: "number",
-        pageSize: "number",
-        pageSizeOptions: "number[]",
-        pagination: "boolean",
-        initialSort: "{ key, dir: 'asc'|'desc' }",
-        search: "string",
-        query: "string",
-        searchable: "boolean|string",
-        searchPlaceholder: "string",
-        searchKeys: "Array<string|function>",
-        searchModel: "[get,set] signal",
-        filter: "(row, ctx)=>boolean",
-        actions: "(row, ctx)=>Node|Array",
-        actionsLabel: "string|Node|Function|Array",
-        emptyText: "string|Node|Function|Array",
-        loadingText: "string|Node|Function|Array",
-        toolbar: "Node|Function|Array",
-        toolbarStart: "Node|Function|Array",
-        toolbarEnd: "Node|Function|Array",
-        caption: "string|Node|Function|Array",
-        footer: "Node|Function|Array",
-        status: "string|Node|Function|Array",
-        rowClass: "string|((row,ctx)=>string)",
-        rowAttrs: "object|((row,ctx)=>object)",
-        minTableWidth: "string|number",
-        stickyHeader: "boolean",
-        hideHeader: "boolean",
-        hideFooter: "boolean",
-        dense: "boolean",
-        striped: "boolean",
-        hover: "boolean",
-        tableClass: "string",
-        cardClass: "string",
-        class: "string",
-        style: "object"
-      },
-      slots: {
-        default: "Introductory content above the table",
-        toolbarStart: "Toolbar left area",
-        toolbar: "Central/custom toolbar",
-        toolbarEnd: "Toolbar right area",
-        search: "Replaces the built-in search box",
-        header: "Custom column header",
-        cell: "Global cell renderer",
-        actions: "Global row actions renderer",
-        actionsHeader: "Actions column header",
-        caption: "Caption above the table",
-        status: "Extra content in the status row",
-        loading: "Loading state",
-        empty: "Empty state",
-        footer: "Extra content in the footer"
-      },
-      events: {
-        onRowClick: "(row, ctx, event) => void",
-        onRowDblClick: "(row, ctx, event) => void"
-      },
-      returns: "HTMLDivElement",
-      description: "Standardized table with toolbar, search, sorting, pagination, states, and flexible rendering."
-    };
-  }
-
   UI.Menu = (...args) => {
     const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
@@ -20178,85 +16844,7 @@ transition: width 200ms ease;
 
     return api;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Menu = {
-      signature: "UI.Menu(props) | UI.Menu(props, ...children) -> { open, close, show, hide, toggle, update, bind, isOpen }",
-      props: {
-        title: "String|Node|Function|Array|({ close })=>Node",
-        subtitle: "String|Node|Function|Array|({ close })=>Node",
-        eyebrow: "String|Node|Function|Array|({ close })=>Node",
-        icon: "String|Node|Function|Array",
-        content: "Node|Function|Array|({ close })=>Node",
-        body: "Alias of content",
-        items: "Array<string|object>|Function|Array",
-        before: "Node|Function|Array",
-        after: "Node|Function|Array",
-        footer: "Node|Function|Array",
-        status: "Node|Function|Array",
-        empty: "Node|Function|Array",
-        size: "xs|sm|md|lg|xl",
-        state: "primary|secondary|warning|danger|success|info|light|dark",
-        color: "Alias of state",
-        trigger: "click|hover|focus|manual|Array",
-        placement: "string",
-        offsetX: "number",
-        offsetY: "number",
-        offset: "Alias of offsetY",
-        width: "string|number",
-        minWidth: "string|number",
-        maxWidth: "string|number",
-        maxHeight: "string|number",
-        bodyMaxHeight: "string|number",
-        contentMaxHeight: "Alias of bodyMaxHeight",
-        closeOnSelect: "boolean",
-        closeOnOutside: "boolean",
-        closeOnEsc: "boolean",
-        autoFocus: "boolean",
-        anchorEl: "HTMLElement|VirtualAnchor",
-        triggerEl: "Alias of anchorEl",
-        target: "Alias of anchorEl",
-        slots: "{ before?, icon?, eyebrow?, title?, subtitle?, header?, content?, body?, item?, itemTitle?, itemSubtitle?, itemBadge?, itemShortcut?, groupLabel?, empty?, status?, footer?, after?, default? }",
-        class: "string",
-        panelClass: "string",
-        overlayClass: "string",
-        style: "object",
-        panelStyle: "object",
-        onOpen: "function",
-        onClose: "function",
-        onItemClick: "(item, ctx, event) => void",
-        onTriggerClick: "function"
-      },
-      slots: {
-        before: "Region above header/body ({ close })",
-        icon: "Menu icon",
-        eyebrow: "Menu eyebrow ({ close })",
-        title: "Menu title ({ close })",
-        subtitle: "Menu subtitle ({ close })",
-        header: "Header custom ({ close })",
-        content: "Custom content ({ close })",
-        body: "Alias of content ({ close })",
-        item: "Custom item body ({ item, close })",
-        itemTitle: "Item title ({ item, close })",
-        itemSubtitle: "Item subtitle ({ item, close })",
-        itemBadge: "Item badge ({ item, close })",
-        itemShortcut: "Item shortcut ({ item, close })",
-        groupLabel: "Group label ({ item, close })",
-        empty: "Empty state ({ close })",
-        status: "Status row ({ close })",
-        footer: "Footer actions ({ close })",
-        after: "Region below body/footer ({ close })",
-        default: "Fallback content ({ close })"
-      },
-      events: {
-        onOpen: "void",
-        onClose: "void",
-        onItemClick: "item click"
-      },
-      returns: "Object { open(), close(), show(), hide(), toggle(), update(), bind(), isOpen() }",
-      description: "Standardized menu overlay with item model, rich slots, bindable triggers, header/footer, and imperative API."
-    };
-  }
+
 
   UI.Popover = (...args) => {
     const { props, children } = JSswift.uiNormalizeArgs(args);
@@ -20685,77 +17273,7 @@ transition: width 200ms ease;
 
     return api;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Popover = {
-      signature: "UI.Popover(props) | UI.Popover(props, ...children) -> { open, close, show, hide, toggle, update, bind, isOpen }",
-      props: {
-        title: "String|Node|Function|Array|({ close })=>Node",
-        subtitle: "String|Node|Function|Array|({ close })=>Node",
-        eyebrow: "String|Node|Function|Array|({ close })=>Node",
-        icon: "String|Node|Function|Array",
-        content: "Node|Function|Array|({ close })=>Node",
-        body: "Alias of content",
-        actions: "Node|Function|Array|({ close })=>Node",
-        footer: "Alias of actions",
-        size: "xs|sm|md|lg|xl",
-        state: "primary|secondary|warning|danger|success|info|light|dark",
-        color: "Alias of state",
-        trigger: "click|hover|focus|manual|Array",
-        placement: "string",
-        offsetX: "number",
-        offsetY: "number",
-        offset: "Alias of offsetY",
-        width: "string|number",
-        minWidth: "string|number",
-        maxWidth: "string|number",
-        maxHeight: "string|number",
-        bodyMaxHeight: "string|number",
-        contentMaxHeight: "Alias of bodyMaxHeight",
-        backdrop: "boolean",
-        lockScroll: "boolean",
-        trapFocus: "boolean",
-        autoFocus: "boolean",
-        closeButton: "boolean",
-        closable: "boolean",
-        closeOnSelect: "boolean",
-        closeOnOutside: "boolean",
-        closeOnBackdrop: "boolean",
-        closeOnEsc: "boolean",
-        open: "boolean|rod|signal",
-        anchorEl: "HTMLElement|VirtualAnchor",
-        triggerEl: "Alias of anchorEl",
-        target: "Alias of anchorEl",
-        slots: "{ icon?, eyebrow?, title?, subtitle?, header?, content?, body?, footer?, actions?, close?, default? }",
-        class: "string",
-        panelClass: "string",
-        overlayClass: "string",
-        style: "object",
-        onOpen: "function",
-        onClose: "function",
-        onTriggerClick: "function"
-      },
-      slots: {
-        icon: "Popover icon",
-        eyebrow: "Popover eyebrow ({ close })",
-        title: "Popover title ({ close })",
-        subtitle: "Popover subtitle ({ close })",
-        header: "Header custom ({ close })",
-        content: "Popover body ({ close })",
-        body: "Alias of content ({ close })",
-        footer: "Popover footer ({ close })",
-        actions: "Alias of footer ({ close })",
-        close: "Close button slot ({ close })",
-        default: "Fallback body ({ close })"
-      },
-      events: {
-        onOpen: "void",
-        onClose: "void"
-      },
-      returns: "Object { open(), close(), show(), hide(), toggle(), update(), bind(), isOpen() }",
-      description: "Standardized anchored popover with rich layout, complete slots, bindable triggers, and imperative API."
-    };
-  }
+
 
   UI.ContextMenu = (...args) => {
     const { props, children } = JSswift.uiNormalizeArgs(args);
@@ -20946,82 +17464,5 @@ transition: width 200ms ease;
 
     return api;
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.ContextMenu = {
-      signature: "UI.ContextMenu(props) | UI.ContextMenu(props, ...children) -> { open, openAt, openFromEvent, show, hide, close, toggle, update, bind, isOpen }",
-      props: {
-        title: "String|Node|Function|Array|({ close })=>Node",
-        subtitle: "String|Node|Function|Array|({ close })=>Node",
-        eyebrow: "String|Node|Function|Array|({ close })=>Node",
-        icon: "String|Node|Function|Array",
-        content: "Node|Function|Array|({ close })=>Node",
-        body: "Alias of content",
-        items: "Array<string|object>|Function|Array",
-        before: "Node|Function|Array",
-        after: "Node|Function|Array",
-        footer: "Node|Function|Array",
-        status: "Node|Function|Array",
-        empty: "Node|Function|Array",
-        size: "xs|sm|md|lg|xl",
-        state: "primary|secondary|warning|danger|success|info|light|dark",
-        color: "Alias of state",
-        placement: "string",
-        offsetX: "number",
-        offsetY: "number",
-        offset: "Alias of offsetY",
-        width: "string|number",
-        minWidth: "string|number",
-        maxWidth: "string|number",
-        maxHeight: "string|number",
-        bodyMaxHeight: "string|number",
-        contentMaxHeight: "Alias of bodyMaxHeight",
-        closeOnSelect: "boolean",
-        closeOnOutside: "boolean",
-        closeOnEsc: "boolean",
-        anchorEl: "HTMLElement|VirtualAnchor",
-        triggerEl: "Alias of anchorEl",
-        target: "Alias of anchorEl",
-        slots: "{ before?, icon?, eyebrow?, title?, subtitle?, header?, content?, body?, item?, itemTitle?, itemSubtitle?, itemBadge?, itemShortcut?, groupLabel?, empty?, status?, footer?, after?, default? }",
-        class: "string",
-        panelClass: "string",
-        overlayClass: "string",
-        style: "object",
-        panelStyle: "object",
-        onOpen: "function",
-        onClose: "function",
-        onItemClick: "(item, ctx, event) => void",
-        onTrigger: "(event, ctx) => boolean|void"
-      },
-      slots: {
-        before: "Region above header/body ({ close })",
-        icon: "Context icon",
-        eyebrow: "Context eyebrow ({ close })",
-        title: "Context title ({ close })",
-        subtitle: "Context subtitle ({ close })",
-        header: "Header custom ({ close })",
-        content: "Context menu content ({ close })",
-        body: "Alias of content ({ close })",
-        item: "Custom item body ({ item, close })",
-        itemTitle: "Item title ({ item, close })",
-        itemSubtitle: "Item subtitle ({ item, close })",
-        itemBadge: "Item badge ({ item, close })",
-        itemShortcut: "Item shortcut ({ item, close })",
-        groupLabel: "Group label ({ item, close })",
-        empty: "Empty state ({ close })",
-        status: "Status row ({ close })",
-        footer: "Footer actions ({ close })",
-        after: "Region below body/footer ({ close })",
-        default: "Fallback content ({ close })"
-      },
-      events: {
-        onOpen: "void",
-        onClose: "void",
-        onItemClick: "item click",
-        onTrigger: "contextmenu / keyboard trigger"
-      },
-      returns: "Object { open(), openAt(), openFromEvent(), show(), hide(), close(), toggle(), update(), bind(), isOpen() }",
-      description: "Menu specialization for right-click and context-menu key interactions, with items, rich slots, runtime overrides, and coordinate-based positioning."
-    };
-  }
+
 })(JSswift);

@@ -5,9 +5,9 @@ This document describes the JSswift UI layer as a practical reference for develo
 The canonical runtime source remains:
 
 - `packages/ui/dist/ui.js`
-- `UI.meta.*`
+- `documentions/components/*.md`
 
-When the runtime exposes a component without native metadata, this reference can supplement it with manual notes based on the source code.
+Component API contracts live in documentions/components and are verified against implementation source. They are not embedded in the UI runtime.
 
 ## Purpose
 
@@ -51,40 +51,9 @@ Maintenance rules:
 - some components accept `to`
 - when router support is available they call `JSswift.router.navigate(...)`
 
-## Meta Normalization
+## Component documentation
 
-In development mode the runtime normalizes parts of `UI.meta.*`.
-
-You should assume the normalized metadata includes shared fields such as:
-
-- `children`
-- `size`
-- `color`
-- `outline`
-- `clickable`
-- `padding`
-- `margin`
-- `width`
-- `height`
-- `radius`
-- `shadow`
-- `class`
-- `style`
-
-Common defaults:
-
-- `dense = false`
-- `disabled = false`
-- `readonly = false`
-- `outline = false`
-- `clickable = false`
-- `flat = false`
-- `elevated = false`
-
-## Runtime Inspection
-
-- browser console: `JSswift.ui.meta.Card`
-- helper: `JSswift.ui.inspect("Card")`
+Read documentions/components/<component>.md or use the knowledge MCP to search and read the installed contracts. The UI runtime does not register a component catalog or normalize descriptive metadata. Core docTable/inspect helpers remain compatible with metadata supplied explicitly by an application; bundled component descriptions are absent.
 
 ## Responsive System
 
@@ -208,7 +177,7 @@ General reading rules:
 
 - if a component renders a native HTML control, native semantics come first
 - if metadata documents `keyboard`, `trigger`, `trapFocus`, `autoFocus`, `closeOnEsc`, or `closeOnOutside`, treat those as real UX contract, not decorative details
-- if accessibility behavior is not documented in runtime metadata, do not invent it
+- if accessibility behavior is not documented in component documentation, do not invent it
 
 Practical generation rules:
 
@@ -311,12 +280,12 @@ Treat more carefully:
 - advanced overlays
 - `Date`
 - `Time`
-- `UI.meta` as public product contract
+- component documentation as public product contract
 
 ## Naming Notes
 
 - `cardHeader`, `cardBody`, and `cardFooter` are the canonical exported names
-- do not assume PascalCase aliases exist unless runtime metadata confirms them
+- do not assume PascalCase aliases exist unless component documentation confirms them
 
 ## Overlay Notes
 

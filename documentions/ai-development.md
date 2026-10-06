@@ -1,6 +1,8 @@
 # JSswift knowledge for application development
 
-The [knowledge map](knowledge-map.json), Skill, and local MCP all route to these application documents. Component files remain the exact API contracts. Search results and keywords are discovery aids, not replacement APIs.
+Start with [AI.md](AI.md), available through MCP as `guide:AI` and through the package export `jsswift/AI.md`. It covers a supported subset; read additional contracts only as needed. Shared property definitions are in [common props](ui/common-props.md).
+
+The [knowledge map](knowledge-map.json), Skill, and local MCP all route to these application documents. Component files remain the exact API contracts. Component descriptions are not embedded in the UI runtime; use these files instead of looking for UI.meta registrations. Search results and keywords are discovery aids, not replacement APIs.
 
 ## Skill
 

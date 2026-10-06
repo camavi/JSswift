@@ -271,56 +271,6 @@
 
     return { bind, open, show, hide, close: closeNow, toggle, isOpen };
   };
-  if (JSswift.isDev?.()) {
-    UI.meta = UI.meta || {};
-    UI.meta.Tooltip = {
-      signature: "UI.Tooltip(props, target?) | UI.Tooltip(target, content)",
-      props: {
-        title: "String|Node|Function|Array",
-        content: "String|Node|Function|Array",
-        text: "String|Node|Function|Array",
-        body: "String|Node|Function|Array",
-        footer: "String|Node|Function|Array",
-        icon: "String|Node|Function|Array",
-        target: "Node|Function|Array",
-        trigger: "\"hover focus\" | \"click\" | \"manual\" | Array",
-        interactive: "boolean",
-        disabled: "boolean",
-        open: "boolean | reactive",
-        placement: "string",
-        delay: "number",
-        hideDelay: "number",
-        offset: "number (legacy)",
-        offsetX: "number",
-        offsetY: "number",
-        closeOnOutside: "boolean",
-        closeOnEsc: "boolean",
-        maxWidth: "string|number",
-        minWidth: "string|number",
-        width: "string|number",
-        slots: "{ target?, icon?, title?, content?, footer?, default? }",
-        class: "string",
-        panelClass: "string",
-        wrapClass: "string",
-        style: "object",
-        targetStyle: "object"
-      },
-      slots: {
-        target: "Tooltip trigger content ({ open, show, hide, toggle, isOpen })",
-        icon: "Tooltip icon content",
-        title: "Tooltip title content",
-        content: "Tooltip body content ({ close, hide, isOpen, anchorEl })",
-        footer: "Tooltip footer content ({ close, hide, isOpen, anchorEl })",
-        default: "Fallback tooltip body content"
-      },
-      events: {
-        onOpen: "(entry) => void",
-        onClose: "() => void",
-        onTriggerClick: "(event) => void"
-      },
-      returns: "Object { bind(), open(), show(), hide(), close(), toggle(), isOpen() } | HTMLSpanElement",
-      description: "Anchored tooltip with hover/focus/click triggers, rich content, and imperative API."
-    };
-  }
+
   // Esempio: JSswift.ui.Tooltip({ title: "Info", text: "Dettaglio rapido" }, JSswift.ui.Icon({ name: "info" }))
 

@@ -1,5 +1,7 @@
 # JSswift application documentation
 
+Start with [AI.md](AI.md) for imports, a working composition example, and exact callback signatures. Use those supported examples directly; read full component contracts only for additional APIs.
+
 Build applications with JSswift by reading only the smallest focused guide. Exact component contracts are split by file to save context.
 
 | Need | Read |
