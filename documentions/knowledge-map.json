@@ -1,0 +1,946 @@
+{
+  "schemaVersion": 1,
+  "scope": "application-development",
+  "entrypoint": "README.md",
+  "topics": [
+    {
+      "id": "getting-started",
+      "title": "First application or screen",
+      "keywords": [
+        "start",
+        "setup",
+        "mount",
+        "ready",
+        "first app",
+        "iniziare",
+        "prima app",
+        "schermata"
+      ],
+      "paths": [
+        "getting-started.md",
+        "application-rules.md"
+      ]
+    },
+    {
+      "id": "composition",
+      "title": "Component selection, children and slots",
+      "keywords": [
+        "components",
+        "ui",
+        "composition",
+        "children",
+        "slots",
+        "componenti",
+        "composizione"
+      ],
+      "paths": [
+        "application-rules.md",
+        "components/README.md"
+      ]
+    },
+    {
+      "id": "reactivity",
+      "title": "Reactive state and controlled models",
+      "keywords": [
+        "state",
+        "signal",
+        "computed",
+        "effect",
+        "batch",
+        "model",
+        "reactive",
+        "stato",
+        "reattività",
+        "_.signal",
+        "_.effect",
+        "_.computed",
+        "_.untracked",
+        "_.batch"
+      ],
+      "paths": [
+        "reactivity.md"
+      ]
+    },
+    {
+      "id": "layout",
+      "title": "Layout and responsive screens",
+      "keywords": [
+        "layout",
+        "responsive",
+        "mobile",
+        "tablet",
+        "pc",
+        "grid",
+        "shell",
+        "breakpoints",
+        "griglia"
+      ],
+      "paths": [
+        "ui/layout-and-responsive.md"
+      ]
+    },
+    {
+      "id": "forms",
+      "title": "Forms and validation",
+      "keywords": [
+        "form",
+        "forms",
+        "validation",
+        "validate",
+        "submit",
+        "input",
+        "modulo",
+        "validazione",
+        "campi"
+      ],
+      "paths": [
+        "ui/forms.md",
+        "reactivity.md"
+      ]
+    },
+    {
+      "id": "platform",
+      "title": "Routing, store, HTTP, permissions and themes",
+      "keywords": [
+        "router",
+        "routing",
+        "route",
+        "store",
+        "http",
+        "api",
+        "auth",
+        "permissions",
+        "theme",
+        "navigation",
+        "rotte",
+        "permessi",
+        "tema"
+      ],
+      "paths": [
+        "platform.md"
+      ]
+    },
+    {
+      "id": "data-feedback-overlays",
+      "title": "Tables, loading states, feedback and overlays",
+      "keywords": [
+        "table",
+        "data",
+        "loading",
+        "feedback",
+        "dialog",
+        "menu",
+        "popover",
+        "tooltip",
+        "tabella",
+        "caricamento",
+        "dialogo"
+      ],
+      "paths": [
+        "ui/data-feedback-overlays.md"
+      ]
+    },
+    {
+      "id": "helpers",
+      "title": "Small HTML and SVG structural gaps",
+      "keywords": [
+        "html",
+        "svg",
+        "helper",
+        "helpers",
+        "raw",
+        "dom"
+      ],
+      "paths": [
+        "reference/html-svg-helpers.md"
+      ]
+    },
+    {
+      "id": "function-catalog",
+      "title": "Find documented functions",
+      "keywords": [
+        "function",
+        "functions",
+        "catalog",
+        "catalogo",
+        "funzioni"
+      ],
+      "paths": [
+        "reference/function-catalog.md"
+      ]
+    },
+    {
+      "id": "ai-setup",
+      "title": "Application AI documentation setup",
+      "keywords": [
+        "skill",
+        "mcp",
+        "knowledge",
+        "ai",
+        "agente",
+        "documentazione"
+      ],
+      "paths": [
+        "ai-development.md"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "alert",
+      "name": "Alert",
+      "path": "components/alert.md",
+      "summary": "Alert compatto per warning inline, policy note e feedback persistente dentro page o card.",
+      "keywords": [
+        "Alert",
+        "_.Alert"
+      ],
+      "topics": [
+        "data-feedback-overlays"
+      ]
+    },
+    {
+      "id": "app-shell",
+      "name": "AppShell",
+      "path": "components/app-shell.md",
+      "summary": "Shell applicazione composabile con shortcut per Header/Drawer/Page/Footer e gestione drawer.",
+      "keywords": [
+        "AppShell",
+        "_.AppShell"
+      ],
+      "topics": [
+        "layout"
+      ]
+    },
+    {
+      "id": "avatar",
+      "name": "Avatar",
+      "path": "components/avatar.md",
+      "summary": "Flexible avatar with image, smart fallbacks, states, badge, and overlay slots.",
+      "keywords": [
+        "Avatar",
+        "_.Avatar"
+      ],
+      "topics": [
+        "composition"
+      ]
+    },
+    {
+      "id": "badge",
+      "name": "Badge",
+      "path": "components/badge.md",
+      "summary": "Inline badge with reactive notification and 6 positionable icon slots.",
+      "keywords": [
+        "Badge",
+        "_.Badge"
+      ],
+      "topics": [
+        "composition"
+      ]
+    },
+    {
+      "id": "banner",
+      "name": "Banner",
+      "path": "components/banner.md",
+      "summary": "Structured banner with tone, actions, dismiss, and composable slots.",
+      "keywords": [
+        "Banner",
+        "_.Banner"
+      ],
+      "topics": [
+        "data-feedback-overlays"
+      ]
+    },
+    {
+      "id": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "path": "components/breadcrumbs.md",
+      "summary": "Breadcrumbs standardizzati con item strutturati, slot completi, collapse automatico e supporto a link/router.",
+      "keywords": [
+        "Breadcrumbs",
+        "_.Breadcrumbs"
+      ],
+      "topics": [
+        "composition"
+      ]
+    },
+    {
+      "id": "btn",
+      "name": "Button",
+      "path": "components/btn.md",
+      "summary": "Button component meta definition.",
+      "keywords": [
+        "Button",
+        "_.Button",
+        "Btn",
+        "_.Btn"
+      ],
+      "topics": [
+        "forms"
+      ]
+    },
+    {
+      "id": "card-body",
+      "name": "cardBody",
+      "path": "components/card-body.md",
+      "summary": "Body della card.",
+      "keywords": [
+        "cardBody",
+        "_.cardBody"
+      ],
+      "topics": [
+        "composition"
+      ]
+    },
+    {
+      "id": "card-footer",
+      "name": "cardFooter",
+      "path": "components/card-footer.md",
+      "summary": "Footer della card con supporto layout flex.",
+      "keywords": [
+        "cardFooter",
+        "_.cardFooter"
+      ],
+      "topics": [
+        "composition"
+      ]
+    },
+    {
+      "id": "card-header",
+      "name": "cardHeader",
+      "path": "components/card-header.md",
+      "summary": "Header della card con supporto layout flex.",
+      "keywords": [
+        "cardHeader",
+        "_.cardHeader"
+      ],
+      "topics": [
+        "composition"
+      ]
+    },
+    {
+      "id": "card",
+      "name": "Card",
+      "path": "components/card.md",
+      "summary": "Sectioned card with structured header, cover/media, body, and footer/actions.",
+      "keywords": [
+        "Card",
+        "_.Card"
+      ],
+      "topics": [
+        "layout"
+      ]
+    },
+    {
+      "id": "checkbox",
+      "name": "Checkbox",
+      "path": "components/checkbox.md",
+      "summary": "Checkbox con label e supporto model.",
+      "keywords": [
+        "Checkbox",
+        "_.Checkbox"
+      ],
+      "topics": [
+        "forms"
+      ]
+    },
+    {
+      "id": "chip",
+      "name": "Chip",
+      "path": "components/chip.md",
+      "summary": "Chip with optional icon and removal.",
+      "keywords": [
+        "Chip",
+        "_.Chip"
+      ],
+      "topics": [
+        "composition"
+      ]
+    },
+    {
+      "id": "col",
+      "name": "Col",
+      "path": "components/col.md",
+      "summary": "Responsive 24-column wrapper. By default it behaves like a regular container and enables vertical flex layout when using gap/alignment, structured regions, or `stack`.",
+      "keywords": [
+        "Col",
+        "_.Col"
+      ],
+      "topics": [
+        "layout"
+      ]
+    },
+    {
+      "id": "container",
+      "name": "Container",
+      "path": "components/container.md",
+      "summary": "Composable container with max-width, spacing, layout props, and optional sections.",
+      "keywords": [
+        "Container",
+        "_.Container"
+      ],
+      "topics": [
+        "layout"
+      ]
+    },
+    {
+      "id": "context-menu",
+      "name": "ContextMenu",
+      "path": "components/context-menu.md",
+      "summary": "Menu specialization for right-click and context-menu key interactions, with items, rich slots, runtime overrides, and coordinate-based positioning.",
+      "keywords": [
+        "ContextMenu",
+        "_.ContextMenu"
+      ],
+      "topics": [
+        "data-feedback-overlays"
+      ]
+    },
+    {
+      "id": "date",
+      "name": "Date",
+      "path": "components/date.md",
+      "summary": "Reactive date picker with fixed overlay, single/range/multiple/multi-range modes, model, min/max, presets, xs-xl sizes, and optional time support in a unified interface.",
+      "keywords": [
+        "Date",
+        "_.Date"
+      ],
+      "topics": [
+        "forms"
+      ]
+    },
+    {
+      "id": "dialog",
+      "name": "Dialog",
+      "path": "components/dialog.md",
+      "summary": "Standardized dialog overlay with variants, animations, structured slots, and imperative API.",
+      "keywords": [
+        "Dialog",
+        "_.Dialog"
+      ],
+      "topics": [
+        "data-feedback-overlays"
+      ]
+    },
+    {
+      "id": "drawer",
+      "name": "Drawer",
+      "path": "components/drawer.md",
+      "summary": "Structured, backward-compatible drawer with header/footer, groups, extended slots, empty state, and persistent state.",
+      "keywords": [
+        "Drawer",
+        "_.Drawer"
+      ],
+      "topics": [
+        "layout"
+      ]
+    },
+    {
+      "id": "empty-state",
+      "name": "EmptyState",
+      "path": "components/empty-state.md",
+      "summary": "Surface per zero-results, onboarding vuoti e pannelli senza dati con CTA di recupero.",
+      "keywords": [
+        "EmptyState",
+        "_.EmptyState"
+      ],
+      "topics": [
+        "data-feedback-overlays"
+      ]
+    },
+    {
+      "id": "footer",
+      "name": "Footer",
+      "path": "components/footer.md",
+      "summary": "Structured footer with start/body/end regions, optional copy, actions, and composable slots.",
+      "keywords": [
+        "Footer",
+        "_.Footer"
+      ],
+      "topics": [
+        "layout"
+      ]
+    },
+    {
+      "id": "form-field",
+      "name": "FormField",
+      "path": "components/form-field.md",
+      "summary": "Wrapper field con label floating, hint/error/success/warning/note, clear e addons slot-based.",
+      "keywords": [
+        "FormField",
+        "_.FormField"
+      ],
+      "topics": [
+        "forms"
+      ]
+    },
+    {
+      "id": "form",
+      "name": "Form",
+      "path": "components/form.md",
+      "summary": "Form component meta definition.",
+      "keywords": [
+        "Form",
+        "_.Form"
+      ],
+      "topics": [
+        "forms"
+      ]
+    },
+    {
+      "id": "grid-col",
+      "name": "GridCol",
+      "path": "components/grid-col.md",
+      "summary": "CSS Grid item with responsive spans, optional internal stack layout, start/body/end regions, and lightweight visual variants.",
+      "keywords": [
+        "GridCol",
+        "_.GridCol"
+      ],
+      "topics": [
+        "layout"
+      ]
+    },
+    {
+      "id": "grid",
+      "name": "Grid",
+      "path": "components/grid.md",
+      "summary": "Griglia dichiarativa per layout responsive: supporta children, items/slot item, auto-fit, template custom e empty state.",
+      "keywords": [
+        "Grid",
+        "_.Grid"
+      ],
+      "topics": [
+        "layout"
+      ]
+    },
+    {
+      "id": "header",
+      "name": "Header",
+      "path": "components/header.md",
+      "summary": "Structured header with start/body/end regions, integrated drawer toggle, metadata, and composable slots.",
+      "keywords": [
+        "Header",
+        "_.Header"
+      ],
+      "topics": [
+        "layout"
+      ]
+    },
+    {
+      "id": "icon",
+      "name": "Icon",
+      "path": "components/icon.md",
+      "summary": "Sprite- or text-based icon with configurable size/color.",
+      "keywords": [
+        "Icon",
+        "_.Icon"
+      ],
+      "topics": [
+        "composition"
+      ]
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "path": "components/input.md",
+      "summary": "Input field with floating label, hint/error/success/warning/note, clearable control, icon, prefix/suffix, and reactive support (rod/signal).",
+      "keywords": [
+        "Input",
+        "_.Input"
+      ],
+      "topics": [
+        "forms"
+      ]
+    },
+    {
+      "id": "item",
+      "name": "Item",
+      "path": "components/item.md",
+      "summary": "Structured item for simple lists, feeds, task lists, and clickable rows.",
+      "keywords": [
+        "Item",
+        "_.Item"
+      ],
+      "topics": [
+        "composition"
+      ]
+    },
+    {
+      "id": "kpi",
+      "name": "Kpi",
+      "path": "components/kpi.md",
+      "summary": "Richer surface for KPIs, headline metrics, and mini dashboard summaries.",
+      "keywords": [
+        "Kpi",
+        "_.Kpi"
+      ],
+      "topics": [
+        "composition"
+      ]
+    },
+    {
+      "id": "layout",
+      "name": "Layout",
+      "path": "components/layout.md",
+      "summary": "Composable shell layout with independent left drawer and right nav, configurable widths, optional resize with min/max, optional floating mode, and runtime section updates.",
+      "keywords": [
+        "Layout",
+        "_.Layout"
+      ],
+      "topics": [
+        "layout"
+      ]
+    },
+    {
+      "id": "list",
+      "name": "List",
+      "path": "components/list.md",
+      "summary": "Lista dichiarativa con supporto items, slot item, ordered/marker ed empty state.",
+      "keywords": [
+        "List",
+        "_.List"
+      ],
+      "topics": [
+        "composition"
+      ]
+    },
+    {
+      "id": "loading-bar",
+      "name": "LoadingBar",
+      "path": "components/loading-bar.md",
+      "summary": "Loading bar based on _.Progress, mountable on body or a custom container, controllable via model or imperative API.",
+      "keywords": [
+        "LoadingBar",
+        "_.LoadingBar"
+      ],
+      "topics": [
+        "data-feedback-overlays"
+      ]
+    },
+    {
+      "id": "menu",
+      "name": "Menu",
+      "path": "components/menu.md",
+      "summary": "Standardized menu overlay with item model, rich slots, bindable triggers, header/footer, and imperative API.",
+      "keywords": [
+        "Menu",
+        "_.Menu"
+      ],
+      "topics": [
+        "data-feedback-overlays"
+      ]
+    },
+    {
+      "id": "notify",
+      "name": "Notify",
+      "path": "components/notify.md",
+      "summary": "Standardized notify service with structured payloads, semantic shortcuts, update/remove/clear, and promise support.",
+      "keywords": [
+        "Notify",
+        "_.Notify"
+      ],
+      "topics": [
+        "data-feedback-overlays"
+      ]
+    },
+    {
+      "id": "page",
+      "name": "Page",
+      "path": "components/page.md",
+      "summary": "Structured page container with hero, header, body, footer, and configurable layout.",
+      "keywords": [
+        "Page",
+        "_.Page"
+      ],
+      "topics": [
+        "layout"
+      ]
+    },
+    {
+      "id": "pagination",
+      "name": "Pagination",
+      "path": "components/pagination.md",
+      "summary": "Paginazione standard con controlli edge, numeri, ellissi, summary e supporto total/pageSize.",
+      "keywords": [
+        "Pagination",
+        "_.Pagination"
+      ],
+      "topics": [
+        "composition"
+      ]
+    },
+    {
+      "id": "parallax",
+      "name": "Parallax",
+      "path": "components/parallax.md",
+      "summary": "Standardized parallax hero/section with structured header, body, actions, slots, and minimal refresh API.",
+      "keywords": [
+        "Parallax",
+        "_.Parallax"
+      ],
+      "topics": [
+        "layout"
+      ]
+    },
+    {
+      "id": "popover",
+      "name": "Popover",
+      "path": "components/popover.md",
+      "summary": "Standardized anchored popover with rich layout, complete slots, bindable triggers, and imperative API.",
+      "keywords": [
+        "Popover",
+        "_.Popover"
+      ],
+      "topics": [
+        "data-feedback-overlays"
+      ]
+    },
+    {
+      "id": "progress",
+      "name": "Progress",
+      "path": "components/progress.md",
+      "summary": "Standardized progress bar with optional header, buffer, semantic state, and reactive support.",
+      "keywords": [
+        "Progress",
+        "_.Progress"
+      ],
+      "topics": [
+        "data-feedback-overlays"
+      ]
+    },
+    {
+      "id": "radio",
+      "name": "Radio",
+      "path": "components/radio.md",
+      "summary": "Radio con label e supporto model.",
+      "keywords": [
+        "Radio",
+        "_.Radio"
+      ],
+      "topics": [
+        "forms"
+      ]
+    },
+    {
+      "id": "rating",
+      "name": "Rating",
+      "path": "components/rating.md",
+      "summary": "Reactive rating with label, custom icons, half rating, clearable behavior, and model support.",
+      "keywords": [
+        "Rating",
+        "_.Rating"
+      ],
+      "topics": [
+        "forms"
+      ]
+    },
+    {
+      "id": "route-tab",
+      "name": "RouteTab",
+      "path": "components/route-tab.md",
+      "summary": "Standardized tab/link for router or href navigation, with structured slots, states, and badges.",
+      "keywords": [
+        "RouteTab",
+        "_.RouteTab"
+      ],
+      "topics": [
+        "composition"
+      ]
+    },
+    {
+      "id": "row",
+      "name": "Row",
+      "path": "components/row.md",
+      "summary": "Wrapper flex in riga con children, slot strutturati e props di layout per gap, allineamento, wrap e direction.",
+      "keywords": [
+        "Row",
+        "_.Row"
+      ],
+      "topics": [
+        "layout"
+      ]
+    },
+    {
+      "id": "search",
+      "name": "Search",
+      "path": "components/search.md",
+      "summary": "Professional search with FormField, GET fetch, debounce, AbortController, overlay results, optional cache, reactive binding, and keyboard navigation.",
+      "keywords": [
+        "Search",
+        "_.Search"
+      ],
+      "topics": [
+        "forms"
+      ]
+    },
+    {
+      "id": "select",
+      "name": "Select",
+      "path": "components/select.md",
+      "summary": "Select premium: keyboard nav, option groups, async options, filter, clearable, multi select, valori custom da filtro. Wrappato in _.FormField.",
+      "keywords": [
+        "Select",
+        "_.Select"
+      ],
+      "topics": [
+        "forms"
+      ]
+    },
+    {
+      "id": "separator",
+      "name": "Separator",
+      "path": "components/separator.md",
+      "summary": "Separatore orizzontale o verticale.",
+      "keywords": [
+        "Separator",
+        "_.Separator"
+      ],
+      "topics": [
+        "composition"
+      ]
+    },
+    {
+      "id": "slider",
+      "name": "Slider",
+      "path": "components/slider.md",
+      "summary": "Reactive slider with label, icons, custom thumb, markers, and model/QItem support.",
+      "keywords": [
+        "Slider",
+        "_.Slider"
+      ],
+      "topics": [
+        "forms"
+      ]
+    },
+    {
+      "id": "spacer",
+      "name": "Spacer",
+      "path": "components/spacer.md",
+      "summary": "Flex spacer.",
+      "keywords": [
+        "Spacer",
+        "_.Spacer"
+      ],
+      "topics": [
+        "layout"
+      ]
+    },
+    {
+      "id": "spinner",
+      "name": "Spinner",
+      "path": "components/spinner.md",
+      "summary": "Animated spinner with flexible layout, optional content, and controls for size, speed, and track.",
+      "keywords": [
+        "Spinner",
+        "_.Spinner"
+      ],
+      "topics": [
+        "data-feedback-overlays"
+      ]
+    },
+    {
+      "id": "stat",
+      "name": "Stat",
+      "path": "components/stat.md",
+      "summary": "Compact surface for single metrics, trends, and operational metadata.",
+      "keywords": [
+        "Stat",
+        "_.Stat"
+      ],
+      "topics": [
+        "composition"
+      ]
+    },
+    {
+      "id": "tab-panel",
+      "name": "TabPanel",
+      "path": "components/tab-panel.md",
+      "summary": "Standardized tab panel with accessible nav, structured slots, reactive model, swipe, and animations.",
+      "keywords": [
+        "TabPanel",
+        "_.TabPanel"
+      ],
+      "topics": [
+        "composition"
+      ]
+    },
+    {
+      "id": "table",
+      "name": "Table",
+      "path": "components/table.md",
+      "summary": "Standardized table with toolbar, search, sorting, pagination, states, and flexible rendering.",
+      "keywords": [
+        "Table",
+        "_.Table"
+      ],
+      "topics": [
+        "data-feedback-overlays"
+      ]
+    },
+    {
+      "id": "tabs",
+      "name": "Tabs",
+      "path": "components/tabs.md",
+      "summary": "Standardized tab bar with controlled/uncontrolled support, structured slots, badge/note/icon, and keyboard navigation.",
+      "keywords": [
+        "Tabs",
+        "_.Tabs"
+      ],
+      "topics": [
+        "composition"
+      ]
+    },
+    {
+      "id": "time",
+      "name": "Time",
+      "path": "components/time.md",
+      "summary": "Reactive time picker with fixed overlay, label/icon slots, point icon, shortcuts, confirm, and model.",
+      "keywords": [
+        "Time",
+        "_.Time"
+      ],
+      "topics": [
+        "forms"
+      ]
+    },
+    {
+      "id": "toggle",
+      "name": "Toggle",
+      "path": "components/toggle.md",
+      "summary": "Toggle switch con supporto model e comportamento checkbox/radio.",
+      "keywords": [
+        "Toggle",
+        "_.Toggle"
+      ],
+      "topics": [
+        "forms"
+      ]
+    },
+    {
+      "id": "toolbar",
+      "name": "Toolbar",
+      "path": "components/toolbar.md",
+      "summary": "Composable toolbar with before/start/center/end/after regions, optional copy, and fallback compatible with simple flex usage.",
+      "keywords": [
+        "Toolbar",
+        "_.Toolbar"
+      ],
+      "topics": [
+        "layout"
+      ]
+    },
+    {
+      "id": "tooltip",
+      "name": "Tooltip",
+      "path": "components/tooltip.md",
+      "summary": "Anchored tooltip with hover/focus/click triggers, rich content, and imperative API.",
+      "keywords": [
+        "Tooltip",
+        "_.Tooltip"
+      ],
+      "topics": [
+        "data-feedback-overlays"
+      ]
+    }
+  ]
+}

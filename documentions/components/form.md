@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.Form({ form, onSubmit, ...props }, ...children)",
+  "signature": "_.Form({ form, onSubmit, ...props }, ...children)",
   "props": {
     "size": {
       "type": "string|number",

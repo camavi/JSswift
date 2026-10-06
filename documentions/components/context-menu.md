@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.ContextMenu(props) | UI.ContextMenu(props, ...children) -> { open, openAt, openFromEvent, show, hide, close, toggle, update, bind, isOpen }",
+  "signature": "_.ContextMenu(props) | _.ContextMenu(props, ...children) -> { open, openAt, openFromEvent, show, hide, close, toggle, update, bind, isOpen }",
   "props": {
     "size": {
       "type": "xs|sm|md|lg|xl",

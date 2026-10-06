@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.Spacer() | UI.Spacer(props)",
+  "signature": "_.Spacer() | _.Spacer(props)",
   "props": {
     "size": {
       "type": "string|number",

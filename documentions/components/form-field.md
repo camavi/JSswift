@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.FormField(props)",
+  "signature": "_.FormField(props)",
   "description": "Wrapper field con label floating, hint/error/success/warning/note, clear e addons slot-based.",
   "props": {
     "size": {

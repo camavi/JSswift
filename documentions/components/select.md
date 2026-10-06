@@ -4,8 +4,8 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.Select(props)",
-  "description": "Select premium: keyboard nav, option groups, async options, filter, clearable, multi select, valori custom da filtro. Wrappato in UI.FormField.",
+  "signature": "_.Select(props)",
+  "description": "Select premium: keyboard nav, option groups, async options, filter, clearable, multi select, valori custom da filtro. Wrappato in _.FormField.",
   "props": {
     "size": {
       "type": "string|number",
@@ -534,7 +534,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
     },
     "filter": {
       "type": "Filter input slot (ctx: { value, setValue, close })",
-      "description": "Slot for custom filter/search UI.",
+      "description": "Slot for custom filter/search _.",
       "default": null,
       "values": null,
       "category": "slot"

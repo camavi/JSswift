@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.Pagination(props)",
+  "signature": "_.Pagination(props)",
   "props": {
     "size": {
       "type": "xxs|xs|sm|md|lg|xl|xxl|xxxl",

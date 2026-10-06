@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.Notify(message, title?, opts?) | UI.Notify(opts, ...children)",
+  "signature": "_.Notify(message, title?, opts?) | _.Notify(opts, ...children)",
   "props": {
     "size": {
       "type": "string|number",
@@ -522,15 +522,15 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
     }
   },
   "methods": {
-    "show": "Alias of UI.Notify(...)",
-    "success": "UI.Notify.success(message|opts, title?)",
-    "error": "UI.Notify.error(message|opts, title?)",
-    "warning": "UI.Notify.warning(message|opts, title?)",
-    "info": "UI.Notify.info(message|opts, title?)",
-    "update": "UI.Notify.update(id, patch)",
-    "remove": "UI.Notify.remove(id)",
-    "clear": "UI.Notify.clear()",
-    "promise": "UI.Notify.promise(promise|fn, { loading?, success?, error? })"
+    "show": "Alias of _.Notify(...)",
+    "success": "_.Notify.success(message|opts, title?)",
+    "error": "_.Notify.error(message|opts, title?)",
+    "warning": "_.Notify.warning(message|opts, title?)",
+    "info": "_.Notify.info(message|opts, title?)",
+    "update": "_.Notify.update(id, patch)",
+    "remove": "_.Notify.remove(id)",
+    "clear": "_.Notify.clear()",
+    "promise": "_.Notify.promise(promise|fn, { loading?, success?, error? })"
   },
   "returns": "string|null (toast id)",
   "description": "Standardized notify service with structured payloads, semantic shortcuts, update/remove/clear, and promise support."

@@ -1,6 +1,6 @@
 {
   "name": "@jsswift/ui",
-  "version": "1.0.43",
+  "version": "1.0.44",
   "description": "JSswift UI layer built on top of @jsswift/core",
   "license": "MIT",
   "repository": {
@@ -35,6 +35,6 @@
     "src"
   ],
   "peerDependencies": {
-    "@jsswift/core": "^1.0.43"
+    "@jsswift/core": "^1.0.44"
   }
 }

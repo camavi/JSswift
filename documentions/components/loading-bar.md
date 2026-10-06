@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.LoadingBar(...children) | UI.LoadingBar(props, ...children)",
+  "signature": "_.LoadingBar(...children) | _.LoadingBar(props, ...children)",
   "props": {
     "size": {
       "type": "string|number",
@@ -687,6 +687,6 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
     }
   },
   "returns": "HTMLDivElement with imperative API: .set(), .setBuffer(), .inc(), .start(), .done(), .stop(), .reset(), .show(), .hide(), .destroy()",
-  "description": "Loading bar based on UI.Progress, mountable on body or a custom container, controllable via model or imperative API."
+  "description": "Loading bar based on _.Progress, mountable on body or a custom container, controllable via model or imperative API."
 }
 ```

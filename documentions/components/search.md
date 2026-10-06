@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.Search(props)",
+  "signature": "_.Search(props)",
   "description": "Professional search with FormField, GET fetch, debounce, AbortController, overlay results, optional cache, reactive binding, and keyboard navigation.",
   "props": {
     "size": {

@@ -6,7 +6,7 @@ Use Container, Grid, GridCol, Row, Col, Spacer, Toolbar, Card, Layout, Page, Hea
 - tablet: from 768px
 - pc: from 1024px
 
-    JSswift.ui.Row({
+    _.Row({
       direction: "column", gap: "sm",
       tablet: { direction: "row", gap: "md" },
       pc: { justify: "space-between" }

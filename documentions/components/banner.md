@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.Banner(...children) | UI.Banner(props, ...children)",
+  "signature": "_.Banner(...children) | _.Banner(props, ...children)",
   "props": {
     "size": {
       "type": "string|number",

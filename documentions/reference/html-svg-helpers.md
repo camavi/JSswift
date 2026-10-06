@@ -1,5 +1,7 @@
 # HTML and SVG helper catalog
 
+Call these helpers on `_`, for example `_.div(...)` and `_.svg(...)`. Names are case-sensitive: `_.input` is an HTML helper, while `_.Input` is a UI component.
+
 - `a`
 - `abbr`
 - `address`

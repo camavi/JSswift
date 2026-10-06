@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.cardFooter(...children) | UI.cardFooter(props, ...children)",
+  "signature": "_.cardFooter(...children) | _.cardFooter(props, ...children)",
   "props": {
     "size": {
       "type": "string|number",

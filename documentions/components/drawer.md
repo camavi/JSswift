@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.Drawer(props)",
+  "signature": "_.Drawer(props)",
   "props": {
     "size": {
       "type": "string|number",

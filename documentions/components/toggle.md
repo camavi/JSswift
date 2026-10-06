@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.Toggle(...children) | UI.Toggle(props, ...children)",
+  "signature": "_.Toggle(...children) | _.Toggle(props, ...children)",
   "props": {
     "size": {
       "type": "string|number",

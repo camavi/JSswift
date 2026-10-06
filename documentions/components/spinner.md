@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.Spinner(...children) | UI.Spinner(props, ...children)",
+  "signature": "_.Spinner(...children) | _.Spinner(props, ...children)",
   "props": {
     "size": {
       "type": "number|string",

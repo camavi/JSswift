@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.Checkbox(...children) | UI.Checkbox(props, ...children)",
+  "signature": "_.Checkbox(...children) | _.Checkbox(props, ...children)",
   "props": {
     "size": {
       "type": "string|number",

@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.Dialog(props) | UI.Dialog(props, ...children) -> { open, close, toggle, update, isOpen }",
+  "signature": "_.Dialog(props) | _.Dialog(props, ...children) -> { open, close, toggle, update, isOpen }",
   "props": {
     "size": {
       "type": "xs|sm|md|lg|xl|full",

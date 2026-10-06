@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.Parallax(...children) | UI.Parallax(props, ...children)",
+  "signature": "_.Parallax(...children) | _.Parallax(props, ...children)",
   "props": {
     "size": {
       "type": "string|number",

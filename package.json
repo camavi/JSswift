@@ -1,7 +1,7 @@
 {
   "name": "jsswift",
   "private": true,
-  "version": "1.0.43",
+  "version": "1.0.44",
   "description": "JSswift UI + reactive runtime framework",
   "author": "Carlos Malleux",
   "license": "MIT",
@@ -15,6 +15,10 @@
   },
   "type": "module",
   "scripts": {
+    "knowledge:check": "node tools/knowledge-map.mjs",
+    "knowledge:refresh": "node tools/knowledge-map.mjs --refresh",
+    "knowledge:skill": "node tools/build-knowledge-skill.mjs",
+    "test:knowledge": "npm run build:jsswift && npm --prefix ai/mcp run build && node --test tests/knowledge.test.mjs && npm --prefix ai/mcp test",
     "dev": "node tools/dev.mjs",
     "dev:vite": "vite",
     "watch:ui:css": "node tools/watch-ui-css.mjs",

@@ -16,9 +16,9 @@ For a meaningful framework change, update [docDevelop/workflow/focus.md](docDeve
 
 When building an app:
 
-1. Use JSswift UI components before raw HTML.
+1. Use `_.Component` UI components before raw HTML; use `_` as the single application namespace.
 2. Read only the needed file under documentions/components before using props, slots, events, or methods.
-3. Use JSswift.reactive, model, slots, router, store, and HTTP according to the focused guide.
+3. Use `_.signal`, `_.effect`, `_.computed`, `_.untracked`, and `_.batch` for reactivity; use model, slots, router, store, and HTTP according to the focused guide.
 4. Use raw helpers only for small structural gaps.
 
 ## After implementation

@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.Tooltip(props, target?) | UI.Tooltip(target, content)",
+  "signature": "_.Tooltip(props, target?) | _.Tooltip(target, content)",
   "props": {
     "size": {
       "type": "string|number",

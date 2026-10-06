@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.Popover(props) | UI.Popover(props, ...children) -> { open, close, show, hide, toggle, update, bind, isOpen }",
+  "signature": "_.Popover(props) | _.Popover(props, ...children) -> { open, close, show, hide, toggle, update, bind, isOpen }",
   "props": {
     "size": {
       "type": "xs|sm|md|lg|xl",

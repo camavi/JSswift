@@ -1,17 +1,18 @@
 # Getting started with JSswift
 
-- Global runtime: window.JSswift
-- window._ is an alias; prefer JSswift in generated application code.
-- Prefer JSswift.ui.* for UI components.
-- HTML/SVG helpers are functions on JSswift, for example JSswift.div(...).
+- Application namespace: `window._`, written `_` in application code.
+- `_` exposes both UI components and core APIs directly: `_.Toggle`, `_.mount`, `_.signal`.
+- The runtime also exposes `window.JSswift`; application examples and generated code use `_`.
+- Call UI components directly on `_`, for example `_.Toggle(...)` and `_.Input(...)`.
+- HTML/SVG helpers also use `_`, for example `_.div(...)`.
 
 Example:
 
-    JSswift.ready(() => JSswift.mount("#app", App()));
+    _.ready(() => _.mount("#app", App()));
     function App() {
-      return JSswift.ui.Page({},
-        JSswift.ui.Card({ title: "Hello" },
-          JSswift.ui.Btn({ color: "primary" }, "Continue")
+      return _.Page({},
+        _.Card({ title: "Hello" },
+          _.Button({ color: "primary" }, "Continue")
         )
       );
     }

@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { transform } from "esbuild";
+import { loadKnowledge } from '../ai/knowledge.mjs';
 
 const coreFile = path.resolve("packages/core/dist/cms.js");
 const uiFile = path.resolve("packages/ui/dist/ui.js");
@@ -11,6 +12,7 @@ const minOutputFile = path.join(jsswiftDistDir, "min-jsswift.js");
 const minAliasOutputFile = path.join(jsswiftDistDir, "jsswift.min.js");
 
 async function main() {
+  const knowledge = await loadKnowledge();
   const [core, ui] = await Promise.all([
     fs.readFile(coreFile, "utf8"),
     fs.readFile(uiFile, "utf8"),
@@ -31,6 +33,10 @@ async function main() {
   await copyDir(path.join(uiDistDir, "css"), path.join(jsswiftDistDir, "css"));
   await copyDir(path.join(uiDistDir, "fonts"), path.join(jsswiftDistDir, "fonts"));
   await copyDir(path.join(uiDistDir, "img"), path.join(jsswiftDistDir, "img"));
+  await copyDir(path.resolve('documentions'), path.join(jsswiftDistDir, 'documentions'));
+  const manifest = JSON.parse(await fs.readFile('packages/jsswift/package.json', 'utf8'));
+  await fs.writeFile(path.join(jsswiftDistDir, 'documentions/knowledge-map.json'),
+    JSON.stringify({ ...knowledge.map, packageVersion: manifest.version }, null, 2) + '\n');
   process.stdout.write(
     `[build:jsswift] wrote ${path.relative(process.cwd(), outputFile)}, ${path.relative(process.cwd(), minOutputFile)} and ${path.relative(process.cwd(), minAliasOutputFile)} (with css/fonts/img)\n`,
   );

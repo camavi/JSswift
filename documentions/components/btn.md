@@ -1,10 +1,12 @@
-# Btn
+# Button
+
+Preferred application name: `_.Button`. `_.Btn` is a compatible alias; the contract ID remains `component:btn`.
 
 Exact JSswift UI metadata contract. Use only the props, slots, events, and methods documented below.
 
 ```json
 {
-  "signature": "UI.Btn(...children) | UI.Btn(props, ...children)",
+  "signature": "_.Button(...children) | _.Button(props, ...children)",
   "props": {
     "size": {
       "type": "string|number",
@@ -426,6 +428,6 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
     "blur"
   ],
   "returns": "HTMLButtonElement",
-  "description": "Btn component meta definition."
+  "description": "Button component meta definition."
 }
 ```

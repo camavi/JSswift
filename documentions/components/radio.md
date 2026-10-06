@@ -4,7 +4,7 @@ Exact JSswift UI metadata contract. Use only the props, slots, events, and metho
 
 ```json
 {
-  "signature": "UI.Radio(...children) | UI.Radio(props, ...children)",
+  "signature": "_.Radio(...children) | _.Radio(props, ...children)",
   "props": {
     "size": {
       "type": "string|number",

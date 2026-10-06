@@ -1,6 +1,6 @@
 {
   "name": "jsswift",
-  "version": "1.0.43",
+  "version": "1.0.44",
   "description": "Umbrella package for JSswift core + UI",
   "license": "MIT",
   "repository": {
@@ -28,7 +28,9 @@
     "./css/ui-components.css": "./dist/css/ui-components.css",
     "./css/responsive.css": "./dist/css/responsive.css",
     "./css/animation.css": "./dist/css/animation.css",
-    "./css/docs.css": "./dist/css/docs.css"
+    "./css/docs.css": "./dist/css/docs.css",
+    "./package.json": "./package.json",
+    "./knowledge-map.json": "./dist/documentions/knowledge-map.json"
   },
   "files": [
     "dist"
