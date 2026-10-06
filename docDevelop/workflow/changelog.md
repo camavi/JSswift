@@ -2,6 +2,24 @@
 
 Record significant completed framework work: date, outcome, affected areas, and verification.
 
+## 2026-10-06 — JSswift 1.0.45 and knowledge MCP 0.1.1 release preparation
+
+- Prepared all framework packages at 1.0.45 and MCP at 0.1.1, including runtime server identity and lockfiles. MCP instructions route styling and optional-asset questions to focused guides.
+- Verification: runtime and production builds, 58 project tests, 10 browser tests, and 5 knowledge/MCP tests passed; inspected all four npm tarballs. Temporary Vite consumer builds verify default imports emit no font or Tabler assets and optional imports emit the expected assets.
+- Browser test maintenance: replaced virtual-time dump-dom with the suite's live-page result wait for the Menu resize test; assertions unchanged.
+
+## 2026-10-06 — Focused application discovery and styling guidance
+
+- Compacted seven component JSON contracts without removing or changing metadata. Added source-checked examples for Table callback argument order, Input/Select value callbacks, and Dialog imperative lifecycle.
+- Getting started now shows Vite imports; application rules prioritize existing component CSS, documented style/responsive props, and theme variables. Added scoped discovery and unrelated-project benchmark guidance.
+- Verification: knowledge refresh and portable Skill build; framework and MCP builds; three knowledge tests and two MCP integration tests, including packed npm distributions, passed. Benchmark not rerun; no measured token savings claimed.
+
+## 2026-10-06 — Optional fonts and Tabler
+
+- Default UI CSS uses system fonts and no longer includes Nunito or the remote Material Symbols font. Explicit CSS exports enable each font separately.
+- Added jsswift/tabler and @jsswift/ui/tabler modules to configure the packaged SVG sprite explicitly; inline icons and built-in chevrons remain independent. Optional assets still ship in npm packages.
+- Verification: UI and umbrella builds, knowledge map validation, all 58 tests, and temporary Vite consumer builds (default: no fonts or sprite; opt-in: 16 Nunito files and one Tabler sprite). Tabler runtime configuration verified.
+
 ## 2026-10-06 — JSswift 1.0.44 and knowledge MCP 0.1.0 release
 
 - Outcome: prepared versioned framework documentation, standalone MCP distribution, and user-facing release setup. npm accepted publication of `@jsswift/core`, `@jsswift/ui`, and `jsswift` 1.0.44 plus `@jsswift/knowledge-mcp` 0.1.0 with public access and latest tags.

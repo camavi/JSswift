@@ -14,6 +14,8 @@ const CSS_SOURCE_DIR = fs.existsSync(path.join(SOURCE_DIR, "base.css"))
 const LEGACY_DIR = LEGACY_SOURCE_DIR;
 
 const COPY_FILES = [
+  "fonts-nunito.css",
+  "fonts-material.css",
   "base.css",
   "animation.css",
   "docs.css",

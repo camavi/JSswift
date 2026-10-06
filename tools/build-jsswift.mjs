@@ -30,6 +30,7 @@ async function main() {
   await fs.writeFile(outputFile, output, "utf8");
   await fs.writeFile(minOutputFile, minified.code, "utf8");
   await fs.writeFile(minAliasOutputFile, minified.code, "utf8");
+  await fs.copyFile(path.join(uiDistDir, "tabler.js"), path.join(jsswiftDistDir, "tabler.js"));
   await copyDir(path.join(uiDistDir, "css"), path.join(jsswiftDistDir, "css"));
   await copyDir(path.join(uiDistDir, "fonts"), path.join(jsswiftDistDir, "fonts"));
   await copyDir(path.join(uiDistDir, "img"), path.join(jsswiftDistDir, "img"));

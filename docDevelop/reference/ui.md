@@ -365,3 +365,20 @@ npm run build:ui
 Long-form tutorials and richer examples belong in the external docs site repository.
 
 This repository keeps the framework-focused reference.
+
+## Optional fonts and icons
+
+`jsswift/css/ui.css` includes component styles and uses system fonts. It does not load font files or activate the Tabler catalog. Existing applications that need Nunito or Material Symbols must now opt in explicitly:
+
+```js
+import 'jsswift';
+import 'jsswift/css/ui.css';
+// Optional: Nunito, including its theme font variables.
+import 'jsswift/css/fonts-nunito.css';
+// Optional: Material Symbols (downloads a font from Google).
+import 'jsswift/css/fonts-material.css';
+// Optional: configures the bundled Tabler SVG sprite for _.Icon('#name').
+import 'jsswift/tabler';
+```
+
+The same entries exist under `@jsswift/ui`; load the core and UI runtime first. Tabler can also be configured manually with `_.config.iconSpriteUrl` or the Icon `spriteUrl` prop. Inline SVG nodes and the built-in chevron remain available without the catalog. Import only the optional assets actually needed. The npm package still ships these assets; opting out reduces application build assets, not installation size. For CDN usage, load the runtime first, then import the optional `dist/tabler.js` module and/or link the optional CSS after `ui.css`.

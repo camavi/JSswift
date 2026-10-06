@@ -885,7 +885,7 @@ test("ContextMenu responsive width stays clamped inside mobile viewport", {
 });
 
 test("Menu repositions when panel width grows after open", {
-  skip: findChrome() ? false : "Chrome/Chromium is not available"
+  skip: !findChrome() ? "Chrome/Chromium is not available" : (!hasDevtoolsWebSocket() ? "Node WebSocket API is not available" : false)
 }, async () => {
   const chromePath = findChrome();
   const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-menu-resize-clamp-"));
@@ -948,7 +948,17 @@ test("Menu repositions when panel width grows after open", {
 </body>
 </html>`, "utf8");
 
-  const result = readBrowserResult(await runChrome(chromePath, htmlFile, { width: 390, height: 844 }));
+  // Await the result in a live page: virtual-time dump-dom may end before RAF callbacks.
+  const result = await runChromeMobileEval(chromePath, pathToFileURL(htmlFile).href, `(() => new Promise(resolve => {
+    const deadline = Date.now() + 4000;
+    const read = () => {
+      const encoded = document.body?.getAttribute("data-result");
+      if (encoded) return resolve(JSON.parse(decodeURIComponent(encoded)));
+      if (Date.now() > deadline) return resolve({ error: "menu-measurement-timeout" });
+      setTimeout(read, 25);
+    };
+    read();
+  }))()`, { width: 390, height: 844 });
 
   assert.equal(result.error, undefined);
   assert.ok(result.panelWidth >= 300 && result.panelWidth < result.viewportWidth, JSON.stringify(result));

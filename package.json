@@ -1,7 +1,7 @@
 {
   "name": "jsswift",
   "private": true,
-  "version": "1.0.44",
+  "version": "1.0.45",
   "description": "JSswift UI + reactive runtime framework",
   "author": "Carlos Malleux",
   "license": "MIT",

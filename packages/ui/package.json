@@ -1,6 +1,6 @@
 {
   "name": "@jsswift/ui",
-  "version": "1.0.44",
+  "version": "1.0.45",
   "description": "JSswift UI layer built on top of @jsswift/core",
   "license": "MIT",
   "repository": {
@@ -28,13 +28,16 @@
     "./css/ui-components.css": "./dist/css/ui-components.css",
     "./css/responsive.css": "./dist/css/responsive.css",
     "./css/animation.css": "./dist/css/animation.css",
-    "./css/docs.css": "./dist/css/docs.css"
+    "./css/docs.css": "./dist/css/docs.css",
+    "./tabler": "./dist/tabler.js",
+    "./css/fonts-nunito.css": "./dist/css/fonts-nunito.css",
+    "./css/fonts-material.css": "./dist/css/fonts-material.css"
   },
   "files": [
     "dist",
     "src"
   ],
   "peerDependencies": {
-    "@jsswift/core": "^1.0.44"
+    "@jsswift/core": "^1.0.45"
   }
 }

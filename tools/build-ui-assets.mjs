@@ -21,3 +21,5 @@ for (const target of targets) {
     `ui-assets: ${path.relative(ROOT, target.from)} -> ${path.relative(ROOT, target.to)}`,
   );
 }
+
+fs.copyFileSync(path.join(ROOT, "packages/ui/src/tabler.js"), path.join(ROOT, "packages/ui/dist/tabler.js"));

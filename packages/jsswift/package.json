@@ -1,6 +1,6 @@
 {
   "name": "jsswift",
-  "version": "1.0.44",
+  "version": "1.0.45",
   "description": "Umbrella package for JSswift core + UI",
   "license": "MIT",
   "repository": {
@@ -30,7 +30,10 @@
     "./css/animation.css": "./dist/css/animation.css",
     "./css/docs.css": "./dist/css/docs.css",
     "./package.json": "./package.json",
-    "./knowledge-map.json": "./dist/documentions/knowledge-map.json"
+    "./knowledge-map.json": "./dist/documentions/knowledge-map.json",
+    "./tabler": "./dist/tabler.js",
+    "./css/fonts-nunito.css": "./dist/css/fonts-nunito.css",
+    "./css/fonts-material.css": "./dist/css/fonts-material.css"
   },
   "files": [
     "dist"
