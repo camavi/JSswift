@@ -2,8 +2,9 @@
 
 Record significant completed framework work: date, outcome, affected areas, and verification.
 
-## 2026-10-06 — JSswift 1.0.46 and knowledge MCP 0.1.2 release preparation
+## 2026-10-06 — JSswift 1.0.46 and knowledge MCP 0.1.2 release
 
+- Publication: all four packages accepted by npm and verified publicly with latest tags: core/UI/jsswift 1.0.46 and knowledge MCP 0.1.2. Implementation commit: 5058499.
 - Framework and lockfiles updated to 1.0.46; MCP package, lockfile, and server identity updated to 0.1.2. Includes UI metadata removal, AI.md, shared exact contracts, updated Skill/MCP routing, and contract validation.
 - Verification: runtime/production builds, project/browser/knowledge/MCP tests, tarball inspection, version availability, and whitespace checks completed. Portable Skill regenerated.
 
