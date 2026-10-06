@@ -2,10 +2,11 @@
 
 Record significant completed framework work: date, outcome, affected areas, and verification.
 
-## 2026-10-06 — JSswift 1.0.45 and knowledge MCP 0.1.1 release preparation
+## 2026-10-06 — JSswift 1.0.45 and knowledge MCP 0.1.1 release
 
 - Prepared all framework packages at 1.0.45 and MCP at 0.1.1, including runtime server identity and lockfiles. MCP instructions route styling and optional-asset questions to focused guides.
 - Verification: runtime and production builds, 58 project tests, 10 browser tests, and 5 knowledge/MCP tests passed; inspected all four npm tarballs. Temporary Vite consumer builds verify default imports emit no font or Tabler assets and optional imports emit the expected assets.
+- Publication: npm accepted all four packages with public access and latest tags; registry confirmed core/UI/jsswift 1.0.45 and knowledge MCP 0.1.1 after processing. Implementation commit: f740e2b.
 - Browser test maintenance: replaced virtual-time dump-dom with the suite's live-page result wait for the Menu resize test; assertions unchanged.
 
 ## 2026-10-06 — Focused application discovery and styling guidance
