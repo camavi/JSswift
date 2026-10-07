@@ -4,7 +4,7 @@
 
 - Outcome: public field focus/accessibility/constraints and verified CRUD example included in application documentation.
 - Verification: runtime build, 59 runtime tests, 13 browser tests, 6 knowledge/MCP tests, map validation, portable Skill generation and package contents checks. CRUD Escape assertion waits for completed focus restoration.
-- Publication: prepared for authorized npm publication.
+- Publication: npm latest verified for jsswift, @jsswift/core and @jsswift/ui 1.0.49, and @jsswift/knowledge-mcp 0.1.5.
 
 ## 2026-10-07 — Verified compact CRUD example
 
