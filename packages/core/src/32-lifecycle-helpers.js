@@ -5,19 +5,16 @@
   function cleanupNodeTree(node) {
     if (!node) return;
 
+    const children = node.childNodes?.length ? Array.from(node.childNodes) : [];
     const disposers = JSswift._cleanupRegistry.get(node);
     if (disposers) {
+      JSswift._cleanupRegistry.delete(node);
       for (const d of disposers) {
         try { d(); } catch (e) { console.error("[cleanup] error:", e); }
       }
-      JSswift._cleanupRegistry.delete(node);
     }
 
-    if (node.childNodes && node.childNodes.length) {
-      for (const child of node.childNodes) {
-        cleanupNodeTree(child);
-      }
-    }
+    for (const child of children) cleanupNodeTree(child);
   }
 
   function toMountTargets(target) {

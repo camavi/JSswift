@@ -375,3 +375,7 @@ Select/Search own scopes stop component effects and model/filterable rod callbac
 ## Optional responsive CSS
 
 `ui-light.css` includes base.css, animation.css, ui-components.css and generated unprefixed responsive utilities. The generator `--base-only` flag emits responsive-base.css; never hand-edit it. Full ui.css retains its existing contents and order. Add responsive.css after ui-light.css for tablet/pc/legacy breakpoint classes and arbitrary breakpoint props. Keep base utility rules because layout, spacing and shape props use them without explicit device configuration. This optimization changes CSS only; all JS props and component-owned mobile rules remain.
+
+### Responsive helper resolution
+
+uiApplyResponsiveProps resolves device objects once per invocation and reuses them across its style rules. Values are resolved again on the next invocation, with no persistent cache. Responsive factories should be pure; all props in one application of the helper observe a coherent device configuration. This reduces factory calls in the helper, not necessarily every call made while constructing a full component.

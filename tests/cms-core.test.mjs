@@ -1809,3 +1809,26 @@ test("signalModel disposal stops the owned reactive bridge", async () => {
  stop(); stop(); const before=reads;
  set('third'); await tick(); assert.equal(reads,before); assert.equal(input.value,'second');
 });
+
+
+test("mount replacement cleans descendants removed by parent disposal", async () => {
+ const app=await loadCMS();const host=app.div(), parent=app.div(), child=app.div();parent.appendChild(child);
+ let calls=0;app._registerCleanup(child,()=>calls++);app._registerCleanup(parent,()=>parent.removeChild(child));
+ app.mount(host,parent);app.mount(host,[]);assert.equal(calls,1);
+});
+
+test("responsive device factories resolve once per apply and refresh on subsequent calls", async () => {
+ const app=await loadCMS();const filename=path.resolve('pages/_jsswift-fe/js/ui.js');vm.runInThisContext(await fs.readFile(filename,'utf8'),{filename});
+ let reads=0,width=100;const props={pc:()=>{reads++;return {width,height:20,gap:4};}};
+ const rules=[{prop:'width',css:'width'},{prop:'height',css:'height'},{prop:'gap',css:'gap'}];
+ const node=app.div();app.uiApplyResponsiveProps(node,props,rules);
+ assert.equal(reads,1);assert.equal(node.style.getPropertyValue('--jss-rsp-pc-width'),'100px');
+ width=200;app.uiApplyResponsiveProps(node,props,rules);assert.equal(reads,2);assert.equal(node.style.getPropertyValue('--jss-rsp-pc-width'),'200px');
+});
+
+
+test("reentrant unmount runs registered cleanup only once", async () => {
+ const app=await loadCMS();const host=app.div(), node=app.div();let calls=0;
+ const stop=app.mount(host,node);app._registerCleanup(node,()=>{calls++;stop();});
+ stop();assert.equal(calls,1);assert.equal(host.childNodes.length,0);
+});

@@ -291,3 +291,7 @@ Overlay deferred autofocus respects focus already inside its panel and checks th
 ### Anchored overlay scheduling
 
 Automatic resize, scroll, visualViewport and panel ResizeObserver updates share one pending animation frame per overlay. Initial positioning and explicit `reposition()` remain synchronous. Closing cancels pending positioning and disconnects listeners/observer.
+
+### Cleanup traversal stability
+
+Cleanup snapshots the child list before running node disposers, so descendants still release registered resources when a parent disposer detaches them. The node registry entry is removed before executing its callbacks to prevent repeated invocation during reentrant unmount. Cleanup retains parent-before-child ordering and per-callback error isolation.

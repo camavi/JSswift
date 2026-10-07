@@ -140,7 +140,13 @@ const uiResponsiveAddClass = (target, className) => {
   target.class = uiClass([target.class, className]);
 };
 const uiApplyResponsiveProps = (target, props = {}, rules = []) => {
-  if (!target || !props || !uiResponsiveHasConfig(props)) return target;
+  if (!target || !props) return target;
+  const configurations = [];
+  for (const device of UI_RESPONSIVE_DEVICES) {
+    const deviceProps = uiResponsivePropsFor(props, device);
+    if (deviceProps) configurations.push([device.key, deviceProps]);
+  }
+  if (!configurations.length) return target;
   const style = target.style || {};
   let hasResponsiveVars = false;
 
@@ -158,10 +164,7 @@ const uiApplyResponsiveProps = (target, props = {}, rules = []) => {
     };
 
     setVar("mobile", props);
-    for (const device of UI_RESPONSIVE_DEVICES) {
-      const deviceProps = uiResponsivePropsFor(props, device);
-      if (deviceProps) setVar(device.key, deviceProps);
-    }
+    for (const [deviceKey, deviceProps] of configurations) setVar(deviceKey, deviceProps);
   }
 
   if (hasResponsiveVars) {

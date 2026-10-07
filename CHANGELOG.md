@@ -9,7 +9,7 @@ The format is kept intentionally simple:
 - Fixed
 - Docs
 
-## Unreleased
+## [2.0.0] - 2026-10-07
 
 ### Docs
 
@@ -17,8 +17,14 @@ The format is kept intentionally simple:
 - CRUD replacement uses mount lifecycle cleanup; browser checks cover associated errors, storage write failure, themes and repeated shared-model replacement.
 - Controlled benchmark protocol separates cache, artifact size and accessibility evidence.
 
+### Fixed
+
+- Lifecycle cleanup releases descendants detached by parent disposers and avoids invoking node callbacks again during reentrant unmount.
+
 ### Changed
 
+- Merge seven adjacent identical CSS declaration blocks and remove a duplicate display utility without changing cascade order or supported selectors.
+- Responsive style application resolves each device configuration once per invocation instead of repeatedly for every style rule.
 - Breaking CSS namespace migration: component classes, overlay IDs, theme custom properties and private runtime identifiers use jss instead of cms. No compatibility aliases; applications must update custom selectors/theme variables and deploy matching JS/CSS together. Existing npm import paths remain available.
 - Distributed JavaScript is generated without comments, including readable core/UI/umbrella entries.
 

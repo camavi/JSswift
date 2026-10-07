@@ -1753,9 +1753,12 @@
     };
   };
   function cleanupNodeTree(node) {
+    var _a2;
     if (!node) return;
+    const children = ((_a2 = node.childNodes) == null ? void 0 : _a2.length) ? Array.from(node.childNodes) : [];
     const disposers = JSswift._cleanupRegistry.get(node);
     if (disposers) {
+      JSswift._cleanupRegistry.delete(node);
       for (const d of disposers) {
         try {
           d();
@@ -1763,13 +1766,8 @@
           console.error("[cleanup] error:", e);
         }
       }
-      JSswift._cleanupRegistry.delete(node);
     }
-    if (node.childNodes && node.childNodes.length) {
-      for (const child of node.childNodes) {
-        cleanupNodeTree(child);
-      }
-    }
+    for (const child of children) cleanupNodeTree(child);
   }
   function toMountTargets(target) {
     const toEl = (t) => typeof t === "string" ? JSswift.dom.q(t) : t;
