@@ -4,7 +4,7 @@
 
 - Outcome: npm root guide and README, manifest discovery paths and AI-first knowledge map published together.
 - Verification: runtime build, 59 runtime tests, 6 knowledge/MCP tests including tarball entrypoints, map validation, portable Skill build and npm package inspections.
-- Publication: prepared for authorized npm publication.
+- Publication: npm latest verified for jsswift, @jsswift/core and @jsswift/ui 1.0.48, and @jsswift/knowledge-mcp 0.1.4.
 
 ## 2026-10-07 — Discoverable short npm documentation path
 
