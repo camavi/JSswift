@@ -1,52 +1,52 @@
 :root {
-  --cms-anim-dur: 500ms;
-  --cms-anim-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
-  --cms-anim-distance: 12px;
-  --cms-anim-scale: 0.98;
-  --cms-anim-in: cms-fade-in;
-  --cms-anim-out: cms-fade-out;
+  --jss-anim-dur: 500ms;
+  --jss-anim-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --jss-anim-distance: 12px;
+  --jss-anim-scale: 0.98;
+  --jss-anim-in: jss-fade-in;
+  --jss-anim-out: jss-fade-out;
 }
 
-.cms-animate {
-  animation-duration: var(--cms-anim-dur);
-  animation-timing-function: var(--cms-anim-ease);
+.jss-animate {
+  animation-duration: var(--jss-anim-dur);
+  animation-timing-function: var(--jss-anim-ease);
   animation-fill-mode: both;
   will-change: opacity, transform;
 }
 
-.cms-animate.in {
-  animation-name: var(--cms-anim-in);
+.jss-animate.in {
+  animation-name: var(--jss-anim-in);
 }
 
-.cms-animate.out {
-  animation-name: var(--cms-anim-out);
+.jss-animate.out {
+  animation-name: var(--jss-anim-out);
 }
 
-.cms-animate.fade.in {
-  animation-name: cms-fade-in;
+.jss-animate.fade.in {
+  animation-name: jss-fade-in;
 }
 
-.cms-animate.fade.out {
-  animation-name: cms-fade-out;
+.jss-animate.fade.out {
+  animation-name: jss-fade-out;
 }
 
-.cms-animate.slide.in {
-  animation-name: cms-slide-in;
+.jss-animate.slide.in {
+  animation-name: jss-slide-in;
 }
 
-.cms-animate.slide.out {
-  animation-name: cms-slide-out;
+.jss-animate.slide.out {
+  animation-name: jss-slide-out;
 }
 
-.cms-animate.scale.in {
-  animation-name: cms-scale-in;
+.jss-animate.scale.in {
+  animation-name: jss-scale-in;
 }
 
-.cms-animate.scale.out {
-  animation-name: cms-scale-out;
+.jss-animate.scale.out {
+  animation-name: jss-scale-out;
 }
 
-@keyframes cms-fade-in {
+@keyframes jss-fade-in {
   from {
     opacity: 0;
   }
@@ -56,7 +56,7 @@
   }
 }
 
-@keyframes cms-fade-out {
+@keyframes jss-fade-out {
   from {
     opacity: 1;
   }
@@ -66,10 +66,10 @@
   }
 }
 
-@keyframes cms-slide-in {
+@keyframes jss-slide-in {
   from {
     opacity: 0;
-    transform: translateY(var(--cms-anim-distance));
+    transform: translateY(var(--jss-anim-distance));
   }
 
   to {
@@ -78,7 +78,7 @@
   }
 }
 
-@keyframes cms-slide-out {
+@keyframes jss-slide-out {
   from {
     opacity: 1;
     transform: translateY(0);
@@ -86,14 +86,14 @@
 
   to {
     opacity: 0;
-    transform: translateY(var(--cms-anim-distance));
+    transform: translateY(var(--jss-anim-distance));
   }
 }
 
-@keyframes cms-scale-in {
+@keyframes jss-scale-in {
   from {
     opacity: 0;
-    transform: scale(var(--cms-anim-scale));
+    transform: scale(var(--jss-anim-scale));
   }
 
   to {
@@ -102,7 +102,7 @@
   }
 }
 
-@keyframes cms-scale-out {
+@keyframes jss-scale-out {
   from {
     opacity: 1;
     transform: scale(1);
@@ -110,12 +110,12 @@
 
   to {
     opacity: 0;
-    transform: scale(var(--cms-anim-scale));
+    transform: scale(var(--jss-anim-scale));
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cms-animate {
+  .jss-animate {
     animation-duration: 1ms;
   }
 }

@@ -6,10 +6,10 @@
   app.services = app.services || {};
   app.services.notify = app.services.notify || {};
 
-  const uiRodPathRaw = Symbol("cms.ui.rodPathRaw");
-  const uiRodPathEnhanced = Symbol("cms.ui.rodPathEnhanced");
-  const uiRodPathPatchedH = Symbol("cms.ui.rodPathPatchedH");
-  const uiRodPathWrappedUI = Symbol("cms.ui.rodPathWrappedUI");
+  const uiRodPathRaw = Symbol("jss.ui.rodPathRaw");
+  const uiRodPathEnhanced = Symbol("jss.ui.rodPathEnhanced");
+  const uiRodPathPatchedH = Symbol("jss.ui.rodPathPatchedH");
+  const uiRodPathWrappedUI = Symbol("jss.ui.rodPathWrappedUI");
   const uiRodPathAccess = new WeakMap();
   const uiRodPathProxyCache = new WeakMap();
   const uiWrappedFunctionCache = new WeakMap();

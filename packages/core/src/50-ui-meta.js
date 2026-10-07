@@ -31,7 +31,7 @@
 
         if (as === "icon" && UI.Icon) {
           // se vuoi: allow "tabler:plus" o simili
-          return UI.Icon(s, { class: "cms-slot-icon", ...(iconProps || {}) });
+          return UI.Icon(s, { class: "jss-slot-icon", ...(iconProps || {}) });
         }
 
         if (wrap === "text") return makeTextNode(s);
@@ -75,7 +75,7 @@
       normalizeSlotRows
     } = JSswift._uiMetaShared;
     const meta = JSswift.ui.meta?.[name];
-    if (!meta) return _.div({ class: "cms-muted" }, `Meta non trovata: ${name}`);
+    if (!meta) return _.div({ class: "jss-muted" }, `Meta non trovata: ${name}`);
     const { hasTabPanel, Card, Chip } = resolveDocComponents(_);
 
     const list = {};
@@ -100,7 +100,7 @@
         name: v, wrap: true, label: v, content: hasTabPanel ? _.TabPanel({
           orientation: "vertical",
           animated: true,
-          radius: "0 0 0 var(--cms-r-default)",
+          radius: "0 0 0 var(--jss-r-default)",
           tabs: rows
         }) : renderTabGroupFallback(_, rows)
       };
@@ -116,7 +116,7 @@
       label: "Slots",
       content: hasTabPanel ? _.TabPanel({
         animated: true,
-        radius: "0 0 0 var(--cms-r-default)",
+        radius: "0 0 0 var(--jss-r-default)",
         orientation: "vertical",
         tabs: slotsRows
       }) : renderTabGroupFallback(_, slotsRows)
@@ -128,7 +128,7 @@
       label: "Events",
       content: hasTabPanel ? _.TabPanel({
         animated: true,
-        radius: "0 0 0 var(--cms-r-default)",
+        radius: "0 0 0 var(--jss-r-default)",
         orientation: "vertical",
         tabs: eventsRows
       }) : renderTabGroupFallback(_, eventsRows)
@@ -139,14 +139,14 @@
       if (b.name === first) return 1;
       return a.name.localeCompare(b.name);
     })
-    return Card({ class: "cms-doc-table" },
-      _.div({ class: "cms-doc-table-header" },
-        _.div({ class: "cms-doc-table-title" }, `_.${name}`),
-        meta.signature ? _.div({ class: "cms-doc-table-signature" }, String(meta.signature).replaceAll("UI.", "_.")) : null
+    return Card({ class: "jss-doc-table" },
+      _.div({ class: "jss-doc-table-header" },
+        _.div({ class: "jss-doc-table-title" }, `_.${name}`),
+        meta.signature ? _.div({ class: "jss-doc-table-signature" }, String(meta.signature).replaceAll("UI.", "_.")) : null
       ),
       taps.length
-        ? _.h4({ class: "cms-doc-table-section-title" }, propsTab.length ? "Props" : "Documentation")
-        : _.p({ class: "cms-muted" }, "Nessuna documentazione strutturata disponibile."),
+        ? _.h4({ class: "jss-doc-table-section-title" }, propsTab.length ? "Props" : "Documentation")
+        : _.p({ class: "jss-muted" }, "Nessuna documentazione strutturata disponibile."),
       taps.length
         ? (hasTabPanel ? _.TabPanel({
           border: true,
@@ -155,7 +155,7 @@
           tabs: taps, model: tabPanelModel
         }) : renderTabGroupFallback(_, taps))
         : null,
-      meta.returns ? _.p({ class: "cms-muted", style: { marginTop: "14px" } }, `Returns: ${meta.returns}`) : null
+      meta.returns ? _.p({ class: "jss-muted", style: { marginTop: "14px" } }, `Returns: ${meta.returns}`) : null
     );
   };
 

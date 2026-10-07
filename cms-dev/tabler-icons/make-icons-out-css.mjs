@@ -53,7 +53,7 @@ function main() {
     const name = safeName(path.basename(file, ".svg"));
     const cls = `${CLASS_PREFIX}${name}`;
 
-    lines.push(`.cms-icon${cls} {`);
+    lines.push(`.jss-icon${cls} {`);
     lines.push(
       `  background-image: url("${SPRITE_URL}#${name}");`
     );

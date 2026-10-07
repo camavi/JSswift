@@ -19,7 +19,7 @@
   --demo-bg: #f5f3ec;
   --demo-bg-soft: #fbfaf7;
   --demo-panel: rgba(255, 255, 255, 0.9);
-  --cms-bg-default: var(--demo-panel);
+  --jss-bg-default: var(--demo-panel);
   --demo-text: #1d2a1f;
   --demo-text-active: #e0e0e0;
   --demo-muted: #56655a;
@@ -39,7 +39,7 @@
   --demo-bg: #121212;
   --demo-bg-soft: #1c1c1c;
   --demo-panel: #10141e;
-  --cms-bg-default: var(--demo-panel);
+  --jss-bg-default: var(--demo-panel);
   --demo-text: #ffffff;
   --demo-muted: #a5a5a5;
   --demo-border: rgba(255, 255, 255, 0.1);

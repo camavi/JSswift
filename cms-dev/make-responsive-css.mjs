@@ -26,7 +26,7 @@ const OUT_FILES = BASE_ONLY ? [
 ];
 
 // prefisso classe
-const CLASS_PREFIX = "cms-";
+const CLASS_PREFIX = "jss-";
 
 const UI_SIZES = ["xxs", "xs", "sm", "md", "lg", "xl", "xxl", "xxxl"];
 
@@ -497,10 +497,10 @@ function buildClassTemplates(classes, sizes) {
       let decl = '';
       if (Array.isArray(c.name)) {
         for (const n of c.name) {
-          decl += `${n}: var(--cms-${c.var}-${size});`;
+          decl += `${n}: var(--jss-${c.var}-${size});`;
         }
       } else {
-        decl = `${c.name}: var(--cms-${c.var}-${size});`;
+        decl = `${c.name}: var(--jss-${c.var}-${size});`;
       }
       templates.push({
         suffix: `${c.class}-${size}` + (c.condition ? `${c.condition}` : ''),
@@ -555,25 +555,25 @@ function addGridColumnLines(lines, prefix, indent, count) {
 function addGridColResponsiveLines(lines, breakpoint, indent) {
   if (!breakpoint?.primary) return;
   const fallback = breakpoint.key === "tablet"
-    ? "var(--cms-grid-col-sm, var(--cms-grid-col-base, auto))"
-    : "var(--cms-grid-col-lg, var(--cms-grid-col-md, var(--cms-grid-col-tablet, var(--cms-grid-col-sm, var(--cms-grid-col-base, auto)))))";
-  lines.push(`${indent}.cms-grid.cms-grid > .cms-grid-col { grid-column: var(--cms-grid-col-${breakpoint.key}, ${fallback}); }`);
+    ? "var(--jss-grid-col-sm, var(--jss-grid-col-base, auto))"
+    : "var(--jss-grid-col-lg, var(--jss-grid-col-md, var(--jss-grid-col-tablet, var(--jss-grid-col-sm, var(--jss-grid-col-base, auto)))))";
+  lines.push(`${indent}.jss-grid.jss-grid > .jss-grid-col { grid-column: var(--jss-grid-col-${breakpoint.key}, ${fallback}); }`);
 }
 function addResponsiveStyleLines(lines) {
   const selectorFor = (key, deviceKey = "") => {
-    const className = deviceKey ? `cms-rsp-${deviceKey}-${key}` : `cms-rsp-${key}`;
-    return `.cms-rsp.${className}.${className}`;
+    const className = deviceKey ? `jss-rsp-${deviceKey}-${key}` : `jss-rsp-${key}`;
+    return `.jss-rsp.${className}.${className}`;
   };
 
   for (const [prop, key] of RESPONSIVE_STYLE_PROPS) {
-    lines.push(`${selectorFor(key)} { ${prop}: var(--cms-rsp-${key}); }`);
+    lines.push(`${selectorFor(key)} { ${prop}: var(--jss-rsp-${key}); }`);
   }
   lines.push("");
 
   for (const breakpoint of BASE_ONLY ? [] : PRIMARY_MEDIA_BREAKPOINTS) {
     lines.push(`@media (min-width: ${breakpoint.size}px) {`);
     for (const [prop, key] of RESPONSIVE_STYLE_PROPS) {
-      lines.push(`  ${selectorFor(key, breakpoint.key)} { ${prop}: var(--cms-rsp-${breakpoint.key}-${key}); }`);
+      lines.push(`  ${selectorFor(key, breakpoint.key)} { ${prop}: var(--jss-rsp-${breakpoint.key}-${key}); }`);
     }
     lines.push("}");
     lines.push("");
@@ -590,21 +590,21 @@ function main() {
   lines.push(":root{");
   for (const i in DEFAULT_SIZE) {
     const d = DEFAULT_SIZE[i];
-    lines.push(`  --cms-${i}: ${d};`);
+    lines.push(`  --jss-${i}: ${d};`);
   }
   lines.push("}");
   lines.push("");
 
-  lines.push(".cms-row { display: flex; align-items: stretch; flex-wrap: wrap; }");
-  lines.push(".cms-col { flex-direction: column; gap: var(--cms-s-md); box-sizing: border-box; min-width: 0; }");
-  lines.push(".cms-col-auto { max-width: 100%; flex: 0 0 auto; width: auto; }");
-  lines.push(".cms-col-inline { display: inline-block; }");
-  lines.push(".cms-col-flex { display: flex; flex-direction: column; gap: var(--cms-s-md); }");
-  lines.push(".cms-col-flex.cms-col-inline { display: inline-flex; }");
-  lines.push('[class*="cms-col"] { position: relative; box-sizing: border-box; flex: 1; }');
+  lines.push(".jss-row { display: flex; align-items: stretch; flex-wrap: wrap; }");
+  lines.push(".jss-col { flex-direction: column; gap: var(--jss-s-md); box-sizing: border-box; min-width: 0; }");
+  lines.push(".jss-col-auto { max-width: 100%; flex: 0 0 auto; width: auto; }");
+  lines.push(".jss-col-inline { display: inline-block; }");
+  lines.push(".jss-col-flex { display: flex; flex-direction: column; gap: var(--jss-s-md); }");
+  lines.push(".jss-col-flex.jss-col-inline { display: inline-flex; }");
+  lines.push('[class*="jss-col"] { position: relative; box-sizing: border-box; flex: 1; }');
 
-  lines.push('[class*="cms-col"] .cms-col-start, [class*="cms-col"] .cms-col-body, [class*="cms-col"] .cms-col-end { display: flex; min-width: 0; flex-direction: column; gap: inherit; }');
-  lines.push('[class*="cms-col"] .cms-col-body { flex: 1 1 auto; }');
+  lines.push('[class*="jss-col"] .jss-col-start, [class*="jss-col"] .jss-col-body, [class*="jss-col"] .jss-col-end { display: flex; min-width: 0; flex-direction: column; gap: inherit; }');
+  lines.push('[class*="jss-col"] .jss-col-body { flex: 1 1 auto; }');
 
   lines.push("");
   addResponsiveStyleLines(lines);

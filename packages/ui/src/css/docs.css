@@ -1,98 +1,98 @@
-.cms-component-docs-hero {
+.jss-component-docs-hero {
   background:
-    radial-gradient(circle at top right, color-mix(in srgb, var(--cms-warning-200) 60%, transparent), transparent 44%),
-    linear-gradient(145deg, color-mix(in srgb, var(--cms-theme-color-1) 60%, var(--cms-panel)), color-mix(in srgb, var(--cms-theme-color-1) 70%, var(--cms-panel)));
+    radial-gradient(circle at top right, color-mix(in srgb, var(--jss-warning-200) 60%, transparent), transparent 44%),
+    linear-gradient(145deg, color-mix(in srgb, var(--jss-theme-color-1) 60%, var(--jss-panel)), color-mix(in srgb, var(--jss-theme-color-1) 70%, var(--jss-panel)));
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
   background-size: 101% 101%;
   background-position: top right, bottom left;
 }
 
-.cms-component-docs-eyebrow {
+.jss-component-docs-eyebrow {
   align-items: center;
 }
 
-.cms-component-docs-raw-name {
+.jss-component-docs-raw-name {
   font-size: 12px;
   letter-spacing: 0.08em;
-  color: var(--cms-text-3);
+  color: var(--jss-text-3);
 }
 
-.cms-component-docs-title {
+.jss-component-docs-title {
   margin: 15px 0;
   font-size: clamp(34px, 5vw, 52px);
   line-height: 0.96;
   letter-spacing: -0.04em;
 }
 
-.cms-component-docs-summary {
+.jss-component-docs-summary {
   margin: 0;
   max-width: 70ch;
   font-size: 16px;
   line-height: 1.6;
-  color: var(--cms-text-2);
+  color: var(--jss-text-2);
 }
 
-.cms-component-docs-fact-label {
+.jss-component-docs-fact-label {
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--cms-text-3);
+  color: var(--jss-text-3);
 }
 
-.cms-component-docs-fact-value {
+.jss-component-docs-fact-value {
   font-size: 15px;
   line-height: 1.5;
-  color: var(--cms-text);
+  color: var(--jss-text);
 }
 
-.cms-component-docs-tabs {
-  --cms-tabpanel-accent: var(--cms-primary);
+.jss-component-docs-tabs {
+  --jss-tabpanel-accent: var(--jss-primary);
 }
 
-.cms-component-docs-tabs>.cms-tabpanel-nav {
+.jss-component-docs-tabs>.jss-tabpanel-nav {
   position: sticky;
   top: 12px;
   z-index: 2;
   backdrop-filter: blur(12px);
 }
 
-.cms-component-docs-surface-title {
+.jss-component-docs-surface-title {
   font-size: 18px;
 }
 
-.cms-component-docs-surface-note {
+.jss-component-docs-surface-note {
   max-width: 42ch;
   font-size: 13px;
   line-height: 1.5;
-  color: var(--cms-text-3);
+  color: var(--jss-text-3);
 }
 
-.cms-component-docs-prop {
+.jss-component-docs-prop {
   border-radius: 14px;
-  background: color-mix(in srgb, var(--cms-panel) 76%, var(--cms-theme-color-1));
-  border: 1px solid color-mix(in srgb, var(--cms-border-color) 82%, var(--cms-theme-color-1));
+  background: color-mix(in srgb, var(--jss-panel) 76%, var(--jss-theme-color-1));
+  border: 1px solid color-mix(in srgb, var(--jss-border-color) 82%, var(--jss-theme-color-1));
 }
 
-.cms-component-docs-list-kicker {
+.jss-component-docs-list-kicker {
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--cms-text-3);
+  color: var(--jss-text-3);
 }
 
-.cms-component-docs-list-title {
+.jss-component-docs-list-title {
   font-size: 16px;
   font-weight: 700;
   line-height: 1.2;
 }
 
-.cms-component-docs-prop-text {
+.jss-component-docs-prop-text {
   font-size: 14px;
   line-height: 1.6;
-  color: var(--cms-text-2);
+  color: var(--jss-text-2);
 }
 
-.cms-component-docs-prop-head {
+.jss-component-docs-prop-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -100,47 +100,47 @@
   flex-wrap: wrap;
 }
 
-.cms-component-docs-prop-default {
+.jss-component-docs-prop-default {
   font-size: 12px;
-  color: var(--cms-text-3);
+  color: var(--jss-text-3);
 }
 
-.cms-component-docs-prop-tags {
+.jss-component-docs-prop-tags {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
 }
 
-.cms-doc-table-header {
+.jss-doc-table-header {
   display: grid;
   gap: 10px;
   padding: 18px 20px 0;
 }
 
-.cms-doc-table-title {
+.jss-doc-table-title {
   font-size: 22px;
   font-weight: 800;
   letter-spacing: -0.03em;
 }
 
-.cms-doc-table-section-title {
+.jss-doc-table-section-title {
   padding: 0 20px;
   font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--cms-text-3);
+  color: var(--jss-text-3);
 }
 
-.cms-doc-meta {
+.jss-doc-meta {
   display: grid;
   gap: 14px;
   padding: 16px;
   border-radius: 16px;
-  background: color-mix(in srgb, var(--cms-panel) 78%, var(--cms-theme-color-1));
-  border: 1px solid color-mix(in srgb, var(--cms-border-color) 84%, var(--cms-theme-color-1));
+  background: color-mix(in srgb, var(--jss-panel) 78%, var(--jss-theme-color-1));
+  border: 1px solid color-mix(in srgb, var(--jss-border-color) 84%, var(--jss-theme-color-1));
 }
 
-.cms-doc-meta-head {
+.jss-doc-meta-head {
   display: flex;
   gap: 12px;
   align-items: start;
@@ -148,69 +148,69 @@
   flex-wrap: wrap;
 }
 
-.cms-doc-meta-name {
+.jss-doc-meta-name {
   font-size: 28px;
   font-weight: 800;
   letter-spacing: -0.03em;
 }
 
-.cms-doc-meta-types {
+.jss-doc-meta-types {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
 }
 
-.cms-doc-meta-grid {
+.jss-doc-meta-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
-.cms-doc-meta-block {
+.jss-doc-meta-block {
   display: grid;
   gap: 6px;
 }
 
-.cms-doc-meta-label {
+.jss-doc-meta-label {
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--cms-text-3);
+  color: var(--jss-text-3);
 }
 
-.cms-doc-meta-value {
+.jss-doc-meta-value {
   font-size: 14px;
   line-height: 1.6;
-  color: var(--cms-text-2);
+  color: var(--jss-text-2);
 }
 
-.cms-doc-fallback {
+.jss-doc-fallback {
   display: grid;
   gap: 16px;
   padding: 16px 20px 20px;
 }
 
-.cms-doc-fallback-item {
+.jss-doc-fallback-item {
   display: grid;
   gap: 12px;
   padding: 14px;
   border-radius: 14px;
-  background: color-mix(in srgb, var(--cms-panel) 82%, var(--cms-theme-color-1));
-  border: 1px solid color-mix(in srgb, var(--cms-border-color) 82%, var(--cms-theme-color-1));
+  background: color-mix(in srgb, var(--jss-panel) 82%, var(--jss-theme-color-1));
+  border: 1px solid color-mix(in srgb, var(--jss-border-color) 82%, var(--jss-theme-color-1));
 }
 
-.cms-doc-fallback-title {
+.jss-doc-fallback-title {
   font-size: 16px;
   font-weight: 700;
 }
 
 @media (max-width: 980px) {
 
-  .cms-component-docs-tabs>.cms-tabpanel-nav {
+  .jss-component-docs-tabs>.jss-tabpanel-nav {
     position: static;
   }
 
-  .cms-doc-meta-grid {
+  .jss-doc-meta-grid {
     grid-template-columns: 1fr;
   }
 }

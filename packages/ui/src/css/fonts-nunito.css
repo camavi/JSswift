@@ -129,6 +129,6 @@
 
 
 :root {
-  --cms-font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-  --cms-font: var(--cms-font-family);
+  --jss-font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --jss-font: var(--jss-font-family);
 }

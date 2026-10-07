@@ -206,7 +206,7 @@ function createElement(tag, ...args) {
     };
 
     registerNodeEffect(applyFromRod);
-    control._cmsApplySelectedValues = applyFromRod;
+    control._jssApplySelectedValues = applyFromRod;
     queueMicrotask(applyFromRod);
 
     const onValueChange = () => {
@@ -344,8 +344,8 @@ function createElement(tag, ...args) {
     bindProp
   });
 
-  if (tag === "select" && typeof el._cmsApplySelectedValues === "function") {
-    el._cmsApplySelectedValues();
+  if (tag === "select" && typeof el._jssApplySelectedValues === "function") {
+    el._jssApplySelectedValues();
   }
 
   return el;

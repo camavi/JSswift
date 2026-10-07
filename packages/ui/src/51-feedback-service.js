@@ -71,7 +71,7 @@
       ? dismissNodes
       : (entry.closable
         ? [UI.Btn({
-          class: "cms-toast-close",
+          class: "jss-toast-close",
           outline: true,
           size: "xs",
           "aria-label": entry.dismissLabel,
@@ -81,29 +81,29 @@
 
     const node = _.div({
       class: uiClass([
-        "cms-toast",
-        `cms-toast-${entry.type}`,
-        `cms-toast-${entry.variant}`,
+        "jss-toast",
+        `jss-toast-${entry.type}`,
+        `jss-toast-${entry.variant}`,
         uiWhen(entry.closable, "is-closable"),
         entry.class
       ]),
       style: entry.style || {},
       role: entry.role
     },
-      iconNodes.length ? _.div({ class: "cms-toast-icon" }, ...iconNodes) : null,
+      iconNodes.length ? _.div({ class: "jss-toast-icon" }, ...iconNodes) : null,
       _.div(
-        { class: "cms-toast-main" },
+        { class: "jss-toast-main" },
         _.div(
-          { class: "cms-toast-copy" },
-          titleNodes.length ? _.div({ class: "cms-toast-title" }, ...titleNodes) : null,
-          messageNodes.length ? _.div({ class: "cms-toast-message" }, ...messageNodes) : null,
-          descriptionNodes.length ? _.div({ class: "cms-toast-description" }, ...descriptionNodes) : null,
-          bodyNodes.length ? _.div({ class: "cms-toast-body" }, ...bodyNodes) : null,
-          metaNodes.length ? _.div({ class: "cms-toast-meta" }, ...metaNodes) : null
+          { class: "jss-toast-copy" },
+          titleNodes.length ? _.div({ class: "jss-toast-title" }, ...titleNodes) : null,
+          messageNodes.length ? _.div({ class: "jss-toast-message" }, ...messageNodes) : null,
+          descriptionNodes.length ? _.div({ class: "jss-toast-description" }, ...descriptionNodes) : null,
+          bodyNodes.length ? _.div({ class: "jss-toast-body" }, ...bodyNodes) : null,
+          metaNodes.length ? _.div({ class: "jss-toast-meta" }, ...metaNodes) : null
         ),
-        actionsNodes.length ? _.div({ class: "cms-toast-actions" }, ...actionsNodes) : null
+        actionsNodes.length ? _.div({ class: "jss-toast-actions" }, ...actionsNodes) : null
       ),
-      dismissContent.length ? _.div({ class: "cms-toast-dismiss" }, ...dismissContent) : null
+      dismissContent.length ? _.div({ class: "jss-toast-dismiss" }, ...dismissContent) : null
     );
 
     setPropertyProps(node, entry);
@@ -111,10 +111,10 @@
   }
 
   function ensureToastRoot() {
-    let root = document.querySelector(".cms-toast-layer");
+    let root = document.querySelector(".jss-toast-layer");
     if (root) return root;
     root = document.createElement("div");
-    root.className = "cms-toast-layer";
+    root.className = "jss-toast-layer";
     document.body.appendChild(root);
 
     app.reactive.effect(() => {
@@ -130,7 +130,7 @@
       for (const position of NOTIFY_POSITIONS) {
         const entries = groups.get(position);
         if (!entries?.length) continue;
-        const wrap = _.div({ class: uiClass(["cms-toast-wrap", `is-${position}`]) },
+        const wrap = _.div({ class: uiClass(["jss-toast-wrap", `is-${position}`]) },
           ...entries.map((entry) => renderNotifyToast(entry))
         );
         root.appendChild(wrap);

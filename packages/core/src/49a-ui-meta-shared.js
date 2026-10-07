@@ -7,10 +7,10 @@
         hasTabPanel: typeof _.TabPanel === "function",
         Card: typeof _.Card === "function"
           ? _.Card
-          : (...children) => _.div({ class: "cms-doc-card" }, ...children),
+          : (...children) => _.div({ class: "jss-doc-card" }, ...children),
         Chip: typeof _.Chip === "function"
           ? _.Chip
-          : (_props, label) => _.span({ class: "cms-chip cms-chip-fallback" }, label)
+          : (_props, label) => _.span({ class: "jss-chip jss-chip-fallback" }, label)
       };
     }
 
@@ -21,36 +21,36 @@
     }
 
     function renderMetaItem(_, item, Chip) {
-      return _.div({ class: "cms-doc-meta" },
-        _.div({ class: "cms-doc-meta-head" },
-          _.div({ class: "cms-doc-meta-name" }, item.name),
-          _.div({ class: "cms-doc-meta-types" },
+      return _.div({ class: "jss-doc-meta" },
+        _.div({ class: "jss-doc-meta-head" },
+          _.div({ class: "jss-doc-meta-name" }, item.name),
+          _.div({ class: "jss-doc-meta-types" },
             ...(item.type
               ? String(item.type).split("|").map((token) => Chip({ color: "secondary", dense: true, outline: true }, token))
               : [_.span("—")])
           )
         ),
-        _.div({ class: "cms-doc-meta-grid" },
-          _.div({ class: "cms-doc-meta-block" },
-            _.div({ class: "cms-doc-meta-label" }, "Default"),
-            _.div({ class: "cms-doc-meta-value" }, item.default == null ? "—" : String(item.default))
+        _.div({ class: "jss-doc-meta-grid" },
+          _.div({ class: "jss-doc-meta-block" },
+            _.div({ class: "jss-doc-meta-label" }, "Default"),
+            _.div({ class: "jss-doc-meta-value" }, item.default == null ? "—" : String(item.default))
           ),
-          _.div({ class: "cms-doc-meta-block" },
-            _.div({ class: "cms-doc-meta-label" }, "Values"),
-            _.div({ class: "cms-doc-meta-value" }, formatMetaValues(item.values))
+          _.div({ class: "jss-doc-meta-block" },
+            _.div({ class: "jss-doc-meta-label" }, "Values"),
+            _.div({ class: "jss-doc-meta-value" }, formatMetaValues(item.values))
           )
         ),
-        _.div({ class: "cms-doc-meta-block" },
-          _.div({ class: "cms-doc-meta-label" }, "Description"),
-          _.div({ class: "cms-doc-meta-value" }, item.description || "—")
+        _.div({ class: "jss-doc-meta-block" },
+          _.div({ class: "jss-doc-meta-label" }, "Description"),
+          _.div({ class: "jss-doc-meta-value" }, item.description || "—")
         )
       );
     }
 
     function renderTabGroupFallback(_, rows) {
-      return _.div({ class: "cms-doc-fallback" },
-        rows.map((row) => _.div({ class: "cms-doc-fallback-item" },
-          _.h4({ class: "cms-doc-fallback-title" }, row.label || row.name),
+      return _.div({ class: "jss-doc-fallback" },
+        rows.map((row) => _.div({ class: "jss-doc-fallback-item" },
+          _.h4({ class: "jss-doc-fallback-title" }, row.label || row.name),
           row.content
         ))
       );
@@ -63,14 +63,14 @@
           name: eventItem.name,
           wrap: true,
           label: eventItem.name,
-          content: _.div({ class: "cms-p-md" }, eventItem.description)
+          content: _.div({ class: "jss-p-md" }, eventItem.description)
         }));
       }
       return Object.entries(events).map(([key, value]) => ({
         name: key,
         wrap: true,
         label: key,
-        content: _.div({ class: "cms-p-md" }, value)
+        content: _.div({ class: "jss-p-md" }, value)
       }));
     }
 
@@ -88,19 +88,19 @@
         name: key,
         wrap: true,
         label: key,
-        content: _.div({ class: "cms-doc-meta" },
-          _.div({ class: "cms-doc-meta-head" },
-            _.div({ class: "cms-doc-meta-name" }, key)
+        content: _.div({ class: "jss-doc-meta" },
+          _.div({ class: "jss-doc-meta-head" },
+            _.div({ class: "jss-doc-meta-name" }, key)
           ),
-          _.div({ class: "cms-doc-meta-grid" },
-            _.div({ class: "cms-doc-meta-block" },
-              _.div({ class: "cms-doc-meta-label" }, "Type"),
-              _.div({ class: "cms-doc-meta-value" }, value.type || "—")
+          _.div({ class: "jss-doc-meta-grid" },
+            _.div({ class: "jss-doc-meta-block" },
+              _.div({ class: "jss-doc-meta-label" }, "Type"),
+              _.div({ class: "jss-doc-meta-value" }, value.type || "—")
             )
           ),
-          _.div({ class: "cms-doc-meta-block" },
-            _.div({ class: "cms-doc-meta-label" }, "Description"),
-            _.div({ class: "cms-doc-meta-value" }, value.description || "—")
+          _.div({ class: "jss-doc-meta-block" },
+            _.div({ class: "jss-doc-meta-label" }, "Description"),
+            _.div({ class: "jss-doc-meta-value" }, value.description || "—")
           )
         )
       }));

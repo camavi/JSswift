@@ -11,13 +11,13 @@ UI.Banner = (...args) => {
   const typeClass = uiComputed([rawProps.type, rawProps.state], () => resolveStateValue());
   const variantClass = uiComputed(rawProps.variant, () => {
     const variant = String(uiUnwrap(rawProps.variant) || "").toLowerCase();
-    return ["solid", "outline", "ghost"].includes(variant) ? `cms-banner-${variant}` : "";
+    return ["solid", "outline", "ghost"].includes(variant) ? `jss-banner-${variant}` : "";
   });
   const actionsPlacementClass = uiComputed([rawProps.actionsPlacement, rawProps.stack], () => {
     const placement = String(uiUnwrap(rawProps.actionsPlacement) || "").toLowerCase();
-    return placement === "bottom" || !!uiUnwrap(rawProps.stack) ? "cms-banner-actions-bottom" : "";
+    return placement === "bottom" || !!uiUnwrap(rawProps.stack) ? "jss-banner-actions-bottom" : "";
   });
-  const stackClass = uiComputed(rawProps.stack, () => uiUnwrap(rawProps.stack) ? "cms-banner-stack" : "");
+  const stackClass = uiComputed(rawProps.stack, () => uiUnwrap(rawProps.stack) ? "jss-banner-stack" : "");
 
   const props = { ...rawProps };
   const p = JSswift.omit(props, [
@@ -26,9 +26,9 @@ UI.Banner = (...args) => {
     "stack", "state", "subtitle", "title", "type", "variant"
   ]);
   p.class = uiClass([
-    "cms-clear-set",
-    "cms-banner",
-    "cms-singularity",
+    "jss-clear-set",
+    "jss-banner",
+    "jss-singularity",
     typeClass,
     variantClass,
     actionsPlacementClass,
@@ -42,21 +42,21 @@ UI.Banner = (...args) => {
     const v = uiUnwrap(value);
     if (v == null || v === "") return "";
     const s = String(v);
-    if (isTokenCSS(s)) return `var(--cms-${s})`;
+    if (isTokenCSS(s)) return `var(--jss-${s})`;
     return s;
   };
 
   if (rawProps.accent != null || uiIsReactive(rawProps.accent)) {
-    p.style["--cms-banner-accent"] = () => toneToCss(rawProps.accent);
-    p.style["--cms-banner-border"] = () => {
+    p.style["--jss-banner-accent"] = () => toneToCss(rawProps.accent);
+    p.style["--jss-banner-border"] = () => {
       const tone = toneToCss(rawProps.accent);
-      return tone ? `color-mix(in srgb, ${tone} 38%, var(--cms-border-color))` : "";
+      return tone ? `color-mix(in srgb, ${tone} 38%, var(--jss-border-color))` : "";
     };
-    p.style["--cms-banner-bg"] = () => {
+    p.style["--jss-banner-bg"] = () => {
       const tone = toneToCss(rawProps.accent);
-      return tone ? `color-mix(in srgb, ${tone} 14%, var(--cms-panel))` : "";
+      return tone ? `color-mix(in srgb, ${tone} 14%, var(--jss-panel))` : "";
     };
-    p.style["--cms-banner-color"] = () => {
+    p.style["--jss-banner-color"] = () => {
       const tone = toneToCss(rawProps.accent);
       return tone ? `color-mix(in srgb, ${tone} 78%, white)` : "";
     };
@@ -109,7 +109,7 @@ UI.Banner = (...args) => {
   let bannerEl = null;
   const defaultDismissNode = isDismissible
     ? UI.Btn({
-      class: "cms-banner-close",
+      class: "jss-banner-close",
       outline: true,
       size: rawProps.size || "sm",
       "aria-label": rawProps.closeLabel || "Chiudi banner",
@@ -129,22 +129,22 @@ UI.Banner = (...args) => {
 
   bannerEl = _.div(
     p,
-    iconNodes.length ? _.div({ class: "cms-banner-icon" }, ...iconNodes) : null,
+    iconNodes.length ? _.div({ class: "jss-banner-icon" }, ...iconNodes) : null,
     _.div(
-      { class: "cms-banner-body" },
+      { class: "jss-banner-body" },
       _.div(
-        { class: "cms-banner-copy" },
-        titleNodes.length ? _.div({ class: "cms-banner-title" }, ...titleNodes) : null,
-        messageNodes.length ? _.div({ class: "cms-banner-message" }, ...messageNodes) : null,
-        descriptionNodes.length ? _.div({ class: "cms-banner-description" }, ...descriptionNodes) : null,
-        bodyNodes.length ? _.div({ class: "cms-banner-extra" }, ...bodyNodes) : null,
-        metaNodes.length ? _.div({ class: "cms-banner-meta" }, ...metaNodes) : null
+        { class: "jss-banner-copy" },
+        titleNodes.length ? _.div({ class: "jss-banner-title" }, ...titleNodes) : null,
+        messageNodes.length ? _.div({ class: "jss-banner-message" }, ...messageNodes) : null,
+        descriptionNodes.length ? _.div({ class: "jss-banner-description" }, ...descriptionNodes) : null,
+        bodyNodes.length ? _.div({ class: "jss-banner-extra" }, ...bodyNodes) : null,
+        metaNodes.length ? _.div({ class: "jss-banner-meta" }, ...metaNodes) : null
       ),
       hasBottomActions && actionsNodes.length
-        ? _.div({ class: "cms-banner-actions" }, ...actionsNodes)
+        ? _.div({ class: "jss-banner-actions" }, ...actionsNodes)
         : null
     ),
-    sideNodes.length ? _.div({ class: "cms-banner-side" }, ...sideNodes) : null
+    sideNodes.length ? _.div({ class: "jss-banner-side" }, ...sideNodes) : null
   );
 
   const role = p.role || (() => {
@@ -165,7 +165,7 @@ UI.Alert = (...args) => {
   const resolveStateValue = () => normalizeState(uiUnwrap(rawProps.type) || uiUnwrap(rawProps.state) || uiUnwrap(rawProps.color) || "warning");
   const stateClass = uiComputed([rawProps.type, rawProps.state, rawProps.color], () => {
     const state = resolveStateValue();
-    return state ? `cms-state-${state}` : "";
+    return state ? `jss-state-${state}` : "";
   });
 
   const props = { ...rawProps };
@@ -175,9 +175,9 @@ UI.Alert = (...args) => {
     "subtitle", "title", "type", "variant"
   ]);
   p.class = uiClass([
-    "cms-clear-set",
-    "cms-alert",
-    "cms-singularity",
+    "jss-clear-set",
+    "jss-alert",
+    "jss-singularity",
     stateClass,
     uiWhen(rawProps.dismissible, "is-dismissible"),
     props.class
@@ -218,7 +218,7 @@ UI.Alert = (...args) => {
   let alertEl = null;
   const defaultDismissNode = rawProps.dismissible || rawProps.onDismiss
     ? UI.Btn({
-      class: "cms-alert-close",
+      class: "jss-alert-close",
       outline: true,
       size: "sm",
       "aria-label": rawProps.closeLabel || "Chiudi alert",
@@ -232,18 +232,18 @@ UI.Alert = (...args) => {
 
   alertEl = _.div(
     p,
-    iconNodes.length ? _.div({ class: "cms-alert-icon" }, ...iconNodes) : null,
+    iconNodes.length ? _.div({ class: "jss-alert-icon" }, ...iconNodes) : null,
     _.div(
-      { class: "cms-alert-body" },
-      titleNodes.length ? _.div({ class: "cms-alert-title" }, ...titleNodes) : null,
-      messageNodes.length ? _.div({ class: "cms-alert-message" }, ...messageNodes) : null,
-      descriptionNodes.length ? _.div({ class: "cms-alert-description" }, ...descriptionNodes) : null,
-      metaNodes.length ? _.div({ class: "cms-alert-meta" }, ...metaNodes) : null,
-      actionsNodes.length ? _.div({ class: "cms-alert-actions" }, ...actionsNodes) : null
+      { class: "jss-alert-body" },
+      titleNodes.length ? _.div({ class: "jss-alert-title" }, ...titleNodes) : null,
+      messageNodes.length ? _.div({ class: "jss-alert-message" }, ...messageNodes) : null,
+      descriptionNodes.length ? _.div({ class: "jss-alert-description" }, ...descriptionNodes) : null,
+      metaNodes.length ? _.div({ class: "jss-alert-meta" }, ...metaNodes) : null,
+      actionsNodes.length ? _.div({ class: "jss-alert-actions" }, ...actionsNodes) : null
     ),
     (asideNodes.length || dismissNodes.length || defaultDismissNode)
       ? _.div(
-        { class: "cms-alert-side" },
+        { class: "jss-alert-side" },
         ...asideNodes,
         ...(dismissNodes.length ? dismissNodes : (defaultDismissNode ? [defaultDismissNode] : []))
       )
@@ -263,7 +263,7 @@ UI.EmptyState = (...args) => {
   const resolveStateValue = () => normalizeState(uiUnwrap(rawProps.state) || uiUnwrap(rawProps.color) || "");
   const stateClass = uiComputed([rawProps.state, rawProps.color], () => {
     const state = resolveStateValue();
-    return state ? `cms-state-${state}` : "";
+    return state ? `jss-state-${state}` : "";
   });
 
   const props = { ...rawProps };
@@ -272,9 +272,9 @@ UI.EmptyState = (...args) => {
     "message", "meta", "slots", "state", "title"
   ]);
   p.class = uiClass([
-    "cms-clear-set",
-    "cms-empty-state",
-    "cms-singularity",
+    "jss-clear-set",
+    "jss-empty-state",
+    "jss-singularity",
     stateClass,
     uiWhen(rawProps.compact, "compact"),
     uiWhen(rawProps.inline, "inline"),
@@ -303,16 +303,16 @@ UI.EmptyState = (...args) => {
   const emptyState = _.section(
     p,
     illustrationNodes.length
-      ? _.div({ class: "cms-empty-state-illustration" }, ...illustrationNodes)
+      ? _.div({ class: "jss-empty-state-illustration" }, ...illustrationNodes)
       : null,
-    iconNodes.length ? _.div({ class: "cms-empty-state-icon" }, ...iconNodes) : null,
-    eyebrowNodes.length ? _.div({ class: "cms-empty-state-eyebrow" }, ...eyebrowNodes) : null,
-    titleNodes.length ? _.div({ class: "cms-empty-state-title" }, ...titleNodes) : null,
-    messageNodes.length ? _.div({ class: "cms-empty-state-message" }, ...messageNodes) : null,
-    descriptionNodes.length ? _.div({ class: "cms-empty-state-description" }, ...descriptionNodes) : null,
-    metaNodes.length ? _.div({ class: "cms-empty-state-meta" }, ...metaNodes) : null,
-    bodyNodes.length ? _.div({ class: "cms-empty-state-extra" }, ...bodyNodes) : null,
-    actionsNodes.length ? _.div({ class: "cms-empty-state-actions" }, ...actionsNodes) : null
+    iconNodes.length ? _.div({ class: "jss-empty-state-icon" }, ...iconNodes) : null,
+    eyebrowNodes.length ? _.div({ class: "jss-empty-state-eyebrow" }, ...eyebrowNodes) : null,
+    titleNodes.length ? _.div({ class: "jss-empty-state-title" }, ...titleNodes) : null,
+    messageNodes.length ? _.div({ class: "jss-empty-state-message" }, ...messageNodes) : null,
+    descriptionNodes.length ? _.div({ class: "jss-empty-state-description" }, ...descriptionNodes) : null,
+    metaNodes.length ? _.div({ class: "jss-empty-state-meta" }, ...metaNodes) : null,
+    bodyNodes.length ? _.div({ class: "jss-empty-state-extra" }, ...bodyNodes) : null,
+    actionsNodes.length ? _.div({ class: "jss-empty-state-actions" }, ...actionsNodes) : null
   );
 
   setPropertyProps(emptyState, rawProps);
@@ -358,7 +358,7 @@ const setDrawerOpen = (open, key = drawerStateKey) => {
   if (drawerEls && drawerEls.size) {
     drawerEls.forEach((el) => el?.classList.toggle("open", drawerOpen));
   } else {
-    const drawerEl = document.querySelector(".cms-drawer");
+    const drawerEl = document.querySelector(".jss-drawer");
     if (drawerEl) drawerEl.classList.toggle("open", drawerOpen);
   }
   drawerToggleIcons.forEach((entry) => {

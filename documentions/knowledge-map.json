@@ -220,6 +220,27 @@
       "paths": [
         "examples/crud.md"
       ]
+    },
+    {
+      "id": "themes",
+      "title": "Base CSS, theme tokens and native component styling",
+      "keywords": [
+        "base.css",
+        "theme",
+        "themes",
+        "tema",
+        "color",
+        "colors",
+        "colori",
+        "palette",
+        "dark",
+        "light",
+        "outline",
+        "dense"
+      ],
+      "paths": [
+        "ui/themes.md"
+      ]
     }
   ],
   "components": [

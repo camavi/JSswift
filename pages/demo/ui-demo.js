@@ -42,7 +42,7 @@ JSswift.ready(() => {
     _.setTheme(v ? "dark" : "light");
   });
   function testBug() {
-    return _.div({ class: "cms-text-center" },
+    return _.div({ class: "jss-text-center" },
       _.div({
         
       }, _.Select({
@@ -68,7 +68,7 @@ JSswift.ready(() => {
         _.cardBody(
           _.Row(
             _.Spacer(),
-            _.div({ class: "cms-text-right" },
+            _.div({ class: "jss-text-right" },
               _.Toggle({ color: "success", model: Themes, uncheckedIcon: "light_mode", checkedIcon: "brightness_6", }, () => Themes.value ? "Theme dark" : "Theme light"),
             )
           ),
@@ -161,7 +161,7 @@ JSswift.ready(() => {
             _.Btn({
               label: "Salva",
               loading: buttonLoading,
-              class: "cms-m-r-sm",
+              class: "jss-m-r-sm",
               loadingSize: 16,
               color: "primary",
               onClick: async () => {

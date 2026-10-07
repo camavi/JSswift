@@ -44,6 +44,7 @@ test('knowledge routes realistic application requests to focused contracts', asy
   const knowledge = await loadKnowledge();
   for (const [query, id] of [
     ['AI.md', 'guide:AI'],
+    ['base.css palette tema', 'guide:ui/themes'],
     ['proprietà comuni', 'guide:ui/common-props'],
     ['form con validazione', 'guide:ui/forms'],
     ['layout responsive', 'guide:ui/layout-and-responsive'],

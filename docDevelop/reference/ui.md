@@ -86,9 +86,9 @@ _.Col({
 
 The responsive engine supports both token classes and arbitrary CSS values.
 
-- token values map to generated utility classes, for example `cms-tablet-row`,
-  `cms-pc-col-6`, `cms-tablet-gap-md`
-- arbitrary values are stored as CSS custom properties on `.cms-rsp`, for
+- token values map to generated utility classes, for example `jss-tablet-row`,
+  `jss-pc-col-6`, `jss-tablet-gap-md`
+- arbitrary values are stored as CSS custom properties on `.jss-rsp`, for
   example `tablet: { width: "min(50vw, 420px)" }`
 - unsupported responsive props are ignored by the responsive engine and remain
   available to the component implementation

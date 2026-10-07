@@ -12,7 +12,7 @@
     const resolveAccent = (value) => {
       const raw = uiUnwrap(value);
       if (raw == null || raw === "") return null;
-      return JSswift.uiColors?.includes(raw) ? `var(--cms-${raw})` : String(raw);
+      return JSswift.uiColors?.includes(raw) ? `var(--jss-${raw})` : String(raw);
     };
     const isSameValue = (a, b) => Object.is(a, b) || (a != null && b != null && a == b);
 
@@ -22,7 +22,7 @@
     const fillTabs = !!uiUnwrap(props.fill ?? props.navFill ?? props.stretch);
     const wrapTabs = !!uiUnwrap(props.wrap);
     const disabledAll = !!uiUnwrap(props.disabled);
-    const componentId = props.id || (`cms-tabs-` + Math.random().toString(36).slice(2, 9));
+    const componentId = props.id || (`jss-tabs-` + Math.random().toString(36).slice(2, 9));
     const rawTabs = uiUnwrap(props.tabs ?? props.items) || [];
     const tabs = (Array.isArray(rawTabs) ? rawTabs : [rawTabs])
       .map((tab, index) => {
@@ -86,9 +86,9 @@
     const [getValue, setValue] = JSswift.reactive.signal(initialValue);
 
     const cls = uiClass([
-      "cms-clear-set",
-      "cms-tabs",
-      "cms-singularity",
+      "jss-clear-set",
+      "jss-tabs",
+      "jss-singularity",
       orientation,
       `variant-${variant}`,
       uiWhen(props.dense, "dense"),
@@ -117,14 +117,14 @@
     wrapProps.style = {
       ...(props.style || {})
     };
-    if (props.gap != null) wrapProps.style["--cms-tabs-gap"] = toCssSize(props.gap);
-    if (props.tabGap != null) wrapProps.style["--cms-tabs-tab-gap"] = toCssSize(props.tabGap);
+    if (props.gap != null) wrapProps.style["--jss-tabs-gap"] = toCssSize(props.gap);
+    if (props.tabGap != null) wrapProps.style["--jss-tabs-tab-gap"] = toCssSize(props.tabGap);
     const accentColor = resolveAccent(props.color ?? props.state);
-    if (accentColor) wrapProps.style["--cms-tabs-accent"] = accentColor;
+    if (accentColor) wrapProps.style["--jss-tabs-accent"] = accentColor;
     const wrap = _.div(wrapProps);
 
     const bar = _.div({
-      class: uiClass(["cms-tabs-bar", props.barClass]),
+      class: uiClass(["jss-tabs-bar", props.barClass]),
       style: {
         alignItems: props.align || (orientation === "vertical" ? "stretch" : "center"),
         justifyContent: props.justify || "flex-start",
@@ -132,7 +132,7 @@
       }
     });
     const nav = _.div({
-      class: uiClass(["cms-tabs-nav", props.navClass]),
+      class: uiClass(["jss-tabs-nav", props.navClass]),
       style: props.navStyle || null,
       role: "tablist",
       "aria-orientation": orientation
@@ -240,13 +240,13 @@
       const labelNodes = renderSlotToArray(null, "default", {}, JSswift.ui.renderSlot(slots, "label", ctx, tab.labelFallback));
       const noteNodes = renderSlotToArray(slots, "note", ctx, tab.noteFallback);
       const badgeNodes = renderSlotToArray(slots, "badge", ctx, tab.badgeFallback);
-      const fallbackContent = _.span({ class: "cms-tabs-tab-inner" },
-        iconNodes.length ? _.span({ class: "cms-tabs-tab-icon" }, ...iconNodes) : null,
-        _.span({ class: "cms-tabs-tab-copy" },
-          _.span({ class: "cms-tabs-tab-label" }, ...(labelNodes.length ? labelNodes : [""])),
-          noteNodes.length ? _.span({ class: "cms-tabs-tab-note" }, ...noteNodes) : null
+      const fallbackContent = _.span({ class: "jss-tabs-tab-inner" },
+        iconNodes.length ? _.span({ class: "jss-tabs-tab-icon" }, ...iconNodes) : null,
+        _.span({ class: "jss-tabs-tab-copy" },
+          _.span({ class: "jss-tabs-tab-label" }, ...(labelNodes.length ? labelNodes : [""])),
+          noteNodes.length ? _.span({ class: "jss-tabs-tab-note" }, ...noteNodes) : null
         ),
-        badgeNodes.length ? _.span({ class: "cms-tabs-tab-badge" }, ...badgeNodes) : null
+        badgeNodes.length ? _.span({ class: "jss-tabs-tab-badge" }, ...badgeNodes) : null
       );
       const contentNodes = renderSlotToArray(slots, "tab", {
         ...ctx,
@@ -299,14 +299,14 @@
       const itemAccent = resolveAccent(tab.color ?? tab.state);
       const item = _.div({
         class: uiClass([
-          "cms-tabs-item",
+          "jss-tabs-item",
           uiWhen(isActive, "active"),
           uiWhen(tab.disabled || disabledAll, "disabled"),
           props.itemClass,
           tab.itemClass
         ]),
         style: {
-          ...(itemAccent ? { "--cms-tabs-item-accent": itemAccent } : {}),
+          ...(itemAccent ? { "--jss-tabs-item-accent": itemAccent } : {}),
           ...(props.itemStyle || {}),
           ...(tab.itemStyle || {})
         },
@@ -314,7 +314,7 @@
       });
       const btn = UI.Btn({
         class: uiClass([
-          "cms-tabs-tab",
+          "jss-tabs-tab",
           uiWhen(isActive, "active"),
           uiWhen(tab.disabled || disabledAll, "disabled"),
           props.tabClass,
@@ -350,7 +350,7 @@
       }, defaultNavNodes);
       renderSlotToArray(null, "default", {}, navContent).forEach((node) => nav.appendChild(node));
     } else {
-      renderSlotToArray(slots, "empty", createRootCtx(), props.empty ?? _.div({ class: "cms-tabs-empty" }, "Nessuna tab disponibile."))
+      renderSlotToArray(slots, "empty", createRootCtx(), props.empty ?? _.div({ class: "jss-tabs-empty" }, "Nessuna tab disponibile."))
         .forEach((node) => nav.appendChild(node));
     }
 
@@ -361,7 +361,7 @@
     ];
     bar.appendChild(nav);
     if (extraNodes.length) {
-      bar.appendChild(_.div({ class: "cms-tabs-extra" }, ...extraNodes));
+      bar.appendChild(_.div({ class: "jss-tabs-extra" }, ...extraNodes));
     }
     wrap.appendChild(bar);
 
@@ -403,7 +403,7 @@
     const resolveAccent = (value) => {
       const raw = uiUnwrap(value);
       if (raw == null || raw === "") return null;
-      return JSswift.uiColors?.includes(raw) ? `var(--cms-${raw})` : String(raw);
+      return JSswift.uiColors?.includes(raw) ? `var(--jss-${raw})` : String(raw);
     };
     const resolvePath = (value) => {
       if (value == null || value === "") return "";
@@ -462,7 +462,7 @@
     const normalizedState = !uiUnwrap(props.color) && uiUnwrap(props.state)
       ? normalizeState(uiUnwrap(props.state))
       : "";
-    const stateClass = normalizedState ? `cms-state-${normalizedState}` : "";
+    const stateClass = normalizedState ? `jss-state-${normalizedState}` : "";
     const p = JSswift.omit(props, [
       "active", "selected", "label", "title", "text", "to", "icon", "iconRight", "iconSize",
       "note", "subtitle", "caption", "description", "badge", "counter", "count", "aside", "trailing",
@@ -473,9 +473,9 @@
     ]);
     p.href = getHref();
     p.class = uiClass([
-      "cms-route-tab",
-      "cms-clear-set",
-      "cms-singularity",
+      "jss-route-tab",
+      "jss-clear-set",
+      "jss-singularity",
       `variant-${variant}`,
       uiWhen(props.block ?? props.fill, "block"),
       uiWhen(props.dense, "dense"),
@@ -487,7 +487,7 @@
     };
 
     const accent = resolveAccent(props.color ?? props.state);
-    if (accent) p.style["--cms-route-tab-accent"] = accent;
+    if (accent) p.style["--jss-route-tab-accent"] = accent;
 
     const iconSize = props.iconSize ?? props.size ?? null;
     const resolveIconNode = (value, as) => {
@@ -544,15 +544,15 @@
     );
     const defaultNodes = renderSlotToArray(slots, "default", ctx(), props.content ?? props.body);
 
-    const content = _.span({ class: "cms-route-tab-inner" },
-      iconNodes.length ? _.span({ class: "cms-route-tab-icon" }, ...iconNodes) : null,
-      _.span({ class: "cms-route-tab-copy" },
-        _.span({ class: "cms-route-tab-label" }, ...(labelNodes.length ? labelNodes : [getTo() || getHref() || ""])),
-        noteNodes.length ? _.span({ class: "cms-route-tab-note" }, ...noteNodes) : null,
-        defaultNodes.length ? _.span({ class: "cms-route-tab-extra" }, ...defaultNodes) : null
+    const content = _.span({ class: "jss-route-tab-inner" },
+      iconNodes.length ? _.span({ class: "jss-route-tab-icon" }, ...iconNodes) : null,
+      _.span({ class: "jss-route-tab-copy" },
+        _.span({ class: "jss-route-tab-label" }, ...(labelNodes.length ? labelNodes : [getTo() || getHref() || ""])),
+        noteNodes.length ? _.span({ class: "jss-route-tab-note" }, ...noteNodes) : null,
+        defaultNodes.length ? _.span({ class: "jss-route-tab-extra" }, ...defaultNodes) : null
       ),
-      badgeNodes.length ? _.span({ class: "cms-route-tab-badge" }, ...badgeNodes) : null,
-      asideNodes.length ? _.span({ class: "cms-route-tab-aside" }, ...asideNodes) : null
+      badgeNodes.length ? _.span({ class: "jss-route-tab-badge" }, ...badgeNodes) : null,
+      asideNodes.length ? _.span({ class: "jss-route-tab-aside" }, ...asideNodes) : null
     );
 
     const wrap = _.a(p, content);
@@ -618,7 +618,7 @@
     const model = resolveModel(props.model, "UI.Breadcrumbs:model");
     const sizeClass = uiComputed(props.size, () => {
       const v = uiUnwrap(props.size);
-      return (typeof v === "string" && JSswift.uiSizes?.includes(v)) ? `cms-size-${v}` : "";
+      return (typeof v === "string" && JSswift.uiSizes?.includes(v)) ? `jss-size-${v}` : "";
     });
     const variantClass = uiComputed(props.variant, () => {
       const raw = String(uiUnwrap(props.variant || (props.pills ? "pills" : (props.soft ? "soft" : "line"))) || "").toLowerCase();
@@ -631,8 +631,8 @@
     });
     const wrap = _.nav({
       class: uiClass([
-        "cms-breadcrumbs",
-        "cms-clear-set",
+        "jss-breadcrumbs",
+        "jss-clear-set",
         sizeClass,
         variantClass,
         nowrapClass,
@@ -643,9 +643,9 @@
       role: "navigation",
       "aria-label": props.ariaLabel || "Breadcrumb"
     });
-    const beforeEl = _.div({ class: "cms-breadcrumbs-before" });
-    const listEl = _.ol({ class: "cms-breadcrumbs-list" });
-    const afterEl = _.div({ class: "cms-breadcrumbs-after" });
+    const beforeEl = _.div({ class: "jss-breadcrumbs-before" });
+    const listEl = _.ol({ class: "jss-breadcrumbs-list" });
+    const afterEl = _.div({ class: "jss-breadcrumbs-after" });
     wrap.appendChild(beforeEl);
     wrap.appendChild(listEl);
     wrap.appendChild(afterEl);
@@ -653,7 +653,7 @@
     const resolveAccent = (value) => {
       const raw = uiUnwrap(value);
       if (raw == null || raw === "") return null;
-      return JSswift.uiColors?.includes(raw) ? `var(--cms-${raw})` : String(raw);
+      return JSswift.uiColors?.includes(raw) ? `var(--jss-${raw})` : String(raw);
     };
     const isExternalLink = (entry) => {
       if (!entry) return false;
@@ -778,8 +778,8 @@
       const ctx = { index, entry, previous: prev, next };
       const fallback = cloneIfNode(uiUnwrap((entry?.type === "item" ? entry.item?.separator : null) ?? props.separator ?? "/"));
       const nodes = renderNamedSlot(slots, "separator", ctx, fallback);
-      return _.li({ class: "cms-breadcrumbs-separator-item", "aria-hidden": "true" },
-        _.span({ class: "cms-breadcrumbs-separator" }, ...nodes)
+      return _.li({ class: "jss-breadcrumbs-separator-item", "aria-hidden": "true" },
+        _.span({ class: "jss-breadcrumbs-separator" }, ...nodes)
       );
     };
     const createCollapsedEntry = (entry, items, currentIndex) => {
@@ -792,15 +792,15 @@
         from: entry.from,
         to: entry.to
       };
-      const fallback = _.span({ class: "cms-breadcrumb cms-breadcrumb-collapsed" },
-        _.span({ class: "cms-breadcrumb-inner" },
-          _.span({ class: "cms-breadcrumb-copy" },
-            _.span({ class: "cms-breadcrumb-label" }, String(uiUnwrap(props.collapsedLabel) || "…"))
+      const fallback = _.span({ class: "jss-breadcrumb jss-breadcrumb-collapsed" },
+        _.span({ class: "jss-breadcrumb-inner" },
+          _.span({ class: "jss-breadcrumb-copy" },
+            _.span({ class: "jss-breadcrumb-label" }, String(uiUnwrap(props.collapsedLabel) || "…"))
           )
         )
       );
       const nodes = renderNamedSlot(slots, "collapsed", ctx, fallback, "item");
-      return _.li({ class: "cms-breadcrumbs-entry is-collapsed" }, ...nodes);
+      return _.li({ class: "jss-breadcrumbs-entry is-collapsed" }, ...nodes);
     };
     const createItemEntry = (entry, items, currentIndex, visibleIndex) => {
       const item = entry.item || {};
@@ -841,27 +841,27 @@
       const asideNodes = renderNamedSlot(slotBag, "aside", ctx, asideFallback);
       const defaultNodes = renderNamedSlot(slotBag, "default", ctx, defaultFallback);
 
-      const content = _.span({ class: "cms-breadcrumb-inner" },
-        iconNodes.length ? _.span({ class: "cms-breadcrumb-icon" }, ...iconNodes) : null,
-        _.span({ class: "cms-breadcrumb-copy" },
-          _.span({ class: "cms-breadcrumb-label" }, ...(labelNodes.length ? labelNodes : [href || ""])),
-          noteNodes.length ? _.span({ class: "cms-breadcrumb-note" }, ...noteNodes) : null,
-          defaultNodes.length ? _.span({ class: "cms-breadcrumb-extra" }, ...defaultNodes) : null
+      const content = _.span({ class: "jss-breadcrumb-inner" },
+        iconNodes.length ? _.span({ class: "jss-breadcrumb-icon" }, ...iconNodes) : null,
+        _.span({ class: "jss-breadcrumb-copy" },
+          _.span({ class: "jss-breadcrumb-label" }, ...(labelNodes.length ? labelNodes : [href || ""])),
+          noteNodes.length ? _.span({ class: "jss-breadcrumb-note" }, ...noteNodes) : null,
+          defaultNodes.length ? _.span({ class: "jss-breadcrumb-extra" }, ...defaultNodes) : null
         ),
-        badgeNodes.length ? _.span({ class: "cms-breadcrumb-badge" }, ...badgeNodes) : null,
-        asideNodes.length ? _.span({ class: "cms-breadcrumb-aside" }, ...asideNodes) : null
+        badgeNodes.length ? _.span({ class: "jss-breadcrumb-badge" }, ...badgeNodes) : null,
+        asideNodes.length ? _.span({ class: "jss-breadcrumb-aside" }, ...asideNodes) : null
       );
 
       const interactive = !disabled && (!current || !!uiUnwrap(item.linkCurrent ?? props.linkCurrent));
       const sharedProps = {
         class: uiClass([
-          "cms-breadcrumb",
-          "cms-clear-set",
-          "cms-singularity",
+          "jss-breadcrumb",
+          "jss-clear-set",
+          "jss-singularity",
           uiWhen(current, "is-current"),
           uiWhen(current, "active"),
           uiWhen(disabled, "is-disabled"),
-          state ? `cms-state-${state}` : "",
+          state ? `jss-state-${state}` : "",
           item.class
         ]),
         style: {
@@ -869,7 +869,7 @@
         },
         "aria-current": current ? String(uiUnwrap(item.ariaCurrent ?? props.ariaCurrent) || "page") : null
       };
-      if (accent) sharedProps.style["--cms-breadcrumb-accent"] = accent;
+      if (accent) sharedProps.style["--jss-breadcrumb-accent"] = accent;
 
       let node = null;
       if (interactive && href) {
@@ -912,7 +912,7 @@
       const rendered = renderNamedSlot(slotBag, "item", ctx, fallback);
       return _.li({
         class: uiClass([
-          "cms-breadcrumbs-entry",
+          "jss-breadcrumbs-entry",
           uiWhen(current, "is-current"),
           uiWhen(disabled, "is-disabled")
         ])
@@ -924,8 +924,8 @@
       const visibleItems = collapseItems(items);
       const accent = resolveAccent(props.color ?? props.state);
       wrap.classList.toggle("is-empty", items.length === 0);
-      if (accent) wrap.style.setProperty("--cms-breadcrumb-accent", accent);
-      else wrap.style.removeProperty("--cms-breadcrumb-accent");
+      if (accent) wrap.style.setProperty("--jss-breadcrumb-accent", accent);
+      else wrap.style.removeProperty("--jss-breadcrumb-accent");
 
       const rootCtx = {
         items,
@@ -940,7 +940,7 @@
       listEl.innerHTML = "";
       if (!items.length) {
         const emptyNodes = renderNamedSlot(slots, "empty", rootCtx, props.empty);
-        if (emptyNodes.length) listEl.appendChild(_.li({ class: "cms-breadcrumbs-entry is-empty" }, ...emptyNodes));
+        if (emptyNodes.length) listEl.appendChild(_.li({ class: "jss-breadcrumbs-entry is-empty" }, ...emptyNodes));
         return;
       }
 
@@ -982,12 +982,12 @@
     const model = resolveModel(props.model, "UI.Pagination:model");
     const sizeClass = uiComputed(props.size, () => {
       const v = uiUnwrap(props.size);
-      return (typeof v === "string" && sizeMap[v]) ? `cms-size-${v}` : "";
+      return (typeof v === "string" && sizeMap[v]) ? `jss-size-${v}` : "";
     });
     const wrap = _.nav({
       class: uiClass([
-        "cms-pagination",
-        "cms-clear-set",
+        "jss-pagination",
+        "jss-clear-set",
         sizeClass,
         uiWhen(props.dense, "dense"),
         uiWhen(props.simple, "is-simple"),
@@ -998,11 +998,11 @@
       role: "navigation",
       "aria-label": props.ariaLabel || "Pagination"
     });
-    const controls = _.div({ class: "cms-pagination-controls" });
-    const startGroup = _.div({ class: "cms-pagination-start" });
-    const pagesGroup = _.div({ class: "cms-pagination-pages" });
-    const endGroup = _.div({ class: "cms-pagination-end" });
-    const summary = _.div({ class: "cms-pagination-summary" });
+    const controls = _.div({ class: "jss-pagination-controls" });
+    const startGroup = _.div({ class: "jss-pagination-start" });
+    const pagesGroup = _.div({ class: "jss-pagination-pages" });
+    const endGroup = _.div({ class: "jss-pagination-end" });
+    const summary = _.div({ class: "jss-pagination-summary" });
 
     controls.appendChild(startGroup);
     controls.appendChild(pagesGroup);
@@ -1133,8 +1133,8 @@
       const ctx = { ...getCtx(), kind: name, active: !!options.active };
       return UI.Btn({
         class: uiClass([
-          "cms-pagination-btn",
-          `cms-pagination-${name}`,
+          "jss-pagination-btn",
+          `jss-pagination-${name}`,
           uiWhen(options.active, "active"),
           options.class
         ]),
@@ -1164,7 +1164,7 @@
 
       const startNodes = renderNamedSlot("start", props.start, ctx);
       if (startNodes.length) {
-        startGroup.appendChild(_.div({ class: "cms-pagination-extra cms-pagination-extra-start" }, ...startNodes));
+        startGroup.appendChild(_.div({ class: "jss-pagination-extra jss-pagination-extra-start" }, ...startNodes));
       }
 
       if (showFirst()) {
@@ -1183,15 +1183,15 @@
           if (item.type === "ellipsis") {
             const ellipsisCtx = { ...ctx, kind: "ellipsis" };
             const ellipsisNodes = renderNamedSlot("ellipsis", "…", ellipsisCtx);
-            pagesGroup.appendChild(_.span({ class: "cms-pagination-ellipsis", "aria-hidden": "true" }, ...ellipsisNodes));
+            pagesGroup.appendChild(_.span({ class: "jss-pagination-ellipsis", "aria-hidden": "true" }, ...ellipsisNodes));
             return;
           }
           const itemPage = item.page;
           const itemCtx = { ...ctx, page: itemPage, value: itemPage, item, active: itemPage === currentPage };
           pagesGroup.appendChild(UI.Btn({
             class: uiClass([
-              "cms-pagination-btn",
-              "cms-pagination-page-btn",
+              "jss-pagination-btn",
+              "jss-pagination-page-btn",
               uiWhen(itemPage === currentPage, "active")
             ]),
             size: props.itemSize || props.size || (props.dense ? "sm" : "md"),
@@ -1217,7 +1217,7 @@
 
       const endNodes = renderNamedSlot("end", props.end, ctx);
       if (endNodes.length) {
-        endGroup.appendChild(_.div({ class: "cms-pagination-extra cms-pagination-extra-end" }, ...endNodes));
+        endGroup.appendChild(_.div({ class: "jss-pagination-extra jss-pagination-extra-end" }, ...endNodes));
       }
 
       let summaryText = `Pagina ${currentPage} di ${currentPages}`;

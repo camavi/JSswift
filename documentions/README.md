@@ -12,6 +12,7 @@ Build applications with JSswift by reading only the smallest focused guide. Exac
 | State and controlled inputs | [reactivity.md](reactivity.md) |
 | Layout and breakpoints | [ui/layout-and-responsive.md](ui/layout-and-responsive.md) |
 | Forms | [ui/forms.md](ui/forms.md) |
+| Base CSS, theme tokens and component colors | [ui/themes.md](ui/themes.md) |
 | Router, store, HTTP, auth, themes | [platform.md](platform.md) |
 | Tables, feedback, dialogs, menus | [ui/data-feedback-overlays.md](ui/data-feedback-overlays.md) |
 | Exact component API | components/<component>.md only |

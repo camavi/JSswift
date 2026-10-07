@@ -102,13 +102,13 @@
     const rowSpaceValue = (value) => {
       if (value == null || value === false || value === "") return "";
       if (typeof value === "number") return `${value}px`;
-      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return `var(--cms-s-${value})`;
+      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return `var(--jss-s-${value})`;
       return String(value);
     };
     const rowWidthValue = (value) => {
       if (value == null || value === false || value === "") return "";
       if (typeof value === "number") return `${value}px`;
-      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return `var(--cms-w-${value})`;
+      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return `var(--jss-w-${value})`;
       return String(value);
     };
 
@@ -122,7 +122,7 @@
       ...JSswift.uiResponsiveOmitProps
     ]);
     p.class = uiClass([
-      "cms-row",
+      "jss-row",
       JSswift.uiResponsiveClasses({ mobile: props }, uiResponsiveLayoutRules),
       JSswift.uiResponsiveClasses(props, uiResponsiveLayoutRules),
       props.class
@@ -203,14 +203,14 @@
 
     const parts = [
       startNodes.length
-        ? _.div({ class: uiClass(["cms-row-start", props.startClass]), style: { ...regionStyle } }, ...startNodes)
+        ? _.div({ class: uiClass(["jss-row-start", props.startClass]), style: { ...regionStyle } }, ...startNodes)
         : null,
       bodyNodes.length
-        ? _.div({ class: uiClass(["cms-row-body", bodyClass]), style: { ...regionStyle, flex: "1 1 auto" } }, ...bodyNodes)
+        ? _.div({ class: uiClass(["jss-row-body", bodyClass]), style: { ...regionStyle, flex: "1 1 auto" } }, ...bodyNodes)
         : null,
       endNodes.length
         ? _.div({
-          class: uiClass(["cms-row-end", props.endClass]),
+          class: uiClass(["jss-row-end", props.endClass]),
           style: {
             ...regionStyle,
             justifyContent: "flex-end",
@@ -342,7 +342,7 @@
     const resolveSpaceValue = (value) => {
       if (value == null || value === false || value === "") return "";
       if (typeof value === "number") return `${value}px`;
-      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return `var(--cms-s-${value})`;
+      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return `var(--jss-s-${value})`;
       return String(value);
     };
     const resolveSizeValue = (value) => {
@@ -353,7 +353,7 @@
     const resolveSpanClass = (value, prefix) => {
       const raw = uiUnwrap(value);
       if (raw == null || raw === false || raw === "") return "";
-      if (raw === "auto") return prefix === "cms-col-" ? "cms-col-auto" : "";
+      if (raw === "auto") return prefix === "jss-col-" ? "jss-col-auto" : "";
       if (raw === true) return `${prefix}24`;
       const n = Number(raw);
       if (Number.isFinite(n) && n > 0) {
@@ -384,9 +384,9 @@
     };
 
     const baseColClass = uiComputed([rawProps.auto, rawProps.col, rawProps.span], () => {
-      if (uiUnwrap(rawProps.auto)) return "cms-col-auto";
+      if (uiUnwrap(rawProps.auto)) return "jss-col-auto";
       const spanSource = hasOwn("span") ? rawProps.span : rawProps.col;
-      return resolveSpanClass(spanSource, "cms-col-") || "cms-col";
+      return resolveSpanClass(spanSource, "jss-col-") || "jss-col";
     });
 
     const p = JSswift.omit(rawProps, [
@@ -496,15 +496,15 @@
     });
 
     p.class = uiClass([
-      "cms-col",
+      "jss-col",
       baseColClass,
-      uiComputed(rawProps.sm, () => resolveSpanClass(rawProps.sm, "cms-sm-col-")),
-      uiComputed(rawProps.md, () => resolveSpanClass(rawProps.md, "cms-md-col-")),
-      uiComputed(rawProps.lg, () => resolveSpanClass(rawProps.lg, "cms-lg-col-")),
+      uiComputed(rawProps.sm, () => resolveSpanClass(rawProps.sm, "jss-sm-col-")),
+      uiComputed(rawProps.md, () => resolveSpanClass(rawProps.md, "jss-md-col-")),
+      uiComputed(rawProps.lg, () => resolveSpanClass(rawProps.lg, "jss-lg-col-")),
       JSswift.uiResponsiveClasses({ mobile: rawProps }, uiResponsiveColRules),
       JSswift.uiResponsiveClasses(rawProps, uiResponsiveColRules),
-      uiWhen(useFlexLayout, "cms-col-flex"),
-      uiWhen(rawProps.inline, "cms-col-inline"),
+      uiWhen(useFlexLayout, "jss-col-flex"),
+      uiWhen(rawProps.inline, "jss-col-inline"),
       rawProps.class
     ]);
 
@@ -533,19 +533,19 @@
     const parts = [
       startNodes.length
         ? _.div({
-          class: uiClass(["cms-col-start", rawProps.startClass, rawProps.topClass, rawProps.headerClass]),
+          class: uiClass(["jss-col-start", rawProps.startClass, rawProps.topClass, rawProps.headerClass]),
           style: { ...sectionStyle }
         }, ...startNodes)
         : null,
       bodyNodes.length
         ? _.div({
-          class: uiClass(["cms-col-body", rawProps.bodyClass, rawProps.contentClass]),
+          class: uiClass(["jss-col-body", rawProps.bodyClass, rawProps.contentClass]),
           style: { ...sectionStyle, flex: "1 1 auto" }
         }, ...bodyNodes)
         : null,
       endNodes.length
         ? _.div({
-          class: uiClass(["cms-col-end", rawProps.endClass, rawProps.bottomClass, rawProps.footerClass]),
+          class: uiClass(["jss-col-end", rawProps.endClass, rawProps.bottomClass, rawProps.footerClass]),
           style: { ...sectionStyle }
         }, ...endNodes)
         : null
@@ -561,7 +561,7 @@
     const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const p = JSswift.omit(props, ["slots"]);
-    p.class = uiClass(["cms-spacer", props.class]);
+    p.class = uiClass(["jss-spacer", props.class]);
     const content = renderSlotToArray(slots, "default", {}, children);
     return _.div(p, ...content);
   };
@@ -595,7 +595,7 @@
     const resolveSpaceValue = (value) => {
       if (value == null || value === false || value === "") return "";
       if (typeof value === "number") return `${value}px`;
-      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return `var(--cms-s-${value})`;
+      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return `var(--jss-s-${value})`;
       return String(value);
     };
     const resolveColsValue = (value) => {
@@ -631,7 +631,7 @@
         return renderSlotToArray(slots, name, ctx, null);
       }
       if (typeof fallback === "function") {
-        const host = _.div({ class: `cms-container-slot-${name}` });
+        const host = _.div({ class: `jss-container-slot-${name}` });
         JSswift.reactive.effect(() => {
           const normalized = flattenSlotValue(JSswift.ui.slot(fallback(ctx)));
           host.replaceChildren();
@@ -699,16 +699,16 @@
     }));
     assignStyle("width", uiStyleValue(rawProps.width, resolveWidthValue));
     assignStyle("minWidth", uiStyleValue(rawProps.minWidth, resolveWidthValue));
-    assignStyle("--cms-container-padding", uiStyleValue(rawProps.padding, resolveSpaceValue));
-    assignStyle("--cms-container-padding-x", uiStyleValue(rawProps.paddingX ?? rawProps.gutter, resolveSpaceValue));
-    assignStyle("--cms-container-padding-y", uiStyleValue(rawProps.paddingY, resolveSpaceValue));
-    assignStyle("--cms-container-gap", uiStyleValue(rawProps.gap, resolveSpaceValue));
-    assignStyle("--cms-container-section-gap", uiStyleValue(rawProps.sectionGap ?? rawProps.gap, resolveSpaceValue));
-    assignStyle("--cms-container-cols", uiStyleValue(rawProps.cols, resolveColsValue));
-    assignStyle("--cms-container-align", uiStyleValue(rawProps.align, (value) => String(value)));
-    assignStyle("--cms-container-justify", uiStyleValue(rawProps.justify, (value) => String(value)));
-    assignStyle("--cms-container-direction", uiStyleValue(rawProps.direction, (value) => String(value)));
-    assignStyle("--cms-container-wrap", uiStyleValue(rawProps.wrap, resolveWrapValue));
+    assignStyle("--jss-container-padding", uiStyleValue(rawProps.padding, resolveSpaceValue));
+    assignStyle("--jss-container-padding-x", uiStyleValue(rawProps.paddingX ?? rawProps.gutter, resolveSpaceValue));
+    assignStyle("--jss-container-padding-y", uiStyleValue(rawProps.paddingY, resolveSpaceValue));
+    assignStyle("--jss-container-gap", uiStyleValue(rawProps.gap, resolveSpaceValue));
+    assignStyle("--jss-container-section-gap", uiStyleValue(rawProps.sectionGap ?? rawProps.gap, resolveSpaceValue));
+    assignStyle("--jss-container-cols", uiStyleValue(rawProps.cols, resolveColsValue));
+    assignStyle("--jss-container-align", uiStyleValue(rawProps.align, (value) => String(value)));
+    assignStyle("--jss-container-justify", uiStyleValue(rawProps.justify, (value) => String(value)));
+    assignStyle("--jss-container-direction", uiStyleValue(rawProps.direction, (value) => String(value)));
+    assignStyle("--jss-container-wrap", uiStyleValue(rawProps.wrap, resolveWrapValue));
 
     const p = JSswift.omit(props, [
       "after", "afterClass", "align", "as", "before", "beforeClass", "body", "bodyClass",
@@ -719,7 +719,7 @@
       "start", "startClass", "tag", "top", "width", "wrap"
     ]);
     p.class = uiClass([
-      "cms-container",
+      "jss-container",
       uiWhen(rawProps.fluid, "is-fluid"),
       uiWhen(hasStructuredLayout, "has-structure"),
       hasStructuredLayout ? "" : layoutClass,
@@ -730,17 +730,17 @@
 
     const createSection = (name, nodes, extraClass) => {
       if (!nodes.length) return null;
-      return _.div({ class: uiClass(["cms-container-section", `cms-container-${name}`, extraClass]) }, ...nodes);
+      return _.div({ class: uiClass(["jss-container-section", `jss-container-${name}`, extraClass]) }, ...nodes);
     };
 
     const contentRoot = bodyNodes.length
-      ? _.div({ class: uiClass(["cms-container-body", hasStructuredLayout ? layoutClass : "", rawProps.bodyClass]) }, ...bodyNodes)
+      ? _.div({ class: uiClass(["jss-container-body", hasStructuredLayout ? layoutClass : "", rawProps.bodyClass]) }, ...bodyNodes)
       : (
         (startNodes.length || contentNodes.length || endNodes.length)
           ? _.div(
-            { class: uiClass(["cms-container-body", hasStructuredLayout ? layoutClass : "", rawProps.bodyClass]) },
+            { class: uiClass(["jss-container-body", hasStructuredLayout ? layoutClass : "", rawProps.bodyClass]) },
             createSection("start", startNodes, rawProps.startClass),
-            contentNodes.length ? _.div({ class: uiClass(["cms-container-main", rawProps.mainClass, rawProps.contentClass]) }, ...contentNodes) : null,
+            contentNodes.length ? _.div({ class: uiClass(["jss-container-main", rawProps.mainClass, rawProps.contentClass]) }, ...contentNodes) : null,
             createSection("end", endNodes, rawProps.endClass)
           )
           : null
@@ -773,7 +773,7 @@
     applyCommonProps(props);
 
     const isSectionNode = (node, name) => {
-      return !!(node && node.nodeType === 1 && node.classList?.contains(`cms-card-${name}`));
+      return !!(node && node.nodeType === 1 && node.classList?.contains(`jss-card-${name}`));
     };
     const renderIconFallback = (value) => {
       if (value == null) return null;
@@ -785,7 +785,7 @@
       ? _.img({
         src: rawProps.image,
         alt: rawProps.imageAlt || "",
-        class: uiClass(["cms-card-cover-media", rawProps.imageClass]),
+        class: uiClass(["jss-card-cover-media", rawProps.imageClass]),
         style: rawProps.imageStyle
       })
       : rawProps.cover;
@@ -834,50 +834,50 @@
     const actionsNodes = renderSlotToArray(slots, "actions", ctx, rawProps.actions);
 
     const generatedIdentifier = identifierNodes.length
-      ? _.div({ class: uiClass(["cms-card-identifier", rawProps.identifierClass]) }, ...identifierNodes)
+      ? _.div({ class: uiClass(["jss-card-identifier", rawProps.identifierClass]) }, ...identifierNodes)
       : null;
     const generatedCover = coverNodes.length
-      ? _.div({ class: uiClass(["cms-card-cover", rawProps.coverClass]) }, ...coverNodes)
+      ? _.div({ class: uiClass(["jss-card-cover", rawProps.coverClass]) }, ...coverNodes)
       : null;
     const generatedMedia = mediaNodes.length
-      ? _.div({ class: uiClass(["cms-card-media", rawProps.mediaClass]) }, ...mediaNodes)
+      ? _.div({ class: uiClass(["jss-card-media", rawProps.mediaClass]) }, ...mediaNodes)
       : null;
 
     const hasStructuredHeader = iconNodes.length || eyebrowNodes.length || titleNodes.length || subtitleNodes.length || headerNodes.length || asideNodes.length;
     const generatedHeader = hasStructuredHeader
       ? _.div(
-        { class: uiClass(["cms-card-header", rawProps.headerClass]) },
+        { class: uiClass(["jss-card-header", rawProps.headerClass]) },
         _.div(
-          { class: "cms-card-head" },
-          iconNodes.length ? _.div({ class: "cms-card-icon" }, ...iconNodes) : null,
+          { class: "jss-card-head" },
+          iconNodes.length ? _.div({ class: "jss-card-icon" }, ...iconNodes) : null,
           _.div(
-            { class: "cms-card-head-main" },
-            eyebrowNodes.length ? _.div({ class: uiClass(["cms-card-eyebrow", rawProps.eyebrowClass]) }, ...eyebrowNodes) : null,
-            titleNodes.length ? _.div({ class: uiClass(["cms-card-title", rawProps.titleClass]) }, ...titleNodes) : null,
-            subtitleNodes.length ? _.div({ class: uiClass(["cms-card-subtitle", rawProps.subtitleClass]) }, ...subtitleNodes) : null,
-            headerNodes.length ? _.div({ class: uiClass(["cms-card-header-content", rawProps.headerContentClass]) }, ...headerNodes) : null
+            { class: "jss-card-head-main" },
+            eyebrowNodes.length ? _.div({ class: uiClass(["jss-card-eyebrow", rawProps.eyebrowClass]) }, ...eyebrowNodes) : null,
+            titleNodes.length ? _.div({ class: uiClass(["jss-card-title", rawProps.titleClass]) }, ...titleNodes) : null,
+            subtitleNodes.length ? _.div({ class: uiClass(["jss-card-subtitle", rawProps.subtitleClass]) }, ...subtitleNodes) : null,
+            headerNodes.length ? _.div({ class: uiClass(["jss-card-header-content", rawProps.headerContentClass]) }, ...headerNodes) : null
           ),
-          asideNodes.length ? _.div({ class: uiClass(["cms-card-aside", rawProps.asideClass]) }, ...asideNodes) : null
+          asideNodes.length ? _.div({ class: uiClass(["jss-card-aside", rawProps.asideClass]) }, ...asideNodes) : null
         )
       )
       : null;
 
     const mergedBodyNodes = [...bodyNodes, ...looseNodes];
     const generatedBody = mergedBodyNodes.length
-      ? _.div({ class: uiClass(["cms-card-body", rawProps.bodyClass]) }, ...mergedBodyNodes)
+      ? _.div({ class: uiClass(["jss-card-body", rawProps.bodyClass]) }, ...mergedBodyNodes)
       : null;
 
     const mergedActionNodes = [...actionsNodes, ...sectionNodes.actions];
     const generatedFooter = (footerNodes.length || mergedActionNodes.length)
       ? _.div(
-        { class: uiClass(["cms-card-footer", rawProps.footerClass]) },
+        { class: uiClass(["jss-card-footer", rawProps.footerClass]) },
         ...footerNodes,
-        mergedActionNodes.length ? _.div({ class: "cms-card-actions" }, ...mergedActionNodes) : null
+        mergedActionNodes.length ? _.div({ class: "jss-card-actions" }, ...mergedActionNodes) : null
       )
       : null;
 
     const interactiveClass = uiComputed([rawProps.clickable, rawProps.to], () => {
-      return (uiUnwrap(rawProps.clickable) || uiUnwrap(rawProps.to)) ? "cms-card-clickable" : "";
+      return (uiUnwrap(rawProps.clickable) || uiUnwrap(rawProps.to)) ? "jss-card-clickable" : "";
     });
     const hasIdentifier = identifierNodes.length || sectionNodes.identifier.length;
     const hasTopVisual = coverNodes.length || sectionNodes.cover.length || mediaNodes.length || sectionNodes.media.length;
@@ -892,20 +892,20 @@
       "cols", "columns"
     ]);
     p.class = uiClass([
-      "cms-panel",
-      "cms-card",
-      'cms-clear-set',
-      "cms-singularity",
-      uiWhen(rawProps.flat, "cms-card-flat"),
-      uiWhen(rawProps.dense, "cms-card-dense"),
-      uiWhen(hasIdentifier, "cms-card-has-identifier"),
-      uiWhen(hasTopVisual, "cms-card-has-top-visual"),
+      "jss-panel",
+      "jss-card",
+      'jss-clear-set',
+      "jss-singularity",
+      uiWhen(rawProps.flat, "jss-card-flat"),
+      uiWhen(rawProps.dense, "jss-card-dense"),
+      uiWhen(hasIdentifier, "jss-card-has-identifier"),
+      uiWhen(hasTopVisual, "jss-card-has-top-visual"),
       interactiveClass,
       props.class
     ]);
     p.style = { ...(props.style || {}) };
     if (rawProps.coverHeight != null) {
-      p.style["--cms-card-cover-height"] = toCssSize(uiUnwrap(rawProps.coverHeight));
+      p.style["--jss-card-cover-height"] = toCssSize(uiUnwrap(rawProps.coverHeight));
     }
     JSswift.uiApplyResponsiveProps(p, rawProps, JSswift.uiResponsiveStyleRules);
 
@@ -966,7 +966,7 @@
         : (uiUnwrap(props.state) || "");
     });
 
-    const cls = uiClass(["cms-clear-set", "cms-btn", "cms-singularity", "cms-clickable", state, uiWhen(props.outline, "outline"), props.class]);
+    const cls = uiClass(["jss-clear-set", "jss-btn", "jss-singularity", "jss-clickable", state, uiWhen(props.outline, "outline"), props.class]);
 
     const p = JSswift.omit(props, [
       "icon", "iconRight", "label", "loading", "loadingText", "disabled", "outline", "iconAlign", "slots",
@@ -1007,12 +1007,12 @@
       if (slotChildren.length) content.push(...slotChildren);
     }
     pushAll(iconRight);
-    pushAll(uiCreateShortcodeHint(props, { className: "cms-shortcode cms-btn-shortcode" }));
+    pushAll(uiCreateShortcodeHint(props, { className: "jss-shortcode jss-btn-shortcode" }));
 
     if (content.length === 0) content.push(_.span("Button"));
 
-    const loadingNode = _.span({ class: "cms-btn-loading", hidden: true });
-    const contentNode = _.span({ class: "cms-btn-content" }, ...content);
+    const loadingNode = _.span({ class: "jss-btn-loading", hidden: true });
+    const contentNode = _.span({ class: "jss-btn-content" }, ...content);
     let loadingVisible = false;
     const renderLoadingContent = () => {
       const fallback = UI.Spinner
@@ -1023,7 +1023,7 @@
             label: props.loadingText || null,
             "aria-label": props.loadingText ? null : "Loading"
           })
-        : _.span({ class: "cms-muted", style: { marginRight: "8px" } }, props.loadingText || "Loading");
+        : _.span({ class: "jss-muted", style: { marginRight: "8px" } }, props.loadingText || "Loading");
       return renderSlotToArray(null, "default", {}, JSswift.ui.renderSlot(slots, "loading", {}, fallback));
     };
 
@@ -1034,11 +1034,11 @@
       const rect = btn.getBoundingClientRect();
       const x = typeof e.clientX === "number" ? e.clientX - rect.left : rect.width / 2;
       const y = typeof e.clientY === "number" ? e.clientY - rect.top : rect.height / 2;
-      btn.style.setProperty("--cms-burst-x", `${x}px`);
-      btn.style.setProperty("--cms-burst-y", `${y}px`);
-      btn.classList.remove("cms-btn-burst");
+      btn.style.setProperty("--jss-burst-x", `${x}px`);
+      btn.style.setProperty("--jss-burst-y", `${y}px`);
+      btn.classList.remove("jss-btn-burst");
       void btn.offsetWidth;
-      btn.classList.add("cms-btn-burst");
+      btn.classList.add("jss-btn-burst");
     };
 
     const btn = _.button({
@@ -1105,11 +1105,11 @@
         : (uiUnwrap(props.state) || "");
     });
 
-    const wrap = _.div({ class: uiClass(["cms-clear-field-set", "cms-field", "cms-singularity-field", state, uiWhen(props.fill, "cms-field-fill"), uiWhen(props.outline, "outline"), props.wrapClass, props.class]) });
+    const wrap = _.div({ class: uiClass(["jss-clear-field-set", "jss-field", "jss-singularity-field", state, uiWhen(props.fill, "jss-field-fill"), uiWhen(props.outline, "outline"), props.wrapClass, props.class]) });
 
     const topLabelNodes = renderSlotToArray(slots, "topLabel", {}, props.topLabel);
     if (topLabelNodes.length) {
-      wrap.appendChild(_.div({ class: "cms-field-label" }, ...topLabelNodes));
+      wrap.appendChild(_.div({ class: "jss-field-label" }, ...topLabelNodes));
     }
     const isMulti = props.multi || props.multiple;
 
@@ -1140,13 +1140,13 @@
 
     if (controlSlot) {
       control = Array.isArray(controlSlot)
-        ? _.div({ class: "cms-control" }, ...controlSlot)
+        ? _.div({ class: "jss-control" }, ...controlSlot)
         : controlSlot;
     } else {
-      control = _.div({ class: "cms-control" });
+      control = _.div({ class: "jss-control" });
 
       // left addon
-      const left = _.div({ class: "cms-addon cms-addon-left" });
+      const left = _.div({ class: "jss-addon jss-addon-left" });
       const iconFallback = props.icon != null
         ? (typeof props.icon === "string" ? UI.Icon({ name: props.icon }) : props.icon)
         : null;
@@ -1157,12 +1157,12 @@
       if (left.childNodes.length) control.appendChild(left);
 
       // middle: controlEl + floating label
-      const mid = _.div({ class: "cms-mid" + (left.childNodes.length > 0 ? " cms-with-left" : ""), style: { position: "relative", flex: "1", minWidth: "0" } });
+      const mid = _.div({ class: "jss-mid" + (left.childNodes.length > 0 ? " jss-with-left" : ""), style: { position: "relative", flex: "1", minWidth: "0" } });
       if (controlEl) mid.appendChild(controlEl);
 
       const labelNodes = renderSlotToArray(slots, "label", {}, props.label);
       if (labelNodes.length) {
-        const floatLabel = _.div({ class: uiClass(["cms-float-label", uiWhen(isMulti, "cms-multiselect")]) }, ...labelNodes);
+        const floatLabel = _.div({ class: uiClass(["jss-float-label", uiWhen(isMulti, "jss-multiselect")]) }, ...labelNodes);
         mid.appendChild(floatLabel);
       }
 
@@ -1170,7 +1170,7 @@
 
       // clear
       const defaultClear = props.clearable ? _.div({
-        class: "cms-clear",
+        class: "jss-clear",
         title: "Clear",
         onClick: clear
       }, UI.Icon({ name: "close" })) : null;
@@ -1192,23 +1192,23 @@
 
       clearBtn = defaultClear;
       if (clearBtn && props.clearable?.action) {
-        props.clearable.action((v) => v ? clearBtn.classList.remove("cms-d-none") : clearBtn.classList.add("cms-d-none"));
+        props.clearable.action((v) => v ? clearBtn.classList.remove("jss-d-none") : clearBtn.classList.add("jss-d-none"));
       }
 
       // right addon
-      const right = _.div({ class: "cms-addon cms-addon-right" });
+      const right = _.div({ class: "jss-addon jss-addon-right" });
       const iconRightFallback = props.iconRight != null
         ? (typeof props.iconRight === "string" ? UI.Icon({ name: props.iconRight }) : props.iconRight)
         : null;
       const iconRightNode = JSswift.ui.renderSlot(slots, "iconRight", {}, iconRightFallback);
       const suffixNode = JSswift.ui.renderSlot(slots, "suffix", {}, props.suffix);
-      const shortcodeNode = JSswift.ui.renderSlot(slots, "shortcode", { props }, uiCreateShortcodeHint(props, { className: "cms-shortcode cms-field-shortcode" }));
+      const shortcodeNode = JSswift.ui.renderSlot(slots, "shortcode", { props }, uiCreateShortcodeHint(props, { className: "jss-shortcode jss-field-shortcode" }));
       renderSlotToArray(null, "default", {}, suffixNode).forEach(n => right.appendChild(n));
       renderSlotToArray(null, "default", {}, iconRightNode).forEach(n => right.appendChild(n));
       renderSlotToArray(null, "default", {}, shortcodeNode).forEach(n => right.appendChild(n));
       if (right.childNodes.length) {
         control.appendChild(right);
-        mid.classList.add("cms-with-right");
+        mid.classList.add("jss-with-right");
       }
     }
 
@@ -1235,11 +1235,11 @@
     wrap._syncDescription = syncDescription;
     const renderMessage = () => {
       const statusOrder = [
-        { key: "error", value: resolveValue(props.error), slot: "errorMessage", className: "cms-error" },
-        { key: "warning", value: resolveValue(props.warning), slot: "warning", className: "cms-warning" },
-        { key: "success", value: resolveValue(props.success), slot: "success", className: "cms-success" },
-        { key: "note", value: resolveValue(props.note), slot: "note", className: "cms-note" },
-        { key: "hint", value: resolveValue(props.hint), slot: "hint", className: "cms-hint" }
+        { key: "error", value: resolveValue(props.error), slot: "errorMessage", className: "jss-error" },
+        { key: "warning", value: resolveValue(props.warning), slot: "warning", className: "jss-warning" },
+        { key: "success", value: resolveValue(props.success), slot: "success", className: "jss-success" },
+        { key: "note", value: resolveValue(props.note), slot: "note", className: "jss-note" },
+        { key: "hint", value: resolveValue(props.hint), slot: "hint", className: "jss-hint" }
       ];
       let active = null;
       for (const item of statusOrder) {
@@ -1326,7 +1326,7 @@
 
   UI.InputRaw = (props = {}) => {
     const el = _.input({
-      class: uiClass(["cms-input-raw", props.class]),
+      class: uiClass(["jss-input-raw", props.class]),
       type: props.type || "text",
       name: props.name,
       placeholder: props.placeholder,
@@ -1388,7 +1388,7 @@
     el.addEventListener("input", () => { lastKnownValue = el.value ?? ""; });
     el.addEventListener("change", () => { lastKnownValue = el.value ?? ""; });
     el.addEventListener("animationstart", (e) => {
-      if (e.animationName !== "cms-autofill") return;
+      if (e.animationName !== "jss-autofill") return;
       syncAutofill();
       startAutofillWatch();
       scheduleAutofillProbe();
@@ -1464,7 +1464,7 @@
       label: props.label ?? props.placeholder
     };
     const input = _.input({
-      class: uiClass(["cms-input", props.class]),
+      class: uiClass(["jss-input", props.class]),
       type: props.type || "text",
       name: props.name,
       autocomplete: props.autocomplete,
@@ -1547,7 +1547,7 @@
       autofillLater(syncAutofill, 0);
     });
     input.addEventListener("animationstart", (e) => {
-      if (e.animationName !== "cms-autofill") return;
+      if (e.animationName !== "jss-autofill") return;
       syncAutofill();
       startAutofillWatch();
       scheduleAutofillProbe();
@@ -1659,10 +1659,10 @@
     const fieldProps = {
       ...props,
       label: props.label ?? props.placeholder,
-      wrapClass: uiClass(["cms-textarea-field", props.wrapClass])
+      wrapClass: uiClass(["jss-textarea-field", props.wrapClass])
     };
     const textarea = _.textarea({
-      class: uiClass(["cms-input", "cms-textarea", props.class]),
+      class: uiClass(["jss-input", "jss-textarea", props.class]),
       name: props.name,
       autocomplete: props.autocomplete,
       inputmode: props.inputmode,
@@ -1807,7 +1807,7 @@
     const [getResults, setResults] = JSswift.reactive.signal([]);
     const [getActive, setActive] = JSswift.reactive.signal(-1);
 
-    const uid = `cms-search-${Math.random().toString(36).slice(2, 10)}`;
+    const uid = `jss-search-${Math.random().toString(36).slice(2, 10)}`;
     const cache = new Map();
     let modelSet = null;
     let searchTimer = null;
@@ -2021,16 +2021,16 @@
       if (index < 0) return [document.createTextNode(text)];
       return [
         document.createTextNode(text.slice(0, index)),
-        _.mark({ class: "cms-search-highlight" }, text.slice(index, index + q.length)),
+        _.mark({ class: "jss-search-highlight" }, text.slice(index, index + q.length)),
         document.createTextNode(text.slice(index + q.length))
       ];
     };
     const renderDefaultResult = (item) => {
       const label = getLabel(item);
       const description = item && typeof item === "object" ? (item.description ?? item.subtitle ?? item.note) : null;
-      return _.div({ class: "cms-search-result-content" },
-        _.div({ class: "cms-search-result-label" }, ...renderHighlightedLabel(label)),
-        description ? _.div({ class: "cms-search-result-description" }, String(description)) : null
+      return _.div({ class: "jss-search-result-content" },
+        _.div({ class: "jss-search-result-label" }, ...renderHighlightedLabel(label)),
+        description ? _.div({ class: "jss-search-result-description" }, String(description)) : null
       );
     };
     const scheduleMenuPosition = () => {
@@ -2108,7 +2108,7 @@
 
     const input = _.input({
       id: props.id,
-      class: uiClass(["cms-input", "cms-search-input", props.inputClass]),
+      class: uiClass(["jss-input", "jss-search-input", props.inputClass]),
       type: "search",
       name: props.name,
       placeholder: hasFloatingLabel ? "" : props.placeholder,
@@ -2125,16 +2125,16 @@
 
     const resultsWrap = _.div({
       id: `${uid}-list`,
-      class: "cms-search-results",
+      class: "jss-search-results",
       role: "listbox"
     });
     const menu = _.div({
-      class: uiClass(["cms-search-menu", "cms-singularity-menu-select", props.menuClass, uiWhen(props.fill, "cms-select-menu-fill")]),
-      "data-cms-overlay-portal": "true",
+      class: uiClass(["jss-search-menu", "jss-singularity-menu-select", props.menuClass, uiWhen(props.fill, "jss-select-menu-fill")]),
+      "data-jss-overlay-portal": "true",
       onClick: (event) => event.stopPropagation()
     }, resultsWrap);
     const root = _.div({
-      class: uiClass(["cms-search", props.class]),
+      class: uiClass(["jss-search", props.class]),
       role: "presentation"
     }, input, menu);
 
@@ -2255,16 +2255,16 @@
 
       if (loading) {
         const loadingNode = JSswift.ui.renderSlot(slots, "loading", { query }, props.loadingText || "Caricamento...");
-        resultsWrap.appendChild(_.div({ class: "cms-search-empty is-loading" }, ...renderSlotToArray(null, "default", {}, loadingNode)));
+        resultsWrap.appendChild(_.div({ class: "jss-search-empty is-loading" }, ...renderSlotToArray(null, "default", {}, loadingNode)));
       } else if (error) {
         const errorNode = JSswift.ui.renderSlot(slots, "error", { error, query }, props.errorText || "Errore ricerca");
-        resultsWrap.appendChild(_.div({ class: "cms-search-empty is-error" }, ...renderSlotToArray(null, "default", {}, errorNode)));
+        resultsWrap.appendChild(_.div({ class: "jss-search-empty is-error" }, ...renderSlotToArray(null, "default", {}, errorNode)));
       } else if (!results.length) {
         const enoughQuery = query.trim().length >= minLength();
         const emptyDefault = enoughQuery ? (props.emptyText || "Nessun risultato") : (props.startText || "");
         const emptyNode = JSswift.ui.renderSlot(slots, "empty", { query }, emptyDefault);
         if (emptyDefault || JSswift.ui.getSlot(slots, "empty") != null) {
-          resultsWrap.appendChild(_.div({ class: "cms-search-empty" }, ...renderSlotToArray(null, "default", {}, emptyNode)));
+          resultsWrap.appendChild(_.div({ class: "jss-search-empty" }, ...renderSlotToArray(null, "default", {}, emptyNode)));
         }
       } else {
         results.forEach((item, index) => {
@@ -2283,7 +2283,7 @@
           }, renderDefaultResult(item));
           const node = _.div({
             id: `${uid}-result-${index}`,
-            class: uiClass(["cms-search-result", selected ? "active" : ""]),
+            class: uiClass(["jss-search-result", selected ? "active" : ""]),
             role: "option",
             "aria-selected": selected ? "true" : "false",
             onMouseEnter: () => setActive(index),
@@ -2319,7 +2319,7 @@
     field = UI.FormField({
       ...props,
       icon: props.icon ?? "search",
-      wrapClass: uiClass(["cms-search-field", props.wrapClass]),
+      wrapClass: uiClass(["jss-search-field", props.wrapClass]),
       control: root,
       getValue: () => getQuery(),
       onClear: () => {
@@ -2580,7 +2580,7 @@
 
     // root select (control + menu)
     const root = _.div({
-      class: uiClass(["cms-select", isMulti ? "multiple" : "", props.class]),
+      class: uiClass(["jss-select", isMulti ? "multiple" : "", props.class]),
       tabIndex: isDisabled() ? -1 : 0,
       role: "combobox",
       "aria-expanded": "false",
@@ -2588,7 +2588,7 @@
     });
 
     const valueNode = _.div({
-      class: uiClass(["cms-select-value", isMulti ? "cms-select-value-multi" : ""])
+      class: uiClass(["jss-select-value", isMulti ? "jss-select-value-multi" : ""])
     });
     scope.effect(() => {
       const flat = getFlat();
@@ -2636,28 +2636,28 @@
       }
     }, "UI.Select:value");
 
-    const arrowWrap = _.div({ class: "cms-select-arrow" });
+    const arrowWrap = _.div({ class: "jss-select-arrow" });
     scope.effect(() => {
       const arrowNode = JSswift.ui.renderSlot(slots, "arrow", { open: getOpen() }, UI.Icon("#chevron-down"));
       arrowWrap.innerHTML = "";
       renderSlotToArray(null, "default", {}, arrowNode).forEach(n => arrowWrap.appendChild(n));
     }, "UI.Select:arrow");
 
-    const control = _.div({ class: "cms-select-control", onClick: toggle },
+    const control = _.div({ class: "jss-select-control", onClick: toggle },
       valueNode,
       arrowWrap
     );
 
     const optionsWrap = _.div({
-      class: "cms-select-options",
+      class: "jss-select-options",
       role: "listbox",
       "aria-multiselectable": isMulti ? "true" : "false"
     });
 
-    const filterWrap = _.div({ class: "cms-select-filter cms-d-none" });
+    const filterWrap = _.div({ class: "jss-select-filter jss-d-none" });
     let filterInput = null;
     const defaultFilterInput = _.input({
-      class: "cms-input",
+      class: "jss-input",
       type: "text",
       placeholder: props.filterPlaceholder || "Cerca...",
       onInput: (e) => setFilter(e.target.value || "")
@@ -2686,12 +2686,12 @@
       }
     }, "UI.Select:filterValue");
 
-    if (typeof filterable === "boolean") filterable ? filterWrap.classList.remove("cms-d-none") : filterWrap.classList.add("cms-d-none");
+    if (typeof filterable === "boolean") filterable ? filterWrap.classList.remove("jss-d-none") : filterWrap.classList.add("jss-d-none");
     else if (filterable?.action) {
       scope.action(filterable, (v) => {
-        v ? filterWrap.classList.remove("cms-d-none") : filterWrap.classList.add("cms-d-none");
+        v ? filterWrap.classList.remove("jss-d-none") : filterWrap.classList.add("jss-d-none");
       });
-      filterable.value ? filterWrap.classList.remove("cms-d-none") : filterWrap.classList.add("cms-d-none");;
+      filterable.value ? filterWrap.classList.remove("jss-d-none") : filterWrap.classList.add("jss-d-none");;
     }
     //copia del props
     const menuProps = { ...props };
@@ -2704,8 +2704,8 @@
         : (uiUnwrap(menuProps.state) || "");
     });
     const menu = _.div({
-      class: uiClass(["cms-select-menu", "cms-singularity-menu-select", stateMenu, menuProps.class, uiWhen(props.fill, "cms-select-menu-fill")]),
-      "data-cms-overlay-portal": "true",
+      class: uiClass(["jss-select-menu", "jss-singularity-menu-select", stateMenu, menuProps.class, uiWhen(props.fill, "jss-select-menu-fill")]),
+      "data-jss-overlay-portal": "true",
       onClick: (e) => e.stopPropagation()
     },
       filterWrap, optionsWrap
@@ -2842,7 +2842,7 @@
         const disabled = !!opt.disabled;
 
         const cls = [
-          "cms-select-option",
+          "jss-select-option",
           selected ? "selected" : "",
           disabled ? "disabled" : ""
         ].filter(Boolean).join(" ");
@@ -2879,7 +2879,7 @@
         const filtered = flat.filter(o => o.label.toLowerCase().includes(filter));
         if (filtered.length === 0) {
           const emptyNode = JSswift.ui.renderSlot(slots, "empty", { filter }, props.emptyText || "Nessuna opzione");
-          optionsWrap.appendChild(_.div({ class: "cms-select-empty" }, ...renderSlotToArray(null, "default", {}, emptyNode)));
+          optionsWrap.appendChild(_.div({ class: "jss-select-empty" }, ...renderSlotToArray(null, "default", {}, emptyNode)));
           if (getOpen()) scheduleMenuPosition();
           return;
         }
@@ -2890,7 +2890,7 @@
         for (const item of display) {
           if (item.type === "group") {
             const groupNode = JSswift.ui.renderSlot(slots, "group", { label: item.label }, item.label);
-            nodes.push(_.div({ class: "cms-select-group" }, ...renderSlotToArray(null, "default", {}, groupNode)));
+            nodes.push(_.div({ class: "jss-select-group" }, ...renderSlotToArray(null, "default", {}, groupNode)));
           } else {
             hadAnyOption = true;
             pushOption(item);
@@ -2898,7 +2898,7 @@
         }
         if (!hadAnyOption) {
           const emptyNode = JSswift.ui.renderSlot(slots, "empty", { filter }, props.emptyText || "Nessuna opzione");
-          optionsWrap.appendChild(_.div({ class: "cms-select-empty" }, ...renderSlotToArray(null, "default", {}, emptyNode)));
+          optionsWrap.appendChild(_.div({ class: "jss-select-empty" }, ...renderSlotToArray(null, "default", {}, emptyNode)));
           if (getOpen()) scheduleMenuPosition();
           return;
         }
@@ -2906,7 +2906,7 @@
 
       if (loading) {
         const loadingNode = JSswift.ui.renderSlot(slots, "loading", {}, "Caricamento...");
-        optionsWrap.appendChild(_.div({ class: "cms-select-empty" }, ...renderSlotToArray(null, "default", {}, loadingNode)));
+        optionsWrap.appendChild(_.div({ class: "jss-select-empty" }, ...renderSlotToArray(null, "default", {}, loadingNode)));
         if (getOpen()) scheduleMenuPosition();
         return;
       }
@@ -3113,7 +3113,7 @@
     const showFiles = () => uiUnwrap(props.showFiles ?? props.files) !== false;
     const getStatusClass = () => {
       const state = normalizeState(uiUnwrap(props.state) || uiUnwrap(props.status));
-      return state ? `cms-state-${state}` : "";
+      return state ? `jss-state-${state}` : "";
     };
     const getFieldName = () => props.fieldName || props.paramName || props.name || "file";
     const getParallel = () => Math.max(1, Number(uiUnwrap(props.parallelUploads ?? props.parallel) || 1));
@@ -3453,7 +3453,7 @@
 
     const input = _.input({
       type: "file",
-      class: "cms-upload-input",
+      class: "jss-upload-input",
       name: getFieldName(),
       accept: getAccepted() || null,
       multiple: isMultiple(),
@@ -3464,16 +3464,16 @@
         event.target.value = "";
       }
     });
-    const listEl = _.div({ class: "cms-upload-list" });
-    const summaryEl = _.div({ class: "cms-upload-summary" });
-    const actionsEl = _.div({ class: "cms-upload-actions" });
+    const listEl = _.div({ class: "jss-upload-list" });
+    const summaryEl = _.div({ class: "jss-upload-summary" });
+    const actionsEl = _.div({ class: "jss-upload-actions" });
     let currentStatusClass = getStatusClass();
     const root = _.div({
       class: uiClass([
-        "cms-upload",
-        "cms-singularity",
+        "jss-upload",
+        "jss-singularity",
         currentStatusClass,
-        uiWhen(props.box || props.variant === "box", "cms-upload-box"),
+        uiWhen(props.box || props.variant === "box", "jss-upload-box"),
         uiWhen(props.compact, "is-compact"),
         uiWhen(isFormSubmitMode(), "is-form-mode"),
         uiWhen(!showFiles(), "is-files-hidden"),
@@ -3526,20 +3526,20 @@
         retry: () => retryUpload(item),
         abort: () => abort(item)
       };
-      const fallback = _.div({ class: uiClass(["cms-upload-file", `is-${item.status}`]) },
-        _.div({ class: "cms-upload-file-icon" }, UI.Icon({ name: item.status === "done" ? "check_circle" : item.status === "error" || item.status === "rejected" ? "error" : "description" })),
-        _.div({ class: "cms-upload-file-main" },
-          _.div({ class: "cms-upload-file-name" }, ...renderSlotToArray(slots, "fileName", ctx, item.name)),
-          _.div({ class: "cms-upload-file-meta" },
+      const fallback = _.div({ class: uiClass(["jss-upload-file", `is-${item.status}`]) },
+        _.div({ class: "jss-upload-file-icon" }, UI.Icon({ name: item.status === "done" ? "check_circle" : item.status === "error" || item.status === "rejected" ? "error" : "description" })),
+        _.div({ class: "jss-upload-file-main" },
+          _.div({ class: "jss-upload-file-name" }, ...renderSlotToArray(slots, "fileName", ctx, item.name)),
+          _.div({ class: "jss-upload-file-meta" },
             ...renderSlotToArray(slots, "fileMeta", ctx, item.error ? String(item.error?.message || item.error) : (item.status === "queued" ? "Queued" : item.status))
           ),
-          _.div({ class: "cms-upload-progress", role: "progressbar", "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": String(item.progress || 0) },
-            _.div({ class: "cms-upload-progress-bar", style: { width: `${item.progress || 0}%` } })
+          _.div({ class: "jss-upload-progress", role: "progressbar", "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": String(item.progress || 0) },
+            _.div({ class: "jss-upload-progress-bar", style: { width: `${item.progress || 0}%` } })
           )
         ),
-        _.div({ class: "cms-upload-file-trailing" },
-          _.div({ class: "cms-upload-file-size" }, formatBytes(item.size)),
-          _.div({ class: "cms-upload-file-actions" },
+        _.div({ class: "jss-upload-file-trailing" },
+          _.div({ class: "jss-upload-file-size" }, formatBytes(item.size)),
+          _.div({ class: "jss-upload-file-actions" },
             ...renderSlotToArray(slots, "fileActions", ctx, [
               item.status === "uploading" ? UI.Btn({ size: "sm", outline: true, icon: "close", "aria-label": "Cancel", onClick: () => abort(item) }) : null,
               item.status === "error" || item.status === "canceled" ? UI.Btn({ size: "sm", outline: true, icon: "refresh", "aria-label": "Retry", onClick: () => retryUpload(item) }) : null,
@@ -3549,7 +3549,7 @@
         )
       );
       const custom = JSswift.ui.renderSlot(slots, "file", ctx, fallback);
-      return _.div({ class: "cms-upload-file-wrap", "data-status": item.status, "data-id": item.id }, ...renderSlotToArray(null, "default", {}, custom));
+      return _.div({ class: "jss-upload-file-wrap", "data-status": item.status, "data-id": item.id }, ...renderSlotToArray(null, "default", {}, custom));
     };
     const render = () => {
       const files = getFiles();
@@ -3559,7 +3559,7 @@
       listEl.hidden = !showFiles();
       if (!files.length) {
         const empty = JSswift.ui.renderSlot(slots, "empty", { api }, props.emptyText || "No files selected");
-        listEl.appendChild(_.div({ class: "cms-upload-empty" }, ...renderSlotToArray(null, "default", {}, empty)));
+        listEl.appendChild(_.div({ class: "jss-upload-empty" }, ...renderSlotToArray(null, "default", {}, empty)));
       } else {
         files.forEach((item, index) => listEl.appendChild(renderFile(item, index)));
       }
@@ -3570,9 +3570,9 @@
     const titleNode = JSswift.ui.renderSlot(slots, "title", { api }, props.title || "Upload files");
     const subtitleNode = JSswift.ui.renderSlot(slots, "subtitle", { api }, props.subtitle || (getAccepted() ? `Accepted: ${getAccepted()}` : "Drag files here or browse from your device"));
     const dropzone = _.div({
-      class: "cms-upload-dropzone",
+      class: "jss-upload-dropzone",
       onClick: (event) => {
-        if (event.target?.closest?.(".cms-upload-actions, .cms-upload-list")) return;
+        if (event.target?.closest?.(".jss-upload-actions, .jss-upload-list")) return;
         if (props.clickable !== false) browse();
       },
       onDragenter: (event) => {
@@ -3599,11 +3599,11 @@
         addFiles(event.dataTransfer?.files || [], { event, source: "drop" });
       }
     },
-      _.div({ class: "cms-upload-head" },
-        _.div({ class: "cms-upload-icon" }, ...renderSlotToArray(null, "default", {}, iconNode)),
-        _.div({ class: "cms-upload-copy" },
-          _.div({ class: "cms-upload-title" }, ...renderSlotToArray(null, "default", {}, titleNode)),
-          _.div({ class: "cms-upload-subtitle" }, ...renderSlotToArray(null, "default", {}, subtitleNode))
+      _.div({ class: "jss-upload-head" },
+        _.div({ class: "jss-upload-icon" }, ...renderSlotToArray(null, "default", {}, iconNode)),
+        _.div({ class: "jss-upload-copy" },
+          _.div({ class: "jss-upload-title" }, ...renderSlotToArray(null, "default", {}, titleNode)),
+          _.div({ class: "jss-upload-subtitle" }, ...renderSlotToArray(null, "default", {}, subtitleNode))
         ),
         actionsEl
       ),
@@ -3907,8 +3907,8 @@
     const pageFallback = pageSource !== undefined ? pageSource : children;
 
     const cls = uiClass([
-      "cms-app",
-      "cms-layout",
+      "jss-app",
+      "jss-layout",
       JSswift.uiResponsiveClasses({ mobile: props }, uiResponsiveLayoutRules),
       JSswift.uiResponsiveClasses(props, uiResponsiveLayoutRules),
       props.class
@@ -3947,40 +3947,40 @@
       ? { header: "header", aside: "aside", nav: "nav", page: "main", footer: "footer" }
       : { header: "div", aside: "div", nav: "div", page: "div", footer: "div" };
 
-    const shell = _.div({ class: uiClass(["cms-layout-shell-grid", props.shellClass]) });
+    const shell = _.div({ class: uiClass(["jss-layout-shell-grid", props.shellClass]) });
     const headerWrap = _[tags.header]({
-      class: uiClass(["cms-layout-section", "cms-layout-header", "header", uiWhen(props.stickyHeader, "sticky"), props.headerClass])
+      class: uiClass(["jss-layout-section", "jss-layout-header", "header", uiWhen(props.stickyHeader, "sticky"), props.headerClass])
     });
     const asideWrap = _[tags.aside]({
-      class: uiClass(["cms-layout-section", "cms-layout-aside", "aside", uiWhen(props.stickyAside !== false, "sticky"), props.asideClass]),
+      class: uiClass(["jss-layout-section", "jss-layout-aside", "aside", uiWhen(props.stickyAside !== false, "sticky"), props.asideClass]),
       role: "navigation",
       "aria-hidden": "true"
     });
-    const asideContentWrap = _.div({ class: "cms-layout-panel-body cms-layout-aside-body" });
+    const asideContentWrap = _.div({ class: "jss-layout-panel-body jss-layout-aside-body" });
     const asideResizeHandle = _.div({
-      class: "cms-layout-resize-handle cms-layout-resize-handle-drawer",
+      class: "jss-layout-resize-handle jss-layout-resize-handle-drawer",
       "aria-hidden": "true"
     });
     asideWrap.appendChild(asideContentWrap);
     asideWrap.appendChild(asideResizeHandle);
     const navWrap = _[tags.nav]({
-      class: uiClass(["cms-layout-section", "cms-layout-nav", "nav", uiWhen(props.stickyNav, "sticky"), props.navClass]),
+      class: uiClass(["jss-layout-section", "jss-layout-nav", "nav", uiWhen(props.stickyNav, "sticky"), props.navClass]),
       role: tags.nav === "nav" ? null : "complementary",
       "aria-hidden": "true"
     });
-    const navContentWrap = _.div({ class: "cms-layout-panel-body cms-layout-nav-body" });
+    const navContentWrap = _.div({ class: "jss-layout-panel-body jss-layout-nav-body" });
     const navResizeHandle = _.div({
-      class: "cms-layout-resize-handle cms-layout-resize-handle-nav",
+      class: "jss-layout-resize-handle jss-layout-resize-handle-nav",
       "aria-hidden": "true"
     });
     navWrap.appendChild(navContentWrap);
     navWrap.appendChild(navResizeHandle);
     const mainWrap = _[tags.page]({
-      class: uiClass(["cms-layout-section", "cms-layout-main", "main", props.pageClass]),
+      class: uiClass(["jss-layout-section", "jss-layout-main", "main", props.pageClass]),
       role: tags.page === "main" ? null : "main"
     });
     const footerWrap = _[tags.footer]({
-      class: uiClass(["cms-layout-section", "cms-layout-footer", "footer", uiWhen(props.stickyFooter, "sticky"), props.footerClass])
+      class: uiClass(["jss-layout-section", "jss-layout-footer", "footer", uiWhen(props.stickyFooter, "sticky"), props.footerClass])
     });
 
     shell.appendChild(headerWrap);
@@ -3991,7 +3991,7 @@
     root.appendChild(shell);
 
     const overlay = _.div({
-      class: uiClass(["cms-aside-overlay", props.overlayClass]),
+      class: uiClass(["jss-aside-overlay", props.overlayClass]),
       onClick: () => {
         if (uiUnwrap(resolveLayoutProp("overlayClose")) === false) return;
         if (getOpen()) setOpen(false);
@@ -4040,29 +4040,29 @@
       return nodes.length > 0;
     };
     const syncLayoutVars = () => {
-      root.style.setProperty("--cms-layout-drawer-width", toLayoutCssSize(uiUnwrap(resolveLayoutProp("drawerWidth")) ?? 280, "280px"));
-      root.style.setProperty("--cms-layout-nav-width", toLayoutCssSize(uiUnwrap(resolveLayoutProp("navWidth")) ?? uiUnwrap(resolveLayoutProp("asideRightWidth")) ?? 280, "280px"));
-      root.style.setProperty("--cms-layout-drawer-peek", toLayoutCssSize(uiUnwrap(resolveLayoutProp("drawerPeek")) ?? 20, "20px"));
-      root.style.setProperty("--cms-layout-nav-peek", toLayoutCssSize(uiUnwrap(resolveLayoutProp("navPeek")) ?? uiUnwrap(resolveLayoutProp("asideRightPeek")) ?? 20, "20px"));
+      root.style.setProperty("--jss-layout-drawer-width", toLayoutCssSize(uiUnwrap(resolveLayoutProp("drawerWidth")) ?? 280, "280px"));
+      root.style.setProperty("--jss-layout-nav-width", toLayoutCssSize(uiUnwrap(resolveLayoutProp("navWidth")) ?? uiUnwrap(resolveLayoutProp("asideRightWidth")) ?? 280, "280px"));
+      root.style.setProperty("--jss-layout-drawer-peek", toLayoutCssSize(uiUnwrap(resolveLayoutProp("drawerPeek")) ?? 20, "20px"));
+      root.style.setProperty("--jss-layout-nav-peek", toLayoutCssSize(uiUnwrap(resolveLayoutProp("navPeek")) ?? uiUnwrap(resolveLayoutProp("asideRightPeek")) ?? 20, "20px"));
       const layoutGap = toLayoutCssSize(uiUnwrap(resolveLayoutProp("gap")), null);
-      if (layoutGap != null) root.style.setProperty("--cms-layout-gap", layoutGap);
-      else root.style.removeProperty("--cms-layout-gap");
+      if (layoutGap != null) root.style.setProperty("--jss-layout-gap", layoutGap);
+      else root.style.removeProperty("--jss-layout-gap");
       const headerOffset = toLayoutCssSize(uiUnwrap(resolveLayoutProp("headerOffset")), null);
       if (headerOffset != null) root.style.setProperty("--layout-header-height", headerOffset);
       const minHeight = toLayoutCssSize(uiUnwrap(resolveLayoutProp("minHeight")), null);
-      if (minHeight != null) root.style.setProperty("--cms-layout-min-height", minHeight);
-      else root.style.removeProperty("--cms-layout-min-height");
+      if (minHeight != null) root.style.setProperty("--jss-layout-min-height", minHeight);
+      else root.style.removeProperty("--jss-layout-min-height");
     };
     const syncPanelWidths = () => {
       if (getDrawerResizable()) {
         const nextDrawerWidth = clampLayoutWidth(getDrawerWidthPx(), getDrawerMinWidth(), getDrawerMaxWidth());
         if (nextDrawerWidth !== getDrawerWidthPx()) setDrawerWidthPx(nextDrawerWidth);
-        root.style.setProperty("--cms-layout-drawer-width", `${nextDrawerWidth}px`);
+        root.style.setProperty("--jss-layout-drawer-width", `${nextDrawerWidth}px`);
       }
       if (getNavResizable()) {
         const nextNavWidth = clampLayoutWidth(getNavWidthPx(), getNavMinWidth(), getNavMaxWidth());
         if (nextNavWidth !== getNavWidthPx()) setNavWidthPx(nextNavWidth);
-        root.style.setProperty("--cms-layout-nav-width", `${nextNavWidth}px`);
+        root.style.setProperty("--jss-layout-nav-width", `${nextNavWidth}px`);
       }
     };
     const startResize = (side, event) => {
@@ -4174,15 +4174,15 @@
       root.classList.toggle("nav-side", inlineNavVisible && (navColumn === "left" || navColumn === "right"));
       shell.style.gridTemplateColumns = [
         drawerColumn === "left"
-          ? "minmax(0, var(--cms-layout-drawer-width))"
+          ? "minmax(0, var(--jss-layout-drawer-width))"
           : navColumn === "left"
-            ? "minmax(0, var(--cms-layout-nav-width))"
+            ? "minmax(0, var(--jss-layout-nav-width))"
             : "0px",
         "minmax(0, 1fr)",
         drawerColumn === "right"
-          ? "minmax(0, var(--cms-layout-drawer-width))"
+          ? "minmax(0, var(--jss-layout-drawer-width))"
           : navColumn === "right"
-            ? "minmax(0, var(--cms-layout-nav-width))"
+            ? "minmax(0, var(--jss-layout-nav-width))"
             : "0px"
       ].join(" ");
       const defaultAreas = [
@@ -4332,7 +4332,7 @@
       }
       if (typeof fallback === "function") {
         const inlineNames = new Set(["eyebrow", "title", "subtitle"]);
-        const host = _[inlineNames.has(name) ? "span" : "div"]({ class: `cms-footer-slot-${name}` });
+        const host = _[inlineNames.has(name) ? "span" : "div"]({ class: `jss-footer-slot-${name}` });
         JSswift.reactive.effect(() => {
           const nextValue = map(fallback(ctx));
           const normalized = flattenSlotValue(JSswift.ui.slot(nextValue));
@@ -4383,33 +4383,33 @@
     const actionNodes = renderPropNodes("actions", rawProps.actions);
 
     const structuredBody = _.div(
-      { class: uiClass(["cms-footer-body", rawProps.bodyClass, rawProps.centerClass]) },
+      { class: uiClass(["jss-footer-body", rawProps.bodyClass, rawProps.centerClass]) },
       _.div(
-        { class: "cms-footer-heading" },
-        iconNodes.length ? _.div({ class: "cms-footer-icon" }, ...iconNodes) : null,
+        { class: "jss-footer-heading" },
+        iconNodes.length ? _.div({ class: "jss-footer-icon" }, ...iconNodes) : null,
         _.div(
-          { class: "cms-footer-copy" },
-          eyebrowNodes.length ? _.div({ class: uiClass(["cms-footer-eyebrow", rawProps.eyebrowClass]) }, ...eyebrowNodes) : null,
-          titleNodes.length ? _.div({ class: uiClass(["cms-footer-title", rawProps.titleClass]) }, ...titleNodes) : null,
-          subtitleNodes.length ? _.div({ class: uiClass(["cms-footer-subtitle", rawProps.subtitleClass]) }, ...subtitleNodes) : null,
-          contentNodes.length ? _.div({ class: uiClass(["cms-footer-content", rawProps.contentClass]) }, ...contentNodes) : null
+          { class: "jss-footer-copy" },
+          eyebrowNodes.length ? _.div({ class: uiClass(["jss-footer-eyebrow", rawProps.eyebrowClass]) }, ...eyebrowNodes) : null,
+          titleNodes.length ? _.div({ class: uiClass(["jss-footer-title", rawProps.titleClass]) }, ...titleNodes) : null,
+          subtitleNodes.length ? _.div({ class: uiClass(["jss-footer-subtitle", rawProps.subtitleClass]) }, ...subtitleNodes) : null,
+          contentNodes.length ? _.div({ class: uiClass(["jss-footer-content", rawProps.contentClass]) }, ...contentNodes) : null
         ),
-        metaNodes.length ? _.div({ class: uiClass(["cms-footer-meta", rawProps.metaClass]) }, ...metaNodes) : null
+        metaNodes.length ? _.div({ class: uiClass(["jss-footer-meta", rawProps.metaClass]) }, ...metaNodes) : null
       )
     );
 
     const mainChildren = [];
     if (customBodyNodes.length) {
-      mainChildren.push(_.div({ class: uiClass(["cms-footer-body", rawProps.bodyClass, rawProps.centerClass]) }, ...customBodyNodes));
+      mainChildren.push(_.div({ class: uiClass(["jss-footer-body", rawProps.bodyClass, rawProps.centerClass]) }, ...customBodyNodes));
     } else if (iconNodes.length || eyebrowNodes.length || titleNodes.length || subtitleNodes.length || contentNodes.length || metaNodes.length) {
       mainChildren.push(structuredBody);
     }
     if (endNodes.length || actionNodes.length) {
       mainChildren.push(
         _.div(
-          { class: uiClass(["cms-footer-end", rawProps.endClass]) },
+          { class: uiClass(["jss-footer-end", rawProps.endClass]) },
           ...endNodes,
-          ...(actionNodes.length ? [_.div({ class: uiClass(["cms-footer-actions", rawProps.actionsClass]) }, ...actionNodes)] : [])
+          ...(actionNodes.length ? [_.div({ class: uiClass(["jss-footer-actions", rawProps.actionsClass]) }, ...actionNodes)] : [])
         )
       );
     }
@@ -4422,9 +4422,9 @@
       "subtitleClass", "title", "titleClass", "wrap", "justify"
     ]);
     p.class = uiClass([
-      "cms-panel",
-      "cms-footer",
-      "cms-singularity",
+      "jss-panel",
+      "jss-footer",
+      "jss-singularity",
       uiWhen(rawProps.sticky, "sticky"),
       uiWhen(rawProps.dense, "dense"),
       uiWhen(rawProps.elevated, "elevated"),
@@ -4438,14 +4438,14 @@
     if (justify != null) p.style.justifyContent = justify;
     const wrap = uiStyleValue(rawProps.wrap, (v) => v ? "wrap" : "nowrap");
     if (wrap != null) p.style.flexWrap = wrap;
-    if (rawProps.gap != null) p.style["--cms-footer-gap"] = toCssSize(uiUnwrap(rawProps.gap));
+    if (rawProps.gap != null) p.style["--jss-footer-gap"] = toCssSize(uiUnwrap(rawProps.gap));
     if (rawProps.minHeight != null) p.style.minHeight = toCssSize(uiUnwrap(rawProps.minHeight));
     JSswift.uiApplyResponsiveProps(p, rawProps, JSswift.uiResponsiveStyleRules);
 
     const el = _.footer(
       p,
-      ...(startNodes.length ? [_.div({ class: uiClass(["cms-footer-start", rawProps.startClass]) }, ...startNodes)] : []),
-      ...(mainChildren.length ? [_.div({ class: "cms-footer-main" }, ...mainChildren)] : [])
+      ...(startNodes.length ? [_.div({ class: uiClass(["jss-footer-start", rawProps.startClass]) }, ...startNodes)] : []),
+      ...(mainChildren.length ? [_.div({ class: "jss-footer-main" }, ...mainChildren)] : [])
     );
 
     setPropertyProps(el, rawProps);
@@ -4473,7 +4473,7 @@
 
   const toCssSize = (v) => {
     if (typeof v === "number") return `${v}px`;
-    if (typeof v === "string" && JSswift.uiSizes?.includes(v)) return `var(--cms-size-${v})`;
+    if (typeof v === "string" && JSswift.uiSizes?.includes(v)) return `var(--jss-size-${v})`;
     return String(v);
   };
 
@@ -4514,7 +4514,7 @@
     );
 
     const cls = uiClass([
-      "cms-toolbar",
+      "jss-toolbar",
       uiWhen(hasStructuredContent, "structured"),
       uiWhen(props.dense, "dense"),
       uiWhen(props.divider, "divider"),
@@ -4536,10 +4536,10 @@
     const align = uiStyleValue(props.align);
     const justify = uiStyleValue(props.justify);
     const wrap = uiStyleValue(props.wrap, (v) => typeof v === "boolean" ? (v ? "wrap" : "nowrap") : String(v), "wrap");
-    const gap = uiStyleValue(props.gap, toCssSize, "var(--cms-s-md)");
+    const gap = uiStyleValue(props.gap, toCssSize, "var(--jss-s-md)");
     const hasResponsiveGap = uiHasResponsiveOverride(props, "gap");
-    style["--cms-toolbar-gap"] = gap != null ? gap : "var(--cms-s-md)";
-    if (!hasResponsiveGap) style.gap = style.gap || "var(--cms-toolbar-gap)";
+    style["--jss-toolbar-gap"] = gap != null ? gap : "var(--jss-s-md)";
+    if (!hasResponsiveGap) style.gap = style.gap || "var(--jss-toolbar-gap)";
     const sizePadding = {
       xxs: "4px 6px",
       xs: "6px 8px",
@@ -4577,7 +4577,7 @@
     const regionStyle = {
       display: "flex",
       alignItems: "inherit",
-      gap: "var(--cms-toolbar-gap)",
+      gap: "var(--jss-toolbar-gap)",
       flexWrap: "inherit",
       minWidth: 0
     };
@@ -4588,30 +4588,30 @@
 
     const copyNode = (metaNodes.length || titleNodes.length || subtitleNodes.length)
       ? _.div(
-        { class: uiClass(["cms-toolbar-copy", props.copyClass]) },
-        metaNodes.length ? _.div({ class: uiClass(["cms-toolbar-meta", props.metaClass]) }, ...metaNodes) : null,
-        titleNodes.length ? _.div({ class: uiClass(["cms-toolbar-title", props.titleClass]) }, ...titleNodes) : null,
-        subtitleNodes.length ? _.div({ class: uiClass(["cms-toolbar-subtitle", props.subtitleClass]) }, ...subtitleNodes) : null
+        { class: uiClass(["jss-toolbar-copy", props.copyClass]) },
+        metaNodes.length ? _.div({ class: uiClass(["jss-toolbar-meta", props.metaClass]) }, ...metaNodes) : null,
+        titleNodes.length ? _.div({ class: uiClass(["jss-toolbar-title", props.titleClass]) }, ...titleNodes) : null,
+        subtitleNodes.length ? _.div({ class: uiClass(["jss-toolbar-subtitle", props.subtitleClass]) }, ...subtitleNodes) : null
       )
       : null;
 
     const hasMainContent = !!(startNodes.length || copyNode || centerNodes.length || endNodes.length);
     const parts = [
       beforeNodes.length
-        ? _.div({ class: uiClass(["cms-toolbar-before", props.beforeClass]), style: { ...regionStyle } }, ...beforeNodes)
+        ? _.div({ class: uiClass(["jss-toolbar-before", props.beforeClass]), style: { ...regionStyle } }, ...beforeNodes)
         : null,
       hasMainContent
         ? _.div(
-          { class: "cms-toolbar-main", style: mainStyle },
+          { class: "jss-toolbar-main", style: mainStyle },
           startNodes.length
-            ? _.div({ class: uiClass(["cms-toolbar-start", props.startClass]), style: { ...regionStyle } }, ...startNodes)
+            ? _.div({ class: uiClass(["jss-toolbar-start", props.startClass]), style: { ...regionStyle } }, ...startNodes)
             : null,
           (copyNode || centerNodes.length)
-            ? _.div({ class: uiClass(["cms-toolbar-center", bodyClass]), style: { ...regionStyle, flex: "1 1 240px" } }, copyNode, ...centerNodes)
+            ? _.div({ class: uiClass(["jss-toolbar-center", bodyClass]), style: { ...regionStyle, flex: "1 1 240px" } }, copyNode, ...centerNodes)
             : null,
           endNodes.length
             ? _.div({
-              class: uiClass(["cms-toolbar-end", props.endClass]),
+              class: uiClass(["jss-toolbar-end", props.endClass]),
               style: {
                 ...regionStyle,
                 justifyContent: "flex-end",
@@ -4622,7 +4622,7 @@
         )
         : null,
       afterNodes.length
-        ? _.div({ class: uiClass(["cms-toolbar-after", props.afterClass]), style: { ...regionStyle } }, ...afterNodes)
+        ? _.div({ class: uiClass(["jss-toolbar-after", props.afterClass]), style: { ...regionStyle } }, ...afterNodes)
         : null
     ].filter(Boolean);
 
@@ -4633,7 +4633,7 @@
 
   // Esempio: JSswift.ui.Toolbar({}, JSswift.ui.Btn({}, "Azione"))
 
-  const isGridColNode = (value) => value && value.nodeType === 1 && value.classList?.contains("cms-grid-col");
+  const isGridColNode = (value) => value && value.nodeType === 1 && value.classList?.contains("jss-grid-col");
 
   UI.Grid = (...args) => {
     const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
@@ -4712,12 +4712,12 @@
     }
 
     const cls = uiClass([
-      "cms-grid",
+      "jss-grid",
       JSswift.uiResponsiveClasses({ mobile: rawProps }, uiResponsiveGridRules),
       JSswift.uiResponsiveClasses(rawProps, uiResponsiveGridRules),
       uiWhen(rawProps.dense, "dense"),
-      uiWhen(rawProps.inline, "cms-grid-inline"),
-      uiWhen(rawProps.debug, "cms-grid-debug"),
+      uiWhen(rawProps.inline, "jss-grid-inline"),
+      uiWhen(rawProps.debug, "jss-grid-debug"),
       rawProps.class
     ]);
 
@@ -4741,7 +4741,7 @@
     }
     const gap = uiStyleValue(rawProps.gap, toCssSize);
     if (gap != null && !uiHasResponsiveOverride(rawProps, "gap")) {
-      style["--cms-grid-gap"] = gap;
+      style["--jss-grid-gap"] = gap;
       style.gap = gap;
     }
     const rowGap = uiStyleValue(rawProps.rowGap, toCssSize);
@@ -4829,7 +4829,7 @@
     };
     const resolveSpaceValue = (value) => {
       if (value == null || value === false || value === "") return "";
-      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return `var(--cms-s-${value})`;
+      if (typeof value === "string" && JSswift.uiSizes?.includes(value)) return `var(--jss-s-${value})`;
       return toCssSize(value);
     };
     const resolveSizeValue = (value) => {
@@ -4956,18 +4956,18 @@
         uiUnwrap(props.gradient) || uiUnwrap(props.textGradient) || uiUnwrap(props.lightShadow) ||
         uiUnwrap(props.radius)
       );
-      return active ? ["cms-clear-set", "cms-singularity", "cms-grid-col-surface"] : [];
+      return active ? ["jss-clear-set", "jss-singularity", "jss-grid-col-surface"] : [];
     });
     const cls = uiClass([
-      "cms-grid-col",
+      "jss-grid-col",
       surfaceClasses,
       JSswift.uiResponsiveClasses({ mobile: props }, uiResponsiveGridColRules),
       JSswift.uiResponsiveClasses(props, uiResponsiveGridColRules),
-      uiWhen(props.panel, "cms-grid-col-panel"),
+      uiWhen(props.panel, "jss-grid-col-panel"),
       uiWhen(props.auto, "is-auto"),
-      uiWhen(useStackLayout, "cms-grid-col-stack"),
-      uiWhen(props.inline, "cms-grid-col-inline"),
-      uiWhen(centerContent, "cms-grid-col-center"),
+      uiWhen(useStackLayout, "jss-grid-col-stack"),
+      uiWhen(props.inline, "jss-grid-col-inline"),
+      uiWhen(centerContent, "jss-grid-col-center"),
       props.class
     ]);
 
@@ -4989,16 +4989,16 @@
     ]);
     p.class = cls;
 
-    if (style["--cms-grid-col-base"] == null) style["--cms-grid-col-base"] = "auto";
-    if (style["--cms-grid-col-tablet"] == null) style["--cms-grid-col-tablet"] = "var(--cms-grid-col-base, auto)";
-    if (style["--cms-grid-col-pc"] == null) style["--cms-grid-col-pc"] = "var(--cms-grid-col-tablet, var(--cms-grid-col-base, auto))";
-    if (uiUnwrap(props.auto) === true) style["--cms-grid-col-base"] = "auto";
-    else if (span != null) style["--cms-grid-col-base"] = span;
-    if (sm != null) style["--cms-grid-col-sm"] = sm;
-    if (md != null) style["--cms-grid-col-md"] = md;
-    if (lg != null) style["--cms-grid-col-lg"] = lg;
-    if (tabletSpan != null) style["--cms-grid-col-tablet"] = tabletSpan;
-    if (pcSpan != null) style["--cms-grid-col-pc"] = pcSpan;
+    if (style["--jss-grid-col-base"] == null) style["--jss-grid-col-base"] = "auto";
+    if (style["--jss-grid-col-tablet"] == null) style["--jss-grid-col-tablet"] = "var(--jss-grid-col-base, auto)";
+    if (style["--jss-grid-col-pc"] == null) style["--jss-grid-col-pc"] = "var(--jss-grid-col-tablet, var(--jss-grid-col-base, auto))";
+    if (uiUnwrap(props.auto) === true) style["--jss-grid-col-base"] = "auto";
+    else if (span != null) style["--jss-grid-col-base"] = span;
+    if (sm != null) style["--jss-grid-col-sm"] = sm;
+    if (md != null) style["--jss-grid-col-md"] = md;
+    if (lg != null) style["--jss-grid-col-lg"] = lg;
+    if (tabletSpan != null) style["--jss-grid-col-tablet"] = tabletSpan;
+    if (pcSpan != null) style["--jss-grid-col-pc"] = pcSpan;
     if (rowSpan != null) style.gridRow = rowSpan;
     else if (row != null) style.gridRow = row;
     if (area != null) style.gridArea = area;
@@ -5065,19 +5065,19 @@
     const parts = [
       startNodes.length
         ? _.div({
-          class: uiClass(["cms-grid-col-start", props.startClass, props.topClass, props.headerClass]),
+          class: uiClass(["jss-grid-col-start", props.startClass, props.topClass, props.headerClass]),
           style: { ...sectionStyle }
         }, ...startNodes)
         : null,
       bodyNodes.length
         ? _.div({
-          class: uiClass(["cms-grid-col-body", props.bodyClass, props.contentClass]),
+          class: uiClass(["jss-grid-col-body", props.bodyClass, props.contentClass]),
           style: { ...sectionStyle, flex: "1 1 auto" }
         }, ...bodyNodes)
         : null,
       endNodes.length
         ? _.div({
-          class: uiClass(["cms-grid-col-end", props.endClass, props.bottomClass, props.footerClass]),
+          class: uiClass(["jss-grid-col-end", props.endClass, props.bottomClass, props.footerClass]),
           style: { ...sectionStyle }
         }, ...endNodes)
         : null

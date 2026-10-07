@@ -50,12 +50,12 @@ const filter = _.Select({label:'Filtro categoria',options:[{value:'',label:'Tutt
 function render() {
  const found = rows.filter(r => r.name.toLowerCase().includes(query.trim().toLowerCase()) && (!category || r.category === category));
  const pages = Math.max(1,Math.ceil(found.length/5)); page = Math.min(page,pages);
- host.replaceChildren(_.Table({rows:found.slice((page-1)*5,page*5),rowKey:'id',pagination:false,hideFooter:true,hideStatus:true,minTableWidth:600,emptyText:'Nessun prodotto trovato',
+ _.mount(host, _.Table({rows:found.slice((page-1)*5,page*5),rowKey:'id',pagination:false,hideFooter:true,hideStatus:true,minTableWidth:600,emptyText:'Nessun prodotto trovato',
  columns:[{key:'name',sortable:false,label:'Nome'},{key:'category',sortable:false,label:'Categoria'},{key:'price',sortable:false,label:'Prezzo',format:value => priceFormat.format(value)},{key:'quantity',sortable:false,label:'Quantità'},
  {key:'actions',label:'Azioni',render:r => _.Button({id:`edit-${r.id}`,onClick:() => edit(r)},'Modifica')}] }));
- pager.replaceChildren(_.span(`${found.length} prodotti — pagina ${page}/${pages}`),
+ _.mount(pager, [_.span(`${found.length} prodotti — pagina ${page}/${pages}`),
  _.Button({id:'previous',disabled:page===1,onClick:() => {page--;render();document.getElementById('previous').focus();}},'Precedente'),
- _.Button({id:'next',disabled:page===pages,onClick:() => {page++;render();document.getElementById('next').focus();}},'Successiva'));
+ _.Button({id:'next',disabled:page===pages,onClick:() => {page++;render();document.getElementById('next').focus();}},'Successiva')]);
 }
 _.mount('#app', _.div({style:{minWidth:0}}, add, search, filter, host, pager, notice)); render();
 ```
@@ -78,3 +78,5 @@ Build success alone does not verify this flow. In a browser, record these result
 The example uses public field APIs and rod values. If a browser is unavailable, report these interactions as unverified rather than deriving them from pure-logic assertions.
 
 Table supplies its own Card and empty state. This example disables column sorting because it supplies a page slice; sort the complete filtered data before slicing if global sorting is required. For dashboard counters prefer `_.Kpi({title, value, note})`. Preserve field input transparency and use the container height variable described in [AI guide](../AI.md#catalogue-surfaces-and-field-styling).
+
+Lifecycle: `_.mount(host, nextContent)` clears the previous subtree through JSswift cleanup (default `clear:true`). Its returned function unmounts the new content. Use this for replacing component subtrees; native `replaceChildren`, `innerHTML` or `remove` alone do not invoke registered JSswift cleanup. Keep shared models alive until their application owner disposes them.

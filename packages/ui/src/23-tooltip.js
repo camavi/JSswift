@@ -76,21 +76,21 @@
       let bodyNodes = renderSlotToArray(slots, "content", ctx, bodyRaw);
       if (!bodyNodes.length) bodyNodes = renderSlotToArray(slots, "default", ctx, bodyRaw);
 
-      const bodyEl = bodyNodes.length ? _.div({ class: "cms-tooltip-body" }, ...bodyNodes) : null;
+      const bodyEl = bodyNodes.length ? _.div({ class: "jss-tooltip-body" }, ...bodyNodes) : null;
       const headEl = (iconNodes.length || titleNodes.length)
         ? _.div(
-          { class: "cms-tooltip-head" },
-          iconNodes.length ? _.div({ class: "cms-tooltip-icon" }, ...iconNodes) : null,
+          { class: "jss-tooltip-head" },
+          iconNodes.length ? _.div({ class: "jss-tooltip-icon" }, ...iconNodes) : null,
           _.div(
-            { class: "cms-tooltip-head-main" },
-            titleNodes.length ? _.div({ class: "cms-tooltip-title" }, ...titleNodes) : null,
+            { class: "jss-tooltip-head-main" },
+            titleNodes.length ? _.div({ class: "jss-tooltip-title" }, ...titleNodes) : null,
             bodyEl
           )
         )
         : bodyEl;
-      const footerEl = footerNodes.length ? _.div({ class: "cms-tooltip-footer" }, ...footerNodes) : null;
+      const footerEl = footerNodes.length ? _.div({ class: "jss-tooltip-footer" }, ...footerNodes) : null;
 
-      return _.div({ class: "cms-tooltip-content" }, ...[headEl, footerEl].filter(Boolean));
+      return _.div({ class: "jss-tooltip-content" }, ...[headEl, footerEl].filter(Boolean));
     };
 
     const open = (anchorEl) => {
@@ -115,7 +115,7 @@
         closeOnEsc: shouldCloseOnEsc,
         autoFocus: false,
         className: uiClassStatic([
-          "cms-tooltip",
+          "jss-tooltip",
           uiWhen(props.interactive, "interactive"),
           props.class,
           props.panelClass
@@ -246,7 +246,7 @@
     };
 
     if (targetNode) {
-      const cls = uiClass(["cms-tooltip-wrap", props.wrapClass, props.targetClass]);
+      const cls = uiClass(["jss-tooltip-wrap", props.wrapClass, props.targetClass]);
       const p = JSswift.omit(props, [
         "actions", "anchorEl", "body", "closeOnEsc", "closeOnOutside", "content", "delay", "description",
         "disabled", "footer", "heading", "hideDelay", "icon", "iconSize", "interactive", "label",

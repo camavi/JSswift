@@ -87,7 +87,9 @@ Dialog returns an API object, not a node to mount: `open(overrides?)`, `close()`
 
 ## Existing CSS and optional assets
 
-The UI stylesheet includes component styles, theme variables, and responsive rules. Start with native components. Prefer documented `color`, `dense`, `padding`, `radius`, `shadow`, and breakpoint props to overrides of internal `.cms-*` classes. Read [common props](ui/common-props.md) only for an additional inherited prop; component-specific definitions take precedence. Use custom CSS for remaining page requirements.
+CSS classes and theme variables use `jss-` (for example `--jss-primary`). Update old `cms-` overrides when upgrading; do not mix JS and CSS namespace versions.
+
+The UI stylesheet includes component styles, theme variables, and responsive rules. Start with native components. Prefer documented `color`, `dense`, `padding`, `radius`, `shadow`, and breakpoint props to overrides of internal `.jss-*` classes. Read [common props](ui/common-props.md) only for an additional inherited prop; component-specific definitions take precedence. Use custom CSS for remaining page requirements.
 
 For pages using component defaults and application-owned media queries, import `jsswift/css/ui-light.css` instead of `ui.css`. It retains base tokens, colors, `dense`/`outline`, layout and unprefixed sizing/spacing utilities. For `tablet`, `pc`/`desktop` or legacy breakpoint classes, additionally import `jsswift/css/responsive.css` **after** the light stylesheet. `ui.css` remains the complete compatible entry; do not import both full and light. The light entry keeps component-specific mobile rules and does not remove JavaScript props. `ui-light.min.css` is also available.
 
@@ -141,8 +143,14 @@ For taller catalogue fields, set the shared height variable on their application
 
 ```css
 .catalogue-filters {
-  --cms-input-height-default: 40px;
+  --jss-input-height-default: 40px;
 }
 ```
 
 Check the border, floating label, error message and keyboard focus at desktop and mobile sizes. A passing CRUD test does not verify these visual states. Keep failed server startup, retry incidents, cached input and uncached input separate when comparing repeated benchmark runs.
+
+## Theme and lifecycle essentials
+
+base.css is already included. Use `_.setTheme('dark')` or `_.setTheme('light')`; persistence defaults to `jsswift:theme`. At startup restore with `_.setTheme(_.getTheme())`. Customize the existing `--jss-primary-600`/`--jss-primary-700` palette values after the UI import. See [base CSS and themes](ui/themes.md) only for additional theme requirements.
+
+Replace component subtrees with `_.mount(host, nextContent)` (default clear:true), which cleans up previous effects and subscriptions. Native `replaceChildren`/`innerHTML` alone do not run JSswift cleanup. Keep shared models owned by the application alive.

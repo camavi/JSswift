@@ -22,7 +22,10 @@ async function main() {
     throw new Error("Invalid cms module manifest");
   }
   const chunks = await Promise.all(modules.map(readModule));
-  const output = chunks.join("");
+  const rawOutput = chunks.join("");
+  const stripped = await transform(rawOutput, {loader:"js", minifyWhitespace:true, legalComments:"none", ignoreAnnotations:true, target:"es2018"});
+  const readable = await transform(stripped.code, {loader:"js", legalComments:"none", ignoreAnnotations:true, target:"es2018"});
+  const output = readable.code;
   const minified = await transform(output, {
     loader: "js",
     minify: true,

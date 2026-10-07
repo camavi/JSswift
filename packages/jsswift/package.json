@@ -46,6 +46,6 @@
     "start": "AI.md",
     "map": "dist/documentions/knowledge-map.json",
     "additionalApis": "dist/documentions/components",
-    "readingOrder": "Read AI.md first; use the map only for APIs missing from that guide; read only the relevant contract."
+    "readingOrder": "Read AI.md alone in a separate operation. For CRUD use its compact example without pre-reading component contracts. Use the map only for missing APIs and read one focused section."
   }
 }

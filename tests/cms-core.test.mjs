@@ -369,7 +369,7 @@ test("renderer applies class, style, boolean props and event options", async () 
   const input = CMS.input({
     class: ["base", { active: () => getOn() }],
     style: {
-      "--cms-probe": () => (getOn() ? "10px" : "20px")
+      "--jss-probe": () => (getOn() ? "10px" : "20px")
     },
     disabled: () => !getOn(),
     "aria-label": () => (getOn() ? "enabled" : null)
@@ -385,14 +385,14 @@ test("renderer applies class, style, boolean props and event options", async () 
   }, "Once");
 
   assert.equal(input.getAttribute("class"), "base active");
-  assert.equal(input.style.getPropertyValue("--cms-probe"), "10px");
+  assert.equal(input.style.getPropertyValue("--jss-probe"), "10px");
   assert.equal(input.disabled, false);
   assert.equal(input.getAttribute("aria-label"), "enabled");
 
   setOn(false);
 
   assert.equal(input.getAttribute("class"), "base");
-  assert.equal(input.style.getPropertyValue("--cms-probe"), "20px");
+  assert.equal(input.style.getPropertyValue("--jss-probe"), "20px");
   assert.equal(input.disabled, true);
   assert.equal(input.getAttribute("aria-label"), null);
 
@@ -432,13 +432,13 @@ test("renderer cleans up stale keys when dynamic style objects change shape", as
 
   const node = CMS.div({
     style: () => getEnabled()
-      ? { color: getColor(), opacity: "1", "--cms-probe": "10px" }
+      ? { color: getColor(), opacity: "1", "--jss-probe": "10px" }
       : { color: "blue" }
   });
 
   assert.equal(node.style.color, "red");
   assert.equal(node.style.opacity, "1");
-  assert.equal(node.style.getPropertyValue("--cms-probe"), "10px");
+  assert.equal(node.style.getPropertyValue("--jss-probe"), "10px");
 
   setColor("green");
   assert.equal(node.style.color, "green");
@@ -447,7 +447,7 @@ test("renderer cleans up stale keys when dynamic style objects change shape", as
   setEnabled(false);
   assert.equal(node.style.color, "blue");
   assert.equal(node.style.opacity, "");
-  assert.equal(node.style.getPropertyValue("--cms-probe"), "");
+  assert.equal(node.style.getPropertyValue("--jss-probe"), "");
 });
 
 test("renderer disposes dynamic event effects on unmount", async () => {
@@ -898,11 +898,11 @@ test("rod binding shares renderer DOM prop semantics for class style and boolean
   const disabled = _.rod(false);
 
   CMS.rodBind(host, state, { key: "class" });
-  CMS.rodBind(host, width, { key: "style.--cms-probe" });
+  CMS.rodBind(host, width, { key: "style.--jss-probe" });
   CMS.rodBind(host, disabled, { key: "disabled" });
 
   assert.equal(host.getAttribute("class"), "active");
-  assert.equal(host.style.getPropertyValue("--cms-probe"), "12px");
+  assert.equal(host.style.getPropertyValue("--jss-probe"), "12px");
   assert.equal(host.disabled, false);
 
   state.value = "";
@@ -911,7 +911,7 @@ test("rod binding shares renderer DOM prop semantics for class style and boolean
   await new Promise((resolve) => queueMicrotask(resolve));
 
   assert.equal(host.getAttribute("class"), null);
-  assert.equal(host.style.getPropertyValue("--cms-probe"), "");
+  assert.equal(host.style.getPropertyValue("--jss-probe"), "");
   assert.equal(host.disabled, true);
 });
 
@@ -1022,10 +1022,10 @@ test("overlay keeps stack, scroll lock and listener cleanup coherent", async () 
     onClose: () => closed.push("first")
   });
 
-  const overlayRoot = document.getElementById("cms-overlay-root");
+  const overlayRoot = document.getElementById("jss-overlay-root");
   assert.ok(overlayRoot);
   assert.equal(CMS.overlay._stack.size, 1);
-  assert.equal(document.documentElement.classList.contains("cms-scroll-locked"), true);
+  assert.equal(document.documentElement.classList.contains("jss-scroll-locked"), true);
   assert.equal(document._listeners.get("mousedown")?.size ?? 0, 1);
   assert.equal(document._listeners.get("keydown")?.size ?? 0, 1);
   assert.equal(first.overlay.parentNode, overlayRoot);
@@ -1048,7 +1048,7 @@ test("overlay keeps stack, scroll lock and listener cleanup coherent", async () 
   CMS.overlay.closeTop();
 
   assert.equal(CMS.overlay._stack.size, 1);
-  assert.equal(document.documentElement.classList.contains("cms-scroll-locked"), true);
+  assert.equal(document.documentElement.classList.contains("jss-scroll-locked"), true);
   assert.equal(document._listeners.get("mousedown")?.size ?? 0, 1);
   assert.equal(document._listeners.get("keydown")?.size ?? 0, 1);
   assert.equal(globalThis.__windowTarget._listeners.get("resize")?.size ?? 0, 0);
@@ -1057,7 +1057,7 @@ test("overlay keeps stack, scroll lock and listener cleanup coherent", async () 
   CMS.overlay.close(first.id);
 
   assert.equal(CMS.overlay._stack.size, 0);
-  assert.equal(document.documentElement.classList.contains("cms-scroll-locked"), false);
+  assert.equal(document.documentElement.classList.contains("jss-scroll-locked"), false);
   assert.equal(document._listeners.get("mousedown")?.size ?? 0, 0);
   assert.equal(document._listeners.get("keydown")?.size ?? 0, 0);
   assert.deepEqual(closed, ["second", "first"]);
@@ -1073,7 +1073,7 @@ test("overlay outside click ignores interactive UI portals", async () => {
     }
   });
   const portal = document.createElement("div");
-  portal.setAttribute("data-cms-overlay-portal", "true");
+  portal.setAttribute("data-jss-overlay-portal", "true");
   const option = document.createElement("div");
   portal.appendChild(option);
   document.body.appendChild(portal);
@@ -1118,8 +1118,8 @@ test("overlay close runs child cleanup before removing portalized UI", async () 
     options: ["Biography", "Business", "Education"]
   });
   const entry = CMS.overlay.open(() => select, { closeOnOutside: true });
-  const control = findNodes(select, (node) => node.classList?.contains("cms-select-control"))[0];
-  const menu = findNodes(select, (node) => node.classList?.contains("cms-select-menu"))[0];
+  const control = findNodes(select, (node) => node.classList?.contains("jss-select-control"))[0];
+  const menu = findNodes(select, (node) => node.classList?.contains("jss-select-menu"))[0];
 
   control.dispatchEvent({ type: "click", target: control });
   await tick();
@@ -1311,7 +1311,7 @@ test("ui.meta docTable renders missing-meta fallback", async () => {
   const out = CMS.docTable("UnknownProbe");
 
   assert.equal(out.tagName, "DIV");
-  assert.equal(out.getAttribute("class"), "cms-muted");
+  assert.equal(out.getAttribute("class"), "jss-muted");
   assert.equal(collectText(out), "Meta non trovata: UnknownProbe");
 });
 
@@ -1330,7 +1330,7 @@ test("UI.Button aliases UI.Btn", async () => {
 
   assert.equal(out.tagName, "BUTTON");
   assert.equal(collectText(out), "Salva");
-  assert.equal(out.classList.contains("cms-btn"), true);
+  assert.equal(out.classList.contains("jss-btn"), true);
   assert.equal(uiOut.tagName, "BUTTON");
   assert.equal(collectText(uiOut), "Annulla");
 });
@@ -1366,7 +1366,7 @@ test("UI.Btn loading supports reactive rods", async () => {
   assert.equal(btn.disabled, true);
   assert.equal(btn.getAttribute("aria-busy"), "true");
   assert.equal(btn.classList.contains("is-loading"), true);
-  assert.equal(findNodes(btn, (node) => node.classList?.contains("cms-spinner")).length, 1);
+  assert.equal(findNodes(btn, (node) => node.classList?.contains("jss-spinner")).length, 1);
   assert.equal(collectText(btn), "Invia");
 
   btn.dispatchEvent({ type: "click", preventDefault: () => { prevented += 1; } });
@@ -1379,7 +1379,7 @@ test("UI.Btn loading supports reactive rods", async () => {
   assert.equal(btn.disabled, false);
   assert.equal(btn.getAttribute("aria-busy"), null);
   assert.equal(btn.classList.contains("is-loading"), false);
-  assert.equal(findNodes(btn, (node) => node.classList?.contains("cms-spinner")).length, 0);
+  assert.equal(findNodes(btn, (node) => node.classList?.contains("jss-spinner")).length, 0);
   assert.equal(collectText(btn), "Invia");
 });
 
@@ -1434,8 +1434,8 @@ test("UI.Select treats empty-string option values as selected values", async () 
 
   await tick();
 
-  const valueNode = findNodes(select, (node) => node.classList?.contains("cms-select-value"))[0];
-  const control = findNodes(select, (node) => node.classList?.contains("cms-control"))[0];
+  const valueNode = findNodes(select, (node) => node.classList?.contains("jss-select-value"))[0];
+  const control = findNodes(select, (node) => node.classList?.contains("jss-control"))[0];
 
   assert.equal(valueNode.textContent, "Empty");
   assert.equal(control.classList.contains("has-value"), true);
@@ -1460,7 +1460,7 @@ test("UI.Select option sources do not leak rod-path functions into display value
 
   await tick();
 
-  const valueNode = findNodes(select, (node) => node.classList?.contains("cms-select-value"))[0];
+  const valueNode = findNodes(select, (node) => node.classList?.contains("jss-select-value"))[0];
 
   assert.equal(valueNode.textContent, "#3 · Bright");
   assert.equal(valueNode.textContent.includes("uiReadRodPath"), false);
@@ -1490,7 +1490,7 @@ test("_.rod factory is not patched by prior rod-path reads", async () => {
 
   await tick();
 
-  const valueNode = findNodes(select, (node) => node.classList?.contains("cms-select-value"))[0];
+  const valueNode = findNodes(select, (node) => node.classList?.contains("jss-select-value"))[0];
   assert.equal(valueNode.textContent, "#1 · whisper");
 });
 
@@ -1509,8 +1509,8 @@ test("UI.Datepicker aliases UI.Date and UI.Calendar persists model", async () =>
   const model = _.rod("2026-08-05");
   const calendar = CMS.Calendar({ model });
 
-  assert.equal(calendar.classList.contains("cms-date-panel"), true);
-  assert.equal(calendar.classList.contains("cms-date-calendar"), true);
+  assert.equal(calendar.classList.contains("jss-date-panel"), true);
+  assert.equal(calendar.classList.contains("jss-date-calendar"), true);
   assert.equal(calendar._getValue(), "2026-08-05");
 
   calendar._select("2026-08-06");
@@ -1621,7 +1621,7 @@ test("UI.Upload requeues max-files rejection after removing an active file", asy
 
   assert.deepEqual(upload._upload.files().map((item) => item.status), ["queued"]);
   assert.equal(upload._upload.files()[0].name, "second.pdf");
-  assert.equal(findNodes(upload, (node) => node.classList?.contains("cms-upload-summary"))[0].textContent, "1 file • 20 B");
+  assert.equal(findNodes(upload, (node) => node.classList?.contains("jss-upload-summary"))[0].textContent, "1 file • 20 B");
 });
 
 test("UI.Upload supports native form mode and visibility controls", async () => {
@@ -1646,8 +1646,8 @@ test("UI.Upload supports native form mode and visibility controls", async () => 
 
   const buttons = findNodes(upload, (node) => node.tagName === "BUTTON").map(collectText);
   const input = findNodes(upload, (node) => node.tagName === "INPUT" && node.type === "file")[0];
-  const list = findNodes(upload, (node) => node.classList?.contains("cms-upload-list"))[0];
-  const summary = findNodes(upload, (node) => node.classList?.contains("cms-upload-summary"))[0];
+  const list = findNodes(upload, (node) => node.classList?.contains("jss-upload-list"))[0];
+  const summary = findNodes(upload, (node) => node.classList?.contains("jss-upload-summary"))[0];
 
   assert.equal(input.getAttribute("name"), "attachment");
   assert.equal(buttons.some((text) => text.includes("Upload")), false);
@@ -1656,7 +1656,7 @@ test("UI.Upload supports native form mode and visibility controls", async () => 
   assert.deepEqual(calls, []);
   assert.equal(upload.classList.contains("is-form-mode"), true);
   assert.equal(upload.classList.contains("is-files-hidden"), true);
-  assert.equal(upload.classList.contains("cms-state-success"), true);
+  assert.equal(upload.classList.contains("jss-state-success"), true);
   assert.equal(list.hidden, true);
   assert.equal(summary.hidden, true);
 
@@ -1674,9 +1674,9 @@ test("UI.BoxUpload and UI.boxUpload expose boxed upload variant", async () => {
   const boxed = CMS.BoxUpload({ title: "Manuscript" });
   const boxedAlias = CMS.boxUpload({ title: "Alias" });
 
-  assert.equal(boxed.classList.contains("cms-upload"), true);
-  assert.equal(boxed.classList.contains("cms-upload-box"), true);
-  assert.equal(boxedAlias.classList.contains("cms-upload-box"), true);
+  assert.equal(boxed.classList.contains("jss-upload"), true);
+  assert.equal(boxed.classList.contains("jss-upload-box"), true);
+  assert.equal(boxedAlias.classList.contains("jss-upload-box"), true);
   assert.equal(typeof boxed._upload.addFiles, "function");
   assert.equal(CMS.ui.meta.Upload, undefined);
 });

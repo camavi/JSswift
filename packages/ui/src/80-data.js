@@ -63,20 +63,20 @@
       "toolbar", "toolbarStart", "toolbarEnd", "caption", "footer", "status", "rowClass", "rowAttrs",
       "minTableWidth", "hideHeader", "hideFooter", "hideStatus", "slots", "body"
     ]);
-    wrapProps.class = uiClass(["cms-table-card", props.class, props.cardClass]);
+    wrapProps.class = uiClass(["jss-table-card", props.class, props.cardClass]);
     if (props.dense != null) wrapProps.dense = props.dense;
 
-    const shell = _.div({ class: "cms-table-shell" });
+    const shell = _.div({ class: "jss-table-shell" });
     const leadNodes = renderSlotToArray(slots, "default", {}, children);
-    if (leadNodes.length) shell.appendChild(_.div({ class: "cms-table-lead" }, ...leadNodes));
+    if (leadNodes.length) shell.appendChild(_.div({ class: "jss-table-lead" }, ...leadNodes));
 
     const toolbarStartNodes = renderSlotToArray(slots, "toolbarStart", {}, props.toolbarStart);
     const toolbarNodes = renderSlotToArray(slots, "toolbar", {}, props.toolbar);
     const toolbarEndNodes = renderSlotToArray(slots, "toolbarEnd", {}, props.toolbarEnd);
 
-    const toolbar = _.div({ class: "cms-table-toolbar" });
-    const toolbarMain = _.div({ class: "cms-table-toolbar-main" });
-    const toolbarSide = _.div({ class: "cms-table-toolbar-side" });
+    const toolbar = _.div({ class: "jss-table-toolbar" });
+    const toolbarMain = _.div({ class: "jss-table-toolbar-main" });
+    const toolbarSide = _.div({ class: "jss-table-toolbar-side" });
     toolbarStartNodes.forEach((node) => toolbarMain.appendChild(node));
     toolbarNodes.forEach((node) => toolbarMain.appendChild(node));
 
@@ -86,13 +86,13 @@
     } else if (searchable) {
       searchInput = _.input({
         type: "search",
-        class: "cms-input",
+        class: "jss-input",
         placeholder: typeof props.searchable === "string" ? props.searchable : (props.searchPlaceholder || "Cerca nella tabella"),
         value: String(getQuery() || "")
       });
       searchInput.addEventListener("input", () => setQuery(searchInput.value));
       const clearSearch = UI.Btn({
-        class: "cms-table-search-clear",
+        class: "jss-table-search-clear",
         outline: true,
         onClick: () => {
           if (searchInput) searchInput.value = "";
@@ -100,8 +100,8 @@
         }
       }, "Reset");
       toolbarSide.appendChild(
-        _.div({ class: "cms-singularity cms-table-search" },
-          _.span({ class: "cms-table-search-icon", "aria-hidden": "true" }, "⌕"),
+        _.div({ class: "jss-singularity jss-table-search" },
+          _.span({ class: "jss-table-search-icon", "aria-hidden": "true" }, "⌕"),
           searchInput,
           clearSearch
         )
@@ -114,11 +114,11 @@
       shell.appendChild(toolbar);
     }
 
-    const statusSummary = _.div({ class: "cms-singularity cms-table-chip" }, "");
-    const statusFilter = _.div({ class: "cms-singularity cms-table-chip" }, "");
-    const statusSort = _.div({ class: "cms-singularity cms-table-chip" }, "");
+    const statusSummary = _.div({ class: "jss-singularity jss-table-chip" }, "");
+    const statusFilter = _.div({ class: "jss-singularity jss-table-chip" }, "");
+    const statusSort = _.div({ class: "jss-singularity jss-table-chip" }, "");
     const statusExtraNodes = renderSlotToArray(slots, "status", {}, props.status);
-    const status = _.div({ class: "cms-table-status" },
+    const status = _.div({ class: "jss-table-status" },
       statusSummary,
       statusFilter,
       statusSort,
@@ -127,14 +127,14 @@
     if (props.hideStatus !== true) shell.appendChild(status);
 
     const captionNodes = renderSlotToArray(slots, "caption", {}, props.caption);
-    if (captionNodes.length) shell.appendChild(_.div({ class: "cms-table-caption" }, ...captionNodes));
+    if (captionNodes.length) shell.appendChild(_.div({ class: "jss-table-caption" }, ...captionNodes));
 
     const thead = _.thead();
     const tbody = _.tbody();
     const hasActions = !!props.actions || !!slots.actions;
 
     const tableClass = uiClass([
-      "cms-table",
+      "jss-table",
       uiWhen(props.dense, "dense"),
       uiWhen(props.striped, "striped"),
       uiWhen(props.hover !== false, "hover"),
@@ -144,35 +144,35 @@
     const tableStyle = {
       ...(props.tableStyle || {})
     };
-    if (props.minTableWidth != null) tableStyle["--cms-table-min-width"] = toCssSize(props.minTableWidth);
+    if (props.minTableWidth != null) tableStyle["--jss-table-min-width"] = toCssSize(props.minTableWidth);
     const table = _.table({ class: tableClass, style: tableStyle }, thead, tbody);
-    const wrapTable = _.div({ class: "cms-singularity cms-table-wrap" }, table);
+    const wrapTable = _.div({ class: "jss-singularity jss-table-wrap" }, table);
     shell.appendChild(wrapTable);
 
-    const pagerInfo = _.div({ class: "cms-singularity cms-table-chip" }, "");
-    const pagerMeta = _.div({ class: "cms-singularity cms-table-chip" }, "");
+    const pagerInfo = _.div({ class: "jss-singularity jss-table-chip" }, "");
+    const pagerMeta = _.div({ class: "jss-singularity jss-table-chip" }, "");
     const btnPrev = UI.Btn({ outline: true, onClick: () => setPage(Math.max(1, getPage() - 1)) }, "‹");
     const btnNext = UI.Btn({ outline: true, onClick: () => setPage(getPage() + 1) }, "›");
-    const pageChip = _.div({ class: "cms-singularity cms-table-chip" }, "");
-    const sizeSelect = _.select({ class: "cms-input cms-table-size-select" },
+    const pageChip = _.div({ class: "jss-singularity jss-table-chip" }, "");
+    const sizeSelect = _.select({ class: "jss-input jss-table-size-select" },
       ...pageSizes.map((size) => uiOptionNode({ value: String(size) }, String(size)))
     );
     sizeSelect.value = String(getPageSize());
     sizeSelect.addEventListener("change", () => setPageSize(sizeSelect.value));
     const footerExtraNodes = renderSlotToArray(slots, "footer", {}, props.footer);
 
-    const footer = _.div({ class: "cms-table-foot" },
-      _.div({ class: "cms-table-foot-main" },
+    const footer = _.div({ class: "jss-table-foot" },
+      _.div({ class: "jss-table-foot-main" },
         pagerInfo,
         pagerMeta,
-        _.label({ class: "cms-table-size" },
+        _.label({ class: "jss-table-size" },
           _.span("Righe"),
           sizeSelect
         )
       ),
-      _.div({ class: "cms-table-foot-extra" },
+      _.div({ class: "jss-table-foot-extra" },
         ...footerExtraNodes,
-        _.div({ class: "cms-table-pager" },
+        _.div({ class: "jss-table-pager" },
           btnPrev,
           pageChip,
           btnNext
@@ -208,9 +208,9 @@
         const isActive = !!currentSort && (currentSort.key === sortKey || currentSort.key === col?.key);
         const th = _.th({
           class: uiClass([
-            "cms-table-head-cell",
+            "jss-table-head-cell",
             uiWhen(col?.nowrap, "is-nowrap"),
-            uiWhen(isSortable, "cms-table-sortable"),
+            uiWhen(isSortable, "jss-table-sortable"),
             uiWhen(isActive, "is-sorted"),
             col?.headerClass
           ]),
@@ -221,11 +221,11 @@
           th.appendChild(
             _.button({
               type: "button",
-              class: "cms-table-head-button",
+              class: "jss-table-head-button",
               onClick: () => toggleSort(col, colIndex)
             },
-              _.span({ class: "cms-table-head-label" }, ...headerNodes),
-              _.span({ class: "cms-table-head-arrow", "aria-hidden": "true" },
+              _.span({ class: "jss-table-head-label" }, ...headerNodes),
+              _.span({ class: "jss-table-head-arrow", "aria-hidden": "true" },
                 isActive ? (currentSort.dir === "asc" ? "↑" : "↓") : "↕"
               )
             )
@@ -239,7 +239,7 @@
       if (hasActions) {
         const actionsHeaderNodes = renderSlotToArray(slots, "actionsHeader", {}, props.actionsLabel || "Azioni");
         row.appendChild(
-          _.th({ class: "cms-table-head-cell cms-table-head-actions", style: { textAlign: "right" } }, ...actionsHeaderNodes)
+          _.th({ class: "jss-table-head-cell jss-table-head-actions", style: { textAlign: "right" } }, ...actionsHeaderNodes)
         );
       }
       thead.appendChild(row);
@@ -251,7 +251,7 @@
       const colSpan = String(columns.length + (hasActions ? 1 : 0));
       tbody.appendChild(
         _.tr(
-          _.td({ colSpan, class: "cms-table-state" }, ...nodes)
+          _.td({ colSpan, class: "jss-table-state" }, ...nodes)
         )
       );
     };
@@ -354,7 +354,7 @@
         const tr = _.tr({
           ...rowAttrs,
           class: uiClass([
-            "cms-table-row",
+            "jss-table-row",
             rowClass,
             rowAttrs.class,
             uiWhen(isInteractiveRow, "is-clickable")
@@ -396,7 +396,7 @@
           if (col?.maxWidth != null) tdStyle.maxWidth = toCssSize(col.maxWidth);
           const cellClass = typeof col?.cellClass === "function" ? col.cellClass(row, cellCtx) : (col?.cellClass || col?.class);
           const td = _.td({
-            class: uiClass(["cms-table-cell", cellClass, uiWhen(col?.nowrap, "is-nowrap")]),
+            class: uiClass(["jss-table-cell", cellClass, uiWhen(col?.nowrap, "is-nowrap")]),
             style: tdStyle
           });
 
@@ -419,8 +419,8 @@
           let actionNodes = renderSlotToArray(slots, "actions", actionCtx, actionRaw);
           if (!actionNodes.length) actionNodes = renderSlotToArray(null, "default", actionCtx, actionRaw);
           tr.appendChild(
-            _.td({ class: "cms-table-cell cms-table-cell-actions", style: { textAlign: "right" } },
-              _.div({ class: "cms-table-actions" }, ...actionNodes)
+            _.td({ class: "jss-table-cell jss-table-cell-actions", style: { textAlign: "right" } },
+              _.div({ class: "jss-table-actions" }, ...actionNodes)
             )
           );
         }

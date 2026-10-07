@@ -247,7 +247,7 @@
     const { props, children } = JSswift.uiNormalizeArgs(args);
     const form = props.form; // required-ish
     const onSubmit = props.onSubmit; // async (model, form) => ...
-    const cls = uiClass(["cms-form", props.class]);
+    const cls = uiClass(["jss-form", props.class]);
 
     const p = JSswift.omit(props, ["form", "onSubmit"]);
     p.class = cls;
@@ -297,7 +297,7 @@
     if (modalRoot) return modalRoot;
 
     modalRoot = document.createElement("div");
-    modalRoot.setAttribute("data-cms-modal-root", "true");
+    modalRoot.setAttribute("data-jss-modal-root", "true");
     document.body.appendChild(modalRoot);
     return modalRoot;
   }
@@ -305,7 +305,7 @@
   UI.cardHeader = (...args) => {
     const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
-    const cls = uiClass(["cms-card-header", uiWhen(props.divider, "divider"), props.class]);
+    const cls = uiClass(["jss-card-header", uiWhen(props.divider, "divider"), props.class]);
     const p = JSswift.omit(props, ["divider", "align", "justify", "gap", "wrap", "direction", "slots"]);
     p.class = cls;
 
@@ -330,7 +330,7 @@
   UI.cardBody = (...args) => {
     const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
-    const cls = uiClass(["cms-card-body", props.class]);
+    const cls = uiClass(["jss-card-body", props.class]);
     const p = JSswift.omit(props, [
       "slots", "display", "direction", "wrap", "align", "justify", "gap",
       "rowGap", "columnGap", "padding", "width"
@@ -344,7 +344,7 @@
   UI.cardFooter = (...args) => {
     const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
-    const cls = uiClass(["cms-card-footer", uiWhen(props.divider, "divider"), props.class]);
+    const cls = uiClass(["jss-card-footer", uiWhen(props.divider, "divider"), props.class]);
     const p = JSswift.omit(props, ["divider", "align", "justify", "gap", "wrap", "direction", "slots"]);
     p.class = cls;
 

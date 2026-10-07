@@ -10,6 +10,7 @@ Read this only when changing JSswift itself. For application work, use [../docum
 | Build, test, debug | [build-and-test.md](build-and-test.md) |
 | Public documentation or metadata | [documentation.md](documentation.md) |
 | npm, GitHub Pages, release | [release.md](release.md) |
+| Controlled app benchmarks | [benchmark-protocol.md](benchmark-protocol.md) |
 | Technical index, policy, and history | [technical-index.md](technical-index.md) |
 
 Workflow: update workflow/focus.md, edit source—not generated output—rebuild, test, document public changes, then close the focus. Never add secrets or personal data.

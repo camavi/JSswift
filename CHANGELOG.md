@@ -9,6 +9,19 @@ The format is kept intentionally simple:
 - Fixed
 - Docs
 
+## Unreleased
+
+### Docs
+
+- Focused base CSS/theme guide and discovery route; stronger standalone AI entrypoint instructions.
+- CRUD replacement uses mount lifecycle cleanup; browser checks cover associated errors, storage write failure, themes and repeated shared-model replacement.
+- Controlled benchmark protocol separates cache, artifact size and accessibility evidence.
+
+### Changed
+
+- Breaking CSS namespace migration: component classes, overlay IDs, theme custom properties and private runtime identifiers use jss instead of cms. No compatibility aliases; applications must update custom selectors/theme variables and deploy matching JS/CSS together. Existing npm import paths remain available.
+- Distributed JavaScript is generated without comments, including readable core/UI/umbrella entries.
+
 ## [1.0.54] - 2026-10-07
 
 ### Added

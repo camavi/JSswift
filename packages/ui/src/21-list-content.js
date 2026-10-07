@@ -73,16 +73,16 @@
         if (emptyNodes.length === 1 && isListItemNode(emptyNodes[0])) {
           content.push(emptyNodes[0]);
         } else {
-          content.push(UI.Item({ class: "cms-item-empty", flat: true }, ...emptyNodes));
+          content.push(UI.Item({ class: "jss-item-empty", flat: true }, ...emptyNodes));
         }
       }
     }
 
     const cls = uiClass([
-      "cms-list",
+      "jss-list",
       uiWhen(props.dense, "dense"),
       uiWhen(props.divider, "divider"),
-      uiWhen(marker === false || marker === "none", "cms-list-no-marker"),
+      uiWhen(marker === false || marker === "none", "jss-list-no-marker"),
       props.class
     ]);
     const p = JSswift.omit(props, [
@@ -94,7 +94,7 @@
       ...(props.style || {})
     };
     const gap = uiStyleValue(props.gap, toCssSize);
-    if (gap != null) p.style["--cms-list-gap"] = gap;
+    if (gap != null) p.style["--jss-list-gap"] = gap;
     if (marker != null && marker !== false && marker !== true && marker !== "none") {
       p.style.listStyleType = String(marker);
     }
@@ -143,13 +143,13 @@
     );
 
     const cls = uiClass([
-      "cms-item",
+      "jss-item",
       uiWhen(props.divider, "divider"),
-      uiWhen(hasSurface, "cms-clear-set"),
-      uiWhen(hasSurface, "cms-singularity"),
-      uiWhen(hasSurface, "cms-item-surface"),
-      uiWhen(isInline, "cms-item-inline"),
-      uiWhen(interactive, "cms-item-clickable"),
+      uiWhen(hasSurface, "jss-clear-set"),
+      uiWhen(hasSurface, "jss-singularity"),
+      uiWhen(hasSurface, "jss-item-surface"),
+      uiWhen(isInline, "jss-item-inline"),
+      uiWhen(interactive, "jss-item-clickable"),
       uiWhen(active, "is-active"),
       uiWhen(props.disabled, "is-disabled"),
       props.class
@@ -195,28 +195,28 @@
       if (p.role == null) p.role = "button";
     }
 
-    const titleSection = titleNodes.length ? _.div({ class: "cms-item-title" }, ...titleNodes) : null;
-    const subtitleSection = subtitleNodes.length ? _.div({ class: "cms-item-subtitle" }, ...subtitleNodes) : null;
-    const metaSection = metaNodes.length ? _.div({ class: "cms-item-meta" }, ...metaNodes) : null;
+    const titleSection = titleNodes.length ? _.div({ class: "jss-item-title" }, ...titleNodes) : null;
+    const subtitleSection = subtitleNodes.length ? _.div({ class: "jss-item-subtitle" }, ...subtitleNodes) : null;
+    const metaSection = metaNodes.length ? _.div({ class: "jss-item-meta" }, ...metaNodes) : null;
     const bodySection = mergedBodyNodes.length
-      ? _.div({ class: uiClass(["cms-item-body", uiWhen(!(titleNodes.length || subtitleNodes.length || metaNodes.length), "is-standalone")]) }, ...mergedBodyNodes)
+      ? _.div({ class: uiClass(["jss-item-body", uiWhen(!(titleNodes.length || subtitleNodes.length || metaNodes.length), "is-standalone")]) }, ...mergedBodyNodes)
       : null;
-    const actionsSection = actionsNodes.length ? _.div({ class: "cms-item-actions" }, ...actionsNodes) : null;
+    const actionsSection = actionsNodes.length ? _.div({ class: "jss-item-actions" }, ...actionsNodes) : null;
 
     const item = _.li(
       p,
       _.div(
-        { class: "cms-item-row" },
-        iconNodes.length ? _.div({ class: "cms-item-icon" }, ...iconNodes) : null,
+        { class: "jss-item-row" },
+        iconNodes.length ? _.div({ class: "jss-item-icon" }, ...iconNodes) : null,
         _.div(
-          { class: "cms-item-main" },
+          { class: "jss-item-main" },
           metaSection,
           titleSection,
           subtitleSection,
           bodySection,
           actionsSection
         ),
-        asideNodes.length ? _.div({ class: "cms-item-aside" }, ...asideNodes) : null
+        asideNodes.length ? _.div({ class: "jss-item-aside" }, ...asideNodes) : null
       )
     );
     setPropertyProps(item, props);
@@ -227,10 +227,10 @@
 
   UI.Separator = (...args) => {
     const { props } = JSswift.uiNormalizeArgs(args);
-    const cls = uiClass(["cms-separator", uiWhen(props.vertical, "vertical"), props.class]);
+    const cls = uiClass(["jss-separator", uiWhen(props.vertical, "vertical"), props.class]);
     const p = JSswift.omit(props, ["vertical", "size", "slots"]);
     p.class = cls;
-    const style = { borderColor: "var(--cms-border)", ...(props.style || {}) };
+    const style = { borderColor: "var(--jss-border)", ...(props.style || {}) };
     const sizeValue = uiUnwrap(props.size);
     const vertical = uiUnwrap(props.vertical);
     if (sizeValue != null) {

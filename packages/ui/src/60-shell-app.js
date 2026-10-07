@@ -43,7 +43,7 @@ UI.Header = (...args) => {
     }
     if (typeof fallback === "function") {
       const inlineNames = new Set(["eyebrow", "title", "subtitle"]);
-      const host = _[inlineNames.has(name) ? "span" : "div"]({ class: `cms-header-slot-${name}` });
+      const host = _[inlineNames.has(name) ? "span" : "div"]({ class: `jss-header-slot-${name}` });
       JSswift.reactive.effect(() => {
         const nextValue = map(fallback(ctx));
         const normalized = flattenSlotValue(JSswift.ui.slot(nextValue));
@@ -68,7 +68,7 @@ UI.Header = (...args) => {
     return JSswift.ui.slot(value, { as: open ? "drawerOpenIcon" : "drawerCloseIcon" });
   };
 
-  const toggleIconHost = _.span({ class: "cms-header-toggle-icon" });
+  const toggleIconHost = _.span({ class: "jss-header-toggle-icon" });
   const paintToggleIcon = (open) => {
     const nodes = renderSlotToArray(null, "default", ctx, renderDrawerToggleValue(open));
     toggleIconHost.replaceChildren(...(nodes.length ? nodes : [""]));
@@ -76,7 +76,7 @@ UI.Header = (...args) => {
   paintToggleIcon(isDrawerOpen());
 
   const autoLeft = UI.Btn({
-    class: "cms-header-toggle",
+    class: "jss-header-toggle",
     outline: true,
     size: rawProps.toggleSize ?? rawProps.size ?? "sm",
     onClick: toggleDrawer,
@@ -120,24 +120,24 @@ UI.Header = (...args) => {
   const actionNodes = renderPropNodes("actions", rawProps.actions);
 
   const structuredCenter = _.div(
-    { class: uiClass(["cms-header-body", rawProps.bodyClass, rawProps.centerClass]) },
+    { class: uiClass(["jss-header-body", rawProps.bodyClass, rawProps.centerClass]) },
     _.div(
-      { class: "cms-header-heading" },
-      iconNodes.length ? _.div({ class: "cms-header-icon" }, ...iconNodes) : null,
+      { class: "jss-header-heading" },
+      iconNodes.length ? _.div({ class: "jss-header-icon" }, ...iconNodes) : null,
       _.div(
-        { class: "cms-header-copy" },
-        eyebrowNodes.length ? _.div({ class: uiClass(["cms-header-eyebrow", rawProps.eyebrowClass]) }, ...eyebrowNodes) : null,
-        titleNodes.length ? _.div({ class: uiClass(["cms-header-title", rawProps.titleClass]) }, ...titleNodes) : null,
-        subtitleNodes.length ? _.div({ class: uiClass(["cms-header-subtitle", rawProps.subtitleClass]) }, ...subtitleNodes) : null,
-        contentNodes.length ? _.div({ class: uiClass(["cms-header-content", rawProps.contentClass]) }, ...contentNodes) : null
+        { class: "jss-header-copy" },
+        eyebrowNodes.length ? _.div({ class: uiClass(["jss-header-eyebrow", rawProps.eyebrowClass]) }, ...eyebrowNodes) : null,
+        titleNodes.length ? _.div({ class: uiClass(["jss-header-title", rawProps.titleClass]) }, ...titleNodes) : null,
+        subtitleNodes.length ? _.div({ class: uiClass(["jss-header-subtitle", rawProps.subtitleClass]) }, ...subtitleNodes) : null,
+        contentNodes.length ? _.div({ class: uiClass(["jss-header-content", rawProps.contentClass]) }, ...contentNodes) : null
       ),
-      metaNodes.length ? _.div({ class: uiClass(["cms-header-meta", rawProps.metaClass]) }, ...metaNodes) : null
+      metaNodes.length ? _.div({ class: uiClass(["jss-header-meta", rawProps.metaClass]) }, ...metaNodes) : null
     )
   );
 
   const endContent = [
     ...rightNodes,
-    ...(actionNodes.length ? [_.div({ class: uiClass(["cms-header-actions", rawProps.actionsClass]) }, ...actionNodes)] : [])
+    ...(actionNodes.length ? [_.div({ class: uiClass(["jss-header-actions", rawProps.actionsClass]) }, ...actionNodes)] : [])
   ];
 
   const p = JSswift.omit(props, [
@@ -148,9 +148,9 @@ UI.Header = (...args) => {
     "titleClass", "toggleLabel", "toggleSize", "gap", "minHeight", "startClass", "endClass"
   ]);
   p.class = uiClass([
-    "cms-panel",
-    "cms-header",
-    "cms-singularity",
+    "jss-panel",
+    "jss-header",
+    "jss-singularity",
     uiWhen(rawProps.sticky !== false, "sticky"),
     uiWhen(rawProps.stack, "stack"),
     uiWhen(rawProps.elevated, "elevated"),
@@ -158,18 +158,18 @@ UI.Header = (...args) => {
     props.class
   ]);
   p.style = { ...(props.style || {}) };
-  if (rawProps.gap != null) p.style["--cms-header-gap"] = toCssSize(uiUnwrap(rawProps.gap));
+  if (rawProps.gap != null) p.style["--jss-header-gap"] = toCssSize(uiUnwrap(rawProps.gap));
   if (rawProps.minHeight != null) p.style.minHeight = toCssSize(uiUnwrap(rawProps.minHeight));
 
   const el = _.div(
     p,
-    ...(startNodes.length ? [_.div({ class: uiClass(["cms-header-start", rawProps.startClass]) }, ...startNodes)] : []),
+    ...(startNodes.length ? [_.div({ class: uiClass(["jss-header-start", rawProps.startClass]) }, ...startNodes)] : []),
     _.div(
-      { class: "cms-header-main" },
+      { class: "jss-header-main" },
       ...(customCenterNodes.length
-        ? [_.div({ class: uiClass(["cms-header-body", rawProps.bodyClass, rawProps.centerClass]) }, ...customCenterNodes)]
+        ? [_.div({ class: uiClass(["jss-header-body", rawProps.bodyClass, rawProps.centerClass]) }, ...customCenterNodes)]
         : [structuredCenter]),
-      ...(endContent.length ? [_.div({ class: uiClass(["cms-header-end", rawProps.endClass]) }, ...endContent)] : [])
+      ...(endContent.length ? [_.div({ class: uiClass(["jss-header-end", rawProps.endClass]) }, ...endContent)] : [])
     )
   );
 
@@ -299,7 +299,7 @@ UI.Drawer = (...args) => {
   };
   const wrapIconNodes = (icon, side, localCtx = {}) => {
     const nodes = iconNodes(icon, localCtx);
-    return nodes.length ? [_.span({ class: uiClass(["cms-drawer-item-icon", side]) }, ...nodes)] : [];
+    return nodes.length ? [_.span({ class: uiClass(["jss-drawer-item-icon", side]) }, ...nodes)] : [];
   };
 
   const getItemIcons = (it) => {
@@ -341,18 +341,18 @@ UI.Drawer = (...args) => {
     if (!hasStructured) return extra;
     return [
       _.div(
-        { class: uiClass(["cms-drawer-header", rawProps.headerClass]) },
-        ...(icon.length ? [_.div({ class: "cms-drawer-header-icon" }, ...icon)] : []),
+        { class: uiClass(["jss-drawer-header", rawProps.headerClass]) },
+        ...(icon.length ? [_.div({ class: "jss-drawer-header-icon" }, ...icon)] : []),
         _.div(
-          { class: "cms-drawer-header-body" },
-          ...(eyebrow.length ? [_.div({ class: "cms-drawer-header-eyebrow" }, ...eyebrow)] : []),
-          ...(title.length ? [_.div({ class: "cms-drawer-header-title" }, ...title)] : []),
-          ...(subtitle.length ? [_.div({ class: "cms-drawer-header-subtitle" }, ...subtitle)] : []),
-          ...(meta.length ? [_.div({ class: "cms-drawer-header-meta" }, ...meta)] : []),
-          ...(content.length ? [_.div({ class: "cms-drawer-header-content" }, ...content)] : []),
-          ...(extra.length ? [_.div({ class: "cms-drawer-header-extra" }, ...extra)] : [])
+          { class: "jss-drawer-header-body" },
+          ...(eyebrow.length ? [_.div({ class: "jss-drawer-header-eyebrow" }, ...eyebrow)] : []),
+          ...(title.length ? [_.div({ class: "jss-drawer-header-title" }, ...title)] : []),
+          ...(subtitle.length ? [_.div({ class: "jss-drawer-header-subtitle" }, ...subtitle)] : []),
+          ...(meta.length ? [_.div({ class: "jss-drawer-header-meta" }, ...meta)] : []),
+          ...(content.length ? [_.div({ class: "jss-drawer-header-content" }, ...content)] : []),
+          ...(extra.length ? [_.div({ class: "jss-drawer-header-extra" }, ...extra)] : [])
         ),
-        ...(actions.length ? [_.div({ class: "cms-drawer-header-actions" }, ...actions)] : [])
+        ...(actions.length ? [_.div({ class: "jss-drawer-header-actions" }, ...actions)] : [])
       )
     ];
   };
@@ -375,28 +375,28 @@ UI.Drawer = (...args) => {
     if (labelNodes.length || noteNodes.length || badgeNodes.length || asideNodes.length) {
       mainChildren.push(
         _.div(
-          { class: "cms-drawer-item-top" },
+          { class: "jss-drawer-item-top" },
           _.div(
-            { class: "cms-drawer-item-copy" },
-            ...(labelNodes.length ? [_.div({ class: "cms-drawer-item-label" }, ...labelNodes)] : []),
-            ...(noteNodes.length ? [_.div({ class: "cms-drawer-item-note" }, ...noteNodes)] : [])
+            { class: "jss-drawer-item-copy" },
+            ...(labelNodes.length ? [_.div({ class: "jss-drawer-item-label" }, ...labelNodes)] : []),
+            ...(noteNodes.length ? [_.div({ class: "jss-drawer-item-note" }, ...noteNodes)] : [])
           ),
           ...(badgeNodes.length || asideNodes.length
             ? [_.div(
-              { class: "cms-drawer-item-meta" },
-              ...(badgeNodes.length ? [_.div({ class: "cms-drawer-item-badge" }, ...badgeNodes)] : []),
-              ...(asideNodes.length ? [_.div({ class: "cms-drawer-item-aside" }, ...asideNodes)] : [])
+              { class: "jss-drawer-item-meta" },
+              ...(badgeNodes.length ? [_.div({ class: "jss-drawer-item-badge" }, ...badgeNodes)] : []),
+              ...(asideNodes.length ? [_.div({ class: "jss-drawer-item-aside" }, ...asideNodes)] : [])
             )]
             : [])
         )
       );
     }
-    if (contentNodes.length) mainChildren.push(_.div({ class: "cms-drawer-item-content" }, ...contentNodes));
+    if (contentNodes.length) mainChildren.push(_.div({ class: "jss-drawer-item-content" }, ...contentNodes));
 
     return [
       ...(extras.start || []),
       ...wrapIconNodes(itemCtx.iconLeft, "left", itemCtx),
-      ...(mainChildren.length ? [_.div({ class: "cms-drawer-item-main" }, ...mainChildren)] : []),
+      ...(mainChildren.length ? [_.div({ class: "jss-drawer-item-main" }, ...mainChildren)] : []),
       ...wrapIconNodes(itemCtx.iconRight, "right", itemCtx),
       ...(extras.end || [])
     ];
@@ -408,7 +408,7 @@ UI.Drawer = (...args) => {
 
       if (it.nodeType || typeof it !== "object" || Array.isArray(it)) {
         return _.div({
-          class: "cms-drawer-custom",
+          class: "jss-drawer-custom",
           "data-level": String(level)
         }, ...renderSlotToArray(null, "default", { ...ctx, item: it, level, index: idx, path }, it));
       }
@@ -455,7 +455,7 @@ UI.Drawer = (...args) => {
 
       if (dividerLike) {
         return _.div({
-          class: uiClass(["cms-drawer-separator", it.class]),
+          class: uiClass(["jss-drawer-separator", it.class]),
           "data-level": String(level)
         });
       }
@@ -463,7 +463,7 @@ UI.Drawer = (...args) => {
       if (sectionLike) {
         const sectionNodes = renderSlotToArray(slots, "sectionLabel", itemCtx, label || content);
         return _.div({
-          class: uiClass(["cms-drawer-section-label", it.class]),
+          class: uiClass(["jss-drawer-section-label", it.class]),
           "data-level": String(level)
         }, ...sectionNodes);
       }
@@ -471,7 +471,7 @@ UI.Drawer = (...args) => {
       if (contentOnly) {
         const customNodes = renderSlotToArray(slots, "item", itemCtx, content ?? label);
         return _.div({
-          class: uiClass(["cms-drawer-custom", tone ? `cms-drawer-tone-${tone}` : "", it.class]),
+          class: uiClass(["jss-drawer-custom", tone ? `jss-drawer-tone-${tone}` : "", it.class]),
           style: it.style,
           "data-level": String(level)
         }, ...customNodes);
@@ -481,7 +481,7 @@ UI.Drawer = (...args) => {
         const baseActiveInGroup = baseIsActive || hasActiveChildren(childItems, level + 1, path.concat(keyPart));
         const activeInGroup = baseActiveInGroup || isBranchActive(itemStateKey);
         let open = readGroupOpen(itemStateKey, !!uiUnwrap(it.expanded) || !!uiUnwrap(it.open) || activeInGroup);
-        const toggleIconEl = _.span({ class: "cms-drawer-group-icon" });
+        const toggleIconEl = _.span({ class: "jss-drawer-group-icon" });
         const groupCtx = {
           ...itemCtx,
           active: activeInGroup,
@@ -498,18 +498,18 @@ UI.Drawer = (...args) => {
               : (it.iconSidePosition || it.closeIconSide || it.closeIconPosition || "right")
           ) === "left" ? "left" : "right";
           toggleIconEl.innerHTML = "";
-          toggleIconEl.className = `cms-drawer-group-icon ${side}`;
+          toggleIconEl.className = `jss-drawer-group-icon ${side}`;
           iconNodes(icon, { ...groupCtx, as: "toggleIcon" }).forEach((node) => toggleIconEl.appendChild(node));
         };
         const toggleBtn = _.button({
           type: "button",
           class: uiClass([
-            "cms-drawer-group-toggle",
-            "cms-drawer-entry",
+            "jss-drawer-group-toggle",
+            "jss-drawer-entry",
             open ? "open" : "",
             activeInGroup ? "active" : "",
             disabled ? "is-disabled" : "",
-            tone ? `cms-drawer-tone-${tone}` : "",
+            tone ? `jss-drawer-tone-${tone}` : "",
             it.class
           ]),
           style: it.style,
@@ -529,13 +529,13 @@ UI.Drawer = (...args) => {
           end: uiUnwrap(it.iconSidePosition || it.openIconSide || it.closeIconSide || it.openIconPosition || it.closeIconPosition || "right") === "right" ? [toggleIconEl] : []
         }));
         const customGroupHeader = renderSlotToArray(slots, "group", groupCtx, null);
-        const groupItems = _.div({ class: "cms-drawer-group-items" }, ...renderItems(childItems, level + 1, path.concat(keyPart)));
+        const groupItems = _.div({ class: "jss-drawer-group-items" }, ...renderItems(childItems, level + 1, path.concat(keyPart)));
         const groupWrap = _.div({
           class: uiClass([
-            "cms-drawer-group",
+            "jss-drawer-group",
             open ? "open" : "",
             activeInGroup ? "active" : "",
-            tone ? `cms-drawer-tone-${tone}` : ""
+            tone ? `jss-drawer-tone-${tone}` : ""
           ]),
           "data-level": String(level)
         }, ...(customGroupHeader.length ? customGroupHeader : [toggleBtn]), groupItems);
@@ -560,11 +560,11 @@ UI.Drawer = (...args) => {
       const isButtonItem = uiUnwrap(it.button) === true || it.type === "button" || (!href && typeof it.onClick === "function");
       const sharedProps = {
         class: uiClass([
-          "cms-drawer-entry",
-          isButtonItem ? "cms-drawer-btn" : "cms-drawer-link",
+          "jss-drawer-entry",
+          isButtonItem ? "jss-drawer-btn" : "jss-drawer-link",
           isActive ? "active" : "",
           disabled ? "is-disabled" : "",
-          tone ? `cms-drawer-tone-${tone}` : "",
+          tone ? `jss-drawer-tone-${tone}` : "",
           it.class
         ]),
         style: it.style,
@@ -628,8 +628,8 @@ UI.Drawer = (...args) => {
   const afterNodes = renderArea(["after", "afterItems"], rawProps.after ?? rawProps.afterItems);
   const bodyNodes = bodyCustom.length ? bodyCustom : [...beforeNodes, ...itemNodes, ...defaultNodes, ...afterNodes];
   const emptyFallback = hasOwn("empty") || hasOwn("emptyText")
-    ? (rawProps.empty ?? _.div({ class: uiClass(["cms-drawer-empty", rawProps.emptyClass]) }, rawProps.emptyText || "Nessun contenuto"))
-    : _.div({ class: uiClass(["cms-drawer-empty", rawProps.emptyClass]) }, "Nessun contenuto");
+    ? (rawProps.empty ?? _.div({ class: uiClass(["jss-drawer-empty", rawProps.emptyClass]) }, rawProps.emptyText || "Nessun contenuto"))
+    : _.div({ class: uiClass(["jss-drawer-empty", rawProps.emptyClass]) }, "Nessun contenuto");
   const headerNodes = renderArea(["header"], buildStructuredHeader());
   const footerNodes = renderArea(["footer"], rawProps.footer);
   const finalBodyNodes = bodyNodes.length ? bodyNodes : renderArea(["empty"], emptyFallback);
@@ -643,16 +643,16 @@ UI.Drawer = (...args) => {
     "maxHeight", "width", "onSelect"
   ]);
   p.class = uiClass([
-    "cms-panel",
-    "cms-drawer",
+    "jss-panel",
+    "jss-drawer",
     drawerOpen ? "open" : "",
     uiWhen(rawProps.sticky, "sticky"),
     props.class
   ]);
   p.style = { ...(props.style || {}) };
-  if (rawProps.gap != null) p.style["--cms-drawer-gap"] = toCssSize(uiUnwrap(rawProps.gap));
-  if (rawProps.indent != null) p.style["--cms-drawer-indent"] = toCssSize(uiUnwrap(rawProps.indent));
-  if (rawProps.padding != null) p.style["--cms-drawer-padding"] = toCssSize(uiUnwrap(rawProps.padding));
+  if (rawProps.gap != null) p.style["--jss-drawer-gap"] = toCssSize(uiUnwrap(rawProps.gap));
+  if (rawProps.indent != null) p.style["--jss-drawer-indent"] = toCssSize(uiUnwrap(rawProps.indent));
+  if (rawProps.padding != null) p.style["--jss-drawer-padding"] = toCssSize(uiUnwrap(rawProps.padding));
   if (rawProps.width != null) p.style.width = toCssSize(uiUnwrap(rawProps.width));
   if (rawProps.minHeight != null) p.style.minHeight = toCssSize(uiUnwrap(rawProps.minHeight));
   if (rawProps.maxHeight != null) p.style.maxHeight = toCssSize(uiUnwrap(rawProps.maxHeight));
@@ -660,8 +660,8 @@ UI.Drawer = (...args) => {
   const drawerEl = _.div(
     p,
     ...(headerNodes.length ? headerNodes : []),
-    _.div({ class: uiClass(["cms-drawer-body", rawProps.bodyClass]) }, ...finalBodyNodes),
-    ...(footerNodes.length ? [_.div({ class: uiClass(["cms-drawer-footer", rawProps.footerClass]) }, ...footerNodes)] : [])
+    _.div({ class: uiClass(["jss-drawer-body", rawProps.bodyClass]) }, ...finalBodyNodes),
+    ...(footerNodes.length ? [_.div({ class: uiClass(["jss-drawer-footer", rawProps.footerClass]) }, ...footerNodes)] : [])
   );
   const drawerSet = drawerElsByKey.get(currentStateKey) || new Set();
   drawerSet.add(drawerEl);
@@ -684,7 +684,7 @@ UI.Page = (...args) => {
   const props = { ...rawProps };
 
   const isSectionNode = (node, name) => {
-    return !!(node && node.nodeType === 1 && node.classList?.contains(`cms-page-${name}`));
+    return !!(node && node.nodeType === 1 && node.classList?.contains(`jss-page-${name}`));
   };
   const renderIconFallback = (value) => {
     if (value == null) return null;
@@ -717,7 +717,7 @@ UI.Page = (...args) => {
     }
     if (typeof fallback === "function") {
       const inlineNames = new Set(["eyebrow", "title", "subtitle"]);
-      const host = _[inlineNames.has(name) ? "span" : "div"]({ class: `cms-page-slot-${name}` });
+      const host = _[inlineNames.has(name) ? "span" : "div"]({ class: `jss-page-slot-${name}` });
       JSswift.reactive.effect(() => {
         const nextValue = map(fallback(ctx));
         const normalized = flattenSlotValue(JSswift.ui.slot(nextValue));
@@ -761,39 +761,39 @@ UI.Page = (...args) => {
   const actionsNodes = renderPropNodes("actions", rawProps.actions);
 
   const generatedHero = heroNodes.length
-    ? _.div({ class: uiClass(["cms-page-hero", rawProps.heroClass]) }, ...heroNodes)
+    ? _.div({ class: uiClass(["jss-page-hero", rawProps.heroClass]) }, ...heroNodes)
     : null;
 
   const hasStructuredHeader = iconNodes.length || eyebrowNodes.length || titleNodes.length || subtitleNodes.length || headerNodes.length || asideNodes.length;
   const generatedHeader = hasStructuredHeader
     ? _.div(
-      { class: uiClass(["cms-page-header", rawProps.headerClass]) },
+      { class: uiClass(["jss-page-header", rawProps.headerClass]) },
       _.div(
-        { class: "cms-page-head" },
-        iconNodes.length ? _.div({ class: uiClass(["cms-page-icon", rawProps.iconClass]) }, ...iconNodes) : null,
+        { class: "jss-page-head" },
+        iconNodes.length ? _.div({ class: uiClass(["jss-page-icon", rawProps.iconClass]) }, ...iconNodes) : null,
         _.div(
-          { class: "cms-page-head-main" },
-          eyebrowNodes.length ? _.div({ class: uiClass(["cms-page-eyebrow", rawProps.eyebrowClass]) }, ...eyebrowNodes) : null,
-          titleNodes.length ? _.div({ class: uiClass(["cms-page-title", rawProps.titleClass]) }, ...titleNodes) : null,
-          subtitleNodes.length ? _.div({ class: uiClass(["cms-page-subtitle", rawProps.subtitleClass]) }, ...subtitleNodes) : null,
-          headerNodes.length ? _.div({ class: uiClass(["cms-page-header-content", rawProps.headerContentClass]) }, ...headerNodes) : null
+          { class: "jss-page-head-main" },
+          eyebrowNodes.length ? _.div({ class: uiClass(["jss-page-eyebrow", rawProps.eyebrowClass]) }, ...eyebrowNodes) : null,
+          titleNodes.length ? _.div({ class: uiClass(["jss-page-title", rawProps.titleClass]) }, ...titleNodes) : null,
+          subtitleNodes.length ? _.div({ class: uiClass(["jss-page-subtitle", rawProps.subtitleClass]) }, ...subtitleNodes) : null,
+          headerNodes.length ? _.div({ class: uiClass(["jss-page-header-content", rawProps.headerContentClass]) }, ...headerNodes) : null
         ),
-        asideNodes.length ? _.div({ class: uiClass(["cms-page-aside", rawProps.asideClass]) }, ...asideNodes) : null
+        asideNodes.length ? _.div({ class: uiClass(["jss-page-aside", rawProps.asideClass]) }, ...asideNodes) : null
       )
     )
     : null;
 
   const mergedBodyNodes = [...bodyNodes, ...looseNodes];
   const generatedBody = mergedBodyNodes.length
-    ? _.div({ class: uiClass(["cms-page-body", rawProps.bodyClass]) }, ...mergedBodyNodes)
+    ? _.div({ class: uiClass(["jss-page-body", rawProps.bodyClass]) }, ...mergedBodyNodes)
     : null;
 
   const mergedActionNodes = [...actionsNodes, ...sectionNodes.actions];
   const generatedFooter = (footerNodes.length || mergedActionNodes.length)
     ? _.div(
-      { class: uiClass(["cms-page-footer", rawProps.footerClass]) },
+      { class: uiClass(["jss-page-footer", rawProps.footerClass]) },
       ...footerNodes,
-      mergedActionNodes.length ? _.div({ class: "cms-page-actions" }, ...mergedActionNodes) : null
+      mergedActionNodes.length ? _.div({ class: "jss-page-actions" }, ...mergedActionNodes) : null
     )
     : null;
 
@@ -807,35 +807,35 @@ UI.Page = (...args) => {
     "narrow", "padding", "size", "slots", "subtitle", "subtitleClass", "title", "titleClass"
   ]);
   p.class = uiClass([
-    "cms-panel",
-    "cms-page",
+    "jss-panel",
+    "jss-page",
     uiWhen(rawProps.dense, "dense"),
-    uiWhen(rawProps.flat, "cms-page-flat"),
-    uiWhen(rawProps.centered, "cms-page-centered"),
-    uiWhen(rawProps.narrow, "cms-page-narrow"),
-    uiWhen(hasHero, "cms-page-has-hero"),
-    uiWhen(hasHeader, "cms-page-has-header"),
+    uiWhen(rawProps.flat, "jss-page-flat"),
+    uiWhen(rawProps.centered, "jss-page-centered"),
+    uiWhen(rawProps.narrow, "jss-page-narrow"),
+    uiWhen(hasHero, "jss-page-has-hero"),
+    uiWhen(hasHeader, "jss-page-has-header"),
     props.class
   ]);
   p.style = { ...(props.style || {}) };
 
   if (rawProps.gap != null || uiIsReactive(rawProps.gap)) {
-    p.style["--cms-page-gap"] = uiStyleValue(rawProps.gap, toCssSize);
+    p.style["--jss-page-gap"] = uiStyleValue(rawProps.gap, toCssSize);
   }
   if (rawProps.padding != null || uiIsReactive(rawProps.padding)) {
-    p.style["--cms-page-padding"] = uiStyleValue(rawProps.padding, toCssSize);
+    p.style["--jss-page-padding"] = uiStyleValue(rawProps.padding, toCssSize);
   }
   if (rawProps.maxWidth != null || uiIsReactive(rawProps.maxWidth)) {
-    p.style["--cms-page-max-width"] = uiStyleValue(rawProps.maxWidth, toCssSize);
+    p.style["--jss-page-max-width"] = uiStyleValue(rawProps.maxWidth, toCssSize);
   }
   if (rawProps.minHeight != null || uiIsReactive(rawProps.minHeight)) {
-    p.style["--cms-page-min-height"] = uiStyleValue(rawProps.minHeight, toCssSize);
+    p.style["--jss-page-min-height"] = uiStyleValue(rawProps.minHeight, toCssSize);
   }
   if (rawProps.headerGap != null || uiIsReactive(rawProps.headerGap)) {
-    p.style["--cms-page-header-gap"] = uiStyleValue(rawProps.headerGap, toCssSize);
+    p.style["--jss-page-header-gap"] = uiStyleValue(rawProps.headerGap, toCssSize);
   }
   if (rawProps.heroPadding != null || uiIsReactive(rawProps.heroPadding)) {
-    p.style["--cms-page-hero-padding"] = uiStyleValue(rawProps.heroPadding, toCssSize);
+    p.style["--jss-page-hero-padding"] = uiStyleValue(rawProps.heroPadding, toCssSize);
   }
 
   const el = _.div(
@@ -934,8 +934,8 @@ UI.AppShell = (...args) => {
   const footerNodes = renderSlotToArray(slots, "footer", shellCtx, footerFallback);
 
   const cls = uiClass([
-    "cms-app",
-    "cms-app-shell",
+    "jss-app",
+    "jss-app-shell",
     uiWhen(noDrawer, "no-drawer"),
     uiWhen(reverse, "is-reverse"),
     uiWhen(stack, "is-stack"),
@@ -959,23 +959,23 @@ UI.AppShell = (...args) => {
   p.style = { ...(props.style || {}) };
 
   const drawerWidth = uiStyleValue(props.drawerWidth, toCssSize);
-  if (drawerWidth != null) p.style["--cms-app-shell-drawer-width"] = drawerWidth;
+  if (drawerWidth != null) p.style["--jss-app-shell-drawer-width"] = drawerWidth;
   const gap = uiStyleValue(props.gap, toCssSize);
-  if (gap != null) p.style["--cms-app-shell-gap"] = gap;
+  if (gap != null) p.style["--jss-app-shell-gap"] = gap;
   const padding = uiStyleValue(props.padding, toCssSize);
-  if (padding != null) p.style["--cms-app-shell-padding"] = padding;
+  if (padding != null) p.style["--jss-app-shell-padding"] = padding;
 
   const headerWrap = headerNodes.length
-    ? _.div({ class: "cms-app-shell-header-slot" }, ...headerNodes)
+    ? _.div({ class: "jss-app-shell-header-slot" }, ...headerNodes)
     : null;
   const drawerWrap = drawerNodes.length
-    ? _.div({ class: "cms-app-shell-drawer-slot" }, ...drawerNodes)
+    ? _.div({ class: "jss-app-shell-drawer-slot" }, ...drawerNodes)
     : null;
   const pageWrap = pageNodes.length
-    ? _.div({ class: "cms-app-shell-page-slot" }, ...pageNodes)
+    ? _.div({ class: "jss-app-shell-page-slot" }, ...pageNodes)
     : null;
   const footerWrap = footerNodes.length
-    ? _.div({ class: "cms-app-shell-footer-slot" }, ...footerNodes)
+    ? _.div({ class: "jss-app-shell-footer-slot" }, ...footerNodes)
     : null;
 
   const bodyNodes = reverse
@@ -985,7 +985,7 @@ UI.AppShell = (...args) => {
   const root = _.div(
     p,
     ...(headerWrap ? [headerWrap] : []),
-    _.div({ class: "cms-app-shell-body" }, ...bodyNodes.filter(Boolean)),
+    _.div({ class: "jss-app-shell-body" }, ...bodyNodes.filter(Boolean)),
     ...(footerWrap ? [footerWrap] : [])
   );
 
@@ -1014,12 +1014,12 @@ UI.Parallax = function Parallax(...args) {
 
   const stateClass = uiComputed(rawProps.state, () => {
     const state = normalizeState(uiUnwrap(rawProps.state));
-    return state ? `cms-state-${state}` : "";
+    return state ? `jss-state-${state}` : "";
   });
   const mapColorValue = (value) => {
     if (value == null || value === false || value === "") return "";
     const text = String(value);
-    return isTokenCSS(text) ? `var(--cms-${text})` : text;
+    return isTokenCSS(text) ? `var(--jss-${text})` : text;
   };
   const getBackgroundImage = () => {
     const background = uiUnwrap(rawProps.background);
@@ -1056,36 +1056,36 @@ UI.Parallax = function Parallax(...args) {
   const mergedBodyNodes = [...contentNodes, ...defaultNodes];
 
   const generatedBadge = badgeNodes.length
-    ? _.div({ class: uiClass(["cms-parallax-badge", rawProps.badgeClass]) }, ...badgeNodes)
+    ? _.div({ class: uiClass(["jss-parallax-badge", rawProps.badgeClass]) }, ...badgeNodes)
     : null;
   const hasStructuredHeader = eyebrowNodes.length || titleNodes.length || subtitleNodes.length || headerNodes.length || asideNodes.length;
   const generatedHeader = hasStructuredHeader
     ? _.div(
-      { class: uiClass(["cms-parallax-header", rawProps.headerClass]) },
+      { class: uiClass(["jss-parallax-header", rawProps.headerClass]) },
       _.div(
-        { class: "cms-parallax-head" },
+        { class: "jss-parallax-head" },
         _.div(
-          { class: "cms-parallax-head-main" },
-          eyebrowNodes.length ? _.div({ class: uiClass(["cms-parallax-eyebrow", rawProps.eyebrowClass]) }, ...eyebrowNodes) : null,
-          titleNodes.length ? _.div({ class: uiClass(["cms-parallax-title", rawProps.titleClass]) }, ...titleNodes) : null,
-          subtitleNodes.length ? _.div({ class: uiClass(["cms-parallax-subtitle", rawProps.subtitleClass]) }, ...subtitleNodes) : null,
-          headerNodes.length ? _.div({ class: uiClass(["cms-parallax-header-content", rawProps.headerContentClass]) }, ...headerNodes) : null
+          { class: "jss-parallax-head-main" },
+          eyebrowNodes.length ? _.div({ class: uiClass(["jss-parallax-eyebrow", rawProps.eyebrowClass]) }, ...eyebrowNodes) : null,
+          titleNodes.length ? _.div({ class: uiClass(["jss-parallax-title", rawProps.titleClass]) }, ...titleNodes) : null,
+          subtitleNodes.length ? _.div({ class: uiClass(["jss-parallax-subtitle", rawProps.subtitleClass]) }, ...subtitleNodes) : null,
+          headerNodes.length ? _.div({ class: uiClass(["jss-parallax-header-content", rawProps.headerContentClass]) }, ...headerNodes) : null
         ),
-        asideNodes.length ? _.div({ class: uiClass(["cms-parallax-aside", rawProps.asideClass]) }, ...asideNodes) : null
+        asideNodes.length ? _.div({ class: uiClass(["jss-parallax-aside", rawProps.asideClass]) }, ...asideNodes) : null
       )
     )
     : null;
   const generatedMedia = mediaNodes.length
-    ? _.div({ class: uiClass(["cms-parallax-media", rawProps.mediaClass]) }, ...mediaNodes)
+    ? _.div({ class: uiClass(["jss-parallax-media", rawProps.mediaClass]) }, ...mediaNodes)
     : null;
   const generatedBody = mergedBodyNodes.length
-    ? _.div({ class: uiClass(["cms-parallax-body", rawProps.bodyClass]) }, ...mergedBodyNodes)
+    ? _.div({ class: uiClass(["jss-parallax-body", rawProps.bodyClass]) }, ...mergedBodyNodes)
     : null;
   const generatedFooter = (footerNodes.length || actionsNodes.length)
     ? _.div(
-      { class: uiClass(["cms-parallax-footer", rawProps.footerClass]) },
-      footerNodes.length ? _.div({ class: "cms-parallax-footer-content" }, ...footerNodes) : null,
-      actionsNodes.length ? _.div({ class: "cms-parallax-actions" }, ...actionsNodes) : null
+      { class: uiClass(["jss-parallax-footer", rawProps.footerClass]) },
+      footerNodes.length ? _.div({ class: "jss-parallax-footer-content" }, ...footerNodes) : null,
+      actionsNodes.length ? _.div({ class: "jss-parallax-actions" }, ...actionsNodes) : null
     )
     : null;
 
@@ -1099,39 +1099,39 @@ UI.Parallax = function Parallax(...args) {
     "textColor", "title", "titleClass"
   ]);
   wrapProps.class = uiClass([
-    "cms-parallax",
-    "cms-singularity",
+    "jss-parallax",
+    "jss-singularity",
     stateClass,
-    uiWhen(rawProps.disabled, "cms-parallax-static"),
-    uiWhen(generatedBadge, "cms-parallax-has-badge"),
-    uiWhen(hasStructuredHeader, "cms-parallax-has-header"),
+    uiWhen(rawProps.disabled, "jss-parallax-static"),
+    uiWhen(generatedBadge, "jss-parallax-has-badge"),
+    uiWhen(hasStructuredHeader, "jss-parallax-has-header"),
     props.class
   ]);
   wrapProps.style = { ...(props.style || {}) };
-  if (rawProps.height != null) wrapProps.style["--cms-parallax-height"] = uiStyleValue(rawProps.height, toCssSize);
-  if (rawProps.minHeight != null) wrapProps.style["--cms-parallax-min-height"] = uiStyleValue(rawProps.minHeight, toCssSize);
-  if (rawProps.padding != null) wrapProps.style["--cms-parallax-padding"] = uiStyleValue(rawProps.padding, toCssSize);
-  if (rawProps.gap != null) wrapProps.style["--cms-parallax-gap"] = uiStyleValue(rawProps.gap, toCssSize);
-  if (rawProps.contentMaxWidth != null) wrapProps.style["--cms-parallax-content-max-width"] = uiStyleValue(rawProps.contentMaxWidth, toCssSize);
-  if (rawProps.justify != null) wrapProps.style["--cms-parallax-justify"] = uiStyleValue(rawProps.justify);
-  if (rawProps.align != null) wrapProps.style["--cms-parallax-align"] = uiStyleValue(rawProps.align);
-  if (rawProps.color != null) wrapProps.style["--cms-parallax-color"] = uiStyleValue(rawProps.color, mapColorValue);
-  if (rawProps.overlay != null) wrapProps.style["--cms-parallax-overlay"] = uiStyleValue(rawProps.overlay);
-  if (rawProps.bgPosition != null) wrapProps.style["--cms-parallax-position"] = uiStyleValue(rawProps.bgPosition);
-  if (rawProps.bgSize != null) wrapProps.style["--cms-parallax-size"] = uiStyleValue(rawProps.bgSize);
-  if (rawProps.bgRepeat != null) wrapProps.style["--cms-parallax-repeat"] = uiStyleValue(rawProps.bgRepeat);
-  wrapProps.style["--cms-parallax-image"] = (uiIsReactive(rawProps.background) || uiIsReactive(rawProps.image) || uiIsReactive(rawProps.src))
+  if (rawProps.height != null) wrapProps.style["--jss-parallax-height"] = uiStyleValue(rawProps.height, toCssSize);
+  if (rawProps.minHeight != null) wrapProps.style["--jss-parallax-min-height"] = uiStyleValue(rawProps.minHeight, toCssSize);
+  if (rawProps.padding != null) wrapProps.style["--jss-parallax-padding"] = uiStyleValue(rawProps.padding, toCssSize);
+  if (rawProps.gap != null) wrapProps.style["--jss-parallax-gap"] = uiStyleValue(rawProps.gap, toCssSize);
+  if (rawProps.contentMaxWidth != null) wrapProps.style["--jss-parallax-content-max-width"] = uiStyleValue(rawProps.contentMaxWidth, toCssSize);
+  if (rawProps.justify != null) wrapProps.style["--jss-parallax-justify"] = uiStyleValue(rawProps.justify);
+  if (rawProps.align != null) wrapProps.style["--jss-parallax-align"] = uiStyleValue(rawProps.align);
+  if (rawProps.color != null) wrapProps.style["--jss-parallax-color"] = uiStyleValue(rawProps.color, mapColorValue);
+  if (rawProps.overlay != null) wrapProps.style["--jss-parallax-overlay"] = uiStyleValue(rawProps.overlay);
+  if (rawProps.bgPosition != null) wrapProps.style["--jss-parallax-position"] = uiStyleValue(rawProps.bgPosition);
+  if (rawProps.bgSize != null) wrapProps.style["--jss-parallax-size"] = uiStyleValue(rawProps.bgSize);
+  if (rawProps.bgRepeat != null) wrapProps.style["--jss-parallax-repeat"] = uiStyleValue(rawProps.bgRepeat);
+  wrapProps.style["--jss-parallax-image"] = (uiIsReactive(rawProps.background) || uiIsReactive(rawProps.image) || uiIsReactive(rawProps.src))
     ? () => getBackgroundImage()
     : getBackgroundImage();
 
   const bg = _.div(
-    { class: uiClass(["cms-parallax-bg", rawProps.bgClass]) },
+    { class: uiClass(["jss-parallax-bg", rawProps.bgClass]) },
     backgroundNodes.length
-      ? _.div({ class: uiClass(["cms-parallax-bg-content", rawProps.backgroundContentClass]) }, ...backgroundNodes)
+      ? _.div({ class: uiClass(["jss-parallax-bg-content", rawProps.backgroundContentClass]) }, ...backgroundNodes)
       : null
   );
   const content = _.div(
-    { class: uiClass(["cms-parallax-content", rawProps.contentClass, rawProps.innerClass]) },
+    { class: uiClass(["jss-parallax-content", rawProps.contentClass, rawProps.innerClass]) },
     generatedBadge,
     generatedHeader,
     generatedMedia,
@@ -1164,7 +1164,7 @@ UI.Parallax = function Parallax(...args) {
     }
     if (uiUnwrap(rawProps.disabled)) {
       bg.style.transform = "translate3d(0, 0, 0)";
-      wrap.style.setProperty("--cms-parallax-offset", "0px");
+      wrap.style.setProperty("--jss-parallax-offset", "0px");
       return;
     }
     const rect = wrap.getBoundingClientRect();
@@ -1177,7 +1177,7 @@ UI.Parallax = function Parallax(...args) {
     const offset = maxOffset > 0 ? Math.max(-maxOffset, Math.min(maxOffset, rawOffset)) : rawOffset;
     const cssOffset = `${offset.toFixed(2)}px`;
     bg.style.transform = `translate3d(0, ${cssOffset}, 0)`;
-    wrap.style.setProperty("--cms-parallax-offset", cssOffset);
+    wrap.style.setProperty("--jss-parallax-offset", cssOffset);
   };
 
   function scheduleUpdate() {

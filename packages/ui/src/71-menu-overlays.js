@@ -93,7 +93,7 @@
       return { anchorEl, nextProps };
     };
     const getFocusableItems = (root = entry?.panel) => Array.from(root?.querySelectorAll?.(
-      "[data-menu-item]:not([disabled]):not([tabindex='-1']), .cms-menu-item:not([disabled]):not([tabindex='-1']), [role='menuitem']:not([disabled]):not([tabindex='-1']), a[href]:not([tabindex='-1']), button:not([disabled]):not([tabindex='-1'])"
+      "[data-menu-item]:not([disabled]):not([tabindex='-1']), .jss-menu-item:not([disabled]):not([tabindex='-1']), [role='menuitem']:not([disabled]):not([tabindex='-1']), a[href]:not([tabindex='-1']), button:not([disabled]):not([tabindex='-1'])"
     ) || []).filter((el) => el.offsetParent !== null && el.getAttribute("aria-hidden") !== "true");
     const focusInitialItem = () => {
       if (uiUnwrap(getOptions().autoFocus) === false) return;
@@ -125,7 +125,7 @@
 
       const kind = String(raw.type ?? raw.kind ?? "").toLowerCase();
       if (kind === "separator" || kind === "divider" || raw.separator === true || raw.divider === true) {
-        return [_.div({ class: "cms-menu-divider", role: "separator" })];
+        return [_.div({ class: "jss-menu-divider", role: "separator" })];
       }
 
       const groupItems = raw.items ?? raw.children;
@@ -135,9 +135,9 @@
         const contentNodes = renderItemEntries(groupItems, groupCtx);
         if (!contentNodes.length) return [];
         return [_.div(
-          { class: uiClass(["cms-menu-group", raw.class]) },
-          labelNodes.length ? _.div({ class: "cms-menu-group-label" }, ...labelNodes) : null,
-          _.div({ class: "cms-menu-group-items" }, ...contentNodes)
+          { class: uiClass(["jss-menu-group", raw.class]) },
+          labelNodes.length ? _.div({ class: "jss-menu-group-label" }, ...labelNodes) : null,
+          _.div({ class: "jss-menu-group-items" }, ...contentNodes)
         )];
       }
 
@@ -175,14 +175,14 @@
         ...badgeNodes,
         ...shortcutNodes,
         ...(checked === true && !iconRightNodes.length && !badgeNodes.length
-          ? [_.span({ class: "cms-menu-entry-check" }, UI.Icon({ name: raw.checkedIcon || "check", size: "sm" }))]
+          ? [_.span({ class: "jss-menu-entry-check" }, UI.Icon({ name: raw.checkedIcon || "check", size: "sm" }))]
           : []),
         ...iconRightNodes
       ];
       const entryClass = uiClass([
-        "cms-menu-entry",
-        "cms-menu-item",
-        itemState ? `cms-state-${itemState}` : "",
+        "jss-menu-entry",
+        "jss-menu-item",
+        itemState ? `jss-state-${itemState}` : "",
         uiWhen(active, "is-active"),
         uiWhen(checked === true, "is-checked"),
         uiWhen(disabled, "is-disabled"),
@@ -226,18 +226,18 @@
       const bodyNodes = customBodyNodes.length
         ? customBodyNodes
         : [
-          titleNodes.length ? _.div({ class: "cms-menu-entry-title" }, ...titleNodes) : null,
-          subtitleNodes.length ? _.div({ class: "cms-menu-entry-subtitle" }, ...subtitleNodes) : null
+          titleNodes.length ? _.div({ class: "jss-menu-entry-title" }, ...titleNodes) : null,
+          subtitleNodes.length ? _.div({ class: "jss-menu-entry-subtitle" }, ...subtitleNodes) : null
         ].filter(Boolean);
 
       return [Tag(
         entryProps,
-        iconNodes.length ? _.span({ class: "cms-menu-entry-icon" }, ...iconNodes) : null,
+        iconNodes.length ? _.span({ class: "jss-menu-entry-icon" }, ...iconNodes) : null,
         _.span(
-          { class: "cms-menu-entry-main" },
+          { class: "jss-menu-entry-main" },
           ...bodyNodes
         ),
-        asideNodes.length ? _.span({ class: "cms-menu-entry-aside" }, ...asideNodes) : null
+        asideNodes.length ? _.span({ class: "jss-menu-entry-aside" }, ...asideNodes) : null
       )];
     };
     const buildContent = () => {
@@ -276,16 +276,16 @@
 
       let headerEl = null;
       if (headerNodes.length) {
-        headerEl = _.div({ class: uiClass(["cms-menu-head", "cms-menu-head-custom", opts.headerClass]) }, ...headerNodes);
+        headerEl = _.div({ class: uiClass(["jss-menu-head", "jss-menu-head-custom", opts.headerClass]) }, ...headerNodes);
       } else if (iconNodes.length || eyebrowNodes.length || titleNodes.length || subtitleNodes.length) {
         headerEl = _.div(
-          { class: uiClass(["cms-menu-head", opts.headerClass]) },
-          iconNodes.length ? _.div({ class: "cms-menu-head-icon" }, ...iconNodes) : null,
+          { class: uiClass(["jss-menu-head", opts.headerClass]) },
+          iconNodes.length ? _.div({ class: "jss-menu-head-icon" }, ...iconNodes) : null,
           _.div(
-            { class: "cms-menu-head-main" },
-            eyebrowNodes.length ? _.div({ class: "cms-menu-eyebrow" }, ...eyebrowNodes) : null,
-            titleNodes.length ? _.div({ class: "cms-menu-title" }, ...titleNodes) : null,
-            subtitleNodes.length ? _.div({ class: "cms-menu-subtitle" }, ...subtitleNodes) : null
+            { class: "jss-menu-head-main" },
+            eyebrowNodes.length ? _.div({ class: "jss-menu-eyebrow" }, ...eyebrowNodes) : null,
+            titleNodes.length ? _.div({ class: "jss-menu-title" }, ...titleNodes) : null,
+            subtitleNodes.length ? _.div({ class: "jss-menu-subtitle" }, ...subtitleNodes) : null
           )
         );
       }
@@ -293,8 +293,8 @@
       return _.div(
         {
           class: uiClass([
-            "cms-menu",
-            "cms-menu-shell",
+            "jss-menu",
+            "jss-menu-shell",
             uiWhen(opts.dense, "dense"),
             uiWhen(itemNodes.length > 0, "has-items"),
             uiWhen(footerNodes.length > 0 || statusNodes.length > 0, "has-footer"),
@@ -304,17 +304,17 @@
           role: opts.role || "menu",
           "aria-label": opts.ariaLabel || null
         },
-        beforeNodes.length ? _.div({ class: "cms-menu-before" }, ...beforeNodes) : null,
+        beforeNodes.length ? _.div({ class: "jss-menu-before" }, ...beforeNodes) : null,
         headerEl,
-        contentNodes.length ? _.div({ class: uiClass(["cms-menu-content", opts.contentClass]) }, ...contentNodes) : null,
-        itemNodes.length ? _.div({ class: uiClass(["cms-menu-items", opts.itemsClass]) }, ...itemNodes) : null,
-        (!itemNodes.length && emptyNodes.length) ? _.div({ class: "cms-menu-empty" }, ...emptyNodes) : null,
-        afterNodes.length ? _.div({ class: "cms-menu-after" }, ...afterNodes) : null,
+        contentNodes.length ? _.div({ class: uiClass(["jss-menu-content", opts.contentClass]) }, ...contentNodes) : null,
+        itemNodes.length ? _.div({ class: uiClass(["jss-menu-items", opts.itemsClass]) }, ...itemNodes) : null,
+        (!itemNodes.length && emptyNodes.length) ? _.div({ class: "jss-menu-empty" }, ...emptyNodes) : null,
+        afterNodes.length ? _.div({ class: "jss-menu-after" }, ...afterNodes) : null,
         (statusNodes.length || footerNodes.length)
           ? _.div(
-            { class: uiClass(["cms-menu-footer", opts.footerClass]) },
-            statusNodes.length ? _.div({ class: "cms-menu-status" }, ...statusNodes) : null,
-            footerNodes.length ? _.div({ class: "cms-menu-footer-actions" }, ...footerNodes) : null
+            { class: uiClass(["jss-menu-footer", opts.footerClass]) },
+            statusNodes.length ? _.div({ class: "jss-menu-status" }, ...statusNodes) : null,
+            footerNodes.length ? _.div({ class: "jss-menu-footer-actions" }, ...footerNodes) : null
           )
           : null
       );
@@ -325,11 +325,11 @@
       const stateClass = getStateClass(opts);
       const sizeClass = getSizeClass(opts);
       setTrackedClasses(currentEntry.panel, "_menuClassTokens", [
-        "cms-menu-panel",
-        "cms-clear-set",
-        "cms-singularity",
-        sizeClass ? `cms-menu-${sizeClass}` : "",
-        stateClass ? `cms-state-${stateClass}` : "",
+        "jss-menu-panel",
+        "jss-clear-set",
+        "jss-singularity",
+        sizeClass ? `jss-menu-${sizeClass}` : "",
+        stateClass ? `jss-state-${stateClass}` : "",
         uiUnwrap(opts.outline) ? "outline" : "",
         ...splitClasses(opts.panelClass)
       ]);
@@ -337,11 +337,11 @@
         ...splitClasses(opts.overlayClass)
       ]);
       currentEntry.panel.dataset.placement = getPlacement(opts);
-      setStyleValue(currentEntry.panel, "--cms-menu-width", uiUnwrap(opts.width), toCssSize);
-      setStyleValue(currentEntry.panel, "--cms-menu-min-width", uiUnwrap(opts.minWidth), toCssSize);
-      setStyleValue(currentEntry.panel, "--cms-menu-max-width", uiUnwrap(opts.maxWidth), toCssSize);
-      setStyleValue(currentEntry.panel, "--cms-menu-max-height", uiUnwrap(opts.maxHeight), toCssSize);
-      setStyleValue(currentEntry.panel, "--cms-menu-body-max-height", uiUnwrap(opts.bodyMaxHeight ?? opts.contentMaxHeight), toCssSize);
+      setStyleValue(currentEntry.panel, "--jss-menu-width", uiUnwrap(opts.width), toCssSize);
+      setStyleValue(currentEntry.panel, "--jss-menu-min-width", uiUnwrap(opts.minWidth), toCssSize);
+      setStyleValue(currentEntry.panel, "--jss-menu-max-width", uiUnwrap(opts.maxWidth), toCssSize);
+      setStyleValue(currentEntry.panel, "--jss-menu-max-height", uiUnwrap(opts.maxHeight), toCssSize);
+      setStyleValue(currentEntry.panel, "--jss-menu-body-max-height", uiUnwrap(opts.bodyMaxHeight ?? opts.contentMaxHeight), toCssSize);
       if (opts.panelStyle) Object.assign(currentEntry.panel.style, opts.panelStyle);
       setPropertyProps(currentEntry.panel, opts);
     };
@@ -408,7 +408,7 @@
         closeOnOutside: opts.closeOnOutside !== false,
         closeOnBackdrop: opts.closeOnBackdrop ?? opts.backdrop === true,
         closeOnEsc: opts.closeOnEsc !== false,
-        className: uiClassStatic(["cms-menu-panel"]),
+        className: uiClassStatic(["jss-menu-panel"]),
         onClose: () => {
           currentRef?._menuCleanup?.();
           getOptions().onClose?.(currentRef);
@@ -436,7 +436,7 @@
           return;
         }
         if (getOptions().closeOnSelect === false) return;
-        const selected = target.closest("[data-menu-item], [data-menu-select], .cms-menu-item, [role='menuitem'], [role='menuitemcheckbox'], [role='menuitemradio'], a[href], button:not([disabled])");
+        const selected = target.closest("[data-menu-item], [data-menu-select], .jss-menu-item, [role='menuitem'], [role='menuitemcheckbox'], [role='menuitemradio'], a[href], button:not([disabled])");
         if (!selected) return;
         if (selected.closest("[data-menu-keep-open]")) return;
         if (selected.getAttribute("data-menu-select") === "false") return;
@@ -725,7 +725,7 @@
       const headerNodes = renderSlotToArray(slots, "header", ctx, resolveRender(opts.headerContent ?? opts.head ?? opts.header, ctx));
       const closeSlotNodes = isClosable(opts)
         ? renderSlotToArray(slots, "close", ctx, UI.Btn({
-          class: "cms-dialog-close",
+          class: "jss-dialog-close",
           size: "sm",
           outline: true,
           "aria-label": opts.closeLabel || "Chiudi popover",
@@ -745,30 +745,30 @@
 
       let headerEl = null;
       if (headerNodes.length) {
-        headerEl = _.div({ class: "cms-dialog-head cms-dialog-head-custom" }, ...headerNodes);
+        headerEl = _.div({ class: "jss-dialog-head jss-dialog-head-custom" }, ...headerNodes);
       } else if (eyebrowNodes.length || titleNodes.length || subtitleNodes.length || iconNodes.length || closeSlotNodes.length) {
         headerEl = _.div(
-          { class: "cms-dialog-head" },
-          iconNodes.length ? _.div({ class: "cms-dialog-icon" }, ...iconNodes) : null,
+          { class: "jss-dialog-head" },
+          iconNodes.length ? _.div({ class: "jss-dialog-icon" }, ...iconNodes) : null,
           _.div(
-            { class: "cms-dialog-head-main" },
-            eyebrowNodes.length ? _.div({ class: "cms-dialog-eyebrow" }, ...eyebrowNodes) : null,
-            titleNodes.length ? _.div({ class: "cms-dialog-title" }, ...titleNodes) : null,
-            subtitleNodes.length ? _.div({ class: "cms-dialog-subtitle" }, ...subtitleNodes) : null
+            { class: "jss-dialog-head-main" },
+            eyebrowNodes.length ? _.div({ class: "jss-dialog-eyebrow" }, ...eyebrowNodes) : null,
+            titleNodes.length ? _.div({ class: "jss-dialog-title" }, ...titleNodes) : null,
+            subtitleNodes.length ? _.div({ class: "jss-dialog-subtitle" }, ...subtitleNodes) : null
           ),
-          closeSlotNodes.length ? _.div({ class: "cms-dialog-close-wrap" }, ...closeSlotNodes) : null
+          closeSlotNodes.length ? _.div({ class: "jss-dialog-close-wrap" }, ...closeSlotNodes) : null
         );
       }
 
       const sections = [];
       if (headerEl) sections.push(headerEl);
       if (contentNodes.length) {
-        sections.push(_.div({ class: uiClass(["cms-dialog-body", opts.bodyClass]) }, ...contentNodes));
+        sections.push(_.div({ class: uiClass(["jss-dialog-body", opts.bodyClass]) }, ...contentNodes));
       }
       if (footerNodes.length) {
         sections.push(_.div({
           class: uiClass([
-            "cms-dialog-actions",
+            "jss-dialog-actions",
             `is-${getAlignClass(opts)}`,
             uiWhen(opts.stackActions, "is-stacked"),
             opts.actionsClass,
@@ -777,13 +777,13 @@
         }, ...footerNodes));
       }
       if (!sections.length) {
-        sections.push(_.div({ class: uiClass(["cms-dialog-body", opts.bodyClass]) }));
+        sections.push(_.div({ class: uiClass(["jss-dialog-body", opts.bodyClass]) }));
       }
 
       return _.div({
         class: uiClass([
-          "cms-dialog-shell",
-          "cms-popover-shell",
+          "jss-dialog-shell",
+          "jss-popover-shell",
           uiWhen(!!headerEl, "has-head"),
           uiWhen(footerNodes.length > 0, "has-footer"),
           uiWhen(opts.divider !== false, "with-divider")
@@ -796,13 +796,13 @@
       const stateClass = getStateClass(opts);
       const sizeClass = getSizeClass(opts);
       setTrackedClasses(currentEntry.panel, "_popoverClassTokens", [
-        "cms-dialog",
-        "cms-popover",
-        "cms-singularity",
-        "cms-clear-set",
-        sizeClass ? `cms-dialog-${sizeClass}` : "",
+        "jss-dialog",
+        "jss-popover",
+        "jss-singularity",
+        "jss-clear-set",
+        sizeClass ? `jss-dialog-${sizeClass}` : "",
         stateClass,
-        stateClass ? `cms-state-${stateClass}` : "",
+        stateClass ? `jss-state-${stateClass}` : "",
         uiUnwrap(opts.scrollable) ? "scrollable" : "",
         uiUnwrap(opts.stickyHeader) ? "sticky-head" : "",
         uiUnwrap(opts.stickyActions) ? "sticky-actions" : "",
@@ -814,11 +814,11 @@
         ...splitClasses(opts.overlayClass)
       ]);
       currentEntry.panel.dataset.placement = getPlacement(opts);
-      setStyleValue(currentEntry.panel, "--cms-dialog-width", uiUnwrap(opts.width), toCssSize);
-      setStyleValue(currentEntry.panel, "--cms-dialog-min-width", uiUnwrap(opts.minWidth), toCssSize);
-      setStyleValue(currentEntry.panel, "--cms-dialog-max-width", uiUnwrap(opts.maxWidth), toCssSize);
-      setStyleValue(currentEntry.panel, "--cms-dialog-max-height", uiUnwrap(opts.maxHeight), toCssSize);
-      setStyleValue(currentEntry.panel, "--cms-dialog-body-max-height", uiUnwrap(opts.bodyMaxHeight ?? opts.contentMaxHeight), toCssSize);
+      setStyleValue(currentEntry.panel, "--jss-dialog-width", uiUnwrap(opts.width), toCssSize);
+      setStyleValue(currentEntry.panel, "--jss-dialog-min-width", uiUnwrap(opts.minWidth), toCssSize);
+      setStyleValue(currentEntry.panel, "--jss-dialog-max-width", uiUnwrap(opts.maxWidth), toCssSize);
+      setStyleValue(currentEntry.panel, "--jss-dialog-max-height", uiUnwrap(opts.maxHeight), toCssSize);
+      setStyleValue(currentEntry.panel, "--jss-dialog-body-max-height", uiUnwrap(opts.bodyMaxHeight ?? opts.contentMaxHeight), toCssSize);
       if (opts.style) Object.assign(currentEntry.panel.style, opts.style);
       setPropertyProps(currentEntry.panel, opts);
       currentEntry.panel.setAttribute("role", opts.role || "dialog");
@@ -876,7 +876,7 @@
         closeOnOutside: opts.closeOnOutside !== false,
         closeOnBackdrop: opts.closeOnBackdrop ?? opts.backdrop === true,
         closeOnEsc: opts.closeOnEsc !== false,
-        className: uiClassStatic(["cms-dialog", "cms-popover"]),
+        className: uiClassStatic(["jss-dialog", "jss-popover"]),
         onClose: () => {
           currentRef?._popoverCleanup?.();
           getOptions().onClose?.(currentRef);
@@ -1043,7 +1043,7 @@
       return { x: px, y: py };
     };
     const createVirtualAnchor = (point) => point ? {
-      _cmsContextPoint: point,
+      _jssContextPoint: point,
       getBoundingClientRect: () => ({
         top: point.y,
         bottom: point.y,
@@ -1087,8 +1087,8 @@
         closeOnEsc: opts.closeOnEsc !== false,
         role: opts.role || "menu",
         ariaLabel: opts.ariaLabel || opts.title || "Context menu",
-        class: uiClass(["cms-context-menu-shell", opts.class]),
-        panelClass: uiClass(["cms-context-menu-panel", opts.panelClass])
+        class: uiClass(["jss-context-menu-shell", opts.class]),
+        panelClass: uiClass(["jss-context-menu-panel", opts.panelClass])
       };
     };
     const menu = UI.Menu(buildMenuProps(), ...children);
@@ -1128,7 +1128,7 @@
     };
     const rememberAnchor = (anchor, point = null) => {
       lastAnchor = anchor || lastAnchor;
-      lastPoint = point || (anchor && anchor._cmsContextPoint) || lastPoint;
+      lastPoint = point || (anchor && anchor._jssContextPoint) || lastPoint;
     };
     const mergeProps = (nextProps = null) => {
       if (isPlainObject(nextProps) && Object.keys(nextProps).length) {

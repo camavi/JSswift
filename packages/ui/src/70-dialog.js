@@ -53,10 +53,10 @@
       setStyleValue(currentEntry.panel, "border-radius", 0, (v) => `${v}px`);
       setStyleValue(currentEntry.panel, "transform", "none");
       setStyleValue(currentEntry.panel, "overflow", "hidden");
-      setStyleValue(currentEntry.panel, "--cms-dialog-fullscreen-left", left, (v) => `${v}px`);
-      setStyleValue(currentEntry.panel, "--cms-dialog-fullscreen-top", top, (v) => `${v}px`);
-      setStyleValue(currentEntry.panel, "--cms-dialog-fullscreen-width", width, (v) => `${v}px`);
-      setStyleValue(currentEntry.panel, "--cms-dialog-fullscreen-height", height, (v) => `${v}px`);
+      setStyleValue(currentEntry.panel, "--jss-dialog-fullscreen-left", left, (v) => `${v}px`);
+      setStyleValue(currentEntry.panel, "--jss-dialog-fullscreen-top", top, (v) => `${v}px`);
+      setStyleValue(currentEntry.panel, "--jss-dialog-fullscreen-width", width, (v) => `${v}px`);
+      setStyleValue(currentEntry.panel, "--jss-dialog-fullscreen-height", height, (v) => `${v}px`);
     };
     const clearFullscreenViewport = (currentEntry) => {
       if (!currentEntry?.panel) return;
@@ -78,10 +78,10 @@
       setStyleValue(currentEntry.panel, "border-radius", null);
       setStyleValue(currentEntry.panel, "transform", null);
       setStyleValue(currentEntry.panel, "overflow", null);
-      setStyleValue(currentEntry.panel, "--cms-dialog-fullscreen-left", null);
-      setStyleValue(currentEntry.panel, "--cms-dialog-fullscreen-top", null);
-      setStyleValue(currentEntry.panel, "--cms-dialog-fullscreen-width", null);
-      setStyleValue(currentEntry.panel, "--cms-dialog-fullscreen-height", null);
+      setStyleValue(currentEntry.panel, "--jss-dialog-fullscreen-left", null);
+      setStyleValue(currentEntry.panel, "--jss-dialog-fullscreen-top", null);
+      setStyleValue(currentEntry.panel, "--jss-dialog-fullscreen-width", null);
+      setStyleValue(currentEntry.panel, "--jss-dialog-fullscreen-height", null);
     };
     const ensureFullscreenViewportTracking = (currentEntry, enabled) => {
       if (!currentEntry) return;
@@ -139,8 +139,8 @@
     };
     const getVerticalAlignClass = (opts) => {
       const raw = String(uiUnwrap(opts.align ?? opts.verticalAlign ?? opts.position ?? "center")).toLowerCase();
-      if (["top", "start", "flex-start"].includes(raw)) return "cms-dialog-align-top";
-      if (["bottom", "end", "flex-end"].includes(raw)) return "cms-dialog-align-bottom";
+      if (["top", "start", "flex-start"].includes(raw)) return "jss-dialog-align-top";
+      if (["bottom", "end", "flex-end"].includes(raw)) return "jss-dialog-align-bottom";
       return "";
     };
     const isClosable = (opts) => {
@@ -171,7 +171,7 @@
       const customHeaderNodes = renderSlotToArray(slots, "header", ctx, resolveRender(opts.headerContent ?? opts.head, ctx));
       const closeSlotNodes = isClosable(opts)
         ? renderSlotToArray(slots, "close", ctx, UI.Btn({
-          class: "cms-dialog-close",
+          class: "jss-dialog-close",
           size: "sm",
           outline: true,
           "aria-label": opts.closeLabel || "Chiudi dialog",
@@ -188,29 +188,29 @@
 
       let headerEl = null;
       if (customHeaderNodes.length) {
-        headerEl = _.div({ class: "cms-dialog-head cms-dialog-head-custom" }, ...customHeaderNodes);
+        headerEl = _.div({ class: "jss-dialog-head jss-dialog-head-custom" }, ...customHeaderNodes);
       } else if (eyebrowNodes.length || titleNodes.length || subtitleNodes.length || iconNodes.length || closeSlotNodes.length) {
         headerEl = _.div(
-          { class: "cms-dialog-head" },
-          iconNodes.length ? _.div({ class: "cms-dialog-icon" }, ...iconNodes) : null,
+          { class: "jss-dialog-head" },
+          iconNodes.length ? _.div({ class: "jss-dialog-icon" }, ...iconNodes) : null,
           _.div(
-            { class: "cms-dialog-head-main" },
-            eyebrowNodes.length ? _.div({ class: "cms-dialog-eyebrow" }, ...eyebrowNodes) : null,
-            titleNodes.length ? _.div({ class: "cms-dialog-title" }, ...titleNodes) : null,
-            subtitleNodes.length ? _.div({ class: "cms-dialog-subtitle" }, ...subtitleNodes) : null
+            { class: "jss-dialog-head-main" },
+            eyebrowNodes.length ? _.div({ class: "jss-dialog-eyebrow" }, ...eyebrowNodes) : null,
+            titleNodes.length ? _.div({ class: "jss-dialog-title" }, ...titleNodes) : null,
+            subtitleNodes.length ? _.div({ class: "jss-dialog-subtitle" }, ...subtitleNodes) : null
           ),
-          closeSlotNodes.length ? _.div({ class: "cms-dialog-close-wrap" }, ...closeSlotNodes) : null
+          closeSlotNodes.length ? _.div({ class: "jss-dialog-close-wrap" }, ...closeSlotNodes) : null
         );
       }
 
       const bodyEl = _.div(
-        { class: uiClass(["cms-dialog-body", opts.bodyClass]) },
+        { class: uiClass(["jss-dialog-body", opts.bodyClass]) },
         ...contentNodes
       );
       const footerEl = footerNodes.length
         ? _.div({
           class: uiClass([
-            "cms-dialog-actions",
+            "jss-dialog-actions",
             `is-${getAlignClass(opts)}`,
             uiWhen(opts.stackActions, "is-stacked"),
             opts.actionsClass,
@@ -221,7 +221,7 @@
 
       return _.div({
         class: uiClass([
-          "cms-dialog-shell",
+          "jss-dialog-shell",
           uiWhen(!!headerEl, "has-head"),
           uiWhen(!!footerEl, "has-footer"),
           uiWhen(opts.divider !== false, "with-divider")
@@ -234,12 +234,12 @@
       const stateClass = getStateClass(opts);
       const sizeClass = getSizeClass(opts);
       setTrackedClasses(currentEntry.panel, "_dialogClassTokens", [
-        "cms-dialog",
-        "cms-singularity",
-        "cms-clear-set",
-        sizeClass ? `cms-dialog-${sizeClass}` : "",
+        "jss-dialog",
+        "jss-singularity",
+        "jss-clear-set",
+        sizeClass ? `jss-dialog-${sizeClass}` : "",
         stateClass,
-        stateClass ? `cms-state-${stateClass}` : "",
+        stateClass ? `jss-state-${stateClass}` : "",
         uiUnwrap(opts.fullscreen) ? "fullscreen" : "",
         uiUnwrap(opts.scrollable) ? "scrollable" : "",
         uiUnwrap(opts.stickyHeader) ? "sticky-head" : "",
@@ -250,14 +250,14 @@
       ]);
       setTrackedClasses(currentEntry.overlay, "_dialogOverlayClassTokens", [
         getVerticalAlignClass(opts),
-        uiUnwrap(opts.backdropBlur) ? "cms-dialog-overlay-blur" : "",
+        uiUnwrap(opts.backdropBlur) ? "jss-dialog-overlay-blur" : "",
         ...splitClasses(opts.overlayClass)
       ]);
-      setStyleValue(currentEntry.panel, "--cms-dialog-width", uiUnwrap(opts.width), toCssSize);
-      setStyleValue(currentEntry.panel, "--cms-dialog-min-width", uiUnwrap(opts.minWidth), toCssSize);
-      setStyleValue(currentEntry.panel, "--cms-dialog-max-width", uiUnwrap(opts.maxWidth), toCssSize);
-      setStyleValue(currentEntry.panel, "--cms-dialog-max-height", uiUnwrap(opts.maxHeight), toCssSize);
-      setStyleValue(currentEntry.panel, "--cms-dialog-body-max-height", uiUnwrap(opts.bodyMaxHeight ?? opts.contentMaxHeight), toCssSize);
+      setStyleValue(currentEntry.panel, "--jss-dialog-width", uiUnwrap(opts.width), toCssSize);
+      setStyleValue(currentEntry.panel, "--jss-dialog-min-width", uiUnwrap(opts.minWidth), toCssSize);
+      setStyleValue(currentEntry.panel, "--jss-dialog-max-width", uiUnwrap(opts.maxWidth), toCssSize);
+      setStyleValue(currentEntry.panel, "--jss-dialog-max-height", uiUnwrap(opts.maxHeight), toCssSize);
+      setStyleValue(currentEntry.panel, "--jss-dialog-body-max-height", uiUnwrap(opts.bodyMaxHeight ?? opts.contentMaxHeight), toCssSize);
       if (opts.style) Object.assign(currentEntry.panel.style, opts.style);
       setPropertyProps(currentEntry.panel, opts);
       ensureFullscreenViewportTracking(currentEntry, uiUnwrap(opts.fullscreen));
@@ -297,7 +297,7 @@
         closeOnOutside: opts.closeOnOutside ?? !persistent,
         closeOnBackdrop: opts.closeOnBackdrop ?? !persistent,
         closeOnEsc: opts.closeOnEsc ?? !persistent,
-        className: uiClassStatic(["cms-dialog"]),
+        className: uiClassStatic(["jss-dialog"]),
         onClose: () => {
           entry?._dialogViewportCleanup?.();
           entry?.panel?.removeEventListener("click", onPanelClick);

@@ -5,7 +5,7 @@
       ? props.tabs
       : (Array.isArray(props.items) ? props.items : []);
     const model = resolveModel(props.model, "UI.TabPanel:model");
-    const componentId = props.id || (`cms-tabpanel-` + Math.random().toString(36).slice(2, 9));
+    const componentId = props.id || (`jss-tabpanel-` + Math.random().toString(36).slice(2, 9));
     const normalizeOrientation = (value) => String(uiUnwrap(value) || "vertical").toLowerCase() === "horizontal" ? "horizontal" : "vertical";
     const normalizePosition = (value) => String(uiUnwrap(value) || "before").toLowerCase() === "after" ? "after" : "before";
     const normalizeVariant = (value) => {
@@ -17,7 +17,7 @@
     const resolveAccent = (value) => {
       const raw = uiUnwrap(value);
       if (raw == null || raw === "") return null;
-      return JSswift.uiColors.includes(raw) ? `var(--cms-${raw})` : String(raw);
+      return JSswift.uiColors.includes(raw) ? `var(--jss-${raw})` : String(raw);
     };
 
     const orientation = normalizeOrientation(props.orientation || props.orient || props.direction);
@@ -81,9 +81,9 @@
     }).filter(Boolean).filter((tab) => tab.hidden !== true && tab.visible !== false);
 
     const cls = uiClass([
-      "cms-clear-set",
-      "cms-tabpanel",
-      "cms-singularity",
+      "jss-clear-set",
+      "jss-tabpanel",
+      "jss-singularity",
       orientation,
       `variant-${variant}`,
       uiWhen(wrapTabs, "wrap"),
@@ -115,19 +115,19 @@
     const wrap = _.div(wrapProps);
 
     if (animated) {
-      wrap.style.setProperty("--cms-tabpanel-duration", `${transitionDuration}ms`);
-      wrap.style.setProperty("--cms-tabpanel-easing", transitionEasing);
+      wrap.style.setProperty("--jss-tabpanel-duration", `${transitionDuration}ms`);
+      wrap.style.setProperty("--jss-tabpanel-easing", transitionEasing);
     }
     if (accentColor) {
-      wrap.style.setProperty("--cms-tabpanel-accent", accentColor);
+      wrap.style.setProperty("--jss-tabpanel-accent", accentColor);
     }
 
     const nav = _.div({
-      class: uiClass(["cms-tabpanel-nav", props.navClass]),
+      class: uiClass(["jss-tabpanel-nav", props.navClass]),
       role: "tablist",
       "aria-orientation": orientation
     });
-    const panelsWrap = _.div({ class: uiClass(["cms-tabpanel-panels", props.panelsClass]) });
+    const panelsWrap = _.div({ class: uiClass(["jss-tabpanel-panels", props.panelsClass]) });
 
     const tabButtons = [];
     const panelNodes = [];
@@ -188,13 +188,13 @@
       const iconNodes = renderSlotToArray(slots, "icon", ctx, iconFallback);
       const noteNodes = renderSlotToArray(slots, "note", ctx, tab.noteFallback);
       const badgeNodes = renderSlotToArray(slots, "badge", ctx, tab.badgeFallback);
-      const fallbackTabContent = _.span({ class: "cms-tabpanel-tab-inner" },
-        iconNodes.length ? _.span({ class: "cms-tabpanel-tab-icon" }, ...iconNodes) : null,
-        _.span({ class: "cms-tabpanel-tab-copy" },
-          _.span({ class: "cms-tabpanel-tab-label" }, ...(labelNodes.length ? labelNodes : [""])),
-          noteNodes.length ? _.span({ class: "cms-tabpanel-tab-note" }, ...noteNodes) : null
+      const fallbackTabContent = _.span({ class: "jss-tabpanel-tab-inner" },
+        iconNodes.length ? _.span({ class: "jss-tabpanel-tab-icon" }, ...iconNodes) : null,
+        _.span({ class: "jss-tabpanel-tab-copy" },
+          _.span({ class: "jss-tabpanel-tab-label" }, ...(labelNodes.length ? labelNodes : [""])),
+          noteNodes.length ? _.span({ class: "jss-tabpanel-tab-note" }, ...noteNodes) : null
         ),
-        badgeNodes.length ? _.span({ class: "cms-tabpanel-tab-badge" }, ...badgeNodes) : null
+        badgeNodes.length ? _.span({ class: "jss-tabpanel-tab-badge" }, ...badgeNodes) : null
       );
       const contentNodes = renderSlotToArray(slots, "tab", {
         ...ctx,
@@ -258,7 +258,7 @@
       };
       const defaultBtn = UI.Btn({
         class: uiClass([
-          "cms-tabpanel-tab",
+          "jss-tabpanel-tab",
           uiWhen(isActive, "active"),
           uiWhen(tab.disabled || disabledAll, "disabled"),
           props.tabClass,
@@ -286,7 +286,7 @@
       }, ...contentNodes);
       const navBtn = _.div({
         class: uiClass([
-          "cms-tabpanel-nav-btn",
+          "jss-tabpanel-nav-btn",
           uiWhen(isActive, "active"),
           tab.navClass
         ]),
@@ -304,7 +304,7 @@
       const panelNode = JSswift.ui.renderSlot(slots, "panel", ctx, tab.panelFallback);
       const panel = _.div({
         class: uiClass([
-          "cms-tabpanel-panel",
+          "jss-tabpanel-panel",
           uiWhen(isActive, "active"),
           props.panelClass,
           tab.panelClass
@@ -346,7 +346,7 @@
     if (tabs.length) {
       tabs.forEach((tab, index) => panelsWrap.appendChild(makePanelNode(tab, index)));
     } else {
-      const emptyNodes = renderSlotToArray(slots, "empty", { tabs }, props.empty ?? _.div({ class: "cms-tabpanel-empty" }, "Nessun contenuto disponibile."));
+      const emptyNodes = renderSlotToArray(slots, "empty", { tabs }, props.empty ?? _.div({ class: "jss-tabpanel-empty" }, "Nessun contenuto disponibile."));
       emptyNodes.forEach((node) => panelsWrap.appendChild(node));
     }
 
@@ -354,8 +354,8 @@
       if (!animated) return;
       const enter = dir === "next" ? "18px" : "-18px";
       const leave = dir === "next" ? "-18px" : "18px";
-      wrap.style.setProperty("--cms-tabpanel-enter", enter);
-      wrap.style.setProperty("--cms-tabpanel-leave", leave);
+      wrap.style.setProperty("--jss-tabpanel-enter", enter);
+      wrap.style.setProperty("--jss-tabpanel-leave", leave);
     };
 
     const cleanCustomTransitions = () => {
@@ -545,7 +545,7 @@
     ensureModalRoot();
 
     const backdrop = _.div({
-      class: "cms-dialog-backdrop", onClick: (e) => {
+      class: "jss-dialog-backdrop", onClick: (e) => {
         if (e.target === backdrop && persistent !== true) onCancel?.();
       }
     });
@@ -554,11 +554,11 @@
     const messageNodes = renderSlotToArray(null, "default", {}, message);
     const contentNodes = renderSlotToArray(null, "default", {}, contentNode);
 
-    const dialog = _.div({ class: "cms-dialog cms-panel" },
+    const dialog = _.div({ class: "jss-dialog jss-panel" },
       titleNodes.length ? _.h3(...titleNodes) : null,
       messageNodes.length ? _.p(...messageNodes) : null,
       ...contentNodes,
-      _.div({ class: "cms-dialog-actions" },
+      _.div({ class: "jss-dialog-actions" },
         showCancel ? JSswift.ui.Btn({ onClick: onCancel }, cancelText || "Annulla") : null,
         JSswift.ui.Btn({ color: "primary", onClick: onOk }, okText || "OK")
       )
@@ -608,7 +608,7 @@
   app.dialog.prompt = function (opts = {}) {
     return new Promise((resolve) => {
       const input = JSswift.ui.Input({
-        class: "cms-dialog-input",
+        class: "jss-dialog-input",
         type: opts.type || "text",
         placeholder: opts.placeholder || ""
       });
@@ -648,7 +648,7 @@
     if (overlay) return overlay;
 
     overlay = document.createElement("div");
-    overlay.className = "cms-loading-backdrop";
+    overlay.className = "jss-loading-backdrop";
     overlay.style.cssText = `
 position: fixed; inset: 0;
 background: rgba(0,0,0,0.45);
@@ -658,31 +658,31 @@ z-index: 10001;
 padding: 14px;
 `;
     const box = document.createElement("div");
-    box.className = "cms-panel cms-loading-card";
+    box.className = "jss-panel jss-loading-card";
     box.style.cssText = `
 padding: 14px 16px;
-border-radius: var(--cms-r-lg);
+border-radius: var(--jss-r-lg);
 min-width: 260px;
 display:flex; gap: 12px; align-items:center;
 flex-direction: column;
 `;
 
     const spinner = document.createElement("div");
-    spinner.className = "cms-loading-spinner";
+    spinner.className = "jss-loading-spinner";
     spinner.style.cssText = `
 width: 18px; height: 18px;
 border-radius: 50%;
 border: 2px solid rgba(255,255,255,0.25);
-border-top-color: var(--cms-primary);
-animation: cmsSpin 0.9s linear infinite;
+border-top-color: var(--jss-primary);
+animation: jssSpin 0.9s linear infinite;
 `;
 
     const text = document.createElement("div");
-    text.className = "cms-muted cms-loading-text";
+    text.className = "jss-muted jss-loading-text";
     text.textContent = "Loading...";
 
     const progressWrap = document.createElement("div");
-    progressWrap.className = "cms-loading-progress";
+    progressWrap.className = "jss-loading-progress";
     progressWrap.style.cssText = `
 width: 100%;
 height: 6px;
@@ -692,11 +692,11 @@ background: rgba(255,255,255,0.08);
 display: none;
 `;
     const progressBar = document.createElement("div");
-    progressBar.className = "cms-loading-progress-bar";
+    progressBar.className = "jss-loading-progress-bar";
     progressBar.style.cssText = `
 height: 100%;
 width: 0%;
-background: var(--cms-primary);
+background: var(--jss-primary);
 transition: width 200ms ease;
 `;
     progressWrap.appendChild(progressBar);
@@ -713,7 +713,7 @@ transition: width 200ms ease;
 
     const style = document.createElement("style");
     style.textContent = `
-@keyframes cmsSpin { to { transform: rotate(360deg); } }
+@keyframes jssSpin { to { transform: rotate(360deg); } }
 `;
     document.head.appendChild(style);
 

@@ -4,7 +4,7 @@
     const isRadio = type === "radio";
     const isToggle = options.appearance === "toggle";
     const supportsStandby = !isRadio;
-    const id = props.id || (`cms-${type}-` + Math.random().toString(36).slice(2));
+    const id = props.id || (`jss-${type}-` + Math.random().toString(36).slice(2));
     const model = resolveModel(
       props.model,
       options.modelName || (isRadio ? "UI.Radio:model" : "UI.Checkbox:model")
@@ -21,12 +21,12 @@
     inputProps.type = type;
     inputProps.id = id;
     if (isRadio && props.name != null) inputProps.name = props.name;
-    inputProps.class = uiClass([`cms-${type}`, "cms-choice-input", props.inputClass]);
+    inputProps.class = uiClass([`jss-${type}`, "jss-choice-input", props.inputClass]);
     const input = _.input(inputProps);
 
     const labelNodes = renderSlotToArray(slots, "label", {}, props.label);
     const labelContent = labelNodes.length ? labelNodes : renderSlotToArray(slots, "default", {}, children);
-    const shortcodeHint = uiCreateShortcodeHint(props, { className: "cms-shortcode cms-choice-shortcode" });
+    const shortcodeHint = uiCreateShortcodeHint(props, { className: "jss-shortcode jss-choice-shortcode" });
     const finalLabelContent = shortcodeHint ? [...labelContent, shortcodeHint] : labelContent;
 
     const wrapProps = JSswift.omit(props, [
@@ -39,13 +39,13 @@
       "shortcode", "shortcut", "hotkey", "showShortcode", "showShortcut"
     ]);
     wrapProps.class = uiClass([
-      "cms-clear-set",
-      "cms-singularity-check",
-      "cms-choice-wrap",
-      `cms-${type}-wrap`,
-      uiWhen(isToggle, "cms-toggle-wrap"),
-      uiWhen(isToggle && isRadio, "cms-toggle-radio-wrap"),
-      uiWhen(isToggle && !isRadio, "cms-toggle-checkbox-wrap"),
+      "jss-clear-set",
+      "jss-singularity-check",
+      "jss-choice-wrap",
+      `jss-${type}-wrap`,
+      uiWhen(isToggle, "jss-toggle-wrap"),
+      uiWhen(isToggle && isRadio, "jss-toggle-radio-wrap"),
+      uiWhen(isToggle && !isRadio, "jss-toggle-checkbox-wrap"),
       uiWhen(props.dense, "dense"),
       props.class
     ]);
@@ -53,19 +53,19 @@
 
     const sizeValue = uiUnwrap(props.size);
     if (sizeValue != null && !(typeof sizeValue === "string" && JSswift.uiSizes?.includes(sizeValue))) {
-      wrapProps.style["--cms-choice-size"] = toCssSize(sizeValue);
+      wrapProps.style["--jss-choice-size"] = toCssSize(sizeValue);
     }
 
     const marker = _.span({
       class: uiClass([
-        "cms-choice-mark",
-        isRadio ? "cms-choice-radio-mark" : "cms-choice-checkbox-mark",
-        uiWhen(isToggle, "cms-toggle-mark")
+        "jss-choice-mark",
+        isRadio ? "jss-choice-radio-mark" : "jss-choice-checkbox-mark",
+        uiWhen(isToggle, "jss-toggle-mark")
       ])
     });
-    const indicatorHost = isToggle ? _.span({ class: "cms-toggle-thumb" }) : marker;
+    const indicatorHost = isToggle ? _.span({ class: "jss-toggle-thumb" }) : marker;
     if (isToggle) marker.appendChild(indicatorHost);
-    const labelNode = finalLabelContent.length ? _.span({ class: "cms-choice-label" }, ...finalLabelContent) : null;
+    const labelNode = finalLabelContent.length ? _.span({ class: "jss-choice-label" }, ...finalLabelContent) : null;
 
     const wrap = _.label(
       wrapProps,
@@ -132,7 +132,7 @@
 
       if (isToggle) {
         if (state == null) {
-          indicatorHost.style.transform = "translateX(calc((var(--cms-toggle-width) - var(--cms-toggle-thumb-size) - 1px) / 2))";
+          indicatorHost.style.transform = "translateX(calc((var(--jss-toggle-width) - var(--jss-toggle-thumb-size) - 1px) / 2))";
         } else {
           indicatorHost.style.removeProperty("transform");
         }
@@ -249,26 +249,26 @@
       "selectionColor", "trackColor", "thumbColor", "inputClass", "readonly", "size"
     ]);
     inputProps.type = "range";
-    inputProps.class = uiClass(["cms-slider-input", props.inputClass]);
+    inputProps.class = uiClass(["jss-slider-input", props.inputClass]);
     const input = _.input(inputProps);
 
     const sliderStyle = { ...(props.style || {}) };
     const sizeValue = uiUnwrap(props.size);
     if (sizeValue != null) {
       const sliderSize = (typeof sizeValue === "string" && JSswift.uiSizes?.includes(sizeValue))
-        ? `var(--cms-size-${sizeValue})`
+        ? `var(--jss-size-${sizeValue})`
         : toCssSize(sizeValue);
-      sliderStyle["--cms-slider-size"] = sliderSize;
-      sliderStyle["--cms-slider-track-size"] = `max(4px, calc(${sliderSize} / 4))`;
-      sliderStyle["--cms-slider-box-height"] = `calc(${sliderSize} * 1.5)`;
-      sliderStyle["--cms-slider-marker-size"] = `max(6px, calc(${sliderSize} / 3))`;
+      sliderStyle["--jss-slider-size"] = sliderSize;
+      sliderStyle["--jss-slider-track-size"] = `max(4px, calc(${sliderSize} / 4))`;
+      sliderStyle["--jss-slider-box-height"] = `calc(${sliderSize} * 1.5)`;
+      sliderStyle["--jss-slider-marker-size"] = `max(6px, calc(${sliderSize} / 3))`;
     }
 
     const wrap = _.label({
       class: uiClass([
-        "cms-clear-set",
-        "cms-singularity-check",
-        "cms-slider-wrap",
+        "jss-clear-set",
+        "jss-singularity-check",
+        "jss-slider-wrap",
         uiWhen(props.dense, "dense"),
         props.class
       ]),
@@ -277,69 +277,69 @@
     setPropertyProps(wrap, props);
 
     const header = _.div({
-      class: "cms-slider-header"
+      class: "jss-slider-header"
     });
     const labelHost = _.span({
-      class: "cms-slider-label"
+      class: "jss-slider-label"
     });
     const valueHost = _.span({
-      class: "cms-slider-value"
+      class: "jss-slider-value"
     });
     header.append(labelHost, valueHost);
 
     const body = _.div({
-      class: "cms-slider-body"
+      class: "jss-slider-body"
     });
     const startIconHost = _.span({
-      class: "cms-slider-icon cms-slider-icon-left"
+      class: "jss-slider-icon jss-slider-icon-left"
     });
     const startLabelHost = _.span({
-      class: "cms-slider-edge-label cms-slider-edge-label-left"
+      class: "jss-slider-edge-label jss-slider-edge-label-left"
     });
     const main = _.div({
-      class: "cms-slider-main"
+      class: "jss-slider-main"
     });
     const sliderBox = _.div({
-      class: "cms-slider-box",
+      class: "jss-slider-box",
       style: {
-        minHeight: "var(--cms-slider-box-height, 36px)"
+        minHeight: "var(--jss-slider-box-height, 36px)"
       }
     });
     const rail = _.span({
-      class: "cms-slider-rail",
+      class: "jss-slider-rail",
       style: {
-        height: "var(--cms-slider-track-size, 6px)"
+        height: "var(--jss-slider-track-size, 6px)"
       }
     });
     const selection = _.span({
-      class: "cms-slider-selection",
+      class: "jss-slider-selection",
       style: {
-        height: "var(--cms-slider-track-size, 6px)"
+        height: "var(--jss-slider-track-size, 6px)"
       }
     });
     const thumb = _.span({
-      class: "cms-slider-thumb",
+      class: "jss-slider-thumb",
       style: {
-        width: "var(--cms-slider-size, 24px)",
-        height: "var(--cms-slider-size, 24px)"
+        width: "var(--jss-slider-size, 24px)",
+        height: "var(--jss-slider-size, 24px)"
       }
     });
     const thumbIconHost = _.span({
-      class: "cms-slider-thumb-icon"
+      class: "jss-slider-thumb-icon"
     });
     const thumbLabelHost = _.span({
-      class: "cms-slider-thumb-label"
+      class: "jss-slider-thumb-label"
     });
     thumb.append(thumbLabelHost, thumbIconHost);
 
     const markersHost = _.div({
-      class: "cms-slider-markers"
+      class: "jss-slider-markers"
     });
     const endLabelHost = _.span({
-      class: "cms-slider-edge-label cms-slider-edge-label-right"
+      class: "jss-slider-edge-label jss-slider-edge-label-right"
     });
     const endIconHost = _.span({
-      class: "cms-slider-icon cms-slider-icon-right"
+      class: "jss-slider-icon jss-slider-icon-right"
     });
 
     sliderBox.append(rail, selection, thumb, input);
@@ -485,10 +485,10 @@
         const active = uiUnwrap(props.reverse) ? getValue() <= marker.value : getValue() >= marker.value;
         const item = _.button({
           type: "button",
-          class: uiClass(["cms-slider-marker", marker.className, uiWhen(() => active, "active")]),
+          class: uiClass(["jss-slider-marker", marker.className, uiWhen(() => active, "active")]),
           style: {
             left: `${ratio * 100}%`,
-            color: active ? (uiUnwrap(props.color) || "var(--cms-primary)") : "var(--cms-muted)",
+            color: active ? (uiUnwrap(props.color) || "var(--jss-primary)") : "var(--jss-muted)",
             cursor: (uiUnwrap(props.disabled) || uiUnwrap(props.readonly)) ? "default" : "pointer"
           },
           disabled: !!uiUnwrap(props.disabled) || !!uiUnwrap(props.readonly),
@@ -513,11 +513,11 @@
             : JSswift.ui.slot(marker.icon, { ...markerCtx, as: "marker" });
         }
         const markerTick = _.span({
-          class: "cms-slider-marker-tick",
+          class: "jss-slider-marker-tick",
           style: {
-            width: "var(--cms-slider-marker-size, 8px)",
-            height: "var(--cms-slider-marker-size, 8px)",
-            background: active ? (uiUnwrap(props.color) || "var(--cms-primary)") : "var(--cms-border-color)"
+            width: "var(--jss-slider-marker-size, 8px)",
+            height: "var(--jss-slider-marker-size, 8px)",
+            background: active ? (uiUnwrap(props.color) || "var(--jss-primary)") : "var(--jss-border-color)"
           }
         });
         const markerNodes = markerNode == null
@@ -529,7 +529,7 @@
         markerNodes.forEach((node) => item.appendChild(node));
         if (labelNodes.length) {
           item.appendChild(_.span({
-            class: "cms-slider-marker-label"
+            class: "jss-slider-marker-label"
           }, ...labelNodes));
         }
         markersHost.appendChild(item);
@@ -593,8 +593,8 @@
       const step = getStep();
       const ratio = ratioFromValue(value);
       const percent = `${ratio * 100}%`;
-      const color = uiUnwrap(props.color) || uiUnwrap(props.selectionColor) || "var(--cms-primary)";
-      const trackColor = uiUnwrap(props.trackColor) || "var(--cms-border-color)";
+      const color = uiUnwrap(props.color) || uiUnwrap(props.selectionColor) || "var(--jss-primary)";
+      const trackColor = uiUnwrap(props.trackColor) || "var(--jss-border-color)";
       const thumbColor = uiUnwrap(props.thumbColor) || color;
       const readonly = !!uiUnwrap(props.readonly);
       const disabled = !!uiUnwrap(props.disabled);
@@ -659,7 +659,7 @@
 
     if (props.withQItem || props.qitem || props.item === true) {
       const item = UI.Item({
-        class: uiClass(["cms-slider-item", props.itemClass]),
+        class: uiClass(["jss-slider-item", props.itemClass]),
         style: props.itemStyle
       }, wrap);
       item._input = input;
@@ -679,7 +679,7 @@
     const slots = props.slots || {};
     const boundValue = props.model || ((uiIsSignal(props.value) || uiIsRod(props.value)) ? props.value : null);
     const model = resolveModel(boundValue, "UI.Rating:model");
-    const id = props.id || (`cms-rating-` + Math.random().toString(36).slice(2));
+    const id = props.id || (`jss-rating-` + Math.random().toString(36).slice(2));
     const inputProps = JSswift.omit(props, [
       "model", "value", "max", "class", "style", "dense", "readonly", "disabled", "clearable",
       "half", "allowHalf", "noDimming", "label", "slots", "onChange", "onInput", "onHover",
@@ -691,7 +691,7 @@
     inputProps.type = "hidden";
     inputProps.id = id;
     if (props.name != null) inputProps.name = props.name;
-    inputProps.class = uiClass(["cms-rating-input", "cms-choice-input", props.inputClass]);
+    inputProps.class = uiClass(["jss-rating-input", "jss-choice-input", props.inputClass]);
     const input = _.input(inputProps);
 
     const wrapProps = JSswift.omit(props, [
@@ -703,26 +703,26 @@
       "hoverColor", "size", "gap", "tabindex", "tabIndex", "inputClass"
     ]);
     wrapProps.class = uiClass([
-      "cms-clear-set",
-      "cms-singularity-check",
-      "cms-choice-wrap",
-      "cms-rating",
-      "cms-rating-wrap",
+      "jss-clear-set",
+      "jss-singularity-check",
+      "jss-choice-wrap",
+      "jss-rating",
+      "jss-rating-wrap",
       uiWhen(props.dense, "dense"),
       props.class
     ]);
     wrapProps.style = { ...(props.style || {}) };
     const sizeValue = uiUnwrap(props.size);
     if (sizeValue != null && !(typeof sizeValue === "string" && JSswift.uiSizes?.includes(sizeValue))) {
-      wrapProps.style["--cms-rating-size"] = toCssSize(sizeValue);
+      wrapProps.style["--jss-rating-size"] = toCssSize(sizeValue);
     }
     const gapValue = uiUnwrap(props.gap);
     if (gapValue != null) {
-      wrapProps.style["--cms-rating-gap"] = toCssSize(gapValue);
+      wrapProps.style["--jss-rating-gap"] = toCssSize(gapValue);
     }
 
     const control = _.span({
-      class: "cms-rating-control",
+      class: "jss-rating-control",
       onMouseleave: (e) => {
         if (hoverValue == null) return;
         hoverValue = null;
@@ -766,7 +766,7 @@
         setRatingValue(next, e, { emit: true });
       }
     });
-    const labelHost = _.span({ class: "cms-choice-label cms-rating-label" });
+    const labelHost = _.span({ class: "jss-choice-label jss-rating-label" });
     const wrap = _.label(wrapProps, input, control, labelHost);
     setPropertyProps(wrap, props);
 
@@ -827,10 +827,10 @@
       return "empty";
     };
     const getStateColor = (state, hovered) => {
-      const selectedColor = uiUnwrap(props.colorSelected ?? props.activeColor ?? props.color ?? props.textColor) || "var(--cms-warning, #f0b429)";
+      const selectedColor = uiUnwrap(props.colorSelected ?? props.activeColor ?? props.color ?? props.textColor) || "var(--jss-warning, #f0b429)";
       const halfColor = uiUnwrap(props.colorHalf ?? props.halfColor ?? props.colorSelected ?? props.activeColor ?? props.color ?? props.textColor) || selectedColor;
       const hoveredColor = uiUnwrap(props.colorHovered ?? props.hoverColor ?? props.colorSelected ?? props.activeColor ?? props.color ?? props.textColor) || selectedColor;
-      const inactiveColor = uiUnwrap(props.colorInactive ?? props.colorOff ?? props.color) || "var(--cms-muted)";
+      const inactiveColor = uiUnwrap(props.colorInactive ?? props.colorOff ?? props.color) || "var(--jss-muted)";
       if (hovered) return hoveredColor;
       if (state === "full") return selectedColor;
       if (state === "half") return halfColor;
@@ -873,9 +873,9 @@
       items = [];
       clearHost(control);
       for (let index = 1; index <= max; index++) {
-        const iconHost = _.span({ class: "cms-rating-item-icon" });
+        const iconHost = _.span({ class: "jss-rating-item-icon" });
         const item = _.span({
-          class: "cms-rating-item",
+          class: "jss-rating-item",
           role: "radio",
           tabIndex: -1,
           onMousemove: (e) => {
@@ -952,7 +952,7 @@
           setValue: (next) => setRatingValue(next, null, { emit: false })
         };
         item.className = uiClassStatic([
-          "cms-rating-item",
+          "jss-rating-item",
           `is-${state}`,
           uiWhen(hovered, "is-hovered")
         ]);
@@ -1179,7 +1179,7 @@
     };
     const section = _.div({
       class: uiClass([
-        "cms-time-section",
+        "jss-time-section",
         uiWhen(embedded, "is-embedded"),
         uiWhen(withSeconds, "has-seconds"),
         className
@@ -1187,7 +1187,7 @@
     });
     const shortcutList = uiUnwrap(shortcuts) || [];
     if (Array.isArray(shortcutList) && shortcutList.length) {
-      const shortcutWrap = _.div({ class: "cms-time-shortcuts" });
+      const shortcutWrap = _.div({ class: "jss-time-shortcuts" });
       shortcutList.forEach((item, index) => {
         if (!item) return;
         const rawValue = typeof item.value === "function"
@@ -1204,17 +1204,17 @@
         const labelNode = renderNamedSlot("shortcut", ctx, item.label ?? item.text ?? ctx.displayValue);
         shortcutWrap.appendChild(_.button({
           type: "button",
-          class: uiClass(["cms-time-shortcut", uiWhen(!!selectedParts && uiCompareTimeValue(normalizedValue, selectedParts) === 0, "is-selected")]),
+          class: uiClass(["jss-time-shortcut", uiWhen(!!selectedParts && uiCompareTimeValue(normalizedValue, selectedParts) === 0, "is-selected")]),
           disabled: disabled || readonly,
           onClick: () => onSelect?.(normalizedValue, { shortcut: item, index })
         }, ...renderSlotToArray(null, "default", ctx, labelNode)));
       });
       if (shortcutWrap.childNodes.length) section.appendChild(shortcutWrap);
     }
-    const columns = _.div({ class: "cms-time-columns" });
+    const columns = _.div({ class: "jss-time-columns" });
     const createColumn = (title, part, values) => {
-      const column = _.div({ class: "cms-time-column", "data-time-part": part });
-      const optionsWrap = _.div({ class: "cms-time-options" });
+      const column = _.div({ class: "jss-time-column", "data-time-part": part });
+      const optionsWrap = _.div({ class: "jss-time-options" });
       values.forEach((optionValue) => {
         const requested = makeRequestedValue(part, optionValue);
         const normalized = uiConstrainTimeParts(requested, { withSeconds, min: props.min, max: props.max });
@@ -1233,12 +1233,12 @@
         const pointNodes = selected ? renderPointNodes(ctx) : [];
         optionsWrap.appendChild(_.button({
           type: "button",
-          class: uiClass(["cms-time-option", uiWhen(selected, "is-selected"), uiWhen(optionDisabled, "is-disabled")]),
+          class: uiClass(["jss-time-option", uiWhen(selected, "is-selected"), uiWhen(optionDisabled, "is-disabled")]),
           disabled: optionDisabled,
           onClick: () => onSelect?.(normalized, { part, optionValue })
         },
-          _.span({ class: "cms-time-option-label" }, ...renderSlotToArray(null, "default", ctx, optionNode)),
-          pointNodes.length ? _.span({ class: "cms-time-option-point" }, ...pointNodes) : null
+          _.span({ class: "jss-time-option-label" }, ...renderSlotToArray(null, "default", ctx, optionNode)),
+          pointNodes.length ? _.span({ class: "jss-time-option-point" }, ...pointNodes) : null
         ));
       });
       column.appendChild(optionsWrap);
@@ -1256,7 +1256,7 @@
   const uiCaptureTimeColumnScrollState = (root) => {
     if (!root) return null;
     const state = {};
-    root.querySelectorAll(".cms-time-column").forEach((column, index) => {
+    root.querySelectorAll(".jss-time-column").forEach((column, index) => {
       const key = column.getAttribute("data-time-part") || String(index);
       state[key] = column.scrollTop;
     });
@@ -1267,11 +1267,11 @@
     if (!root) return;
     const scrollState = options.scrollState || null;
     const behavior = options.behavior ?? "smooth";
-    root.querySelectorAll(".cms-time-column").forEach((column, index) => {
+    root.querySelectorAll(".jss-time-column").forEach((column, index) => {
       const key = column.getAttribute("data-time-part") || String(index);
       const previousTop = scrollState && Number.isFinite(scrollState[key]) ? scrollState[key] : null;
       if (previousTop != null) column.scrollTop = previousTop;
-      const selectedOption = column.querySelector(".cms-time-option.is-selected");
+      const selectedOption = column.querySelector(".jss-time-option.is-selected");
       if (!selectedOption) return;
       const maxTop = Math.max(0, column.scrollHeight - column.clientHeight);
       const targetTop = selectedOption.offsetTop - ((column.clientHeight - selectedOption.offsetHeight) / 2);
@@ -1294,7 +1294,7 @@
     const slots = props.slots || {};
     const sizeValue = uiComputed(props.size, () => {
       const value = String(uiUnwrap(props.size) || "").toLowerCase();
-      return ["xs", "sm", "md", "lg", "xl"].includes(value) ? `cms-size-${value}` : "";
+      return ["xs", "sm", "md", "lg", "xl"].includes(value) ? `jss-size-${value}` : "";
     });
     const requestedMode = String(
       uiUnwrap(
@@ -1712,7 +1712,7 @@
         : (mode === "multiple" ? "Seleziona date" : "Seleziona data"));
 
     const displayInput = isCalendar ? null : _.input({
-      class: uiClass(["cms-input", "cms-date-display", sizeValue, uiWhen(props.manualInput, "is-manual"), props.inputClass]),
+      class: uiClass(["jss-input", "jss-date-display", sizeValue, uiWhen(props.manualInput, "is-manual"), props.inputClass]),
       type: "text",
       autocomplete: "off",
       placeholder: hasFloatingLabel ? "" : (props.placeholder ?? defaultPlaceholder),
@@ -1721,7 +1721,7 @@
       value: formatDisplayValue(localValue, localTimeValue)
     });
     const hiddenHost = _.div({ style: { display: "contents" } });
-    const controlNode = isCalendar ? null : _.div({ class: "cms-date-control", style: { display: "contents" } }, displayInput, hiddenHost);
+    const controlNode = isCalendar ? null : _.div({ class: "jss-date-control", style: { display: "contents" } }, displayInput, hiddenHost);
 
     const field = isCalendar ? null : UI.FormField({
       ...fieldProps,
@@ -2054,14 +2054,14 @@
         const start = new Date(year, month, 1);
         const offset = (start.getDay() - getFirstDayOfWeek() + 7) % 7;
         const gridStart = new Date(year, month, 1 - offset);
-        const monthBox = _.div({ class: "cms-date-month" });
-        monthBox.appendChild(_.div({ class: "cms-date-month-title" }, monthLabelFormatter.format(start)));
+        const monthBox = _.div({ class: "jss-date-month" });
+        monthBox.appendChild(_.div({ class: "jss-date-month-title" }, monthLabelFormatter.format(start)));
 
-        const weekdays = _.div({ class: "cms-date-weekdays" });
-        titleDates.forEach((label) => weekdays.appendChild(_.div({ class: "cms-date-weekday" }, label)));
+        const weekdays = _.div({ class: "jss-date-weekdays" });
+        titleDates.forEach((label) => weekdays.appendChild(_.div({ class: "jss-date-weekday" }, label)));
         monthBox.appendChild(weekdays);
 
-        const grid = _.div({ class: "cms-date-grid" });
+        const grid = _.div({ class: "jss-date-grid" });
         for (let index = 0; index < 42; index += 1) {
           const date = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + index);
           const iso = toIsoDate(date);
@@ -2088,7 +2088,7 @@
           const dayBtn = _.button({
             type: "button",
             class: uiClass([
-              "cms-date-day",
+              "jss-date-day",
               uiWhen(!inMonth, "is-outside"),
               uiWhen(selected, "is-selected"),
               uiWhen(inRange, "is-in-range"),
@@ -2116,8 +2116,8 @@
             onMouseEnter: () => updateRangeHover(iso),
             onFocus: () => updateRangeHover(iso, { render: false })
           },
-            _.span({ class: "cms-date-day-label" }, ...labelNodes),
-            pointNodes.length ? _.span({ class: "cms-date-day-point" }, ...pointNodes) : null
+            _.span({ class: "jss-date-day-label" }, ...labelNodes),
+            pointNodes.length ? _.span({ class: "jss-date-day-point" }, ...pointNodes) : null
           );
           grid.appendChild(dayBtn);
         }
@@ -2151,7 +2151,7 @@
       const yearStart = Number(uiUnwrap(props.yearStart ?? (min ? fromIsoDate(min)?.getFullYear() : null) ?? inferredYearStart));
       const yearEnd = Number(uiUnwrap(props.yearEnd ?? (max ? fromIsoDate(max)?.getFullYear() : null) ?? inferredYearEnd));
       const monthSelect = _.select({
-        class: "cms-date-select",
+        class: "jss-date-select",
         value: String(viewMonth.getMonth()),
         onChange: (event) => {
           viewMonth = new Date(viewMonth.getFullYear(), Number(event.currentTarget.value), 1);
@@ -2162,7 +2162,7 @@
         ...Array.from({ length: 12 }, (_, index) => uiOptionNode({ value: String(index) }, new Intl.DateTimeFormat(locale, { month: "long" }).format(new Date(2024, index, 1))))
       );
       const yearSelect = _.select({
-        class: "cms-date-select cms-date-select-year",
+        class: "jss-date-select jss-date-select-year",
         value: String(viewMonth.getFullYear()),
         onChange: (event) => {
           viewMonth = new Date(Number(event.currentTarget.value), viewMonth.getMonth(), 1);
@@ -2176,20 +2176,20 @@
         })
       );
 
-      const header = _.div({ class: "cms-date-header" },
+      const header = _.div({ class: "jss-date-header" },
         _.button({
           type: "button",
-          class: "cms-date-nav",
+          class: "jss-date-nav",
           onClick: () => {
             viewMonth = shiftMonths(viewMonth, -1);
             props.onNavigate?.({ month: viewMonth.getMonth() + 1, year: viewMonth.getFullYear() });
             renderPanel();
           }
         }, UI.Icon({ name: "chevron_left", size: 16 })),
-        _.div({ class: "cms-date-header-center" }, monthSelect, yearSelect),
+        _.div({ class: "jss-date-header-center" }, monthSelect, yearSelect),
         _.button({
           type: "button",
-          class: "cms-date-nav",
+          class: "jss-date-nav",
           onClick: () => {
             viewMonth = shiftMonths(viewMonth, 1);
             props.onNavigate?.({ month: viewMonth.getMonth() + 1, year: viewMonth.getFullYear() });
@@ -2198,7 +2198,7 @@
         }, UI.Icon({ name: "chevron_right", size: 16 }))
       );
 
-      const shortcuts = _.div({ class: "cms-date-shortcuts" });
+      const shortcuts = _.div({ class: "jss-date-shortcuts" });
       const shortcutList = uiUnwrap(props.shortcuts ?? props.presets) || [];
       shortcutList.forEach((item, index) => {
         if (!item) return;
@@ -2206,17 +2206,17 @@
         const label = item.label ?? item.text ?? `Preset ${index + 1}`;
         shortcuts.appendChild(_.button({
           type: "button",
-          class: "cms-date-shortcut",
+          class: "jss-date-shortcut",
           onClick: () => setWorkingOrCommit(rawValue, null, { preserveTime: isTimeEnabled(), timeValue: getCurrentTimeValue() })
         }, label));
       });
 
-      const months = _.div({ class: "cms-date-months" });
+      const months = _.div({ class: "jss-date-months" });
       for (let index = 0; index < getMonthsToShow(); index += 1) {
         months.appendChild(renderMonth(shiftMonths(viewMonth, index), index));
       }
       const footerDisplayValue = formatDisplayValue(pickerValue, getCurrentTimeValue());
-      const footerValue = _.div({ class: "cms-date-value" },
+      const footerValue = _.div({ class: "jss-date-value" },
         ...renderSlotToArray(
           slots,
           "value",
@@ -2224,10 +2224,10 @@
           footerDisplayValue || renderSlotToArray(slots, "default", {}, children)
         )
       );
-      const headerTime = _.div({ class: "cms-time-header" });
-      const columnsTime = _.div({ class: "cms-time-columns-2" },
-        _.div({ class: "cms-time-column-title" }, uiUnwrap(props.hoursLabel) || "Ore"),
-        _.div({ class: "cms-time-column-title" }, uiUnwrap(props.minutesLabel) || "Min")
+      const headerTime = _.div({ class: "jss-time-header" });
+      const columnsTime = _.div({ class: "jss-time-columns-2" },
+        _.div({ class: "jss-time-column-title" }, uiUnwrap(props.hoursLabel) || "Ore"),
+        _.div({ class: "jss-time-column-title" }, uiUnwrap(props.minutesLabel) || "Min")
       );
       headerTime.appendChild(columnsTime);
       const bodyTime = isTimeEnabled()
@@ -2258,30 +2258,30 @@
           }
         })
         : null;
-      const footerInfo = _.div({ class: "cms-date-footer-info" },
+      const footerInfo = _.div({ class: "jss-date-footer-info" },
         footerValue
       );
 
-      const footer = _.div({ class: uiClass(["cms-date-footer", uiWhen(isTimeEnabled(), "has-time")]) },
+      const footer = _.div({ class: uiClass(["jss-date-footer", uiWhen(isTimeEnabled(), "has-time")]) },
         footerInfo,
-        _.div({ class: "cms-date-actions" },
-          _.button({ type: "button", class: "cms-date-action", onClick: jumpToToday }, uiUnwrap(props.todayLabel) || "Oggi"),
+        _.div({ class: "jss-date-actions" },
+          _.button({ type: "button", class: "jss-date-action", onClick: jumpToToday }, uiUnwrap(props.todayLabel) || "Oggi"),
           uiUnwrap(props.clearable) !== false
-            ? _.button({ type: "button", class: "cms-date-action", onClick: clearValue }, uiUnwrap(props.clearLabel) || "Reset")
+            ? _.button({ type: "button", class: "jss-date-action", onClick: clearValue }, uiUnwrap(props.clearLabel) || "Reset")
             : null,
           uiUnwrap(props.confirm)
-            ? _.button({ type: "button", class: "cms-date-action is-primary", onClick: applyWorkingValue }, uiUnwrap(props.applyLabel) || "Applica")
+            ? _.button({ type: "button", class: "jss-date-action is-primary", onClick: applyWorkingValue }, uiUnwrap(props.applyLabel) || "Applica")
             : null
         )
       );
 
-      const footerTimer = _.div(_.button({ type: "button", class: "cms-date-action cms-w-lg", onClick: jumpToNow }, uiUnwrap(props.nowLabel) || "Ora"));
+      const footerTimer = _.div(_.button({ type: "button", class: "jss-date-action jss-w-lg", onClick: jumpToNow }, uiUnwrap(props.nowLabel) || "Ora"));
 
-      const contentTimer = isTimeEnabled() ? _.div({ class: "cms-date-time" }, headerTime, bodyTime, footerTimer) : null;
+      const contentTimer = isTimeEnabled() ? _.div({ class: "jss-date-time" }, headerTime, bodyTime, footerTimer) : null;
 
       panelRoot.replaceChildren(
         _.div({
-          class: "cms-date-panel-root",
+          class: "jss-date-panel-root",
           onKeydown: (event) => {
             if (event.key === "Escape") {
               event.preventDefault();
@@ -2292,7 +2292,7 @@
         },
           header,
           shortcutList.length ? shortcuts : null,
-          _.div({ class: 'cms-data-time' }, months, contentTimer),
+          _.div({ class: 'jss-data-time' }, months, contentTimer),
           footer
         )
       );
@@ -2308,7 +2308,7 @@
       entry = JSswift.overlay.open(({ close }) => {
         const fallback = (mode === "range" || mode === "range-multiple") ? 2 : 1;
         const raw = Number(uiUnwrap(props.monthsToShow) ?? fallback);
-        panelRoot = _.div({ class: uiClassStatic(["cms-date-panel", uiUnwrap(sizeValue), uiWhen(raw > 1, "multi-month"), props.panelClass]) });
+        panelRoot = _.div({ class: uiClassStatic(["jss-date-panel", uiUnwrap(sizeValue), uiWhen(raw > 1, "multi-month"), props.panelClass]) });
         renderPanel();
         return panelRoot;
       }, {
@@ -2324,7 +2324,7 @@
         closeOnBackdrop: false,
         closeOnEsc: true,
         autoFocus: false,
-        className: uiClassStatic(["cms-date-overlay", props.panelClass, uiWhen(isTimeEnabled(), "has-time")]),
+        className: uiClassStatic(["jss-date-overlay", props.panelClass, uiWhen(isTimeEnabled(), "has-time")]),
         onClose: () => {
           entry = null;
           panelRoot = null;
@@ -2352,8 +2352,8 @@
       const raw = Number(uiUnwrap(props.monthsToShow) ?? fallback);
       panelRoot = _.div({
         class: uiClassStatic([
-          "cms-date-panel",
-          "cms-date-calendar",
+          "jss-date-panel",
+          "jss-date-calendar",
           uiUnwrap(sizeValue),
           uiWhen(raw > 1, "multi-month"),
           props.panelClass,
@@ -2476,7 +2476,7 @@
     const slots = props.slots || {};
     const sizeValue = uiComputed(props.size, () => {
       const value = String(uiUnwrap(props.size) || "").toLowerCase();
-      return ["xs", "sm", "md", "lg", "xl"].includes(value) ? `cms-size-${value}` : "";
+      return ["xs", "sm", "md", "lg", "xl"].includes(value) ? `jss-size-${value}` : "";
     });
     const getTimeOptions = () => {
       const detectedTime = uiExportTimeValue(
@@ -2518,7 +2518,7 @@
     const hasFloatingLabel = fieldProps.label != null || JSswift.ui.getSlot(slots, "label") != null;
 
     const displayInput = _.input({
-      class: uiClass(["cms-input", "cms-time-display", sizeValue, uiWhen(props.manualInput, "is-manual"), props.inputClass]),
+      class: uiClass(["jss-input", "jss-time-display", sizeValue, uiWhen(props.manualInput, "is-manual"), props.inputClass]),
       type: "text",
       autocomplete: "off",
       placeholder: hasFloatingLabel ? "" : (props.placeholder ?? "Seleziona orario"),
@@ -2528,7 +2528,7 @@
     });
     displayInput.setAttribute("aria-haspopup", "dialog");
     const hiddenHost = _.div({ style: { display: "contents" } });
-    const controlNode = _.div({ class: "cms-time-control", style: { display: "contents" } }, displayInput, hiddenHost);
+    const controlNode = _.div({ class: "jss-time-control", style: { display: "contents" } }, displayInput, hiddenHost);
 
     const field = UI.FormField({
       ...fieldProps,
@@ -2604,14 +2604,14 @@
       if (!panelRoot) return;
       const currentValue = getCurrentValue();
       const footerDisplayValue = formatDisplayValue(currentValue);
-      const header = _.div({ class: "cms-time-header" });
-      const columns = _.div({ class: "cms-time-columns" },
-        _.div({ class: "cms-time-column-title" }, uiUnwrap(props.hoursLabel) || "Ore"),
-        _.div({ class: "cms-time-column-title" }, uiUnwrap(props.minutesLabel) || "Min")
+      const header = _.div({ class: "jss-time-header" });
+      const columns = _.div({ class: "jss-time-columns" },
+        _.div({ class: "jss-time-column-title" }, uiUnwrap(props.hoursLabel) || "Ore"),
+        _.div({ class: "jss-time-column-title" }, uiUnwrap(props.minutesLabel) || "Min")
       );
       const withSeconds = getTimeOptions().withSeconds;
       if (withSeconds) {
-        columns.appendChild(_.div({ class: "cms-time-column-title" }, uiUnwrap(props.secondsLabel) || "Sec"));
+        columns.appendChild(_.div({ class: "jss-time-column-title" }, uiUnwrap(props.secondsLabel) || "Sec"));
       }
       header.appendChild(columns);
       const body = uiCreateTimePickerSection({
@@ -2639,8 +2639,8 @@
           if (shouldCloseOnSelect(meta)) closePanel();
         }
       });
-      const footer = _.div({ class: "cms-time-footer" },
-        _.div({ class: "cms-time-value" },
+      const footer = _.div({ class: "jss-time-footer" },
+        _.div({ class: "jss-time-value" },
           ...renderSlotToArray(
             slots,
             "value",
@@ -2648,18 +2648,18 @@
             footerDisplayValue || renderSlotToArray(slots, "default", {}, children)
           )
         ),
-        _.div({ class: "cms-time-actions" },
-          _.button({ type: "button", class: "cms-time-action", onClick: jumpToNow }, uiUnwrap(props.nowLabel) || "Ora"),
+        _.div({ class: "jss-time-actions" },
+          _.button({ type: "button", class: "jss-time-action", onClick: jumpToNow }, uiUnwrap(props.nowLabel) || "Ora"),
           uiUnwrap(props.clearable) !== false
-            ? _.button({ type: "button", class: "cms-time-action", onClick: () => setTimeState(null, null, { commit: !uiUnwrap(props.confirm) }) }, uiUnwrap(props.clearLabel) || "Reset")
+            ? _.button({ type: "button", class: "jss-time-action", onClick: () => setTimeState(null, null, { commit: !uiUnwrap(props.confirm) }) }, uiUnwrap(props.clearLabel) || "Reset")
             : null,
           uiUnwrap(props.confirm)
-            ? _.button({ type: "button", class: "cms-time-action is-primary", onClick: applyWorkingValue }, uiUnwrap(props.applyLabel) || "Applica")
+            ? _.button({ type: "button", class: "jss-time-action is-primary", onClick: applyWorkingValue }, uiUnwrap(props.applyLabel) || "Applica")
             : null
         )
       );
       panelRoot.replaceChildren(_.div({
-        class: "cms-time-panel-root",
+        class: "jss-time-panel-root",
         onKeydown: (event) => {
           if (event.key === "Escape") {
             event.preventDefault();
@@ -2673,7 +2673,7 @@
       if (entry || uiUnwrap(props.disabled) || uiUnwrap(props.readonly)) return entry;
       workingValue = uiCloneTimeParts(localValue);
       entry = JSswift.overlay.open(() => {
-        panelRoot = _.div({ class: uiClassStatic(["cms-time-panel", uiUnwrap(sizeValue), props.panelClass]) });
+        panelRoot = _.div({ class: uiClassStatic(["jss-time-panel", uiUnwrap(sizeValue), props.panelClass]) });
         renderPanel();
         return panelRoot;
       }, {
@@ -2689,7 +2689,7 @@
         closeOnBackdrop: false,
         closeOnEsc: true,
         autoFocus: false,
-        className: uiClassStatic(["cms-time-overlay", props.panelClass]),
+        className: uiClassStatic(["jss-time-overlay", props.panelClass]),
         onClose: () => {
           entry = null;
           panelRoot = null;

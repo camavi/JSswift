@@ -30,17 +30,17 @@
         str.startsWith("hsla(") ||
         str.startsWith("var(")
       ) return str;
-      if (isTokenCSS(str)) return `var(--cms-${str})`;
+      if (isTokenCSS(str)) return `var(--jss-${str})`;
       return str;
     };
 
     const stateClass = uiComputed(props.state, () => {
       const state = normalizeState(uiUnwrap(props.state));
-      return state ? `cms-state-${state}` : "";
+      return state ? `jss-state-${state}` : "";
     });
 
     const cls = uiClass([
-      "cms-spinner",
+      "jss-spinner",
       stateClass,
       uiWhen(props.vertical, "vertical"),
       uiWhen(props.reverse, "reverse"),
@@ -79,13 +79,13 @@
     }
 
     const indicatorFallback = _.span({
-      class: uiClass(["cms-spinner-indicator", props.indicatorClass]),
+      class: uiClass(["jss-spinner-indicator", props.indicatorClass]),
       style: {
-        "--cms-spinner-size": makeCssVarValue(props.size, toCssSize, "18px"),
-        "--cms-spinner-thickness": makeCssVarValue(props.thickness, toCssSize, "2px"),
-        "--cms-spinner-speed": makeCssVarValue(props.speed, (v) => typeof v === "number" ? `${v}ms` : String(v), "900ms"),
-        "--cms-spinner-color": makeCssVarValue(props.color, resolveSpinnerColor, "var(--set-border-color, var(--cms-primary))"),
-        "--cms-spinner-track": makeCssVarValue(props.trackColor, resolveSpinnerColor, "color-mix(in srgb, var(--cms-spinner-color) 18%, transparent)"),
+        "--jss-spinner-size": makeCssVarValue(props.size, toCssSize, "18px"),
+        "--jss-spinner-thickness": makeCssVarValue(props.thickness, toCssSize, "2px"),
+        "--jss-spinner-speed": makeCssVarValue(props.speed, (v) => typeof v === "number" ? `${v}ms` : String(v), "900ms"),
+        "--jss-spinner-color": makeCssVarValue(props.color, resolveSpinnerColor, "var(--set-border-color, var(--jss-primary))"),
+        "--jss-spinner-track": makeCssVarValue(props.trackColor, resolveSpinnerColor, "color-mix(in srgb, var(--jss-spinner-color) 18%, transparent)"),
         ...(props.indicatorStyle || {})
       },
       "aria-hidden": "true"
@@ -96,10 +96,10 @@
     if (indicatorNodes.length) content.push(...indicatorNodes);
     if (hasText) {
       content.push(_.div(
-        { class: "cms-spinner-content" },
-        labelNodes.length ? _.div({ class: "cms-spinner-label" }, ...labelNodes) : null,
-        copyNodes.length ? _.div({ class: "cms-spinner-copy" }, ...copyNodes) : null,
-        noteNodes.length ? _.div({ class: "cms-spinner-note" }, ...noteNodes) : null
+        { class: "jss-spinner-content" },
+        labelNodes.length ? _.div({ class: "jss-spinner-label" }, ...labelNodes) : null,
+        copyNodes.length ? _.div({ class: "jss-spinner-copy" }, ...copyNodes) : null,
+        noteNodes.length ? _.div({ class: "jss-spinner-note" }, ...noteNodes) : null
       ));
     }
 
@@ -117,7 +117,7 @@
     const model = resolveModel(boundValue, "UI.Progress:model");
     const stateClass = uiComputed([props.state, props.color], () => {
       const state = normalizeState(uiUnwrap(props.state) || uiUnwrap(props.color));
-      return state ? `cms-state-${state}` : "";
+      return state ? `jss-state-${state}` : "";
     });
 
     const getNumber = (value, fallback) => {
@@ -153,8 +153,8 @@
       const raw = uiUnwrap(value);
       if (raw == null || raw === false || raw === "") return fallback;
       const state = normalizeState(raw);
-      if (state) return `var(--cms-${state})`;
-      if (typeof raw === "string" && isTokenCSS(raw)) return `var(--cms-${raw})`;
+      if (state) return `var(--jss-${state})`;
+      if (typeof raw === "string" && isTokenCSS(raw)) return `var(--jss-${raw})`;
       return String(raw);
     };
     const normalizeValue = (value) => {
@@ -250,7 +250,7 @@
       delete rootStyle.backgroundColor;
     }
     wrapProps.class = uiClass([
-      "cms-progress-wrap",
+      "jss-progress-wrap",
       uiWhen(props.dense, "dense"),
       uiWhen(props.reverse, "is-reverse"),
       uiWhen(props.indeterminate, "is-indeterminate"),
@@ -259,48 +259,48 @@
     ]);
     wrapProps.style = rootStyle;
 
-    const header = _.div({ class: "cms-progress-header" });
-    const heading = _.div({ class: "cms-progress-heading" });
-    const labelHost = _.div({ class: "cms-progress-label" });
-    const noteHost = _.div({ class: "cms-progress-note" });
-    const valueHost = _.div({ class: "cms-progress-value" });
+    const header = _.div({ class: "jss-progress-header" });
+    const heading = _.div({ class: "jss-progress-heading" });
+    const labelHost = _.div({ class: "jss-progress-label" });
+    const noteHost = _.div({ class: "jss-progress-note" });
+    const valueHost = _.div({ class: "jss-progress-value" });
     heading.append(labelHost, noteHost);
     header.append(heading, valueHost);
 
-    const body = _.div({ class: "cms-progress-body" });
-    const startLabelHost = _.span({ class: "cms-progress-edge-label cms-progress-edge-label-left" });
+    const body = _.div({ class: "jss-progress-body" });
+    const startLabelHost = _.span({ class: "jss-progress-edge-label jss-progress-edge-label-left" });
     const track = _.div({
-      class: "cms-progress",
+      class: "jss-progress",
       role: "progressbar"
     });
-    const buffer = _.span({ class: "cms-progress-buffer" });
+    const buffer = _.span({ class: "jss-progress-buffer" });
     const fill = _.span({
       class: uiClass([
-        "cms-progress-bar",
-        "cms-singularity",
+        "jss-progress-bar",
+        "jss-singularity",
         stateClass,
-        uiWhen(props.outline, "cms-outline"),
-        uiWhen(props.flat, "cms-flat"),
-        uiWhen(props.border, "cms-border"),
-        uiWhen(props.glossy, "cms-glossy"),
-        uiWhen(props.glow, "cms-glow"),
-        uiWhen(props.glass, "cms-glass"),
-        uiWhen(props.shadow, "cms-shadow"),
+        uiWhen(props.outline, "jss-outline"),
+        uiWhen(props.flat, "jss-flat"),
+        uiWhen(props.border, "jss-border"),
+        uiWhen(props.glossy, "jss-glossy"),
+        uiWhen(props.glow, "jss-glow"),
+        uiWhen(props.glass, "jss-glass"),
+        uiWhen(props.shadow, "jss-shadow"),
         uiComputed(props.shadow, () => {
           const shadow = normalizeShadow(uiUnwrap(props.shadow));
-          return shadow ? `cms-shadow-${shadow}` : "";
+          return shadow ? `jss-shadow-${shadow}` : "";
         }),
-        uiWhen(props.gradient, "cms-gradient"),
-        uiWhen(props.textGradient, "cms-text-gradient"),
-        uiWhen(props.lightShadow, "cms-light-shadow"),
+        uiWhen(props.gradient, "jss-gradient"),
+        uiWhen(props.textGradient, "jss-text-gradient"),
+        uiWhen(props.lightShadow, "jss-light-shadow"),
         uiWhen(props.striped, "is-striped"),
         uiWhen(props.animated || props.indeterminate, "is-animated")
       ])
     });
-    const insideHost = _.span({ class: "cms-progress-bar-label" });
+    const insideHost = _.span({ class: "jss-progress-bar-label" });
     fill.appendChild(insideHost);
     track.append(buffer, fill);
-    const endLabelHost = _.span({ class: "cms-progress-edge-label cms-progress-edge-label-right" });
+    const endLabelHost = _.span({ class: "jss-progress-edge-label jss-progress-edge-label-right" });
     body.append(startLabelHost, track, endLabelHost);
 
     const wrap = _.div(wrapProps, header, body);
@@ -407,13 +407,13 @@
       const customRadius = uiUnwrap(props.radius);
 
       wrap.style.width = uiUnwrap(props.width) || "100%";
-      wrap.style.setProperty("--cms-progress-height", getTrackHeight());
+      wrap.style.setProperty("--jss-progress-height", getTrackHeight());
       if (customRadius != null) {
-        if (typeof customRadius === "number") wrap.style.setProperty("--cms-progress-radius", `${customRadius}px`);
-        else if (typeof customRadius === "string" && JSswift.uiSizes.includes(customRadius)) wrap.style.setProperty("--cms-progress-radius", `var(--cms-r-${customRadius})`);
-        else wrap.style.setProperty("--cms-progress-radius", String(customRadius));
+        if (typeof customRadius === "number") wrap.style.setProperty("--jss-progress-radius", `${customRadius}px`);
+        else if (typeof customRadius === "string" && JSswift.uiSizes.includes(customRadius)) wrap.style.setProperty("--jss-progress-radius", `var(--jss-r-${customRadius})`);
+        else wrap.style.setProperty("--jss-progress-radius", String(customRadius));
       } else {
-        wrap.style.removeProperty("--cms-progress-radius");
+        wrap.style.removeProperty("--jss-progress-radius");
       }
 
       track.style.background = trackTone;
@@ -423,11 +423,11 @@
       if (tone && !normalizeState(uiUnwrap(props.state) || uiUnwrap(props.color))) {
         fill.style.setProperty("--set-background-color", tone);
         fill.style.setProperty("--set-border-color", tone);
-        fill.style.setProperty("--set-color", uiUnwrap(props.textColor) || "var(--cms-on-primary, #fff)");
+        fill.style.setProperty("--set-color", uiUnwrap(props.textColor) || "var(--jss-on-primary, #fff)");
       } else if (!normalizeState(uiUnwrap(props.state) || uiUnwrap(props.color))) {
-        fill.style.setProperty("--set-background-color", "var(--cms-primary)");
-        fill.style.setProperty("--set-border-color", "var(--cms-primary)");
-        fill.style.setProperty("--set-color", uiUnwrap(props.textColor) || "var(--cms-on-primary, #fff)");
+        fill.style.setProperty("--set-background-color", "var(--jss-primary)");
+        fill.style.setProperty("--set-border-color", "var(--jss-primary)");
+        fill.style.setProperty("--set-color", uiUnwrap(props.textColor) || "var(--jss-on-primary, #fff)");
       } else {
         fill.style.removeProperty("--set-background-color");
         fill.style.removeProperty("--set-border-color");
@@ -617,7 +617,7 @@
       "trickleInterval", "trickleMax", "trickleTo", "doneValue", "doneDelay", "hideDelay",
       "resetValue", "progressClass", "progressStyle", "onVisibleChange"
     ]);
-    shellProps.class = uiClass(["cms-loading-bar", props.class]);
+    shellProps.class = uiClass(["jss-loading-bar", props.class]);
     shellProps.style = { ...(props.style || {}) };
 
     const progressProps = JSswift.omit(props, [
@@ -626,7 +626,7 @@
       "trickleInterval", "trickleMax", "trickleTo", "doneValue", "doneDelay", "hideDelay",
       "resetValue", "progressClass", "progressStyle", "onVisibleChange"
     ]);
-    progressProps.class = uiClass(["cms-loading-bar-progress", props.progressClass, progressProps.class]);
+    progressProps.class = uiClass(["jss-loading-bar-progress", props.progressClass, progressProps.class]);
     progressProps.style = { ...(props.progressStyle || {}) };
     progressProps.value = [getValue, setValueSignal];
     progressProps.buffer = [getBuffer, setBufferSignal];

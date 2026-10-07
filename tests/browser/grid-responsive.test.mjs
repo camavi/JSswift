@@ -347,11 +347,11 @@ test("GridCol col alias uses grid vars without generic grid-column vars", {
           colClassName: col.className,
           colAttr: col.getAttribute("col"),
           colGridColumn: colStyle.gridColumn,
-          colBase: col.style.getPropertyValue("--cms-grid-col-base"),
-          colTablet: col.style.getPropertyValue("--cms-grid-col-tablet"),
-          colPc: col.style.getPropertyValue("--cms-grid-col-pc"),
-          rspGridColumn: col.style.getPropertyValue("--cms-rsp-grid-column"),
-          rspPcGridColumn: col.style.getPropertyValue("--cms-rsp-pc-grid-column"),
+          colBase: col.style.getPropertyValue("--jss-grid-col-base"),
+          colTablet: col.style.getPropertyValue("--jss-grid-col-tablet"),
+          colPc: col.style.getPropertyValue("--jss-grid-col-pc"),
+          rspGridColumn: col.style.getPropertyValue("--jss-rsp-grid-column"),
+          rspPcGridColumn: col.style.getPropertyValue("--jss-rsp-pc-grid-column"),
           toolbarDisplay: toolbarStyle.display,
           toolbarGap: toolbarStyle.gap,
           gridWidth: Math.round(gridRect.width),
@@ -379,8 +379,8 @@ test("GridCol col alias uses grid vars without generic grid-column vars", {
   assert.match(result.colPc, /span 4/);
   assert.equal(result.rspGridColumn, "");
   assert.equal(result.rspPcGridColumn, "");
-  assert.equal(result.colClassName.includes("cms-rsp-grid-column"), false);
-  assert.equal(result.colClassName.includes("cms-rsp-pc-grid-column"), false);
+  assert.equal(result.colClassName.includes("jss-rsp-grid-column"), false);
+  assert.equal(result.colClassName.includes("jss-rsp-pc-grid-column"), false);
   assert.equal(result.toolbarDisplay, "flex");
   assert.notEqual(result.toolbarGap, "normal");
   assert.ok(result.colWidth > 250 && result.colWidth < 360, JSON.stringify(result));
@@ -429,8 +429,8 @@ test("Avatar applies common responsive props", {
       finish({
         className: avatar.className,
         width: style.width,
-        rspWidth: avatar.style.getPropertyValue("--cms-rsp-width"),
-        rspTabletWidth: avatar.style.getPropertyValue("--cms-rsp-tablet-width")
+        rspWidth: avatar.style.getPropertyValue("--jss-rsp-width"),
+        rspTabletWidth: avatar.style.getPropertyValue("--jss-rsp-tablet-width")
       });
     } catch (error) {
       finish({ error: String(error?.stack || error) });
@@ -444,9 +444,9 @@ test("Avatar applies common responsive props", {
 
   assert.equal(mobile.error, undefined);
   assert.equal(tablet.error, undefined);
-  assert.equal(mobile.className.includes("cms-rsp"), true);
-  assert.equal(mobile.className.includes("cms-rsp-width"), true);
-  assert.equal(mobile.className.includes("cms-rsp-tablet-width"), true);
+  assert.equal(mobile.className.includes("jss-rsp"), true);
+  assert.equal(mobile.className.includes("jss-rsp-width"), true);
+  assert.equal(mobile.className.includes("jss-rsp-tablet-width"), true);
   assert.equal(mobile.rspWidth, "40px");
   assert.equal(mobile.rspTabletWidth, "80px");
   assert.equal(mobile.width, "40px");
@@ -509,10 +509,10 @@ test("Nested GridCol does not inherit span variables from parent GridCol", {
         innerTracks: innerStyle.gridTemplateColumns.split(" ").filter(Boolean).length,
         childAGridColumn: childAStyle.gridColumn,
         childBGridColumn: childBStyle.gridColumn,
-        childABase: childA.style.getPropertyValue("--cms-grid-col-base"),
-        childATablet: childA.style.getPropertyValue("--cms-grid-col-tablet"),
-        childAPc: childA.style.getPropertyValue("--cms-grid-col-pc"),
-        childBBase: childB.style.getPropertyValue("--cms-grid-col-base"),
+        childABase: childA.style.getPropertyValue("--jss-grid-col-base"),
+        childATablet: childA.style.getPropertyValue("--jss-grid-col-tablet"),
+        childAPc: childA.style.getPropertyValue("--jss-grid-col-pc"),
+        childBBase: childB.style.getPropertyValue("--jss-grid-col-base"),
         sameRow: Math.abs(childARect.top - childBRect.top) <= 2,
         secondAfterFirst: childBRect.left > childARect.left,
         childAWidth: Math.round(childARect.width),
@@ -534,8 +534,8 @@ test("Nested GridCol does not inherit span variables from parent GridCol", {
   assert.doesNotMatch(result.childAGridColumn, /span 7/);
   assert.doesNotMatch(result.childBGridColumn, /span 7/);
   assert.equal(result.childABase, "auto");
-  assert.match(result.childATablet, /--cms-grid-col-base/);
-  assert.match(result.childAPc, /--cms-grid-col-tablet/);
+  assert.match(result.childATablet, /--jss-grid-col-base/);
+  assert.match(result.childAPc, /--jss-grid-col-tablet/);
   assert.equal(result.childBBase, "auto");
   assert.equal(result.sameRow, true, JSON.stringify(result));
   assert.equal(result.secondAfterFirst, true, JSON.stringify(result));
@@ -588,12 +588,12 @@ test("Toolbar responsive gap and direction apply across mobile tablet and pc", {
         styleGap: toolbar.style.gap,
         gap: style.gap,
         flexDirection: style.flexDirection,
-        gapSm: rootStyle.getPropertyValue("--cms-gap-sm").trim(),
-        gapMd: rootStyle.getPropertyValue("--cms-gap-md").trim(),
-        gapLg: rootStyle.getPropertyValue("--cms-gap-lg").trim(),
-        rspGap: toolbar.style.getPropertyValue("--cms-rsp-gap"),
-        rspTabletGap: toolbar.style.getPropertyValue("--cms-rsp-tablet-gap"),
-        rspPcGap: toolbar.style.getPropertyValue("--cms-rsp-pc-gap")
+        gapSm: rootStyle.getPropertyValue("--jss-gap-sm").trim(),
+        gapMd: rootStyle.getPropertyValue("--jss-gap-md").trim(),
+        gapLg: rootStyle.getPropertyValue("--jss-gap-lg").trim(),
+        rspGap: toolbar.style.getPropertyValue("--jss-rsp-gap"),
+        rspTabletGap: toolbar.style.getPropertyValue("--jss-rsp-tablet-gap"),
+        rspPcGap: toolbar.style.getPropertyValue("--jss-rsp-pc-gap")
       });
     } catch (error) {
       finish({ error: String(error?.stack || error) });
@@ -690,10 +690,10 @@ test("Card sections apply responsive gap padding justify and direction", {
         footerDirection: footerStyle.flexDirection,
         cardDisplay: cardStyle.display,
         cardGap: cardStyle.gap,
-        gapSm: rootStyle.getPropertyValue("--cms-gap-sm").trim(),
-        gapMd: rootStyle.getPropertyValue("--cms-gap-md").trim(),
-        pSm: rootStyle.getPropertyValue("--cms-p-sm").trim(),
-        pLg: rootStyle.getPropertyValue("--cms-p-lg").trim()
+        gapSm: rootStyle.getPropertyValue("--jss-gap-sm").trim(),
+        gapMd: rootStyle.getPropertyValue("--jss-gap-md").trim(),
+        pSm: rootStyle.getPropertyValue("--jss-p-sm").trim(),
+        pLg: rootStyle.getPropertyValue("--jss-p-lg").trim()
       });
     } catch (error) {
       finish({ error: String(error?.stack || error) });
@@ -789,7 +789,7 @@ test("Menu responsive width stays clamped inside mobile viewport", {
         const rect = panel.getBoundingClientRect();
         finish({
           className: panel.className,
-          menuWidth: panel.style.getPropertyValue("--cms-menu-width"),
+          menuWidth: panel.style.getPropertyValue("--jss-menu-width"),
           panelWidth: Math.round(rect.width),
           left: Number(rect.left.toFixed(2)),
           right: Number(rect.right.toFixed(2)),
@@ -806,9 +806,9 @@ test("Menu responsive width stays clamped inside mobile viewport", {
   const result = readBrowserResult(await runChrome(chromePath, htmlFile, { width: 390, height: 844 }));
 
   assert.equal(result.error, undefined);
-  assert.equal(result.className.includes("cms-rsp-width"), true);
-  assert.equal(result.className.includes("cms-rsp-tablet-width"), true);
-  assert.equal(result.className.includes("cms-rsp-pc-width"), true);
+  assert.equal(result.className.includes("jss-rsp-width"), true);
+  assert.equal(result.className.includes("jss-rsp-tablet-width"), true);
+  assert.equal(result.className.includes("jss-rsp-pc-width"), true);
   assert.equal(result.menuWidth, "calc(100vw - 32px)");
   assert.ok(result.panelWidth >= 300 && result.panelWidth < result.viewportWidth, JSON.stringify(result));
   assert.ok(result.left >= 8, JSON.stringify(result));
@@ -867,7 +867,7 @@ test("ContextMenu responsive width stays clamped inside mobile viewport", {
         const rect = panel.getBoundingClientRect();
         finish({
           className: panel.className,
-          menuWidth: panel.style.getPropertyValue("--cms-menu-width"),
+          menuWidth: panel.style.getPropertyValue("--jss-menu-width"),
           panelWidth: Math.round(rect.width),
           left: Number(rect.left.toFixed(2)),
           right: Number(rect.right.toFixed(2)),
@@ -884,10 +884,10 @@ test("ContextMenu responsive width stays clamped inside mobile viewport", {
   const result = readBrowserResult(await runChrome(chromePath, htmlFile, { width: 390, height: 844 }));
 
   assert.equal(result.error, undefined);
-  assert.equal(result.className.includes("cms-context-menu-panel"), true);
-  assert.equal(result.className.includes("cms-rsp-width"), true);
-  assert.equal(result.className.includes("cms-rsp-tablet-width"), true);
-  assert.equal(result.className.includes("cms-rsp-pc-width"), true);
+  assert.equal(result.className.includes("jss-context-menu-panel"), true);
+  assert.equal(result.className.includes("jss-rsp-width"), true);
+  assert.equal(result.className.includes("jss-rsp-tablet-width"), true);
+  assert.equal(result.className.includes("jss-rsp-pc-width"), true);
   assert.equal(result.menuWidth, "calc(100vw - 32px)");
   assert.ok(result.panelWidth >= 300 && result.panelWidth < result.viewportWidth, JSON.stringify(result));
   assert.ok(result.left >= 8, JSON.stringify(result));
@@ -1031,7 +1031,7 @@ test("Dialog fullscreen stays inside the mobile viewport without overscan", {
       dialog.open();
 
       setTimeout(() => {
-        const panel = document.querySelector(".cms-overlay-panel.cms-dialog");
+        const panel = document.querySelector(".jss-overlay-panel.jss-dialog");
         const rect = panel.getBoundingClientRect();
         const style = getComputedStyle(panel);
         const vv = window.visualViewport;
@@ -1062,7 +1062,7 @@ test("Dialog fullscreen stays inside the mobile viewport without overscan", {
   const result = await runChromeMobileEval(chromePath, pathToFileURL(htmlFile).href, `(() => new Promise((resolve) => {
     const start = Date.now();
     const measure = () => {
-      const panel = document.querySelector(".cms-overlay-panel.cms-dialog");
+      const panel = document.querySelector(".jss-overlay-panel.jss-dialog");
       if (!panel) {
         if ((Date.now() - start) > 4000) {
           resolve({
@@ -1146,9 +1146,9 @@ test("Select commits user selection to rod and signal models", {
       while (!window.samples) { if (Date.now() > deadline) throw Error('samples missing'); await wait(); }
       const results = [];
       for (const sample of samples) {
-        sample.select.querySelector('.cms-select-control').click();
+        sample.select.querySelector('.jss-select-control').click();
         await wait();
-        const option = [...document.querySelectorAll('.cms-select-option')].find(node => node.textContent === 'Casa' && node.getBoundingClientRect().width > 0);
+        const option = [...document.querySelectorAll('.jss-select-option')].find(node => node.textContent === 'Casa' && node.getBoundingClientRect().width > 0);
         if (!option) throw Error('Casa option missing');
         option.click();
         sample.save.click();
@@ -1156,7 +1156,7 @@ test("Select commits user selection to rod and signal models", {
         const saved = sample.saved();
         sample.write('Ufficio');
         await wait();
-        results.push({selected, saved, display: sample.select.querySelector('.cms-select-value').textContent});
+        results.push({selected, saved, display: sample.select.querySelector('.jss-select-value').textContent});
       }
       return results;
     })().catch(error => ({error: String(error.stack || error)}))`);
@@ -1229,13 +1229,20 @@ test("Documented CRUD validates, edits, binds rod, restores focus and survives r
   const initialFocus = document.activeElement.getAttribute('aria-label') === 'Nome';
   click('save-product'); await wait();
   const invalid = errors.name.value !== '' && document.activeElement.getAttribute('aria-invalid') === 'true';
+  const errorAssociated = document.activeElement.getAttribute('aria-describedby').split(' ').some(id => document.getElementById(id)?.textContent === errors.name.value);
   fields.name.focus(); const input = document.activeElement; input.value = 'Nuovo'; input.dispatchEvent(new Event('input',{bubbles:true}));
-  fields.category.querySelector('.cms-select-control').click(); await wait();
-  [...document.querySelectorAll('.cms-select-option')].find(n => n.textContent==='Casa' && n.getBoundingClientRect().width).click();
+  fields.category.querySelector('.jss-select-control').click(); await wait();
+  [...document.querySelectorAll('.jss-select-option')].find(n => n.textContent==='Casa' && n.getBoundingClientRect().width).click();
   const categoryBound = models.category.value === 'Casa';
   models.price.value = '-1'; models.quantity.value = '1.5'; click('save-product');
   const numeric = !!errors.price.value && !!errors.quantity.value;
-  models.price.value = '12'; models.quantity.value = '3'; click('save-product'); await wait();
+  models.price.value = '12'; models.quantity.value = '3';
+  const originalWrite = Storage.prototype.setItem;
+  Storage.prototype.setItem = function() { throw new Error('storage blocked'); };
+  let storageFailure;
+  try { click('save-product'); storageFailure = dialog.isOpen() && rows.length === 6 && notice.textContent === 'Salvataggio non riuscito'; }
+  finally { Storage.prototype.setItem = originalWrite; }
+  click('save-product'); await wait();
   const added = rows.length === 7 && rows[6].category === 'Casa';
   const focusRestored = document.activeElement.id === 'add-product';
   if (!document.getElementById('edit-1')) click('previous');
@@ -1253,13 +1260,13 @@ test("Documented CRUD validates, edits, binds rod, restores focus and survives r
   search.focus(); const q = document.activeElement; q.value = 'MODIFICATO'; q.dispatchEvent(new Event('input',{bubbles:true}));
   const searched = host.textContent.includes('Modificato') && !host.textContent.includes('Prodotto 2');
   q.value = ''; q.dispatchEvent(new Event('input',{bubbles:true}));
-  filter.querySelector('.cms-select-control').click(); await wait();
-  [...document.querySelectorAll('.cms-select-option')].find(n => n.textContent==='Ufficio' && n.getBoundingClientRect().width).click();
+  filter.querySelector('.jss-select-control').click(); await wait();
+  [...document.querySelectorAll('.jss-select-option')].find(n => n.textContent==='Ufficio' && n.getBoundingClientRect().width).click();
   const filtered = host.textContent.includes('Prodotto 2') && !host.textContent.includes('Modificato');
   const mobile = document.documentElement.scrollWidth <= innerWidth;
-  return {initialFocus,paged,invalid,categoryBound,numeric,added,focusRestored,edited,escaped,searched,filtered,trapped,mobile};
+  return {initialFocus,paged,invalid,errorAssociated,storageFailure,categoryBound,numeric,added,focusRestored,edited,escaped,searched,filtered,trapped,mobile};
  })().catch(e => ({error:String(e.stack || e)}))`, {afterReload:`({count:rows.length,name:rows[0].name,category:rows[6]?.category})`});
- assert.deepEqual(result,{before:{initialFocus:true,paged:true,invalid:true,categoryBound:true,numeric:true,added:true,focusRestored:true,edited:true,escaped:true,searched:true,filtered:true,trapped:true,mobile:true},after:{count:7,name:'Modificato',category:'Casa'}});
+ assert.deepEqual(result,{before:{initialFocus:true,paged:true,invalid:true,errorAssociated:true,storageFailure:true,categoryBound:true,numeric:true,added:true,focusRestored:true,edited:true,escaped:true,searched:true,filtered:true,trapped:true,mobile:true},after:{count:7,name:'Modificato',category:'Casa'}});
 });
 
 
@@ -1313,9 +1320,9 @@ test("Table hideStatus omits only the status region and preserves default counts
  const base = {rows:[{name:'Casa'}],columns:[{key:'name',label:'Nome'}],toolbarStart:'Toolbar',status:'Custom status'};
  const normal = _.Table(base), hidden = _.Table({...base,hideStatus:true});
  document.body.append(normal,hidden);
- return {normal:!!normal.querySelector('.cms-table-status'),custom:normal.textContent.includes('Custom status'),
- hidden:!!hidden.querySelector('.cms-table-status'),hiddenCustom:hidden.textContent.includes('Custom status'),
- toolbar:!!hidden.querySelector('.cms-table-toolbar'),head:!!hidden.querySelector('thead'),rows:hidden.querySelectorAll('tbody tr').length,
+ return {normal:!!normal.querySelector('.jss-table-status'),custom:normal.textContent.includes('Custom status'),
+ hidden:!!hidden.querySelector('.jss-table-status'),hiddenCustom:hidden.textContent.includes('Custom status'),
+ toolbar:!!hidden.querySelector('.jss-table-toolbar'),head:!!hidden.querySelector('thead'),rows:hidden.querySelectorAll('tbody tr').length,
  leaked:hidden.hasAttribute('hideStatus')};
  })()`);
  assert.deepEqual(result,{normal:true,custom:true,hidden:false,hiddenCustom:false,toolbar:true,head:true,rows:1,leaked:false});
@@ -1442,7 +1449,7 @@ test("Select/Search release models and effects and ignore late async results", {
  const pending=search._searchNow();await wait();
  _.mount('#host',_.div());const before=select.innerHTML;
  resolveOptions(['Late']);resolveSearch(['Casa']);await pending;await wait();
- return {watchers:[model,filterable].map((r,i)=>r._actions.length-baseline[i]),unchanged,results,optionsUnchanged:select.innerHTML===before,modelDisposed:model._disposed,portals:document.querySelectorAll('.cms-search-menu,.cms-select-menu').length};
+ return {watchers:[model,filterable].map((r,i)=>r._actions.length-baseline[i]),unchanged,results,optionsUnchanged:select.innerHTML===before,modelDisposed:model._disposed,portals:document.querySelectorAll('.jss-search-menu,.jss-select-menu').length};
  })()`);
  assert.deepEqual(result,{watchers:[0,0],unchanged:true,results:0,optionsUnchanged:true,modelDisposed:false,portals:0});
 });
@@ -1478,7 +1485,7 @@ test("Catalogue fields preserve borders, labels and focus inside rounded surface
  await writeFile(html, `<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"><style>${css}</style><div id="app"></div><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><script>window.error=_.rod('');window.field=_.Input({label:'Cerca',error});app.append(_.Card({radius:12},_.div({class:'catalogue-filters'},field)),_.Kpi({title:'Disponibili',value:9,note:'In magazzino'}))</script>`);
  for (const width of [390,1440]) {
  const result=await runChromeMobileEval(findChrome(),pathToFileURL(html).href, `(() => {
- const input=document.querySelector('input'),control=input.closest('.cms-control');
+ const input=document.querySelector('input'),control=input.closest('.jss-control');
  const r=input.getBoundingClientRect(),c=control.getBoundingClientRect();
  const before={background:getComputedStyle(input).backgroundColor,height:r.height,inside:r.top>=c.top+1&&r.bottom<=c.bottom-1,radius:parseFloat(getComputedStyle(control).borderRadius)};
  field.focus();error.value='Errore ricerca';
@@ -1512,4 +1519,22 @@ test("Light CSS preserves base props and optional responsive CSS matches the ful
  assert.equal(results.light[1440].columns,2);assert.equal(results.full[1440].columns,4);
  assert.equal(results.light[390].rowDisplay,'flex');assert.equal(results.light[390].gridDisplay,'grid');
  assert.ok(parseFloat(results.light[390].gridGap)>0);
+});
+
+
+test("Documented themes and repeated mount replacement preserve shared model ownership", {skip:!findChrome()}, async () => {
+ const tmp=await mkdtemp(path.join(os.tmpdir(),'jsswift-themes-lifecycle-'));const html=path.join(tmp,'index.html');
+ const asset=name=>pathToFileURL(path.join(ROOT_DIR,name)).href;
+ const guide=await readFile(path.join(ROOT_DIR,'documentions/ui/themes.md'),'utf8');const example=guide.match(/```js\n([\s\S]*?)\n```/)[1];
+ await writeFile(html, `<!doctype html><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui-light.css')}"><div id="host"></div><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><script>${example}</script>`);
+ const result=await runChromeMobileEval(findChrome(),pathToFileURL(html).href, `(() => {
+ const background=()=>getComputedStyle(document.documentElement).getPropertyValue('--jss-bg').trim();
+ _.setTheme('light',{persist:false});const light=background();_.setTheme('dark');const dark=background();
+ const saved=localStorage.getItem('jsswift:theme');_.setTheme('light',{persist:false});const retained=localStorage.getItem('jsswift:theme');
+ const model=_.rod('Casa'),baseline=model._actions.length;
+ for(let i=0;i<20;i++) _.mount('#host',_.div({},_.Input({label:'Nome',model}),_.Select({label:'Categoria',model,options:[{value:'Casa',label:'Casa'}]})));
+ const live=model._actions.length;_.mount('#host',[]);const released=model._actions.length===baseline;
+ model.value='Ufficio';return {themeChanges:light!==dark,saved,retained,onlyLive:live-baseline===2,released,sharedAlive:model.value==='Ufficio'};
+ })()`);
+ assert.deepEqual(result,{themeChanges:true,saved:'dark',retained:'dark',onlyLive:true,released:true,sharedAlive:true});
 });

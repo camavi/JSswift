@@ -18,7 +18,9 @@ async function main() {
     fs.readFile(uiFile, "utf8"),
   ]);
 
-  const output = `${core}\n\n${ui}\n`;
+  const stripped = await transform(`${core}\n\n${ui}\n`, {loader:"js", minifyWhitespace:true, legalComments:"none", ignoreAnnotations:true, target:"es2018"});
+  const readable = await transform(stripped.code, {loader:"js", legalComments:"none", ignoreAnnotations:true, target:"es2018"});
+  const output = readable.code;
   const minified = await transform(output, {
     loader: "js",
     minify: true,

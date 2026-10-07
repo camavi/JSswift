@@ -15,21 +15,21 @@
       const currentRoot = getRoot();
       if (currentRoot && currentRoot.isConnected) return currentRoot;
 
-      let el = document.getElementById("cms-overlay-root");
+      let el = document.getElementById("jss-overlay-root");
       if (!el && document?.body) {
         el = document.createElement("div");
-        el.id = "cms-overlay-root";
-        el.className = "cms-overlay-root";
+        el.id = "jss-overlay-root";
+        el.className = "jss-overlay-root";
         document.body.appendChild(el);
       }
 
       if (!document.body && !el) {
         JSswift.ready(() => {
-          let readyEl = document.getElementById("cms-overlay-root");
+          let readyEl = document.getElementById("jss-overlay-root");
           if (!readyEl) {
             readyEl = document.createElement("div");
-            readyEl.id = "cms-overlay-root";
-            readyEl.className = "cms-overlay-root";
+            readyEl.id = "jss-overlay-root";
+            readyEl.className = "jss-overlay-root";
             document.body.appendChild(readyEl);
           }
           setRoot(readyEl);

@@ -16,13 +16,13 @@
     const lockScroll = () => {
       scrollLockCount++;
       if (scrollLockCount === 1) {
-        document.documentElement.classList.add("cms-scroll-locked");
+        document.documentElement.classList.add("jss-scroll-locked");
       }
     };
     const unlockScroll = () => {
       scrollLockCount = Math.max(0, scrollLockCount - 1);
       if (scrollLockCount === 0) {
-        document.documentElement.classList.remove("cms-scroll-locked");
+        document.documentElement.classList.remove("jss-scroll-locked");
       }
     };
 
@@ -35,7 +35,7 @@
     const isOverlayInteractivePortal = (target) => {
       let node = target;
       while (node && node !== document) {
-        if (node.nodeType === 1 && node.getAttribute?.("data-cms-overlay-portal") === "true") return true;
+        if (node.nodeType === 1 && node.getAttribute?.("data-jss-overlay-portal") === "true") return true;
         node = node.parentNode;
       }
       return false;
@@ -62,15 +62,15 @@
       };
 
       const overlay = document.createElement("div");
-      overlay.className = ["cms-overlay", opts.type ? `type-${opts.type}` : ""].filter(Boolean).join(" ");
+      overlay.className = ["jss-overlay", opts.type ? `type-${opts.type}` : ""].filter(Boolean).join(" ");
       overlay.dataset.id = id;
 
       const backdrop = document.createElement("div");
-      backdrop.className = "cms-overlay-backdrop";
+      backdrop.className = "jss-overlay-backdrop";
       if (!opts.backdrop) backdrop.style.display = "none";
 
       const panel = document.createElement("div");
-      panel.className = ["cms-overlay-panel", opts.className].filter(Boolean).join(" ");
+      panel.className = ["jss-overlay-panel", opts.className].filter(Boolean).join(" ");
       panel.tabIndex = -1;
 
       // mount content

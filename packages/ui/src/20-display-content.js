@@ -69,9 +69,9 @@
     };
 
     const cls = uiClass([
-      "cms-icon",
+      "jss-icon",
       "material-icons",
-      ...(hasVisualSurface ? ["cms-clear-set", "cms-singularity"] : []),
+      ...(hasVisualSurface ? ["jss-clear-set", "jss-singularity"] : []),
       sizeClass,
       props.class
     ]);
@@ -114,7 +114,7 @@
     if (size != null) {
       let v = size;
       if (JSswift.uiSizes.includes(size)) {
-        v = `var(--cms-icon-size-${size})`;
+        v = `var(--jss-icon-size-${size})`;
       }
       v = typeof v === "number" ? v + "px" : String(v);
       icon.style.setProperty("--set-icon-size", v);
@@ -131,12 +131,12 @@
     const slots = props.slots || {};
     const sizeClass = uiComputed(props.size, () => {
       const v = uiUnwrap(props.size);
-      return (typeof v === "string" && sizeMap[v]) ? `cms-size-${v}` : "";
+      return (typeof v === "string" && sizeMap[v]) ? `jss-size-${v}` : "";
     });
     const cls = uiClass([
-      "cms-clear-set",
-      "cms-badge",
-      "cms-singularity",
+      "jss-clear-set",
+      "jss-badge",
+      "jss-singularity",
       sizeClass,
       uiWhen(props.outline, "outline"),
       props.class
@@ -212,7 +212,7 @@
       const nodes = renderNamedSlotToArray(slotNames, { position }, iconFallback);
       if (!nodes.length) return null;
       return _.span({
-        class: `cms-badge-anchor cms-badge-anchor-${position}`,
+        class: `jss-badge-anchor jss-badge-anchor-${position}`,
         "data-badge-slot": position
       }, ...nodes);
     });
@@ -222,8 +222,8 @@
       let labelNodes = renderNamedSlotToArray(["label"], {}, labelFallback);
       if (!labelNodes.length) labelNodes = renderNamedSlotToArray(["default"], {}, children);
       return _.span(
-        { class: "cms-badge-content" },
-        _.span({ class: "cms-badge-label" }, ...(labelNodes.length ? labelNodes : [""]))
+        { class: "jss-badge-content" },
+        _.span({ class: "jss-badge-label" }, ...(labelNodes.length ? labelNodes : [""]))
       );
     });
 
@@ -235,7 +235,7 @@
       const nodes = renderNamedSlotToArray(["notification"], { notification: rawNotification }, fallback);
       if (!nodes.length) return null;
       return _.span({
-        class: "cms-badge-notification",
+        class: "jss-badge-notification",
         "data-badge-slot": "notification",
         "aria-label": typeof rawNotification === "number" ? `${rawNotification} notifications` : null
       }, ...nodes);
@@ -295,7 +295,7 @@
     return normalizeState(token) || normalizeState(fallback);
   };
 
-  const avatarPrimitiveBadge = (value, className = "cms-avatar-badge") => {
+  const avatarPrimitiveBadge = (value, className = "jss-avatar-badge") => {
     if (value == null || value === false) return null;
     if (value instanceof Node || Array.isArray(value)) return value;
     if (typeof value === "function") return value;
@@ -307,20 +307,20 @@
     if (value == null || value === false) {
       if (!color) return null;
       const fallbackState = avatarStatusState(null, color);
-      return _.span({ class: uiClass(["cms-avatar-status", fallbackState ? `cms-state-${fallbackState}` : ""]) });
+      return _.span({ class: uiClass(["jss-avatar-status", fallbackState ? `jss-state-${fallbackState}` : ""]) });
     }
     if (value instanceof Node || Array.isArray(value)) return value;
     if (typeof value === "function") return value;
     const state = avatarStatusState(value, color);
     if (value === true || state) {
-      return _.span({ class: uiClass(["cms-avatar-status", state ? `cms-state-${state}` : ""]) });
+      return _.span({ class: uiClass(["jss-avatar-status", state ? `jss-state-${state}` : ""]) });
     }
-    return avatarPrimitiveBadge(value, "cms-avatar-badge");
+    return avatarPrimitiveBadge(value, "jss-avatar-badge");
   };
 
   const avatarRenderAnchor = (className, nodes) => {
     if (!nodes || !nodes.length) return null;
-    return _.span({ class: uiClass(["cms-avatar-anchor", className]) }, ...nodes);
+    return _.span({ class: uiClass(["jss-avatar-anchor", className]) }, ...nodes);
   };
 
   UI.Avatar = (...args) => {
@@ -328,20 +328,20 @@
     const slots = props.slots || {};
     const sizeClass = uiComputed(props.size, () => {
       const v = uiUnwrap(props.size);
-      return (typeof v === "string" && JSswift.uiSizes?.includes(v)) ? `cms-size-${v}` : "";
+      return (typeof v === "string" && JSswift.uiSizes?.includes(v)) ? `jss-size-${v}` : "";
     });
     const stateClass = uiComputed([props.color, props.state], () => {
       const v = uiUnwrap(props.color) || uiUnwrap(props.state) || "";
       const state = normalizeState(v);
-      return state ? `cms-state-${state}` : "";
+      return state ? `jss-state-${state}` : "";
     });
     const cls = uiClass([
-      "cms-clear-set",
-      "cms-avatar",
-      "cms-singularity",
+      "jss-clear-set",
+      "jss-avatar",
+      "jss-singularity",
       sizeClass,
       stateClass,
-      uiWhen(props.square, "cms-avatar-square"),
+      uiWhen(props.square, "jss-avatar-square"),
       uiWhen(props.elevated, "elevated"),
       props.class
     ]);
@@ -377,7 +377,7 @@
     const radiusStyle = uiStyleValue(props.radius, (value) => {
       const normalized = normalizeRadius(value);
       if (normalized === "xxxl") return "999px";
-      if (normalized) return `var(--cms-r-${normalized})`;
+      if (normalized) return `var(--jss-r-${normalized})`;
       if (typeof value === "number") return `${value}px`;
       return String(value);
     });
@@ -410,7 +410,7 @@
     let mediaNodes = renderSlotToArray(slots, "media", ctx, props.media);
     if (!mediaNodes.length && props.src) {
       const imgProps = {
-        class: "cms-avatar-img",
+        class: "jss-avatar-img",
         src: props.src,
         alt: altText,
         sizes: props.sizes,
@@ -437,8 +437,8 @@
             ? labelNodes
             : (iconNodes.length ? iconNodes : ["?"]))));
 
-    const bodyClass = mediaNodes.length ? "cms-avatar-media" : "cms-avatar-fallback";
-    const body = _.span({ class: "cms-avatar-body" },
+    const bodyClass = mediaNodes.length ? "jss-avatar-media" : "jss-avatar-fallback";
+    const body = _.span({ class: "jss-avatar-body" },
       _.span({ class: bodyClass }, ...mainNodes)
     );
 
@@ -455,10 +455,10 @@
     const wrap = _.div(
       p,
       body,
-      avatarRenderAnchor("cms-avatar-anchor-top-left", topLeftNodes),
-      avatarRenderAnchor("cms-avatar-anchor-top-right", topRightNodes),
-      avatarRenderAnchor("cms-avatar-anchor-bottom-left", bottomLeftNodes),
-      avatarRenderAnchor("cms-avatar-anchor-bottom-right", bottomRightNodes)
+      avatarRenderAnchor("jss-avatar-anchor-top-left", topLeftNodes),
+      avatarRenderAnchor("jss-avatar-anchor-top-right", topRightNodes),
+      avatarRenderAnchor("jss-avatar-anchor-bottom-left", bottomLeftNodes),
+      avatarRenderAnchor("jss-avatar-anchor-bottom-right", bottomRightNodes)
     );
     setPropertyProps(wrap, props);
     return wrap;
@@ -474,9 +474,9 @@
       return (typeof v === "string" && sizeMap[v]) ? v : "";
     });
     const cls = uiClass([
-      "cms-clear-set",
-      "cms-chip",
-      "cms-singularity",
+      "jss-clear-set",
+      "jss-chip",
+      "jss-singularity",
       sizeClass,
       props.class
     ]);
@@ -501,7 +501,7 @@
     const iconRightNodes = renderSlotToArray(null, "default", {}, iconRightNode);
     const wrap = _.span(p, ...iconNodes, ...(labelNode.length ? labelNode : [""]), ...iconRightNodes);
     if (props.removable) {
-      const btn = UI.Btn({ class: "cms-chip-remove", onClick: props.onRemove, size: props?.size ?? null }, UI.Icon({ size: props?.size ?? null, name: "close" }));
+      const btn = UI.Btn({ class: "jss-chip-remove", onClick: props.onRemove, size: props?.size ?? null }, UI.Icon({ size: props?.size ?? null, name: "close" }));
       wrap.appendChild(btn);
       btn.onclick = () => {
         if (props.onRemove) {
@@ -522,7 +522,7 @@
     const resolveStateValue = () => normalizeState(uiUnwrap(rawProps.state) || uiUnwrap(rawProps.color) || "");
     const stateClass = uiComputed([rawProps.state, rawProps.color], () => {
       const state = resolveStateValue();
-      return state ? `cms-state-${state}` : "";
+      return state ? `jss-state-${state}` : "";
     });
     const trendClass = uiComputed(rawProps.trend, () => {
       const raw = String(uiUnwrap(rawProps.trend) || "").toLowerCase();
@@ -552,9 +552,9 @@
       "value"
     ]);
     p.class = uiClass([
-      "cms-clear-set",
-      "cms-stat",
-      "cms-singularity",
+      "jss-clear-set",
+      "jss-stat",
+      "jss-singularity",
       stateClass,
       trendClass,
       props.class
@@ -589,33 +589,33 @@
     const stat = _.article(
       p,
       _.div(
-        { class: "cms-stat-head" },
+        { class: "jss-stat-head" },
         _.div(
-          { class: "cms-stat-lead" },
-          iconNodes.length ? _.div({ class: "cms-stat-icon" }, ...iconNodes) : null,
+          { class: "jss-stat-lead" },
+          iconNodes.length ? _.div({ class: "jss-stat-icon" }, ...iconNodes) : null,
           _.div(
-            { class: "cms-stat-copy" },
-            eyebrowNodes.length ? _.div({ class: "cms-stat-eyebrow" }, ...eyebrowNodes) : null,
-            labelNodes.length ? _.div({ class: "cms-stat-label" }, ...labelNodes) : null
+            { class: "jss-stat-copy" },
+            eyebrowNodes.length ? _.div({ class: "jss-stat-eyebrow" }, ...eyebrowNodes) : null,
+            labelNodes.length ? _.div({ class: "jss-stat-label" }, ...labelNodes) : null
           )
         ),
-        asideNodes.length ? _.div({ class: "cms-stat-aside" }, ...asideNodes) : null
+        asideNodes.length ? _.div({ class: "jss-stat-aside" }, ...asideNodes) : null
       ),
       _.div(
-        { class: "cms-stat-body" },
-        valueNodes.length ? _.div({ class: "cms-stat-value" }, ...valueNodes) : null,
+        { class: "jss-stat-body" },
+        valueNodes.length ? _.div({ class: "jss-stat-value" }, ...valueNodes) : null,
         deltaNodes.length
-          ? _.div({ class: "cms-stat-delta" }, ...deltaNodes)
+          ? _.div({ class: "jss-stat-delta" }, ...deltaNodes)
           : null,
-        noteNodes.length ? _.div({ class: "cms-stat-note" }, ...noteNodes) : null,
-        metaNodes.length ? _.div({ class: "cms-stat-meta" }, ...metaNodes) : null,
-        bodyNodes.length ? _.div({ class: "cms-stat-extra" }, ...bodyNodes) : null
+        noteNodes.length ? _.div({ class: "jss-stat-note" }, ...noteNodes) : null,
+        metaNodes.length ? _.div({ class: "jss-stat-meta" }, ...metaNodes) : null,
+        bodyNodes.length ? _.div({ class: "jss-stat-extra" }, ...bodyNodes) : null
       ),
       (footerNodes.length || actionsNodes.length)
         ? _.div(
-          { class: "cms-stat-footer" },
-          footerNodes.length ? _.div({ class: "cms-stat-footer-copy" }, ...footerNodes) : null,
-          actionsNodes.length ? _.div({ class: "cms-stat-actions" }, ...actionsNodes) : null
+          { class: "jss-stat-footer" },
+          footerNodes.length ? _.div({ class: "jss-stat-footer-copy" }, ...footerNodes) : null,
+          actionsNodes.length ? _.div({ class: "jss-stat-actions" }, ...actionsNodes) : null
         )
         : null
     );
@@ -632,7 +632,7 @@
     const resolveStateValue = () => normalizeState(uiUnwrap(rawProps.state) || uiUnwrap(rawProps.color) || "");
     const stateClass = uiComputed([rawProps.state, rawProps.color], () => {
       const state = resolveStateValue();
-      return state ? `cms-state-${state}` : "";
+      return state ? `jss-state-${state}` : "";
     });
 
     const props = { ...rawProps };
@@ -656,9 +656,9 @@
       "value"
     ]);
     p.class = uiClass([
-      "cms-clear-set",
-      "cms-kpi",
-      "cms-singularity",
+      "jss-clear-set",
+      "jss-kpi",
+      "jss-singularity",
       stateClass,
       props.class
     ]);
@@ -693,35 +693,35 @@
     const kpi = _.section(
       p,
       _.div(
-        { class: "cms-kpi-head" },
+        { class: "jss-kpi-head" },
         _.div(
-          { class: "cms-kpi-title-wrap" },
-          iconNodes.length ? _.div({ class: "cms-kpi-icon" }, ...iconNodes) : null,
+          { class: "jss-kpi-title-wrap" },
+          iconNodes.length ? _.div({ class: "jss-kpi-icon" }, ...iconNodes) : null,
           _.div(
-            { class: "cms-kpi-copy" },
-            eyebrowNodes.length ? _.div({ class: "cms-kpi-eyebrow" }, ...eyebrowNodes) : null,
-            titleNodes.length ? _.div({ class: "cms-kpi-title" }, ...titleNodes) : null
+            { class: "jss-kpi-copy" },
+            eyebrowNodes.length ? _.div({ class: "jss-kpi-eyebrow" }, ...eyebrowNodes) : null,
+            titleNodes.length ? _.div({ class: "jss-kpi-title" }, ...titleNodes) : null
           )
         ),
-        asideNodes.length ? _.div({ class: "cms-kpi-aside" }, ...asideNodes) : null
+        asideNodes.length ? _.div({ class: "jss-kpi-aside" }, ...asideNodes) : null
       ),
       _.div(
-        { class: "cms-kpi-core" },
+        { class: "jss-kpi-core" },
         _.div(
-          { class: "cms-kpi-value-wrap" },
-          valueNodes.length ? _.div({ class: "cms-kpi-value" }, ...valueNodes) : null,
-          deltaNodes.length ? _.div({ class: "cms-kpi-delta" }, ...deltaNodes) : null
+          { class: "jss-kpi-value-wrap" },
+          valueNodes.length ? _.div({ class: "jss-kpi-value" }, ...valueNodes) : null,
+          deltaNodes.length ? _.div({ class: "jss-kpi-delta" }, ...deltaNodes) : null
         ),
-        noteNodes.length ? _.div({ class: "cms-kpi-note" }, ...noteNodes) : null,
-        metaNodes.length ? _.div({ class: "cms-kpi-meta" }, ...metaNodes) : null,
-        mediaNodes.length ? _.div({ class: "cms-kpi-media" }, ...mediaNodes) : null,
-        bodyNodes.length ? _.div({ class: "cms-kpi-extra" }, ...bodyNodes) : null
+        noteNodes.length ? _.div({ class: "jss-kpi-note" }, ...noteNodes) : null,
+        metaNodes.length ? _.div({ class: "jss-kpi-meta" }, ...metaNodes) : null,
+        mediaNodes.length ? _.div({ class: "jss-kpi-media" }, ...mediaNodes) : null,
+        bodyNodes.length ? _.div({ class: "jss-kpi-extra" }, ...bodyNodes) : null
       ),
       (footerNodes.length || actionsNodes.length)
         ? _.div(
-          { class: "cms-kpi-footer" },
-          footerNodes.length ? _.div({ class: "cms-kpi-footer-copy" }, ...footerNodes) : null,
-          actionsNodes.length ? _.div({ class: "cms-kpi-actions" }, ...actionsNodes) : null
+          { class: "jss-kpi-footer" },
+          footerNodes.length ? _.div({ class: "jss-kpi-footer-copy" }, ...footerNodes) : null,
+          actionsNodes.length ? _.div({ class: "jss-kpi-actions" }, ...actionsNodes) : null
         )
         : null
     );

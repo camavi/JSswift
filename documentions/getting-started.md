@@ -59,3 +59,7 @@ import 'jsswift/css/responsive.css';
 ```
 
 The light entry includes base.css, animation.css, component styles and generated unprefixed utilities. It preserves color, dense, outline, tokens, base layout and component-specific mobile styles. Breakpoint props remain in JavaScript; their generated CSS requires the responsive addon. Load the addon after the light entry. Use either full CSS or light plus optional addon, not both full and light. Both new light exports also exist under `@jsswift/ui`. This changes application CSS size, not JavaScript or npm installation size.
+
+## CSS namespace migration
+
+Component classes, overlay IDs and CSS custom properties now use `jss-` instead of `cms-`, without compatibility aliases. Update application selectors and theme overrides together, for example `.jss-control` and `--jss-primary`. Component APIs and npm import paths remain unchanged. Rebuild JS and CSS together; do not mix runtimes and styles from different namespace versions. This is an intentionally incompatible CSS namespace change.

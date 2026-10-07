@@ -49,9 +49,9 @@ JSswift.isListItemNode = isListItemNode;
 JSswift.asNodeArray = asNodeArray;
 
 const UI_RESPONSIVE_DEVICES = [
-  { key: "mobile", aliases: ["mobile", "mobil"], prefix: "cms-" },
-  { key: "tablet", aliases: ["tablet"], prefix: "cms-tablet-" },
-  { key: "pc", aliases: ["pc", "desktop"], prefix: "cms-pc-" }
+  { key: "mobile", aliases: ["mobile", "mobil"], prefix: "jss-" },
+  { key: "tablet", aliases: ["tablet"], prefix: "jss-tablet-" },
+  { key: "pc", aliases: ["pc", "desktop"], prefix: "jss-pc-" }
 ];
 const UI_RESPONSIVE_PROP_KEYS = UI_RESPONSIVE_DEVICES.flatMap((device) => device.aliases);
 const uiResponsiveHasOwn = (obj, key) => Object.prototype.hasOwnProperty.call(obj || {}, key);
@@ -96,7 +96,7 @@ const uiResponsiveClassList = (props = {}, rules = []) => {
       const list = Array.isArray(resolved) ? resolved : [resolved];
       for (const suffix of list) {
         if (!suffix) continue;
-        tokens.push(String(suffix).startsWith("cms-") ? suffix : `${device.prefix}${suffix}`);
+        tokens.push(String(suffix).startsWith("jss-") ? suffix : `${device.prefix}${suffix}`);
       }
     }
   }
@@ -119,7 +119,7 @@ const uiResponsiveDefaultValue = (value, rule = {}) => {
   if (typeof rule.mapValue === "function") return rule.mapValue(value, rule);
   if (typeof value === "number") return rule.number === "raw" ? String(value) : `${value}px`;
   if (rule.token && typeof value === "string" && JSswift.uiSizes?.includes(value)) {
-    return `var(--cms-${rule.token}-${value})`;
+    return `var(--jss-${rule.token}-${value})`;
   }
   return String(value);
 };
@@ -129,7 +129,7 @@ const uiResponsiveSetStyle = (style, name, value) => {
   else style[name] = value;
 };
 const uiResponsiveVarClass = (deviceKey, varName) => {
-  return deviceKey === "mobile" ? `cms-rsp-${varName}` : `cms-rsp-${deviceKey}-${varName}`;
+  return deviceKey === "mobile" ? `jss-rsp-${varName}` : `jss-rsp-${deviceKey}-${varName}`;
 };
 const uiResponsiveAddClass = (target, className) => {
   if (!target || !className) return;
@@ -151,7 +151,7 @@ const uiApplyResponsiveProps = (target, props = {}, rules = []) => {
       const value = uiResponsiveDefaultValue(rawValue, rule);
       if (!value) return;
       const varName = rule.var || rule.css;
-      const prefix = deviceKey === "mobile" ? "--cms-rsp-" : `--cms-rsp-${deviceKey}-`;
+      const prefix = deviceKey === "mobile" ? "--jss-rsp-" : `--jss-rsp-${deviceKey}-`;
       uiResponsiveSetStyle(style, `${prefix}${varName}`, value);
       uiResponsiveAddClass(target, uiResponsiveVarClass(deviceKey, varName));
       hasResponsiveVars = true;
@@ -166,7 +166,7 @@ const uiApplyResponsiveProps = (target, props = {}, rules = []) => {
 
   if (hasResponsiveVars) {
     if (!target.nodeType) target.style = style;
-    uiResponsiveAddClass(target, "cms-rsp");
+    uiResponsiveAddClass(target, "jss-rsp");
   }
   return target;
 };
@@ -192,40 +192,40 @@ const applyCommonProps = (props = {}) => {
   const style = {};
 
   classTokens.push(
-    uiWhen(props.clickable, "cms-clickable"),
-    uiWhen(props.dense, "cms-dense"),
-    uiWhen(props.flat, "cms-flat"),
-    uiWhen(props.border, "cms-border"),
-    uiWhen(props.glossy, "cms-glossy"),
-    uiWhen(props.glow, "cms-glow"),
-    uiWhen(props.glass, "cms-glass"),
-    uiWhen(props.shadow, "cms-shadow"),
-    uiWhen(props.outline, "cms-outline"),
-    uiWhen(props.rounded, "cms-rounded"),
-    uiWhen(props.gradient, "cms-gradient"),
-    uiWhen(props.textGradient, "cms-text-gradient"),
-    uiWhen(props.lightShadow, "cms-light-shadow")
+    uiWhen(props.clickable, "jss-clickable"),
+    uiWhen(props.dense, "jss-dense"),
+    uiWhen(props.flat, "jss-flat"),
+    uiWhen(props.border, "jss-border"),
+    uiWhen(props.glossy, "jss-glossy"),
+    uiWhen(props.glow, "jss-glow"),
+    uiWhen(props.glass, "jss-glass"),
+    uiWhen(props.shadow, "jss-shadow"),
+    uiWhen(props.outline, "jss-outline"),
+    uiWhen(props.rounded, "jss-rounded"),
+    uiWhen(props.gradient, "jss-gradient"),
+    uiWhen(props.textGradient, "jss-text-gradient"),
+    uiWhen(props.lightShadow, "jss-light-shadow")
   );
 
   if (uiIsReactive(props.color)) {
     classTokens.push(() => {
       const v = uiUnwrap(props.color);
       const state = normalizeState(v);
-      return state ? `cms-state-${state}` : "";
+      return state ? `jss-state-${state}` : "";
     });
     style.backgroundColor = () => {
       const v = uiUnwrap(props.color);
       const state = normalizeState(v);
       if (state) return "";
-      if (v && isTokenCSS(String(v))) return `var(--cms-${v})`;
+      if (v && isTokenCSS(String(v))) return `var(--jss-${v})`;
       return v || "";
     };
   } else {
     const state = normalizeState(props.color);
     if (state) {
-      classTokens.push(`cms-state-${state}`);
+      classTokens.push(`jss-state-${state}`);
     } else if (props.color && isTokenCSS(props.color)) {
-      style.backgroundColor = `var(--cms-${props.color})`;
+      style.backgroundColor = `var(--jss-${props.color})`;
     } else if (props.color) {
       style.backgroundColor = props.color;
     }
@@ -235,11 +235,11 @@ const applyCommonProps = (props = {}) => {
   if (uiIsReactive(props.textColor)) {
     style.color = () => {
       const v = uiUnwrap(props.textColor);
-      if (v && isTokenCSS(String(v))) return `var(--cms-${v})`;
+      if (v && isTokenCSS(String(v))) return `var(--jss-${v})`;
       return v || "";
     };
   } else if (props.textColor && isTokenCSS(props.textColor)) {
-    style.color = `var(--cms-${props.textColor})`;
+    style.color = `var(--jss-${props.textColor})`;
   } else if (props.textColor) {
     style.color = props.textColor;
   }
@@ -247,13 +247,13 @@ const applyCommonProps = (props = {}) => {
   if (uiIsReactive(props.size)) {
     classTokens.push(() => {
       const v = uiUnwrap(props.size);
-      if (typeof v === "string" && JSswift.uiSizes?.includes(v)) return `cms-size-${v}`;
+      if (typeof v === "string" && JSswift.uiSizes?.includes(v)) return `jss-size-${v}`;
       return "";
     });
   } else {
     const size = props.size;
     if (typeof size === "string" && JSswift.uiSizes?.includes(size)) {
-      classTokens.push(`cms-size-${size}`);
+      classTokens.push(`jss-size-${size}`);
     }
   }
 
@@ -261,7 +261,7 @@ const applyCommonProps = (props = {}) => {
     classTokens.push(() => {
       const v = uiUnwrap(props.shadow);
       const shadow = normalizeShadow(v);
-      return shadow ? `cms-shadow-${shadow}` : "";
+      return shadow ? `jss-shadow-${shadow}` : "";
     });
     style.boxShadow = () => {
       const v = uiUnwrap(props.shadow);
@@ -271,7 +271,7 @@ const applyCommonProps = (props = {}) => {
     };
   } else {
     const shadow = normalizeShadow(props.shadow);
-    if (shadow) classTokens.push(`cms-shadow-${shadow}`);
+    if (shadow) classTokens.push(`jss-shadow-${shadow}`);
     else if (props.shadow && typeof props.shadow === "string") {
       style.boxShadow = props.shadow;
     }
@@ -471,9 +471,9 @@ const applyStyleProp = (obj, value, name, tokenName) => {
 function setPropertyProps(obj, props) {
   if (props.size) {
     if (typeof props.size === "number") {
-      obj.style.setProperty("--cms-font-size", `${props.size}px`);
+      obj.style.setProperty("--jss-font-size", `${props.size}px`);
     } else if (JSswift.uiSizes.includes(props.size)) {
-      obj.style.setProperty("--cms-font-size", `var(--cms-font-size-${props.size})`);
+      obj.style.setProperty("--jss-font-size", `var(--jss-font-size-${props.size})`);
     }
   }
 
@@ -494,7 +494,7 @@ function setPropertyProps(obj, props) {
     if (typeof props.radius == "number") {
       obj.style.setProperty("--set-border-radius", `${props.radius}px`);
     } else if (JSswift.uiSizes.includes(props.radius)) {
-      obj.style.setProperty("--set-border-radius", `var(--cms-r-${props.radius})`);
+      obj.style.setProperty("--set-border-radius", `var(--jss-r-${props.radius})`);
     } else {
       obj.style.setProperty("--set-border-radius", `${props.radius}`);
     }
@@ -688,7 +688,7 @@ const uiCreateShortcodeHint = (props = {}, options = {}) => {
   const specs = uiResolveShortcodeList(props);
   if (!uiIsShortcodeVisible(props) || !specs.length || typeof document === "undefined") return null;
   const node = document.createElement("span");
-  node.className = options.className || "cms-shortcode";
+  node.className = options.className || "jss-shortcode";
   node.setAttribute("aria-hidden", "true");
   node.textContent = uiFormatShortcodeList(specs);
   return node;
@@ -799,7 +799,7 @@ const uiFocusShortcutTarget = (target, options = {}) => {
 
 const unitCover = (v, name = 'size') => {
   if (typeof v === "number") return v + "px";
-  if (JSswift.uiSizes.includes(v)) return `var(--cms-${name}-${v})`;
+  if (JSswift.uiSizes.includes(v)) return `var(--jss-${name}-${v})`;
   if (typeof v === "string") return v;
   return v;
 };
