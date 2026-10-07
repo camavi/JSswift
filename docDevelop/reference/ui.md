@@ -361,3 +361,13 @@ FormField associates rendered messages with its control using stable generated I
 ## Table status visibility
 
 `_.Table({hideStatus: true})` omits the whole status row, including count, filter/sort indicators and custom status content. Default is false; toolbar, column headings and footer are independent. The option is evaluated at creation.
+
+## Field lifecycle
+
+Input and Textarea register their model listener/action cleanup on the native control; signal-backed fields additionally dispose their owned rod bridge. FormField stops its message effect on cleanup. Caller-owned rods remain usable. This applies to JSswift lifecycle cleanup (mount replacement and overlay close); arbitrary DOM removal alone is not covered by this guarantee.
+
+Input/InputRaw cancel pending autofill probes and focused polling during JSswift cleanup. InputRaw also registers its model disposer. Table search models and Layout drawer/nav models return removable subscriptions; cleanup preserves caller-owned rods.
+
+Table registers its render effect on the Card root. Public field control attributes and Select field refresh effects are registered on their field roots and stop during lifecycle cleanup.
+
+Select/Search own scopes stop component effects and model/filterable rod callbacks during lifecycle disposal. Search cancels debounce, aborts fetch and invalidates pending local/remote results; Select ignores late option results. Caller-owned rods remain usable. These guarantees require JSswift lifecycle cleanup, not arbitrary external DOM removal.

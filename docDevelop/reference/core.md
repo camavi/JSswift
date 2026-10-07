@@ -283,3 +283,11 @@ This document intentionally focuses on the current contract rather than preservi
 - `docDevelop/release/release-notes-v1.0.1.md`
 
 Overlay deferred autofocus respects focus already inside its panel and checks that the entry remains mounted/open before assigning focus.
+
+### Explicit model disposal
+
+`rodModel(target, rod, options)` returns an idempotent disposer that removes DOM listeners, the rod action and its disposal hook. It does not dispose the caller-owned rod. `signalModel(target, get, set, options)` additionally disposes its internally owned rod bridge and reactive effects. Call the disposer when the consumer is removed; automatic UI lifecycle integration is a separate concern.
+
+### Anchored overlay scheduling
+
+Automatic resize, scroll, visualViewport and panel ResizeObserver updates share one pending animation frame per overlay. Initial positioning and explicit `reposition()` remain synchronous. Closing cancels pending positioning and disconnects listeners/observer.

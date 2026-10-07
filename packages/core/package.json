@@ -1,6 +1,6 @@
 {
   "name": "@jsswift/core",
-  "version": "1.0.52",
+  "version": "1.0.53",
   "description": "JSswift core runtime: renderer, reactive, rod, lifecycle and platform modules",
   "license": "MIT",
   "repository": {

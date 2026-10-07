@@ -44,8 +44,9 @@
     };
 
     let searchInput = null;
+    let stopSearchWatch;
     if (searchModel) {
-      searchModel.watch((value) => {
+      stopSearchWatch = searchModel.watch((value) => {
         const next = String(value ?? "");
         setQueryState(next);
         if (searchInput && searchInput.value !== next) searchInput.value = next;
@@ -255,7 +256,7 @@
       );
     };
 
-    app.reactive.effect(() => {
+    const stopRender = app.reactive.effect(() => {
       const rows = tableToArray(props.rows);
       const query = String(getQuery() || "").trim();
       const currentSort = getSort();
@@ -429,5 +430,8 @@
     }, "UI.Table:render");
 
     wrapProps.body = shell;
-    return UI.Card(wrapProps);
+    const card = UI.Card(wrapProps);
+    JSswift._registerCleanup(card, stopRender);
+    if (stopSearchWatch) JSswift._registerCleanup(card, stopSearchWatch);
+    return card;
   };

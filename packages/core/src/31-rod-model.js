@@ -78,7 +78,7 @@
     };
 
     // bind rod → DOM (usa rod.action)
-    rodObj.action((v) => {
+    const onValue = (v) => {
       if (syncing) return;
       syncing = true;
       try {
@@ -86,7 +86,8 @@
       } finally {
         syncing = false;
       }
-    });
+    };
+    rodObj.action(onValue);
 
     // sync iniziale
     updateDOM(format(rodObj.value));
@@ -141,17 +142,28 @@
       disposers.push(() => el.removeEventListener(eventName, handler));
     }
 
-    // cleanup automatico
-    if (typeof rodObj.onDispose === "function") {
-      rodObj.onDispose(() => disposers.forEach(fn => fn()));
-    }
-
-    return () => disposers.forEach(fn => fn());
+    // Release both directions without disposing the caller-owned rod.
+    let disposed = false;
+    const dispose = () => {
+      if (disposed) return;
+      disposed = true;
+      disposers.splice(0).forEach(fn => fn());
+      const actionIndex = rodObj._actions?.indexOf(onValue) ?? -1;
+      if (actionIndex >= 0) rodObj._actions.splice(actionIndex, 1);
+      const hookIndex = rodObj._disposeHooks?.indexOf(dispose) ?? -1;
+      if (hookIndex >= 0 && !rodObj._disposed) rodObj._disposeHooks.splice(hookIndex, 1);
+    };
+    if (typeof rodObj.onDispose === "function") rodObj.onDispose(dispose);
+    return dispose;
   };
 
 
   // input <-> signal (sugar)
   JSswift.signalModel = function (inputEl, get, set, opts = {}) {
     const r = JSswift.rodFromSignal(get, set);
-    return JSswift.rodModel(inputEl, r, opts);
+    const stopBinding = JSswift.rodModel(inputEl, r, opts);
+    return () => {
+      stopBinding();
+      r.dispose();
+    };
   };

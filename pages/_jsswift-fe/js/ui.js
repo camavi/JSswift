@@ -2446,7 +2446,8 @@ const unitCover = (v, name = 'size') => {
       || typeof noteSlot === "function"
       || typeof hintSlot === "function";
     if (canReact) {
-      JSswift.reactive.effect(() => { renderMessage(); }, "UI.FormField:message");
+      const stopMessage = JSswift.reactive.effect(() => { renderMessage(); }, "UI.FormField:message");
+      JSswift._registerCleanup(wrap, stopMessage);
     } else {
       renderMessage();
     }
@@ -2469,6 +2470,16 @@ const unitCover = (v, name = 'size') => {
       value: props.value
     });
 
+    let autofillDisposed = false;
+    const autofillTimeouts = new Set();
+    const autofillLater = (fn, delay) => {
+      if (autofillDisposed) return;
+      const id = setTimeout(() => {
+        autofillTimeouts.delete(id);
+        if (!autofillDisposed) fn();
+      }, delay);
+      autofillTimeouts.add(id);
+    };
     let lastKnownValue = el.value ?? "";
     const syncAutofill = () => {
       const next = el.value ?? "";
@@ -2480,7 +2491,7 @@ const unitCover = (v, name = 'size') => {
     let autofillTimer = null;
     let autofillProbe = false;
     const scheduleAutofillProbe = () => {
-      if (autofillProbe) return;
+      if (autofillDisposed || autofillProbe) return;
       autofillProbe = true;
       let count = 0;
       const tick = () => {
@@ -2490,12 +2501,12 @@ const unitCover = (v, name = 'size') => {
           autofillProbe = false;
           return;
         }
-        setTimeout(tick, 120);
+        autofillLater(tick, 120);
       };
-      setTimeout(tick, 40);
+      autofillLater(tick, 40);
     };
     const startAutofillWatch = () => {
-      if (autofillTimer) return;
+      if (autofillDisposed || autofillTimer) return;
       autofillTimer = setInterval(() => {
         if (document.activeElement !== el) {
           clearInterval(autofillTimer);
@@ -2521,27 +2532,33 @@ const unitCover = (v, name = 'size') => {
     el.addEventListener("focus", () => {
       startAutofillWatch();
       scheduleAutofillProbe();
-      setTimeout(syncAutofill, 50);
+      autofillLater(syncAutofill, 50);
     });
     el.addEventListener("blur", () => {
       stopAutofillWatch();
-      setTimeout(syncAutofill, 0);
+      autofillLater(syncAutofill, 0);
     });
-    setTimeout(syncAutofill, 0);
+    autofillLater(syncAutofill, 0);
     scheduleAutofillProbe();
+
+    JSswift._registerCleanup(el, () => {
+      autofillDisposed = true;
+      stopAutofillWatch();
+      autofillTimeouts.forEach(clearTimeout);
+      autofillTimeouts.clear();
+    });
 
     // model binding
     const model = props.model;
     if (model) {
       // Supporta rod direttamente
       if (typeof model === "object" && typeof model._bind === "function") {
-        app.rodModel(el, model);
+        JSswift._registerCleanup(el, app.rodModel(el, model));
       }
       // Supporta [get,set] signal -> creiamo rodFromSignal
       else if (Array.isArray(model) && typeof model[0] === "function" && typeof model[1] === "function") {
-        const r = app.rodFromSignal(model[0], model[1]);
-        app.rodModel(el, r);
-        // NOTE: se vuoi cleanup automatico qui, lo facciamo nel layer component (v2)
+        const stop = JSswift.reactive.untracked(() => app.signalModel(el, model[0], model[1]));
+        JSswift._registerCleanup(el, stop);
       }
     }
     uiRegisterShortcode(el, props, {
@@ -2558,7 +2575,7 @@ const unitCover = (v, name = 'size') => {
       if (value == null || value === false) control.removeAttribute(name);
       else control.setAttribute(name, String(value));
     };
-    JSswift.reactive.effect(() => {
+    const stopAttributes = JSswift.reactive.effect(() => {
       const label = uiUnwrap(props.ariaLabel) ?? (typeof props.label === "string" ? props.label : null);
       set("aria-label", label);
       set("aria-labelledby", uiUnwrap(props.ariaLabelledBy));
@@ -2573,6 +2590,7 @@ const unitCover = (v, name = 'size') => {
           set(name.toLowerCase(), uiUnwrap(props[name]));
       }
     }, "UI.Field:controlAttributes");
+    JSswift._registerCleanup(field, stopAttributes);
   }
 
   UI.Input = (props = {}) => {
@@ -2592,6 +2610,16 @@ const unitCover = (v, name = 'size') => {
       readOnly: !!props.readonly
     });
 
+    let autofillDisposed = false;
+    const autofillTimeouts = new Set();
+    const autofillLater = (fn, delay) => {
+      if (autofillDisposed) return;
+      const id = setTimeout(() => {
+        autofillTimeouts.delete(id);
+        if (!autofillDisposed) fn();
+      }, delay);
+      autofillTimeouts.add(id);
+    };
     let lastKnownValue = input.value ?? "";
     const syncAutofill = () => {
       const next = input.value ?? "";
@@ -2603,7 +2631,7 @@ const unitCover = (v, name = 'size') => {
     let autofillTimer = null;
     let autofillProbe = false;
     const scheduleAutofillProbe = () => {
-      if (autofillProbe) return;
+      if (autofillDisposed || autofillProbe) return;
       autofillProbe = true;
       let count = 0;
       const tick = () => {
@@ -2613,12 +2641,12 @@ const unitCover = (v, name = 'size') => {
           autofillProbe = false;
           return;
         }
-        setTimeout(tick, 120);
+        autofillLater(tick, 120);
       };
-      setTimeout(tick, 40);
+      autofillLater(tick, 40);
     };
     const startAutofillWatch = () => {
-      if (autofillTimer) return;
+      if (autofillDisposed || autofillTimer) return;
       autofillTimer = setInterval(() => {
         if (document.activeElement !== input) {
           clearInterval(autofillTimer);
@@ -2647,12 +2675,12 @@ const unitCover = (v, name = 'size') => {
       props.onFocus?.(e);
       startAutofillWatch();
       scheduleAutofillProbe();
-      setTimeout(syncAutofill, 50);
+      autofillLater(syncAutofill, 50);
     });
     input.addEventListener("blur", (e) => {
       props.onBlur?.(e);
       stopAutofillWatch();
-      setTimeout(syncAutofill, 0);
+      autofillLater(syncAutofill, 0);
     });
     input.addEventListener("animationstart", (e) => {
       if (e.animationName !== "cms-autofill") return;
@@ -2660,8 +2688,15 @@ const unitCover = (v, name = 'size') => {
       startAutofillWatch();
       scheduleAutofillProbe();
     });
-    setTimeout(syncAutofill, 0);
+    autofillLater(syncAutofill, 0);
     scheduleAutofillProbe();
+
+    JSswift._registerCleanup(input, () => {
+      autofillDisposed = true;
+      stopAutofillWatch();
+      autofillTimeouts.forEach(clearTimeout);
+      autofillTimeouts.clear();
+    });
 
     // model binding
     const model = props.model;
@@ -2676,11 +2711,12 @@ const unitCover = (v, name = 'size') => {
           lastKnownValue = next;
         };
 
-        rod.action((v) => {
+        const onValue = (v) => {
           if (syncing) return;
           syncing = true;
           try { updateFromRod(v); } finally { syncing = false; }
-        });
+        };
+        rod.action(onValue);
 
         // Component setup may run inside a dynamic parent render. This initial
         // hydration must not make that parent subscribe to the control model.
@@ -2697,18 +2733,26 @@ const unitCover = (v, name = 'size') => {
         input.addEventListener("input", onInput);
         input.addEventListener("compositionend", onInput);
 
-        if (typeof rod.onDispose === "function") {
-          rod.onDispose(() => {
-            input.removeEventListener("input", onInput);
-            input.removeEventListener("compositionend", onInput);
-          });
-        }
+        let disposed = false;
+        const stop = () => {
+          if (disposed) return;
+          disposed = true;
+          input.removeEventListener("input", onInput);
+          input.removeEventListener("compositionend", onInput);
+          const actionIndex = rod._actions?.indexOf(onValue) ?? -1;
+          if (actionIndex >= 0) rod._actions.splice(actionIndex, 1);
+          const hookIndex = rod._disposeHooks?.indexOf(stop) ?? -1;
+          if (hookIndex >= 0 && !rod._disposed) rod._disposeHooks.splice(hookIndex, 1);
+        };
+        rod.onDispose?.(stop);
+        JSswift._registerCleanup(input, stop);
       };
       if (typeof model === "object" && typeof model._bind === "function") {
         bindInputRod(model);
       } else if (Array.isArray(model) && typeof model[0] === "function" && typeof model[1] === "function") {
         const r = JSswift.reactive.untracked(() => JSswift.rodFromSignal(model[0], model[1]));
         bindInputRod(r);
+        JSswift._registerCleanup(input, () => r.dispose());
       }
     }
 
@@ -2792,11 +2836,12 @@ const unitCover = (v, name = 'size') => {
           textarea.value = next;
         };
 
-        rod.action((v) => {
+        const onValue = (v) => {
           if (syncing) return;
           syncing = true;
           try { updateFromRod(v); } finally { syncing = false; }
-        });
+        };
+        rod.action(onValue);
 
         JSswift.reactive.untracked(() => updateFromRod(rod.value));
 
@@ -2811,18 +2856,26 @@ const unitCover = (v, name = 'size') => {
         textarea.addEventListener("input", onInput);
         textarea.addEventListener("compositionend", onInput);
 
-        if (typeof rod.onDispose === "function") {
-          rod.onDispose(() => {
-            textarea.removeEventListener("input", onInput);
-            textarea.removeEventListener("compositionend", onInput);
-          });
-        }
+        let disposed = false;
+        const stop = () => {
+          if (disposed) return;
+          disposed = true;
+          textarea.removeEventListener("input", onInput);
+          textarea.removeEventListener("compositionend", onInput);
+          const actionIndex = rod._actions?.indexOf(onValue) ?? -1;
+          if (actionIndex >= 0) rod._actions.splice(actionIndex, 1);
+          const hookIndex = rod._disposeHooks?.indexOf(stop) ?? -1;
+          if (hookIndex >= 0 && !rod._disposed) rod._disposeHooks.splice(hookIndex, 1);
+        };
+        rod.onDispose?.(stop);
+        JSswift._registerCleanup(textarea, stop);
       };
       if (typeof model === "object" && typeof model._bind === "function") {
         bindTextareaRod(model);
       } else if (Array.isArray(model) && typeof model[0] === "function" && typeof model[1] === "function") {
         const r = JSswift.reactive.untracked(() => JSswift.rodFromSignal(model[0], model[1]));
         bindTextareaRod(r);
+        JSswift._registerCleanup(textarea, () => r.dispose());
       }
     }
 
@@ -2858,7 +2911,22 @@ const unitCover = (v, name = 'size') => {
   };
 
 
+  // Component-owned subscriptions; shared models remain caller-owned.
+  function uiSubscriptionScope() {
+    const stops = [];
+    return {
+      effect: (fn, name) => { const stop = JSswift.reactive.effect(fn, name); stops.push(stop); return stop; },
+      action: (rod, fn) => {
+        rod.action(fn);
+        stops.push(() => { const i = rod._actions?.indexOf(fn) ?? -1; if (i >= 0) rod._actions.splice(i, 1); });
+      },
+      dispose: () => stops.splice(0).forEach(stop => stop())
+    };
+  }
+
   UI.Search = (props = {}) => {
+    const scope = uiSubscriptionScope();
+    let disposed = false;
     const slots = props.slots || {};
     const isBoundValue = (v) => !!v && ((typeof v === "object" && typeof v._bind === "function") || uiIsSignal(v));
     const valueBinding = isBoundValue(props.model)
@@ -2971,6 +3039,7 @@ const unitCover = (v, name = 'size') => {
       setActive(-1);
     };
     const runSearch = async (query, options = {}) => {
+      if (disposed) return;
       const q = query == null ? "" : String(query).trim();
       const id = ++requestId;
       const endpoint = uiUnwrap(props.endpoint ?? props.url);
@@ -3025,7 +3094,7 @@ const unitCover = (v, name = 'size') => {
         } else {
           raw = [];
         }
-        if (id !== requestId) return;
+        if (disposed || id !== requestId) return;
         const mapped = typeof props.mapResponse === "function" ? props.mapResponse(raw, q) : normalizeResults(raw);
         const results = normalizeResults(mapped);
         if (cacheEnabled) cache.set(cacheKey, results);
@@ -3034,13 +3103,13 @@ const unitCover = (v, name = 'size') => {
         props.onResults?.(results, q);
       } catch (error) {
         if (error?.name === "AbortError") return;
-        if (id !== requestId) return;
+        if (disposed || id !== requestId) return;
         setError(error);
         setResults([]);
         setActive(-1);
         props.onError?.(error, q);
       } finally {
-        if (id === requestId) {
+        if (!disposed && id === requestId) {
           setLoading(false);
           activeController = null;
           scheduleMenuPosition();
@@ -3048,6 +3117,7 @@ const unitCover = (v, name = 'size') => {
       }
     };
     const scheduleSearch = (query, options = {}) => {
+      if (disposed) return;
       if (searchTimer) clearTimeout(searchTimer);
       const delay = options.immediate ? 0 : debounceMs();
       searchTimer = setTimeout(() => {
@@ -3208,18 +3278,18 @@ const unitCover = (v, name = 'size') => {
 
     if (valueBinding) {
       if (typeof valueBinding === "object" && typeof valueBinding._bind === "function") {
-        valueBinding.action((v) => setQuery(v, { fromModel: true }));
+        scope.action(valueBinding, (v) => setQuery(v, { fromModel: true }));
         modelSet = (v) => {
           if (valueBinding.value !== v) valueBinding.value = v;
         };
       } else if (Array.isArray(valueBinding) && typeof valueBinding[0] === "function" && typeof valueBinding[1] === "function") {
         const get = valueBinding[0];
         const set = valueBinding[1];
-        JSswift.reactive.effect(() => { setQuery(get(), { fromModel: true }); }, "UI.Search:model");
+        scope.effect(() => { setQuery(get(), { fromModel: true }); }, "UI.Search:model");
         modelSet = (v) => set(v);
       }
     } else if (uiIsReactive(props.value)) {
-      JSswift.reactive.effect(() => { setQuery(uiUnwrap(props.value), { fromModel: true }); }, "UI.Search:value");
+      scope.effect(() => { setQuery(uiUnwrap(props.value), { fromModel: true }); }, "UI.Search:value");
     }
 
     input.addEventListener("input", (event) => {
@@ -3293,7 +3363,7 @@ const unitCover = (v, name = 'size') => {
     };
     document.addEventListener("click", onDocClick, true);
 
-    JSswift.reactive.effect(() => {
+    scope.effect(() => {
       const openNow = getOpen();
       root.classList.toggle("open", openNow);
       input.setAttribute("aria-expanded", openNow ? "true" : "false");
@@ -3301,7 +3371,7 @@ const unitCover = (v, name = 'size') => {
       else unmountMenuPortal();
     }, "UI.Search:open");
 
-    JSswift.reactive.effect(() => {
+    scope.effect(() => {
       const d = isDisabled();
       const r = isReadonly();
       root.classList.toggle("disabled", d);
@@ -3310,7 +3380,7 @@ const unitCover = (v, name = 'size') => {
       input.readOnly = r;
     }, "UI.Search:disabled");
 
-    JSswift.reactive.effect(() => {
+    scope.effect(() => {
       const loading = getLoading();
       const error = getError();
       const results = getResults();
@@ -3364,7 +3434,7 @@ const unitCover = (v, name = 'size') => {
       scheduleMenuPosition();
     }, "UI.Search:render");
 
-    JSswift.reactive.effect(() => {
+    scope.effect(() => {
       const active = getActive();
       if (active === lastActive) return;
       if (resultNodes[lastActive]) {
@@ -3407,10 +3477,12 @@ const unitCover = (v, name = 'size') => {
     field._searchNow = () => runSearch(getQuery(), { immediate: true, open: true });
     field._getResults = getResults;
     field._setValue = (value) => setQuery(value, {});
-    let disposed = false;
     field._dispose = () => {
       if (disposed) return;
       disposed = true;
+      scope.dispose();
+      requestId++;
+      cache.clear();
       document.removeEventListener("click", onDocClick, true);
       if (searchTimer) clearTimeout(searchTimer);
       if (activeController) activeController.abort();
@@ -3431,6 +3503,8 @@ const unitCover = (v, name = 'size') => {
 
 
   UI.Select = (props = {}) => {
+    const scope = uiSubscriptionScope();
+    let disposed = false;
     const fieldProps = {
       ...props,
       label: props.label ?? props.placeholder
@@ -3473,7 +3547,7 @@ const unitCover = (v, name = 'size') => {
     if (valueBinding) {
       if (typeof valueBinding === "object" && typeof valueBinding._bind === "function") {
         JSswift.reactive.untracked(() => setValue(normalizeValue(valueBinding.value)));
-        valueBinding.action((v) => setValue(normalizeValue(v)));
+        scope.action(valueBinding, (v) => setValue(normalizeValue(v)));
         modelSet = (v) => {
           const next = normalizeValue(v);
           if (valueBinding.value !== next) valueBinding.value = next;
@@ -3482,7 +3556,7 @@ const unitCover = (v, name = 'size') => {
         const get = valueBinding[0];
         const set = valueBinding[1];
         JSswift.reactive.untracked(() => {
-          JSswift.reactive.effect(() => { setValue(normalizeValue(get())); }, "UI.Select:model");
+          scope.effect(() => { setValue(normalizeValue(get())); }, "UI.Select:model");
         });
         modelSet = (v) => set(normalizeValue(v));
       }
@@ -3549,6 +3623,7 @@ const unitCover = (v, name = 'size') => {
 
     // supports async options
     async function loadOptions() {
+      if (disposed) return;
       const src = props.options;
       let raw;
 
@@ -3562,12 +3637,13 @@ const unitCover = (v, name = 'size') => {
         } else {
           raw = v;
         }
-        buildLists(raw);
+        if (!disposed) buildLists(raw);
       } catch (e) {
+        if (disposed) return;
         console.error("[UI.Select] options load error:", e);
         buildLists([]);
       } finally {
-        setLoading(false);
+        if (!disposed) setLoading(false);
       }
     }
 
@@ -3607,11 +3683,12 @@ const unitCover = (v, name = 'size') => {
     }
 
     async function open() {
-      if (isDisabled()) return;
+      if (disposed || isDisabled()) return;
       setOpen(true);
 
       // load options (sync/async) on open
       await loadOptions();
+      if (disposed) return;
 
       // set active to current selected, otherwise first enabled
       const current = getValue();
@@ -3649,7 +3726,7 @@ const unitCover = (v, name = 'size') => {
     const valueNode = _.div({
       class: uiClass(["cms-select-value", isMulti ? "cms-select-value-multi" : ""])
     });
-    JSswift.reactive.effect(() => {
+    scope.effect(() => {
       const flat = getFlat();
       valueNode.innerHTML = "";
       if (isMulti) {
@@ -3696,7 +3773,7 @@ const unitCover = (v, name = 'size') => {
     }, "UI.Select:value");
 
     const arrowWrap = _.div({ class: "cms-select-arrow" });
-    JSswift.reactive.effect(() => {
+    scope.effect(() => {
       const arrowNode = JSswift.ui.renderSlot(slots, "arrow", { open: getOpen() }, UI.Icon("#chevron-down"));
       arrowWrap.innerHTML = "";
       renderSlotToArray(null, "default", {}, arrowNode).forEach(n => arrowWrap.appendChild(n));
@@ -3738,7 +3815,7 @@ const unitCover = (v, name = 'size') => {
       if (filterInput) filterInput.value = getFilter() || "";
     };
     JSswift.reactive.untracked(renderFilterSlot);
-    JSswift.reactive.effect(() => {
+    scope.effect(() => {
       const next = getFilter() || "";
       if (filterInput && "value" in filterInput && filterInput.value !== next) {
         filterInput.value = next;
@@ -3747,7 +3824,7 @@ const unitCover = (v, name = 'size') => {
 
     if (typeof filterable === "boolean") filterable ? filterWrap.classList.remove("cms-d-none") : filterWrap.classList.add("cms-d-none");
     else if (filterable?.action) {
-      filterable.action((v) => {
+      scope.action(filterable, (v) => {
         v ? filterWrap.classList.remove("cms-d-none") : filterWrap.classList.add("cms-d-none");
       });
       filterable.value ? filterWrap.classList.remove("cms-d-none") : filterWrap.classList.add("cms-d-none");;
@@ -3848,7 +3925,7 @@ const unitCover = (v, name = 'size') => {
     root.appendChild(menu);
 
     // open class + aria
-    JSswift.reactive.effect(() => {
+    scope.effect(() => {
       const o = getOpen();
       root.classList.toggle("open", o);
       root.setAttribute("aria-expanded", o ? "true" : "false");
@@ -3856,7 +3933,7 @@ const unitCover = (v, name = 'size') => {
       else unmountMenuPortal();
     }, "UI.Select:open");
 
-    JSswift.reactive.effect(() => {
+    scope.effect(() => {
       const d = isDisabled();
       root.classList.toggle("disabled", d);
       root.tabIndex = d ? -1 : 0;
@@ -3878,7 +3955,7 @@ const unitCover = (v, name = 'size') => {
       if (active >= 0) optionNodes[active]?.scrollIntoView({ block: "nearest" });
     }
 
-    JSswift.reactive.effect(() => {
+    scope.effect(() => {
       const display = getList();
       const flat = getFlat();
       const filter = (getFilter() || "").toLowerCase().trim();
@@ -3975,7 +4052,7 @@ const unitCover = (v, name = 'size') => {
       if (getOpen()) scheduleMenuPosition();
     }, "UI.Select:render");
 
-    JSswift.reactive.effect(() => {
+    scope.effect(() => {
       paintActive();
     }, "UI.Select:paintActive");
 
@@ -4089,10 +4166,10 @@ const unitCover = (v, name = 'size') => {
     root.addEventListener("keydown", onKeyDown);
     filterWrap.addEventListener("keydown", onKeyDown);
 
-    let disposed = false;
     root._dispose = () => {
       if (disposed) return;
       disposed = true;
+      scope.dispose();
       document.removeEventListener("click", onDocClick, true);
       root.removeEventListener("keydown", onKeyDown);
       filterWrap.removeEventListener("keydown", onKeyDown);
@@ -4132,7 +4209,7 @@ const unitCover = (v, name = 'size') => {
     });
 
     // refresh has-value when value changes
-    JSswift.reactive.effect(() => { field._refresh?.(); }, "UI.Select:fieldRefresh");
+    scope.effect(() => { field._refresh?.(); }, "UI.Select:fieldRefresh");
 
     uiConfigureFieldControl(field, root, props);
     field._select = root;
@@ -4715,7 +4792,10 @@ const unitCover = (v, name = 'size') => {
       return {
         get: () => model.value,
         set: (v) => { if (model.value !== v) model.value = v; },
-        watch: (fn) => { if (typeof model.action === "function") model.action(fn); }
+        watch: (fn) => {
+          model.action?.(fn);
+          return () => { const i = model._actions?.indexOf(fn) ?? -1; if (i >= 0) model._actions.splice(i, 1); };
+        }
       };
     }
     if (Array.isArray(model) && typeof model[0] === "function" && typeof model[1] === "function") {
@@ -4893,7 +4973,7 @@ const unitCover = (v, name = 'size') => {
       if (getOpen() !== next) syncOpen(next);
       controlledDrawer?.set(next);
     };
-    controlledDrawer?.watch?.(() => {
+    const stopDrawerWatch = controlledDrawer?.watch?.(() => {
       const next = !!controlledDrawer.get();
       if (getOpen() !== next) syncOpen(next);
     });
@@ -4908,7 +4988,7 @@ const unitCover = (v, name = 'size') => {
       if (getNavOpen() !== next) syncNavOpen(next);
       controlledNav?.set(next);
     };
-    controlledNav?.watch?.(() => {
+    const stopNavWatch = controlledNav?.watch?.(() => {
       const next = !!controlledNav.get();
       if (getNavOpen() !== next) syncNavOpen(next);
     });
@@ -4996,6 +5076,8 @@ const unitCover = (v, name = 'size') => {
     JSswift.uiApplyResponsiveProps(p, props, JSswift.uiResponsiveStyleRules);
 
     const root = _.div(p);
+    if (stopDrawerWatch) JSswift._registerCleanup(root, stopDrawerWatch);
+    if (stopNavWatch) JSswift._registerCleanup(root, stopNavWatch);
     const tagPage = uiUnwrap(resolveLayoutProp("tagPage")) === true;
     const tags = tagPage
       ? { header: "header", aside: "aside", nav: "nav", page: "main", footer: "footer" }
@@ -15898,8 +15980,9 @@ transition: width 200ms ease;
     };
 
     let searchInput = null;
+    let stopSearchWatch;
     if (searchModel) {
-      searchModel.watch((value) => {
+      stopSearchWatch = searchModel.watch((value) => {
         const next = String(value ?? "");
         setQueryState(next);
         if (searchInput && searchInput.value !== next) searchInput.value = next;
@@ -16109,7 +16192,7 @@ transition: width 200ms ease;
       );
     };
 
-    app.reactive.effect(() => {
+    const stopRender = app.reactive.effect(() => {
       const rows = tableToArray(props.rows);
       const query = String(getQuery() || "").trim();
       const currentSort = getSort();
@@ -16283,7 +16366,10 @@ transition: width 200ms ease;
     }, "UI.Table:render");
 
     wrapProps.body = shell;
-    return UI.Card(wrapProps);
+    const card = UI.Card(wrapProps);
+    JSswift._registerCleanup(card, stopRender);
+    if (stopSearchWatch) JSswift._registerCleanup(card, stopSearchWatch);
+    return card;
   };
   UI.Menu = (...args) => {
     const { props, children } = JSswift.uiNormalizeArgs(args);

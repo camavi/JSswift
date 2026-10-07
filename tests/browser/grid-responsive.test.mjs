@@ -1320,3 +1320,150 @@ test("Table hideStatus omits only the status region and preserves default counts
  })()`);
  assert.deepEqual(result,{normal:true,custom:true,hidden:false,hiddenCustom:false,toolbar:true,head:true,rows:1,leaked:false});
 });
+
+
+test("Repeated Input/Textarea unmount releases shared rod callbacks", {
+ skip: !findChrome() ? "Chrome unavailable" : (!hasDevtoolsWebSocket() ? "WebSocket unavailable" : false)
+}, async () => {
+ const tmp = await mkdtemp(path.join(os.tmpdir(), 'jsswift-field-cleanup-'));
+ const html = path.join(tmp, 'index.html');
+ const asset = name => pathToFileURL(path.join(ROOT_DIR,name)).href;
+ await writeFile(html, `<!doctype html><div id="host"></div><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script>`);
+ const result = await runChromeMobileEval(findChrome(),pathToFileURL(html).href, `(async () => {
+ const model=_.rod('first'), error=_.rod(''), baseActions=model._actions.length, baseHooks=model._disposeHooks.length;
+ const controls=[];
+ for(let i=0;i<20;i++) {
+  const input=_.Input({label:'Nome',model,error}), textarea=_.Textarea({label:'Note',model,error});
+  _.mount('#host',_.div({},input,textarea));
+  input.focus(); controls.push(document.activeElement);
+  _.mount('#host',_.div());
+ }
+ model.value='after'; error.value='Error'; await new Promise(r=>setTimeout(r,50));
+ return {actions:model._actions.length-baseActions,hooks:model._disposeHooks.length-baseHooks,disposed:model._disposed,unchanged:controls.every(c=>c.value==='first')};
+ })()`);
+ assert.deepEqual(result,{actions:0,hooks:0,disposed:false,unchanged:true});
+});
+
+test("Autofill timers and Table/Layout rod watchers stop on unmount", {
+ skip: !findChrome() ? "Chrome unavailable" : (!hasDevtoolsWebSocket() ? "WebSocket unavailable" : false)
+}, async () => {
+ const tmp = await mkdtemp(path.join(os.tmpdir(), 'jsswift-autofill-cleanup-'));
+ const html = path.join(tmp, 'index.html');
+ const asset = name => pathToFileURL(path.join(ROOT_DIR,name)).href;
+ await writeFile(html, `<!doctype html><div id="host"></div><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script>`);
+ const result = await runChromeMobileEval(findChrome(),pathToFileURL(html).href, `(async () => {
+ const query=_.rod(''),drawer=_.rod(true),nav=_.rod(true);
+ const baseline=[query,drawer,nav].map(r=>r._actions.length);
+ let staleEvents=0;
+ for(let i=0;i<10;i++) {
+  const raw=_.InputRaw(), field=_.Input({label:'Nome',onInput:()=>staleEvents++});
+  _.mount('#host',_.div({},raw,field,_.Table({rows:[{name:'Casa'}],columns:[{key:'name'}],searchModel:query}),_.Layout({drawerOpen:drawer,navOpen:nav})));
+  field.focus(); raw.value='autofilled'; field._input.value='autofilled';
+  raw.addEventListener('input',()=>staleEvents++);
+  _.mount('#host',_.div());
+ }
+ await new Promise(r=>setTimeout(r,1400));
+ return {staleEvents,watchers:[query,drawer,nav].map((r,i)=>r._actions.length-baseline[i])};
+ })()`);
+ assert.deepEqual(result,{staleEvents:0,watchers:[0,0,0]});
+});
+
+test("Detached field attributes and Table rendering stop tracking rods", {
+ skip: !findChrome() ? "Chrome unavailable" : (!hasDevtoolsWebSocket() ? "WebSocket unavailable" : false)
+}, async () => {
+ const tmp = await mkdtemp(path.join(os.tmpdir(), 'jsswift-effect-cleanup-'));
+ const html = path.join(tmp, 'index.html');
+ const asset = name => pathToFileURL(path.join(ROOT_DIR,name)).href;
+ await writeFile(html, `<!doctype html><div id="host"></div><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script>`);
+ const result = await runChromeMobileEval(findChrome(),pathToFileURL(html).href, `(async () => {
+ const required=_.rod(false),rows=_.rod([{name:'First'}]);
+ const field=_.Input({label:'Nome',required}),table=_.Table({rows:()=>rows.value,columns:[{key:'name'}]});
+ _.mount('#host',_.div({},field,table));field.focus();const control=document.activeElement;
+ required.value=true;rows.value=[{name:'Second'}];await new Promise(r=>setTimeout(r,50));
+ const live=control.required && table.textContent.includes('Second');
+ _.mount('#host',_.div());
+ required.value=false;rows.value=[{name:'Third'}];await new Promise(r=>setTimeout(r,50));
+ return {live,detachedRequired:control.required,detachedTable:table.textContent.includes('Second')&&!table.textContent.includes('Third')};
+ })()`);
+ assert.deepEqual(result,{live:true,detachedRequired:true,detachedTable:true});
+});
+
+test("Overlay coalesces resize bursts and cancels pending positioning on close", {
+ skip: !findChrome() ? "Chrome unavailable" : (!hasDevtoolsWebSocket() ? "WebSocket unavailable" : false)
+}, async () => {
+ const tmp = await mkdtemp(path.join(os.tmpdir(), 'jsswift-overlay-measure-'));
+ const html = path.join(tmp, 'index.html');
+ const asset = name => pathToFileURL(path.join(ROOT_DIR,name)).href;
+ await writeFile(html, `<!doctype html><button id="anchor">Anchor</button><script src="${asset('packages/core/dist/cms.js')}"></script>`);
+ const result = await runChromeMobileEval(findChrome(),pathToFileURL(html).href, `(async () => {
+ const anchor=document.getElementById('anchor');const original=anchor.getBoundingClientRect.bind(anchor);let reads=0;
+ anchor.getBoundingClientRect=()=>{reads++;return original();};
+ const panel=document.createElement('div');panel.textContent='Panel';
+ const entry=JSswift.overlay.open(panel,{anchorEl:anchor,autoFocus:false});
+ await new Promise(r=>setTimeout(r,100));reads=0;
+ for(let i=0;i<20;i++)window.dispatchEvent(new Event('resize'));
+ const synchronous=reads;
+ await new Promise(r=>requestAnimationFrame(()=>setTimeout(r,0)));
+ const burst=reads;
+ window.dispatchEvent(new Event('resize'));entry.close();reads=0;
+ for(let i=0;i<20;i++)window.dispatchEvent(new Event('resize'));
+ await new Promise(r=>setTimeout(r,100));
+ return {synchronous,burst,afterClose:reads};
+ })()`);
+ assert.deepEqual(result,{synchronous:0,burst:1,afterClose:0});
+});
+
+test("Select/Search release models and effects and ignore late async results", {
+ skip: !findChrome() ? "Chrome unavailable" : (!hasDevtoolsWebSocket() ? "WebSocket unavailable" : false)
+}, async () => {
+ const tmp = await mkdtemp(path.join(os.tmpdir(), 'jsswift-select-search-cleanup-'));
+ const html = path.join(tmp, 'index.html');
+ const asset = name => pathToFileURL(path.join(ROOT_DIR,name)).href;
+ await writeFile(html, `<!doctype html><div id="host"></div><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script>`);
+ const result = await runChromeMobileEval(findChrome(),pathToFileURL(html).href, `(async () => {
+ const wait=()=>new Promise(r=>setTimeout(r,60));
+ const model=_.rod('Casa'), filterable=_.rod(true), disabled=_.rod(false);
+ const baseline=[model,filterable].map(r=>r._actions.length);
+ const saved=[];
+ for(let i=0;i<10;i++) {
+  const select=_.Select({label:'Categoria',model,filterable,disabled,options:['Casa','Ufficio']});
+  const search=_.Search({label:'Ricerca',model,disabled,items:['Casa','Ufficio']});
+  _.mount('#host',_.div({},select,search)); saved.push([select,search]);
+  _.mount('#host',_.div());
+ }
+ const snapshots=saved.map(pair=>pair.map(n=>n.innerHTML));
+ model.value='Ufficio';filterable.value=false;disabled.value=true;await wait();
+ const unchanged=saved.every((pair,i)=>pair.every((n,j)=>n.innerHTML===snapshots[i][j]));
+ let resolveSearch,resolveOptions,results=0;
+ const options=new Promise(r=>resolveOptions=r);
+ const select=_.Select({label:'Async',options:()=>options});
+ const search=_.Search({label:'Async search',value:'Casa',items:()=>new Promise(r=>resolveSearch=r),onResults:()=>results++});
+ _.mount('#host',_.div({},select,search));
+ const pending=search._searchNow();await wait();
+ _.mount('#host',_.div());const before=select.innerHTML;
+ resolveOptions(['Late']);resolveSearch(['Casa']);await pending;await wait();
+ return {watchers:[model,filterable].map((r,i)=>r._actions.length-baseline[i]),unchanged,results,optionsUnchanged:select.innerHTML===before,modelDisposed:model._disposed,portals:document.querySelectorAll('.cms-search-menu,.cms-select-menu').length};
+ })()`);
+ assert.deepEqual(result,{watchers:[0,0],unchanged:true,results:0,optionsUnchanged:true,modelDisposed:false,portals:0});
+});
+
+test("Select/Search signal model effects stop after lifecycle disposal", {
+ skip: !findChrome() ? "Chrome unavailable" : (!hasDevtoolsWebSocket() ? "WebSocket unavailable" : false)
+}, async () => {
+ const tmp = await mkdtemp(path.join(os.tmpdir(), 'jsswift-signal-cleanup-'));
+ const html = path.join(tmp, 'index.html');
+ const asset = name => pathToFileURL(path.join(ROOT_DIR,name)).href;
+ await writeFile(html, `<!doctype html><div id="host"></div><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script>`);
+ const result = await runChromeMobileEval(findChrome(),pathToFileURL(html).href, `(async () => {
+ const wait=()=>new Promise(r=>setTimeout(r,60));
+ const [get,set]=_.signal('Casa');let reads=0;
+ const model=[()=>{reads++;return get();},set];
+ const select=_.Select({label:'Categoria',model,options:['Casa','Ufficio']});
+ const search=_.Search({label:'Ricerca',model,items:['Casa','Ufficio']});
+ _.mount('#host',_.div({},select,search));set('Ufficio');await wait();
+ const live=select.textContent.includes('Ufficio')&&search._input.value==='Ufficio';
+ _.mount('#host',_.div());const before=reads;set('Casa');await wait();
+ return {live,readsStopped:reads===before,signalAlive:get()==='Casa'};
+ })()`);
+ assert.deepEqual(result,{live:true,readsStopped:true,signalAlive:true});
+});

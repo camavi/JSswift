@@ -1781,3 +1781,31 @@ test("ui.meta docTable uses TabPanel when available", async () => {
     else globalThis._.TabPanel = originalTabPanel;
   }
 });
+
+
+test("rodModel disposal releases subscription and listener without disposing shared rod", async () => {
+ const CMS = await loadCMS();
+ const listeners = new Map();
+ const input = {tagName:'INPUT',type:'text',value:'',addEventListener:(name,fn)=>listeners.set(name,fn),removeEventListener:(name,fn)=>{if(listeners.get(name)===fn)listeners.delete(name);}};
+ const rod = CMS.rod('first');
+ const actions = rod._actions.length, hooks = rod._disposeHooks.length;
+ const stop = CMS.rodModel([input],rod);
+ assert.equal(input.value,'first');
+ rod.value='second'; await tick(); assert.equal(input.value,'second');
+ input.value='third'; listeners.get('change')(); await tick(); assert.equal(rod.value,'third');
+ stop(); stop();
+ assert.equal(rod._actions.length,actions); assert.equal(rod._disposeHooks.length,hooks);
+ assert.equal(listeners.size,0); assert.equal(rod._disposed,false);
+ rod.value='fourth'; await tick(); assert.equal(input.value,'third');
+});
+
+test("signalModel disposal stops the owned reactive bridge", async () => {
+ const CMS = await loadCMS();
+ const [get,set] = CMS.signal('first');
+ let reads=0;
+ const input = {tagName:'INPUT',type:'text',value:'',addEventListener(){},removeEventListener(){}};
+ const stop=CMS.signalModel([input],()=>{reads++;return get();},set);
+ set('second'); await tick(); assert.equal(input.value,'second');
+ stop(); stop(); const before=reads;
+ set('third'); await tick(); assert.equal(reads,before); assert.equal(input.value,'second');
+});

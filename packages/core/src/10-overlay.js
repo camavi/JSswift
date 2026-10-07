@@ -106,8 +106,7 @@
       const schedulePosition = () => {
         if (!opts.anchorEl) return;
         const raf = globalThis.requestAnimationFrame || ((fn) => setTimeout(() => fn(Date.now()), 0));
-        const caf = globalThis.cancelAnimationFrame || clearTimeout;
-        if (entry._positionFrame != null) caf(entry._positionFrame);
+        if (entry._positionFrame != null) return;
         entry._positionFrame = raf(() => {
           entry._positionFrame = null;
           position();
@@ -118,13 +117,13 @@
       if (opts.anchorEl) {
         position();
         schedulePosition();
-        const onResize = () => position();
+        const onResize = schedulePosition;
         window.addEventListener("resize", onResize);
         window.addEventListener("scroll", onResize, true);
         window.visualViewport?.addEventListener?.("resize", onResize);
         window.visualViewport?.addEventListener?.("scroll", onResize);
         if (typeof ResizeObserver === "function") {
-          const panelResizeObserver = new ResizeObserver(() => position());
+          const panelResizeObserver = new ResizeObserver(schedulePosition);
           panelResizeObserver.observe(panel);
           entry._panelResizeObserver = panelResizeObserver;
         }

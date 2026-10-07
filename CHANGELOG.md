@@ -9,6 +9,20 @@ The format is kept intentionally simple:
 - Fixed
 - Docs
 
+## [1.0.53] - 2026-10-07
+
+### Changed
+
+- Anchored overlays coalesce automatic geometry updates per animation frame while preserving synchronous initial positioning and explicit reposition.
+
+### Fixed
+
+- Select/Search release component effects and shared rod callbacks, and ignore asynchronous results after lifecycle disposal.
+- Table rendering and field accessibility/Select refresh effects stop on JSswift lifecycle cleanup.
+- UI cleanup cancels Input/InputRaw autofill timers and releases Table search and Layout drawer/nav model watchers.
+- Input/Textarea unmount removes model callbacks and owned signal bridges; FormField message effects stop on cleanup.
+- Explicit rodModel disposal releases rod callbacks as well as DOM listeners; signalModel disposal also releases the internally owned signal bridge.
+
 ## [1.0.52] - 2026-10-07
 
 ### Added
