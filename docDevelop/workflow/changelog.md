@@ -4,7 +4,7 @@
 
 - Outcome: Dialog respects onOpen focus; field messages are associated automatically; CRUD and verification guidance updated.
 - Verification: runtime builds, 59 runtime tests, 14 browser tests, 6 knowledge/MCP tests, map and package contents checks. Grid browser probe uses a timer instead of a headless animation frame; layout assertions preserved.
-- Publication: prepared for authorized npm publication.
+- Publication: npm latest verified for jsswift, @jsswift/core and @jsswift/ui 1.0.50, and @jsswift/knowledge-mcp 0.1.6.
 
 ## 2026-10-07 — Explicit Dialog focus and accessible field messages
 
