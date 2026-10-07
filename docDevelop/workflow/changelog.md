@@ -4,7 +4,7 @@
 
 - Outcome: selective MCP contract reads and focus CSS/Table guidance distributed.
 - Verification: runtime builds, 6 knowledge/MCP tests, targeted browser focus CSS test, knowledge map/Skill and package contents checks.
-- Publication: prepared for authorized npm publication.
+- Publication: all four npm publish commands accepted. npm latest confirmed for @jsswift/core and @jsswift/ui 1.0.51 and @jsswift/knowledge-mcp 0.1.7. jsswift 1.0.51 remains unavailable after 24 polls; latest is still 1.0.50.
 
 ## 2026-10-07 — Focus CSS guidance and selective MCP reads
 
