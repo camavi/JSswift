@@ -4,7 +4,7 @@
 
 - Outcome: release includes full signal tuple model support, Button documentation alias and rod-first application guidance.
 - Verification: runtime build; 59 runtime tests, 11 browser tests, 6 knowledge/MCP tests; knowledge map and Skill validation; npm package contents and diff checks.
-- Publication: prepared for authorized npm publication.
+- Publication: npm latest verified for jsswift, @jsswift/core and @jsswift/ui 1.0.47, and @jsswift/knowledge-mcp 0.1.3; release implementation commit pushed to GitHub.
 
 ## 2026-10-07 — Prefer rod for AI field models
 
