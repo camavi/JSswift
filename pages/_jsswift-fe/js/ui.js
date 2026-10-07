@@ -2228,6 +2228,7 @@ const unitCover = (v, name = 'size') => {
   // props: { model: rod OR [get,set] signal OR plain, placeholder, type }
 
 
+  let uiFieldMessageId = 0;
   UI.FormField = (props = {}) => {
 
     applyCommonProps(props);
@@ -2360,6 +2361,14 @@ const unitCover = (v, name = 'size') => {
       return true;
     };
     let messageEl = null;
+    const messageId = `jsswift-field-message-${++uiFieldMessageId}`;
+    const syncDescription = () => {
+      if (!controlEl?.setAttribute) return;
+      const ids = [uiUnwrap(props.ariaDescribedBy), messageEl?.id].filter(Boolean).join(" ").trim();
+      if (ids) controlEl.setAttribute("aria-describedby", [...new Set(ids.split(/\s+/))].join(" "));
+      else controlEl.removeAttribute("aria-describedby");
+    };
+    wrap._syncDescription = syncDescription;
     const renderMessage = () => {
       const statusOrder = [
         { key: "error", value: resolveValue(props.error), slot: "errorMessage", className: "cms-error" },
@@ -2387,7 +2396,7 @@ const unitCover = (v, name = 'size') => {
         ? renderSlotToArray(slots, active.slot, ctx, active.value)
         : [];
       const nextEl = nodes.length
-        ? _.div({ class: active?.className }, ...nodes)
+        ? _.div({ id: messageId, class: active?.className }, ...nodes)
         : null;
 
       const stateKeys = ["error", "warning", "success", "note"];
@@ -2400,6 +2409,7 @@ const unitCover = (v, name = 'size') => {
         wrap.appendChild(nextEl);
       }
       messageEl = nextEl;
+      syncDescription();
     };
 
     // state updater
@@ -2552,7 +2562,7 @@ const unitCover = (v, name = 'size') => {
       const label = uiUnwrap(props.ariaLabel) ?? (typeof props.label === "string" ? props.label : null);
       set("aria-label", label);
       set("aria-labelledby", uiUnwrap(props.ariaLabelledBy));
-      set("aria-describedby", uiUnwrap(props.ariaDescribedBy));
+      field._syncDescription?.();
       const invalid = props.ariaInvalid == null ? !!uiUnwrap(props.error) : !!uiUnwrap(props.ariaInvalid);
       control.setAttribute("aria-invalid", String(invalid));
       const required = !!uiUnwrap(props.required);

@@ -281,3 +281,5 @@ This document intentionally focuses on the current contract rather than preservi
 - `docDevelop/release/release-plan-v1.md`
 - `docDevelop/release/release-notes-v1.0.0.md`
 - `docDevelop/release/release-notes-v1.0.1.md`
+
+Overlay deferred autofocus respects focus already inside its panel and checks that the entry remains mounted/open before assigning focus.

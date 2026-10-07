@@ -471,3 +471,5 @@ Use the documented `model` binding for reactive state. Verify the rendered contr
 `ariaLabel` sets the control's accessible name; a string `label` supplies the default. Use `ariaLabelledBy` for an external label ID and `ariaDescribedBy` for hint/error IDs. `ariaInvalid` overrides the invalid state; otherwise a truthy `error` marks the control invalid. `required` sets `aria-required` (and native required for Input). These props accept reactive values.
 
 Input forwards `min`, `max`, `step`, `pattern`, `minLength` and `maxLength` to the native input, including zero values. Native constraints do not replace application validation.
+
+Rendered field messages (error, warning, success, note or hint) receive a stable ID and are automatically associated with the interactive control through `aria-describedby`. External `ariaDescribedBy` IDs are preserved; the generated ID is removed when its message disappears.

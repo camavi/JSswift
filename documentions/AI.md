@@ -93,3 +93,9 @@ Run the app's build after implementation and check values, validation, dialog ke
 - Other components: [index](components/README.md). MCP: read `guide:AI`, then search only for additional features.
 
 For a complete application flow, read [the compact CRUD example](examples/crud.md) only when the task needs editing, validation, persistence and focus restoration together.
+
+## Verification evidence and environment
+
+Check whether browser tooling and server permissions are available before launching checks. Run Git commands only in a Git worktree; for example test `git rev-parse --is-inside-work-tree` before requesting a diff. Keep build, pure-logic tests and server startup results separate. An HTTP response confirms a reachable server, not that your startup command succeeded or that browser interactions work. Report environment failures separately from application failures. Test the implemented functions rather than rebuilding equivalent data inside an assertion.
+
+Dialog autofocus preserves focus assigned inside `onOpen`; verify initial focus separately from validation focus and return focus. Field messages are associated with Input/Select through `aria-describedby` automatically.

@@ -231,7 +231,7 @@ test("Grid responsive columns keep display:grid and render four desktop tracks",
 
       document.getElementById("root").appendChild(grid);
 
-      requestAnimationFrame(() => {
+      setTimeout(() => {
         const style = getComputedStyle(grid);
         const children = Array.from(grid.children);
         const rects = children.slice(0, 5).map((child) => {
@@ -258,7 +258,7 @@ test("Grid responsive columns keep display:grid and render four desktop tracks",
           firstFourIncrease,
           fifthIsNextRow: rects[4] ? rects[4].top > firstTop : false
         });
-      });
+      }, 250);
     } catch (error) {
       finish({ error: String(error?.stack || error) });
     }
@@ -1192,16 +1192,20 @@ test("Public field APIs focus controls and synchronize accessibility and constra
       const initial = native.getAttribute('aria-invalid');
       error.value = 'Prezzo non valido';
       await new Promise(r => setTimeout(r, 50));
-      const attrs = {tag:native.tagName, label:native.getAttribute('aria-label'), min:native.min,
+      const linked = native.getAttribute('aria-describedby').split(' ').some(id => document.getElementById(id)?.textContent === 'Prezzo non valido');
+      error.value = ''; await new Promise(r => setTimeout(r, 50));
+      const cleared = native.getAttribute('aria-describedby') === 'error-text';
+      error.value = 'Prezzo non valido'; await new Promise(r => setTimeout(r, 50));
+      const attrs = {linked,cleared,tag:native.tagName, label:native.getAttribute('aria-label'), min:native.min,
         max:native.max, step:native.step, required:native.required, initial,
-        invalid:native.getAttribute('aria-invalid'), described:native.getAttribute('aria-describedby')};
+        invalid:native.getAttribute('aria-invalid'), described:native.getAttribute('aria-describedby').split(' ')[0]};
       select.focus();
       return {attrs, role:document.activeElement.getAttribute('role'),
         label:document.activeElement.getAttribute('aria-label'),
         required:document.activeElement.getAttribute('aria-required'),
         expanded:document.activeElement.getAttribute('aria-expanded')};
     })()`);
-  assert.deepEqual(result, {attrs:{tag:'INPUT',label:'Prezzo',min:'0',max:'100',step:'any',required:true,
+  assert.deepEqual(result, {attrs:{linked:true,cleared:true,tag:'INPUT',label:'Prezzo',min:'0',max:'100',step:'any',required:true,
     initial:'false',invalid:'true',described:'error-text'}, role:'combobox',label:'Categoria prodotto',
     required:'true',expanded:'false'});
 });
@@ -1218,9 +1222,11 @@ test("Documented CRUD validates, edits, binds rod, restores focus and survives r
  await writeFile(html, `<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"><div id="app"></div><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><script>${code}</script>`);
  const result = await runChromeMobileEval(findChrome(),pathToFileURL(html).href, `(async () => {
   const wait = () => new Promise(r => setTimeout(r,350));
-  const click = id => document.getElementById(id).click();
+  const click = id => { const button = document.getElementById(id); button.focus(); button.click(); };
   click('next'); const paged = host.textContent.includes('Prodotto 6'); click('previous');
-  click('add-product'); await wait(); click('save-product'); await wait();
+  click('add-product'); await wait();
+  const initialFocus = document.activeElement.getAttribute('aria-label') === 'Nome';
+  click('save-product'); await wait();
   const invalid = errors.name.value !== '' && document.activeElement.getAttribute('aria-invalid') === 'true';
   fields.name.focus(); const input = document.activeElement; input.value = 'Nuovo'; input.dispatchEvent(new Event('input',{bubbles:true}));
   fields.category.querySelector('.cms-select-control').click(); await wait();
@@ -1250,7 +1256,28 @@ test("Documented CRUD validates, edits, binds rod, restores focus and survives r
   [...document.querySelectorAll('.cms-select-option')].find(n => n.textContent==='Ufficio' && n.getBoundingClientRect().width).click();
   const filtered = host.textContent.includes('Prodotto 2') && !host.textContent.includes('Modificato');
   const mobile = document.documentElement.scrollWidth <= innerWidth;
-  return {paged,invalid,categoryBound,numeric,added,focusRestored,edited,escaped,searched,filtered,trapped,mobile};
+  return {initialFocus,paged,invalid,categoryBound,numeric,added,focusRestored,edited,escaped,searched,filtered,trapped,mobile};
  })().catch(e => ({error:String(e.stack || e)}))`, {afterReload:`({count:rows.length,name:rows[0].name,category:rows[6]?.category})`});
- assert.deepEqual(result,{before:{paged:true,invalid:true,categoryBound:true,numeric:true,added:true,focusRestored:true,edited:true,escaped:true,searched:true,filtered:true,trapped:true,mobile:true},after:{count:7,name:'Modificato',category:'Casa'}});
+ assert.deepEqual(result,{before:{initialFocus:true,paged:true,invalid:true,categoryBound:true,numeric:true,added:true,focusRestored:true,edited:true,escaped:true,searched:true,filtered:true,trapped:true,mobile:true},after:{count:7,name:'Modificato',category:'Casa'}});
+});
+
+
+test("Dialog default autofocus and explicit opt-out remain supported", {
+ skip: !findChrome() ? "Chrome unavailable" : (!hasDevtoolsWebSocket() ? "WebSocket unavailable" : false)
+}, async () => {
+ const tmp = await mkdtemp(path.join(os.tmpdir(), 'jsswift-default-focus-'));
+ const html = path.join(tmp,'index.html');
+ const asset = name => pathToFileURL(path.join(ROOT_DIR,name)).href;
+ await writeFile(html, `<!doctype html><body><button id="trigger">Apri</button><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script>`);
+ const result = await runChromeMobileEval(findChrome(),pathToFileURL(html).href, `(async () => {
+  const wait = () => new Promise(r => setTimeout(r,400));
+  const trigger = document.getElementById('trigger'); trigger.focus();
+  const a = _.Dialog({title:'Default',content:_.Input({label:'Nome'})}); a.open(); await wait();
+  const defaultFocused = document.activeElement.getAttribute('aria-label') === 'Chiudi dialog';
+  a.close(); await wait(); trigger.focus();
+  const b = _.Dialog({title:'Opt out',autoFocus:false,content:_.Input({label:'Nome'})}); b.open(); await wait();
+  const optedOut = document.activeElement === trigger; b.close(); await wait();
+  return {defaultFocused,optedOut};
+ })()`);
+ assert.deepEqual(result,{defaultFocused:true,optedOut:true});
 });

@@ -82,3 +82,7 @@ dialog.open();
 ```
 
 Check Escape, Tab, focus restoration, and the accessible dialog name in the rendered application. Do not infer these checks from a successful build.
+
+## Initial focus ordering
+
+`onOpen(entry)` runs synchronously after mounting. Deferred autofocus selects the first control only when focus is outside the panel; focus assigned inside `onOpen` is preserved. Use `autoFocus: false` to disable automatic placement entirely. Closed overlays do not run pending autofocus.

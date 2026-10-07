@@ -6,6 +6,7 @@ Load JSswift and its UI CSS, then run the following code with an `#app` element.
 const _ = window._;
 const key = 'jsswift-crud-example';
 const categories = ['Casa', 'Ufficio'];
+const priceFormat = new Intl.NumberFormat('it-IT', {style:'currency', currency:'EUR'});
 const initial = () => Array.from({length: 6}, (_, i) => ({id:i+1, name:`Prodotto ${i+1}`, category:categories[i%2], price:10, quantity:2}));
 const valid = rows => Array.isArray(rows) && new Set(rows.map(r => r?.id)).size === rows.length && rows.every(r => r && Number.isSafeInteger(r.id) && r.id > 0 && typeof r.name === 'string' && r.name.trim() && categories.includes(r.category) && Number.isFinite(r.price) && r.price >= 0 && Number.isSafeInteger(r.quantity) && r.quantity >= 0);
 let rows = initial(), editing = null, origin = 'add-product', query = '', category = '', page = 1;
@@ -50,7 +51,7 @@ function render() {
  const found = rows.filter(r => r.name.toLowerCase().includes(query.trim().toLowerCase()) && (!category || r.category === category));
  const pages = Math.max(1,Math.ceil(found.length/5)); page = Math.min(page,pages);
  host.replaceChildren(_.Table({rows:found.slice((page-1)*5,page*5),rowKey:'id',pagination:false,hideFooter:true,minTableWidth:600,
- columns:[{key:'name',label:'Nome'},{key:'category',label:'Categoria'},{key:'price',label:'Prezzo'},{key:'quantity',label:'Quantità'},
+ columns:[{key:'name',label:'Nome'},{key:'category',label:'Categoria'},{key:'price',label:'Prezzo',format:value => priceFormat.format(value)},{key:'quantity',label:'Quantità'},
  {key:'actions',label:'Azioni',render:r => _.Button({id:`edit-${r.id}`,onClick:() => edit(r)},'Modifica')}] }));
  pager.replaceChildren(_.span(`${found.length} prodotti — pagina ${page}/${pages}`),
  _.Button({id:'previous',disabled:page===1,onClick:() => {page--;render();document.getElementById('previous').focus();}},'Precedente'),
@@ -59,4 +60,6 @@ function render() {
 _.mount('#app', _.div({style:{minWidth:0}}, add, search, filter, host, pager, notice)); render();
 ```
 
-Application validation remains explicit. `error` marks the control invalid; use `ariaDescribedBy` when associating an application-owned error message. This example does not provide delete, server synchronization or a complete visual design.
+Application validation remains explicit. `error` marks the control invalid; rendered field messages are associated automatically. Use `ariaDescribedBy` for additional application-owned descriptions. This example does not provide delete, server synchronization or a complete visual design.
+
+Performance: the currency formatter is reused. This small example rebuilds its table for clarity; profile larger datasets before changing rendering strategy. `onOpen` focuses the name field and automatic focus respects that choice.

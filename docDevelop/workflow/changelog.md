@@ -1,5 +1,17 @@
 # Development changelog
 
+## 2026-10-07 — Release JSswift 1.0.50 and knowledge MCP 0.1.6
+
+- Outcome: Dialog respects onOpen focus; field messages are associated automatically; CRUD and verification guidance updated.
+- Verification: runtime builds, 59 runtime tests, 14 browser tests, 6 knowledge/MCP tests, map and package contents checks. Grid browser probe uses a timer instead of a headless animation frame; layout assertions preserved.
+- Publication: prepared for authorized npm publication.
+
+## 2026-10-07 — Explicit Dialog focus and accessible field messages
+
+- Outcome: deferred overlay autofocus preserves focus assigned inside onOpen and ignores closed entries. FormField messages have stable IDs associated through aria-describedby while preserving external references. CRUD reuses its currency formatter and documents rendering limits; AI guidance separates environment, startup, HTTP and interaction evidence.
+- Verification: reproduced initial focus failure before fix; 59 runtime tests, 14 browser tests and 6 knowledge/MCP tests pass. Browser coverage includes initial CRUD focus, default autofocus/opt-out, reactive error association/removal, external descriptions, add/edit/reload and keyboard handlers.
+- Limits: no screen-reader audit or large-dataset performance claim. Rendering strategy changes deferred until profiling establishes a benefit. Local changes only, no publication.
+
 ## 2026-10-07 — Release JSswift 1.0.49 and knowledge MCP 0.1.5
 
 - Outcome: public field focus/accessibility/constraints and verified CRUD example included in application documentation.

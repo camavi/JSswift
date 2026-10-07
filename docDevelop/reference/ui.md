@@ -355,3 +355,5 @@ The same entries exist under `@jsswift/ui`; load the core and UI runtime first. 
 ## Public Input and Select controls
 
 Returned fields expose focus(options?) for their interactive control; Select focus does not open its menu. Both accept ariaLabel (defaulting to a string label), ariaLabelledBy, ariaDescribedBy, ariaInvalid and required. Error marks aria-invalid unless explicitly overridden. Input forwards min, max, step, pattern, minLength and maxLength to its native input. Model values remain accessible through rod.value; there is no separate getValue/setValue API.
+
+FormField associates rendered messages with its control using stable generated IDs, preserving external ariaDescribedBy references. Dialog onOpen focus takes precedence over deferred automatic placement when it remains inside the panel.

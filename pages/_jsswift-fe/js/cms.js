@@ -648,7 +648,10 @@
 
       // scroll lock + focus
       if (opts.lockScroll) lockScroll();
-      if (opts.autoFocus !== false) setTimeout(() => focusFirst(panel), 0);
+      if (opts.autoFocus !== false) setTimeout(() => {
+        // Respect focus deliberately assigned by an onOpen callback.
+        if (panel.isConnected && stack.get(id) === entry && !panel.contains(document.activeElement)) focusFirst(panel);
+      }, 0);
 
       // positioning (for menus/tooltips)
       const position = (nextOpts = null) => {
