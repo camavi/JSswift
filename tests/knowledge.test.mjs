@@ -49,6 +49,7 @@ test('knowledge routes realistic application requests to focused contracts', asy
     ['layout responsive', 'guide:ui/layout-and-responsive'],
     ['stato reattività', 'guide:reactivity'],
     ['_.signal', 'guide:reactivity'],
+    ['_.rod', 'guide:reactivity'],
     ['router HTTP', 'guide:platform'],
     ['_.Input', 'component:input'],
     ['_.Toggle', 'component:toggle'],
@@ -95,14 +96,17 @@ test('AI quick-start example creates native controls and validates model values'
   assert.ok(sample.page.nodeType);
   assert.ok(sample.table.nodeType);
   assert.equal(sample.nameInput._input.value, 'Prodotto 01');
-  sample.name[1]('');
+  sample.name.value = '';
   sample.save.dispatchEvent({ type: 'click' });
   assert.ok(sample.errors.childNodes.length > 0, 'empty name yields a visible error');
-  sample.name[1]('Prodotto aggiornato');
+  sample.name.value = 'Prodotto aggiornato';
   await new Promise(resolve => setImmediate(resolve));
   assert.equal(sample.nameInput._input.value, 'Prodotto aggiornato');
-  sample.category[1]('Ufficio');
-  assert.equal(sample.category[0](), 'Ufficio');
-  sample.name[2]();
-  sample.category[2]();
+  sample.category.value = 'Ufficio';
+  assert.equal(sample.category.value, 'Ufficio');
+  sample.nameInput._input.value = 'Nome digitato';
+  sample.nameInput._input.dispatchEvent({type:'input'});
+  assert.equal(sample.name.value, 'Nome digitato');
+  sample.name.dispose();
+  sample.category.dispose();
 });

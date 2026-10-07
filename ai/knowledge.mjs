@@ -83,7 +83,15 @@ export async function loadKnowledge(root = defaultRoot) {
       }
     }
   }
-  const files = (await readdir(path.join(docsRoot, 'components'))).filter(name => name.endsWith('.md') && name !== 'README.md');
+  const aliases = map.documentAliases ?? {};
+  for (const [alias, target] of Object.entries(aliases)) {
+    if (!alias.endsWith('.md') || !map.components.some(component => component.path === target)) {
+      throw new Error('Invalid documentation alias');
+    }
+    await safePath(alias);
+    await safePath(target);
+  }
+  const files = (await readdir(path.join(docsRoot, 'components'))).filter(name => name.endsWith('.md') && name !== 'README.md' && !Object.hasOwn(aliases, `components/${name}`));
   const indexed = new Set(map.components.map(component => component.path));
   if (files.length !== indexed.size || files.some(name => !indexed.has(`components/${name}`))) {
     throw new Error('Component map coverage mismatch; run npm run knowledge:refresh');

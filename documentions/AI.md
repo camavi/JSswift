@@ -1,6 +1,6 @@
 # JSswift AI quick start
 
-Start here for a small page using Input, Select, Button, Card, Table, and Dialog. The example and callback table below are a supported subset; read a component contract only when using additional APIs. Do not read the whole catalog or search runtime bundles for documentation.
+Start here for a small page using Input, Select, Button, Card, Table, and Dialog. The example and callback table below are a supported subset; read a component contract only when using additional APIs. Do not read the whole catalog or search runtime bundles for documentation. Button’s full contract is `components/btn.md`; `components/button.md` redirects to it.
 
 ## Import, create, mount
 
@@ -11,8 +11,8 @@ import 'jsswift';
 import 'jsswift/css/ui.css';
 const _ = window._;
 
-const name = _.signal('Prodotto 01');
-const category = _.signal('Casa');
+const name = _.rod('Prodotto 01');
+const category = _.rod('Casa');
 const nameInput = _.Input({ label: 'Nome prodotto', model: name });
 const categorySelect = _.Select({
   label: 'Categoria', model: category,
@@ -25,12 +25,12 @@ const dialog = _.Dialog({
   closeOnEsc: true, trapFocus: true, autoFocus: true
 });
 const save = _.Button({ color: 'primary', onClick: () => {
-  if (!name[0]().trim()) {
+  if (!name.value.trim()) {
     errors.replaceChildren(_.p('Il nome è obbligatorio.'));
     return;
   }
   errors.replaceChildren();
-  console.log({ name: name[0](), category: category[0]() });
+  console.log({ name: name.value, category: category.value });
   dialog.close();
 }}, 'Salva');
 dialog.update({ actions: [
@@ -49,7 +49,7 @@ const page = _.Page({}, _.Card({ title: 'Prodotti' }, edit, table));
 _.mount('#app', page);
 ```
 
-This demonstrates composition and validation; saving logs the values. Add application persistence and refresh the table when your task requires them. `_.signal` returns `[get, set, dispose]`: read `name[0]()`, write `name[1]('Nuovo nome')`; `model` synchronizes the control. This avoids reading private `_input` or `_select` references. The current controls do not document public `focus/getValue/setValue` methods; do not invent them.
+This demonstrates composition and validation; saving logs the values. Add application persistence and refresh the table when your task requires them. Prefer `_.rod(initial)` for bidirectional field models: read `name.value`, write `name.value = 'Nuovo nome'`; `model` synchronizes the control. Use `_.signal(initial)` when explicit getter/setter functions suit the state, and `_.useForm()` for structured form validation and errors. This avoids reading private `_input` or `_select` references. The current controls do not document public `focus/getValue/setValue` methods; do not invent them.
 
 ## Exact callback arguments
 

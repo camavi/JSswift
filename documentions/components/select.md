@@ -78,3 +78,17 @@ _.Select({
 ```
 
 An empty-string option is a valid selected value. Read `multiple` and `model` contracts when those modes are needed. Verify the rendered control's accessible name.
+
+## Signal model
+
+Pass the full public tuple from `_.signal(initial)` directly as `model`; `[get, set]` is also supported. Choosing an option updates the model synchronously before `onChange` runs. Updating the model updates the displayed option.
+
+```js
+const category = _.signal('');
+const field = _.Select({ model: category, options: [
+  { value: '', label: 'Seleziona' }, { value: 'Casa', label: 'Casa' }
+] });
+const save = _.Button({ onClick: () => console.log(category[0]()) }, 'Salva');
+```
+
+Mount both controls; choose Casa through the menu, then save. The logged model value must be Casa.

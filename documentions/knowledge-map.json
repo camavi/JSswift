@@ -73,7 +73,11 @@
         "_.effect",
         "_.computed",
         "_.untracked",
-        "_.batch"
+        "_.batch",
+        "rod",
+        "_.rod",
+        "bidirezionale",
+        "two-way binding"
       ],
       "paths": [
         "reactivity.md"
@@ -960,5 +964,8 @@
         "data-feedback-overlays"
       ]
     }
-  ]
+  ],
+  "documentAliases": {
+    "components/button.md": "components/btn.md"
+  }
 }

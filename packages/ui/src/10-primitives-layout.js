@@ -226,7 +226,7 @@
   };
 
   function uiIsSignal(v) {
-    return Array.isArray(v) && v.length === 2 && typeof v[0] === "function" && typeof v[1] === "function";
+    return Array.isArray(v) && (v.length === 2 || (v.length === 3 && typeof v[2] === "function")) && typeof v[0] === "function" && typeof v[1] === "function";
   }
 
   function uiIsRod(v) {

@@ -1102,3 +1102,57 @@ test("Dialog fullscreen stays inside the mobile viewport without overscan", {
   assert.equal(result.width, result.viewportWidth, JSON.stringify(result));
   assert.equal(result.height <= result.viewportHeight, true, JSON.stringify(result));
 });
+
+
+test("Select commits user selection to rod and signal models", {
+  skip: !findChrome() ? "Chrome/Chromium is not available" : (!hasDevtoolsWebSocket() ? "Node WebSocket API is not available" : false)
+}, async () => {
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-select-signal-"));
+  const htmlFile = path.join(tmpDir, "index.html");
+  const asset = name => pathToFileURL(path.join(ROOT_DIR, name)).href;
+  await writeFile(htmlFile, `<!doctype html><html><head>
+    <link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}">
+    </head><body><div id="app"></div>
+    <script src="${asset('packages/core/dist/cms.js')}"></script>
+    <script src="${asset('packages/ui/dist/ui.js')}"></script>
+    <script>
+      window.samples = [];
+      for (const mode of ['full', 'pair', 'rod']) {
+        const model = mode === 'rod' ? _.rod('') : _.signal('');
+        const read = () => mode === 'rod' ? model.value : model[0]();
+        const write = value => { if (mode === 'rod') model.value = value; else model[1](value); };
+        const select = _.Select({ label: 'Categoria', model: mode === 'pair' ? model.slice(0, 2) : model,
+          options: [{value:'',label:'Seleziona'}, {value:'Casa',label:'Casa'}, {value:'Ufficio',label:'Ufficio'}] });
+        let saved = null;
+        const save = _.Button({onClick: () => { saved = read(); }}, 'Salva');
+        document.getElementById('app').append(select, save);
+        window.samples.push({read, write, select, save, saved: () => saved});
+      }
+    </script></body></html>`);
+  const result = await runChromeMobileEval(findChrome(), pathToFileURL(htmlFile).href, `
+    (async () => {
+      const wait = () => new Promise(resolve => setTimeout(resolve, 50));
+      const deadline = Date.now() + 4000;
+      while (!window.samples) { if (Date.now() > deadline) throw Error('samples missing'); await wait(); }
+      const results = [];
+      for (const sample of samples) {
+        sample.select.querySelector('.cms-select-control').click();
+        await wait();
+        const option = [...document.querySelectorAll('.cms-select-option')].find(node => node.textContent === 'Casa' && node.getBoundingClientRect().width > 0);
+        if (!option) throw Error('Casa option missing');
+        option.click();
+        sample.save.click();
+        const selected = sample.read();
+        const saved = sample.saved();
+        sample.write('Ufficio');
+        await wait();
+        results.push({selected, saved, display: sample.select.querySelector('.cms-select-value').textContent});
+      }
+      return results;
+    })().catch(error => ({error: String(error.stack || error)}))`);
+  assert.deepEqual(result, [
+    {selected:'Casa', saved:'Casa', display:'Ufficio'},
+    {selected:'Casa', saved:'Casa', display:'Ufficio'},
+    {selected:'Casa', saved:'Casa', display:'Ufficio'}
+  ]);
+});

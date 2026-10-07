@@ -18,7 +18,7 @@ When building an app:
 
 1. Use `_.Component` UI components before raw HTML; use `_` as the single application namespace.
 2. Use the supported subset in documentions/AI.md directly. For additional APIs, read only the relevant component contract and its common-prop reference.
-3. Use `_.signal`, `_.effect`, `_.computed`, `_.untracked`, and `_.batch` for reactivity; use model, slots, router, store, and HTTP according to the focused guide.
+3. Prefer `_.rod()` for bidirectional field models and `_.useForm()` for structured forms. Use `_.signal`, `_.effect`, `_.computed`, `_.untracked`, and `_.batch` for other reactive state as appropriate; use model, slots, router, store, and HTTP according to the focused guide.
 4. Use raw helpers only for small structural gaps.
 
 ## After implementation

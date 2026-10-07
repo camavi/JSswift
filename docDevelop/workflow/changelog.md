@@ -1,6 +1,24 @@
 # Development changelog
 
+## 2026-10-07 — Release JSswift 1.0.47 and knowledge MCP 0.1.3
+
+- Outcome: release includes full signal tuple model support, Button documentation alias and rod-first application guidance.
+- Verification: runtime build; 59 runtime tests, 11 browser tests, 6 knowledge/MCP tests; knowledge map and Skill validation; npm package contents and diff checks.
+- Publication: prepared for authorized npm publication.
+
+## 2026-10-07 — Prefer rod for AI field models
+
+- Outcome: AI quick-start, reactivity guide, Skill and MCP instructions recommend `_.rod()` for field models, with `.value` examples; signal remains supported for explicit getter/setter state.
+- Verification: 6 knowledge/MCP tests pass; browser regression verifies Select user selection, saving and programmatic updates for rod and both supported signal shapes; Skill validation and `git diff --check` pass.
+- Distribution: documentation and generated local artifacts updated; no publication performed.
+
 Record significant completed framework work: date, outcome, affected areas, and verification.
+
+## 2026-10-07 — Select signal binding and Button documentation alias
+
+- Shared signal detection accepts the public [get, set, dispose] tuple while retaining [get, set] compatibility. Reproduced the pre-fix browser failure: full tuple displayed Casa but saved an empty model, whereas the pair worked. After the fix both forms commit Casa synchronously and reflect programmatic Ufficio updates.
+- Added components/button.md as an explicit pointer to canonical btn.md, included in bundled/portable documentation; knowledge validation and refresh preserve canonical component IDs and validate alias paths. Clarified model selection and Button paths in docs.
+- Verification: 59 project tests, 11 browser tests, and 6 knowledge/MCP checks passed; UI/umbrella and portable documentation rebuilt; whitespace checks passed. No MCP added to benchmark, no benchmark artifacts modified, no npm release published.
 
 ## 2026-10-06 — JSswift 1.0.46 and knowledge MCP 0.1.2 release
 

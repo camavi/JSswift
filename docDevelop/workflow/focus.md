@@ -1,6 +1,6 @@
 # Current focus
 
-- Objective: none; JSswift/core/UI 1.0.46 and knowledge MCP 0.1.2 published and verified on npm.
-- Areas: results recorded in workflow/changelog.md and release/release-notes-v1.0.46.md.
-- Next step: none for this focus.
+- Objective: release JSswift 1.0.47 and knowledge MCP 0.1.3.
+- Areas: runtime, documentation, packages and publication.
+- Next step: build, verify package contents, commit and publish.
 - Blockers: none.
