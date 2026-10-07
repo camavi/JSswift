@@ -1,5 +1,17 @@
 # Development changelog
 
+## 2026-10-07 — Release JSswift 1.0.51 and knowledge MCP 0.1.7
+
+- Outcome: selective MCP contract reads and focus CSS/Table guidance distributed.
+- Verification: runtime builds, 6 knowledge/MCP tests, targeted browser focus CSS test, knowledge map/Skill and package contents checks.
+- Publication: prepared for authorized npm publication.
+
+## 2026-10-07 — Focus CSS guidance and selective MCP reads
+
+- Outcome: AI guide provides a correct focus-visible selector; Table contract distinguishes toolbar, row status and external paging. MCP read supports props/events/methods/slots and selected keys with inherited props resolved; full reads remain compatible.
+- Verification: 6 knowledge/MCP tests including selected props, inherited padding and unknown-key rejection; Chrome verifies inactive/disabled elements have no visible outline and focused text control has the documented ring. Map and portable Skill rebuilt; diff check.
+- Limits: no benchmark modification, token-savings claim or rendering optimization without profiling. Local changes only.
+
 ## 2026-10-07 — Release JSswift 1.0.50 and knowledge MCP 0.1.6
 
 - Outcome: Dialog respects onOpen focus; field messages are associated automatically; CRUD and verification guidance updated.

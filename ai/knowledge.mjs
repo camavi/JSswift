@@ -115,10 +115,26 @@ export async function loadKnowledge(root = defaultRoot) {
       }).filter(entry => entry.score > 0).sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
       return ranked.slice(0, limit);
     },
-    async read(id) {
+    async read(id, selection = {}) {
       const entry = entries.get(id);
       if (!entry) throw new Error('Unknown document ID; use jsswift_search to find a documented ID');
-      return { id, path: entry.path, text: await readFile(await safePath(entry.path), 'utf8') };
+      const text = await readFile(await safePath(entry.path), 'utf8');
+      if (selection.keys && !selection.section) throw new Error('keys requires a section');
+      if (!selection.section) return { id, path: entry.path, text };
+      if (entry.kind !== 'component' || !['props', 'events', 'methods', 'slots'].includes(selection.section)) throw new Error('Select a component contract section');
+      const metadata = JSON.parse(text.match(/```json\s*([\s\S]*?)```/)[1]);
+      let values = { ...(metadata[selection.section] ?? {}) };
+      if (selection.section === 'props' && metadata.commonProps) {
+        const sharedText = await readFile(await safePath(metadata.commonProps.path), 'utf8');
+        const shared = JSON.parse(sharedText.match(/```json\s*([\s\S]*?)```/)[1]);
+        values = { ...Object.fromEntries(metadata.commonProps.keys.map(key => [key, shared.props[key]])), ...values };
+      }
+      if (selection.keys) {
+        if (!Array.isArray(selection.keys) || !selection.keys.length || selection.keys.length > 30 || selection.keys.some(key => typeof key !== 'string' || !Object.hasOwn(values, key))) throw new Error('Unknown or invalid contract keys');
+        values = Object.fromEntries(selection.keys.map(key => [key, values[key]]));
+      }
+      return { id, path: entry.path, section: selection.section, text: JSON.stringify({signature:metadata.signature, [selection.section]:values}, null, 2) };
+
     }
   };
 }

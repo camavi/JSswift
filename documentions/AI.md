@@ -99,3 +99,16 @@ For a complete application flow, read [the compact CRUD example](examples/crud.m
 Check whether browser tooling and server permissions are available before launching checks. Run Git commands only in a Git worktree; for example test `git rev-parse --is-inside-work-tree` before requesting a diff. Keep build, pure-logic tests and server startup results separate. An HTTP response confirms a reachable server, not that your startup command succeeded or that browser interactions work. Report environment failures separately from application failures. Test the implemented functions rather than rebuilding equivalent data inside an assertion.
 
 Dialog autofocus preserves focus assigned inside `onOpen`; verify initial focus separately from validation focus and return focus. Field messages are associated with Input/Select through `aria-describedby` automatically.
+
+## Focus CSS and targeted reads
+
+Apply focus indicators to every selector through `:is`, rather than placing the pseudo-class on only the final selector in a comma-separated list:
+
+```css
+:is(button, a, input, select, [tabindex]):focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 3px;
+}
+```
+
+When MCP is configured, request missing component details with `jsswift_read({id:"component:table", section:"props", keys:["pagination","hideFooter"]})`. `section` supports props, events, methods and slots; omit it for the full document. Inherited props are resolved automatically; unknown keys return an error. This reduces returned text, not the API knowledge needed by the task.

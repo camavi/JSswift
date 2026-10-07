@@ -68,3 +68,7 @@ npm run test:knowledge
 `knowledge:check` verifies document references, component coverage, names, and metadata descriptions. `knowledge:refresh` rebuilds component entries from their Markdown metadata, preserving curated keywords and topic assignments. Maintain topic paths and keywords in `knowledge-map.json`; review routing when adding a new component, then regenerate the portable Skill. Restart the MCP after updating documentation so its map is reloaded.
 
 For framework maintenance use [docDevelop/README.md](../docDevelop/README.md).
+
+## Targeted component reads
+
+After search, use `jsswift_read` with `id`, optional `section` (props/events/methods/slots), and optional `keys`. Keys require a section; only documented keys are accepted. Props inherited from common-props are resolved. Existing full-document reads and resources remain available. This interface must be configured in the client; it does not change benchmarks without MCP access.

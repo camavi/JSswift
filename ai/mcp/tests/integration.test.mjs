@@ -19,6 +19,12 @@ test('stdio client discovers, searches and reads application contracts', { timeo
     assert.equal(search.structuredContent.results[0].id, 'component:input');
     const doc = await client.callTool({ name: 'jsswift_read', arguments: { id: 'component:input' } });
     assert.match(doc.structuredContent.text, /"signature": "_.Input\(props\)"/);
+    const focused = await client.callTool({name:'jsswift_read', arguments:{id:'component:input',section:'props',keys:['min','padding']}});
+    const props = JSON.parse(focused.structuredContent.text).props;
+    assert.deepEqual(Object.keys(props), ['min','padding']);
+    assert.ok(focused.structuredContent.text.length < doc.structuredContent.text.length);
+    const unknown = await client.callTool({name:'jsswift_read',arguments:{id:'component:input',section:'props',keys:['invented']}});
+    assert.equal(unknown.isError,true);
     const invalid = await client.callTool({ name: 'jsswift_read', arguments: { id: '../../../package.json' } });
     assert.equal(invalid.isError, true);
     const invalidQuery = await client.callTool({ name: 'jsswift_search', arguments: { query: 'form', limit: 1000 } });

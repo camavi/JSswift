@@ -22,12 +22,12 @@ server.registerTool('jsswift_search', {
 
 server.registerTool('jsswift_read', {
   title: 'Read a JSswift guide or exact component contract',
-  description: 'Read one complete indexed application document using its ID from jsswift_search or the resource list. Does not accept filesystem paths.',
-  inputSchema: z.object({ id: z.string().min(1).max(200) }),
+  description: 'Read an indexed document, or only a component section and named keys. Prefer section/keys for missing APIs; inherited props are resolved. Does not accept filesystem paths.',
+  inputSchema: z.object({ id: z.string().min(1).max(200), section: z.enum(['props','events','methods','slots']).optional(), keys: z.array(z.string().min(1).max(100)).min(1).max(30).optional() }),
   annotations
-}, async ({ id }) => {
-  try { return jsonResult({ project: context.project, version: context.version, ...await knowledge.read(id) }); }
-  catch { return { isError: true, content: [{ type: 'text', text: 'Document unavailable or unknown ID. Use jsswift_search to select an indexed document.' }] }; }
+}, async ({ id, section, keys }) => {
+  try { return jsonResult({ project: context.project, version: context.version, ...await knowledge.read(id, {section, keys}) }); }
+  catch { return { isError: true, content: [{ type: 'text', text: 'Document, section or keys unavailable. Use jsswift_search to select a document; omit section/keys for the full contract.' }] }; }
 });
 
 server.registerResource('knowledge-map', 'jsswift://knowledge/map', {

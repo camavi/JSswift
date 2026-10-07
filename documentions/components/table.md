@@ -91,3 +91,9 @@ _.Table({
 ```
 
 Use the documented visibility and column style props before hiding or restyling internal table classes. With external pagination, pass the current page's rows and disable internal pagination.
+
+## External filters and pagination
+
+For application-owned filtering/paging, pass the already filtered page as `rows`, set `pagination: false` and `hideFooter: true`. `minTableWidth` keeps columns readable in a horizontally scrollable container. Provide counters and pager buttons outside Table.
+
+`toolbarStart`, `toolbar` and `toolbarEnd` add content to the optional toolbar. The built-in row-count status is a separate region and remains visible even with `hideFooter: true`; it counts the rows supplied to Table, not the full application inventory. The current contract has no `hideStatus` prop. Do not invent one or confuse `hideHeader` (column headings) with the toolbar/status. Table has its own Card wrapper; nesting it in another Card may produce an additional frame. Customize using supported props and theme values first.

@@ -144,6 +144,7 @@ const runChromeMobileEval = async (chromePath, pageUrl, evaluateExpression, opti
       screenWidth: options.width || 390,
       screenHeight: options.height || 844,
     });
+    if (options.focusEmulation) await send("Emulation.setFocusEmulationEnabled", {enabled:true});
     await send("Page.navigate", { url: pageUrl });
     await sleep(options.navigateDelayMs || 1200);
 
@@ -1280,4 +1281,22 @@ test("Dialog default autofocus and explicit opt-out remain supported", {
   return {defaultFocused,optedOut};
  })()`);
  assert.deepEqual(result,{defaultFocused:true,optedOut:true});
+});
+
+
+test("Documented focus CSS outlines only the focus-visible control", {
+ skip: !findChrome() ? "Chrome unavailable" : (!hasDevtoolsWebSocket() ? "WebSocket unavailable" : false)
+}, async () => {
+ const tmp = await mkdtemp(path.join(os.tmpdir(),'jsswift-focus-css-'));
+ const html = path.join(tmp,'index.html');
+ const guide = await readFile(path.join(ROOT_DIR,'documentions/AI.md'),'utf8');
+ const css = guide.match(/```css\n([\s\S]*?)\n```/)[1];
+ await writeFile(html, `<!doctype html><style>${css}</style><input id="first" aria-label="Nome"><button id="second">Secondo</button><button id="disabled" disabled>Disabilitato</button><a id="link" href="#">Link</a>`);
+ const result = await runChromeMobileEval(findChrome(),pathToFileURL(html).href, `(() => {
+  const width = id => { const s = getComputedStyle(document.getElementById(id)); return s.outlineStyle === 'none' ? '0px' : s.outlineWidth; };
+  const before = ['first','second','disabled','link'].map(width);
+  document.getElementById('first').focus();
+  return {before,visible:document.getElementById('first').matches(':focus-visible'), after:['first','second','disabled','link'].map(width)};
+ })()`, {focusEmulation:true});
+ assert.deepEqual(result,{before:['0px','0px','0px','0px'],visible:true,after:['3px','0px','0px','0px']});
 });
