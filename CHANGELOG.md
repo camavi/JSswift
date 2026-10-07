@@ -9,6 +9,12 @@ The format is kept intentionally simple:
 - Fixed
 - Docs
 
+## [1.0.52] - 2026-10-07
+
+### Added
+
+- Table `hideStatus` hides the status region for application-owned summaries without changing default behavior.
+
 ## [1.0.24] - 2026-05-05
 
 ### Changed

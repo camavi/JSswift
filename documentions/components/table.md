@@ -37,6 +37,7 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
     "minTableWidth": {"type": "string|number", "description": "Component configuration for \"minTableWidth\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
     "stickyHeader": {"type": "boolean", "description": "Keeps the header region sticky during scroll.", "default": null, "values": null, "category": "general"},
     "hideHeader": {"type": "boolean", "description": "Component configuration for \"hideHeader\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
+    "hideStatus": {"type": "boolean", "description": "Hides the entire status row, including row count, filter/sort indicators and custom status content. Independent of toolbar, column headings and footer. Evaluated at creation.", "default": false, "values": null, "category": "layout"},
     "hideFooter": {"type": "boolean", "description": "Component configuration for \"hideFooter\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
     "dense": {"type": "boolean", "description": "Uses compact spacing and sizing.", "default": false, "values": null, "category": "layout"},
     "striped": {"type": "boolean", "description": "Applies striped row styling.", "default": null, "values": null, "category": "general"},
@@ -96,4 +97,22 @@ Use the documented visibility and column style props before hiding or restyling 
 
 For application-owned filtering/paging, pass the already filtered page as `rows`, set `pagination: false` and `hideFooter: true`. `minTableWidth` keeps columns readable in a horizontally scrollable container. Provide counters and pager buttons outside Table.
 
-`toolbarStart`, `toolbar` and `toolbarEnd` add content to the optional toolbar. The built-in row-count status is a separate region and remains visible even with `hideFooter: true`; it counts the rows supplied to Table, not the full application inventory. The current contract has no `hideStatus` prop. Do not invent one or confuse `hideHeader` (column headings) with the toolbar/status. Table has its own Card wrapper; nesting it in another Card may produce an additional frame. Customize using supported props and theme values first.
+`toolbarStart`, `toolbar` and `toolbarEnd` add content to the optional toolbar. The built-in row-count status is a separate region and remains visible even with `hideFooter: true`; it counts the rows supplied to Table, not the full application inventory. Use `hideStatus: true` to hide the entire status region, including custom status content. Do not confuse `hideHeader` (column headings) with the toolbar/status. Table has its own Card wrapper; nesting it in another Card may produce an additional frame. Customize using supported props and theme values first.
+
+## Compose without duplicating the frame
+
+Table already returns a Card. For a catalogue, mount it in a structural `_.div`, rather than wrapping it in another Card. Use `radius`, `shadow`, `padding` and `dense` before overriding internal classes. Keep toolbar content inside Table when it belongs to the table; keep application filters outside when they affect other parts of the page.
+
+```js
+const table = _.Table({
+  rows: products, rowKey: 'id',
+  columns: [{key: 'name', label: 'Nome'}],
+  toolbarStart: _.strong('Prodotti'),
+  minTableWidth: 600, shadow: 'none', radius: '12px'
+});
+_.mount('#app', _.div({style: {minWidth: 0}}, table));
+```
+
+For external paging, the status count describes the supplied page (for example, “5 righe”); an external total describes all filtered results. Choose whether both pieces of information are useful. `status` adds content; it does not replace or hide the built-in count. `hideFooter` only hides the footer. Do not use `hideHeader` to remove the status row. Use `hideStatus: true` to hide that row when the application supplies its own summary. It does not hide the toolbar, column headings or footer.
+
+A grey surface or gradient is not a focus indicator. Inspect the Card/theme surface separately from `:focus-visible`; do not remove keyboard indicators to change a background. Custom table-cell styling is application CSS, and should remain scoped to an application class.

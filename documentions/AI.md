@@ -10,6 +10,17 @@ If a required API is absent here, consult `knowledge-map.json` to find its exact
 
 The installed package exposes this same guide as `AI.md` at its root and through `jsswift/AI.md`. `package.json` includes `jsswiftDocumentation` discovery paths. Do not inspect runtime bundles to discover documented APIs.
 
+## Choose one starting route
+
+| Task | First read | Stop condition |
+| --- | --- | --- |
+| Small page with the six components below | This guide | Implement the supported subset without opening component contracts. |
+| Product CRUD with validation, persistence and focus | [CRUD example](examples/crud.md) | Reuse the example; do not also concatenate Input, Select, Dialog and Table contracts. |
+| One missing prop or callback | Map → exact document, or selective MCP read | Read only the needed section; do not search the runtime bundle. |
+| Custom appearance | Supported props below, then one relevant contract | Keep component styles; add CSS for page layout and task-specific visuals. |
+
+The map locates a contract; it does not replace it. Avoid reading all of `ui/common-props.md` just to confirm examples already covered here. Structural helpers used below (`div`, `p`, `span`, `strong`) do not require a separate HTML/SVG guide. Read that guide only for additional helper behavior.
+
 ## Import, create, mount
 
 Provide `<div id="app"></div>` in HTML and a module entrypoint. With Vite:
@@ -51,7 +62,7 @@ const table = _.Table({
     { key: 'name', label: 'Nome', render: (row, { value }) => _.strong(value) },
     { key: 'price', label: 'Prezzo', format: value => `${value} EUR` }
   ],
-  pagination: false, hideFooter: true, minTableWidth: 700
+  pagination: false, hideFooter: true, hideStatus: true, minTableWidth: 700
 });
 const page = _.Page({}, _.Card({ title: 'Prodotti' }, edit, table));
 _.mount('#app', page);
@@ -76,7 +87,7 @@ Dialog returns an API object, not a node to mount: `open(overrides?)`, `close()`
 
 ## Existing CSS and optional assets
 
-The UI stylesheet includes component styles, theme variables, and responsive rules. Start with native components. Prefer documented `color`, `dense`, `padding`, `radius`, `shadow`, and breakpoint props to overrides of internal `.cms-*` classes. Read [common props](ui/common-props.md) once when styling; component-specific definitions take precedence. Use custom CSS for remaining page requirements.
+The UI stylesheet includes component styles, theme variables, and responsive rules. Start with native components. Prefer documented `color`, `dense`, `padding`, `radius`, `shadow`, and breakpoint props to overrides of internal `.cms-*` classes. Read [common props](ui/common-props.md) only for an additional inherited prop; component-specific definitions take precedence. Use custom CSS for remaining page requirements.
 
 System fonts are the default. Import `jsswift/css/fonts-nunito.css`, `jsswift/css/fonts-material.css`, or `jsswift/tabler` only when required; Material Symbols loads a remote Google font. See [setup](getting-started.md).
 
@@ -98,7 +109,7 @@ For a complete application flow, read [the compact CRUD example](examples/crud.m
 
 Check whether browser tooling and server permissions are available before launching checks. Run Git commands only in a Git worktree; for example test `git rev-parse --is-inside-work-tree` before requesting a diff. Keep build, pure-logic tests and server startup results separate. An HTTP response confirms a reachable server, not that your startup command succeeded or that browser interactions work. Report environment failures separately from application failures. Test the implemented functions rather than rebuilding equivalent data inside an assertion.
 
-Dialog autofocus preserves focus assigned inside `onOpen`; verify initial focus separately from validation focus and return focus. Field messages are associated with Input/Select through `aria-describedby` automatically.
+Dialog autofocus preserves focus assigned inside `onOpen`; verify initial focus after the deferred autofocus has run, separately from validation focus and return focus. Record each check separately: initial field, Tab/Shift+Tab containment, Escape, and return to the current trigger. A focus-trap result does not prove initial focus. Field messages are associated with Input/Select through `aria-describedby` automatically.
 
 ## Focus CSS and targeted reads
 

@@ -50,7 +50,7 @@ const filter = _.Select({label:'Filtro categoria',options:[{value:'',label:'Tutt
 function render() {
  const found = rows.filter(r => r.name.toLowerCase().includes(query.trim().toLowerCase()) && (!category || r.category === category));
  const pages = Math.max(1,Math.ceil(found.length/5)); page = Math.min(page,pages);
- host.replaceChildren(_.Table({rows:found.slice((page-1)*5,page*5),rowKey:'id',pagination:false,hideFooter:true,minTableWidth:600,
+ host.replaceChildren(_.Table({rows:found.slice((page-1)*5,page*5),rowKey:'id',pagination:false,hideFooter:true,hideStatus:true,minTableWidth:600,
  columns:[{key:'name',label:'Nome'},{key:'category',label:'Categoria'},{key:'price',label:'Prezzo',format:value => priceFormat.format(value)},{key:'quantity',label:'Quantità'},
  {key:'actions',label:'Azioni',render:r => _.Button({id:`edit-${r.id}`,onClick:() => edit(r)},'Modifica')}] }));
  pager.replaceChildren(_.span(`${found.length} prodotti — pagina ${page}/${pages}`),
@@ -63,3 +63,16 @@ _.mount('#app', _.div({style:{minWidth:0}}, add, search, filter, host, pager, no
 Application validation remains explicit. `error` marks the control invalid; rendered field messages are associated automatically. Use `ariaDescribedBy` for additional application-owned descriptions. This example does not provide delete, server synchronization or a complete visual design.
 
 Performance: the currency formatter is reused. This small example rebuilds its table for clarity; profile larger datasets before changing rendering strategy. `onOpen` focuses the name field and automatic focus respects that choice.
+
+## Verification checklist
+
+Build success alone does not verify this flow. In a browser, record these results separately:
+
+- Open the editor and, after deferred autofocus, check that the name control is active.
+- Change the category, save, reopen, and reload: check the displayed value and persisted category.
+- Reject blank fields, negative price and fractional quantity; check `aria-invalid` and the field error referenced by `aria-describedby`.
+- Use Tab and Shift+Tab at both dialog boundaries, Escape to close, and check focus returns to the current trigger after rendering.
+- Add and edit, reload, then search, filter and paginate; check persistence and page reset.
+- At a narrow viewport, check page overflow and table scrolling. Measure contrast separately; screenshots alone do not establish contrast compliance.
+
+The example uses public field APIs and rod values. If a browser is unavailable, report these interactions as unverified rather than deriving them from pure-logic assertions.

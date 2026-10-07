@@ -1300,3 +1300,23 @@ test("Documented focus CSS outlines only the focus-visible control", {
  })()`, {focusEmulation:true});
  assert.deepEqual(result,{before:['0px','0px','0px','0px'],visible:true,after:['3px','0px','0px','0px']});
 });
+
+
+test("Table hideStatus omits only the status region and preserves default counts", {
+ skip: !findChrome() ? "Chrome unavailable" : (!hasDevtoolsWebSocket() ? "WebSocket unavailable" : false)
+}, async () => {
+ const tmp = await mkdtemp(path.join(os.tmpdir(), 'jsswift-table-status-'));
+ const html = path.join(tmp, 'index.html');
+ const asset = name => pathToFileURL(path.join(ROOT_DIR,name)).href;
+ await writeFile(html, `<!doctype html><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script>`);
+ const result = await runChromeMobileEval(findChrome(),pathToFileURL(html).href, `(() => {
+ const base = {rows:[{name:'Casa'}],columns:[{key:'name',label:'Nome'}],toolbarStart:'Toolbar',status:'Custom status'};
+ const normal = _.Table(base), hidden = _.Table({...base,hideStatus:true});
+ document.body.append(normal,hidden);
+ return {normal:!!normal.querySelector('.cms-table-status'),custom:normal.textContent.includes('Custom status'),
+ hidden:!!hidden.querySelector('.cms-table-status'),hiddenCustom:hidden.textContent.includes('Custom status'),
+ toolbar:!!hidden.querySelector('.cms-table-toolbar'),head:!!hidden.querySelector('thead'),rows:hidden.querySelectorAll('tbody tr').length,
+ leaked:hidden.hasAttribute('hideStatus')};
+ })()`);
+ assert.deepEqual(result,{normal:true,custom:true,hidden:false,hiddenCustom:false,toolbar:true,head:true,rows:1,leaked:false});
+});

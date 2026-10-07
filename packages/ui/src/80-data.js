@@ -60,7 +60,7 @@
       "actions", "actionsLabel", "emptyText", "loadingText", "onRowClick", "onRowDblClick",
       "tableClass", "tableStyle", "cardClass", "dense", "striped", "hover", "stickyHeader",
       "toolbar", "toolbarStart", "toolbarEnd", "caption", "footer", "status", "rowClass", "rowAttrs",
-      "minTableWidth", "hideHeader", "hideFooter", "slots", "body"
+      "minTableWidth", "hideHeader", "hideFooter", "hideStatus", "slots", "body"
     ]);
     wrapProps.class = uiClass(["cms-table-card", props.class, props.cardClass]);
     if (props.dense != null) wrapProps.dense = props.dense;
@@ -123,7 +123,7 @@
       statusSort,
       ...statusExtraNodes
     );
-    shell.appendChild(status);
+    if (props.hideStatus !== true) shell.appendChild(status);
 
     const captionNodes = renderSlotToArray(slots, "caption", {}, props.caption);
     if (captionNodes.length) shell.appendChild(_.div({ class: "cms-table-caption" }, ...captionNodes));
