@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const BASE_ONLY = process.argv.includes("--base-only");
 const COL_COUNT = 24;
 const PRIMARY_MEDIA_BREAKPOINTS = [
   { size: 768, key: "tablet", primary: true },
@@ -17,7 +18,9 @@ const LEGACY_MEDIA_BREAKPOINTS = [
 ];
 const MEDIA_BREAKPOINTS = [...PRIMARY_MEDIA_BREAKPOINTS, ...LEGACY_MEDIA_BREAKPOINTS]
   .sort((a, b) => a.size - b.size);
-const OUT_FILES = [
+const OUT_FILES = BASE_ONLY ? [
+  path.join(ROOT_DIR, "packages/ui/dist/css/responsive-base.css"),
+] : [
   path.join(ROOT_DIR, "packages/ui/dist/css/responsive.css"),
   path.join(ROOT_DIR, "packages/jsswift/dist/css/responsive.css"),
 ];
@@ -567,7 +570,7 @@ function addResponsiveStyleLines(lines) {
   }
   lines.push("");
 
-  for (const breakpoint of PRIMARY_MEDIA_BREAKPOINTS) {
+  for (const breakpoint of BASE_ONLY ? [] : PRIMARY_MEDIA_BREAKPOINTS) {
     lines.push(`@media (min-width: ${breakpoint.size}px) {`);
     for (const [prop, key] of RESPONSIVE_STYLE_PROPS) {
       lines.push(`  ${selectorFor(key, breakpoint.key)} { ${prop}: var(--cms-rsp-${breakpoint.key}-${key}); }`);
@@ -617,7 +620,7 @@ function main() {
   addGridColumnLines(lines, CLASS_PREFIX, "", COL_COUNT);
 
   // media queries
-  for (const m of MEDIA_BREAKPOINTS) {
+  for (const m of BASE_ONLY ? [] : MEDIA_BREAKPOINTS) {
     lines.push(`@media (min-width: ${m.size}px) {`);
     const mediaPrefix = `${CLASS_PREFIX}${m.key}-`;
     addClassLines(lines, mediaPrefix, "  ", classTemplates);

@@ -9,6 +9,18 @@ The format is kept intentionally simple:
 - Fixed
 - Docs
 
+## [1.0.54] - 2026-10-07
+
+### Added
+
+- Optional ui-light.css and ui-light.min.css entries retain base tokens, component styles and unprefixed utilities; import responsive.css afterward for breakpoint props.
+
+### Docs
+
+- AI quick start defaults to light CSS and explains native color/dense/outline props, Kpi and Table composition, page-slice sorting limits and transparent field styling.
+- Compact CRUD uses one empty state and disables sorting of paginated slices.
+- Knowledge MCP 0.1.10 accompanies the updated framework documentation.
+
 ## [1.0.53] - 2026-10-07
 
 ### Changed

@@ -371,3 +371,7 @@ Input/InputRaw cancel pending autofill probes and focused polling during JSswift
 Table registers its render effect on the Card root. Public field control attributes and Select field refresh effects are registered on their field roots and stop during lifecycle cleanup.
 
 Select/Search own scopes stop component effects and model/filterable rod callbacks during lifecycle disposal. Search cancels debounce, aborts fetch and invalidates pending local/remote results; Select ignores late option results. Caller-owned rods remain usable. These guarantees require JSswift lifecycle cleanup, not arbitrary external DOM removal.
+
+## Optional responsive CSS
+
+`ui-light.css` includes base.css, animation.css, ui-components.css and generated unprefixed responsive utilities. The generator `--base-only` flag emits responsive-base.css; never hand-edit it. Full ui.css retains its existing contents and order. Add responsive.css after ui-light.css for tablet/pc/legacy breakpoint classes and arbitrary breakpoint props. Keep base utility rules because layout, spacing and shape props use them without explicit device configuration. This optimization changes CSS only; all JS props and component-owned mobile rules remain.

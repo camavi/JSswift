@@ -1467,3 +1467,49 @@ test("Select/Search signal model effects stop after lifecycle disposal", {
  })()`);
  assert.deepEqual(result,{live:true,readsStopped:true,signalAlive:true});
 });
+
+
+test("Catalogue fields preserve borders, labels and focus inside rounded surfaces", {skip: !findChrome()}, async () => {
+ const tmp=await mkdtemp(path.join(os.tmpdir(),'jsswift-border-'));
+ const html=path.join(tmp,'index.html');
+ const asset=name=>pathToFileURL(path.join(ROOT_DIR,name)).href;
+ const guide=await readFile(path.join(ROOT_DIR,'documentions/AI.md'),'utf8');
+ const css=guide.match(/```css\n(\.catalogue-filters[\s\S]*?)\n```/)[1];
+ await writeFile(html, `<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"><style>${css}</style><div id="app"></div><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><script>window.error=_.rod('');window.field=_.Input({label:'Cerca',error});app.append(_.Card({radius:12},_.div({class:'catalogue-filters'},field)),_.Kpi({title:'Disponibili',value:9,note:'In magazzino'}))</script>`);
+ for (const width of [390,1440]) {
+ const result=await runChromeMobileEval(findChrome(),pathToFileURL(html).href, `(() => {
+ const input=document.querySelector('input'),control=input.closest('.cms-control');
+ const r=input.getBoundingClientRect(),c=control.getBoundingClientRect();
+ const before={background:getComputedStyle(input).backgroundColor,height:r.height,inside:r.top>=c.top+1&&r.bottom<=c.bottom-1,radius:parseFloat(getComputedStyle(control).borderRadius)};
+ field.focus();error.value='Errore ricerca';
+ return {before,focused:document.activeElement===input,invalid:input.getAttribute('aria-invalid'),message:document.getElementById(input.getAttribute('aria-describedby'))?.textContent,label:input.getAttribute('aria-label'),overflow:document.documentElement.scrollWidth>innerWidth};
+ })()`, {width,focusEmulation:true});
+ assert.deepEqual(result,{before:{background:'rgba(0, 0, 0, 0)',height:40,inside:true,radius:12},focused:true,invalid:'true',message:'Errore ricerca',label:'Cerca',overflow:false});
+ }
+});
+
+
+test("Light CSS preserves base props and optional responsive CSS matches the full bundle", {skip:!findChrome()}, async () => {
+ const tmp=await mkdtemp(path.join(os.tmpdir(),'jsswift-light-css-'));
+ const asset=name=>pathToFileURL(path.join(ROOT_DIR,name)).href;
+ const results={};
+ for(const mode of ['full','light','addon']) {
+  const html=path.join(tmp,mode+'.html');
+  const styles=mode==='full'?['ui.css']:mode==='light'?['ui-light.css']:['ui-light.css','responsive.css'];
+  await writeFile(html, `<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1">${styles.map(name=>`<link rel="stylesheet" href="${asset('packages/ui/dist/css/'+name)}">`).join('')}<div id="app"></div><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><script>
+  app.append(_.Grid({id:'grid',cols:2,gap:'md',pc:{cols:4}},...Array.from({length:4},()=>_.div('Item'))),_.Button({id:'button',color:'primary',outline:true,dense:true},'Action'),_.Row({id:'row',gap:'md'},_.Input({label:'Nome'}),_.Select({label:'Categoria',options:[{value:'Casa',label:'Casa'}]})));
+  </script>`);
+  results[mode]={};
+  for (const width of [390,1440]) {
+   results[mode][width]=await runChromeMobileEval(findChrome(),pathToFileURL(html).href, `(() => {
+    const style=id=>getComputedStyle(document.getElementById(id));const g=style('grid'),b=style('button'),r=style('row');
+    return {columns:g.gridTemplateColumns.split(' ').length,gridDisplay:g.display,gridGap:g.gap,rowDisplay:r.display,rowGap:r.gap,buttonColor:b.color,buttonBackground:b.backgroundColor,buttonBorder:b.borderColor,buttonPadding:b.padding,inputHeight:getComputedStyle(document.querySelector('input')).minHeight,overflow:document.documentElement.scrollWidth>innerWidth};
+   })()`,{width});
+  }
+ }
+ assert.deepEqual(results.addon,results.full);
+ assert.deepEqual(results.light[390],results.full[390]);
+ assert.equal(results.light[1440].columns,2);assert.equal(results.full[1440].columns,4);
+ assert.equal(results.light[390].rowDisplay,'flex');assert.equal(results.light[390].gridDisplay,'grid');
+ assert.ok(parseFloat(results.light[390].gridGap)>0);
+});

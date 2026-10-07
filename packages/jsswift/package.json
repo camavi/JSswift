@@ -1,6 +1,6 @@
 {
   "name": "jsswift",
-  "version": "1.0.53",
+  "version": "1.0.54",
   "description": "Umbrella package for JSswift core + UI",
   "license": "MIT",
   "repository": {
@@ -23,6 +23,8 @@
     "./img/svg/tabler-icons-sprite.svg": "./dist/img/svg/tabler-icons-sprite.svg",
     "./css/base.css": "./dist/css/base.css",
     "./css/ui.css": "./dist/css/ui.css",
+    "./css/ui-light.css": "./dist/css/ui-light.css",
+    "./css/ui-light.min.css": "./dist/css/ui-light.min.css",
     "./css/min-ui.css": "./dist/css/min-ui.css",
     "./css/ui.min.css": "./dist/css/ui.min.css",
     "./css/ui-components.css": "./dist/css/ui-components.css",

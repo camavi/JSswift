@@ -45,3 +45,17 @@ import 'jsswift/tabler';
 ```
 
 The same entries exist under `@jsswift/ui`; load the core and UI runtime first. Tabler can also be configured manually with `_.config.iconSpriteUrl` or the Icon `spriteUrl` prop. Inline SVG nodes and the built-in chevron remain available without the catalog. Import only the optional assets actually needed. The npm package still ships these assets; opting out reduces application build assets, not installation size. For CDN usage, load the runtime first, then import the optional `dist/tabler.js` module and/or link the optional CSS after `ui.css`.
+
+
+## Optional breakpoint utilities
+
+The complete `ui.css` entry remains compatible. A page that uses defaults or its own CSS media queries can choose:
+
+```js
+import 'jsswift';
+import 'jsswift/css/ui-light.css';
+// Add only when using tablet/pc/desktop props or breakpoint utility classes:
+import 'jsswift/css/responsive.css';
+```
+
+The light entry includes base.css, animation.css, component styles and generated unprefixed utilities. It preserves color, dense, outline, tokens, base layout and component-specific mobile styles. Breakpoint props remain in JavaScript; their generated CSS requires the responsive addon. Load the addon after the light entry. Use either full CSS or light plus optional addon, not both full and light. Both new light exports also exist under `@jsswift/ui`. This changes application CSS size, not JavaScript or npm installation size.

@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 
 const ROOT = process.cwd();
 const SOURCE_DIR = path.join(ROOT, "packages", "ui", "src", "css");
@@ -45,9 +46,19 @@ const bundle = BUNDLE_FILES.map((fileName) => {
   return `/* >>> ${fileName} */\n${content}\n`;
 }).join("\n");
 
+// Base layout and token props use unprefixed responsive utilities even without
+// breakpoint configuration. Generate them from the same canonical templates.
+execFileSync(process.execPath, [path.join(ROOT, "cms-dev/make-responsive-css.mjs"), "--base-only"], { stdio: "inherit" });
+const responsiveBase = fs.readFileSync(path.join(DIST_DIR, "responsive-base.css"), "utf8");
+const lightBundle = BUNDLE_FILES.filter(name => name !== "responsive.css").map(name => {
+  const content = fs.readFileSync(path.join(CSS_SOURCE_DIR, name), "utf8").replace(/\r\n/g, "\n").trim();
+  return `/* >>> ${name} */\n${content}\n`;
+}).join("\n") + "\n" + responsiveBase;
 const minifiedBundle = minifyCss(bundle);
 
 const outputs = [
+  { fileName: "ui-light.css", content: lightBundle },
+  { fileName: "ui-light.min.css", content: minifyCss(lightBundle) },
   { fileName: "ui.css", content: bundle },
   { fileName: "min-ui.css", content: minifiedBundle },
   { fileName: "ui.min.css", content: minifiedBundle },
@@ -60,6 +71,7 @@ for (const output of outputs) {
 
 const allowedOutputFiles = new Set([
   ...COPY_FILES,
+  "responsive-base.css",
   ...outputs.map((output) => output.fileName),
 ]);
 cleanupExtraCss(DIST_DIR, allowedOutputFiles);
