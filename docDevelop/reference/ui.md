@@ -351,3 +351,7 @@ import 'jsswift/tabler';
 ```
 
 The same entries exist under `@jsswift/ui`; load the core and UI runtime first. Tabler can also be configured manually with `_.config.iconSpriteUrl` or the Icon `spriteUrl` prop. Inline SVG nodes and the built-in chevron remain available without the catalog. Import only the optional assets actually needed. The npm package still ships these assets; opting out reduces application build assets, not installation size. For CDN usage, load the runtime first, then import the optional `dist/tabler.js` module and/or link the optional CSS after `ui.css`.
+
+## Public Input and Select controls
+
+Returned fields expose focus(options?) for their interactive control; Select focus does not open its menu. Both accept ariaLabel (defaulting to a string label), ariaLabelledBy, ariaDescribedBy, ariaInvalid and required. Error marks aria-invalid unless explicitly overridden. Input forwards min, max, step, pattern, minLength and maxLength to its native input. Model values remain accessible through rod.value; there is no separate getValue/setValue API.

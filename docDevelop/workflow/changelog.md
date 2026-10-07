@@ -1,5 +1,23 @@
 # Development changelog
 
+## 2026-10-07 — Release JSswift 1.0.49 and knowledge MCP 0.1.5
+
+- Outcome: public field focus/accessibility/constraints and verified CRUD example included in application documentation.
+- Verification: runtime build, 59 runtime tests, 13 browser tests, 6 knowledge/MCP tests, map validation, portable Skill generation and package contents checks. CRUD Escape assertion waits for completed focus restoration.
+- Publication: prepared for authorized npm publication.
+
+## 2026-10-07 — Verified compact CRUD example
+
+- Outcome: application guide includes an optional CRUD example using public field APIs, rod models, validation, storage, search, category filtering and paging. Fresh editor fields are created for each opening because closing overlays cleans mounted content.
+- Verification: Chrome regression covers add, edit, invalid fields/numbers, Select-to-rod binding, search/filter/paging, focus restoration, dispatched Tab/Escape handlers, mobile overflow and persistence through a real page reload. Six knowledge/MCP tests pass; map and portable Skill rebuilt.
+- Limits: keyboard events are dispatched by the browser test; no screen-reader, contrast or storage-failure verification. No commit or publication.
+
+## 2026-10-07 — Public Input and Select focus and attributes
+
+- Outcome: fields expose focus(options?), control-level accessible names, descriptions, required and reactive invalid state. Input forwards native numeric/text constraints, including zero. Existing model APIs are preserved.
+- Verification: UI/umbrella builds, 59 runtime tests, 6 knowledge/MCP tests and 12 browser tests including real control focus, rod error updates and native constraints; map refresh and portable Skill build.
+- Distribution: local changes only; no commit or publication. Full CRUD example remains a separate follow-up.
+
 ## 2026-10-07 — Release JSswift 1.0.48 and knowledge MCP 0.1.4
 
 - Outcome: npm root guide and README, manifest discovery paths and AI-first knowledge map published together.

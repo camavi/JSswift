@@ -205,6 +205,21 @@
       "paths": [
         "ai-development.md"
       ]
+    },
+    {
+      "id": "crud-example",
+      "title": "Compact CRUD example",
+      "keywords": [
+        "CRUD",
+        "products",
+        "aggiunta",
+        "modifica",
+        "persistenza",
+        "focus"
+      ],
+      "paths": [
+        "examples/crud.md"
+      ]
     }
   ],
   "components": [

@@ -2541,6 +2541,30 @@ const unitCover = (v, name = 'size') => {
     return el;
   };
 
+  // Public field attributes belong to the interactive control, not its wrapper.
+  function uiConfigureFieldControl(field, control, props, native = false) {
+    field.focus = (options) => control.focus(options);
+    const set = (name, value) => {
+      if (value == null || value === false) control.removeAttribute(name);
+      else control.setAttribute(name, String(value));
+    };
+    JSswift.reactive.effect(() => {
+      const label = uiUnwrap(props.ariaLabel) ?? (typeof props.label === "string" ? props.label : null);
+      set("aria-label", label);
+      set("aria-labelledby", uiUnwrap(props.ariaLabelledBy));
+      set("aria-describedby", uiUnwrap(props.ariaDescribedBy));
+      const invalid = props.ariaInvalid == null ? !!uiUnwrap(props.error) : !!uiUnwrap(props.ariaInvalid);
+      control.setAttribute("aria-invalid", String(invalid));
+      const required = !!uiUnwrap(props.required);
+      control.setAttribute("aria-required", String(required));
+      if (native) {
+        control.required = required;
+        for (const name of ["min", "max", "step", "pattern", "minLength", "maxLength"])
+          set(name.toLowerCase(), uiUnwrap(props[name]));
+      }
+    }, "UI.Field:controlAttributes");
+  }
+
   UI.Input = (props = {}) => {
     const slots = props.slots || {};
     const fieldProps = {
@@ -2702,6 +2726,7 @@ const unitCover = (v, name = 'size') => {
 
     // expose reference
     field._input = input;
+    uiConfigureFieldControl(field, input, props, true);
     uiRegisterShortcode(input, props, {
       isEnabled: () => !input.disabled,
       action: () => uiFocusShortcutTarget(input, { selectText: !!props.selectOnShortcode })
@@ -4099,6 +4124,7 @@ const unitCover = (v, name = 'size') => {
     // refresh has-value when value changes
     JSswift.reactive.effect(() => { field._refresh?.(); }, "UI.Select:fieldRefresh");
 
+    uiConfigureFieldControl(field, root, props);
     field._select = root;
     field._dispose = root._dispose;
     JSswift._registerCleanup?.(field, field._dispose);

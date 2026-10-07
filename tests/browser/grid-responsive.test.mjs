@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { execFile, spawn } from "node:child_process";
 import { existsSync } from "node:fs";
-import { mkdtemp, writeFile } from "node:fs/promises";
+import { mkdtemp, writeFile, readFile } from "node:fs/promises";
 import http from "node:http";
 import os from "node:os";
 import path from "node:path";
@@ -147,12 +147,21 @@ const runChromeMobileEval = async (chromePath, pageUrl, evaluateExpression, opti
     await send("Page.navigate", { url: pageUrl });
     await sleep(options.navigateDelayMs || 1200);
 
-    const result = await send("Runtime.evaluate", {
+    let result = await send("Runtime.evaluate", {
       expression: evaluateExpression,
       returnByValue: true,
       awaitPromise: true
     });
 
+    if (options.afterReload && !result.exceptionDetails) {
+      assert.ok(result.result && "value" in result.result, JSON.stringify(result));
+      const before = result.result.value;
+      await send("Page.reload");
+      await sleep(1200);
+      const after = await send("Runtime.evaluate", {expression: options.afterReload, returnByValue:true, awaitPromise:true});
+      assert.ok(!after.exceptionDetails, JSON.stringify(after.exceptionDetails));
+      result = {result:{value:{before, after:after.result.value}}};
+    }
     ws.close();
     await cleanup();
     if (Object.prototype.hasOwnProperty.call(result?.result || {}, "value")) {
@@ -1155,4 +1164,93 @@ test("Select commits user selection to rod and signal models", {
     {selected:'Casa', saved:'Casa', display:'Ufficio'},
     {selected:'Casa', saved:'Casa', display:'Ufficio'}
   ]);
+});
+
+
+test("Public field APIs focus controls and synchronize accessibility and constraints", {
+  skip: !findChrome() ? "Chrome unavailable" : (!hasDevtoolsWebSocket() ? "WebSocket unavailable" : false)
+}, async () => {
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-field-api-"));
+  const htmlFile = path.join(tmpDir, "index.html");
+  const asset = name => pathToFileURL(path.join(ROOT_DIR, name)).href;
+  await writeFile(htmlFile, `<!doctype html><body><div id="app"></div>
+    <script src="${asset('packages/core/dist/cms.js')}"></script>
+    <script src="${asset('packages/ui/dist/ui.js')}"></script>
+    <script>
+      window.error = _.rod('');
+      window.input = _.Input({label:'Prezzo', required:true, min:0, max:100, step:'any', error,
+        ariaDescribedBy:'error-text'});
+      window.select = _.Select({label:'Categoria', ariaLabel:'Categoria prodotto', required:true,
+        options:[{value:'Casa',label:'Casa'}]});
+      app.append(input, select, _.p({id:'error-text'}, 'Errore'));
+    </script></body>`);
+  const result = await runChromeMobileEval(findChrome(), pathToFileURL(htmlFile).href, `
+    (async () => {
+      while (!window.input) await new Promise(r => setTimeout(r, 20));
+      input.focus();
+      const native = document.activeElement;
+      const initial = native.getAttribute('aria-invalid');
+      error.value = 'Prezzo non valido';
+      await new Promise(r => setTimeout(r, 50));
+      const attrs = {tag:native.tagName, label:native.getAttribute('aria-label'), min:native.min,
+        max:native.max, step:native.step, required:native.required, initial,
+        invalid:native.getAttribute('aria-invalid'), described:native.getAttribute('aria-describedby')};
+      select.focus();
+      return {attrs, role:document.activeElement.getAttribute('role'),
+        label:document.activeElement.getAttribute('aria-label'),
+        required:document.activeElement.getAttribute('aria-required'),
+        expanded:document.activeElement.getAttribute('aria-expanded')};
+    })()`);
+  assert.deepEqual(result, {attrs:{tag:'INPUT',label:'Prezzo',min:'0',max:'100',step:'any',required:true,
+    initial:'false',invalid:'true',described:'error-text'}, role:'combobox',label:'Categoria prodotto',
+    required:'true',expanded:'false'});
+});
+
+
+test("Documented CRUD validates, edits, binds rod, restores focus and survives reload", {
+ skip: !findChrome() ? "Chrome unavailable" : (!hasDevtoolsWebSocket() ? "WebSocket unavailable" : false)
+}, async () => {
+ const tmp = await mkdtemp(path.join(os.tmpdir(), 'jsswift-crud-'));
+ const html = path.join(tmp, 'index.html');
+ const doc = await readFile(path.join(ROOT_DIR,'documentions/examples/crud.md'),'utf8');
+ const code = doc.match(/```js\n([\s\S]*?)\n```/)[1];
+ const asset = name => pathToFileURL(path.join(ROOT_DIR,name)).href;
+ await writeFile(html, `<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"><div id="app"></div><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><script>${code}</script>`);
+ const result = await runChromeMobileEval(findChrome(),pathToFileURL(html).href, `(async () => {
+  const wait = () => new Promise(r => setTimeout(r,350));
+  const click = id => document.getElementById(id).click();
+  click('next'); const paged = host.textContent.includes('Prodotto 6'); click('previous');
+  click('add-product'); await wait(); click('save-product'); await wait();
+  const invalid = errors.name.value !== '' && document.activeElement.getAttribute('aria-invalid') === 'true';
+  fields.name.focus(); const input = document.activeElement; input.value = 'Nuovo'; input.dispatchEvent(new Event('input',{bubbles:true}));
+  fields.category.querySelector('.cms-select-control').click(); await wait();
+  [...document.querySelectorAll('.cms-select-option')].find(n => n.textContent==='Casa' && n.getBoundingClientRect().width).click();
+  const categoryBound = models.category.value === 'Casa';
+  models.price.value = '-1'; models.quantity.value = '1.5'; click('save-product');
+  const numeric = !!errors.price.value && !!errors.quantity.value;
+  models.price.value = '12'; models.quantity.value = '3'; click('save-product'); await wait();
+  const added = rows.length === 7 && rows[6].category === 'Casa';
+  const focusRestored = document.activeElement.id === 'add-product';
+  if (!document.getElementById('edit-1')) click('previous');
+  click('edit-1'); await wait(); models.name.value = 'Modificato'; click('save-product'); await wait();
+  const edited = rows[0].name === 'Modificato' && document.activeElement.id === 'edit-1';
+  click('add-product'); await wait();
+  const panel = document.querySelector('[role=dialog]');
+  const buttons = panel.querySelectorAll('button'); buttons[buttons.length-1].focus();
+  document.dispatchEvent(new KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true}));
+  const trapped = panel.contains(document.activeElement);
+  document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true})); await wait();
+  const escapeDeadline = Date.now() + 2000;
+  while ((dialog.isOpen() || document.activeElement.id !== 'add-product') && Date.now() < escapeDeadline) await wait();
+  const escaped = !dialog.isOpen() && document.activeElement.id === 'add-product';
+  search.focus(); const q = document.activeElement; q.value = 'MODIFICATO'; q.dispatchEvent(new Event('input',{bubbles:true}));
+  const searched = host.textContent.includes('Modificato') && !host.textContent.includes('Prodotto 2');
+  q.value = ''; q.dispatchEvent(new Event('input',{bubbles:true}));
+  filter.querySelector('.cms-select-control').click(); await wait();
+  [...document.querySelectorAll('.cms-select-option')].find(n => n.textContent==='Ufficio' && n.getBoundingClientRect().width).click();
+  const filtered = host.textContent.includes('Prodotto 2') && !host.textContent.includes('Modificato');
+  const mobile = document.documentElement.scrollWidth <= innerWidth;
+  return {paged,invalid,categoryBound,numeric,added,focusRestored,edited,escaped,searched,filtered,trapped,mobile};
+ })().catch(e => ({error:String(e.stack || e)}))`, {afterReload:`({count:rows.length,name:rows[0].name,category:rows[6]?.category})`});
+ assert.deepEqual(result,{before:{paged:true,invalid:true,categoryBound:true,numeric:true,added:true,focusRestored:true,edited:true,escaped:true,searched:true,filtered:true,trapped:true,mobile:true},after:{count:7,name:'Modificato',category:'Casa'}});
 });

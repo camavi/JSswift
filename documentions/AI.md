@@ -57,7 +57,7 @@ const page = _.Page({}, _.Card({ title: 'Prodotti' }, edit, table));
 _.mount('#app', page);
 ```
 
-This demonstrates composition and validation; saving logs the values. Add application persistence and refresh the table when your task requires them. Prefer `_.rod(initial)` for bidirectional field models: read `name.value`, write `name.value = 'Nuovo nome'`; `model` synchronizes the control. Use `_.signal(initial)` when explicit getter/setter functions suit the state, and `_.useForm()` for structured form validation and errors. This avoids reading private `_input` or `_select` references. The current controls do not document public `focus/getValue/setValue` methods; do not invent them.
+This demonstrates composition and validation; saving logs the values. Add application persistence and refresh the table when your task requires them. Prefer `_.rod(initial)` for bidirectional field models: read `name.value`, write `name.value = 'Nuovo nome'`; `model` synchronizes the control. Use `_.signal(initial)` when explicit getter/setter functions suit the state, and `_.useForm()` for structured form validation and errors. This avoids reading private `_input` or `_select` references. Input and Select expose `focus(options?)`; read and write values through the rod model. Use `ariaLabel`, `ariaLabelledBy`, `ariaDescribedBy`, `ariaInvalid` and `required` on the control. Input also accepts `min`, `max`, `step`, `pattern`, `minLength` and `maxLength`.
 
 ## Exact callback arguments
 
@@ -82,7 +82,7 @@ System fonts are the default. Import `jsswift/css/fonts-nunito.css`, `jsswift/cs
 
 ## Accessibility and verification
 
-The current implementation requires checking the rendered accessible names: a visible `label` is not sufficient evidence of an associated control label. Set Dialog `ariaLabel` explicitly. Dialog normally restores the original focus element; if the app replaces that element, restore focus to its current replacement using a stable application identifier in `onClose`. Do not claim these behaviors were tested from a build alone.
+Input and Select use a string `label` as their default accessible name; use `ariaLabel` for a different name or `ariaLabelledBy` for an external label. Verify rendered names when using custom label nodes. Set Dialog `ariaLabel` explicitly. Dialog normally restores the original focus element; if the app replaces that element, restore focus to its current replacement using a stable application identifier in `onClose`. Do not claim these behaviors were tested from a build alone.
 
 Run the app's build after implementation and check values, validation, dialog keyboard behavior, and persistence when required. Start one development server on an explicit available port; with Vite use `npm run dev -- --port <port> --strictPort`. Report checks actually performed.
 
@@ -91,3 +91,5 @@ Run the app's build after implementation and check values, validation, dialog ke
 - Exact APIs: [Input](components/input.md), [Select](components/select.md), [Button](components/btn.md), [Card](components/card.md), [Table](components/table.md), [Dialog](components/dialog.md).
 - Extra behavior: [forms](ui/forms.md), [reactivity](reactivity.md), [layout](ui/layout-and-responsive.md), [overlays](ui/data-feedback-overlays.md).
 - Other components: [index](components/README.md). MCP: read `guide:AI`, then search only for additional features.
+
+For a complete application flow, read [the compact CRUD example](examples/crud.md) only when the task needs editing, validation, persistence and focus restoration together.
