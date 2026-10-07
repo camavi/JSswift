@@ -19,6 +19,6 @@ Build applications with JSswift by reading only the smallest focused guide. Exac
 
 For styling, begin with [application-rules.md](application-rules.md): JSswift includes component CSS; prefer documented props and theme variables before custom overrides.
 
-Rules: use `_` as the single application namespace; prefer documented `_.Component` UI components; use only documented component APIs; use `_.signal` and documented model contracts; write mobile-first root props with tablet from 768px and pc from 1024px; use raw helpers only for small structural gaps.
+Rules: use `_` as the single application namespace; prefer documented `_.Component` UI components; use only documented component APIs; prefer `_.rod()` for field models and use documented model contracts; write mobile-first root props with tablet from 768px and pc from 1024px; use raw helpers only for small structural gaps.
 
 For framework maintenance, builds, tests, or releases, read [../docDevelop/README.md](../docDevelop/README.md).

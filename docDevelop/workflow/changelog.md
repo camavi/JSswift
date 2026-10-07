@@ -1,5 +1,17 @@
 # Development changelog
 
+## 2026-10-07 — Release JSswift 1.0.48 and knowledge MCP 0.1.4
+
+- Outcome: npm root guide and README, manifest discovery paths and AI-first knowledge map published together.
+- Verification: runtime build, 59 runtime tests, 6 knowledge/MCP tests including tarball entrypoints, map validation, portable Skill build and npm package inspections.
+- Publication: prepared for authorized npm publication.
+
+## 2026-10-07 — Discoverable short npm documentation path
+
+- Outcome: npm root README, generated root AI.md and manifest discovery paths lead applications to the short guide first. The knowledge map starts at AI.md; guidance reserves full contracts for missing APIs and corrects the index to prefer rod field models.
+- Verification: knowledge refresh/check and portable Skill build; 6 knowledge/MCP tests including packed root guide equality, README availability and map entrypoint checks; diff check.
+- Distribution: local build updated; no commit or npm publication performed. Token savings remain to be measured in a new benchmark.
+
 ## 2026-10-07 — Release JSswift 1.0.47 and knowledge MCP 0.1.3
 
 - Outcome: release includes full signal tuple model support, Button documentation alias and rod-first application guidance.

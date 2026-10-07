@@ -29,6 +29,11 @@ test('packed MCP reads only the installed framework documentation and reports it
     // Dependencies are shared; code and documentation must come from the tarballs.
     await symlink(path.join(checkout, 'ai/mcp/node_modules'), path.join(mcp, 'node_modules'));
     const manifest = JSON.parse(await readFile(path.join(framework, 'package.json'), 'utf8'));
+    const shortGuide = await readFile(path.join(framework, manifest.jsswiftDocumentation.start), 'utf8');
+    assert.equal(shortGuide, await readFile(path.join(framework, 'dist/documentions/AI.md'), 'utf8'));
+    assert.match(await readFile(path.join(framework, 'README.md'), 'utf8'), /AI\.md/);
+    const discoveryMap = JSON.parse(await readFile(path.join(framework, manifest.jsswiftDocumentation.map), 'utf8'));
+    assert.equal(discoveryMap.entrypoint, 'AI.md');
     const mcpManifest = JSON.parse(await readFile(path.join(mcp, 'package.json'), 'utf8'));
     assert.equal(mcpManifest.bin['jsswift-mcp'], 'dist/server.mjs');
     const nested = path.join(app, 'src/screens');

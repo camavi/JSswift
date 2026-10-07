@@ -23,3 +23,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Generated npm AI entrypoint (source: documentions/AI.md)
+/packages/jsswift/AI.md

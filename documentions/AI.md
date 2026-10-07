@@ -2,6 +2,14 @@
 
 Start here for a small page using Input, Select, Button, Card, Table, and Dialog. The example and callback table below are a supported subset; read a component contract only when using additional APIs. Do not read the whole catalog or search runtime bundles for documentation. Button’s full contract is `components/btn.md`; `components/button.md` redirects to it.
 
+## Reading budget and discovery
+
+Read this guide alone first and implement its supported APIs directly. Do not pre-read the six linked component contracts to confirm this example. Do not concatenate the guide and the component catalog in one command.
+
+If a required API is absent here, consult `knowledge-map.json` to find its exact path, then read only that document. The map routes requests; it does not contain component API definitions. With an already configured MCP, read `guide:AI`, then use `jsswift_search` for the missing feature and `jsswift_read` for its result. MCP setup is optional; local files are sufficient.
+
+The installed package exposes this same guide as `AI.md` at its root and through `jsswift/AI.md`. `package.json` includes `jsswiftDocumentation` discovery paths. Do not inspect runtime bundles to discover documented APIs.
+
 ## Import, create, mount
 
 Provide `<div id="app"></div>` in HTML and a module entrypoint. With Vite:

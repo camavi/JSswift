@@ -1,6 +1,6 @@
 {
   "name": "jsswift",
-  "version": "1.0.47",
+  "version": "1.0.48",
   "description": "Umbrella package for JSswift core + UI",
   "license": "MIT",
   "repository": {
@@ -37,6 +37,13 @@
     "./AI.md": "./dist/documentions/AI.md"
   },
   "files": [
-    "dist"
-  ]
+    "dist",
+    "AI.md"
+  ],
+  "jsswiftDocumentation": {
+    "start": "AI.md",
+    "map": "dist/documentions/knowledge-map.json",
+    "additionalApis": "dist/documentions/components",
+    "readingOrder": "Read AI.md first; use the map only for APIs missing from that guide; read only the relevant contract."
+  }
 }

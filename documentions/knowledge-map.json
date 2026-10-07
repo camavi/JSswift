@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "scope": "application-development",
-  "entrypoint": "README.md",
+  "entrypoint": "AI.md",
   "topics": [
     {
       "id": "ai-quick-start",

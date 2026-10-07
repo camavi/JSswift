@@ -35,6 +35,7 @@ async function main() {
   await copyDir(path.join(uiDistDir, "fonts"), path.join(jsswiftDistDir, "fonts"));
   await copyDir(path.join(uiDistDir, "img"), path.join(jsswiftDistDir, "img"));
   await copyDir(path.resolve('documentions'), path.join(jsswiftDistDir, 'documentions'));
+  await fs.copyFile(path.resolve('documentions/AI.md'), path.resolve('packages/jsswift/AI.md'));
   const manifest = JSON.parse(await fs.readFile('packages/jsswift/package.json', 'utf8'));
   await fs.writeFile(path.join(jsswiftDistDir, 'documentions/knowledge-map.json'),
     JSON.stringify({ ...knowledge.map, packageVersion: manifest.version }, null, 2) + '\n');
