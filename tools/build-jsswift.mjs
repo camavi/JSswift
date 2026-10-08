@@ -36,6 +36,20 @@ async function main() {
   await copyDir(path.join(uiDistDir, "css"), path.join(jsswiftDistDir, "css"));
   await copyDir(path.join(uiDistDir, "fonts"), path.join(jsswiftDistDir, "fonts"));
   await copyDir(path.join(uiDistDir, "img"), path.join(jsswiftDistDir, "img"));
+  await fs.copyFile(coreFile, path.join(jsswiftDistDir, 'cms.js'));
+  await fs.copyFile(uiFile, path.join(jsswiftDistDir, 'ui.js'));
+  const uiSources = path.join(jsswiftDistDir, 'ui-src');
+  await fs.mkdir(uiSources, { recursive: true });
+  const uiManifest = JSON.parse(await fs.readFile('packages/ui/src/modules.json', 'utf8'));
+  for (const file of ['modules.json', ...uiManifest.buildOrder]) {
+    await fs.copyFile(path.resolve('packages/ui/src', file), path.join(uiSources, file));
+  }
+  const toolingDir = path.join(jsswiftDistDir, 'build');
+  await fs.mkdir(toolingDir, { recursive: true });
+  for (const file of ['build-configured-runtime.mjs', 'build-configured-runtime.d.mts', 'select-ui.mjs', 'vite-jss.mjs', 'vite-jss.d.mts', 'runtime-layout.mjs']) {
+    await fs.copyFile(path.resolve('tools', file), path.join(toolingDir, file));
+  }
+  await fs.chmod(path.join(toolingDir, 'build-configured-runtime.mjs'), 0o755);
   await copyDir(path.resolve('documentions'), path.join(jsswiftDistDir, 'documentions'));
   await fs.copyFile(path.resolve('documentions/AI.md'), path.resolve('packages/jsswift/AI.md'));
   const manifest = JSON.parse(await fs.readFile('packages/jsswift/package.json', 'utf8'));

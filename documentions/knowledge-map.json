@@ -241,6 +241,25 @@
       "paths": [
         "ui/themes.md"
       ]
+    },
+    {
+      "id": "configured-runtime",
+      "title": "Configured runtime and selective application builds",
+      "keywords": [
+        "jss.config.js",
+        "jss:runtime",
+        "jsswift/vite",
+        "jsswift/build",
+        "jss-build",
+        "selective runtime",
+        "componenti selettivi",
+        "extras",
+        "ui.all",
+        "runtime configurabile"
+      ],
+      "paths": [
+        "configured-runtime.md"
+      ]
     }
   ],
   "components": [

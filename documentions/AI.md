@@ -16,12 +16,15 @@ The installed package exposes this same guide as `AI.md` at its root and through
 | --- | --- | --- |
 | Small page with the six components below | This guide | Implement the supported subset without opening component contracts. |
 | Product CRUD with validation, persistence and focus | [CRUD example](examples/crud.md) | Reuse the example; do not also concatenate Input, Select, Dialog and Table contracts. |
+| jss.config.js, selective runtime, Vite plugin or optional extras | [Configured runtime](configured-runtime.md) (`guide:configured-runtime`) | Follow the existing app configuration; do not also import the complete runtime/CSS. |
 | One missing prop or callback | Map → exact document, or selective MCP read | Read only the needed section; do not search the runtime bundle. |
 | Custom appearance | Supported props below, then one relevant contract | Keep component styles; add CSS for page layout and task-specific visuals. |
 
 The map locates a contract; it does not replace it. Avoid reading all of `ui/common-props.md` just to confirm examples already covered here. Structural helpers used below (`div`, `p`, `span`, `strong`) do not require a separate HTML/SVG guide. Read that guide only for additional helper behavior.
 
 ## Import, create, mount
+
+For an existing app, preserve its loading method. With the configured Vite plugin, import `jss:runtime` instead of the two traditional imports below: it includes the configured JavaScript, CSS and extras. Read [configured-runtime.md](configured-runtime.md) for setup and package availability; older installed releases may not expose this tooling.
 
 With Vite, provide `<div id="app"></div>` and a module entrypoint:
 
@@ -72,6 +75,8 @@ The light import includes base tokens, colors, component styles, dense/outline a
 Prefer public props to rebuilding controls: `_.Button({color:'primary',outline:true,dense:true}, 'Modifica')`. For breakpoint props use `_.Row({gap:'md',tablet:{gap:'lg'}})` with the responsive addon. Consult common props only for an additional inherited API.
 
 Classes and theme variables use `jss-`; migrate old `cms-` overrides. Fonts are system defaults. Import `jsswift/css/fonts-nunito.css`, `fonts-material.css`, or `jsswift/tabler` only when required; Material Symbols downloads a remote font.
+
+With `jss:runtime`, choose assets in `jss.config.js` through `extras` instead of adding these imports. `ui: {all:true}` includes the complete UI and services. For a selective build, use `ui: {components:['Button','Input','Select','Card','Table'],services:['Dialog']}` for the example above; dependencies are automatic. Services also support Notify, Loading and Form (useForm). Add every component used through dynamic lookup explicitly. `responsive:false` retains base utilities and component mobile CSS but excludes breakpoint utilities; use true for tablet/pc props. Shared and complex CSS rules are retained conservatively.
 
 ## Accessibility and verification
 

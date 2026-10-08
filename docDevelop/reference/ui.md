@@ -379,3 +379,7 @@ Select/Search own scopes stop component effects and model/filterable rod callbac
 ### Responsive helper resolution
 
 uiApplyResponsiveProps resolves device objects once per invocation and reuses them across its style rules. Values are resolved again on the next invocation, with no persistent cache. Responsive factories should be pure; all props in one application of the helper observe a coherent device configuration. This reduces factory calls in the helper, not necessarily every call made while constructing a full component.
+
+## Configured application builds
+
+Repository build tools now support jss.config.js with ui.all, selective components/services, responsive CSS and explicit extras. The Vite integration is tools/vite-jss.mjs; the standalone CLI is npm run build:configured. See [application build contract](../../documentions/configured-runtime.md). Selective builds extract dependency-closed source statements while preserving their order and shared IIFE; component CSS pruning retains shared/unknown rules conservatively. Standard UI outputs remain complete. The package build now ships jsswift/vite, jsswift/build and the jss-build executable with its own sources/assets and TypeScript declarations. Registry availability requires a separate authorized release.

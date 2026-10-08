@@ -1,6 +1,6 @@
 {
   "name": "jsswift",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Umbrella package for JSswift core + UI",
   "license": "MIT",
   "repository": {
@@ -36,7 +36,15 @@
     "./tabler": "./dist/tabler.js",
     "./css/fonts-nunito.css": "./dist/css/fonts-nunito.css",
     "./css/fonts-material.css": "./dist/css/fonts-material.css",
-    "./AI.md": "./dist/documentions/AI.md"
+    "./AI.md": "./dist/documentions/AI.md",
+    "./vite": {
+      "types": "./dist/build/vite-jss.d.mts",
+      "import": "./dist/build/vite-jss.mjs"
+    },
+    "./build": {
+      "types": "./dist/build/build-configured-runtime.d.mts",
+      "import": "./dist/build/build-configured-runtime.mjs"
+    }
   },
   "files": [
     "dist",
@@ -47,5 +55,21 @@
     "map": "dist/documentions/knowledge-map.json",
     "additionalApis": "dist/documentions/components",
     "readingOrder": "Read AI.md alone in a separate operation. For CRUD use its compact example without pre-reading component contracts. Use the map only for missing APIs and read one focused section."
+  },
+  "bin": {
+    "jss-build": "./dist/build/build-configured-runtime.mjs"
+  },
+  "dependencies": {
+    "esbuild": "^0.28.2",
+    "postcss": "^8.5.28",
+    "rolldown": "^1.2.9"
+  },
+  "peerDependencies": {
+    "vite": "^8.3.0"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    }
   }
 }

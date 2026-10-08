@@ -20,6 +20,7 @@ Start with `AI.md` (MCP ID `guide:AI`). Its examples and callback table cover a 
 - Use `_.Button` as the standard button name. The contract is `components/btn.md` (MCP ID `component:btn`); `_.Btn` is a compatible alias.
 - Prefer documented `_.Component` UI components for UI and layout. Use raw HTML/SVG helpers only for small structural gaps, following `reference/html-svg-helpers.md`.
 - Start an application with `getting-started.md`; use `application-rules.md` for children and composition. Use `_` as the single application namespace for UI components and core APIs.
+- For jss.config.js, configured runtime imports, selective components/services or extras, read `configured-runtime.md` (MCP ID `guide:configured-runtime`). Preserve the app's existing loading method and check installed package availability; the configured runtime includes its own CSS/assets.
 - For state or controlled inputs read `reactivity.md`. Prefer `_.rod()` for bidirectional field models and its public `.value` for reads/writes. Use `_.signal()` when getter/setter state is useful; both remain supported according to each control contract. For forms read `ui/forms.md` and each control's contract.
 - For layout read `ui/layout-and-responsive.md`: root props are mobile/default, `tablet` begins at 768px, and `pc` at 1024px. Check the exact component contract for responsive props and shell slots.
 - For routing, store, HTTP, permissions, or themes read `platform.md`. If a needed operation is absent, identify the documentation gap instead of guessing a method.

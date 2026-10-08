@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import { jssRuntime } from "./tools/vite-jss.mjs";
 import fs from "fs";
 import path from "path";
 function getHtmlEntries(dir, base = dir, entries = {}) {
@@ -14,6 +15,7 @@ function getHtmlEntries(dir, base = dir, entries = {}) {
 }
 
 export default defineConfig({
+  plugins: [jssRuntime()],
   root: "pages",
   build: {
     outDir: "../dist",

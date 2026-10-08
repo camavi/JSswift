@@ -1,6 +1,6 @@
 {
   "name": "@jsswift/knowledge-mcp",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Read-only MCP for the installed JSswift version's documentation",
   "type": "module",
   "engines": {

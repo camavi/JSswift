@@ -8,6 +8,7 @@ Build applications with JSswift by reading only the smallest focused guide. Exac
 | --- | --- |
 | AI discovery, portable Skill, local MCP | [ai-development.md](ai-development.md), [knowledge-map.json](knowledge-map.json) |
 | First app or screen | [AI.md](AI.md) alone; [getting-started.md](getting-started.md) only for additional setup |
+| Experimental configured runtime build | [configured-runtime.md](configured-runtime.md) |
 | Component choice and composition | [application-rules.md](application-rules.md), [components/README.md](components/README.md) |
 | State and controlled inputs | [reactivity.md](reactivity.md) |
 | Layout and breakpoints | [ui/layout-and-responsive.md](ui/layout-and-responsive.md) |
