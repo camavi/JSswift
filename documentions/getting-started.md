@@ -1,5 +1,7 @@
 # Getting started with JSswift
 
+For a first page, read [AI quick start](AI.md) alone. For product editing, use its CRUD route; this guide is for additional APIs.
+
 - Application namespace: `window._`, written `_` in application code.
 - `_` exposes both UI components and core APIs directly: `_.Toggle`, `_.mount`, `_.signal`.
 - The runtime also exposes `window.JSswift`; application examples and generated code use `_`.

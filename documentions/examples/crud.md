@@ -37,32 +37,42 @@ save = _.Button({id:'save-product', onClick:() => {
  const record = {id:editing ?? Math.max(0,...rows.map(r => r.id))+1,...value};
  const next = editing == null ? [...rows,record] : rows.map(r => r.id === editing ? record : r);
  try { localStorage.setItem(key, JSON.stringify(next)); } catch { notice.textContent = 'Salvataggio non riuscito'; return; }
- rows = next; render(); dialog.close(); notice.textContent = 'Salvato';
+ rows = next; renderStats(); render(); dialog.close(); notice.textContent = 'Salvato';
 }}, 'Salva');
 dialog.update({actions:[_.Button({onClick:() => dialog.close()},'Annulla'),save]});
  for (const k of Object.keys(models)) models[k].value = String(record?.[k] ?? '');
  dialog.open();
 }
-const host = _.div({style:{maxWidth:'100%',overflowX:'auto'}}), pager = _.div();
+const host = _.div({style:{maxWidth:'100%',overflowX:'auto'}}), pager = _.div(), stats = _.div();
+function renderStats() {
+ const available = rows.filter(r => r.quantity > 0).length;
+ _.mount(stats, [_.Kpi({title:'Prodotti totali',value:rows.length}), _.Kpi({title:'Disponibili',value:available}), _.Kpi({title:'Esauriti',value:rows.length-available}), _.Kpi({title:'Valore magazzino',value:priceFormat.format(rows.reduce((sum,r) => sum+r.price*r.quantity,0))})]);
+}
+function changePage(delta, trigger) {
+ page += delta; render();
+ const button = document.getElementById(trigger);
+ (button.disabled ? pager : button).focus();
+}
+pager.tabIndex = -1;
 const add = _.Button({id:'add-product',onClick:() => edit()},'Nuovo prodotto');
 const search = _.Input({label:'Cerca',onInput:value => {query=value;page=1;render();}});
 const filter = _.Select({label:'Filtro categoria',options:[{value:'',label:'Tutte'},...categories.map(value => ({value,label:value}))],onChange:value => {category=value;page=1;render();}});
 function render() {
  const found = rows.filter(r => r.name.toLowerCase().includes(query.trim().toLowerCase()) && (!category || r.category === category));
  const pages = Math.max(1,Math.ceil(found.length/5)); page = Math.min(page,pages);
- _.mount(host, _.Table({rows:found.slice((page-1)*5,page*5),rowKey:'id',pagination:false,hideFooter:true,hideStatus:true,minTableWidth:600,emptyText:'Nessun prodotto trovato',
+ _.mount(host, _.Table({rows:found.slice((page-1)*5,page*5),rowKey:'id',pagination:false,hideFooter:true,hideStatus:true,minTableWidth:600,shadow:'none',radius:'12px',style:{background:'#fff'},tableStyle:{background:'#fff','--set-color-1':'#fff'},emptyText:'Nessun prodotto trovato',
  columns:[{key:'name',sortable:false,label:'Nome'},{key:'category',sortable:false,label:'Categoria'},{key:'price',sortable:false,label:'Prezzo',format:value => priceFormat.format(value)},{key:'quantity',sortable:false,label:'Quantità'},
  {key:'actions',label:'Azioni',render:r => _.Button({id:`edit-${r.id}`,onClick:() => edit(r)},'Modifica')}] }));
  _.mount(pager, [_.span(`${found.length} prodotti — pagina ${page}/${pages}`),
- _.Button({id:'previous',disabled:page===1,onClick:() => {page--;render();document.getElementById('previous').focus();}},'Precedente'),
- _.Button({id:'next',disabled:page===pages,onClick:() => {page++;render();document.getElementById('next').focus();}},'Successiva')]);
+ _.Button({id:'previous',disabled:page===1,onClick:() => changePage(-1,'previous')},'Precedente'),
+ _.Button({id:'next',disabled:page===pages,onClick:() => changePage(1,'next')},'Successiva')]);
 }
-_.mount('#app', _.div({style:{minWidth:0}}, add, search, filter, host, pager, notice)); render();
+_.mount('#app', _.div({style:{minWidth:0}}, add, stats, search, filter, host, pager, notice)); renderStats(); render();
 ```
 
 Application validation remains explicit. `error` marks the control invalid; rendered field messages are associated automatically. Use `ariaDescribedBy` for additional application-owned descriptions. This example does not provide delete, server synchronization or a complete visual design.
 
-Performance: the currency formatter is reused. This small example rebuilds its table for clarity; profile larger datasets before changing rendering strategy. `onOpen` focuses the name field and automatic focus respects that choice.
+Performance: the currency formatter is reused; KPI update only when inventory changes, not on search or pagination. This small example rebuilds its table for clarity; profile larger datasets before changing rendering strategy. `onOpen` focuses the name field and automatic focus respects that choice.
 
 ## Verification checklist
 
@@ -73,6 +83,7 @@ Build success alone does not verify this flow. In a browser, record these result
 - Reject blank fields, negative price and fractional quantity; check `aria-invalid` and the field error referenced by `aria-describedby`.
 - Use Tab and Shift+Tab at both dialog boundaries, Escape to close, and check focus returns to the current trigger after rendering.
 - Add and edit, reload, then search, filter and paginate; check persistence and page reset.
+- Reach both pagination boundaries with the keyboard: focus moves to the pager when the clicked button becomes disabled.
 - At a narrow viewport, check page overflow and table scrolling. Measure contrast separately; screenshots alone do not establish contrast compliance.
 
 The example uses public field APIs and rod values. If a browser is unavailable, report these interactions as unverified rather than deriving them from pure-logic assertions.

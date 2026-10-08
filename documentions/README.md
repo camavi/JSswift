@@ -7,11 +7,12 @@ Build applications with JSswift by reading only the smallest focused guide. Exac
 | Need | Read |
 | --- | --- |
 | AI discovery, portable Skill, local MCP | [ai-development.md](ai-development.md), [knowledge-map.json](knowledge-map.json) |
-| First app or screen | [getting-started.md](getting-started.md) |
+| First app or screen | [AI.md](AI.md) alone; [getting-started.md](getting-started.md) only for additional setup |
 | Component choice and composition | [application-rules.md](application-rules.md), [components/README.md](components/README.md) |
 | State and controlled inputs | [reactivity.md](reactivity.md) |
 | Layout and breakpoints | [ui/layout-and-responsive.md](ui/layout-and-responsive.md) |
-| Forms | [ui/forms.md](ui/forms.md) |
+| Product CRUD | [examples/crud.md](examples/crud.md), without pre-reading forms or overlay contracts |
+| Additional form APIs | [ui/forms.md](ui/forms.md) |
 | Base CSS, theme tokens and component colors | [ui/themes.md](ui/themes.md) |
 | Router, store, HTTP, auth, themes | [platform.md](platform.md) |
 | Tables, feedback, dialogs, menus | [ui/data-feedback-overlays.md](ui/data-feedback-overlays.md) |

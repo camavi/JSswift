@@ -1224,7 +1224,13 @@ test("Documented CRUD validates, edits, binds rod, restores focus and survives r
  const result = await runChromeMobileEval(findChrome(),pathToFileURL(html).href, `(async () => {
   const wait = () => new Promise(r => setTimeout(r,350));
   const click = id => { const button = document.getElementById(id); button.focus(); button.click(); };
-  click('next'); const paged = host.textContent.includes('Prodotto 6'); click('previous');
+  const originalKpi = stats.firstElementChild;
+  click('next'); const paged = host.textContent.includes('Prodotto 6');
+  const lastPageFocus = document.activeElement === pager;
+  click('previous'); const firstPageFocus = document.activeElement === pager;
+  const stableKpi = stats.firstElementChild === originalKpi;
+  const table = host.querySelector('table');
+  const whiteSurface = getComputedStyle(table).backgroundColor === 'rgb(255, 255, 255)' && getComputedStyle(table.querySelector('th')).backgroundColor === 'rgb(255, 255, 255)';
   click('add-product'); await wait();
   const initialFocus = document.activeElement.getAttribute('aria-label') === 'Nome';
   click('save-product'); await wait();
@@ -1264,9 +1270,9 @@ test("Documented CRUD validates, edits, binds rod, restores focus and survives r
   [...document.querySelectorAll('.jss-select-option')].find(n => n.textContent==='Ufficio' && n.getBoundingClientRect().width).click();
   const filtered = host.textContent.includes('Prodotto 2') && !host.textContent.includes('Modificato');
   const mobile = document.documentElement.scrollWidth <= innerWidth;
-  return {initialFocus,paged,invalid,errorAssociated,storageFailure,categoryBound,numeric,added,focusRestored,edited,escaped,searched,filtered,trapped,mobile};
+  return {initialFocus,paged,lastPageFocus,firstPageFocus,stableKpi,whiteSurface,invalid,errorAssociated,storageFailure,categoryBound,numeric,added,focusRestored,edited,escaped,searched,filtered,trapped,mobile};
  })().catch(e => ({error:String(e.stack || e)}))`, {afterReload:`({count:rows.length,name:rows[0].name,category:rows[6]?.category})`});
- assert.deepEqual(result,{before:{initialFocus:true,paged:true,invalid:true,errorAssociated:true,storageFailure:true,categoryBound:true,numeric:true,added:true,focusRestored:true,edited:true,escaped:true,searched:true,filtered:true,trapped:true,mobile:true},after:{count:7,name:'Modificato',category:'Casa'}});
+ assert.deepEqual(result,{before:{initialFocus:true,paged:true,lastPageFocus:true,firstPageFocus:true,stableKpi:true,whiteSurface:true,invalid:true,errorAssociated:true,storageFailure:true,categoryBound:true,numeric:true,added:true,focusRestored:true,edited:true,escaped:true,searched:true,filtered:true,trapped:true,mobile:true},after:{count:7,name:'Modificato',category:'Casa'}});
 });
 
 

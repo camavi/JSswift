@@ -88,18 +88,14 @@ test('knowledge rejects stale maps and references escaping the documentation roo
 });
 
 
-test('AI quick-start example creates native controls and validates model values', async () => {
+test('AI quick-start example creates native controls and synchronizes model values', async () => {
   await loadCMS();
   vm.runInThisContext(await readFile(new URL('../pages/_jsswift-fe/js/ui.js', import.meta.url), 'utf8'));
   const text = await readFile(new URL('../documentions/AI.md', import.meta.url), 'utf8');
-  const snippet = text.match(/```js\n([\s\S]*?)```/)[1].replace(/^import .*;\n/gm, '').replace("_.mount('#app', page);", '');
-  const sample = new Function('window', snippet + '\nreturn { name, category, nameInput, categorySelect, save, errors, table, page, dialog };')(globalThis);
-  assert.ok(sample.page.nodeType);
+  const snippet = text.match(/```js\n([\s\S]*?)```/)[1].replace(/^import .*;\n/gm, '').replace(/_\.mount\('#app',[\s\S]*$/, '');
+  const sample = new Function('window', snippet + '\nreturn { name, category, nameInput:input, categorySelect:select, table, dialog };')(globalThis);
   assert.ok(sample.table.nodeType);
   assert.equal(sample.nameInput._input.value, 'Prodotto 01');
-  sample.name.value = '';
-  sample.save.dispatchEvent({ type: 'click' });
-  assert.ok(sample.errors.childNodes.length > 0, 'empty name yields a visible error');
   sample.name.value = 'Prodotto aggiornato';
   await new Promise(resolve => setImmediate(resolve));
   assert.equal(sample.nameInput._input.value, 'Prodotto aggiornato');

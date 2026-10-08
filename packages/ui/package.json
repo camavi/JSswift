@@ -1,6 +1,6 @@
 {
   "name": "@jsswift/ui",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "JSswift UI layer built on top of @jsswift/core",
   "license": "MIT",
   "repository": {

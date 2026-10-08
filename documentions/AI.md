@@ -23,52 +23,32 @@ The map locates a contract; it does not replace it. Avoid reading all of `ui/com
 
 ## Import, create, mount
 
-Provide `<div id="app"></div>` in HTML and a module entrypoint. With Vite:
+With Vite, provide `<div id="app"></div>` and a module entrypoint:
 
 ```js
 import 'jsswift';
 import 'jsswift/css/ui-light.css';
 const _ = window._;
-
-const name = _.rod('Prodotto 01');
-const category = _.rod('Casa');
-const nameInput = _.Input({ label: 'Nome prodotto', model: name });
-const categorySelect = _.Select({
-  label: 'Categoria', model: category,
-  options: [{ value: 'Casa', label: 'Casa' }, { value: 'Ufficio', label: 'Ufficio' }]
-});
-const errors = _.div({ role: 'alert' });
-const dialog = _.Dialog({
-  title: 'Modifica prodotto', ariaLabel: 'Modifica prodotto',
-  content: _.div({}, nameInput, categorySelect, errors),
-  closeOnEsc: true, trapFocus: true, autoFocus: true
-});
-const save = _.Button({ color: 'primary', onClick: () => {
-  if (!name.value.trim()) {
-    errors.replaceChildren(_.p('Il nome è obbligatorio.'));
-    return;
-  }
-  errors.replaceChildren();
-  console.log({ name: name.value, category: category.value });
-  dialog.close();
-}}, 'Salva');
-dialog.update({ actions: [
-  _.Button({ onClick: () => dialog.close() }, 'Annulla'), save
-] });
-const edit = _.Button({ onClick: () => dialog.open() }, 'Modifica');
-const table = _.Table({
-  rows: [{ id: 1, name: 'Prodotto 01', price: 10 }], rowKey: 'id',
-  columns: [
-    { key: 'name', label: 'Nome', render: (row, { value }) => _.strong(value) },
-    { key: 'price', label: 'Prezzo', format: value => `${value} EUR` }
-  ],
-  pagination: false, hideFooter: true, hideStatus: true, minTableWidth: 700
-});
-const page = _.Page({}, _.div({}, _.h1('Prodotti'), edit, table));
-_.mount('#app', page);
+const name = _.rod('Prodotto 01'), category = _.rod('Casa');
+const input = _.Input({label:'Nome', required:true, model:name});
+const select = _.Select({label:'Categoria', model:category,
+ options:[{value:'Casa',label:'Casa'},{value:'Ufficio',label:'Ufficio'}]});
+const dialog = _.Dialog({title:'Prodotto', ariaLabel:'Prodotto',
+ content:_.div({}, input, select), trapFocus:true, closeOnEsc:true,
+ onOpen:() => input.focus()});
+dialog.update({actions:[_.Button({onClick:() => {
+ console.log({name:name.value, category:category.value}); dialog.close();
+}}, 'Salva')]});
+const table = _.Table({rows:[{id:1,name:'Prodotto 01'}], rowKey:'id',
+ columns:[{key:'name',label:'Nome',sortable:false,render:(row,ctx) => _.strong(ctx.value)}],
+ pagination:false, hideFooter:true, hideStatus:true, minTableWidth:600});
+_.mount('#app', _.div({}, _.Card({title:'Prodotti'},
+ _.Button({color:'primary',onClick:() => dialog.open()}, 'Modifica')), table));
 ```
 
-This demonstrates composition and validation; saving logs the values. Add application persistence and refresh the table when your task requires them. Prefer `_.rod(initial)` for bidirectional field models: read `name.value`, write `name.value = 'Nuovo nome'`; `model` synchronizes the control. Use `_.signal(initial)` when explicit getter/setter functions suit the state, and `_.useForm()` for structured form validation and errors. This avoids reading private `_input` or `_select` references. Input and Select expose `focus(options?)`; read and write values through the rod model. Use `ariaLabel`, `ariaLabelledBy`, `ariaDescribedBy`, `ariaInvalid` and `required` on the control. Input also accepts `min`, `max`, `step`, `pattern`, `minLength` and `maxLength`.
+This logs values; it does not implement validation or persistence. For product editing use [the executable CRUD example](examples/crud.md) instead of reading forms, overlays or component contracts first.
+
+Prefer `_.rod(initial)` for bidirectional fields: read/write `model.value`. `_.signal(initial)` remains supported. Input/Select expose `focus(options?)`; avoid private `_input`/`_select`. Use `label`, `required`, `ariaLabel`, `ariaLabelledBy`, `ariaDescribedBy`, `ariaInvalid`, and `error: _.rod('')`. Input accepts `min`, `max`, `step`, `pattern`, `minLength`, `maxLength`.
 
 ## Exact callback arguments
 
@@ -87,67 +67,47 @@ Dialog returns an API object, not a node to mount: `open(overrides?)`, `close()`
 
 ## Existing CSS and optional assets
 
-CSS classes and theme variables use `jss-` (for example `--jss-primary`). Update old `cms-` overrides when upgrading; do not mix JS and CSS namespace versions.
+The light import includes base tokens, colors, component styles, dense/outline and unprefixed layout utilities. Add `jsswift/css/responsive.css` **after** it for tablet/pc/desktop or legacy breakpoint classes. `ui.css` is the complete alternative; do not import full and light together. Component-specific mobile rules remain in light.
 
-The UI stylesheet includes component styles, theme variables, and responsive rules. Start with native components. Prefer documented `color`, `dense`, `padding`, `radius`, `shadow`, and breakpoint props to overrides of internal `.jss-*` classes. Read [common props](ui/common-props.md) only for an additional inherited prop; component-specific definitions take precedence. Use custom CSS for remaining page requirements.
+Prefer public props to rebuilding controls: `_.Button({color:'primary',outline:true,dense:true}, 'Modifica')`. For breakpoint props use `_.Row({gap:'md',tablet:{gap:'lg'}})` with the responsive addon. Consult common props only for an additional inherited API.
 
-For pages using component defaults and application-owned media queries, import `jsswift/css/ui-light.css` instead of `ui.css`. It retains base tokens, colors, `dense`/`outline`, layout and unprefixed sizing/spacing utilities. For `tablet`, `pc`/`desktop` or legacy breakpoint classes, additionally import `jsswift/css/responsive.css` **after** the light stylesheet. `ui.css` remains the complete compatible entry; do not import both full and light. The light entry keeps component-specific mobile rules and does not remove JavaScript props. `ui-light.min.css` is also available.
-
-Prefer supported props to rebuilding control styles: `_.Button({color:'primary', outline:true, dense:true}, 'Modifica')`. Use `_.Row({gap:'md', tablet:{gap:'lg'}})` with the responsive addon when breakpoint props are required. Read the focused component contract for additional options.
-
-System fonts are the default. Import `jsswift/css/fonts-nunito.css`, `jsswift/css/fonts-material.css`, or `jsswift/tabler` only when required; Material Symbols loads a remote Google font. See [setup](getting-started.md).
+Classes and theme variables use `jss-`; migrate old `cms-` overrides. Fonts are system defaults. Import `jsswift/css/fonts-nunito.css`, `fonts-material.css`, or `jsswift/tabler` only when required; Material Symbols downloads a remote font.
 
 ## Accessibility and verification
 
-Input and Select use a string `label` as their default accessible name; use `ariaLabel` for a different name or `ariaLabelledBy` for an external label. Verify rendered names when using custom label nodes. Set Dialog `ariaLabel` explicitly. Dialog normally restores the original focus element; if the app replaces that element, restore focus to its current replacement using a stable application identifier in `onClose`. Do not claim these behaviors were tested from a build alone.
+String labels name Input/Select; set Dialog `ariaLabel`. Field errors are associated automatically. Dialog preserves focus assigned in `onOpen`. If rendering replaces the trigger, restore its current replacement in `onClose`; see CRUD.
 
-Run the app's build after implementation and check values, validation, dialog keyboard behavior, and persistence when required. Start one development server on an explicit available port; with Vite use `npm run dev -- --port <port> --strictPort`. Report checks actually performed.
-
-## Read only what the task needs
-
-- Exact APIs: [Input](components/input.md), [Select](components/select.md), [Button](components/btn.md), [Card](components/card.md), [Table](components/table.md), [Dialog](components/dialog.md).
-- Extra behavior: [forms](ui/forms.md), [reactivity](reactivity.md), [layout](ui/layout-and-responsive.md), [overlays](ui/data-feedback-overlays.md).
-- Other components: [index](components/README.md). MCP: read `guide:AI`, then search only for additional features.
-
-For a complete application flow, read [the compact CRUD example](examples/crud.md) only when the task needs editing, validation, persistence and focus restoration together.
-
-## Verification evidence and environment
-
-Check whether browser tooling and server permissions are available before launching checks. Run Git commands only in a Git worktree; for example test `git rev-parse --is-inside-work-tree` before requesting a diff. Keep build, pure-logic tests and server startup results separate. An HTTP response confirms a reachable server, not that your startup command succeeded or that browser interactions work. Report environment failures separately from application failures. Test the implemented functions rather than rebuilding equivalent data inside an assertion.
-
-Dialog autofocus preserves focus assigned inside `onOpen`; verify initial focus after the deferred autofocus has run, separately from validation focus and return focus. Record each check separately: initial field, Tab/Shift+Tab containment, Escape, and return to the current trigger. A focus-trap result does not prove initial focus. Field messages are associated with Input/Select through `aria-describedby` automatically.
-
-## Focus CSS and targeted reads
-
-Apply focus indicators to every selector through `:is`, rather than placing the pseudo-class on only the final selector in a comma-separated list:
+Build is not a browser test. Verify initial focus after deferred autofocus, Tab/Shift+Tab containment, Escape, return focus, validation, persistence, mobile overflow and borders separately. Report unverified checks. Use this custom focus CSS:
 
 ```css
-:is(button, a, input, select, [tabindex]):focus-visible {
+:is(button,a,input,select,[tabindex]):focus-visible {
   outline: 3px solid #2563eb;
   outline-offset: 3px;
 }
 ```
 
-When MCP is configured, request missing component details with `jsswift_read({id:"component:table", section:"props", keys:["pagination","hideFooter"]})`. `section` supports props, events, methods and slots; omit it for the full document. Inherited props are resolved automatically; unknown keys return an error. This reduces returned text, not the API knowledge needed by the task.
+Keep build, logic assertions and server startup in separate commands. Check tooling/permissions first; use an explicit Vite port with `--strictPort`. Environment failures are not application failures; HTTP alone does not verify interactions.
 
+## Additional APIs only
+
+Use the map for the missing API, then read its focused contract. Button is `components/btn.md` (`button.md` redirects). With configured MCP: `jsswift_read({id:"component:table",section:"props",keys:["pagination","hideFooter"]})`; sections include props/events/methods/slots and resolve inherited props. No MCP setup is required for local documentation.
 
 ## Catalogue surfaces and field styling
 
-Use `_.Kpi({title:'Disponibili', value:9, note:'Con quantità maggiore di zero'})` for dashboard metrics; it already supplies the metric layout. [Additional Kpi options](components/kpi.md).
+`_.Kpi({title:'Disponibili',value:9,note:'Con quantità maggiore di zero'})` supplies dashboard metrics. Update KPI when inventory changes, not on each filter; see CRUD. Read the Kpi contract only for additional options.
 
-Table already returns a Card: place it in a structural `_.div`, without another Card around it. Use `hideStatus:true` with an application-owned counter, and `emptyText:'Nessun prodotto trovato'` for a single empty message. When passing a paginated slice, set each data column's `sortable:false` unless the application sorts the full filtered dataset before slicing; built-in sorting sees only supplied rows.
+Table returns a Card; use a structural container. Card props include `shadow:'none'`, `radius:'12px'`, and `padding`. For a fixed light surface: `style:{background:'#fff'}`, `tableStyle:{background:'#fff','--set-color-1':'#fff'}`. This does not provide automatic dark theming.
 
-Input's border belongs to its outer control; the native input is transparent. Preserve that transparency: broad rules such as `.filters input {background:white}` can cover the curved border when a surrounding Card supplies a larger radius. Apply page backgrounds to structural containers. Set a field's own `radius` when it should not inherit the surrounding surface radius. Avoid clipping controls with `overflow:hidden`, which can also clip focus indicators.
+For external pagination use `pagination:false`, `hideFooter:true`, `hideStatus:true`, `emptyText:'Nessun prodotto trovato'`, `minTableWidth:600`. Set each data column's `sortable:false`: built-in sorting sees only the supplied page. Sort the full filtered dataset before slicing if needed.
 
-For taller catalogue fields, set the shared height variable on their application-owned container; do not force a height or background on native `input` and `select` descendants:
+Input's native input is transparent; preserve that background to keep the outer curved border visible. Set height on an application container:
 
 ```css
 .catalogue-filters {
   --jss-input-height-default: 40px;
 }
 ```
-
-Check the border, floating label, error message and keyboard focus at desktop and mobile sizes. A passing CRUD test does not verify these visual states. Keep failed server startup, retry incidents, cached input and uncached input separate when comparing repeated benchmark runs.
+ Use the field's `radius` prop if it should not inherit a surface radius. Avoid clipping controls/focus indicators with overflow:hidden. Check borders, labels, errors and focus at desktop/mobile sizes.
 
 ## Theme and lifecycle essentials
 

@@ -116,3 +116,16 @@ _.mount('#app', _.div({style: {minWidth: 0}}, table));
 For external paging, the status count describes the supplied page (for example, “5 righe”); an external total describes all filtered results. Choose whether both pieces of information are useful. `status` adds content; it does not replace or hide the built-in count. `hideFooter` only hides the footer. Do not use `hideHeader` to remove the status row. Use `hideStatus: true` to hide that row when the application supplies its own summary. It does not hide the toolbar, column headings or footer.
 
 A grey surface or gradient is not a focus indicator. Inspect the Card/theme surface separately from `:focus-visible`; do not remove keyboard indicators to change a background. Custom table-cell styling is application CSS, and should remain scoped to an application class.
+
+## Fixed white catalogue surface
+
+Use public `style` for the outer Card and `tableStyle` for the HTML table:
+
+```js
+_.Table({rows:products, columns:[{key:'name',label:'Nome'}],
+ shadow:'none', radius:'12px',
+ style:{background:'#fff'},
+ tableStyle:{background:'#fff', '--set-color-1':'#fff'}});
+```
+
+`radius`, `padding` and `shadow` act on the Card; `tableStyle` acts on the table, and `--set-color-1` supplies its header background. The inner scroll frame remains. This explicitly fixes a light surface; for theme switching use theme-dependent values instead. Do not remove focus outlines to change a surface.

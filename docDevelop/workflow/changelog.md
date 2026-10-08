@@ -1,5 +1,11 @@
 # Development changelog
 
+## 2026-10-08 — Release 2.0.1 and knowledge MCP 0.1.12
+
+- Shorter AI entrypoint and focused CRUD discovery. Executable focus and field-height CSS examples retained.
+- CRUD uses public white Table styling, restores focus at disabled pager boundaries and refreshes KPI only when inventory changes.
+- Verification: runtime/site builds, 64 unit, 25 browser checks including two corrected-documentation reruns, and 6 knowledge/MCP checks. Package contents inspected.
+
 ## 2026-10-07 — Release JSswift 1.0.51 and knowledge MCP 0.1.7
 
 - Outcome: selective MCP contract reads and focus CSS/Table guidance distributed.
