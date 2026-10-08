@@ -110,3 +110,18 @@ test('configured builds include only requested UI and optional assets', async ()
     await assert.rejects(buildConfiguredRuntime({ extras: [] }, full), /must be empty/);
   } finally { await fs.rm(directory, { recursive: true, force: true }); }
 });
+
+test('AI quick start selects its documented components without loading the full catalog', async () => {
+  const guide = await fs.readFile(new URL('../documentions/AI.md', import.meta.url), 'utf8');
+  const configSource = guide.match(/```mjs\n([\s\S]*?)\n```/)[1];
+  const { default: config } = await import(`data:text/javascript,${encodeURIComponent(configSource)}`);
+  const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'jss-ai-config-'));
+  try {
+    const report = await buildConfiguredRuntime(config, directory);
+    for (const component of ['Button','Input','Select','Card','Table','Dialog']) assert.ok(report.components.includes(component), component);
+    for (const component of ['Upload','Calendar','Parallax','LoadingBar']) assert.ok(!report.components.includes(component), component);
+    const entry = guide.match(/```js\n([\s\S]*?)\n```/)[1];
+    assert.match(entry, /import 'jss:runtime'/);
+    assert.doesNotMatch(entry, /import 'jsswift'/);
+  } finally { await fs.rm(directory, {recursive:true,force:true}); }
+});

@@ -1,6 +1,6 @@
 # Compact verified CRUD
 
-Load JSswift and its UI CSS, then run the following code with an `#app` element. Uses public field APIs; selectors below identify application-owned buttons only. Persistence failures keep the editor open. Filtering applies to names and category; five rows per page. Create fresh fields for each opening; closing an overlay cleans up its mounted content.
+For a new Vite app follow the selective setup in [AI.md](../AI.md#import-create-mount), use `components:['Button','Input','Select','Table','Kpi']`, `services:['Dialog']`, and import `jss:runtime` in the entrypoint. For an existing app preserve its loading method. Then run the following code with an `#app` element. Uses public field APIs; selectors below identify application-owned buttons only. Persistence failures keep the editor open. Filtering applies to names and category; five rows per page. Create fresh fields for each opening; closing an overlay cleans up its mounted content and explicitly disposes the eight caller-owned field/error rods.
 
 ```js
 const _ = window._;
@@ -17,6 +17,7 @@ function edit(record) {
  editing = record?.id ?? null; origin = record ? `edit-${record.id}` : 'add-product';
 models = Object.fromEntries(['name','category','price','quantity'].map(k => [k, _.rod('')]));
 errors = Object.fromEntries(Object.keys(models).map(k => [k, _.rod('')]));
+const ownedModels = [...Object.values(models), ...Object.values(errors)], returnFocus = origin;
 fields = {
  name: _.Input({label:'Nome', required:true, model:models.name, error:errors.name}),
  category: _.Select({label:'Categoria', required:true, model:models.category, error:errors.category, options:categories.map(value => ({value,label:value}))}),
@@ -25,7 +26,8 @@ fields = {
 };
 dialog = _.Dialog({title:'Prodotto', ariaLabel:'Prodotto', trapFocus:true, autoFocus:true, closeOnEsc:true,
  content:_.div({}, ...Object.values(fields)), onOpen:() => fields.name.focus(),
- onClose:() => requestAnimationFrame(() => (document.getElementById(origin) ?? add).focus())});
+ onClose:() => { ownedModels.forEach(model => model.dispose());
+ requestAnimationFrame(() => (document.getElementById(returnFocus) ?? add).focus()); }});
 save = _.Button({id:'save-product', onClick:() => {
  const value = {name:models.name.value.trim(),category:models.category.value,price:Number(models.price.value),quantity:Number(models.quantity.value)};
  errors.name.value = value.name ? '' : 'Nome obbligatorio';
@@ -34,7 +36,9 @@ save = _.Button({id:'save-product', onClick:() => {
  errors.quantity.value = String(models.quantity.value).trim() && Number.isSafeInteger(value.quantity) && value.quantity >= 0 ? '' : 'Quantità non valida';
  const invalid = Object.keys(errors).find(k => errors[k].value);
  if (invalid) { fields[invalid].focus(); return; }
- const record = {id:editing ?? Math.max(0,...rows.map(r => r.id))+1,...value};
+ const usedIds = new Set(rows.map(r => r.id));
+ let freeId = 1; while (usedIds.has(freeId)) freeId++;
+ const record = {id:editing ?? freeId,...value};
  const next = editing == null ? [...rows,record] : rows.map(r => r.id === editing ? record : r);
  try { localStorage.setItem(key, JSON.stringify(next)); } catch { notice.textContent = 'Salvataggio non riuscito'; return; }
  rows = next; renderStats(); render(); dialog.close(); notice.textContent = 'Salvato';
@@ -88,6 +92,6 @@ Build success alone does not verify this flow. In a browser, record these result
 
 The example uses public field APIs and rod values. If a browser is unavailable, report these interactions as unverified rather than deriving them from pure-logic assertions.
 
-Table supplies its own Card and empty state. This example disables column sorting because it supplies a page slice; sort the complete filtered data before slicing if global sorting is required. For dashboard counters prefer `_.Kpi({title, value, note})`. Preserve field input transparency and use the container height variable described in [AI guide](../AI.md#catalogue-surfaces-and-field-styling).
+Table supplies its own Card and empty state. If an application adds a surrounding panel with its own border, use `embedded:true` on Table to avoid nested frames. This example disables column sorting because it supplies a page slice; sort the complete filtered data before slicing if global sorting is required. For dashboard counters prefer `_.Kpi({title, value, note})`. Preserve field input transparency and use the container height variable described in [AI guide](../AI.md#catalogue-surfaces-and-field-styling).
 
-Lifecycle: `_.mount(host, nextContent)` clears the previous subtree through JSswift cleanup (default `clear:true`). Its returned function unmounts the new content. Use this for replacing component subtrees; native `replaceChildren`, `innerHTML` or `remove` alone do not invoke registered JSswift cleanup. Keep shared models alive until their application owner disposes them.
+Lifecycle: `_.mount(host, nextContent)` clears the previous subtree through JSswift cleanup (default `clear:true`). Its returned function unmounts the new content. Use this for replacing component subtrees; native `replaceChildren`, `innerHTML` or `remove` alone do not invoke registered JSswift cleanup. Keep shared models alive until their application owner disposes them. Temporary editor models are owned by each opening and disposed in `onClose`; capture them there rather than disposing models from a later opening. New records use the first free positive ID, so a stored `Number.MAX_SAFE_INTEGER` does not cause unsafe IDs.

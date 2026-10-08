@@ -37,6 +37,7 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
     "minTableWidth": {"type": "string|number", "description": "Component configuration for \"minTableWidth\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
     "stickyHeader": {"type": "boolean", "description": "Keeps the header region sticky during scroll.", "default": null, "values": null, "category": "general"},
     "hideHeader": {"type": "boolean", "description": "Component configuration for \"hideHeader\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
+    "embedded": {"type": "boolean", "description": "Removes the outer Card frame/shadow, body padding and inner scroll-frame border/radius for use inside an application-owned surface. Preserves table scrolling and row separators. Evaluated at creation.", "default": false, "values": null, "category": "layout"},
     "hideStatus": {"type": "boolean", "description": "Hides the entire status row, including row count, filter/sort indicators and custom status content. Independent of toolbar, column headings and footer. Evaluated at creation.", "default": false, "values": null, "category": "layout"},
     "hideFooter": {"type": "boolean", "description": "Component configuration for \"hideFooter\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
     "dense": {"type": "boolean", "description": "Uses compact spacing and sizing.", "default": false, "values": null, "category": "layout"},
@@ -129,3 +130,5 @@ _.Table({rows:products, columns:[{key:'name',label:'Nome'}],
 ```
 
 `radius`, `padding` and `shadow` act on the Card; `tableStyle` acts on the table, and `--set-color-1` supplies its header background. The inner scroll frame remains. This explicitly fixes a light surface; for theme switching use theme-dependent values instead. Do not remove focus outlines to change a surface.
+
+Use `embedded:true` when an enclosing application surface owns the border and spacing. Default standalone Table appearance remains unchanged.

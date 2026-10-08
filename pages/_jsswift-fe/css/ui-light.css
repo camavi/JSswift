@@ -9349,6 +9349,19 @@ a.jss-breadcrumb {
   transition: all 260ms ease;
 }
 
+/* An application surface owns the frame when Table is embedded. */
+.jss-table-card.jss-table-embedded {
+  border: 0;
+  box-shadow: none;
+}
+.jss-table-embedded .jss-card-body {
+  padding: 0;
+}
+.jss-table-embedded .jss-table-wrap {
+  border: 0;
+  border-radius: 0;
+}
+
 /* AUTO-GENERATED FILE – DO NOT EDIT */
 /* JSswift responsive – CSS classes */
 

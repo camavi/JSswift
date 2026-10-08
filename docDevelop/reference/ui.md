@@ -383,3 +383,5 @@ uiApplyResponsiveProps resolves device objects once per invocation and reuses th
 ## Configured application builds
 
 Repository build tools now support jss.config.js with ui.all, selective components/services, responsive CSS and explicit extras. The Vite integration is tools/vite-jss.mjs; the standalone CLI is npm run build:configured. See [application build contract](../../documentions/configured-runtime.md). Selective builds extract dependency-closed source statements while preserving their order and shared IIFE; component CSS pruning retains shared/unknown rules conservatively. Standard UI outputs remain complete. The package build now ships jsswift/vite, jsswift/build and the jss-build executable with its own sources/assets and TypeScript declarations. Registry availability requires a separate authorized release.
+
+`_.Table({embedded:true})` removes its Card border/shadow, body padding and inner scrolling-frame border/radius when an application owns the enclosing surface. Row separators and scrolling remain; default is false.

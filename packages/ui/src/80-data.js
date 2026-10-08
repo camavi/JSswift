@@ -61,9 +61,9 @@
       "actions", "actionsLabel", "emptyText", "loadingText", "onRowClick", "onRowDblClick",
       "tableClass", "tableStyle", "cardClass", "dense", "striped", "hover", "stickyHeader",
       "toolbar", "toolbarStart", "toolbarEnd", "caption", "footer", "status", "rowClass", "rowAttrs",
-      "minTableWidth", "hideHeader", "hideFooter", "hideStatus", "slots", "body"
+      "embedded", "minTableWidth", "hideHeader", "hideFooter", "hideStatus", "slots", "body"
     ]);
-    wrapProps.class = uiClass(["jss-table-card", props.class, props.cardClass]);
+    wrapProps.class = uiClass(["jss-table-card", props.embedded === true && "jss-table-embedded", props.class, props.cardClass]);
     if (props.dense != null) wrapProps.dense = props.dense;
 
     const shell = _.div({ class: "jss-table-shell" });

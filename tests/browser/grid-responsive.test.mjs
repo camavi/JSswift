@@ -1231,6 +1231,7 @@ test("Documented CRUD validates, edits, binds rod, restores focus and survives r
   const stableKpi = stats.firstElementChild === originalKpi;
   const table = host.querySelector('table');
   const whiteSurface = getComputedStyle(table).backgroundColor === 'rgb(255, 255, 255)' && getComputedStyle(table.querySelector('th')).backgroundColor === 'rgb(255, 255, 255)';
+  const baselineRods = _.rod._all?.size ?? 0;
   click('add-product'); await wait();
   const initialFocus = document.activeElement.getAttribute('aria-label') === 'Nome';
   click('save-product'); await wait();
@@ -1263,6 +1264,14 @@ test("Documented CRUD validates, edits, binds rod, restores focus and survives r
   const escapeDeadline = Date.now() + 2000;
   while ((dialog.isOpen() || document.activeElement.id !== 'add-product') && Date.now() < escapeDeadline) await wait();
   const escaped = !dialog.isOpen() && document.activeElement.id === 'add-product';
+  for (let i=0;i<3;i++) { click('add-product'); await wait(); dialog.close(); await wait(); }
+  const rodsDisposed = _.rod._all.size === baselineRods;
+  const originalRows = rows; rows = [{...rows[0],id:Number.MAX_SAFE_INTEGER}];
+  click('add-product'); await wait();
+  models.name.value='Safe ID'; models.category.value='Casa'; models.price.value='1'; models.quantity.value='1';
+  click('save-product'); await wait();
+  const safeId = valid(rows) && rows[1].id === 1;
+  rows = originalRows; localStorage.setItem(key,JSON.stringify(rows)); renderStats(); render();
   search.focus(); const q = document.activeElement; q.value = 'MODIFICATO'; q.dispatchEvent(new Event('input',{bubbles:true}));
   const searched = host.textContent.includes('Modificato') && !host.textContent.includes('Prodotto 2');
   q.value = ''; q.dispatchEvent(new Event('input',{bubbles:true}));
@@ -1270,9 +1279,9 @@ test("Documented CRUD validates, edits, binds rod, restores focus and survives r
   [...document.querySelectorAll('.jss-select-option')].find(n => n.textContent==='Ufficio' && n.getBoundingClientRect().width).click();
   const filtered = host.textContent.includes('Prodotto 2') && !host.textContent.includes('Modificato');
   const mobile = document.documentElement.scrollWidth <= innerWidth;
-  return {initialFocus,paged,lastPageFocus,firstPageFocus,stableKpi,whiteSurface,invalid,errorAssociated,storageFailure,categoryBound,numeric,added,focusRestored,edited,escaped,searched,filtered,trapped,mobile};
+  return {rodsDisposed,safeId,initialFocus,paged,lastPageFocus,firstPageFocus,stableKpi,whiteSurface,invalid,errorAssociated,storageFailure,categoryBound,numeric,added,focusRestored,edited,escaped,searched,filtered,trapped,mobile};
  })().catch(e => ({error:String(e.stack || e)}))`, {afterReload:`({count:rows.length,name:rows[0].name,category:rows[6]?.category})`});
- assert.deepEqual(result,{before:{initialFocus:true,paged:true,lastPageFocus:true,firstPageFocus:true,stableKpi:true,whiteSurface:true,invalid:true,errorAssociated:true,storageFailure:true,categoryBound:true,numeric:true,added:true,focusRestored:true,edited:true,escaped:true,searched:true,filtered:true,trapped:true,mobile:true},after:{count:7,name:'Modificato',category:'Casa'}});
+ assert.deepEqual(result,{before:{rodsDisposed:true,safeId:true,initialFocus:true,paged:true,lastPageFocus:true,firstPageFocus:true,stableKpi:true,whiteSurface:true,invalid:true,errorAssociated:true,storageFailure:true,categoryBound:true,numeric:true,added:true,focusRestored:true,edited:true,escaped:true,searched:true,filtered:true,trapped:true,mobile:true},after:{count:7,name:'Modificato',category:'Casa'}});
 });
 
 
@@ -1321,17 +1330,18 @@ test("Table hideStatus omits only the status region and preserves default counts
  const tmp = await mkdtemp(path.join(os.tmpdir(), 'jsswift-table-status-'));
  const html = path.join(tmp, 'index.html');
  const asset = name => pathToFileURL(path.join(ROOT_DIR,name)).href;
- await writeFile(html, `<!doctype html><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script>`);
+ await writeFile(html, `<!doctype html><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script>`);
  const result = await runChromeMobileEval(findChrome(),pathToFileURL(html).href, `(() => {
  const base = {rows:[{name:'Casa'}],columns:[{key:'name',label:'Nome'}],toolbarStart:'Toolbar',status:'Custom status'};
- const normal = _.Table(base), hidden = _.Table({...base,hideStatus:true});
+ const normal = _.Table(base), hidden = _.Table({...base,hideStatus:true,embedded:true});
  document.body.append(normal,hidden);
- return {normal:!!normal.querySelector('.jss-table-status'),custom:normal.textContent.includes('Custom status'),
+ const embedded = getComputedStyle(hidden).borderTopWidth === '0px' && getComputedStyle(hidden.querySelector('.jss-table-wrap')).borderTopWidth === '0px';
+ return {embedded,normal:!!normal.querySelector('.jss-table-status'),custom:normal.textContent.includes('Custom status'),
  hidden:!!hidden.querySelector('.jss-table-status'),hiddenCustom:hidden.textContent.includes('Custom status'),
  toolbar:!!hidden.querySelector('.jss-table-toolbar'),head:!!hidden.querySelector('thead'),rows:hidden.querySelectorAll('tbody tr').length,
  leaked:hidden.hasAttribute('hideStatus')};
  })()`);
- assert.deepEqual(result,{normal:true,custom:true,hidden:false,hiddenCustom:false,toolbar:true,head:true,rows:1,leaked:false});
+ assert.deepEqual(result,{embedded:true,normal:true,custom:true,hidden:false,hiddenCustom:false,toolbar:true,head:true,rows:1,leaked:false});
 });
 
 

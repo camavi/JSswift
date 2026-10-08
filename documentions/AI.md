@@ -24,13 +24,33 @@ The map locates a contract; it does not replace it. Avoid reading all of `ui/com
 
 ## Import, create, mount
 
-For an existing app, preserve its loading method. With the configured Vite plugin, import `jss:runtime` instead of the two traditional imports below: it includes the configured JavaScript, CSS and extras. Read [configured-runtime.md](configured-runtime.md) for setup and package availability; older installed releases may not expose this tooling.
+For **new Vite apps with JSswift 2.1+**, use a selective runtime by default. Create these two files before implementing the page; this setup is sufficient without another guide.
+
+`jss.config.js` (list all components called by the application; dependencies are automatic):
+
+```mjs
+export default {
+ ui: {components:['Button','Input','Select','Card','Table'], services:['Dialog'], responsive:false},
+ extras:[]
+};
+```
+
+`vite.config.js` (add the plugin to existing plugins if the file already exists):
+
+```mjs
+import { defineConfig } from 'vite';
+import { jssRuntime } from 'jsswift/vite';
+export default defineConfig({plugins:[jssRuntime()]});
+```
+
+Use `responsive:true` for breakpoint utilities/props and add `Kpi` for the CRUD example. Include dynamically called components explicitly. Use `ui:{all:true}` only when the full catalog is required. Selection happens at build time, not by detecting calls in application code. Do not combine `jss:runtime` with complete runtime or UI CSS imports. Inspect `dist/jss-build-report.json` after building to verify selected components and extras.
+
+For existing apps preserve their loading method. Traditional `import 'jsswift'` plus `import 'jsswift/css/ui-light.css'` loads the complete JavaScript UI. Older versions may require this method; check installed version/export availability before migrating. Advanced configuration is in [configured-runtime.md](configured-runtime.md).
 
 With Vite, provide `<div id="app"></div>` and a module entrypoint:
 
 ```js
-import 'jsswift';
-import 'jsswift/css/ui-light.css';
+import 'jss:runtime';
 const _ = window._;
 const name = _.rod('Prodotto 01'), category = _.rod('Casa');
 const input = _.Input({label:'Nome', required:true, model:name});
@@ -101,7 +121,7 @@ Use the map for the missing API, then read its focused contract. Button is `comp
 
 `_.Kpi({title:'Disponibili',value:9,note:'Con quantità maggiore di zero'})` supplies dashboard metrics. Update KPI when inventory changes, not on each filter; see CRUD. Read the Kpi contract only for additional options.
 
-Table returns a Card; use a structural container. Card props include `shadow:'none'`, `radius:'12px'`, and `padding`. For a fixed light surface: `style:{background:'#fff'}`, `tableStyle:{background:'#fff','--set-color-1':'#fff'}`. This does not provide automatic dark theming.
+Table returns a Card; use a structural container. When an enclosing surface already has a frame, set `embedded:true` to remove Table’s outer and inner frames; `shadow:'none'` alone only removes elevation. Card props include `shadow:'none'`, `radius:'12px'`, and `padding`. For a fixed light surface: `style:{background:'#fff'}`, `tableStyle:{background:'#fff','--set-color-1':'#fff'}`. This does not provide automatic dark theming.
 
 For external pagination use `pagination:false`, `hideFooter:true`, `hideStatus:true`, `emptyText:'Nessun prodotto trovato'`, `minTableWidth:600`. Set each data column's `sortable:false`: built-in sorting sees only the supplied page. Sort the full filtered dataset before slicing if needed.
 
@@ -119,3 +139,5 @@ Input's native input is transparent; preserve that background to keep the outer 
 base.css is already included. Use `_.setTheme('dark')` or `_.setTheme('light')`; persistence defaults to `jsswift:theme`. At startup restore with `_.setTheme(_.getTheme())`. Customize the existing `--jss-primary-600`/`--jss-primary-700` palette values after the UI import. See [base CSS and themes](ui/themes.md) only for additional theme requirements.
 
 Replace component subtrees with `_.mount(host, nextContent)` (default clear:true), which cleans up previous effects and subscriptions. Native `replaceChildren`/`innerHTML` alone do not run JSswift cleanup. Keep shared models owned by the application alive.
+
+Dispose caller-owned temporary rods explicitly with `model.dispose()` after their editor closes; overlay cleanup removes subscriptions, not application ownership. Keep shared models alive until their owner is destroyed.

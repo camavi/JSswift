@@ -11387,8 +11387,8 @@ transition: width 200ms ease;
         setPage(1);
       }, "UI.Table:queryWatch");
     }
-    const wrapProps = JSswift.omit(props, ["columns", "rows", "rowKey", "loading", "page", "pageSize", "pageSizeOptions", "pagination", "initialSort", "sortBy", "sortDir", "search", "query", "searchable", "searchPlaceholder", "searchKeys", "searchBy", "searchPredicate", "searchModel", "queryModel", "filter", "actions", "actionsLabel", "emptyText", "loadingText", "onRowClick", "onRowDblClick", "tableClass", "tableStyle", "cardClass", "dense", "striped", "hover", "stickyHeader", "toolbar", "toolbarStart", "toolbarEnd", "caption", "footer", "status", "rowClass", "rowAttrs", "minTableWidth", "hideHeader", "hideFooter", "hideStatus", "slots", "body"]);
-    wrapProps.class = uiClass(["jss-table-card", props.class, props.cardClass]);
+    const wrapProps = JSswift.omit(props, ["columns", "rows", "rowKey", "loading", "page", "pageSize", "pageSizeOptions", "pagination", "initialSort", "sortBy", "sortDir", "search", "query", "searchable", "searchPlaceholder", "searchKeys", "searchBy", "searchPredicate", "searchModel", "queryModel", "filter", "actions", "actionsLabel", "emptyText", "loadingText", "onRowClick", "onRowDblClick", "tableClass", "tableStyle", "cardClass", "dense", "striped", "hover", "stickyHeader", "toolbar", "toolbarStart", "toolbarEnd", "caption", "footer", "status", "rowClass", "rowAttrs", "embedded", "minTableWidth", "hideHeader", "hideFooter", "hideStatus", "slots", "body"]);
+    wrapProps.class = uiClass(["jss-table-card", props.embedded === true && "jss-table-embedded", props.class, props.cardClass]);
     if (props.dense != null) wrapProps.dense = props.dense;
     const shell = _.div({ class: "jss-table-shell" });
     const leadNodes = renderSlotToArray(slots, "default", {}, children);
