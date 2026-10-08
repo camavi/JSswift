@@ -71,3 +71,12 @@ Registry publication, complete selector ownership, stronger dependency analysis 
 - Fresh registry version lists confirm target versions absent.
 - Runtime/site builds, 71 unit/package tests and 6 knowledge/MCP checks pass. Tarball dry-runs verified tool exports, source manifest, executable and AI docs.
 - Publication follows the release commit; registry confirmation will be recorded afterward.
+
+## Verified publication
+
+- Implementation/release commit: 369618d.
+- npm accepted jsswift 2.1.0 and @jsswift/knowledge-mcp 0.1.13. Both became visible after registry processing; fresh prefer-online queries confirm their versions and executable mappings.
+- jsswift binary: jss-build -> dist/build/build-configured-runtime.mjs. MCP binary: jsswift-mcp -> dist/server.mjs.
+- npm normalized the leading ./ in the framework bin path. Its warning misleadingly described removal; source inspection and published metadata confirm the executable was retained. Local manifest now uses the normalized path. Installed-tarball verification passes again.
+- Final release verification: runtime/site/package builds, 71 tests, 26 browser tests, 6 knowledge/MCP checks and tarball reviews pass.
+- No git push or site deployment performed.

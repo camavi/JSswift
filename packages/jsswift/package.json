@@ -57,7 +57,7 @@
     "readingOrder": "Read AI.md alone in a separate operation. For CRUD use its compact example without pre-reading component contracts. Use the map only for missing APIs and read one focused section."
   },
   "bin": {
-    "jss-build": "./dist/build/build-configured-runtime.mjs"
+    "jss-build": "dist/build/build-configured-runtime.mjs"
   },
   "dependencies": {
     "esbuild": "^0.28.2",
