@@ -2,6 +2,8 @@
 
 ## 2026-10-08 — Release 2.0.1 and knowledge MCP 0.1.12
 
+- Publication: all four npm commands accepted; initial fresh-cache registry check returns E404 while npm processes the packages. Release commit 7c1fb74.
+
 - Shorter AI entrypoint and focused CRUD discovery. Executable focus and field-height CSS examples retained.
 - CRUD uses public white Table styling, restores focus at disabled pager boundaries and refreshes KPI only when inventory changes.
 - Verification: runtime/site builds, 64 unit, 25 browser checks including two corrected-documentation reruns, and 6 knowledge/MCP checks. Package contents inspected.
