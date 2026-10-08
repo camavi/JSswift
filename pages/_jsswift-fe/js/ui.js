@@ -1687,6 +1687,10 @@
     wrap._refresh = setHasValue;
     wrap._control = control;
     wrap._el = controlEl;
+    setPropertyProps(wrap, props);
+    if (typeof props.size === "number" || JSswift.uiSizes.includes(props.size)) {
+      wrap.style.setProperty("--jss-field-size-height", "calc(var(--jss-font-size, 14px) * 1.5 + 10px)");
+    }
     return wrap;
   };
   UI.InputRaw = (props = {}) => {
