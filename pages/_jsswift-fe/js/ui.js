@@ -7367,6 +7367,9 @@
         syncDisplay();
         (_a4 = props.onClose) == null ? void 0 : _a4.call(props);
       } });
+      const calendarColor = uiUnwrap(props.color) || "var(--jss-text-2, var(--jss-text))";
+      entry.panel.classList.toggle("jss-date-uncolored", !uiUnwrap(props.color));
+      entry.panel.style.setProperty("--jss-date-accent", JSswift.uiColors.includes(calendarColor) ? `var(--jss-${calendarColor})` : calendarColor);
       if (props.panelStyle) Object.assign(entry.panel.style, props.panelStyle);
       overlayEnter(entry);
       syncDisplay();
@@ -7635,6 +7638,9 @@
         syncDisplay();
         (_a4 = props.onClose) == null ? void 0 : _a4.call(props);
       } });
+      const timeColor = uiUnwrap(props.color);
+      entry.panel.classList.toggle("jss-time-uncolored", !timeColor);
+      entry.panel.style.setProperty("--jss-time-accent", JSswift.uiColors.includes(timeColor) ? `var(--jss-${timeColor})` : timeColor || "var(--jss-text-2, var(--jss-text))");
       if (props.panelStyle) Object.assign(entry.panel.style, props.panelStyle);
       overlayEnter(entry);
       scrollTimeColumnsToSelection();

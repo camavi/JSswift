@@ -3158,6 +3158,43 @@ select {
   cursor: text;
 }
 
+.jss-field.jss-dense .jss-date-display {
+  min-height: var(--jss-field-input-height);
+  font-size: var(--jss-font-size, 14px);
+}
+
+.jss-field:has(.jss-date-display, .jss-time-display) > .jss-control > .jss-addon .jss-icon {
+  background: transparent;
+  border-width: 0;
+  box-shadow: none;
+  color: inherit;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  align-self: stretch;
+  min-width: 32px;
+}
+
+.jss-field:has(.jss-date-display, .jss-time-display) > .jss-control > .jss-addon {
+  align-self: stretch;
+  align-items: stretch;
+  min-height: 0;
+}
+
+.jss-field:has(.jss-date-display, .jss-time-display) > .jss-control > .jss-clear {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jss-field.jss-flat:has(.jss-date-display, .jss-time-display) > .jss-control > .jss-mid.jss-with-right,
+.jss-field.jss-flat:has(.jss-date-display, .jss-time-display) > .jss-control > .jss-mid.jss-with-left {
+  border-width: 0;
+}
+
 .jss-date-display.jss-size-xs {
   --jss-date-input-height: 30px;
   --jss-date-input-font-size: 12px;
@@ -3185,7 +3222,6 @@ select {
 
 .jss-time-display {
   cursor: pointer;
-  min-height: var(--jss-time-input-height, 40px);
   font-size: var(--jss-time-input-font-size, inherit);
 }
 
@@ -3258,6 +3294,33 @@ select {
   display: flex;
   flex-direction: column;
   gap: var(--jss-date-panel-gap);
+}
+
+.jss-date-overlay {
+  background: color-mix(in srgb, var(--jss-panel) 94%, var(--jss-date-accent, var(--jss-primary)));
+  color: var(--jss-text);
+  border: 1px solid color-mix(in srgb, var(--jss-date-accent, var(--jss-primary)) 35%, var(--jss-border-color));
+}
+
+:root:not([data-theme="dark"]) .jss-date-overlay.jss-date-uncolored {
+  background: var(--jss-bg);
+}
+
+.jss-date-overlay .jss-date-day:is(.is-selected, .is-range-start, .is-range-end),
+.jss-date-overlay .jss-date-action.is-primary {
+  background: color-mix(in srgb, var(--jss-date-accent, var(--jss-primary)) 25%, var(--jss-panel));
+  border-color: var(--jss-date-accent, var(--jss-primary));
+  color: var(--jss-text);
+}
+
+.jss-date-overlay .jss-date-day:not(:disabled):not(.is-disabled):hover,
+.jss-date-overlay .jss-date-day.is-in-range {
+  background: color-mix(in srgb, var(--jss-date-accent, var(--jss-primary)) 14%, var(--jss-panel));
+  color: var(--jss-text);
+}
+
+.jss-date-overlay .jss-date-day.is-today {
+  border-color: var(--jss-date-accent, var(--jss-primary));
 }
 
 .jss-date-panel.multi-month {
@@ -3595,6 +3658,28 @@ select {
 
 .jss-time-overlay {
   padding: 0;
+}
+
+.jss-time-overlay {
+  background: color-mix(in srgb, var(--jss-panel) 94%, var(--jss-time-accent, var(--jss-text-2)));
+  color: var(--jss-text);
+  border: 1px solid color-mix(in srgb, var(--jss-time-accent, var(--jss-text-2)) 35%, var(--jss-border-color));
+}
+
+:root:not([data-theme="dark"]) .jss-time-overlay.jss-time-uncolored {
+  background: var(--jss-bg);
+}
+
+.jss-time-overlay .jss-time-option.is-selected,
+.jss-time-overlay .jss-time-action.is-primary {
+  background: color-mix(in srgb, var(--jss-time-accent, var(--jss-text-2)) 25%, var(--jss-panel));
+  border-color: var(--jss-time-accent, var(--jss-text-2));
+  color: var(--jss-text);
+}
+
+.jss-time-overlay .jss-time-option:not(.is-disabled):hover {
+  background: color-mix(in srgb, var(--jss-time-accent, var(--jss-text-2)) 14%, var(--jss-panel));
+  color: var(--jss-text);
 }
 
 .jss-time-panel {

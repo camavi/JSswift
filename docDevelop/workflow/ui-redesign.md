@@ -190,6 +190,17 @@ Added ignored ui-lab.local/slider.html for eight colors, effects, light/dark, si
 
 User accepted and closed Rating visual review and requested a local commit followed by the next component. Date lab added at ignored ui-lab.local/date.html with color/effect matrix, sizes, range/multiple, constraints, manual input, time and shared model. No Date runtime changes yet; no push requested.
 
+- Date Dense display now consumes shared compact field height/font, removing its fixed-height override. Calendar addon icon has transparent background, inherited readable color and centered layout. Date Flat removes internal field separators as well as its outer border.
+- Date calendar addon and clear now stretch to the full control interior height; icon box uses automatic height and centered content instead of fixed icon height.
+- Date popup inherits the field color through an explicit portal accent token; panel surface is lightly tinted, selected/range endpoints and primary action use the accent, with theme text and tinted hover states.
+- Uncolored Date popup now defaults to neutral theme secondary text rather than primary, preserving explicit color accents.
+- Light uncolored Date popup uses the page background token without gray tint; explicit palette colors retain tinted surfaces.
+- User accepted and closed Date visual review. Next is Time; ignored ui-lab.local/time.html covers colors/effects, both themes, sizes, disabled/readonly, seconds, minute steps, limits, manual input and shared model. No Time runtime changes yet; no commit requested in this transition.
+- Time display fixed min-height override removed at user request; shared Input/FormField sizing now determines its minimum height.
+- Time now shares Date full-height addon/icon/clear alignment and transparent centered addon icon rules, including Flat separator removal.
+- Time popup propagates field color through a portal accent token for surface, selected options and primary actions. Uncolored uses neutral theme accent and page background in light mode, matching Date.
+- User accepted and closed Time and requested a local commit of Date/Time changes. Next Textarea lab is ignored ui-lab.local/textarea.html with themes, colors/effects, multiline values, rows, sizes, states/messages and shared model. No Textarea runtime changes yet; no push requested.
+
 - Rating Default increases icon size by 6px over the font token and adds 3px icon padding. Dense uses the base font size, 2px padding and tighter gaps. Flat removes icon fill/border/shadow and uses semantic foreground, with theme text for neutral colors. Numeric sizes retain inline precedence.
 - Rating Outline removes wrapper border and uses transparent per-icon surfaces with semantic foreground/borders; neutral colors use theme text. Shadow adds directional per-icon elevation with a dark highlight/tint treatment.
 - Rating Light Shadow adds per-icon upper-left highlights and lower-right soft shadows with dark mappings; Border owns per-icon edges rather than the wrapper; Glossy adds an upper reflective band and inset edge light in both modes.
