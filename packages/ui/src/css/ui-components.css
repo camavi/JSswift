@@ -7918,6 +7918,7 @@ a.jss-breadcrumb {
 }
 
 .jss-rating-wrap {
+  --jss-rating-size: calc(var(--jss-font-size, 14px) + 6px);
   align-items: center;
   gap: var(--jss-rating-gap, 8px);
 }
@@ -7956,6 +7957,129 @@ a.jss-breadcrumb {
 .jss-rating-item-icon .jss-icon {
   margin: 0;
   font-size: var(--jss-rating-size, var(--jss-font-size, 18px));
+  width: var(--jss-rating-size);
+  height: var(--jss-rating-size);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  box-sizing: content-box;
+}
+
+.jss-rating-wrap.jss-dense {
+  --jss-rating-size: var(--jss-font-size, 14px);
+  --jss-rating-gap: 5px;
+  gap: 6px;
+  padding: 1px 2px;
+}
+
+.jss-rating-wrap.jss-dense .jss-rating-item-icon .jss-icon {
+  padding: 2px;
+}
+
+.jss-rating-wrap.jss-flat .jss-rating-item-icon .jss-icon {
+  background: transparent;
+  border-width: 0;
+  box-shadow: none;
+  color: var(--set-hover, var(--jss-text));
+}
+
+.jss-rating-wrap.jss-flat:is(.jss-state-light, .jss-state-dark, .jss-state-secondary) .jss-rating-item-icon .jss-icon {
+  color: var(--jss-text);
+}
+
+.jss-rating-wrap.jss-outline {
+  border-width: 0;
+}
+
+.jss-rating-wrap.jss-outline .jss-rating-item-icon .jss-icon {
+  background: transparent;
+  color: var(--set-hover, var(--jss-text));
+  border: 1px solid currentColor;
+  box-shadow: none;
+}
+
+.jss-rating-wrap.jss-outline:is(.jss-state-light, .jss-state-dark, .jss-state-secondary) .jss-rating-item-icon .jss-icon {
+  color: var(--jss-text);
+}
+
+.jss-rating-wrap.jss-shadow .jss-rating-item-icon .jss-icon {
+  box-shadow: 0 2px 4px color-mix(in srgb, var(--set-hover, var(--jss-text)) 30%, transparent),
+    0 5px 9px color-mix(in srgb, var(--jss-text) 20%, transparent);
+}
+
+.jss-rating-wrap.jss-light-shadow .jss-rating-item-icon .jss-icon {
+  border-width: 0;
+  box-shadow: inset 1px 1px 2px rgb(255 255 255 / 55%),
+    inset -1px -1px 3px color-mix(in srgb, var(--set-hover) 45%, transparent),
+    -3px -3px 7px color-mix(in srgb, var(--jss-gradient-surface, white) 80%, transparent),
+    3px 4px 8px color-mix(in srgb, var(--jss-text) 25%, transparent);
+}
+
+:root[data-theme="dark"] .jss-rating-wrap.jss-light-shadow .jss-rating-item-icon .jss-icon {
+  box-shadow: inset 1px 1px 2px rgb(255 255 255 / 35%),
+    inset -1px -1px 3px rgb(0 0 0 / 25%),
+    -2px -2px 6px color-mix(in srgb, var(--jss-text) 12%, transparent),
+    3px 4px 8px rgb(0 0 0 / 50%);
+}
+
+.jss-rating-wrap.jss-border {
+  border-width: 0;
+}
+
+.jss-rating-wrap.jss-border .jss-rating-item-icon .jss-icon {
+  border: 1px solid var(--set-hover, var(--jss-border-color));
+}
+
+.jss-rating-wrap.jss-glossy .jss-rating-item-icon .jss-icon {
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 55%) 0%,
+    rgb(255 255 255 / 22%) 48%, transparent 51%, rgb(0 0 0 / 14%) 100%);
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 65%),
+    inset 0 -1px 2px rgb(0 0 0 / 15%);
+}
+
+.jss-rating-wrap.jss-glow .jss-rating-item-icon .jss-icon {
+  text-shadow: none;
+  box-shadow: 0 0 4px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 45%, transparent),
+    0 0 10px 2px color-mix(in srgb, var(--set-hover, var(--jss-text)) 28%, transparent);
+}
+
+:root[data-theme="dark"] .jss-rating-wrap.jss-glow .jss-rating-item-icon .jss-icon {
+  box-shadow: 0 0 4px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 52%, transparent),
+    0 0 12px 2px color-mix(in srgb, var(--set-hover, var(--jss-text)) 34%, transparent);
+}
+
+.jss-rating-wrap.jss-glass .jss-rating-item-icon .jss-icon {
+  background: radial-gradient(ellipse at 25% 15%, rgb(255 255 255 / 80%), transparent 65%),
+    linear-gradient(150deg, color-mix(in srgb, var(--set-hover, var(--jss-text)) 18%, transparent),
+    color-mix(in srgb, var(--set-hover, var(--jss-text)) 42%, transparent));
+  color: color-mix(in srgb, var(--jss-text) 70%, var(--set-hover, var(--jss-text)));
+  border-width: 0;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 1px 1px 2px rgb(255 255 255 / 75%),
+    inset -1px -1px 3px color-mix(in srgb, var(--set-hover, var(--jss-text)) 30%, transparent),
+    0 2px 5px color-mix(in srgb, var(--jss-text) 18%, transparent);
+}
+
+:root[data-theme="dark"] .jss-rating-wrap.jss-glass .jss-rating-item-icon .jss-icon {
+  background: radial-gradient(ellipse at 25% 15%, rgb(255 255 255 / 35%), transparent 65%),
+    linear-gradient(150deg, color-mix(in srgb, var(--set-hover, var(--jss-text)) 20%, transparent),
+    color-mix(in srgb, var(--set-hover, var(--jss-text)) 35%, transparent));
+  box-shadow: inset 1px 1px 2px rgb(255 255 255 / 40%),
+    inset -1px -1px 3px color-mix(in srgb, var(--set-hover, var(--jss-text)) 35%, transparent),
+    0 2px 6px rgb(0 0 0 / 35%);
+}
+
+:root[data-theme="dark"] .jss-rating-wrap.jss-glossy .jss-rating-item-icon .jss-icon {
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 35%) 0%,
+    rgb(255 255 255 / 12%) 48%, transparent 51%, rgb(0 0 0 / 22%) 100%);
+}
+
+:root[data-theme="dark"] .jss-rating-wrap.jss-shadow .jss-rating-item-icon .jss-icon {
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 18%),
+    0 3px 5px color-mix(in srgb, var(--set-hover, var(--jss-text)) 35%, transparent),
+    0 6px 10px rgb(0 0 0 / 45%);
 }
 
 .jss-rating-wrap.is-disabled .jss-rating-item,

@@ -188,6 +188,13 @@ Added ignored ui-lab.local/slider.html for eight colors, effects, light/dark, si
 
 ## Rating local baseline
 
+User accepted and closed Rating visual review and requested a local commit followed by the next component. Date lab added at ignored ui-lab.local/date.html with color/effect matrix, sizes, range/multiple, constraints, manual input, time and shared model. No Date runtime changes yet; no push requested.
+
+- Rating Default increases icon size by 6px over the font token and adds 3px icon padding. Dense uses the base font size, 2px padding and tighter gaps. Flat removes icon fill/border/shadow and uses semantic foreground, with theme text for neutral colors. Numeric sizes retain inline precedence.
+- Rating Outline removes wrapper border and uses transparent per-icon surfaces with semantic foreground/borders; neutral colors use theme text. Shadow adds directional per-icon elevation with a dark highlight/tint treatment.
+- Rating Light Shadow adds per-icon upper-left highlights and lower-right soft shadows with dark mappings; Border owns per-icon edges rather than the wrapper; Glossy adds an upper reflective band and inset edge light in both modes.
+- Rating Glow uses moderated outer halos without text blur. Glass applies translucent tinted per-icon surfaces, upper reflections, backdrop blur and readable theme/semantic icon foreground, with separate dark ratios.
+
 Slider closure validation: UI/umbrella builds passed, npm test passed 72/72, shared field full/selective Chrome regression passed. Earlier local Slider audit verified eight palette colors in light/dark. Rating lab loading verified in Chrome. git diff --check passed.
 
 Added ignored ui-lab.local/rating.html covering light/dark, eight colors, effects, sizes, empty/half/disabled/readonly, custom icons, long labels, clearable and shared model. No Rating runtime changes at this stage.
