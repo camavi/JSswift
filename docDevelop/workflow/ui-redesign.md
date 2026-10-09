@@ -152,6 +152,42 @@ Added ignored ui-lab.local/radio.html with light/dark themes, eight colors, effe
 
 ## Toggle local baseline
 
+User accepted and closed Toggle visual review. Preserve Glass reflection/tinted thumb, Outline thumb color and custom icon centering/color with original dimensions. Extended local custom-icon matrix covers eight colors, three states and Default/Outline/Glass combinations.
+
+- Custom Toggle icons now match thumb dimensions, use flex centering and a readable theme/semantic foreground instead of text-on-fill colors.
+- User requested preserving custom icon dimensions: removed thumb-sized icon override; retained original icon size tokens with centered layout and readable foreground.
+
+- Toggle Outline default thumb now uses semantic hover foreground instead of transparent track background, with stronger selected fill. Subsequent Glass overrides retain the reflective thumb in Outline + Glass.
+
+- Glass default thumb now derives its fill from the semantic hover color rather than the transparent Glass background. It paints above the reflection, with theme text mixed for contrast; Glass track no longer desaturates the thumb in off/indeterminate states.
+- Follow-up restores Glass appearance: translucent tinted thumb with upper reflection and inset highlights; isolated track keeps its Glass reflection below the thumb instead of losing it behind the surface.
+
 Added ignored ui-lab.local/toggle.html with light/dark themes, eight colors, effects, on/off/indeterminate/disabled, sizes, Dense, custom icons, long labels, shared boolean/null model and radio-behavior group. No Toggle runtime changes at this stage. All labs remain excluded from Git.
 
 Closure validation: UI and umbrella builds passed; npm test passed 72/72; shared field full/selective browser regression passed. Local browser audits covered Checkbox Dense/Flat/Outline and Radio Dense/Flat in both themes. Toggle lab loaded in Chrome. git diff --check passed. No push requested.
+
+## Slider local baseline
+
+User accepted and closed Slider visual review and requested a local commit plus the next component. Commit also includes accepted Toggle changes since the preceding commit. All local labs remain excluded; no push requested.
+
+- Slider Dense defaults to an 18px thumb, 4px track and 28px control box with compact wrapper spacing; explicit size tokens retain precedence. Flat uses a filled borderless thumb without shadow. Native keyboard focus gets an offset thumb outline.
+- Slider Outline removes the unintended wrapper rectangle; outlined selection and theme-surface thumb own the treatment. Shadow adds directional thumb shadows with theme-specific dark tint/reflection.
+- Increased Slider Shadow opacity and blur slightly after visual feedback, in both themes.
+- Slider Light Shadow now owns a borderless raised thumb: directional upper-left light, lower-right shadow, inner highlights and a subtly recessed rail, with dedicated dark surface/light ratios.
+- Strengthened Light Shadow thumb semantic tint after visual feedback: light gradient mixes 25–60% component color; dark uses 45–65%, retaining directional highlights and shadows.
+- Slider Glossy paints a distinct upper reflective band on its tinted thumb and active track, with theme-specific dark thumb stops and restrained inset/exterior shadows.
+- Slider Glow adds two soft outer thumb halos and a lighter active-track halo. Track halo resolves the actual selected color, including literal CSS colors; dark uses moderately stronger intensity. Value labels remain sharp.
+- Slider Glass uses a translucent palette-tinted thumb, radial upper reflection, backdrop blur and inset edge light; active track has a translucent reflective finish. Dark gets dedicated reflection/surface ratios; value badge keeps opaque readable text.
+- Slider Gradient paints palette stops on active track and thumb, consuming shared --set-gradient-deg. Existing numeric gradient prop controls the angle; local fixtures cover 45/90/135/180/270 degrees.
+- Slider Text Gradient applies readable theme/palette gradients to header label, header value and endpoint labels; track/thumb keep semantic colors and the floating value badge keeps its contrasting foreground. Outline combinations share the same treatment.
+
+- Slider passed semantic color names directly to CSS, which rejected them and retained primary defaults. Resolve palette names to CSS tokens for color/selectionColor/trackColor/thumbColor; value badge foreground follows the semantic text token. Literal CSS colors remain supported.
+- Value badge correction: current semantic text tokens often match the fill itself. Use dark palette text on warning/success/light badges and light palette text on primary/secondary/danger/info/dark to restore visible numbers.
+
+Added ignored ui-lab.local/slider.html for eight colors, effects, light/dark, sizes, disabled, markers, steps, icons, endpoint labels, long labels and shared rod. No Slider runtime changes at this stage.
+
+## Rating local baseline
+
+Slider closure validation: UI/umbrella builds passed, npm test passed 72/72, shared field full/selective Chrome regression passed. Earlier local Slider audit verified eight palette colors in light/dark. Rating lab loading verified in Chrome. git diff --check passed.
+
+Added ignored ui-lab.local/rating.html covering light/dark, eight colors, effects, sizes, empty/half/disabled/readonly, custom icons, long labels, clearable and shared model. No Rating runtime changes at this stage.

@@ -6004,9 +6004,11 @@
       const step = getStep();
       const ratio = ratioFromValue(value);
       const percent = `${ratio * 100}%`;
-      const color = uiUnwrap(props.color) || uiUnwrap(props.selectionColor) || "var(--jss-primary)";
-      const trackColor = uiUnwrap(props.trackColor) || "var(--jss-border-color)";
-      const thumbColor = uiUnwrap(props.thumbColor) || color;
+      const resolveSliderColor = (raw) => JSswift.uiColors.includes(raw) ? `var(--jss-${raw})` : raw;
+      const colorName = uiUnwrap(props.color) || uiUnwrap(props.selectionColor) || "primary";
+      const color = resolveSliderColor(colorName);
+      const trackColor = resolveSliderColor(uiUnwrap(props.trackColor)) || "var(--jss-border-color)";
+      const thumbColor = resolveSliderColor(uiUnwrap(props.thumbColor)) || color;
       const readonly = !!uiUnwrap(props.readonly);
       const disabled = !!uiUnwrap(props.disabled);
       input.min = String(min);
@@ -6016,11 +6018,13 @@
       input.value = String(value);
       rail.style.background = trackColor;
       selection.style.background = color;
+      wrap.style.setProperty("--jss-slider-glow-color", color);
       selection.style.width = percent;
       thumb.style.left = percent;
       thumb.style.borderColor = thumbColor;
       thumb.style.color = thumbColor;
       thumbLabelHost.style.background = color;
+      thumbLabelHost.style.color = JSswift.uiColors.includes(colorName) ? ["warning", "success", "light"].includes(colorName) ? "var(--jss-gray-900)" : "var(--jss-gray-50)" : "var(--jss-text)";
       wrap.classList.toggle("is-disabled", disabled);
       wrap.classList.toggle("is-readonly", readonly);
       wrap.classList.toggle("has-markers", markersHost.childNodes.length > 0);

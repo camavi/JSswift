@@ -7832,6 +7832,18 @@ a.jss-breadcrumb {
   background: transparent;
 }
 
+.jss-singularity-check.jss-toggle-wrap.jss-choice-wrap .jss-choice-mark.jss-toggle-mark .jss-toggle-thumb .jss-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--set-icon-size, 20px);
+  height: var(--set-icon-size, 20px);
+  font-size: var(--set-icon-size, 20px);
+  line-height: 1;
+  flex-shrink: 0;
+  color: color-mix(in srgb, var(--jss-text) 65%, var(--set-hover, var(--jss-text)));
+}
+
 .jss-toggle-wrap.toggle-default .jss-toggle-thumb {
   background: color-mix(in srgb, var(--set-background-color, var(--jss-surface-2)) 40%, transparent);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
@@ -7846,6 +7858,43 @@ a.jss-breadcrumb {
 
 .jss-toggle-wrap.is-checked.toggle-default .jss-toggle-thumb {
   background: color-mix(in srgb, var(--set-background-color, var(--jss-surface-2)) 90%, white);
+}
+
+.jss-toggle-wrap.jss-outline.toggle-default .jss-toggle-thumb {
+  background: color-mix(in srgb, var(--set-hover, var(--jss-text)) 65%, var(--jss-text));
+}
+
+.jss-toggle-wrap.jss-outline.is-checked.toggle-default .jss-toggle-thumb {
+  background: var(--set-hover, var(--jss-text));
+}
+
+.jss-toggle-wrap.jss-glass .jss-choice-mark.jss-toggle-mark {
+  filter: none;
+  isolation: isolate;
+}
+
+.jss-toggle-wrap.jss-glass .jss-choice-mark.jss-toggle-mark::before {
+  z-index: 0;
+  pointer-events: none;
+}
+
+.jss-toggle-wrap.jss-glass.toggle-default .jss-toggle-thumb {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(155deg,
+    color-mix(in srgb, var(--jss-gradient-surface, white) 75%, transparent),
+    transparent 55%),
+    color-mix(in srgb, var(--set-hover, var(--jss-text)) 42%, transparent);
+  box-shadow: inset 0 1px 2px color-mix(in srgb, var(--jss-gradient-surface, white) 65%, transparent),
+    inset 0 -1px 2px color-mix(in srgb, var(--set-hover, var(--jss-text)) 35%, transparent),
+    0 1px 3px color-mix(in srgb, var(--jss-text) 20%, transparent);
+}
+
+.jss-toggle-wrap.jss-glass.is-checked.toggle-default .jss-toggle-thumb {
+  background: linear-gradient(155deg,
+    color-mix(in srgb, var(--jss-gradient-surface, white) 75%, transparent),
+    transparent 55%),
+    color-mix(in srgb, var(--set-hover, var(--jss-text)) 60%, transparent);
 }
 
 .jss-toggle-wrap.is-checked .jss-toggle-thumb {
@@ -8036,6 +8085,169 @@ a.jss-breadcrumb {
   align-items: center;
   justify-content: center;
   line-height: 1;
+}
+
+.jss-slider-wrap.jss-dense {
+  --jss-slider-size: 18px;
+  --jss-slider-track-size: 4px;
+  --jss-slider-box-height: 28px;
+  gap: 4px;
+  padding: 0;
+  margin: 0;
+}
+
+.jss-slider-wrap.jss-flat .jss-slider-thumb {
+  border-width: 0;
+  box-shadow: none;
+  background: currentColor;
+}
+
+.jss-slider-wrap.jss-outline {
+  border-width: 0;
+}
+
+.jss-slider-wrap.jss-outline .jss-slider-thumb {
+  background: var(--jss-bg);
+  box-shadow: none;
+}
+
+.jss-slider-wrap.jss-outline .jss-slider-selection {
+  background: transparent !important;
+  border: 1px solid var(--set-hover, var(--jss-primary));
+  box-sizing: border-box;
+}
+
+.jss-slider-wrap.jss-shadow .jss-slider-thumb {
+  box-shadow: 0 3px 5px color-mix(in srgb, currentColor 30%, transparent),
+    0 6px 12px color-mix(in srgb, var(--jss-text) 24%, transparent);
+}
+
+:root[data-theme="dark"] .jss-slider-wrap.jss-shadow .jss-slider-thumb {
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--jss-text) 18%, transparent),
+    0 3px 6px color-mix(in srgb, currentColor 38%, transparent),
+    0 6px 12px color-mix(in srgb, currentColor 26%, transparent);
+}
+
+.jss-slider-box:has(> .jss-slider-input:focus-visible) > .jss-slider-thumb {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.jss-slider-wrap.jss-light-shadow .jss-slider-thumb {
+  border-width: 0;
+  background: linear-gradient(145deg,
+    color-mix(in srgb, var(--jss-gradient-surface, white) 75%, currentColor),
+    color-mix(in srgb, var(--jss-bg) 40%, currentColor));
+  box-shadow: inset 1px 1px 2px color-mix(in srgb, var(--jss-gradient-surface, white) 90%, transparent),
+    inset -1px -1px 3px color-mix(in srgb, currentColor 20%, transparent),
+    -3px -3px 7px color-mix(in srgb, var(--jss-gradient-surface, white) 85%, transparent),
+    3px 4px 8px color-mix(in srgb, var(--jss-text) 24%, transparent);
+}
+
+.jss-slider-wrap.jss-glossy .jss-slider-thumb {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--jss-gradient-surface, white) 85%, currentColor) 0%,
+    color-mix(in srgb, var(--jss-gradient-surface, white) 55%, currentColor) 48%,
+    color-mix(in srgb, var(--jss-bg) 20%, currentColor) 51%,
+    color-mix(in srgb, var(--jss-gradient-surface, white) 35%, currentColor) 100%);
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 65%),
+    inset 0 -1px 2px color-mix(in srgb, currentColor 30%, transparent),
+    0 2px 5px color-mix(in srgb, var(--jss-text) 18%, transparent);
+}
+
+.jss-slider-wrap.jss-glossy .jss-slider-selection {
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 60%) 0%,
+    rgb(255 255 255 / 25%) 48%, transparent 51%, rgb(0 0 0 / 12%) 100%) !important;
+}
+
+.jss-slider-wrap.jss-gradient .jss-slider-selection,
+.jss-slider-wrap.jss-gradient .jss-slider-thumb {
+  background-image: linear-gradient(var(--set-gradient-deg, 135deg),
+    var(--set-color-2, var(--jss-primary-400)),
+    var(--set-color-3, var(--jss-primary-700))) !important;
+}
+
+.jss-slider-wrap.jss-text-gradient .jss-slider-label,
+.jss-slider-wrap.jss-text-gradient .jss-slider-value,
+.jss-slider-wrap.jss-text-gradient .jss-slider-edge-label {
+  background-image: linear-gradient(var(--set-gradient-deg, 180deg),
+    color-mix(in srgb, var(--jss-text) 65%, var(--set-color-2)),
+    color-mix(in srgb, var(--jss-text) 75%, var(--set-color-3)));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.jss-slider-wrap.jss-glow .jss-slider-thumb {
+  box-shadow: 0 0 4px 1px color-mix(in srgb, currentColor 45%, transparent),
+    0 0 11px 2px color-mix(in srgb, currentColor 28%, transparent);
+}
+
+.jss-slider-wrap.jss-glass .jss-slider-thumb {
+  background: radial-gradient(ellipse at 30% 20%, rgb(255 255 255 / 80%), transparent 60%),
+    linear-gradient(150deg, color-mix(in srgb, currentColor 18%, transparent),
+    color-mix(in srgb, currentColor 48%, transparent));
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 1px 1px 2px rgb(255 255 255 / 80%),
+    inset -1px -1px 3px color-mix(in srgb, currentColor 35%, transparent),
+    0 3px 7px color-mix(in srgb, var(--jss-text) 20%, transparent);
+}
+
+.jss-slider-wrap.jss-glass .jss-slider-selection {
+  opacity: .75;
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 60%), transparent 60%) !important;
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 65%);
+}
+
+:root[data-theme="dark"] .jss-slider-wrap.jss-glass .jss-slider-thumb {
+  background: radial-gradient(ellipse at 30% 20%, rgb(255 255 255 / 45%), transparent 60%),
+    linear-gradient(150deg, color-mix(in srgb, currentColor 25%, transparent),
+    color-mix(in srgb, currentColor 50%, var(--jss-panel)));
+  box-shadow: inset 1px 1px 2px rgb(255 255 255 / 45%),
+    inset -1px -1px 3px color-mix(in srgb, currentColor 40%, transparent),
+    0 3px 8px rgb(0 0 0 / 40%);
+}
+
+.jss-slider-wrap.jss-glow .jss-slider-selection {
+  box-shadow: 0 0 5px color-mix(in srgb, var(--jss-slider-glow-color, var(--jss-primary)) 32%, transparent);
+}
+
+:root[data-theme="dark"] .jss-slider-wrap.jss-glow .jss-slider-thumb {
+  box-shadow: 0 0 5px 1px color-mix(in srgb, currentColor 55%, transparent),
+    0 0 13px 2px color-mix(in srgb, currentColor 36%, transparent);
+}
+
+:root[data-theme="dark"] .jss-slider-wrap.jss-glow .jss-slider-selection {
+  box-shadow: 0 0 7px color-mix(in srgb, var(--jss-slider-glow-color, var(--jss-primary)) 42%, transparent);
+}
+
+:root[data-theme="dark"] .jss-slider-wrap.jss-glossy .jss-slider-thumb {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--jss-text) 55%, currentColor) 0%,
+    color-mix(in srgb, var(--jss-text) 30%, currentColor) 48%,
+    color-mix(in srgb, var(--jss-panel) 35%, currentColor) 51%,
+    currentColor 100%);
+}
+
+.jss-slider-wrap.jss-light-shadow .jss-slider-rail {
+  box-shadow: inset 0 1px 2px color-mix(in srgb, var(--jss-text) 22%, transparent),
+    0 1px 0 color-mix(in srgb, var(--jss-gradient-surface, white) 75%, transparent);
+}
+
+:root[data-theme="dark"] .jss-slider-wrap.jss-light-shadow .jss-slider-thumb {
+  background: linear-gradient(145deg,
+    color-mix(in srgb, currentColor 45%, var(--jss-text)),
+    color-mix(in srgb, var(--jss-panel) 35%, currentColor));
+  box-shadow: inset 1px 1px 2px color-mix(in srgb, var(--jss-text) 30%, transparent),
+    inset -1px -1px 3px color-mix(in srgb, currentColor 25%, transparent),
+    -2px -2px 6px color-mix(in srgb, var(--jss-text) 12%, transparent),
+    3px 4px 9px rgb(0 0 0 / 55%);
+}
+
+:root[data-theme="dark"] .jss-slider-wrap.jss-light-shadow .jss-slider-rail {
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 55%),
+    0 1px 0 color-mix(in srgb, var(--jss-text) 18%, transparent);
 }
 
 .jss-slider-thumb-label {
