@@ -230,3 +230,29 @@ Slider closure validation: UI/umbrella builds passed, npm test passed 72/72, sha
 Added ignored ui-lab.local/rating.html covering light/dark, eight colors, effects, sizes, empty/half/disabled/readonly, custom icons, long labels, clearable and shared model. No Rating runtime changes at this stage.
 
 Card closure: user accepted the final styling. Textarea, Search and Card changes consolidated into a local commit. Validation: npm test 72/72; shared field browser regression 1/1. Prepared ignored Chip lab for the next visual review; overall redesign remains active.
+
+Chip sizing: default width follows content, opts out of flex/grid stretching and flex growth, with container max-width. Explicit width remains supported. Rebuilt UI; Chrome checks passed for flex row, flex column, grid and explicit 240px width. npm test passed 72/72; git diff --check passed. Visual Chip review remains active.
+
+Chip close icon now inherits Chip foreground instead of the nested button semantic foreground. UI rebuilt; Chrome verified matching foreground across all eight colors in light/dark (16/16).
+
+Chip Outline dark/light foreground now follows theme text on transparent surfaces, including both icons and removal. UI rebuilt; Chrome verified both semantic neutral colors in both themes (4/4).
+
+Chip Glow now uses two restrained exterior halo layers with dedicated dark ratios and removes inherited text blur. UI rebuilt; Chrome verified Glow and Outline+Glow across eight colors in both themes (32/32). git diff --check passed.
+
+Increased Chip Glow halo opacity, blur and spread moderately after visual feedback; text remains unblurred. Rebuilt UI CSS.
+
+Chip Glass foreground now blends 85% theme text with semantic accent, preserving existing Glass surface. Icons and close inherit the readable foreground. UI rebuilt; Chrome checked Glass/Outline+Glass icon inheritance for eight colors in both modes (32/32).
+
+Chip Shadow dark now owns a visible upper inset reflection, deeper black elevation and soft semantic-tinted outer shadow; explicit box-shadow overrides shared rules and retains optional Glow composition. UI rebuilt; Chrome verified all eight dark Shadow colors.
+
+User accepted and closed Chip. Prepared ignored Badge lab with themes, palette/effects, sizes, neutral labels, icon positions and reactive notification. Overall redesign remains active.
+
+Badge now defaults to content width and opts out of flex/grid stretching and growth; explicit width remains supported. UI rebuilt; Chrome sizing checks passed for flex row, flex column, grid and explicit 240px width. npm test 72/72 and git diff --check passed. Badge visual review remains active.
+
+Badge Glow now uses two proportional exterior halo layers with dedicated dark intensities and no text blur. UI rebuilt; Chrome verified Glow/Outline+Glow across eight colors and both themes (32/32), including label text-shadow. git diff --check passed.
+
+Badge Glass uses readable theme-dominant tinted text while preserving the shared surface. UI rebuilt; Chrome verified final foreground and label across eight colors, Glass/Outline+Glass and both themes with transitions disabled (32/32).
+
+Badge Outline dark/light foreground follows theme text for transparent surfaces, including Outline+Glow. UI rebuilt; Chrome checked labels for both neutral colors, both themes and Glow on/off (8/8). git diff --check passed.
+
+User accepted and closed Badge. Consolidating approved Chip and Badge styling in a local commit. Prepared ignored Avatar lab with themes, colors/effects, initials, icons, sizes, shapes and badge overlay. UI builds and component browser audits passed; overall redesign remains active.

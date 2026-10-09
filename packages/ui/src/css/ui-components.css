@@ -7479,6 +7479,11 @@ a.jss-breadcrumb {
 
 .jss-chip {
   display: var(--set-display, inline-flex);
+  width: var(--set-width, fit-content);
+  max-width: var(--set-max-width, 100%);
+  flex-grow: 0;
+  align-self: flex-start;
+  justify-self: start;
   align-items: var(--set-align, center);
   gap: var(--set-gap, var(--jss-s-sm));
   padding: var(--set-padding, var(--jss-p-xs) var(--jss-p-sm));
@@ -7534,6 +7539,43 @@ a.jss-breadcrumb {
   padding: 1px 2px;
   aspect-ratio: 1/1;
   min-height: 0;
+}
+
+.jss-chip.jss-singularity .jss-chip-remove.jss-singularity {
+  --set-color: inherit;
+  color: inherit;
+}
+
+.jss-chip .jss-chip-remove .jss-icon {
+  color: inherit;
+}
+
+.jss-chip.jss-singularity.jss-outline:is(.jss-state-dark, .jss-state-light) {
+  --set-color: var(--jss-text);
+  color: var(--set-color);
+}
+
+.jss-chip.jss-glass.jss-singularity {
+  --set-color: color-mix(in srgb, var(--jss-text) 85%, var(--set-hover, var(--jss-text)));
+  color: var(--set-color);
+}
+
+:root[data-theme="dark"] .jss-chip.jss-singularity.jss-shadow {
+  --set-shadow-active: inset 0 1px 0 rgb(255 255 255 / 16%),
+    0 3px 5px rgb(0 0 0 / 65%),
+    0 5px 12px color-mix(in srgb, var(--set-hover, var(--jss-text)) 30%, transparent);
+  box-shadow: var(--set-shadow-active), var(--set-glow-active, 0 0 0 0 transparent);
+}
+
+.jss-chip.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 4px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 55%, transparent),
+    0 0 12px 2px color-mix(in srgb, var(--set-hover, var(--jss-text)) 32%, transparent);
+  text-shadow: none;
+}
+
+:root[data-theme="dark"] .jss-chip.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 5px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 60%, transparent),
+    0 0 14px 2px color-mix(in srgb, var(--set-hover, var(--jss-text)) 38%, transparent);
 }
 
 @keyframes jss-spinner-rotate {
@@ -7660,6 +7702,11 @@ a.jss-breadcrumb {
 }
 
 .jss-badge {
+  width: var(--set-width, fit-content);
+  max-width: var(--set-max-width, 100%);
+  flex-grow: 0;
+  align-self: flex-start;
+  justify-self: start;
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -7671,6 +7718,28 @@ a.jss-breadcrumb {
   gap: 6px;
   overflow: visible;
   transition: transform 180ms ease, background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.jss-badge.jss-singularity.jss-outline:is(.jss-state-dark, .jss-state-light) {
+  --set-color: var(--jss-text);
+  color: var(--set-color);
+}
+
+.jss-badge.jss-glass.jss-singularity,
+:root[data-theme="dark"] .jss-badge.jss-glass.jss-singularity {
+  --set-color: color-mix(in srgb, var(--jss-text) 85%, var(--set-hover, var(--jss-text)));
+  color: var(--set-color);
+}
+
+.jss-badge.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 3px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 55%, transparent),
+    0 0 10px 2px color-mix(in srgb, var(--set-hover, var(--jss-text)) 32%, transparent);
+  text-shadow: none;
+}
+
+:root[data-theme="dark"] .jss-badge.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 4px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 60%, transparent),
+    0 0 12px 2px color-mix(in srgb, var(--set-hover, var(--jss-text)) 38%, transparent);
 }
 
 .jss-badge-content {
