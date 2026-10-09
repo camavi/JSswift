@@ -30,3 +30,7 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["size", "color", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "mobile", "tablet", "pc", "class", "style"]}
 }
 ```
+
+Colored lists use a subtle theme surface tint with readable theme text and accent-colored markers/dividers. Uncolored lists follow the theme background. Dense reduces spacing; Flat removes the surface; Outline uses a transparent surface with an accent border.
+
+Size tokens adjust font size, padding and item gaps. Numeric or CSS-length size sets the font size; items inherit it.

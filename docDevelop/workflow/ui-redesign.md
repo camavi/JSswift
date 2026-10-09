@@ -294,3 +294,51 @@ Banner Outline+Text Gradient outer border now uses Banner accent, retaining neut
 Banner light accent now remains pale (#f1f5f9) independently of dark theme background tokens: Solid has pale fill/dark foreground, Outline a visible pale edge, Ghost readable neutral icon. UI rebuilt; Chrome verified all three light variants in dark; git diff --check passed.
 
 User accepted and closed Banner. Consolidating Avatar and Banner approved changes in a local commit. Prepared ignored List lab covering themes, palette/effects, density, dividers, ordered/marker modes, empty state and sizes. Overall redesign remains active.
+
+List now participates in shared singularity state mapping. Component-owned baseline uses subtle palette surfaces, theme foreground, accent markers/dividers, neutral uncolored surface, compact Dense, transparent Flat and bordered Outline. UI rebuilt; Chrome verified state classes, six distinct semantic fills and theme foreground in both themes. npm test 72/72; git diff --check passed. Public List contract updated; visual review remains active.
+
+List light/dark now have distinct pale/dark surfaces with opposing readable foreground and marker tones in either theme. Flat/Outline neutral foreground follows the theme on transparent surfaces. UI rebuilt; Chrome verified both surfaces and child foregrounds in both themes.
+
+List Outline light/dark now have distinct neutral perimeter colors: pale slate for light, dark slate for dark with a brighter dark-theme edge; transparent surfaces retain theme foreground. UI rebuilt; git diff --check passed.
+
+List Glass foreground and markers now follow theme text, including neutral light/dark states, preserving shared surface/reflections. UI rebuilt; Chrome verified root/child foreground for eight colors in both themes.
+
+List Text Gradient now keeps neutral theme surface and applies readable theme-dominant accent gradients per item, preserving markers. UI rebuilt; Chrome verified text clipping/fill and per-item gradients for eight colors in both themes (16/16).
+
+List Text Gradient clips the inner Item row instead of the li element so native bullet/ordered markers remain visible. UI rebuilt.
+
+Reduced List Glow to restrained two-layer halos with lower opacity/spread, dedicated dark ratios and no text blur. UI rebuilt.
+
+List Glossy owns a visible upper reflective band and restrained lower shading plus inset highlights, with dark-specific ratios; overrides baseline background shorthand that hid the shared effect. UI rebuilt; Chrome verified gradient and inset reflection in both themes.
+
+Refined List Glossy after feedback: replaced abrupt midline band with continuous diagonal shading and soft upper radial reflection, reset shared background sizing/offset and added gentle inset edge depth in both themes. UI rebuilt.
+
+Dark List Glass now uses a darker panel-dominant translucent base and dims existing reflection pseudo-layer to 45% brightness, retaining readable theme foreground. UI rebuilt.
+
+List Outline+Glass perimeter derives from semantic hover independently of theme text/marker foreground, with distinct neutral edges. UI rebuilt; Chrome verified eight distinct palette border colors in both themes.
+
+List size maps supported tokens to font, padding and gaps; numeric/CSS sizes set font size and propagate to items. UI rebuilt; Chrome verified xs/sm/md/lg/xl and numeric20 root/item font sizes; npm test 72/72, git diff --check passed.
+
+User accepted and closed List. Prepared ignored Item lab covering themes, palette/effects, structured texts/icons, active/selected/disabled, actions and sizes. Overall redesign remains active.
+
+Item subtitle/meta/aside inherit surface foreground; subtitle uses 85% opacity. Dense reduces surface padding and row gap without outer margin. Flat removes fill/border/elevation and uses semantic foreground with neutral theme text. UI rebuilt; Chrome verified subtitle foreground, compact height and transparent Flat across eight colors in both themes. npm test 72/72; git diff --check passed.
+
+Item Flat light/dark now have distinct neutral foregrounds: slate/dark ink in light theme, pale/slate in dark theme. Subtitle/aside inherit the differentiated foreground. UI rebuilt.
+
+Item Outline neutral light/dark uses theme foreground on transparent surfaces, inherited by subtitle and aside. UI rebuilt; Chrome checked both neutral colors in both themes.
+
+Item Shadow now uses restrained two-layer elevation; dark adds a subtle upper reflection and semantic-tinted outer layer. Optional Glow composition retained. UI rebuilt; Chrome verified shadow layers for eight colors in both themes.
+
+Removed Item Light Shadow outer border at user request, preserving shared directional light/shadow. UI rebuilt.
+
+Item Border now owns a visible solid perimeter, mixing semantic hover with theme foreground to differentiate from fill; configured width preserved. UI rebuilt; Chrome verified four sides for eight colors in both themes.
+
+Item Glow reduced to restrained two-layer exterior halos with dedicated dark ratios and no text blur. UI rebuilt.
+
+Item Glass foreground uses readable theme-dominant semantic tint, inherited by subtitle/aside, preserving shared Glass surface. UI rebuilt; Chrome verified root/subtitle palette foreground in both themes.
+
+Uncolored Item surface now uses body theme background (--jss-bg) instead of the gray singularity default. UI rebuilt.
+
+Corrected uncolored structured Item inner row (no singularity root): its background now matches --jss-bg; surfaced Item rows stay transparent. Chrome verified actual inner-row/body background equality in both themes. UI rebuilt.
+
+User accepted and closed Item. Consolidating List and Item approved changes into a local commit. Prepared ignored Separator lab for themes, colors/effects, horizontal/vertical orientation and sizes. Overall redesign remains active.

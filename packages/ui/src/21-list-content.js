@@ -80,6 +80,11 @@
 
     const cls = uiClass([
       "jss-list",
+      "jss-singularity",
+      uiComputed(props.size, () => {
+        const size = uiUnwrap(props.size);
+        return typeof size === "string" && JSswift.uiSizes?.includes(size) ? `jss-size-${size}` : "";
+      }),
       uiWhen(props.dense, "dense"),
       uiWhen(props.divider, "divider"),
       uiWhen(marker === false || marker === "none", "jss-list-no-marker"),
@@ -94,6 +99,10 @@
       ...(props.style || {})
     };
     const gap = uiStyleValue(props.gap, toCssSize);
+    if (props.size != null) {
+      p.style.fontSize = uiStyleValue(props.size, (value) =>
+        typeof value === "string" && JSswift.uiSizes?.includes(value) ? "" : toCssSize(value));
+    }
     if (gap != null) p.style["--jss-list-gap"] = gap;
     if (marker != null && marker !== false && marker !== true && marker !== "none") {
       p.style.listStyleType = String(marker);
@@ -243,4 +252,3 @@
   };
 
   // Esempio: JSswift.ui.Separator()
-

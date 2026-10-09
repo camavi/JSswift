@@ -5096,11 +5096,21 @@
         }
       }
     }
-    const cls = uiClass(["jss-list", uiWhen(props.dense, "dense"), uiWhen(props.divider, "divider"), uiWhen(marker === false || marker === "none", "jss-list-no-marker"), props.class]);
+    const cls = uiClass(["jss-list", "jss-singularity", uiComputed(props.size, () => {
+      var _a3;
+      const size = uiUnwrap(props.size);
+      return typeof size === "string" && ((_a3 = JSswift.uiSizes) == null ? void 0 : _a3.includes(size)) ? `jss-size-${size}` : "";
+    }), uiWhen(props.dense, "dense"), uiWhen(props.divider, "divider"), uiWhen(marker === false || marker === "none", "jss-list-no-marker"), props.class]);
     const p = JSswift.omit(props, ["dense", "divider", "slots", "number", "ordered", "items", "itemClass", "itemStyle", "itemProps", "empty", "marker", "gap"]);
     p.class = cls;
     p.style = { ...props.style || {} };
     const gap = uiStyleValue(props.gap, toCssSize);
+    if (props.size != null) {
+      p.style.fontSize = uiStyleValue(props.size, (value) => {
+        var _a3;
+        return typeof value === "string" && ((_a3 = JSswift.uiSizes) == null ? void 0 : _a3.includes(value)) ? "" : toCssSize(value);
+      });
+    }
     if (gap != null) p.style["--jss-list-gap"] = gap;
     if (marker != null && marker !== false && marker !== true && marker !== "none") {
       p.style.listStyleType = String(marker);

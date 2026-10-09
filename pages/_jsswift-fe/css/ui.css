@@ -1880,6 +1880,167 @@ select {
   --jss-list-gap: 6px;
 }
 
+.jss-list.jss-singularity {
+  --jss-list-accent: var(--set-hover, var(--jss-text));
+  padding: var(--jss-list-padding-y, 12px) var(--jss-list-padding-x, 16px) var(--jss-list-padding-y, 12px) calc(var(--jss-list-padding-x, 16px) + var(--jss-list-indent));
+  background: color-mix(in srgb, var(--jss-bg) 92%, var(--jss-list-accent));
+  color: var(--jss-text);
+  border-width: 0;
+  border-radius: var(--set-border-radius, 8px);
+}
+
+.jss-list.jss-size-xxs { font-size: 10px; --jss-list-gap: 4px; --jss-list-padding-y: 6px; --jss-list-padding-x: 8px; }
+.jss-list.jss-size-xs { font-size: 11px; --jss-list-gap: 6px; --jss-list-padding-y: 7px; --jss-list-padding-x: 10px; }
+.jss-list.jss-size-sm { font-size: 12px; --jss-list-gap: 8px; --jss-list-padding-y: 9px; --jss-list-padding-x: 12px; }
+.jss-list.jss-size-md { font-size: 14px; --jss-list-gap: 10px; --jss-list-padding-y: 12px; --jss-list-padding-x: 16px; }
+.jss-list.jss-size-lg { font-size: 16px; --jss-list-gap: 12px; --jss-list-padding-y: 14px; --jss-list-padding-x: 18px; }
+.jss-list.jss-size-xl { font-size: 18px; --jss-list-gap: 14px; --jss-list-padding-y: 16px; --jss-list-padding-x: 20px; }
+.jss-list.jss-size-xxl { font-size: 20px; --jss-list-gap: 16px; --jss-list-padding-y: 18px; --jss-list-padding-x: 22px; }
+.jss-list.jss-size-xxxl { font-size: 22px; --jss-list-gap: 18px; --jss-list-padding-y: 20px; --jss-list-padding-x: 24px; }
+
+.jss-list.jss-singularity:not([class*="jss-state-"]) {
+  --jss-list-accent: var(--jss-text);
+}
+
+.jss-list.jss-singularity.jss-state-light {
+  --jss-list-accent: #475569;
+  background: #f1f5f9;
+  color: #1f2937;
+}
+
+.jss-list.jss-singularity.jss-state-dark {
+  --jss-list-accent: #cbd5e1;
+  background: #1f2937;
+  color: #f1f5f9;
+}
+
+.jss-list.jss-singularity:not([class*="jss-state-"]) {
+  background: var(--jss-bg);
+}
+
+.jss-list.jss-singularity.jss-list-no-marker {
+  padding-inline: var(--jss-list-padding-x, 16px);
+}
+
+.jss-list.jss-singularity.dense {
+  padding-block: 8px;
+}
+
+.jss-list.jss-singularity.jss-flat {
+  background: transparent;
+  border-width: 0;
+  box-shadow: none;
+}
+
+.jss-list.jss-singularity.jss-outline {
+  background: transparent;
+  color: var(--jss-text);
+  border: 1px solid color-mix(in srgb, var(--jss-list-accent) 55%, transparent);
+}
+
+.jss-list.jss-singularity:is(.jss-flat, .jss-outline):is(.jss-state-light, .jss-state-dark) {
+  --jss-list-accent: var(--jss-text);
+  color: var(--jss-text);
+}
+
+.jss-list.jss-singularity.jss-outline.jss-state-light {
+  border-color: #cbd5e1;
+}
+
+.jss-list.jss-singularity.jss-outline.jss-state-dark {
+  border-color: #1f2937;
+}
+
+:root[data-theme="dark"] .jss-list.jss-singularity.jss-outline.jss-state-dark {
+  border-color: #475569;
+}
+
+.jss-list.jss-singularity > li::marker {
+  color: var(--jss-list-accent);
+}
+
+.jss-list.jss-singularity.jss-glass,
+.jss-list.jss-singularity.jss-glass:is(.jss-state-light, .jss-state-dark) {
+  --set-color: var(--jss-text);
+  --jss-list-accent: var(--jss-text);
+  color: var(--jss-text);
+}
+
+.jss-list.jss-singularity.jss-outline.jss-glass {
+  border-color: color-mix(in srgb, var(--set-hover, var(--jss-text)) 65%, transparent);
+}
+
+.jss-list.jss-singularity.jss-outline.jss-glass.jss-state-light {
+  border-color: #cbd5e1;
+}
+
+.jss-list.jss-singularity.jss-outline.jss-glass.jss-state-dark {
+  border-color: #475569;
+}
+
+:root[data-theme="dark"] .jss-list.jss-singularity.jss-glass {
+  background-color: color-mix(in srgb, var(--jss-panel) 80%, transparent);
+}
+
+:root[data-theme="dark"] .jss-list.jss-singularity.jss-glass::before {
+  filter: brightness(.45);
+}
+
+.jss-list.jss-singularity.jss-glossy {
+  background-image: radial-gradient(ellipse at 25% 0%, rgb(255 255 255 / 65%), transparent 70%),
+    linear-gradient(165deg, rgb(255 255 255 / 35%) 0%,
+      rgb(255 255 255 / 12%) 35%, transparent 60%,
+      color-mix(in srgb, var(--jss-list-accent) 14%, transparent) 100%);
+  background-size: 100% 100%;
+  background-position: 0 0;
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 85%),
+    inset 0 -2px 4px color-mix(in srgb, var(--jss-list-accent) 12%, transparent);
+}
+
+:root[data-theme="dark"] .jss-list.jss-singularity.jss-glossy {
+  background-image: radial-gradient(ellipse at 25% 0%, rgb(255 255 255 / 16%), transparent 70%),
+    linear-gradient(165deg, rgb(255 255 255 / 8%) 0%, transparent 55%, rgb(0 0 0 / 20%) 100%);
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 28%),
+    inset 0 -2px 4px rgb(0 0 0 / 25%);
+}
+
+.jss-list.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 3px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 30%, transparent),
+    0 0 8px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 16%, transparent);
+  text-shadow: none;
+}
+
+:root[data-theme="dark"] .jss-list.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 3px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 36%, transparent),
+    0 0 9px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 20%, transparent);
+}
+
+.jss-list.jss-singularity.jss-text-gradient {
+  --set-gradient-active: none;
+  background: var(--jss-bg);
+  color: var(--jss-text);
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-list.jss-text-gradient > li > .jss-item-row {
+  background-image: linear-gradient(var(--set-gradient-deg, 180deg),
+    color-mix(in srgb, var(--jss-text) 65%, var(--jss-list-accent)),
+    color-mix(in srgb, var(--jss-text) 85%, var(--jss-list-accent)));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.jss-list.jss-text-gradient > li::marker {
+  -webkit-text-fill-color: var(--jss-list-accent);
+}
+
+.jss-list.jss-singularity.divider > li:not(:last-child) {
+  border-bottom-color: color-mix(in srgb, var(--jss-list-accent) 24%, transparent);
+}
+
 .jss-list.jss-list-no-marker {
   list-style: none;
   padding-left: 0;
@@ -1954,6 +2115,105 @@ select {
   border: 0;
   background: transparent;
   border-radius: 0;
+}
+
+.jss-item.jss-singularity:not([class*="jss-state-"]) {
+  --set-background-color: var(--jss-bg);
+  background-color: var(--jss-bg);
+}
+
+.jss-item:not([class*="jss-state-"]) > .jss-item-row {
+  background-color: var(--jss-bg);
+}
+
+.jss-item.jss-item-surface > .jss-item-row {
+  background: transparent;
+}
+
+.jss-item.jss-singularity .jss-item-subtitle,
+.jss-item.jss-singularity .jss-item-meta,
+.jss-item.jss-singularity .jss-item-aside {
+  color: inherit;
+}
+
+.jss-item.jss-singularity .jss-item-subtitle {
+  opacity: .85;
+}
+
+.jss-item.jss-item-surface.jss-dense {
+  padding: 8px 10px;
+  margin: 0;
+}
+
+.jss-item.jss-dense .jss-item-row {
+  gap: 8px;
+}
+
+.jss-item.jss-singularity.jss-flat {
+  background: transparent;
+  border-width: 0;
+  box-shadow: none;
+  color: var(--set-hover, var(--jss-text));
+}
+
+.jss-item.jss-singularity.jss-flat.jss-state-light {
+  color: #64748b;
+}
+
+.jss-item.jss-singularity.jss-flat.jss-state-dark {
+  color: #1f2937;
+}
+
+:root[data-theme="dark"] .jss-item.jss-singularity.jss-flat.jss-state-light {
+  color: #f1f5f9;
+}
+
+:root[data-theme="dark"] .jss-item.jss-singularity.jss-flat.jss-state-dark {
+  color: #94a3b8;
+}
+
+.jss-item.jss-singularity.jss-outline:is(.jss-state-light, .jss-state-dark) {
+  --set-color: var(--jss-text);
+  color: var(--set-color);
+}
+
+.jss-item.jss-singularity.jss-glass,
+.jss-item.jss-singularity.jss-glass.jss-outline {
+  --set-color: color-mix(in srgb, var(--jss-text) 85%, var(--set-hover, var(--jss-text)));
+  color: var(--set-color);
+}
+
+.jss-item.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 3px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 30%, transparent),
+    0 0 8px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 16%, transparent);
+  text-shadow: none;
+}
+
+:root[data-theme="dark"] .jss-item.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 3px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 36%, transparent),
+    0 0 9px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 20%, transparent);
+}
+
+.jss-item.jss-singularity.jss-border {
+  border-style: solid;
+  border-width: var(--set-border-width, 1px);
+  border-color: color-mix(in srgb, var(--set-hover, var(--jss-text)) 65%, var(--jss-text));
+}
+
+.jss-item.jss-singularity.jss-light-shadow {
+  border-width: 0;
+}
+
+.jss-item.jss-singularity.jss-shadow {
+  --set-shadow-active: 0 2px 4px color-mix(in srgb, var(--jss-text) 14%, transparent),
+    0 5px 10px color-mix(in srgb, var(--jss-text) 16%, transparent);
+  box-shadow: var(--set-shadow-active), var(--set-glow-active, 0 0 0 0 transparent);
+}
+
+:root[data-theme="dark"] .jss-item.jss-singularity.jss-shadow {
+  --set-shadow-active: inset 0 1px 0 rgb(255 255 255 / 12%),
+    0 3px 5px rgb(0 0 0 / 50%),
+    0 6px 12px color-mix(in srgb, var(--set-hover, var(--jss-text)) 18%, transparent);
 }
 
 .jss-item.jss-item-clickable {
