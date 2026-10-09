@@ -200,6 +200,25 @@ User accepted and closed Rating visual review and requested a local commit follo
 - Time now shares Date full-height addon/icon/clear alignment and transparent centered addon icon rules, including Flat separator removal.
 - Time popup propagates field color through a portal accent token for surface, selected options and primary actions. Uncolored uses neutral theme accent and page background in light mode, matching Date.
 - User accepted and closed Time and requested a local commit of Date/Time changes. Next Textarea lab is ignored ui-lab.local/textarea.html with themes, colors/effects, multiline values, rows, sizes, states/messages and shared model. No Textarea runtime changes yet; no push requested.
+- Textarea Dense now uses tighter multiline line height, reduced bottom/horizontal padding and no Input top margin; top padding reserves floating-label space. Default stays unchanged.
+- Colored Textarea editable foreground now blends 85% theme text with 15% semantic hover color, retaining a theme-colored caret in both modes.
+- User accepted and closed Textarea. Added ignored Search lab with themes, palette/effects, suggestions, empty/disabled/initial value, sizes and shared model. No Search runtime change in this transition; no commit requested.
+- Search addons/icon boxes and clear stretch to the full control interior height, with centered glyphs, including Dense.
+- User accepted and closed Search. Added ignored Card lab covering light/dark, eight colors, effects, header/body/footer, neutral card, long title, actions and sizes. No Card runtime changes in this transition; no commit requested.
+- Colored Card subtitle inherits card foreground with 85% opacity instead of using neutral muted text on colored fills.
+- Card Shadow uses stronger two-layer elevation distinct from Default; dark adds a restrained upper reflection and tinted exterior shadow.
+- Neutral dark/light Card Outline uses theme text foreground rather than text-on-fill, restoring title/subtitle/body/footer visibility on transparent surfaces.
+- Card Light Shadow removes its border, replaces the bright rim with restrained directional inner highlights and soft upper-left/lower-right elevation, and softens section dividers. Dark gets dedicated highlight/shadow ratios.
+- Increased Light Shadow visibility after feedback: wider inset highlights/shading, directional surface lighting and stronger diagonal exterior shadows; border remains absent.
+- Card Glow uses theme-adjusted exterior halos without text blur. Glass owns translucent tinted surface/reflection, backdrop blur, edge highlights and theme-tinted readable foreground; removes generic pseudo overlay and border, with dedicated dark ratios.
+- Increased Card Glow intensity, blur and spread slightly at user request, in both themes.
+- Card Glass correction: component-owned foreground/surface/pseudo rules now outrank later generic singularity/state effects, preventing pale text-on-fill and legacy Glass overlays from returning.
+- Increased Card Glass translucency: 40% surface opacity light, 48% dark, reduced upper reflection and 4px backdrop blur. Local Glass fixtures include a subtle colored backdrop to make transmission visible rather than testing only a uniform surface.
+- User rejected the Glass surface redesign. Removed all Card-specific Glass surface/pseudo/blur/shadow overrides and local colored backdrop; restored shared original Glass treatment, retaining only the readable Card foreground correction.
+- Removed Card Glass outer border at user request, preserving original reflection/surface and internal dividers.
+- Uncolored Card surface now follows --jss-bg (body theme background) instead of the gray panel default; explicitly colored cards retain their palette fills.
+- Audit found a shared .jss-card rule enabling --jss-shadow-sm by default. Cards without explicit Shadow/Light Shadow/Glow/Glass now reset that implicit elevation; custom inline shadow and explicit effects retain precedence.
+- Dark Card Glass uses a darker panel-dominant translucent base and dims only the existing reflection pseudo-layer to 55% brightness, preserving original Glass structure and readable foreground.
 
 - Rating Default increases icon size by 6px over the font token and adds 3px icon padding. Dense uses the base font size, 2px padding and tighter gaps. Flat removes icon fill/border/shadow and uses semantic foreground, with theme text for neutral colors. Numeric sizes retain inline precedence.
 - Rating Outline removes wrapper border and uses transparent per-icon surfaces with semantic foreground/borders; neutral colors use theme text. Shadow adds directional per-icon elevation with a dark highlight/tint treatment.
@@ -209,3 +228,5 @@ User accepted and closed Rating visual review and requested a local commit follo
 Slider closure validation: UI/umbrella builds passed, npm test passed 72/72, shared field full/selective Chrome regression passed. Earlier local Slider audit verified eight palette colors in light/dark. Rating lab loading verified in Chrome. git diff --check passed.
 
 Added ignored ui-lab.local/rating.html covering light/dark, eight colors, effects, sizes, empty/half/disabled/readonly, custom icons, long labels, clearable and shared model. No Rating runtime changes at this stage.
+
+Card closure: user accepted the final styling. Textarea, Search and Card changes consolidated into a local commit. Validation: npm test 72/72; shared field browser regression 1/1. Prepared ignored Chip lab for the next visual review; overall redesign remains active.

@@ -3036,6 +3036,11 @@ select {
   margin-top: 8px;
 }
 
+.jss-textarea-field[class*="jss-state-"] .jss-textarea {
+  color: color-mix(in srgb, var(--jss-text) 85%, var(--set-hover, var(--jss-text)));
+  caret-color: var(--jss-text);
+}
+
 @keyframes jss-autofill {
   from {}
 
@@ -3320,6 +3325,28 @@ select {
 
 .jss-search-field>.jss-control .jss-addon-right {
   background: transparent;
+}
+
+.jss-search-field > .jss-control > .jss-addon {
+  align-self: stretch;
+  align-items: stretch;
+  min-height: 0;
+}
+
+.jss-search-field > .jss-control > .jss-addon .jss-icon {
+  height: auto;
+  align-self: stretch;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jss-search-field > .jss-control > .jss-clear {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .jss-search.disabled {
@@ -4532,6 +4559,15 @@ select {
   border-radius: var(--jss-b-radius-default);
 }
 
+.jss-card.jss-singularity:not([class*="jss-state-"]) {
+  --set-background-color: var(--jss-bg);
+  background-color: var(--jss-bg);
+}
+
+.jss-card.jss-singularity:not([class*="jss-shadow"], .jss-light-shadow, .jss-glow, .jss-glass) {
+  --set-shadow-active: 0 0 0 0 transparent;
+}
+
 .jss-card>.jss-card-identifier {
   position: absolute;
   top: 0;
@@ -4629,6 +4665,77 @@ select {
 .jss-card-header-content {
   color: var(--jss-muted);
   line-height: 1.5;
+}
+
+.jss-card[class*="jss-state-"] .jss-card-subtitle {
+  color: inherit;
+  opacity: .85;
+}
+
+.jss-card.jss-outline:is(.jss-state-dark, .jss-state-light) {
+  --set-color: var(--jss-text);
+  color: var(--jss-text);
+}
+
+.jss-card.jss-shadow {
+  --set-shadow-active: 0 3px 7px color-mix(in srgb, var(--jss-text) 20%, transparent),
+    0 10px 20px color-mix(in srgb, var(--jss-text) 26%, transparent);
+  box-shadow: var(--set-shadow-active);
+}
+
+.jss-card.jss-glow {
+  --set-glow-active: 0 0 7px 2px color-mix(in srgb, var(--set-hover, var(--jss-text)) 52%, transparent),
+    0 0 22px 4px color-mix(in srgb, var(--set-hover, var(--jss-text)) 32%, transparent);
+  box-shadow: var(--set-glow-active);
+  text-shadow: none;
+}
+
+:root[data-theme="dark"] .jss-card.jss-glow {
+  --set-glow-active: 0 0 8px 2px color-mix(in srgb, var(--set-hover, var(--jss-text)) 65%, transparent),
+    0 0 26px 4px color-mix(in srgb, var(--set-hover, var(--jss-text)) 40%, transparent);
+}
+
+/* Preserve the shared Glass surface; only correct Card foreground. */
+.jss-card.jss-glass.jss-singularity {
+  --set-color: color-mix(in srgb, var(--jss-text) 85%, var(--set-hover, var(--jss-text)));
+  color: var(--set-color);
+  border-width: 0;
+}
+
+:root[data-theme="dark"] .jss-card.jss-glass.jss-singularity {
+  background-color: color-mix(in srgb,
+    color-mix(in srgb, var(--jss-panel) 80%, var(--set-hover, var(--jss-text))) 75%, transparent);
+}
+
+:root[data-theme="dark"] .jss-card.jss-glass.jss-singularity::before {
+  filter: brightness(.55);
+}
+
+.jss-card.jss-light-shadow {
+  border-width: 0;
+  background-image: linear-gradient(135deg, rgb(255 255 255 / 22%), transparent 45%, rgb(0 0 0 / 12%));
+  --set-shadow-active: inset 3px 3px 7px rgb(255 255 255 / 45%),
+    inset -3px -3px 7px rgb(0 0 0 / 18%),
+    -6px -6px 14px color-mix(in srgb, var(--jss-gradient-surface, white) 90%, transparent),
+    7px 9px 18px color-mix(in srgb, var(--jss-text) 32%, transparent);
+  box-shadow: var(--set-shadow-active);
+}
+
+.jss-card.jss-light-shadow > :is(.jss-card-header, .jss-card-body, .jss-card-footer) {
+  border-color: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+:root[data-theme="dark"] .jss-card.jss-light-shadow {
+  --set-shadow-active: inset 3px 3px 7px rgb(255 255 255 / 30%),
+    inset -3px -3px 7px rgb(0 0 0 / 28%),
+    -5px -5px 12px color-mix(in srgb, var(--jss-text) 16%, transparent),
+    7px 9px 20px rgb(0 0 0 / 65%);
+}
+
+:root[data-theme="dark"] .jss-card.jss-shadow {
+  --set-shadow-active: inset 0 1px 0 rgb(255 255 255 / 12%),
+    0 4px 8px rgb(0 0 0 / 45%),
+    0 10px 22px color-mix(in srgb, var(--set-hover, var(--jss-text)) 24%, transparent);
 }
 
 .jss-card-aside {
@@ -9559,6 +9666,12 @@ a.jss-breadcrumb {
   margin-top: 6px;
   padding-top: 3px;
   padding-inline: 10px;
+}
+
+.jss-textarea-field.jss-dense .jss-textarea {
+  margin-top: 0;
+  padding: calc(var(--jss-field-label-size, 11px) + 3px) 10px 4px;
+  line-height: 1.2;
 }
 
 .jss-field.jss-dense .jss-float-label {
