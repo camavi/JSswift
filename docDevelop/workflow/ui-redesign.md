@@ -256,3 +256,41 @@ Badge Glass uses readable theme-dominant tinted text while preserving the shared
 Badge Outline dark/light foreground follows theme text for transparent surfaces, including Outline+Glow. UI rebuilt; Chrome checked labels for both neutral colors, both themes and Glow on/off (8/8). git diff --check passed.
 
 User accepted and closed Badge. Consolidating approved Chip and Badge styling in a local commit. Prepared ignored Avatar lab with themes, colors/effects, initials, icons, sizes, shapes and badge overlay. UI builds and component browser audits passed; overall redesign remains active.
+
+Avatar Dense defaults to 32px with 12px type and tighter margins; explicit numeric/token sizes retain precedence. Flat removes fill, border and elevation, uses semantic foreground with theme text for neutral colors, and clears media fallback fill. UI rebuilt; Chrome checks across palette/themes and explicit sizes passed (20/20), npm test 72/72, git diff --check passed. Avatar review remains active.
+
+Removed Avatar Light Shadow outer border at user request, retaining shared light/shadow treatment. Rebuilt UI CSS.
+
+Avatar Outline dark/light foreground now follows theme text on transparent surfaces. UI rebuilt; Chrome verified root and initials for both neutral colors in both themes (4/4). git diff --check passed.
+
+Avatar Glow uses two proportional exterior halo layers with dedicated dark ratios and removes text blur. UI rebuilt; Chrome verified Glow/Outline+Glow across eight colors and both themes including initials text-shadow (32/32). git diff --check passed.
+
+Avatar Glass foreground uses theme-dominant tinted text, including Outline+Glass, preserving the shared Glass surface. UI rebuilt; Chrome verified root and initials across eight colors and both themes (32/32).
+
+User accepted and closed Avatar. Prepared ignored Banner lab with themes, colors/effects, native variants, neutral and long text, actions and dismissal. Overall redesign remains active.
+
+Banner Glossy now derives its reflective gradient from --jss-banner-accent instead of shared neutral singularity colors, with dedicated dark ratios and existing Banner base surface. UI rebuilt; Chrome verified eight distinct palette gradients in each theme. npm test 72/72; git diff --check passed.
+
+Softened Banner Glossy after feedback: theme background with 6% accent base, reduced reflective gradient saturation in both themes. Rebuilt UI CSS.
+
+Banner Border explicitly owns solid outer edges using Banner accent and configured border width. UI rebuilt; Chrome verified four borders for eight colors in both themes (16/16).
+
+Banner Glow uses Banner accent for both exterior halo layers, with dark ratios and no text blur; retains explicit Shadow composition. UI rebuilt; Chrome verified eight distinct colored shadows in each theme; git diff --check passed.
+
+Banner Glass owns a translucent theme surface, soft diagonal reflection and semantic radial tint, 8px backdrop blur, subtle edges/elevation and theme text. Preserves the leading accent stripe rather than shared Glass pseudo overlay; dark uses a darker base and restrained reflections. UI rebuilt; Chrome checked eight distinct palette reflections, backdrop blur and theme foreground in both themes. git diff --check passed.
+
+Banner Gradient uses subtle semantic accent blends with theme surfaces (4–18% light, 4–16% dark), theme foreground and shared gradient angle support. UI rebuilt; Chrome verified eight distinct palette gradients in each theme and gradient:45. git diff --check passed.
+
+Banner Text Gradient now applies semantic accent/theme text gradients to title, message, description and meta instead of clipping the whole Banner with neutral tokens. Icon uses accent; action/close buttons retain normal foreground. UI rebuilt; Chrome verified eight distinct title gradients in each theme.
+
+Corrected Banner Text Gradient surface after feedback: neutral body-theme background and disabled root gradient token; gradient remains only on text nodes. Chrome verified neutral root background/no surface gradient, text clipping and distinct semantic title gradients across palette in both themes. UI rebuilt; git diff --check passed.
+
+Banner native variants now override shared singularity paint: Soft has a subtle theme/accent surface, Solid has a full accent fill and contrasting foreground, Outline has transparent fill and visible perimeter, Ghost is transparent without perimeter/stripe. Neutral light/dark icons follow theme text outside Solid; Solid icon and close follow contrasting foreground. Chrome verified four distinct variants for every color/theme and neutral icon contrast (32/32); UI rebuilt, npm test 72/72, git diff --check passed.
+
+Banner Outline+Glossy outer border now follows Banner accent instead of shared neutral border tokens. UI rebuilt; Chrome verified border width/style and accent color for eight colors in both themes (16/16); git diff --check passed.
+
+Banner Outline+Text Gradient outer border now uses Banner accent, retaining neutral surface and text-only gradient. UI rebuilt; Chrome verified border style/width and accent for all eight colors in both themes (16/16). git diff --check passed.
+
+Banner light accent now remains pale (#f1f5f9) independently of dark theme background tokens: Solid has pale fill/dark foreground, Outline a visible pale edge, Ghost readable neutral icon. UI rebuilt; Chrome verified all three light variants in dark; git diff --check passed.
+
+User accepted and closed Banner. Consolidating Avatar and Banner approved changes in a local commit. Prepared ignored List lab covering themes, palette/effects, density, dividers, ordered/marker modes, empty state and sizes. Overall redesign remains active.
