@@ -120,3 +120,38 @@ User accepted and closed the Select visual step and authorized a local Git commi
 Precommit verification caught a sizing compatibility regression: default fields must retain inherited --jss-input-height-default; only explicit named/numeric size sets proportional field height. Corrected FormField and shared CSS, then regenerated outputs.
 
 Validation: npm test passed all 72 tests, including package installation. UI, umbrella and site builds passed (existing non-module script warnings remain). All 27 browser cases verified: the full run passed 26, with one Menu case missing its requestAnimationFrame result in headless Chrome; isolated retry passed. Catalogue height compatibility and the new full/selective field regression passed. git diff --check passed.
+
+## Checkbox local baseline
+
+Checkbox visual review accepted and closed by the user on 2026-10-09. Preserve the accepted dimensions, Dense/Flat, Outline indicator contrast, borderless Light Shadow/Glass and moderated Glow.
+
+- 2026-10-09: requested Checkbox marker width and height increased from font size + 2px to font size + 4px, preserving a square marker.
+- Checkbox Dense now reduces marker dimensions by 2px and label gap to 6px with compact wrapper padding. Flat removes marker border/shadow, rather than only decorating the wrapper. Native keyboard focus gets an offset outline, including Flat. Rules are scoped to Checkbox to preserve Radio/Toggle pending their review.
+- Checkbox Outline checked/indeterminate icons now use the semantic edge color instead of pale text-on-fill. Neutral secondary/light/dark indicators and borders use theme text for visibility in both modes; marker remains transparent.
+- Checkbox Light Shadow removes the marker border while retaining its effect shadow and keyboard focus. Outline + Light Shadow retains the outline border.
+- Checkbox Glass also removes the marker border; Outline + Glass retains its outline.
+- Checkbox Glow uses two restrained outer halos (3px/7px light, 3px/8px dark), reduced opacity and no inset bloom; other component glow treatments remain intact.
+- Visual feedback found the reduced Glow barely visible. Increased outer halos to 4px/10px light and 4px/11px dark with 1px/2px spread and moderate opacity; retain no inset bloom for sharp indicators.
+
+After Select acceptance and commit, start Checkbox, the next form control. Added ignored ui-lab.local/checkbox.html with eight colors, shared decorative variants, checked/unchecked/indeterminate/disabled states, named/numeric sizes, Dense, long labels, custom icons and a shared rod with programmatic true/false/null updates. Material Symbols are explicitly enabled. This starts visual review without changing framework behavior; Radio and Toggle share buildChoiceControl and require attention when later changing it.
+
+## Radio local baseline
+
+Radio visual review accepted and closed on 2026-10-09. User requested a local commit of Checkbox/Radio corrections and moving to the next component.
+
+- Radio Dense reduces marker/icon dimensions and label gap. Flat removes the marker border/shadow and replaces the default ring icon with a selected dot; custom icons remain. Keyboard focus uses an offset outline.
+- Corrected Dense Radio icon centering: icon box dimensions now match the reduced font size and use flex centering, replacing the inherited larger Material icon box.
+- Radio Outline now shares Checkbox semantic edge/icon foreground mapping, including readable neutral colors in both modes. Selected center and unselected icon use the same visible foreground.
+- Radio Glow reuses the moderated Checkbox outer halos in light/dark, replacing the aggressive generic inset bloom while keeping the effect visible.
+- Radio Glass icons use theme text blended with semantic color and paint above the glass reflection, preserving selected-center visibility in both themes.
+- Long Radio labels wrap independently of a fixed square marker, aligned with the first text line; Dense preserves its compact marker dimensions. Long unbroken text may wrap within the label.
+- Dark Radio Shadow adds a subtle inner top reflection and directional palette-tinted shadows to remain visible on dark surfaces; light Shadow is unchanged.
+- Default Radio icon box now follows the field font size and uses flex centering, matching the Dense correction. This removes inherited Material icon box/font mismatch in normal model-backed groups and decorative variants.
+
+Added ignored ui-lab.local/radio.html with light/dark themes, eight colors, effect variants, selected/unselected/disabled states, sizes, Dense, labels/icons and a named model-backed group with programmatic selection/reset. Radio has no indeterminate state. No framework change in this step.
+
+## Toggle local baseline
+
+Added ignored ui-lab.local/toggle.html with light/dark themes, eight colors, effects, on/off/indeterminate/disabled, sizes, Dense, custom icons, long labels, shared boolean/null model and radio-behavior group. No Toggle runtime changes at this stage. All labs remain excluded from Git.
+
+Closure validation: UI and umbrella builds passed; npm test passed 72/72; shared field full/selective browser regression passed. Local browser audits covered Checkbox Dense/Flat/Outline and Radio Dense/Flat in both themes. Toggle lab loaded in Chrome. git diff --check passed. No push requested.

@@ -8292,12 +8292,120 @@ a.jss-breadcrumb {
 
 .jss-choice-checkbox-mark {
   border-radius: var(--set-border-radius, 4px);
+  width: calc(var(--jss-font-size, 16px) + 4px);
+  height: calc(var(--jss-font-size, 16px) + 4px);
+}
+
+.jss-checkbox-wrap.jss-dense {
+  align-items: center;
+  gap: var(--set-gap, 6px);
+  padding: var(--set-padding, 1px 2px);
+}
+
+.jss-checkbox-wrap.jss-dense > .jss-choice-checkbox-mark {
   width: calc(var(--jss-font-size, 16px) + 2px);
   height: calc(var(--jss-font-size, 16px) + 2px);
 }
 
+.jss-checkbox-wrap.jss-flat > .jss-choice-checkbox-mark {
+  border-width: 0;
+  box-shadow: none;
+}
+
+.jss-checkbox-wrap.jss-light-shadow:not(.jss-outline) > .jss-choice-checkbox-mark,
+.jss-checkbox-wrap.jss-glass:not(.jss-outline) > .jss-choice-checkbox-mark {
+  border-width: 0;
+}
+
+.jss-checkbox-wrap > .jss-choice-input:focus-visible + .jss-choice-checkbox-mark {
+  outline: 2px solid var(--set-border-color, var(--jss-primary));
+  outline-offset: 3px;
+}
+
 .jss-choice-radio-mark {
   border-radius: 999px;
+}
+
+.jss-radio-wrap {
+  align-items: flex-start;
+}
+
+.jss-radio-wrap > .jss-choice-radio-mark {
+  width: calc(var(--jss-font-size, 16px) + 4px);
+  height: calc(var(--jss-font-size, 16px) + 4px);
+  margin-top: 1px;
+}
+
+.jss-radio-wrap > .jss-choice-label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.jss-radio-wrap > .jss-choice-radio-mark .jss-icon {
+  --set-icon-size: var(--jss-font-size, 16px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--set-icon-size);
+  height: var(--set-icon-size);
+  font-size: var(--set-icon-size);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.jss-radio-wrap.jss-dense {
+  align-items: flex-start;
+  gap: var(--set-gap, 6px);
+  padding: var(--set-padding, 1px 2px);
+}
+
+.jss-radio-wrap.jss-dense > .jss-choice-radio-mark {
+  width: calc(var(--jss-font-size, 16px) + 2px);
+  height: calc(var(--jss-font-size, 16px) + 2px);
+  margin-top: 2px;
+}
+
+.jss-radio-wrap.jss-dense > .jss-choice-radio-mark .jss-icon {
+  --set-icon-size: calc(var(--jss-font-size, 16px) - 2px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--set-icon-size);
+  height: var(--set-icon-size);
+  font-size: calc(var(--jss-font-size, 16px) - 2px);
+}
+
+.jss-radio-wrap.jss-flat > .jss-choice-radio-mark {
+  width: calc(var(--jss-font-size, 16px) + 4px);
+  height: calc(var(--jss-font-size, 16px) + 4px);
+  border-width: 0;
+  box-shadow: none;
+}
+
+.jss-radio-wrap.jss-flat.jss-dense > .jss-choice-radio-mark {
+  width: calc(var(--jss-font-size, 16px) + 2px);
+  height: calc(var(--jss-font-size, 16px) + 2px);
+}
+
+.jss-radio-wrap.jss-flat.toggle-default > .jss-choice-radio-mark .jss-icon {
+  display: none;
+}
+
+.jss-radio-wrap.jss-flat.toggle-default.is-checked > .jss-choice-radio-mark::after {
+  content: "";
+  width: 45%;
+  height: 45%;
+  border-radius: 50%;
+  background: var(--set-color-1, var(--jss-text));
+}
+
+.jss-radio-wrap.jss-flat.jss-state-light.is-checked > .jss-choice-radio-mark::after {
+  background: var(--jss-dark);
+}
+
+.jss-radio-wrap > .jss-choice-input:focus-visible + .jss-choice-radio-mark {
+  outline: 2px solid var(--set-border-color, var(--jss-primary));
+  outline-offset: 3px;
 }
 
 .jss-choice-wrap .jss-choice-mark .jss-icon {
@@ -9080,6 +9188,12 @@ a.jss-breadcrumb {
   --set-shadow-active: var(--set-shadow);
 }
 
+:root[data-theme="dark"] .jss-radio-wrap.jss-shadow > .jss-choice-radio-mark {
+  --set-shadow-active: inset 0 1px 0 color-mix(in srgb, var(--jss-text) 18%, transparent),
+    0 2px 4px color-mix(in srgb, var(--set-color-2) 30%, transparent),
+    0 5px 9px color-mix(in srgb, var(--set-color-2) 18%, transparent);
+}
+
 .jss-border {
   border-width: var(--set-border-width);
 }
@@ -9392,6 +9506,18 @@ a.jss-breadcrumb {
   transition: all 0.2s ease-in-out;
 }
 
+.jss-checkbox-wrap.jss-glow > .jss-choice-checkbox-mark,
+.jss-radio-wrap.jss-glow > .jss-choice-radio-mark {
+  --set-glow-active: 0 0 4px 1px color-mix(in srgb, var(--set-color-2) 46%, transparent),
+    0 0 10px 2px color-mix(in srgb, var(--set-color-2) 30%, transparent);
+}
+
+:root[data-theme="dark"] .jss-checkbox-wrap.jss-glow > .jss-choice-checkbox-mark,
+:root[data-theme="dark"] .jss-radio-wrap.jss-glow > .jss-choice-radio-mark {
+  --set-glow-active: 0 0 4px 1px color-mix(in srgb, var(--set-color-2) 50%, transparent),
+    0 0 11px 2px color-mix(in srgb, var(--set-color-2) 34%, transparent);
+}
+
 /*tutti che iniziano con jss-state-*/
 .jss-btn:not([class*='jss-state-']):not(.jss-outline, .jss-state-secondary, .jss-dialog, .jss-menu-panel) {
   --set-color: var(--jss-text);
@@ -9412,6 +9538,27 @@ a.jss-breadcrumb {
 }
 [class*='jss-state-light'].jss-singularity-check.jss-choice-wrap.is-checked .jss-choice-mark .jss-icon {
   color: black;
+}
+
+/* Outline indicators sit on the theme surface, not on a filled marker. */
+.jss-checkbox-wrap.jss-outline,
+.jss-radio-wrap.jss-outline {
+  --jss-choice-outline-color: var(--set-hover, var(--jss-text));
+}
+
+.jss-checkbox-wrap.jss-outline:is(.jss-state-secondary, .jss-state-light, .jss-state-dark),
+.jss-radio-wrap.jss-outline:is(.jss-state-secondary, .jss-state-light, .jss-state-dark) {
+  --jss-choice-outline-color: var(--jss-text);
+}
+
+.jss-checkbox-wrap.jss-outline > .jss-choice-checkbox-mark,
+.jss-radio-wrap.jss-outline > .jss-choice-radio-mark {
+  border-color: var(--jss-choice-outline-color);
+}
+
+.jss-singularity-check.jss-checkbox-wrap.jss-outline:is(.is-checked, .is-indeterminate) > .jss-choice-checkbox-mark .jss-icon,
+.jss-singularity-check.jss-choice-wrap.jss-radio-wrap.jss-outline > .jss-choice-radio-mark .jss-icon {
+  color: var(--jss-choice-outline-color);
 }
 
 .jss-singularity-field.jss-field-fill>.jss-control {
@@ -9547,6 +9694,16 @@ a.jss-breadcrumb {
   --set-background-color: color-mix(in srgb, var(--set-background-color) 40%, transparent);
   border-color: color-mix(in srgb, var(--set-border-color) 80%, transparent);
   --set-color: var(--set-border-color);
+}
+
+.jss-singularity-check.jss-choice-wrap.jss-radio-wrap.jss-glass > .jss-choice-radio-mark .jss-icon {
+  position: relative;
+  z-index: 1;
+  color: color-mix(in srgb, var(--jss-text) 70%, var(--set-hover, var(--jss-text)));
+}
+
+.jss-radio-wrap.jss-glass > .jss-choice-radio-mark::before {
+  pointer-events: none;
 }
 
 .jss-singularity-menu-select>.jss-select-options>.jss-select-option {
