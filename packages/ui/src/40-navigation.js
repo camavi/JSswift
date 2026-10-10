@@ -993,6 +993,7 @@
       class: uiClass([
         "jss-pagination",
         "jss-clear-set",
+        "jss-singularity",
         sizeClass,
         uiWhen(props.dense, "dense"),
         uiWhen(props.simple, "is-simple"),
@@ -1134,9 +1135,14 @@
       host.innerHTML = "";
       nodes.forEach((node) => host.appendChild(node));
     };
+    const activeEffects = (active) => active ? {
+      glossy: props.glossy, glow: props.glow, glass: props.glass,
+      gradient: props.gradient, textGradient: props.textGradient
+    } : {};
     const createButton = (name, fallback, onClick, options = {}) => {
       const ctx = { ...getCtx(), kind: name, active: !!options.active };
       return UI.Btn({
+        ...activeEffects(options.active),
         class: uiClass([
           "jss-pagination-btn",
           `jss-pagination-${name}`,
@@ -1144,7 +1150,7 @@
           options.class
         ]),
         size: props.itemSize || props.size || (props.dense ? "sm" : "md"),
-        color: options.active ? (props.color || props.state || "primary") : (options.color || null),
+        color: options.active ? (props.color || props.state || null) : (options.color || null),
         outline: options.active ? false : (options.outline ?? true),
         disabled: isDisabled() || !!options.disabled,
         "aria-current": options.active ? "page" : null,
@@ -1158,6 +1164,11 @@
       currentPage = clampPage(page, pages);
       currentPages = Math.max(1, pages || 1);
       const ctx = getCtx(currentPage, currentPages);
+      const color = uiUnwrap(props.color ?? props.state);
+      const accent = color == null || color === "" ? "var(--jss-text)"
+        : color === "light" ? "#cbd5e1"
+        : JSswift.uiColors?.includes(color) ? `var(--jss-${color})` : String(color);
+      wrap.style.setProperty("--jss-pagination-accent", accent);
 
       wrap.style.display = hideOnSinglePage() && currentPages <= 1 ? "none" : "";
       summary.style.display = showSummary() ? "" : "none";
@@ -1194,13 +1205,14 @@
           const itemPage = item.page;
           const itemCtx = { ...ctx, page: itemPage, value: itemPage, item, active: itemPage === currentPage };
           pagesGroup.appendChild(UI.Btn({
+            ...activeEffects(itemPage === currentPage),
             class: uiClass([
               "jss-pagination-btn",
               "jss-pagination-page-btn",
               uiWhen(itemPage === currentPage, "active")
             ]),
             size: props.itemSize || props.size || (props.dense ? "sm" : "md"),
-            color: itemPage === currentPage ? (props.color || props.state || "primary") : null,
+            color: itemPage === currentPage ? (props.color || props.state || null) : null,
             outline: itemPage === currentPage ? false : true,
             disabled: isDisabled(),
             "aria-current": itemPage === currentPage ? "page" : null,
@@ -1259,7 +1271,11 @@
     wrap.next = () => commitPage(currentPage + 1);
     wrap.first = () => commitPage(1);
     wrap.last = () => commitPage(currentPages);
-    setPropertyProps(wrap, props);
+    const containerProps = { ...props };
+    for (const effect of ["glossy", "glow", "glass", "gradient", "textGradient"]) {
+      delete containerProps[effect];
+    }
+    setPropertyProps(wrap, containerProps);
     return wrap;
   };
 

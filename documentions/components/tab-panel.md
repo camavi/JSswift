@@ -13,7 +13,7 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
     "model": {"type": "[get,set] signal", "description": "Reactive binding for the active tab.", "category": "data", "default": null, "values": null},
     "orientation": {"type": "vertical|horizontal", "description": "Navigation orientation.", "values": ["vertical", "horizontal"], "default": "vertical", "category": "layout"},
     "navPosition": {"type": "before|after", "description": "Tab bar position relative to the panels.", "values": ["before", "after"], "default": "before", "category": "layout"},
-    "variant": {"type": "line|pills|soft", "description": "Visual style of the tab navigation.", "values": ["line", "pills", "soft"], "default": "line", "category": "style"},
+    "variant": {"type": "line|pills|soft|solid", "description": "Visual style of the tab navigation.", "values": ["line", "pills", "soft", "solid"], "default": "line", "category": "style"},
     "wrap": {"type": "boolean", "description": "Allows the nav to wrap when space is limited.", "default": false, "category": "layout", "values": null},
     "navFill": {"type": "boolean", "description": "Distributes tabs across the available width.", "default": false, "category": "layout", "values": null},
     "swipeable": {"type": "boolean", "description": "Enables swipe gestures on panels.", "default": false, "category": "behavior", "values": null},

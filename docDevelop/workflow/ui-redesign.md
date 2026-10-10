@@ -444,3 +444,78 @@ Adjusted dark Tabs Glass after feedback: restored visible nav reflections and sh
 - Breadcrumbs dark Glass brightness set to requested 0.6, excluding light state. UI build and whitespace check passed.
 
 - User accepted and closed Breadcrumbs and requested commit. RouteTab and Breadcrumbs completed changes grouped in the commit; next component Pagination, local review lab prepared. Latest full suite: 72 passed.
+
+- Breadcrumbs follow-up: dark-theme Glass light/dark current entries now use theme foreground and matching Line underline for readability, leaving the accepted Glass surface unchanged. UI build and whitespace check passed.
+
+- Extended Breadcrumbs dark-theme light/dark current foreground and Line indicator correction to all effects, preserving Solid contrasting foregrounds. Text Gradient light/dark uses bright theme-dominant stops. UI build and whitespace check passed.
+
+- User accepted the final Breadcrumbs light/dark contrast corrections and closed the component. Next review remains Pagination; follow-up contrast changes await the next requested commit.
+
+- Pagination palette baseline: shared singularity root with semantic tinted surface, reactive accent resolution, neutral uncolored default, borderless neutral controls, semantic hover and full accent current page with dedicated light/dark contrast. Dense and Flat baseline preserved. UI build and whitespace check passed.
+
+- Pagination visual feedback: container background is transparent for both neutral and semantic colors so navigation integrates with the page/body surface; accent remains on current page and hover. UI build and whitespace check passed.
+
+- Pagination Prev/Next foreground follows the selected accent on transparent controls; dark state in dark theme uses readable theme foreground. UI build and whitespace check passed.
+
+- Pagination Flat: removed current-page solid fill/shadow, using bold accent text with readable dark-theme dark state. Reduced control spacing and inline padding to keep navigation together at common lab widths. UI build and whitespace check passed.
+
+- Pagination Shadow moved from container to individual buttons with compact two-layer elevation and dark-theme opacity. UI build and whitespace check passed.
+
+- Pagination Outline now belongs to buttons: thin tinted borders, transparent fills, stronger semantic active border/text and subtle hover. Dark-state active uses theme foreground/border in dark theme; container remains borderless. UI build and whitespace check passed.
+
+- Pagination Shadow corrected per feedback: explicit box-shadow:none on root and inactive buttons; compact elevation applies only to active button in both themes. UI build and whitespace check passed.
+
+- Pagination Outline visible border restricted to active button; inactive borders transparent to retain consistent sizing. UI build and whitespace check passed.
+
+- Pagination active Shadow strengthened to 2px/4px and 5px/10px layers for clearer elevation, with stronger dark-theme opacity. Container and inactive controls remain shadowless. UI build and whitespace check passed.
+
+- Pagination Light Shadow moved exclusively to active button with directional light/tinted shadow and dedicated dark values; root shadow explicitly disabled. UI build and whitespace check passed.
+
+- Pagination Light Shadow refined with inset upper-left highlight/lower-right shade plus directional exterior light and shadow, including dedicated dark-theme values. Effect remains restricted to active button. UI build and whitespace check passed.
+
+- Pagination Border enabled on active button only, with a contrasting semantic edge retaining full active fill and borderless container. UI build and whitespace check passed.
+
+- Pagination Glossy, Glow, Glass, Gradient and Text Gradient are forwarded exclusively to active Button, omitted from container property application. CSS preserves Button effect layers, restrained glow, readable Glass and label gradient. UI build, whitespace check and all 72 tests passed.
+
+- Fixed Pagination runtime ReferenceError by replacing unavailable uiOmit with a local props copy and effect-key removal. Rebuilt UI; Chrome local preview ready with no lab runtime error; all 72 tests passed.
+
+- Pagination container explicitly clears background images, shadows, glass pseudo-element/backdrop filtering and text clipping, preventing shared effects from painting the box while active Button retains its own effects. UI build and whitespace check passed.
+
+- Pagination Glass container pseudo-element disabled with higher specificity than the later shared Glass rule, fixing the remaining box reflection. Active Button Glass unaffected. UI build and whitespace check passed.
+
+- Pagination Outline + Text Gradient corrected: explicit root/inactive text fill reset and higher-specificity active gradient prevents shared descendant clipping and Outline background shorthand from hiding labels. UI build and whitespace check passed.
+
+- Pagination dark Glass active foreground, including Outline combinations, uses pale text and subtle contrast shadow instead of semantic dark text; glass reflections and colored borders retained. UI build and whitespace check passed.
+
+- User accepted and closed Pagination after the effect-placement and contrast review. Next component in source order is TabPanel. Pending Pagination and Breadcrumbs follow-up changes remain uncommitted; no commit requested on closure.
+
+- Started TabPanel review: local lab covers palette/effects, navigation variants, horizontal/vertical layouts, after position, disabled tab, animated/swipeable panels, empty state and model shared with Tabs. Chrome initial load ready without lab runtime error. Framework styling unchanged pending baseline visual review.
+
+- TabPanel palette baseline implemented: theme-token navigation surfaces; normal, hover, pressed, selected, focus-visible and disabled colors; tinted Pills/Soft selection; inherited icon/note foreground; readable Light and dark-theme Dark text and indicators. Rebuilt UI; all 72 unit/package tests and 27 browser tests passed. Visual review and effect refinement remain open.
+
+
+- User requested reverting the modern TabPanel surface pass. Removed only its container/navigation/spacing/Dense/Flat styling; retained the preceding palette baseline.
+
+- TabPanel Dense now reduces navigation spacing, button height/padding, icon gap and panel padding. Flat clears container/nav background, borders and shadows while retaining active indicator. UI build and whitespace check passed.
+
+- TabPanel implicit elevation removed: shadow is disabled unless Shadow or Light Shadow is explicitly requested. Flat continues to suppress elevation. UI build and whitespace check passed.
+
+- TabPanel Glossy now paints the visible navigation with the Button-style upper reflection band, distinct center transition and lower shading, with dedicated dark-theme reflections. UI build and whitespace check passed.
+
+- TabPanel Glass restricted to navigation: root reflection/backdrop disabled; nav uses transparent tint and shared radial Glass pseudo-element/reflections used by other components. Content remains unaffected. UI build and whitespace check passed.
+
+- TabPanel Outline root/navigation borders now follow semantic indicator color, retaining neutral light/dark contrast adaptations. UI build and whitespace check passed.
+
+- TabPanel default root/navigation borders removed unless Border or Outline is explicitly requested. Active indicator retained. UI build and whitespace check passed.
+
+- TabPanel Text Gradient now clips distinct semantic/theme stops on nav labels/notes only, resetting container/button clipping to preserve readable panel content and icons. UI build and whitespace check passed.
+
+- TabPanel Gradient enabled on navigation using shared gradient stops/angle; white nav foreground and active indicator, dark foreground for light state. Panel content remains unaffected. UI build and whitespace check passed.
+
+- TabPanel Gradient softened to shared stops mixed at 16%/30% with theme background; theme foreground and semantic indicator restored for contrast on the lighter surface. UI build and whitespace check passed.
+
+- TabPanel variants differentiated: Line indicator, rounded Pills selection, Soft rectangular tint without indicator, Solid full accent selection with readable light/dark states. Solid added to runtime normalization, public contract and local lab. UI build, whitespace check and all 72 tests passed.
+
+- TabPanel dark Glass reflection brightness reduced to 0.6, excluding light state; shared radial reflections and translucency preserved. UI build and whitespace check passed.
+
+- User accepted and closed TabPanel and requested commit. Completed Pagination, TabPanel and Breadcrumbs contrast follow-ups grouped in commit. Latest full suite: 72 passed. Next visual review: Spinner; local lab prepared.

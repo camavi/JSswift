@@ -12,6 +12,7 @@
       const raw = String(uiUnwrap(value) || "").toLowerCase();
       if (raw === "pills" || raw === "pill") return "pills";
       if (raw === "soft" || raw === "card") return "soft";
+      if (raw === "solid") return "solid";
       return "line";
     };
     const resolveAccent = (value) => {
