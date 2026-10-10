@@ -342,3 +342,63 @@ Uncolored Item surface now uses body theme background (--jss-bg) instead of the 
 Corrected uncolored structured Item inner row (no singularity root): its background now matches --jss-bg; surfaced Item rows stay transparent. Chrome verified actual inner-row/body background equality in both themes. UI rebuilt.
 
 User accepted and closed Item. Consolidating List and Item approved changes into a local commit. Prepared ignored Separator lab for themes, colors/effects, horizontal/vertical orientation and sizes. Overall redesign remains active.
+
+Separator now participates in shared color state mapping and owns horizontal/vertical line styling; removed hardcoded inline neutral border. Distinct light/dark tones and neutral theme border fallback. UI rebuilt; npm test 72/72; Chrome palette audit covers both orientations and themes with explicit fixture dimensions. Effects and size review remain pending.
+
+Separator density decision accepted: Default keeps a 1px line, Dense reduces axis margins from 12px to 6px; Flat retains the plain Default appearance. Local lab uses a tighter Dense sample gap. UI rebuilt.
+
+Separator Shadow uses a restrained directional shadow below horizontal lines/right of vertical lines, with a darker and subtly tinted dark-theme treatment. UI rebuilt; git diff --check passed.
+
+Separator Outline uses a hollow 3px line with a 1px semantic perimeter and transparent center, including vertical orientation and distinct light/dark edge colors. UI rebuilt.
+
+Separator Border uses a filled 3px line with a 1px contrasting semantic perimeter, distinct from hollow Outline, for horizontal and vertical orientations. UI rebuilt; git diff --check passed.
+
+Separator Glossy uses a rounded 4px colored line with upper/left reflection and lower/right inset shading, oriented across line thickness. UI rebuilt.
+
+Separator Glow reduced to two compact low-opacity halo layers without spread. UI rebuilt.
+
+Separator Glass uses a rounded 4px translucent tinted strip, directional edge reflection, backdrop blur and a darker dark-theme base. Shared pseudo overlay disabled for this narrow geometry; vertical reflection rotates across thickness. UI rebuilt.
+
+Separator Gradient fades semantic color toward both ends with strongest color at center. Defaults follow length (90deg horizontal, 180deg vertical); numeric gradient angle remains supported via component angle token. UI rebuilt.
+
+Separator has no text: Text Gradient now retains Default line paint and disables shared text clipping that hid the line. UI rebuilt.
+
+User accepted and closed Separator. Prepared ignored Tabs lab covering themes, colors/effects, variants, orientation, disabled tab, sizes and shared signal model. Overall redesign remains active.
+
+Tabs baseline redesigned with neutral contained bar/nav, restrained active tint, semantic foreground, aligned underline, consistent icon sizing and compact Dense. Flat removes baseline/active fill; pills/soft use subtle grouped surfaces. UI rebuilt; visual review remains active.
+
+Restored Tabs Default nav background after feedback: subtle 10% accent tint on theme surface with rounded corners. Flat remains transparent. UI rebuilt.
+
+Tabs Shadow uses restrained two-layer elevation, matching 8px root/nav radius and no root/nav baseline border; dark has dedicated black/tinted depth. UI rebuilt.
+
+Tabs Light Shadow removes outer/nav border, aligns rounded geometry and uses directional upper-left light/lower-right shadow with subtle inset nav depth; dedicated dark ratios. UI rebuilt.
+
+Tabs Glossy reflection now paints the visible nav surface with soft upper lighting and lower inset depth, preserving subtle palette background; dark has dedicated ratios. UI rebuilt.
+
+Adjusted Tabs Glossy to match the shared Button reflective-band pattern: bright upper half with a distinct transition near 50% and shaded lower half, replacing continuous gradient-like lighting. UI rebuilt.
+
+Tabs Glow reduced to restrained exterior halos with dark ratios and no text blur; transparent borderless root shares 8px nav radius and nav baseline removed to avoid bright corner artifacts. UI rebuilt.
+
+Tabs Glass nav no longer hides the glass with opaque theme fill: translucent semantic tint, diagonal reflection and 6px backdrop blur; dark uses darker translucent panel and restrained light. Root remains transparent/borderless with aligned radius. UI rebuilt.
+
+Tabs Text Gradient now clips gradients on label/note nodes instead of root/buttons, preventing active background shorthand from hiding text. Theme-dominant semantic stops retain readable contrast; icons keep normal foreground. UI rebuilt.
+
+Uncolored Tabs accent now defaults to theme text instead of primary; neutral nav surface follows body background. UI rebuilt.
+
+Tabs variants differentiated: Line transparent active surface/underline, Pills rounded selection, Soft subtle rectangular selection without underline, new Solid full accent selection with contrasting foreground. Added Solid runtime normalization/public contract/local fixture.
+
+Tabs light accent remains pale slate independently of theme background tokens, restoring dark-theme active label/icon and indicator contrast. UI rebuilt.
+
+Dark Tabs Glass darkened using translucent body-background base, reduced upper/nav highlights and dimmed shared reflection overlay to 45% brightness. UI rebuilt.
+
+Adjusted dark Tabs Glass after feedback: restored visible nav reflections and shared overlay brightness to 80%; dark body-tinted base now only 55% opaque to retain transmission rather than flattening the Glass effect. UI rebuilt.
+
+- Tabs dark Glass correction: removed overlay brightness filtering, restored stronger translucent reflections and reduced the dark base to 20% opacity so the shared radial glass highlights remain visible. UI build and diff whitespace check passed.
+
+- Tabs Glass: removed the navigation-specific gradient, backdrop blur and inset shadows that obscured the shared Button Glass radial reflections. Both themes now use the shared glass surface without an extra navigation layer.
+
+- Accepted restored Tabs Glass surface. Dark theme now reduces only the shared Glass pseudo-element brightness to 72%, preserving radial reflections and transparency; light state is excluded. UI build and whitespace check passed.
+
+- Applied requested dark-theme Tabs Glass navigation background #00000057. Light theme remains transparent. UI build and whitespace check passed.
+
+- User accepted and closed Tabs. Separator and Tabs completed changes committed together; next visual review is RouteTab. Latest full test run: 72 passed; UI build and whitespace checks passed.

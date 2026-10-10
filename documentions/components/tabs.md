@@ -13,7 +13,7 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
     "default": {"type": "Alias of defaultValue", "description": "Component configuration for \"default\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
     "model": {"type": "[get,set] signal", "description": "Two-way bound value (alias to value in some components).", "default": null, "values": null, "category": "data"},
     "orientation": {"type": "horizontal|vertical", "description": "Component configuration for \"orientation\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
-    "variant": {"type": "line|pills|soft", "description": "Component configuration for \"variant\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
+    "variant": {"type": "line|pills|soft|solid", "description": "Component configuration for \"variant\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
     "fill": {"type": "boolean", "description": "Component configuration for \"fill\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
     "wrap": {"type": "boolean", "description": "Allows children to wrap to new lines.", "default": null, "values": null, "category": "general"},
     "disabled": {"type": "boolean", "description": "Disables interaction and applies disabled styling/ARIA.", "default": false, "values": null, "category": "state"},

@@ -7,6 +7,7 @@
       const raw = String(uiUnwrap(value) || "").toLowerCase();
       if (raw === "pills" || raw === "pill") return "pills";
       if (raw === "soft" || raw === "card") return "soft";
+      if (raw === "solid") return "solid";
       return "line";
     };
     const resolveAccent = (value) => {
@@ -120,7 +121,8 @@
     if (props.gap != null) wrapProps.style["--jss-tabs-gap"] = toCssSize(props.gap);
     if (props.tabGap != null) wrapProps.style["--jss-tabs-tab-gap"] = toCssSize(props.tabGap);
     const accentColor = resolveAccent(props.color ?? props.state);
-    if (accentColor) wrapProps.style["--jss-tabs-accent"] = accentColor;
+    wrapProps.style["--jss-tabs-accent"] = uiUnwrap(props.color ?? props.state) === "light"
+      ? "#cbd5e1" : accentColor || "var(--jss-text)";
     const wrap = _.div(wrapProps);
 
     const bar = _.div({
@@ -1259,4 +1261,3 @@
   };
 
   // Esempio: JSswift.ui.Pagination({ total: 120, pageSize: 12, model: [get,set], showEdges: true })
-

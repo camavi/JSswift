@@ -236,10 +236,13 @@
 
   UI.Separator = (...args) => {
     const { props } = JSswift.uiNormalizeArgs(args);
-    const cls = uiClass(["jss-separator", uiWhen(props.vertical, "vertical"), props.class]);
+    const cls = uiClass(["jss-clear-set", "jss-separator", "jss-singularity", uiWhen(props.vertical, "vertical"), props.class]);
     const p = JSswift.omit(props, ["vertical", "size", "slots"]);
     p.class = cls;
-    const style = { borderColor: "var(--jss-border)", ...(props.style || {}) };
+    const style = { ...(props.style || {}) };
+    if (typeof uiUnwrap(props.gradient) === "number") {
+      style["--jss-separator-gradient-deg"] = `${uiUnwrap(props.gradient)}deg`;
+    }
     const sizeValue = uiUnwrap(props.size);
     const vertical = uiUnwrap(props.vertical);
     if (sizeValue != null) {

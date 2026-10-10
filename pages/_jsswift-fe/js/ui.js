@@ -5188,10 +5188,13 @@
   };
   UI.Separator = (...args) => {
     const { props } = JSswift.uiNormalizeArgs(args);
-    const cls = uiClass(["jss-separator", uiWhen(props.vertical, "vertical"), props.class]);
+    const cls = uiClass(["jss-clear-set", "jss-separator", "jss-singularity", uiWhen(props.vertical, "vertical"), props.class]);
     const p = JSswift.omit(props, ["vertical", "size", "slots"]);
     p.class = cls;
-    const style = { borderColor: "var(--jss-border)", ...props.style || {} };
+    const style = { ...props.style || {} };
+    if (typeof uiUnwrap(props.gradient) === "number") {
+      style["--jss-separator-gradient-deg"] = `${uiUnwrap(props.gradient)}deg`;
+    }
     const sizeValue = uiUnwrap(props.size);
     const vertical = uiUnwrap(props.vertical);
     if (sizeValue != null) {
@@ -7737,7 +7740,7 @@
     return field;
   };
   UI.Tabs = (...args) => {
-    var _a2, _b, _c, _d, _e, _f;
+    var _a2, _b, _c, _d, _e, _f, _g;
     const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const hasOwn = (obj, key) => !!obj && Object.prototype.hasOwnProperty.call(obj, key);
@@ -7746,6 +7749,7 @@
       const raw = String(uiUnwrap(value) || "").toLowerCase();
       if (raw === "pills" || raw === "pill") return "pills";
       if (raw === "soft" || raw === "card") return "soft";
+      if (raw === "solid") return "solid";
       return "line";
     };
     const resolveAccent = (value) => {
@@ -7764,13 +7768,13 @@
     const componentId = props.id || `jss-tabs-` + Math.random().toString(36).slice(2, 9);
     const rawTabs = uiUnwrap((_c = props.tabs) != null ? _c : props.items) || [];
     const tabs = (Array.isArray(rawTabs) ? rawTabs : [rawTabs]).map((tab, index) => {
-      var _a3, _b2, _c2, _d2, _e2, _f2, _g, _h, _i, _j, _k, _l, _m, _n;
+      var _a3, _b2, _c2, _d2, _e2, _f2, _g2, _h, _i, _j, _k, _l, _m, _n;
       if (tab == null) return null;
       if (typeof tab !== "object") {
         return { raw: tab, index, value: tab, labelFallback: tab, noteFallback: null, iconFallback: null, badgeFallback: null, disabled: false, hidden: false };
       }
       const value = (_f2 = (_e2 = (_d2 = (_c2 = (_b2 = (_a3 = tab.value) != null ? _a3 : tab.name) != null ? _b2 : tab.id) != null ? _c2 : tab.key) != null ? _d2 : tab.label) != null ? _e2 : tab.title) != null ? _f2 : `tab-${index}`;
-      const labelFallback = (_j = (_i = (_h = (_g = tab.label) != null ? _g : tab.title) != null ? _h : tab.name) != null ? _i : tab.value) != null ? _j : `Tab ${index + 1}`;
+      const labelFallback = (_j = (_i = (_h = (_g2 = tab.label) != null ? _g2 : tab.title) != null ? _h : tab.name) != null ? _i : tab.value) != null ? _j : `Tab ${index + 1}`;
       const badgeFallback = hasOwn(tab, "badge") ? tab.badge : hasOwn(tab, "counter") ? tab.counter : null;
       return { ...tab, raw: tab, index, value, labelFallback, noteFallback: (_m = (_l = (_k = tab.note) != null ? _k : tab.subtitle) != null ? _l : tab.description) != null ? _m : null, iconFallback: (_n = tab.icon) != null ? _n : null, badgeFallback };
     }).filter(Boolean).filter((tab) => tab.hidden !== true && tab.visible !== false);
@@ -7803,7 +7807,7 @@
     if (props.gap != null) wrapProps.style["--jss-tabs-gap"] = toCssSize(props.gap);
     if (props.tabGap != null) wrapProps.style["--jss-tabs-tab-gap"] = toCssSize(props.tabGap);
     const accentColor = resolveAccent((_e = props.color) != null ? _e : props.state);
-    if (accentColor) wrapProps.style["--jss-tabs-accent"] = accentColor;
+    wrapProps.style["--jss-tabs-accent"] = uiUnwrap((_f = props.color) != null ? _f : props.state) === "light" ? "#cbd5e1" : accentColor || "var(--jss-text)";
     const wrap = _.div(wrapProps);
     const bar = _.div({ class: uiClass(["jss-tabs-bar", props.barClass]), style: { alignItems: props.align || (orientation === "vertical" ? "stretch" : "center"), justifyContent: props.justify || "flex-start", ...props.barStyle || {} } });
     const nav = _.div({ class: uiClass(["jss-tabs-nav", props.navClass]), style: props.navStyle || null, role: "tablist", "aria-orientation": orientation });
@@ -7941,7 +7945,7 @@
       const navContent = JSswift.ui.renderSlot(slots, "nav", { ...createRootCtx(), nodes: defaultNavNodes }, defaultNavNodes);
       renderSlotToArray(null, "default", {}, navContent).forEach((node) => nav.appendChild(node));
     } else {
-      renderSlotToArray(slots, "empty", createRootCtx(), (_f = props.empty) != null ? _f : _.div({ class: "jss-tabs-empty" }, "Nessuna tab disponibile.")).forEach((node) => nav.appendChild(node));
+      renderSlotToArray(slots, "empty", createRootCtx(), (_g = props.empty) != null ? _g : _.div({ class: "jss-tabs-empty" }, "Nessuna tab disponibile.")).forEach((node) => nav.appendChild(node));
     }
     const extraCtx = createRootCtx();
     const extraNodes = [...renderSlotToArray(null, "default", {}, JSswift.ui.renderSlot(slots, "extra", extraCtx, null)), ...renderSlotToArray(slots, "default", extraCtx, children)];
