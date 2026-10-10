@@ -402,3 +402,45 @@ Adjusted dark Tabs Glass after feedback: restored visible nav reflections and sh
 - Applied requested dark-theme Tabs Glass navigation background #00000057. Light theme remains transparent. UI build and whitespace check passed.
 
 - User accepted and closed Tabs. Separator and Tabs completed changes committed together; next visual review is RouteTab. Latest full test run: 72 passed; UI build and whitespace checks passed.
+
+- RouteTab baseline review: removed implicit borders unless border/outline is requested; Flat now has a transparent surface for inactive/active/hover, theme foreground and semantic active text/indicator. Dense spacing retained. UI rebuilt and whitespace check passed.
+
+- RouteTab Outline dark state uses theme foreground to keep inactive text readable on the transparent surface in both themes. UI rebuilt; whitespace check passed.
+
+- RouteTab Shadow uses compact two-layer elevation (1px/2px and 3px/6px) instead of the broad shared halo, with dedicated dark-theme opacity. UI build and whitespace check passed.
+
+- RouteTab Glow reduced to 2px/6px semantic halos at 30%/20% opacity and no text shadow. UI build and whitespace check passed.
+
+- RouteTab Glow increased slightly after visual feedback: 3px/8px halos at 40%/28%, retaining sharp text. UI build and whitespace check passed.
+
+- RouteTab Glass foreground now follows theme text on the translucent surface, with a theme-mixed semantic active foreground. Shared Glass reflections unchanged. UI build and whitespace check passed.
+
+- RouteTab Text Gradient now clips the gradient on label/note instead of the root, keeping active labels visible with theme-mixed semantic stops and readable icons. UI build and whitespace check passed.
+
+- RouteTab variants: inactive line/pills/soft use transparent surfaces with theme foreground; Pills has a full rounded silhouette; Soft uses subtle active tint without underline and readable active text. UI build and whitespace check passed.
+
+- RouteTab Solid added to runtime normalization, public contract and local preview. Solid uses full accent active fill, contrasting text, no underline and transparent inactive state; light/dark states have dedicated foregrounds. UI rebuilt; all 72 tests passed after granting npm cache access.
+
+- RouteTab Glass dark theme: slightly darkened only the shared reflection pseudo-element to 85% brightness, retaining the radial glass pattern and translucency. UI build and whitespace check passed.
+
+- RouteTab Glass dark-theme light/dark active states use theme foreground and indicator for readable labels/icons; Glass surface unchanged. UI build and whitespace check passed.
+
+- RouteTab dark Glass reflection brightness set to requested 0.65, excluding light state. UI build and whitespace check passed.
+
+- User accepted and closed RouteTab. Next component: Breadcrumbs; prepared local review lab. RouteTab changes remain uncommitted pending a commit request.
+
+- Breadcrumbs baseline rebuilt with shared singularity integration, neutral uncolored default, semantic tinted surface, theme-readable links, tinted current item and separators, borderless geometry, Dense spacing and transparent Flat. Light accent remains pale independently of theme. UI build and whitespace check passed; visual review active.
+
+- Breadcrumbs Glow slightly reduced to 3px/8px semantic halos at 40%/25% opacity without text shadow. UI build and whitespace check passed.
+
+- Breadcrumbs Gradient foreground changed to white as requested, including links/current entry, inherited icons and separators; Text Gradient remains independent. UI build and whitespace check passed.
+
+- Breadcrumbs Text Gradient now clips a distinct semantic-to-theme gradient on each label/note, including current entry, instead of the container. Root/item text fill restored so icons and backgrounds remain visible. UI build and whitespace check passed.
+
+- Breadcrumbs variants differentiated: Line underlines current entry, Pills rounds current selection, Soft uses a subtle rectangular selection, Solid fills current entry with accent and contrasting foreground (dedicated light/dark states). Solid added to runtime normalization, contract and local lab. UI build, whitespace check and all 72 tests passed.
+
+- Breadcrumbs dark Glass slightly darkened using 80% brightness on its reflection pseudo-element only, preserving radial reflections/translucency and leaving light state unchanged. UI build and whitespace check passed.
+
+- Breadcrumbs dark Glass brightness set to requested 0.6, excluding light state. UI build and whitespace check passed.
+
+- User accepted and closed Breadcrumbs and requested commit. RouteTab and Breadcrumbs completed changes grouped in the commit; next component Pagination, local review lab prepared. Latest full suite: 72 passed.

@@ -400,6 +400,7 @@
       const raw = String(uiUnwrap(value) || "").toLowerCase();
       if (raw === "pill" || raw === "pills") return "pills";
       if (raw === "soft" || raw === "card") return "soft";
+      if (raw === "solid") return "solid";
       return "line";
     };
     const resolveAccent = (value) => {
@@ -626,6 +627,7 @@
       const raw = String(uiUnwrap(props.variant || (props.pills ? "pills" : (props.soft ? "soft" : "line"))) || "").toLowerCase();
       if (raw === "pill" || raw === "pills") return "variant-pills";
       if (raw === "soft" || raw === "card") return "variant-soft";
+      if (raw === "solid") return "variant-solid";
       return "variant-line";
     });
     const nowrapClass = uiComputed([props.wrap, props.nowrap], () => {
@@ -635,6 +637,7 @@
       class: uiClass([
         "jss-breadcrumbs",
         "jss-clear-set",
+        "jss-singularity",
         sizeClass,
         variantClass,
         nowrapClass,
@@ -926,7 +929,7 @@
       const visibleItems = collapseItems(items);
       const accent = resolveAccent(props.color ?? props.state);
       wrap.classList.toggle("is-empty", items.length === 0);
-      if (accent) wrap.style.setProperty("--jss-breadcrumb-accent", accent);
+      if (accent) wrap.style.setProperty("--jss-breadcrumb-accent", uiUnwrap(props.color ?? props.state) === "light" ? "#cbd5e1" : accent);
       else wrap.style.removeProperty("--jss-breadcrumb-accent");
 
       const rootCtx = {

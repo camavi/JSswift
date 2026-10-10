@@ -8368,6 +8368,120 @@ select {
   padding: 8px 12px;
 }
 
+.jss-route-tab.jss-singularity:not(.jss-border):not(.jss-outline) {
+  border: 0;
+}
+
+.jss-route-tab.jss-singularity.jss-outline.jss-state-dark {
+  color: var(--jss-text);
+}
+
+.jss-route-tab.jss-singularity.jss-glass:not(.jss-text-gradient) {
+  color: var(--jss-text);
+}
+
+.jss-route-tab.jss-singularity.jss-glass.active:not(.jss-text-gradient) {
+  color: color-mix(in srgb, var(--jss-route-tab-accent) 65%, var(--jss-text));
+}
+
+:root[data-theme="dark"] .jss-route-tab.jss-singularity.jss-glass:not(.jss-state-light)::before {
+  filter: brightness(0.65);
+}
+
+:root[data-theme="dark"] .jss-route-tab.jss-singularity.jss-glass:is(.jss-state-light, .jss-state-dark).active:not(.jss-text-gradient) {
+  color: var(--jss-text);
+}
+
+:root[data-theme="dark"] .jss-route-tab.jss-singularity.jss-glass:is(.jss-state-light, .jss-state-dark).active::after {
+  background: var(--jss-text);
+}
+
+.jss-route-tab.jss-singularity.jss-text-gradient {
+  background-image: none;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+  color: color-mix(in srgb, var(--jss-route-tab-accent) 65%, var(--jss-text));
+}
+
+.jss-route-tab.jss-text-gradient :is(.jss-route-tab-label, .jss-route-tab-note) {
+  background-image: linear-gradient(var(--set-gradient-deg, 135deg),
+    color-mix(in srgb, var(--jss-route-tab-accent) 75%, var(--jss-text)),
+    color-mix(in srgb, var(--jss-route-tab-accent) 25%, var(--jss-text)));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.jss-route-tab.jss-singularity.jss-shadow {
+  --set-shadow-active: 0 1px 2px rgb(0 0 0 / 10%),
+    0 3px 6px rgb(0 0 0 / 12%);
+}
+
+.jss-route-tab.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 3px color-mix(in srgb, var(--jss-route-tab-accent) 40%, transparent),
+    0 0 8px color-mix(in srgb, var(--jss-route-tab-accent) 28%, transparent);
+  text-shadow: none;
+}
+
+:root[data-theme="dark"] .jss-route-tab.jss-singularity.jss-shadow {
+  --set-shadow-active: 0 1px 2px rgb(0 0 0 / 25%),
+    0 3px 6px rgb(0 0 0 / 30%);
+}
+
+.jss-route-tab.jss-singularity.jss-flat {
+  background: transparent;
+  box-shadow: none;
+  color: var(--jss-text);
+}
+
+.jss-route-tab.jss-singularity:is(.variant-line, .variant-pills, .variant-soft):not(.active):not(.jss-glass):not(.jss-gradient):not(.jss-text-gradient) {
+  background-color: transparent;
+  color: var(--jss-text);
+}
+
+.jss-route-tab.jss-singularity.variant-pills {
+  border-radius: 999px;
+}
+
+.jss-route-tab.jss-singularity.variant-soft::after {
+  display: none;
+}
+
+.jss-route-tab.jss-singularity.variant-solid::after {
+  display: none;
+}
+
+.jss-route-tab.jss-singularity.variant-solid {
+  background-color: transparent;
+  color: var(--jss-text);
+}
+
+.jss-route-tab.jss-singularity.variant-solid.active {
+  background-color: var(--jss-route-tab-accent);
+  color: #fff;
+}
+
+.jss-route-tab.jss-singularity.variant-solid.jss-state-light.active {
+  background-color: #f1f5f9;
+  color: #1f2937;
+}
+
+.jss-route-tab.jss-singularity.variant-solid.jss-state-dark.active {
+  background-color: #1f2937;
+  color: #f1f5f9;
+}
+
+.jss-route-tab.jss-singularity.variant-soft.active {
+  background-color: color-mix(in srgb, var(--jss-route-tab-accent) 12%, transparent);
+  color: color-mix(in srgb, var(--jss-route-tab-accent) 75%, var(--jss-text));
+}
+
+.jss-route-tab.jss-singularity.jss-flat.active,
+.jss-route-tab.jss-singularity.jss-flat:hover {
+  color: color-mix(in srgb, var(--jss-route-tab-accent) 82%, var(--jss-text) 18%);
+}
+
 .jss-route-tab.is-disabled {
   opacity: 0.55;
   cursor: not-allowed;
@@ -8463,7 +8577,7 @@ select {
 }
 
 .jss-breadcrumbs {
-  --jss-breadcrumb-accent: var(--jss-primary);
+  --jss-breadcrumb-accent: var(--jss-text);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -8604,6 +8718,127 @@ a.jss-breadcrumb {
   --jss-breadcrumb-bg: color-mix(in srgb, var(--jss-breadcrumb-accent) 14%, transparent);
   --jss-breadcrumb-border: color-mix(in srgb, var(--jss-breadcrumb-accent) 26%, transparent);
   color: color-mix(in srgb, var(--jss-breadcrumb-accent) 82%, var(--jss-text) 18%);
+}
+
+.jss-breadcrumbs.jss-singularity {
+  box-sizing: border-box;
+  padding: 6px;
+  border: 0;
+  border-radius: 8px;
+  background-color: var(--jss-bg);
+  color: var(--jss-text);
+}
+
+.jss-breadcrumbs.jss-singularity[class*="jss-state-"] {
+  background-color: color-mix(in srgb, var(--jss-breadcrumb-accent) 10%, var(--jss-bg));
+}
+
+.jss-breadcrumbs.jss-singularity .jss-breadcrumb {
+  border: 0;
+  border-radius: 6px;
+  color: var(--jss-text);
+}
+
+.jss-breadcrumbs.jss-singularity .jss-breadcrumb.is-current {
+  background: color-mix(in srgb, var(--jss-breadcrumb-accent) 12%, transparent);
+  color: color-mix(in srgb, var(--jss-breadcrumb-accent) 60%, var(--jss-text));
+}
+
+.jss-breadcrumbs.jss-singularity .jss-breadcrumb-separator {
+  color: color-mix(in srgb, var(--jss-breadcrumb-accent) 35%, var(--jss-text));
+}
+
+.jss-breadcrumbs.jss-singularity.dense { padding: 3px; }
+
+:root[data-theme="dark"] .jss-breadcrumbs.jss-singularity.jss-glass:not(.jss-state-light)::before {
+  filter: brightness(0.6);
+}
+
+.jss-breadcrumbs.jss-singularity.variant-line .jss-breadcrumb.is-current {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: inset 0 -2px 0 var(--jss-breadcrumb-accent);
+}
+
+.jss-breadcrumbs.jss-singularity.variant-pills .jss-breadcrumb {
+  background: transparent;
+  border-radius: 999px;
+}
+
+.jss-breadcrumbs.jss-singularity.variant-pills .jss-breadcrumb.is-current {
+  background: color-mix(in srgb, var(--jss-breadcrumb-accent) 18%, transparent);
+}
+
+.jss-breadcrumbs.jss-singularity.variant-soft .jss-breadcrumb {
+  background: transparent;
+}
+
+.jss-breadcrumbs.jss-singularity.variant-soft .jss-breadcrumb.is-current {
+  background: color-mix(in srgb, var(--jss-breadcrumb-accent) 12%, transparent);
+}
+
+.jss-breadcrumbs.jss-singularity.variant-solid .jss-breadcrumb.is-current {
+  background: var(--jss-breadcrumb-accent);
+  color: var(--jss-bg);
+}
+
+.jss-breadcrumbs.jss-singularity.variant-solid[class*="jss-state-"] .jss-breadcrumb.is-current {
+  color: #fff;
+}
+
+.jss-breadcrumbs.jss-singularity.variant-solid.jss-state-light .jss-breadcrumb.is-current {
+  background: #f1f5f9;
+  color: #1f2937;
+}
+
+.jss-breadcrumbs.jss-singularity.variant-solid.jss-state-dark .jss-breadcrumb.is-current {
+  background: #1f2937;
+  color: #f1f5f9;
+}
+
+.jss-breadcrumbs.jss-singularity.jss-text-gradient {
+  background-image: none;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+  color: var(--jss-text);
+}
+
+.jss-breadcrumbs.jss-text-gradient .jss-breadcrumb {
+  background-image: none;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-breadcrumbs.jss-text-gradient :is(.jss-breadcrumb-label, .jss-breadcrumb-note) {
+  background-image: linear-gradient(110deg,
+    color-mix(in srgb, var(--jss-breadcrumb-accent) 85%, var(--jss-text)),
+    color-mix(in srgb, var(--jss-breadcrumb-accent) 20%, var(--jss-text)));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.jss-breadcrumbs.jss-singularity.jss-gradient:not(.jss-text-gradient),
+.jss-breadcrumbs.jss-singularity.jss-gradient:not(.jss-text-gradient) .jss-breadcrumb,
+.jss-breadcrumbs.jss-singularity.jss-gradient:not(.jss-text-gradient) .jss-breadcrumb-separator {
+  color: #fff;
+}
+
+.jss-breadcrumbs.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 3px color-mix(in srgb, var(--jss-breadcrumb-accent) 40%, transparent),
+    0 0 8px color-mix(in srgb, var(--jss-breadcrumb-accent) 25%, transparent);
+  text-shadow: none;
+}
+
+.jss-breadcrumbs.jss-singularity.jss-flat {
+  background: transparent;
+  box-shadow: none;
+}
+
+.jss-breadcrumbs.jss-singularity.jss-flat .jss-breadcrumb.is-current {
+  background: transparent;
 }
 
 .jss-breadcrumb.is-disabled {

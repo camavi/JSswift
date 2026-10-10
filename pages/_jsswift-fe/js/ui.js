@@ -7984,6 +7984,7 @@
       const raw = String(uiUnwrap(value) || "").toLowerCase();
       if (raw === "pill" || raw === "pills") return "pills";
       if (raw === "soft" || raw === "card") return "soft";
+      if (raw === "solid") return "solid";
       return "line";
     };
     const resolveAccent = (value) => {
@@ -8151,12 +8152,13 @@
       const raw = String(uiUnwrap(props.variant || (props.pills ? "pills" : props.soft ? "soft" : "line")) || "").toLowerCase();
       if (raw === "pill" || raw === "pills") return "variant-pills";
       if (raw === "soft" || raw === "card") return "variant-soft";
+      if (raw === "solid") return "variant-solid";
       return "variant-line";
     });
     const nowrapClass = uiComputed([props.wrap, props.nowrap], () => {
       return uiUnwrap(props.wrap) === false || !!uiUnwrap(props.nowrap) ? "no-wrap" : "";
     });
-    const wrap = _.nav({ class: uiClass(["jss-breadcrumbs", "jss-clear-set", sizeClass, variantClass, nowrapClass, uiWhen(props.dense, "dense"), props.class]), style: { ...props.style || {} }, role: "navigation", "aria-label": props.ariaLabel || "Breadcrumb" });
+    const wrap = _.nav({ class: uiClass(["jss-breadcrumbs", "jss-clear-set", "jss-singularity", sizeClass, variantClass, nowrapClass, uiWhen(props.dense, "dense"), props.class]), style: { ...props.style || {} }, role: "navigation", "aria-label": props.ariaLabel || "Breadcrumb" });
     const beforeEl = _.div({ class: "jss-breadcrumbs-before" });
     const listEl = _.ol({ class: "jss-breadcrumbs-list" });
     const afterEl = _.div({ class: "jss-breadcrumbs-after" });
@@ -8348,13 +8350,13 @@
       return _.li({ class: uiClass(["jss-breadcrumbs-entry", uiWhen(current, "is-current"), uiWhen(disabled, "is-disabled")]) }, ...rendered);
     };
     const render = () => {
-      var _a2;
+      var _a2, _b;
       const items = normalizeItems();
       const currentIndex = getCurrentIndex(items);
       const visibleItems = collapseItems(items);
       const accent = resolveAccent((_a2 = props.color) != null ? _a2 : props.state);
       wrap.classList.toggle("is-empty", items.length === 0);
-      if (accent) wrap.style.setProperty("--jss-breadcrumb-accent", accent);
+      if (accent) wrap.style.setProperty("--jss-breadcrumb-accent", uiUnwrap((_b = props.color) != null ? _b : props.state) === "light" ? "#cbd5e1" : accent);
       else wrap.style.removeProperty("--jss-breadcrumb-accent");
       const rootCtx = { items, visibleItems, currentIndex, count: items.length, collapsed: visibleItems.some((entry) => entry.type === "collapsed") };
       renderInto(beforeEl, renderNamedSlot(slots, "before", rootCtx, props.before));
