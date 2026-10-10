@@ -8661,7 +8661,7 @@
       if (ariaLabel) p["aria-label"] = ariaLabel;
       else if (p["aria-label"] == null) p["aria-label"] = "Loading";
     }
-    const indicatorFallback = _.span({ class: uiClass(["jss-spinner-indicator", props.indicatorClass]), style: { "--jss-spinner-size": makeCssVarValue(props.size, toCssSize, "18px"), "--jss-spinner-thickness": makeCssVarValue(props.thickness, toCssSize, "2px"), "--jss-spinner-speed": makeCssVarValue(props.speed, (v) => typeof v === "number" ? `${v}ms` : String(v), "900ms"), "--jss-spinner-color": makeCssVarValue(props.color, resolveSpinnerColor, "var(--set-border-color, var(--jss-primary))"), "--jss-spinner-track": makeCssVarValue(props.trackColor, resolveSpinnerColor, "color-mix(in srgb, var(--jss-spinner-color) 18%, transparent)"), ...props.indicatorStyle || {} }, "aria-hidden": "true" });
+    const indicatorFallback = _.span({ class: uiClass(["jss-spinner-indicator", props.indicatorClass]), style: { "--jss-spinner-size": makeCssVarValue(props.size, toCssSize, "var(--jss-spinner-default-size, 18px)"), "--jss-spinner-thickness": makeCssVarValue(props.thickness, toCssSize, "2px"), "--jss-spinner-speed": makeCssVarValue(props.speed, (v) => typeof v === "number" ? `${v}ms` : String(v), "900ms"), "--jss-spinner-color": makeCssVarValue(props.color, resolveSpinnerColor, "var(--set-hover, var(--jss-primary))"), "--jss-spinner-track": makeCssVarValue(props.trackColor, resolveSpinnerColor, "var(--jss-spinner-default-track, color-mix(in srgb, var(--jss-spinner-color) 18%, transparent))"), ...props.indicatorStyle || {} }, "aria-hidden": "true" });
     const indicatorNodes = renderSlotToArray(slots, "indicator", ctx, indicatorFallback);
     const content = [];
     if (indicatorNodes.length) content.push(...indicatorNodes);
@@ -8695,7 +8695,7 @@
     const getTrackHeight = () => {
       var _a3, _b2;
       const raw = uiUnwrap((_b2 = (_a3 = props.height) != null ? _a3 : props.thickness) != null ? _b2 : props.size);
-      if (raw == null || raw === "") return "8px";
+      if (raw == null || raw === "") return uiUnwrap(props.dense) ? "4px" : "8px";
       if (typeof raw === "number") return `${raw}px`;
       if (typeof raw === "string") {
         const sizePreset = { xxs: "4px", xs: "6px", sm: "8px", md: "10px", lg: "12px", xl: "14px", xxl: "16px", xxxl: "18px" };
@@ -8786,7 +8786,7 @@
     if ((propColor != null || uiIsReactive(props.color)) && !normalizeState(propColor || "")) {
       delete rootStyle.backgroundColor;
     }
-    wrapProps.class = uiClass(["jss-progress-wrap", uiWhen(props.dense, "dense"), uiWhen(props.reverse, "is-reverse"), uiWhen(props.indeterminate, "is-indeterminate"), stateClass, props.class]);
+    wrapProps.class = uiClass(["jss-progress-wrap", uiWhen(props.dense, "dense"), uiWhen(props.textGradient, "jss-text-gradient"), uiWhen(props.reverse, "is-reverse"), uiWhen(props.indeterminate, "is-indeterminate"), stateClass, props.class]);
     wrapProps.style = rootStyle;
     const header = _.div({ class: "jss-progress-header" });
     const heading = _.div({ class: "jss-progress-heading" });

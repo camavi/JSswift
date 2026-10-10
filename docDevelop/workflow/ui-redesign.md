@@ -519,3 +519,39 @@ Adjusted dark Tabs Glass after feedback: restored visible nav reflections and sh
 - TabPanel dark Glass reflection brightness reduced to 0.6, excluding light state; shared radial reflections and translucency preserved. UI build and whitespace check passed.
 
 - User accepted and closed TabPanel and requested commit. Completed Pagination, TabPanel and Breadcrumbs contrast follow-ups grouped in commit. Latest full suite: 72 passed. Next visual review: Spinner; local lab prepared.
+
+- Spinner Dense uses 14px default indicator, tighter spacing and smaller text; explicit size remains authoritative. Flat uses transparent default track, retaining the colored rotating arc; explicit trackColor remains authoritative. CSS defaults routed through fallback variables. UI build, whitespace check and all 72 tests passed.
+
+- Spinner Outline removes text-container border and gives the indicator a defined semantic contour with open rotating segment. Shadow applies only to the ring via drop-shadow, with dedicated dark strength. UI build and whitespace check passed.
+
+- Spinner Outline differentiated from Flat after approval: complete 1px ring at 55% semantic opacity with stronger rotating top/right segment; Flat retains open arc. UI build and whitespace check passed.
+
+- Spinner Light Shadow adds directional highlight/shade on the indicator; Border adds an outer semantic contour; Glossy adds a distinct reflective band with dedicated dark values. Text/root remain undecorated. UI build and whitespace check passed.
+
+- Spinner lighting corrected: Shadow and Light Shadow now belong to the stationary indicator wrapper, while only the inner arc rotates. Directional lighting remains fixed in both themes. UI build and whitespace check passed.
+
+- Spinner Glow enabled as restrained stationary semantic halos; Glass uses a translucent indicator surface with stationary radial reflection, inset edges and dark-theme values. Root/text remain undecorated and only arc rotates. UI build and whitespace check passed.
+
+- Spinner Glossy reflection/background and inset shading moved from rotating pseudo-element to stationary circular indicator wrapper, including dark theme. Only arc remains animated. UI build and whitespace check passed.
+
+- Spinner Outline + Light Shadow color fixed: indicator resolves semantic hover color rather than shared border-color, which becomes a four-color border shorthand in this combination and is invalid as a foreground. Stationary lighting preserved. UI build and whitespace check passed.
+
+- Spinner light state in dark theme now uses a pale slate semantic indicator color (#e2e8f0), keeping all indicator effects visible independently of inverted theme light tokens. UI build and whitespace check passed.
+
+- Spinner Text Gradient now applies semantic-to-theme gradient directly to label, copy and note, with root text clipping reset and indicator unchanged. UI build and whitespace check passed.
+
+- User accepted and closed Spinner. Next component: Progress; local lab prepared. Spinner changes remain uncommitted pending a commit request.
+
+- Progress Dense uses 4px default height, smaller text and tighter heading spacing; explicit height/size retained. Flat removes borders/shadows and uses square track geometry. UI build, whitespace check and all 72 tests passed.
+
+- Progress Outline removes wrapper border and outlines only fill with semantic edge/transparent surface. Shadow applies to filled bar only; track overflow allows elevation to remain visible, dedicated dark strength. UI build and whitespace check passed.
+
+- Progress Border enabled on filled bar with contrasting semantic contour and border-box sizing; wrapper remains borderless. UI build and whitespace check passed.
+
+- Progress Text Gradient now styles label, note, percentage and edge labels directly, with explicit wrapper effect class and readable root text fill. UI build and whitespace check passed.
+
+- Progress light state in dark theme uses pale slate component-owned fill/border/effect tokens, restoring Outline and other fill effect visibility. UI build and whitespace check passed.
+
+- Progress Glow text readability: removed wrapper/header text-shadow and raised dark-theme note contrast; bar glow retained. UI build and whitespace check passed.
+
+- User accepted and closed Progress and requested commit of completed Spinner/Progress changes. Next review: LoadingBar; inline local lab prepared to avoid overlapping fixed bars.
