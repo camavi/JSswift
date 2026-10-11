@@ -153,6 +153,7 @@
       const raw = uiUnwrap(value);
       if (raw == null || raw === false || raw === "") return fallback;
       const state = normalizeState(raw);
+      if (state === "light") return "var(--jss-progress-light, var(--jss-light))";
       if (state) return `var(--jss-${state})`;
       if (typeof raw === "string" && isTokenCSS(raw)) return `var(--jss-${raw})`;
       return String(raw);
@@ -633,7 +634,11 @@
     progressProps.buffer = [getBuffer, setBufferSignal];
     if (progressProps.dense == null) progressProps.dense = true;
     if (progressProps.height == null && progressProps.thickness == null && progressProps.size == null) {
-      progressProps.height = 3;
+      progressProps.height = () => uiUnwrap(props.dense) ? 2
+        : (uiUnwrap(props.border) || uiUnwrap(props.glossy)) ? 4 : 3;
+    }
+    if (progressProps.trackColor == null && uiUnwrap(props.flat)) {
+      progressProps.trackColor = "transparent";
     }
     if (progressProps.width == null) progressProps.width = "100%";
 
@@ -818,6 +823,7 @@
   ]);
   const NOTIFY_VARIANTS = new Set(["soft", "solid", "outline"]);
   const NOTIFY_DEFAULT_TITLES = {
+    neutral: "Notice",
     success: "Success",
     warning: "Warning",
     danger: "Error",
@@ -866,7 +872,7 @@
 
   const normalizeNotifyPayload = (input = {}, forcedType = "") => {
     const src = uiIsPlainObject(input) ? { ...input } : { message: input };
-    const tone = normalizeState(uiUnwrap(forcedType) || uiUnwrap(src.type) || uiUnwrap(src.state) || uiUnwrap(src.color) || "info") || "info";
+    const tone = normalizeState(uiUnwrap(forcedType) || uiUnwrap(src.type) || uiUnwrap(src.state) || uiUnwrap(src.color)) || "neutral";
     const timeout = normalizeNotifyTimeout(src.timeout ?? src.duration ?? src.delay, tone);
     const closable = src.closable ?? src.dismissible ?? (src.dismiss != null) ?? (timeout === 0);
     const title = src.title === undefined

@@ -555,3 +555,121 @@ Adjusted dark Tabs Glass after feedback: restored visible nav reflections and sh
 - Progress Glow text readability: removed wrapper/header text-shadow and raised dark-theme note contrast; bar glow retained. UI build and whitespace check passed.
 
 - User accepted and closed Progress and requested commit of completed Spinner/Progress changes. Next review: LoadingBar; inline local lab prepared to avoid overlapping fixed bars.
+
+- LoadingBar Dense uses a 2px default height versus 3px baseline; explicit sizing preserved. Flat defaults to transparent track, preserving explicit trackColor. UI build, whitespace check and all 72 tests passed.
+
+- LoadingBar Outline removes the shell border/outline; semantic contour remains only on the advanced Progress fill. UI build and whitespace check passed.
+
+- LoadingBar Border/Glossy default height raised to 4px (Dense 2px and explicit heights preserved) to expose detail. Border shell cleared; Glossy fill has stronger upper reflection and lower shade. UI build and whitespace check passed.
+
+- LoadingBar lab Text Gradient labels now render a semantic/theme text gradient. These labels belong to the lab, not LoadingBar itself, which has no text in the baseline fixture.
+
+- LoadingBar dark Glass light fill now uses translucent pale slate background and bright reflection tokens, restoring contrast while retaining translucency. UI build and whitespace check passed.
+
+- LoadingBar dark light-state contrast extended to Outline + Glass with explicit pale border/translucent fill and Text Gradient with visible pale gradient surface. UI build and whitespace check passed.
+
+- Verified LoadingBar Outline + Glass light in dark theme in Chrome: computed border rgb(226,232,240), translucent fill rgba(226,232,240,0.3). Updated lab CSS cache key to ensure latest compiled stylesheet loads.
+
+- LoadingBar Outline + Glass dark light-state visibility reinforced at shell scope: pale translucent track, brighter 55% fill and explicit inset pale contour, retaining glass transparency. UI build and whitespace check passed.
+
+- Fixed Progress/LoadingBar inline light track/buffer colors at their source: semantic light resolves through component --jss-progress-light, overridden to pale slate in dark theme. Previously inline background still referenced inverted --jss-light. UI build and whitespace check passed.
+
+- User accepted and closed LoadingBar. Next component: Notify; prepared interactive local fixture. LoadingBar changes await a future commit request.
+
+- Notify container radius now consumes common --set-border-radius with shared --jss-b-radius-default fallback, removing dedicated large radius. Existing common property application handles explicit radius/borderRadius. UI build and whitespace check passed.
+
+- Notify Dense gains 4px padding and 8px content gap to preserve compact spacing without touching edges. UI build and whitespace check passed.
+
+- Notify Flat removes container fill, border, shadow and backdrop blur; icon loses its badge surface while semantic side stripe and readable theme foreground remain. UI build and whitespace check passed.
+
+- Notify Flat corrected after feedback: opaque theme background with 8% semantic tint prevents underlying page content showing through; borders/shadows remain disabled. UI build and whitespace check passed.
+
+- Notify Outline (shared prop/native variant) uses opaque theme background, semantic border, no elevation/backdrop blur and readable dismiss control. UI build and whitespace check passed.
+
+- Notify Shadow refined to compact downward two-layer elevation (2px/4px and 6px/14px with negative spread), dedicated dark opacity. UI build and whitespace check passed.
+
+- Notify Light Shadow differentiated with upper-left inset/exterior light and lower-right inset/exterior shade, including dedicated dark-theme values. UI build and whitespace check passed.
+
+- Notify implicit container shadow disabled unless Shadow or Light Shadow is explicitly requested. UI build and whitespace check passed.
+
+- Notify Border uses explicit 1px semantic accent contour while retaining tinted surface. UI build and whitespace check passed.
+
+- Notify Glossy now uses distinct upper reflection band and lower tint/shade with dedicated dark values, preserving existing tinted base and explicit-only shadows. UI build and whitespace check passed.
+
+- Notify Glow enabled with restrained 3px/9px semantic halos at 40%/25% opacity and no text shadow. UI build and whitespace check passed.
+
+- Notify Glass enabled with translucent theme base, radial upper reflection/lower semantic tint and 8px backdrop blur, readable theme foreground and darker dark-theme surface excluding light. UI build and whitespace check passed.
+
+- Notify Gradient enabled with restrained 12%/30% semantic tint stops mixed against opaque theme background and readable theme foreground. UI build and whitespace check passed.
+
+- Notify Outline + Glossy restores upper reflection band and lower semantic shading over the theme base, overriding Outline background reset while preserving semantic border and no elevation. Dedicated dark reflection values. UI build and whitespace check passed.
+
+- Notify Outline + Glow restores restrained semantic halos over Outline shadow reset, retaining colored contour and sharp text. UI build and whitespace check passed.
+
+- Notify Outline + Glass overrides Outline opaque background/disabled backdrop with shared translucent radial reflections and 8px blur, preserving semantic border and darker dark-theme surface except light. UI build and whitespace check passed.
+
+- Notify Outline + Light Shadow restores directional upper-left light/lower-right shade over Outline shadow reset, retaining semantic border and dedicated dark values. UI build and whitespace check passed.
+
+- Notify Text Gradient applies semantic-to-theme stops directly to title/message/description/meta, preserving root background, icons and dismissal readability. UI build and whitespace check passed.
+
+- Notify variants differentiated: Soft opaque 10% tint with no visible contour; Outline semantic border and hollow icon badge; Solid full semantic fill with contrasting text/icon/dismiss controls and dark foreground for warning/light. UI build, whitespace check and all 72 tests passed.
+
+- Notify without type/state/color now normalizes to a neutral theme surface and foreground instead of Info; explicit semantic colors and shortcuts remain supported. Neutral default title retained. Public contract updated; UI build and all 72 tests passed.
+
+- Notify dark-theme light accent now stays pale (#e2e8f0) instead of inheriting the inverted shared light token. All effects, icon badges, borders and Solid surfaces consume the same accent; Solid retains dark foreground. UI build and all 72 tests passed.
+
+- User accepted and closed Notify. Next visual review: Dialog; local interactive lab prepared for colors/effects, sizes, alignment and persistent dismissal. LoadingBar and Notify remain uncommitted pending a commit request.
+
+- Dialog subtitle inherits the resolved dialog foreground, matching title/body semantic color and effect contrast instead of fixed muted gray. Applies across all semantic colors and both themes. UI build and 72 tests passed.
+
+- Dialog Secondary foreground now uses theme text instead of pale palette step 2, restoring title/subtitle/body and dismiss contrast on the tinted surface in both themes. UI build and 72 tests passed.
+
+- Dialog Light foreground now uses theme text instead of pale palette step 2, restoring title/subtitle/body and dismiss readability on the light surface. UI build and 72 tests passed.
+
+- Dialog Dark foreground now uses theme text instead of pale palette step 2, matching Secondary/Light contrast fixes while retaining the dark semantic accent. UI build and 72 tests passed.
+
+- Dialog Light icon badge now uses theme foreground with subtle matching background/border instead of the near-white accent, making both glyph and badge visible. UI build and 72 tests passed.
+
+- Dialog Flat keeps opaque semantic/theme surface, removes elevation, contour and section dividers, and renders icon/dismiss without badge/button borders. Shared rule covers every semantic color, including Light badge override. UI build and 72 tests passed.
+
+- Dialog Outline uses opaque theme background/foreground, semantic contour (theme foreground for light/dark visibility), no elevation or backdrop blur, and readable dismiss. Global Outline descendant button recoloring excludes Dialog so action buttons retain their own contrast. UI build and 72 tests passed.
+
+- Dialog Shadow uses compact two-layer downward elevation (2px/4px contact and 8px/20px spread -4), with dedicated dark opacities and explicit shadow token to override generic effect defaults. UI build and 72 tests passed.
+
+- Dialog Shadow strengthened after visual feedback: 3px/8px contact shadow plus 18px/36px elevation with -6px spread, light opacity 28%/48% and dark 50%/75%, for clearer separation over the dimmed backdrop. UI build and 72 tests passed.
+
+- Dialog Light Shadow replaces uniform halo with directional upper-left exterior/inset light and lower-right contact/elevation shade. Dedicated dark values keep reflection restrained and depth visible. UI build and 72 tests passed.
+
+- Dialog Border now uses explicit semantic accent contour and shared border width, with theme foreground contour for light/dark visibility. UI build and 72 tests passed.
+
+- Dialog Glossy reflection moved to title bar only: upper highlight/lower semantic shade with dedicated dark values, while root/body/actions retain uniform opaque surface. UI build and 72 tests passed.
+
+- Dialog Glow reduced to tight 3px/9px semantic halos at 35%/22%, removing broad generic glow and inherited text shadow. UI build and 72 tests passed.
+
+- Dialog Glow recalibrated after feedback: previous 35%/22% halos disappeared over backdrop; now 4px spread 1px at 65% and 14px spread 2px at 42%, preserving sharp text. UI build and 72 tests passed.
+
+- Dialog Glass now uses 62% translucent theme surface (65% dark), 16px backdrop blur with saturation, diagonal reflection and inset top highlight; removes generic glass pseudo-layer. Theme foreground and independent action button colors preserve readability. UI build and 72 tests passed.
+
+- Dialog Glass made subtler: 5% semantic tint over 82% theme surface reduces strong background color bleed while retaining backdrop blur/translucency in both themes. UI build and 72 tests passed.
+
+- Dialog Glass opacity reduced from 82% to 68% theme surface after visual feedback, retaining 5% semantic tint and 16px blur to restore translucency. UI build and 72 tests passed.
+
+- Dialog Gradient replaces saturated generic fill with opaque three-stop semantic tint (6%/12%/22%) over theme background; theme foreground and readable dismiss restore contrast across colors/themes. UI build and 72 tests passed.
+
+- Dialog Gradient tint increased to 10%/20%/32% after user feedback, retaining theme foreground. UI build and 72 tests passed.
+
+- Dialog color Dark now owns a dark local surface (#1f2937), light foreground (#f1f5f9), and slate effect/border accent in either app theme. Local surface/foreground feed Flat, Outline, Gradient and Glass; icon, dismiss and flat actions keep contrast. UI build and 72 tests passed.
+
+- Dialog Light Shadow reflection reduced and elevation softened. Dark color now receives the restrained dark-surface preset even in light app theme, eliminating bright exterior halo (4% white exterior, 16% inset). UI build and 72 tests passed.
+
+- Dialog Dark Glow uses dedicated deep slate halos (#0f172a at 80%/55%) instead of light border accent, removing white glow. UI build and 72 tests passed.
+
+- Dialog Text Gradient restores opaque root surface and normal icon/button fill, applying semantic-to-theme text stops only to title/subtitle/body. Scoped button rule overrides generic descendant gradient. UI build and 72 tests passed.
+
+- Dialog Text Gradient made more distinct with accent-to-theme foreground three stops; title/subtitle fit content width so full ramp appears across actual text. UI build and 72 tests passed.
+
+- Dialog Light now owns pale surface (#f1f5f9), dark foreground (#1f2937) and readable slate accent in either app theme, feeding all effect surfaces including Flat/Outline/Gradient/Glass. Dismiss and flat actions inherit dark foreground. UI build and 72 tests passed.
+
+- Dialog dark-surface Light Shadow enhanced with cool upper-left inset highlight and directional exterior reflection, contact shade and deeper lower-right elevation. Softer semantic/theme contour reduces competing bright border. UI build and 72 tests passed.
+
+- User accepted and closed Dialog and requested commit. Completed LoadingBar, Notify and Dialog revisions grouped for commit. Latest suite: 72 passed. Next visual review: Tooltip; interactive local lab prepared.

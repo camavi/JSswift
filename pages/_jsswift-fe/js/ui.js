@@ -8707,6 +8707,7 @@
       const raw = uiUnwrap(value);
       if (raw == null || raw === false || raw === "") return fallback;
       const state = normalizeState(raw);
+      if (state === "light") return "var(--jss-progress-light, var(--jss-light))";
       if (state) return `var(--jss-${state})`;
       if (typeof raw === "string" && isTokenCSS(raw)) return `var(--jss-${raw})`;
       return String(raw);
@@ -9054,7 +9055,10 @@
     progressProps.buffer = [getBuffer, setBufferSignal];
     if (progressProps.dense == null) progressProps.dense = true;
     if (progressProps.height == null && progressProps.thickness == null && progressProps.size == null) {
-      progressProps.height = 3;
+      progressProps.height = () => uiUnwrap(props.dense) ? 2 : uiUnwrap(props.border) || uiUnwrap(props.glossy) ? 4 : 3;
+    }
+    if (progressProps.trackColor == null && uiUnwrap(props.flat)) {
+      progressProps.trackColor = "transparent";
     }
     if (progressProps.width == null) progressProps.width = "100%";
     const root = _.div(shellProps);
@@ -9224,7 +9228,7 @@
   };
   const NOTIFY_POSITIONS = /* @__PURE__ */ new Set(["top-left", "top-center", "top-right", "bottom-left", "bottom-center", "bottom-right"]);
   const NOTIFY_VARIANTS = /* @__PURE__ */ new Set(["soft", "solid", "outline"]);
-  const NOTIFY_DEFAULT_TITLES = { success: "Success", warning: "Warning", danger: "Error", info: "Info", primary: "Notice", secondary: "Notice", light: "Notice", dark: "Notice" };
+  const NOTIFY_DEFAULT_TITLES = { neutral: "Notice", success: "Success", warning: "Warning", danger: "Error", info: "Info", primary: "Notice", secondary: "Notice", light: "Notice", dark: "Notice" };
   const notifyIconMap = { success: "check_circle", warning: "warning", danger: "error", info: "info", primary: "bolt", secondary: "notifications", light: "notifications", dark: "shield" };
   const normalizeNotifyPosition = (value) => {
     const raw = String(uiUnwrap(value) || "").trim().toLowerCase();
@@ -9252,7 +9256,7 @@
   const normalizeNotifyPayload = (input = {}, forcedType = "") => {
     var _a2, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n;
     const src = uiIsPlainObject(input) ? { ...input } : { message: input };
-    const tone = normalizeState(uiUnwrap(forcedType) || uiUnwrap(src.type) || uiUnwrap(src.state) || uiUnwrap(src.color) || "info") || "info";
+    const tone = normalizeState(uiUnwrap(forcedType) || uiUnwrap(src.type) || uiUnwrap(src.state) || uiUnwrap(src.color)) || "neutral";
     const timeout = normalizeNotifyTimeout((_b = (_a2 = src.timeout) != null ? _a2 : src.duration) != null ? _b : src.delay, tone);
     const closable = (_e = (_d = (_c = src.closable) != null ? _c : src.dismissible) != null ? _d : src.dismiss != null) != null ? _e : timeout === 0;
     const title = src.title === void 0 ? src.label === void 0 ? NOTIFY_DEFAULT_TITLES[tone] : src.label : src.title;

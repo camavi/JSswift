@@ -8,7 +8,7 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "props": {
     "color": {"type": "Alias of type", "description": "Semantic color name used to style the component.", "default": null, "values": ["primary", "secondary", "success", "warning", "danger", "info", "light", "dark"], "category": "style"},
     "id": {"type": "string", "description": "Component configuration for \"id\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
-    "type": {"type": "success|warning|danger|error|info|primary|secondary|light|dark", "description": "Variant or native input type.", "default": null, "values": ["primary", "secondary", "success", "warning", "danger", "info", "light", "dark"], "category": "general"},
+    "type": {"type": "success|warning|danger|error|info|primary|secondary|light|dark", "description": "Semantic notification color. When type, state and color are omitted, uses neutral theme colors.", "default": null, "values": ["primary", "secondary", "success", "warning", "danger", "info", "light", "dark"], "category": "general"},
     "state": {"type": "Alias of type", "description": "Component configuration for \"state\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
     "title": {"type": "String|Node|Function|Array|false", "description": "Title text or node.", "default": null, "values": null, "category": "general"},
     "message": {"type": "String|Node|Function|Array", "description": "Message text shown in banners/alerts.", "default": null, "values": null, "category": "general"},

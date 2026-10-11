@@ -5258,7 +5258,7 @@ select {
   gap: 14px;
   min-width: 0;
   padding: 16px;
-  border-radius: var(--jss-r-lg);
+  border-radius: var(--set-border-radius, var(--jss-b-radius-default, 2px));
   border: 1px solid var(--jss-toast-border);
   background:
     linear-gradient(180deg, color-mix(in srgb, white 3%, transparent), transparent 28%),
@@ -5270,6 +5270,123 @@ select {
   overflow: hidden;
 }
 
+.jss-toast:is(.dense, .jss-dense) {
+  padding: 4px;
+  gap: 8px;
+}
+
+.jss-toast:not(.jss-shadow):not(.jss-light-shadow):not(.jss-glow) {
+  box-shadow: none;
+}
+
+.jss-toast.jss-border {
+  border: 1px solid var(--jss-toast-accent);
+}
+
+.jss-toast.jss-text-gradient {
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-toast.jss-text-gradient :is(.jss-toast-title, .jss-toast-message, .jss-toast-description, .jss-toast-meta) {
+  width: fit-content;
+  max-width: 100%;
+  background-image: linear-gradient(110deg,
+    color-mix(in srgb, var(--jss-toast-accent) 85%, var(--jss-text)),
+    color-mix(in srgb, var(--jss-toast-accent) 20%, var(--jss-text)));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.jss-toast.jss-glow {
+  box-shadow: 0 0 3px color-mix(in srgb, var(--jss-toast-accent) 40%, transparent),
+    0 0 9px color-mix(in srgb, var(--jss-toast-accent) 25%, transparent);
+  text-shadow: none;
+}
+
+.jss-toast.jss-gradient {
+  background: linear-gradient(var(--set-gradient-deg, 135deg),
+    color-mix(in srgb, var(--jss-toast-accent) 12%, var(--jss-bg)),
+    color-mix(in srgb, var(--jss-toast-accent) 30%, var(--jss-bg)));
+  --jss-toast-title-color: var(--jss-text);
+  --jss-toast-message-color: var(--jss-text);
+}
+
+.jss-toast.jss-glass {
+  background:
+    radial-gradient(ellipse at 35% 20%, rgb(255 255 255 / 65%), transparent 65%),
+    radial-gradient(ellipse at 65% 85%, color-mix(in srgb, var(--jss-toast-accent) 22%, transparent), transparent 75%),
+    color-mix(in srgb, var(--jss-bg) 70%, transparent);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  --jss-toast-title-color: var(--jss-text);
+  --jss-toast-message-color: var(--jss-text);
+}
+
+:root[data-theme="dark"] .jss-toast.jss-glass:not(.jss-toast-light) {
+  background:
+    radial-gradient(ellipse at 35% 20%, rgb(255 255 255 / 12%), transparent 65%),
+    radial-gradient(ellipse at 65% 85%, color-mix(in srgb, var(--jss-toast-accent) 16%, transparent), transparent 75%),
+    color-mix(in srgb, var(--jss-bg) 75%, transparent);
+}
+
+.jss-toast.jss-glossy {
+  background-image: linear-gradient(to bottom,
+    rgb(255 255 255 / 28%) 0%, rgb(255 255 255 / 55%) 49%,
+    color-mix(in srgb, var(--jss-toast-accent) 8%, transparent) 51%,
+    color-mix(in srgb, var(--jss-toast-accent) 16%, transparent) 100%);
+  background-color: var(--jss-toast-bg);
+}
+
+:root[data-theme="dark"] .jss-toast.jss-glossy {
+  background-image: linear-gradient(to bottom,
+    rgb(255 255 255 / 8%) 0%, rgb(255 255 255 / 20%) 49%,
+    rgb(0 0 0 / 8%) 51%, rgb(0 0 0 / 22%) 100%);
+}
+
+.jss-toast.jss-shadow {
+  box-shadow: 0 2px 4px rgb(0 0 0 / 12%),
+    0 6px 14px -3px rgb(0 0 0 / 20%);
+}
+
+.jss-toast.jss-light-shadow {
+  box-shadow: inset 1px 1px 1px rgb(255 255 255 / 85%),
+    inset -1px -1px 1px rgb(0 0 0 / 12%),
+    -3px -3px 7px rgb(255 255 255 / 85%),
+    4px 5px 9px rgb(0 0 0 / 23%);
+}
+
+:root[data-theme="dark"] .jss-toast.jss-light-shadow {
+  box-shadow: inset 1px 1px 1px rgb(255 255 255 / 22%),
+    inset -1px -1px 1px rgb(0 0 0 / 35%),
+    -2px -2px 6px rgb(255 255 255 / 8%),
+    4px 5px 9px rgb(0 0 0 / 50%);
+}
+
+:root[data-theme="dark"] .jss-toast.jss-shadow {
+  box-shadow: 0 2px 4px rgb(0 0 0 / 30%),
+    0 6px 14px -3px rgb(0 0 0 / 45%);
+}
+
+.jss-toast.jss-flat {
+  background: color-mix(in srgb, var(--jss-toast-accent) 8%, var(--jss-bg));
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  --jss-toast-title-color: var(--jss-text);
+  --jss-toast-message-color: var(--jss-text);
+}
+
+.jss-toast.jss-flat .jss-toast-icon {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: var(--jss-toast-accent);
+}
+
 .jss-toast::before {
   content: "";
   position: absolute;
@@ -5279,18 +5396,103 @@ select {
 }
 
 .jss-toast-soft {
-  --jss-toast-bg: color-mix(in srgb, var(--jss-panel) 90%, var(--jss-toast-accent) 10%);
+  --jss-toast-bg: color-mix(in srgb, var(--jss-bg) 90%, var(--jss-toast-accent) 10%);
+  --jss-toast-border: transparent;
+  --jss-toast-title-color: var(--jss-text);
+  --jss-toast-message-color: var(--jss-text);
 }
 
-.jss-toast-outline {
-  --jss-toast-bg: color-mix(in srgb, var(--jss-panel) 96%, var(--jss-toast-accent) 4%);
-  --jss-toast-border: color-mix(in srgb, var(--jss-toast-accent) 48%, var(--jss-border-color));
+.jss-toast.jss-outline,
+.jss-toast.jss-toast-outline {
+  background: var(--jss-bg);
+  border: 1px solid var(--jss-toast-accent);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.jss-toast.jss-outline .jss-toast-close.jss-btn,
+.jss-toast.jss-toast-outline .jss-toast-close.jss-btn {
+  color: var(--jss-text);
+  background: transparent;
+  border-color: var(--jss-border-color);
+}
+
+.jss-toast:is(.jss-outline, .jss-toast-outline).jss-glossy {
+  background-color: var(--jss-bg);
+  background-image: linear-gradient(to bottom,
+    rgb(255 255 255 / 30%) 0%, rgb(255 255 255 / 65%) 49%,
+    color-mix(in srgb, var(--jss-toast-accent) 5%, transparent) 51%,
+    color-mix(in srgb, var(--jss-toast-accent) 14%, transparent) 100%);
+}
+
+.jss-toast:is(.jss-outline, .jss-toast-outline).jss-glow {
+  box-shadow: 0 0 3px color-mix(in srgb, var(--jss-toast-accent) 40%, transparent),
+    0 0 9px color-mix(in srgb, var(--jss-toast-accent) 25%, transparent);
+  text-shadow: none;
+}
+
+.jss-toast:is(.jss-outline, .jss-toast-outline).jss-light-shadow {
+  box-shadow: inset 1px 1px 1px rgb(255 255 255 / 85%),
+    inset -1px -1px 1px rgb(0 0 0 / 12%),
+    -3px -3px 7px rgb(255 255 255 / 85%),
+    4px 5px 9px rgb(0 0 0 / 23%);
+}
+
+:root[data-theme="dark"] .jss-toast:is(.jss-outline, .jss-toast-outline).jss-light-shadow {
+  box-shadow: inset 1px 1px 1px rgb(255 255 255 / 22%),
+    inset -1px -1px 1px rgb(0 0 0 / 35%),
+    -2px -2px 6px rgb(255 255 255 / 8%),
+    4px 5px 9px rgb(0 0 0 / 50%);
+}
+
+.jss-toast:is(.jss-outline, .jss-toast-outline).jss-glass {
+  background:
+    radial-gradient(ellipse at 35% 20%, rgb(255 255 255 / 65%), transparent 65%),
+    radial-gradient(ellipse at 65% 85%, color-mix(in srgb, var(--jss-toast-accent) 22%, transparent), transparent 75%),
+    color-mix(in srgb, var(--jss-bg) 70%, transparent);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+}
+
+:root[data-theme="dark"] .jss-toast:is(.jss-outline, .jss-toast-outline).jss-glass:not(.jss-toast-light) {
+  background:
+    radial-gradient(ellipse at 35% 20%, rgb(255 255 255 / 12%), transparent 65%),
+    radial-gradient(ellipse at 65% 85%, color-mix(in srgb, var(--jss-toast-accent) 16%, transparent), transparent 75%),
+    color-mix(in srgb, var(--jss-bg) 75%, transparent);
+}
+
+:root[data-theme="dark"] .jss-toast:is(.jss-outline, .jss-toast-outline).jss-glossy {
+  background-image: linear-gradient(to bottom,
+    rgb(255 255 255 / 6%) 0%, rgb(255 255 255 / 16%) 49%,
+    rgb(0 0 0 / 5%) 51%, rgb(0 0 0 / 18%) 100%);
 }
 
 .jss-toast-solid {
-  --jss-toast-bg: color-mix(in srgb, var(--jss-panel) 70%, var(--jss-toast-accent) 30%);
-  --jss-toast-border: color-mix(in srgb, var(--jss-toast-accent) 64%, var(--jss-border-color));
-  --jss-toast-message-color: color-mix(in srgb, var(--jss-text) 82%, var(--jss-toast-accent));
+  --jss-toast-bg: var(--jss-toast-accent);
+  --jss-toast-border: var(--jss-toast-accent);
+  --jss-toast-title-color: #fff;
+  --jss-toast-message-color: #fff;
+  --jss-toast-meta-color: rgb(255 255 255 / 80%);
+}
+
+.jss-toast.jss-toast-solid:is(.jss-toast-light, .jss-toast-warning) {
+  --jss-toast-title-color: #1f2937;
+  --jss-toast-message-color: #1f2937;
+  --jss-toast-meta-color: #334155;
+}
+
+.jss-toast.jss-toast-solid .jss-toast-icon,
+.jss-toast.jss-toast-solid .jss-toast-close.jss-btn {
+  color: var(--jss-toast-title-color);
+  background: rgb(255 255 255 / 12%);
+  border-color: rgb(255 255 255 / 30%);
+}
+
+.jss-toast.jss-toast-outline .jss-toast-icon {
+  color: var(--jss-toast-accent);
+  background: transparent;
+  border-color: var(--jss-toast-accent);
 }
 
 .jss-toast-success {
@@ -5319,6 +5521,16 @@ select {
 
 .jss-toast-light {
   --jss-toast-accent: var(--jss-light);
+}
+
+:root[data-theme="dark"] .jss-toast-light {
+  --jss-toast-accent: #e2e8f0;
+}
+
+.jss-toast.jss-toast-neutral {
+  --jss-toast-accent: var(--jss-text);
+  --jss-toast-bg: var(--jss-bg);
+  --jss-toast-border: var(--jss-border-color);
 }
 
 .jss-toast-dark {
@@ -5750,6 +5962,193 @@ select {
   margin: calc(var(--jss-s-lg) * -1);
 }
 
+.jss-dialog.jss-singularity.jss-outline {
+  --set-background-color: var(--jss-bg);
+  --set-text-color: var(--jss-text);
+  --set-color: var(--jss-text);
+  background: var(--jss-bg);
+  color: var(--jss-text);
+  border: 1px solid var(--jss-dialog-accent);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.jss-dialog.jss-outline:is(.light, .jss-state-light, .dark, .jss-state-dark) {
+  border-color: var(--jss-text);
+}
+
+.jss-dialog.jss-outline .jss-dialog-close.jss-btn {
+  color: var(--jss-text);
+  background: transparent;
+  border-color: var(--jss-border-color);
+}
+
+.jss-dialog.jss-singularity.jss-glossy {
+  background: var(--set-background-color, var(--jss-bg));
+}
+
+.jss-dialog.jss-glossy .jss-dialog-head {
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.18) 49%,
+    color-mix(in srgb, var(--jss-dialog-accent) 8%, transparent) 51%,
+    color-mix(in srgb, var(--jss-dialog-accent) 16%, transparent) 100%);
+  padding-bottom: var(--jss-s-md);
+}
+
+:root[data-theme="dark"] .jss-dialog.jss-glossy .jss-dialog-head {
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.04) 49%,
+    rgba(0, 0, 0, 0.08) 51%,
+    rgba(0, 0, 0, 0.22) 100%);
+}
+
+.jss-dialog.jss-singularity.jss-text-gradient {
+  background: var(--set-background-color, var(--jss-bg));
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-dialog.jss-text-gradient :is(.jss-dialog-title, .jss-dialog-subtitle, .jss-dialog-body) {
+  background-image: linear-gradient(110deg,
+    var(--jss-dialog-accent) 0%,
+    color-mix(in srgb, var(--jss-dialog-accent) 55%, var(--jss-text)) 50%,
+    var(--jss-text) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.jss-dialog.jss-text-gradient :is(.jss-dialog-title, .jss-dialog-subtitle) {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.jss-dialog.jss-singularity.jss-text-gradient .jss-btn {
+  background-image: none;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-dialog.jss-singularity.jss-gradient {
+  --set-text-color: var(--jss-text);
+  --set-color: var(--jss-text);
+  background: linear-gradient(var(--set-gradient-deg, 135deg),
+    color-mix(in srgb, var(--jss-dialog-accent) 10%, var(--jss-bg)) 0%,
+    color-mix(in srgb, var(--jss-dialog-accent) 20%, var(--jss-bg)) 55%,
+    color-mix(in srgb, var(--jss-dialog-accent) 32%, var(--jss-bg)) 100%);
+  color: var(--jss-text);
+}
+
+.jss-dialog.jss-gradient .jss-dialog-close.jss-btn {
+  color: var(--jss-text);
+  background: transparent;
+  border-color: var(--jss-border-color);
+}
+
+.jss-dialog.jss-singularity.jss-glass {
+  --set-color: var(--jss-text);
+  --set-text-color: var(--jss-text);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), transparent 55%),
+    color-mix(in srgb, var(--jss-dialog-accent) 5%, color-mix(in srgb, var(--jss-bg) 68%, transparent));
+  color: var(--jss-text);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-color: color-mix(in srgb, var(--jss-text) 22%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+:root[data-theme="dark"] .jss-dialog.jss-singularity.jss-glass {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 55%),
+    color-mix(in srgb, var(--jss-dialog-accent) 5%, color-mix(in srgb, var(--jss-bg) 68%, transparent));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.jss-dialog.jss-singularity.jss-glass::before {
+  content: none;
+}
+
+.jss-dialog.jss-glass .jss-dialog-close.jss-btn {
+  color: var(--jss-text);
+  background: transparent;
+  border-color: var(--jss-border-color);
+}
+
+.jss-dialog.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 4px 1px color-mix(in srgb, var(--jss-dialog-accent) 65%, transparent),
+    0 0 14px 2px color-mix(in srgb, var(--jss-dialog-accent) 42%, transparent);
+  box-shadow: var(--set-glow-active);
+  text-shadow: none;
+}
+
+.jss-dialog.jss-singularity.jss-glow:is(.dark, .jss-state-dark) {
+  --set-glow-active: 0 0 4px 1px rgba(15, 23, 42, 0.8),
+    0 0 14px 2px rgba(15, 23, 42, 0.55);
+}
+
+.jss-dialog.jss-singularity.jss-border {
+  border: var(--set-border-width, 1px) solid var(--jss-dialog-accent);
+}
+
+.jss-dialog.jss-singularity.jss-border:is(.light, .jss-state-light, .dark, .jss-state-dark) {
+  border-color: var(--jss-text);
+}
+
+.jss-dialog.jss-singularity.jss-shadow {
+  --set-shadow-active: 0 3px 8px rgba(0, 0, 0, 0.28), 0 18px 36px -6px rgba(0, 0, 0, 0.48);
+  box-shadow: var(--set-shadow-active);
+}
+
+:root[data-theme="dark"] .jss-dialog.jss-singularity.jss-shadow {
+  --set-shadow-active: 0 3px 8px rgba(0, 0, 0, 0.5), 0 18px 36px -6px rgba(0, 0, 0, 0.75);
+}
+
+.jss-dialog.jss-singularity.jss-light-shadow {
+  --set-shadow-active: inset 1px 1px 0 rgba(255, 255, 255, 0.65),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.12),
+    -2px -2px 5px rgba(255, 255, 255, 0.28),
+    6px 8px 20px -4px rgba(0, 0, 0, 0.32);
+  box-shadow: var(--set-shadow-active);
+}
+
+:root[data-theme="dark"] .jss-dialog.jss-singularity.jss-light-shadow,
+.jss-dialog.jss-singularity.jss-light-shadow:is(.dark, .jss-state-dark) {
+  --set-shadow-active: inset 1px 1px 0 rgba(226, 232, 240, 0.4),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.5),
+    -3px -3px 9px -2px rgba(203, 213, 225, 0.22),
+    0 3px 6px rgba(0, 0, 0, 0.35),
+    9px 12px 28px -5px rgba(0, 0, 0, 0.8);
+  border-color: color-mix(in srgb, var(--jss-dialog-accent) 30%, var(--jss-border-color));
+}
+
+.jss-dialog.jss-singularity.jss-flat {
+  background: var(--set-background-color, var(--jss-bg));
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.jss-dialog.jss-flat .jss-dialog-shell.with-divider > :is(.jss-dialog-head, .jss-dialog-actions) {
+  border: 0;
+}
+
+.jss-dialog.jss-singularity.jss-flat .jss-dialog-icon {
+  color: inherit;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.jss-dialog.jss-flat .jss-dialog-close.jss-btn {
+  color: inherit;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
 .jss-dialog-head,
 .jss-dialog-body,
 .jss-dialog-actions {
@@ -5808,7 +6207,7 @@ select {
 }
 
 .jss-dialog-subtitle {
-  color: var(--jss-muted);
+  color: inherit;
   line-height: 1.5;
 }
 
@@ -6014,24 +6413,60 @@ select {
 .jss-dialog.jss-state-secondary {
   --jss-dialog-accent: var(--jss-secondary);
   --set-background-color: color-mix(in srgb, var(--set-color-3) 10%, var(--jss-theme-color-1));
-  --set-text-color: var(--set-color-2);
+  --set-text-color: var(--jss-text);
   --set-color: var(--set-text-color);
 }
 
 .jss-dialog.light,
 .jss-dialog.jss-state-light {
-  --jss-dialog-accent: var(--jss-light);
-  --set-background-color: color-mix(in srgb, var(--set-color-3) 10%, var(--jss-theme-color-1));
-  --set-text-color: var(--set-color-2);
+  --jss-bg: #f1f5f9;
+  --jss-text: #1f2937;
+  --jss-border-color: #94a3b8;
+  --jss-dialog-accent: #64748b;
+  --set-background-color: var(--jss-bg);
+  --set-text-color: var(--jss-text);
   --set-color: var(--set-text-color);
+}
+
+.jss-dialog:is(.light, .jss-state-light) .jss-dialog-icon {
+  color: var(--jss-text);
+  background: color-mix(in srgb, var(--jss-text) 8%, transparent);
+  border-color: color-mix(in srgb, var(--jss-text) 24%, transparent);
+}
+
+.jss-dialog:is(.light, .jss-state-light) .jss-dialog-close.jss-btn {
+  color: var(--jss-text);
+  background: transparent;
+  border-color: var(--jss-border-color);
+}
+
+.jss-dialog:is(.light, .jss-state-light) .jss-dialog-actions .jss-btn.jss-flat {
+  color: var(--jss-text);
 }
 
 .jss-dialog.dark,
 .jss-dialog.jss-state-dark {
-  --jss-dialog-accent: var(--jss-dark);
-  --set-background-color: color-mix(in srgb, var(--set-color-3) 10%, var(--jss-theme-color-1));
-  --set-text-color: var(--set-color-2);
+  --jss-bg: #1f2937;
+  --jss-text: #f1f5f9;
+  --jss-border-color: #64748b;
+  --jss-dialog-accent: #94a3b8;
+  --set-background-color: var(--jss-bg);
+  --set-text-color: var(--jss-text);
   --set-color: var(--set-text-color);
+}
+
+.jss-dialog:is(.dark, .jss-state-dark) .jss-dialog-icon {
+  color: var(--jss-text);
+}
+
+.jss-dialog:is(.dark, .jss-state-dark) .jss-dialog-close.jss-btn {
+  color: var(--jss-text);
+  border-color: var(--jss-border-color);
+  background: transparent;
+}
+
+.jss-dialog:is(.dark, .jss-state-dark) .jss-dialog-actions .jss-btn.jss-flat {
+  color: var(--jss-text);
 }
 
 .jss-popover {
@@ -10467,6 +10902,53 @@ a.jss-breadcrumb {
   background-color: transparent;
 }
 
+.jss-loading-bar.jss-outline {
+  border: 0;
+  outline: none;
+  background: transparent;
+}
+
+.jss-loading-bar.jss-border {
+  border: 0;
+}
+
+:root[data-theme="dark"] .jss-loading-bar .jss-progress-bar.jss-glass.jss-state-light {
+  background-color: rgb(226 232 240 / 45%);
+  --set-color-1: #f1f5f9;
+  --set-color-2: #e2e8f0;
+  --set-color-3: #94a3b8;
+}
+
+:root[data-theme="dark"] .jss-loading-bar .jss-progress-bar.jss-state-light.jss-outline.jss-glass {
+  border: 1px solid #e2e8f0;
+  background-color: rgb(226 232 240 / 30%);
+  box-shadow: inset 0 0 0 1px #e2e8f0;
+}
+
+:root[data-theme="dark"] .jss-loading-bar.jss-state-light.jss-outline.jss-glass .jss-progress {
+  background: rgb(226 232 240 / 12%);
+}
+
+:root[data-theme="dark"] .jss-loading-bar.jss-state-light.jss-outline.jss-glass .jss-progress-bar {
+  background: rgb(226 232 240 / 55%);
+  border: 1px solid #f1f5f9;
+  box-shadow: inset 0 0 0 1px #f1f5f9;
+}
+
+:root[data-theme="dark"] .jss-loading-bar .jss-progress-bar.jss-state-light.jss-text-gradient {
+  background-color: #e2e8f0;
+  background-image: linear-gradient(110deg, #f1f5f9, #94a3b8);
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+}
+
+.jss-loading-bar .jss-progress-bar.jss-glossy {
+  background-image: linear-gradient(to bottom,
+    rgb(255 255 255 / 65%) 0%, rgb(255 255 255 / 40%) 49%,
+    transparent 51%, rgb(0 0 0 / 20%) 100%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 60%);
+}
+
 .jss-progress-wrap.jss-border {
   border: 0;
 }
@@ -10482,6 +10964,7 @@ a.jss-breadcrumb {
 
 :root[data-theme="dark"] .jss-progress-wrap.jss-state-light,
 :root[data-theme="dark"] .jss-progress-wrap .jss-progress-bar.jss-state-light {
+  --jss-progress-light: #e2e8f0;
   --set-hover: #e2e8f0;
   --set-border-color: #e2e8f0;
   --set-background-color: #e2e8f0;
@@ -11024,7 +11507,7 @@ a.jss-breadcrumb {
   --set-color: var(--jss-theme-color-6);
 }
 
-.jss-singularity.jss-glass .jss-btn,
+.jss-singularity.jss-glass:not(.jss-dialog) .jss-btn,
 .jss-singularity-field.jss-glass>.jss-control .jss-btn {
   color: var(--jss-theme-color-6);
   border-color: var(--jss-theme-color-6);
@@ -11067,7 +11550,7 @@ a.jss-breadcrumb {
   --set-background-color: transparent;
 }
 
-.jss-outline .jss-btn {
+.jss-outline:not(.jss-dialog) .jss-btn {
   color: var(--set-border-color);
   border-color: var(--set-border-color);
   transition: all 0.2s ease-in-out;
