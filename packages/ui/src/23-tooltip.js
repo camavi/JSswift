@@ -116,6 +116,10 @@
         autoFocus: false,
         className: uiClassStatic([
           "jss-tooltip",
+          (() => {
+            const state = normalizeState(uiUnwrap(props.state) || uiUnwrap(props.color));
+            return state ? `jss-state-${state}` : "";
+          })(),
           uiWhen(props.interactive, "interactive"),
           props.class,
           props.panelClass

@@ -931,25 +931,197 @@ select {
 }
 
 .jss-tooltip-wrap {
+  width: fit-content;
+  max-width: 100%;
   display: inline-flex;
   align-items: center;
 }
 
 .jss-tooltip {
+  --jss-tooltip-accent: var(--jss-text);
+  --jss-tooltip-bg: var(--jss-panel);
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 10px 12px;
   font-size: 12px;
   line-height: 1.4;
-  border-radius: var(--jss-r-md);
-  background: var(--jss-panel);
+  border-radius: var(--set-border-radius, var(--jss-b-radius-default, 2px));
+  background: var(--jss-tooltip-bg);
   color: var(--jss-text);
-  border: 1px solid var(--jss-border-color);
-  box-shadow: var(--jss-shadow-sm);
+  border: 0;
   pointer-events: none;
   width: max-content;
   max-width: min(320px, calc(100vw - 16px));
+}
+
+.jss-tooltip:not(.jss-shadow):not(.jss-light-shadow):not(.jss-glow) {
+  box-shadow: none;
+}
+
+.jss-tooltip.jss-shadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 6px 14px -3px rgba(0, 0, 0, 0.24);
+}
+
+:root[data-theme="dark"] .jss-tooltip.jss-shadow:not(.jss-state-light),
+.jss-tooltip.jss-shadow.jss-state-dark {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 3px 6px rgba(0, 0, 0, 0.5),
+    0 10px 22px -3px rgba(0, 0, 0, 0.8);
+}
+
+.jss-tooltip.jss-light-shadow {
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.8),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.08),
+    -2px -2px 6px rgba(255, 255, 255, 0.3),
+    2px 3px 5px rgba(0, 0, 0, 0.1),
+    5px 7px 14px -3px rgba(0, 0, 0, 0.22);
+}
+
+:root[data-theme="dark"] .jss-tooltip.jss-light-shadow:not(.jss-state-light),
+.jss-tooltip.jss-light-shadow.jss-state-dark {
+  box-shadow: inset 1px 1px 0 rgba(226, 232, 240, 0.28),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.35),
+    -2px -2px 6px rgba(203, 213, 225, 0.1),
+    2px 3px 5px rgba(0, 0, 0, 0.3),
+    5px 7px 14px -3px rgba(0, 0, 0, 0.6);
+}
+
+.jss-tooltip.jss-glow {
+  box-shadow: 0 0 3px color-mix(in srgb, var(--jss-tooltip-accent) 50%, transparent),
+    0 0 10px color-mix(in srgb, var(--jss-tooltip-accent) 30%, transparent);
+}
+
+.jss-tooltip[class*="jss-state-"] {
+  --jss-tooltip-bg: color-mix(in srgb, var(--jss-tooltip-accent) 10%, var(--jss-bg));
+  border-color: color-mix(in srgb, var(--jss-tooltip-accent) 45%, var(--jss-border-color));
+}
+
+.jss-tooltip.jss-state-primary { --jss-tooltip-accent: var(--jss-primary); }
+.jss-tooltip.jss-state-secondary { --jss-tooltip-accent: var(--jss-secondary); }
+.jss-tooltip.jss-state-success { --jss-tooltip-accent: var(--jss-success); }
+.jss-tooltip.jss-state-warning { --jss-tooltip-accent: var(--jss-warning); }
+.jss-tooltip.jss-state-danger { --jss-tooltip-accent: var(--jss-danger); }
+.jss-tooltip.jss-state-info { --jss-tooltip-accent: var(--jss-info); }
+.jss-tooltip.jss-state-light {
+  --jss-bg: #f1f5f9;
+  --jss-text: #1f2937;
+  --jss-tooltip-accent: #64748b;
+}
+.jss-tooltip.jss-state-dark {
+  --jss-bg: #1f2937;
+  --jss-text: #f1f5f9;
+  --jss-tooltip-accent: #94a3b8;
+}
+
+.jss-tooltip .jss-tooltip-icon {
+  color: var(--jss-tooltip-accent);
+}
+
+.jss-tooltip.jss-border {
+  border: var(--set-border-width, 1px) solid var(--jss-tooltip-accent);
+}
+
+.jss-tooltip.jss-glossy {
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.65) 0%,
+    rgba(255, 255, 255, 0.25) 49%,
+    color-mix(in srgb, var(--jss-tooltip-accent) 8%, transparent) 51%,
+    color-mix(in srgb, var(--jss-tooltip-accent) 18%, transparent) 100%),
+    var(--jss-tooltip-bg);
+}
+
+.jss-tooltip.jss-gradient {
+  background: linear-gradient(var(--set-gradient-deg, 135deg),
+    color-mix(in srgb, var(--jss-tooltip-accent) 10%, var(--jss-bg)) 0%,
+    color-mix(in srgb, var(--jss-tooltip-accent) 20%, var(--jss-bg)) 55%,
+    color-mix(in srgb, var(--jss-tooltip-accent) 32%, var(--jss-bg)) 100%);
+  color: var(--jss-text);
+}
+
+.jss-tooltip.jss-text-gradient {
+  background: var(--jss-tooltip-bg);
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-tooltip.jss-text-gradient :is(.jss-tooltip-title, .jss-tooltip-body) {
+  width: fit-content;
+  max-width: 100%;
+  background-image: linear-gradient(110deg,
+    var(--jss-tooltip-accent) 0%,
+    color-mix(in srgb, var(--jss-tooltip-accent) 55%, var(--jss-text)) 50%,
+    var(--jss-text) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 1;
+}
+
+:root[data-theme="dark"] .jss-tooltip.jss-glossy:not(.jss-state-light),
+.jss-tooltip.jss-glossy.jss-state-dark {
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.05) 49%,
+    rgba(0, 0, 0, 0.08) 51%,
+    rgba(0, 0, 0, 0.22) 100%),
+    var(--jss-tooltip-bg);
+}
+
+.jss-tooltip.jss-outline {
+  background: var(--jss-bg);
+  color: var(--jss-text);
+  border: 1px solid var(--jss-tooltip-accent);
+}
+
+.jss-tooltip.jss-outline.jss-glossy {
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.25) 49%,
+    color-mix(in srgb, var(--jss-tooltip-accent) 5%, transparent) 51%,
+    color-mix(in srgb, var(--jss-tooltip-accent) 14%, transparent) 100%),
+    var(--jss-bg);
+}
+
+:root[data-theme="dark"] .jss-tooltip.jss-outline.jss-glossy:not(.jss-state-light),
+.jss-tooltip.jss-outline.jss-glossy.jss-state-dark {
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.05) 49%,
+    rgba(0, 0, 0, 0.05) 51%,
+    rgba(0, 0, 0, 0.18) 100%),
+    var(--jss-bg);
+}
+
+.jss-tooltip.jss-glass {
+  isolation: isolate;
+  background: color-mix(in srgb, var(--jss-tooltip-accent) 40%, transparent);
+  color: var(--jss-text);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+}
+
+:root[data-theme="dark"] .jss-tooltip.jss-glass:not(.jss-state-light) {
+  background: color-mix(in srgb, var(--jss-tooltip-accent) 12%, rgba(15, 23, 42, 0.55));
+}
+
+:root[data-theme="dark"] .jss-tooltip.jss-glass:not(.jss-state-light)::before {
+  filter: brightness(0.35);
+  opacity: 0.5;
+}
+
+.jss-tooltip.jss-glass.jss-state-dark {
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.jss-tooltip.jss-glass.jss-state-dark::before {
+  filter: brightness(0.25);
+  opacity: 0.45;
+}
+
+.jss-tooltip.jss-outline:is(.jss-state-light, .jss-state-dark) {
+  border-color: var(--jss-text);
 }
 
 .jss-tooltip.interactive {
@@ -7084,6 +7256,22 @@ select {
   color: var(--jss-text);
 }
 
+.jss-popover.jss-dialog.jss-singularity:not(.jss-border):not(.jss-outline) {
+  border: 0;
+}
+
+.jss-popover.jss-dialog.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 3px 1px color-mix(in srgb, var(--jss-dialog-accent) 50%, transparent),
+    0 0 11px 1px color-mix(in srgb, var(--jss-dialog-accent) 32%, transparent);
+  box-shadow: var(--set-glow-active);
+  text-shadow: none;
+}
+
+.jss-popover.jss-dialog.jss-singularity.jss-glow:is(.dark, .jss-state-dark) {
+  --set-glow-active: 0 0 3px 1px rgba(15, 23, 42, 0.65),
+    0 0 11px 1px rgba(15, 23, 42, 0.42);
+}
+
 .jss-popover {
   --jss-dialog-width: min(420px, calc(100vw - 18px));
   --jss-dialog-min-width: 220px;
@@ -12135,6 +12323,7 @@ a.jss-breadcrumb {
 
 .jss-glass.jss-singularity-menu-select>.jss-select-options>.jss-select-option.selected::before,
 .jss-singularity-menu-select.jss-glass::before,
+.jss-tooltip.jss-glass::before,
 .jss-tabpanel.jss-glass > .jss-tabpanel-nav::before,
 .jss-singularity.jss-glass::before,
 .jss-singularity-field.jss-glass .jss-control::before,
@@ -12181,12 +12370,12 @@ a.jss-breadcrumb {
   background-position: 0 -1px;
 }
 
-.jss-outline.jss-glass {
+.jss-outline.jss-glass:not(.jss-tooltip) {
   position: relative;
   --set-background-color: transparent;
 }
 
-.jss-outline.jss-glass::before {
+.jss-outline.jss-glass:not(.jss-tooltip)::before {
   box-shadow: inset 0 0 2px 1px color-mix(in srgb, var(--set-color-3) 50%, transparent);
   --set-s-effect-1: radial-gradient(ellipse at center, color-mix(in srgb, var(--set-color-1) 60%, transparent) 0%, color-mix(in srgb, var(--set-color-1) 20%, transparent) 40%, color-mix(in srgb, var(--set-color-1) 0%, transparent) 100%);
   --set-s-effect-2: radial-gradient(ellipse at center, color-mix(in srgb, var(--set-color-2) 60%, transparent) 0%, color-mix(in srgb, var(--set-color-1) 20%, transparent) 20%, color-mix(in srgb, var(--set-color-1) 0%, transparent) 80%);

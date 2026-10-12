@@ -5487,7 +5487,10 @@
       const shouldCloseOnOutside = (_a3 = props.closeOnOutside) != null ? _a3 : allowClick || uiUnwrap(props.interactive);
       const shouldCloseOnEsc = (_b2 = props.closeOnEsc) != null ? _b2 : allowClick || uiUnwrap(props.interactive);
       let currentRef = null;
-      entry = JSswift.overlay.open(() => buildContent(), { type: "tooltip", anchorEl: anchor, placement: props.placement || "top", offsetX: (_c = props.offsetX) != null ? _c : 0, offsetY: (_e = (_d = props.offsetY) != null ? _d : props.offset) != null ? _e : 8, backdrop: false, lockScroll: false, trapFocus: false, closeOnOutside: shouldCloseOnOutside, closeOnBackdrop: false, closeOnEsc: shouldCloseOnEsc, autoFocus: false, className: uiClassStatic(["jss-tooltip", uiWhen(props.interactive, "interactive"), props.class, props.panelClass]), onClose: () => {
+      entry = JSswift.overlay.open(() => buildContent(), { type: "tooltip", anchorEl: anchor, placement: props.placement || "top", offsetX: (_c = props.offsetX) != null ? _c : 0, offsetY: (_e = (_d = props.offsetY) != null ? _d : props.offset) != null ? _e : 8, backdrop: false, lockScroll: false, trapFocus: false, closeOnOutside: shouldCloseOnOutside, closeOnBackdrop: false, closeOnEsc: shouldCloseOnEsc, autoFocus: false, className: uiClassStatic(["jss-tooltip", (() => {
+        const state = normalizeState(uiUnwrap(props.state) || uiUnwrap(props.color));
+        return state ? `jss-state-${state}` : "";
+      })(), uiWhen(props.interactive, "interactive"), props.class, props.panelClass]), onClose: () => {
         var _a4, _b3;
         (_a4 = currentRef == null ? void 0 : currentRef._tooltipCleanup) == null ? void 0 : _a4.call(currentRef);
         if (entry === currentRef) entry = null;
@@ -12319,6 +12322,7 @@ transition: width 200ms ease;
       entry = JSswift.overlay.open(() => buildContent(), { type: "popover", anchorEl: anchor, placement: getPlacement(opts), offsetX: (_c = opts.offsetX) != null ? _c : 0, offsetY: (_e = (_d = opts.offsetY) != null ? _d : opts.offset) != null ? _e : 10, backdrop: opts.backdrop === true, lockScroll: opts.lockScroll === true, trapFocus: opts.trapFocus === true, autoFocus: opts.autoFocus === true, closeOnOutside: opts.closeOnOutside !== false, closeOnBackdrop: (_f = opts.closeOnBackdrop) != null ? _f : opts.backdrop === true, closeOnEsc: opts.closeOnEsc !== false, className: uiClassStatic(["jss-dialog", "jss-popover"]), onClose: () => {
         var _a3, _b2, _c2;
         (_a3 = currentRef == null ? void 0 : currentRef._popoverCleanup) == null ? void 0 : _a3.call(currentRef);
+        if (entry === currentRef) entry = null;
         (_c2 = (_b2 = getOptions()).onClose) == null ? void 0 : _c2.call(_b2, currentRef);
         if (getOptions().returnFocus !== false && lastActive && typeof lastActive.focus === "function") {
           setTimeout(() => lastActive.focus(), 0);

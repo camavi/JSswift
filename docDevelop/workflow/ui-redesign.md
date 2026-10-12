@@ -673,3 +673,46 @@ Adjusted dark Tabs Glass after feedback: restored visible nav reflections and sh
 - Dialog dark-surface Light Shadow enhanced with cool upper-left inset highlight and directional exterior reflection, contact shade and deeper lower-right elevation. Softer semantic/theme contour reduces competing bright border. UI build and 72 tests passed.
 
 - User accepted and closed Dialog and requested commit. Completed LoadingBar, Notify and Dialog revisions grouped for commit. Latest suite: 72 passed. Next visual review: Tooltip; interactive local lab prepared.
+
+- Tooltip radius now consumes shared --set-border-radius with default radius fallback, respecting user radius/borderRadius through property props. Added color/state semantic panel classes and eight palette surfaces/icon accents, neutral without color, explicit pale/dark surfaces across themes. Public Tooltip contract updated. UI build and 72 tests passed.
+
+- Tooltip implicit elevation removed, including inherited overlay panel shadow. Only explicit Shadow, Light Shadow or Glow applies an effect; component-owned rules preserve those requested effects. UI build and 72 tests passed.
+
+- Tooltip Outline now uses opaque theme surface, readable theme text and semantic accent contour instead of tinted fill; Light/Dark keep contrasting contours. UI build and 72 tests passed.
+
+- Tooltip default border removed; only explicit Border/Outline draws semantic contour. Light Shadow refined with upper-left inset/exterior reflection, subtle contact shadow and softer lower-right elevation; dedicated dark surface values also apply to Dark color in light theme. UI build and 72 tests passed.
+
+- Tooltip Glossy now renders upper reflection band and lower semantic tint over its base, with restrained white/black stops for dark surfaces and readable unchanged text. UI build and 72 tests passed.
+
+- Tooltip Glass now uses translucent 68% theme surface with 5% semantic tint, diagonal reflection and 12px backdrop blur/saturation. Dedicated dark reflection and no generic pseudo-layer preserve clarity. UI build and 72 tests passed.
+
+- Tooltip Glass aligned to Button after user request: shares the actual radial reflection pseudo-layer and inset contour, 40% semantic translucent base, 1px backdrop blur; isolated stacking preserves foreground and overlay positioning. Replaces previous frosted-glass treatment. UI build and 72 tests passed.
+
+- Tooltip Gradient now renders three semantic tint stops (10%/20%/32%) over opaque local theme surface, preserving readable foreground and Light/Dark surface identity. UI build and 72 tests passed.
+
+- Tooltip Outline + Glossy restores reflection over Outline background reset: upper highlight, restrained lower semantic tint and dedicated dark shading, retaining explicit semantic border. UI build and 72 tests passed.
+
+- Tooltip Outline + Glass excluded from generic Outline Glass pseudo-layer override, preserving the same radial reflections/translucency as normal Glass plus semantic contour. Also prevents generic relative position override of anchored overlay. UI build and 72 tests passed.
+
+- Tooltip Dark Glass now uses deep slate 80% translucent base and dims shared radial reflection layer to 25% brightness, retaining pale readable foreground; applies to Outline + Glass too. UI build and 72 tests passed.
+
+- Tooltip Dark Glass translucency increased: deep slate base alpha 55% and shared reflection layer opacity 45%, retaining dimmed dark reflections without opaque veil. UI build and 72 tests passed.
+
+- Tooltip Text Gradient now clips semantic-to-theme three-stop gradient directly to title/body, fitted to actual text width with full opacity; root keeps opaque base and normal icon fill. UI build and 72 tests passed.
+
+- Tooltip wrapper now uses intrinsic fit-content width instead of stretching across grid cells, so right/left placement anchors to the actual trigger bounds. Automatic viewport collision flip remains supported. UI build and 72 tests passed; browser suite running.
+- Browser verification completed: all 27 browser tests passed.
+
+- Tooltip Shadow dark-surface elevation strengthened with 3px/6px contact and 10px/22px ambient shade at 50%/80%, plus subtle 12% top inset reflection to distinguish edges against dark background. Applies to Dark color in either theme. UI build and 72 tests passed.
+
+- Tooltip Glass dark theme now uses translucent deep-slate base with 12% semantic tint and dimmed radial reflection layer (35% brightness, 50% opacity), excluding Light. Shared Glass rule also covers Outline + Glass. UI build and 72 tests passed.
+
+- User accepted and closed Tooltip. Next component: Popover; interactive local lab prepared for themes, palette, effects and placement. Tooltip changes remain uncommitted pending a commit request.
+
+- Popover Glow slightly attenuated independently of Dialog: 3px/11px halos with 1px spread at 50%/32%, dedicated deep slate Dark halo at 65%/42%. Text remains sharp. UI build and 72 tests passed.
+
+- Popover implicit panel contour removed with component-specific rule; border renders only when Border or Outline is explicitly requested. UI build and 72 tests passed.
+
+- Fixed Popover stale entry after overlay-managed closure: onClose clears only the matching current entry, so outside click/Escape can reopen on the same trigger without touching a newer overlay. Added Chrome regression covering both closure paths and repeated opening. UI build, 72 unit tests and targeted browser regression passed.
+
+- User accepted and closed Popover and requested commit. Completed Tooltip and Popover changes grouped, including Popover reopen regression. Latest checks: UI build, 72 unit tests, 27 browser tests plus targeted reopen test. Next visual review: Menu; local interactive fixture prepared.

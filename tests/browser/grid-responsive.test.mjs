@@ -1554,3 +1554,37 @@ test("Documented themes and repeated mount replacement preserve shared model own
  })()`);
  assert.deepEqual(result,{themeChanges:true,saved:'dark',retained:'dark',onlyLive:true,released:true,sharedAlive:true});
 });
+
+test("Popover reopens on the same trigger after outside click and Escape", {
+  skip: !findChrome() ? "Chrome/Chromium is not available" : false
+}, async () => {
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-popover-reopen-"));
+  const htmlFile = path.join(tmpDir, "index.html");
+  const coreUrl = pathToFileURL(path.join(ROOT_DIR, "packages/core/dist/cms.js")).href;
+  const uiUrl = pathToFileURL(path.join(ROOT_DIR, "packages/ui/dist/ui.js")).href;
+  await writeFile(htmlFile, `<!doctype html><html><body>
+    <script src="${coreUrl}"></script><script src="${uiUrl}"></script>
+    <script>
+      const trigger = _.Button({ label: 'Open' });
+      document.body.append(trigger);
+      const popover = _.Popover({ content: 'Details', returnFocus: false });
+      trigger.addEventListener('click', () => popover.open(trigger));
+      const wait = () => new Promise(resolve => setTimeout(resolve, 100));
+      (async () => {
+        trigger.click(); await wait();
+        document.body.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+        await wait();
+        const outsideClosed = !popover.isOpen();
+        trigger.click(); await wait();
+        const reopened = !!document.querySelector('.jss-popover') && popover.isOpen();
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+        await wait();
+        const escapeClosed = !popover.isOpen();
+        trigger.click(); await wait();
+        const reopenedAgain = !!document.querySelector('.jss-popover') && popover.isOpen();
+        document.body.dataset.result = encodeURIComponent(JSON.stringify({ outsideClosed, reopened, escapeClosed, reopenedAgain }));
+      })();
+    </script></body></html>`);
+  const result = readBrowserResult(await runChrome(findChrome(), htmlFile));
+  assert.deepEqual(result, { outsideClosed: true, reopened: true, escapeClosed: true, reopenedAgain: true });
+});

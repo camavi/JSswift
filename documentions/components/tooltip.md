@@ -6,6 +6,8 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
 {
   "signature": "_.Tooltip(props, target?) | _.Tooltip(target, content)",
   "props": {
+    "color": {"type": "primary|secondary|success|warning|danger|info|light|dark", "description": "Semantic tooltip surface and icon color. Omit for a neutral theme surface.", "default": null, "values": ["primary", "secondary", "success", "warning", "danger", "info", "light", "dark"], "category": "style"},
+    "state": {"type": "Alias of color", "description": "Semantic color alias; takes precedence over color.", "default": null, "values": null, "category": "style"},
     "title": {"type": "String|Node|Function|Array", "description": "Title text or node.", "default": null, "values": null, "category": "general"},
     "content": {"type": "String|Node|Function|Array", "description": "Main content node(s) or render function for the component body.", "default": null, "values": null, "category": "general"},
     "text": {"type": "String|Node|Function|Array", "description": "Text content for simple components.", "default": null, "values": null, "category": "general"},
@@ -48,6 +50,6 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   },
   "returns": "Object { bind(), open(), show(), hide(), close(), toggle(), isOpen() } | HTMLSpanElement",
   "description": "Anchored tooltip with hover/focus/click triggers, rich content, and imperative API.",
-  "commonProps": {"path": "ui/common-props.md", "keys": ["size", "color", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "mobile", "tablet", "pc", "class", "style"]}
+  "commonProps": {"path": "ui/common-props.md", "keys": ["size", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "mobile", "tablet", "pc", "class", "style"]}
 }
 ```

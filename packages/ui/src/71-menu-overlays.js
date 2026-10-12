@@ -879,6 +879,7 @@
         className: uiClassStatic(["jss-dialog", "jss-popover"]),
         onClose: () => {
           currentRef?._popoverCleanup?.();
+          if (entry === currentRef) entry = null;
           getOptions().onClose?.(currentRef);
           if (getOptions().returnFocus !== false && lastActive && typeof lastActive.focus === "function") {
             setTimeout(() => lastActive.focus(), 0);
