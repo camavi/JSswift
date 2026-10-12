@@ -6822,7 +6822,7 @@ select {
 }
 
 .jss-dialog.jss-singularity.jss-text-gradient .jss-btn,
-.jss-menu-panel.jss-singularity.jss-text-gradient .jss-btn {
+.jss-menu-panel.jss-singularity.jss-text-gradient:not(.jss-card) .jss-btn {
   background-image: none;
   background-clip: border-box;
   -webkit-background-clip: border-box;
@@ -7846,7 +7846,7 @@ select {
   color: var(--jss-banner-accent);
 }
 
-.jss-banner.jss-singularity.jss-text-gradient .jss-btn {
+.jss-banner.jss-singularity.jss-text-gradient:not(.jss-card) .jss-btn {
   background-image: none;
   background-clip: border-box;
   -webkit-background-clip: border-box;
@@ -12265,7 +12265,7 @@ a.jss-breadcrumb {
   --set-color: var(--jss-theme-color-6);
 }
 
-.jss-singularity.jss-glass:not(.jss-dialog) .jss-btn,
+.jss-singularity.jss-glass:not(.jss-dialog, .jss-card) .jss-btn,
 .jss-singularity-field.jss-glass>.jss-control .jss-btn {
   color: var(--jss-theme-color-6);
   border-color: var(--jss-theme-color-6);
@@ -12311,7 +12311,7 @@ a.jss-breadcrumb {
   --set-background-color: transparent;
 }
 
-.jss-outline:not(.jss-dialog) .jss-btn {
+.jss-outline:not(.jss-dialog, .jss-card) .jss-btn {
   color: var(--set-border-color);
   border-color: var(--set-border-color);
   transition: all 0.2s ease-in-out;
@@ -12367,7 +12367,7 @@ a.jss-breadcrumb {
   caret-color: var(--jss-text);
 }
 
-.jss-singularity.jss-text-gradient .jss-btn {
+.jss-singularity.jss-text-gradient:not(.jss-card) .jss-btn {
   background-image: linear-gradient(var(--set-gradient-deg), var(--set-color-2), var(--set-color-3));
   background-clip: text;
   -webkit-background-clip: text;
@@ -13809,6 +13809,71 @@ a.jss-breadcrumb {
 :is(.jss-alert, .jss-empty-state).jss-panel.jss-singularity { color: var(--set-color, var(--jss-text)); }
 
 :is(.jss-alert, .jss-empty-state).jss-outline.jss-state-secondary { --set-color: var(--jss-text); color: var(--jss-text); }
+
+/* Explicit sections compose on the Card surface and keep dividers opt-in. */
+.jss-card > .jss-card-section {
+  min-width: 0;
+  color: inherit;
+  overflow-wrap: anywhere;
+}
+.jss-card > .jss-card-header.jss-card-section {
+  margin-top: 0;
+}
+.jss-card > .jss-card-header.jss-card-section:not(.divider) {
+  border-bottom-width: 0;
+}
+.jss-card > .jss-card-footer.jss-card-section:not(.divider) {
+  border-top-width: 0;
+}
+.jss-card > .jss-card-section.divider {
+  border-color: color-mix(in srgb, currentColor 20%, transparent);
+}
+
+/* Secondary Outline owns its foreground instead of inheriting a surface tone. */
+.jss-btn.jss-outline.jss-state-secondary { --set-color: var(--jss-text); color: var(--jss-text); }
+
+/* Light effects remain visibly neutral on both theme surfaces. */
+.jss-card.jss-state-light:is(.jss-outline, .jss-text-gradient) {
+  --set-border-color: #cbd5e1;
+  border-color: var(--set-border-color);
+}
+.jss-card.jss-state-light.jss-text-gradient {
+  --set-color-2: #64748b;
+  --set-color-3: #94a3b8;
+}
+:root[data-theme="dark"] .jss-card.jss-state-light.jss-text-gradient {
+  --set-color-2: #f8fafc;
+  --set-color-3: #cbd5e1;
+}
+.jss-card.jss-text-gradient .jss-btn:not(.jss-text-gradient) {
+  -webkit-text-fill-color: currentColor;
+}
+
+/* Light Glass keeps a pale surface, including on the dark theme. */
+.jss-card.jss-singularity.jss-glass.jss-state-light,
+:root[data-theme="dark"] .jss-card.jss-singularity.jss-glass.jss-state-light {
+  --set-color: #1f2937;
+  --set-border-color: #cbd5e1;
+  color: #1f2937;
+  background-color: rgb(241 245 249 / 28%);
+}
+.jss-card.jss-singularity.jss-glass.jss-state-light::before,
+:root[data-theme="dark"] .jss-card.jss-singularity.jss-glass.jss-state-light::before {
+  --set-sec-color: rgb(241 245 249 / 8%);
+  --set-color-1: #ffffff;
+  --set-color-2: #e2e8f0;
+  --set-color-3: #cbd5e1;
+  opacity: .45;
+  filter: none;
+}
+.jss-card.jss-glass.jss-state-light :is(.jss-card-eyebrow, .jss-card-subtitle, .jss-card-header-content) {
+  color: inherit;
+}
+
+:root[data-theme="dark"] .jss-card.jss-singularity.jss-glass.jss-state-light {
+  --set-color: #f1f5f9;
+  color: #f1f5f9;
+}
 
 /* AUTO-GENERATED FILE – DO NOT EDIT */
 /* JSswift responsive – CSS classes */

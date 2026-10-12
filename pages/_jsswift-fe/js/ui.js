@@ -10528,7 +10528,7 @@
   UI.cardHeader = (...args) => {
     const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
-    const cls = uiClass(["jss-card-header", uiWhen(props.divider, "divider"), props.class]);
+    const cls = uiClass(["jss-card-header", "jss-card-section", uiWhen(props.divider, "divider"), props.class]);
     const p = JSswift.omit(props, ["divider", "align", "justify", "gap", "wrap", "direction", "slots"]);
     p.class = cls;
     const style = { ...props.style || {} };
@@ -10551,7 +10551,7 @@
   UI.cardBody = (...args) => {
     const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
-    const cls = uiClass(["jss-card-body", props.class]);
+    const cls = uiClass(["jss-card-body", "jss-card-section", props.class]);
     const p = JSswift.omit(props, ["slots", "display", "direction", "wrap", "align", "justify", "gap", "rowGap", "columnGap", "padding", "width"]);
     p.class = cls;
     JSswift.uiApplyResponsiveProps(p, props, JSswift.uiResponsiveStyleRules);
@@ -10562,7 +10562,7 @@
   UI.cardFooter = (...args) => {
     const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
-    const cls = uiClass(["jss-card-footer", uiWhen(props.divider, "divider"), props.class]);
+    const cls = uiClass(["jss-card-footer", "jss-card-section", uiWhen(props.divider, "divider"), props.class]);
     const p = JSswift.omit(props, ["divider", "align", "justify", "gap", "wrap", "direction", "slots"]);
     p.class = cls;
     const style = { ...props.style || {} };

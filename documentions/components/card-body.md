@@ -22,3 +22,5 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["size", "color", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "class", "style"]}
 }
 ```
+
+When composed inside Card, this section inherits the parent foreground and surface effects. Put color, Glass, Glow, Gradient and elevation on Card. Parent dense spacing applies to its sections; explicit section spacing and responsive overrides remain available.
