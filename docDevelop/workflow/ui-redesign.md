@@ -774,3 +774,35 @@ Adjusted dark Tabs Glass after feedback: restored visible nav reflections and sh
 - Per explicit user setting, Stat dark Glass reflection brightness increased from .35 to .6; opacity remains .5 and Light stays excluded. UI build and diff check passed.
 
 - User accepted and closed Stat and requested commit. Grouped approved Menu/ContextMenu, Table and Stat refinements with generated mirrors and documentation. Final checks: UI build, 72 unit tests, all 32 browser tests and diff check passed. Next component Kpi; local palette/effects/trend fixture prepared.
+
+- Kpi aligned with approved Stat styling by sharing selectors, without duplicating declarations: explicit border ownership, Shadow/Light Shadow, directional surface light, foreground/supporting text, Dark Outline, Glass dark reflection brightness .6 (except Light), attenuated Glow and neutral surface. Kpi retains its value/delta row, media and spacing. Fixed Kpi trend normalization/classes to match Stat positive/negative/neutral behavior, including reactive inputs. UI build, all 72 unit tests, light/dark Chrome screenshot review and diff check passed. Kpi awaits user visual review; no commit requested.
+
+- User accepted and closed Kpi. Next component Header; local theme/palette/effects fixture prepared with title, subtitle and action, plus neutral and stacked examples. Kpi changes remain uncommitted pending request.
+
+- Header aligned to approved Stat/Kpi shared surface selectors: semantic backgrounds, readable supporting text, neutral surface, Dark Outline foreground, Glass with dark reflection brightness .6 excluding Light, explicit borders, Shadow/Light Shadow and attenuated Glow. Preserved Header composition, restored shared Glossy/Gradient image layers overridden by panel shorthand, default/user radius and inherited foreground for uncolored action buttons. UI build, 72 unit tests, light/dark Chrome screenshot review and diff check passed. Header awaits user review; no commit requested.
+
+- Header Dense fixed: common props emit jss-dense while legacy CSS targeted dense. Added 8px/12px padding, tighter heading/copy gaps, 16px title and compact 28px action controls. Uncolored Header buttons now have a foreground-tinted surface, subtle contour and stronger hover, with inherited readable text. UI build, Chrome Default/Dense comparison and diff check passed.
+
+- Fixed Header Light Outline in dark theme: theme foreground and pale slate contour replace dark text/border designed for solid Light fill; uncolored action inherits readable foreground. UI build and diff check passed.
+
+- User accepted and closed Header. Next component Drawer; local palette/effects fixture prepared with navigation, nested items and active selection. Header and Kpi remain uncommitted pending request.
+
+- Drawer redesigned with neutral surfaces and semantic selection, 42px navigation rows, distinct 32px Dense rows, consistent 12px gutters, readable secondary text, restrained header/footer separators, continuous nested guide lines and opt-in outer borders. Light/Dark identity retained, including Glass; shadows, directional light, Glow and dark Glass reflection brightness .6 share approved surface rules. Added inline SVG chevrons, applied missing common props/singularity, linked disclosure aria-controls and hid collapsed groups from keyboard navigation; leaf links now update active state. Updated Drawer contract. New browser regression covers groups, selection, semantic props, SVG, Dense, Light identity and mobile overflow in both themes.
+
+- Drawer verification: UI build, 72 unit tests, all 33 browser tests and diff check passed. Chrome visual review covered light/dark Default, Dense, Glass plus Outline, Light Shadow and Text Gradient. Final neutral Outline correction keeps Light/Dark outline text on theme surface. Drawer remains open for user visual review; no commit requested.
+
+- Drawer semantic background now takes a very subtle 4% accent tint in both themes, preserving stronger active selection and dedicated Light/Dark/neutral surfaces. UI build, targeted Drawer browser regression and diff check passed.
+
+- Drawer Dark/Light Flat now derive foreground, muted text, separators and neutral selection from page theme because the surface is transparent. Fixes white-on-light Dark Flat and inverse Light Flat mismatch. UI build, Drawer browser regression and diff check passed.
+
+- Drawer Glossy now visibly reflects on active navigation entries, replacing barely visible header wash. Two-part upper highlight/lower shade uses dedicated dark intensities, retaining neutral Drawer background. UI build and diff check passed.
+
+- Drawer Glass moved from enclosing surface to selected entry. Reused shared Button radial optical layer on active entry pseudo-element, 30% translucent semantic fill and 1px backdrop blur; root restored to regular surface with pseudo-layer disabled. Dark reflections retain brightness .6/opacity .5; Light keeps pale optical colors. Contract updated. UI build, Drawer browser regression and diff check passed.
+
+- Corrected Drawer Glass selector attachment: active entry now uses the actual shared Button radial optical declarations, rather than an unrelated Dialog pseudo selector. Chrome screenshot confirms visible silver reflection and optical edge. Added browser regression asserting radial reflection presence in both themes; this exposed generic Glass position:relative overriding fixed mobile Drawer placement, now corrected alongside sticky placement. UI build, targeted browser regression and diff check passed.
+
+- Drawer Glow slightly softened independently of Stat/Kpi/Header: near halo intensity 45% to 40%, outer halo 80%/13px to 68%/12px. Inner reflection retained. UI build and diff check passed.
+
+- Drawer Glow attenuation made visible after review: replaced inherited intense inner rim with 18% accent/3px inset, 35% near glow and 32%/8px ambient halo, removing broad spread. Chrome screenshot confirms softer optical edge. UI build and diff check passed.
+
+- User accepted and closed Drawer and requested commit. Grouped approved Kpi, Header and Drawer refinements, docs, generated mirrors and Drawer regression. Final UI build, 72 unit tests, all 33 browser tests and diff check passed. Next component Page; local palette/effects/composition fixture prepared.

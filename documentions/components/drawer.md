@@ -59,3 +59,9 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["size", "color", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "mobile", "tablet", "pc", "class", "style"]}
 }
 ```
+
+## Visual surfaces and group navigation
+
+Drawer uses a neutral navigation surface; `color` sets the accent for selected items, hover and focus. `light` and `dark` retain their surface identity in either theme. Glass and Glossy decorate the selected navigation entry; the surrounding Drawer retains its normal surface. Other common effects and user/default radius apply to the Drawer, while the header, footer and nested groups use subtle separators. Border and Outline explicitly enable an outer contour; Dense reduces navigation spacing.
+
+Default group arrows are inline SVG and do not require an icon font. Custom `groupOpenIcon`, `groupCloseIcon` and per-item icons remain supported. Disclosure buttons expose `aria-expanded` and `aria-controls`; collapsed groups are hidden from keyboard navigation. Selecting a leaf updates the active item and its `aria-current` state.

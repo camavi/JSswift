@@ -635,6 +635,14 @@
       return state ? `jss-state-${state}` : "";
     });
 
+    const trendClass = uiComputed(rawProps.trend, () => {
+      const raw = String(uiUnwrap(rawProps.trend) || "").toLowerCase();
+      if (["up", "positive", "success", "gain", "increase"].includes(raw)) return "is-positive";
+      if (["down", "negative", "danger", "loss", "decrease"].includes(raw)) return "is-negative";
+      if (["flat", "neutral", "steady", "stable"].includes(raw)) return "is-neutral";
+      return "";
+    });
+
     const props = { ...rawProps };
     const p = JSswift.omit(props, [
       "actions",
@@ -660,6 +668,7 @@
       "jss-kpi",
       "jss-singularity",
       stateClass,
+      trendClass,
       props.class
     ]);
     p.style = { ...(props.style || {}) };

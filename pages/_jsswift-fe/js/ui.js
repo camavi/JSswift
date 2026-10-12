@@ -4971,9 +4971,16 @@
       const state = resolveStateValue();
       return state ? `jss-state-${state}` : "";
     });
+    const trendClass = uiComputed(rawProps.trend, () => {
+      const raw = String(uiUnwrap(rawProps.trend) || "").toLowerCase();
+      if (["up", "positive", "success", "gain", "increase"].includes(raw)) return "is-positive";
+      if (["down", "negative", "danger", "loss", "decrease"].includes(raw)) return "is-negative";
+      if (["flat", "neutral", "steady", "stable"].includes(raw)) return "is-neutral";
+      return "";
+    });
     const props = { ...rawProps };
     const p = JSswift.omit(props, ["actions", "aside", "delta", "eyebrow", "footer", "icon", "iconSize", "label", "media", "meta", "note", "slots", "state", "subtitle", "title", "trend", "value"]);
-    p.class = uiClass(["jss-clear-set", "jss-kpi", "jss-singularity", stateClass, props.class]);
+    p.class = uiClass(["jss-clear-set", "jss-kpi", "jss-singularity", stateClass, trendClass, props.class]);
     p.style = { ...props.style || {} };
     const renderNamed = (slotName, fallback, ctx = {}) => renderSlotToArray(slots, slotName, ctx, fallback);
     const iconFallback = rawProps.icon == null ? null : typeof rawProps.icon === "string" ? UI.Icon({ name: rawProps.icon, size: rawProps.iconSize || "lg" }) : JSswift.ui.slot(rawProps.icon, { as: "icon" });
@@ -9458,11 +9465,13 @@
     setPropertyProps(el, rawProps);
     return el;
   };
+  let uiDrawerGroupId = 0;
   UI.Drawer = (...args) => {
     var _a2, _b, _c, _d, _e, _f, _g, _h, _i, _j;
     const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
     const slots = rawProps.slots || {};
     const props = { ...rawProps };
+    applyCommonProps(props);
     const hasOwn = (key) => Object.prototype.hasOwnProperty.call(rawProps, key);
     const currentStateKey = (_a2 = rawProps.stateKey) != null ? _a2 : drawerStateKey;
     if (currentStateKey) {
@@ -9509,8 +9518,8 @@
     const closeOnSelect = (_c = rawProps.closeOnSelect) != null ? _c : true;
     const shouldClose = (it) => !!closeOnSelect && uiUnwrap(it.keepOpen) !== true;
     const itemIconSize = (_e = (_d = rawProps.itemIconSize) != null ? _d : rawProps.size) != null ? _e : "md";
-    const groupOpenIcon = (_f = rawProps.groupOpenIcon) != null ? _f : "arrow_drop_up";
-    const groupCloseIcon = (_g = rawProps.groupCloseIcon) != null ? _g : "arrow_drop_down";
+    const groupOpenIcon = (_f = rawProps.groupOpenIcon) != null ? _f : null;
+    const groupCloseIcon = (_g = rawProps.groupCloseIcon) != null ? _g : null;
     const isStoredActive = (key) => !!key && activeItemKey === key;
     const isBranchActive = (key) => !!key && !!activeItemKey && (activeItemKey === key || activeItemKey.startsWith(`${key}::`));
     const syncActiveClasses = () => {
@@ -9674,7 +9683,25 @@
             const side = uiUnwrap(open ? it.iconSidePosition || it.openIconSide || it.openIconPosition || "right" : it.iconSidePosition || it.closeIconSide || it.closeIconPosition || "right") === "left" ? "left" : "right";
             toggleIconEl.innerHTML = "";
             toggleIconEl.className = `jss-drawer-group-icon ${side}`;
-            iconNodes(icon, { ...groupCtx, as: "toggleIcon" }).forEach((node) => toggleIconEl.appendChild(node));
+            toggleIconEl.setAttribute("aria-hidden", "true");
+            if (icon != null) iconNodes(icon, { ...groupCtx, as: "toggleIcon" }).forEach((node) => toggleIconEl.appendChild(node));
+            else {
+              const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+              svg.setAttribute("viewBox", "0 0 20 20");
+              svg.setAttribute("width", "18");
+              svg.setAttribute("height", "18");
+              svg.setAttribute("fill", "none");
+              svg.setAttribute("focusable", "false");
+              const path2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+              path2.setAttribute("d", "m7 4 6 6-6 6");
+              path2.setAttribute("stroke", "currentColor");
+              path2.setAttribute("stroke-width", "1.6");
+              path2.setAttribute("stroke-linecap", "round");
+              path2.setAttribute("stroke-linejoin", "round");
+              svg.appendChild(path2);
+              toggleIconEl.appendChild(svg);
+              toggleIconEl.classList.add("is-chevron");
+            }
           };
           const toggleBtn = _.button({ type: "button", class: uiClass(["jss-drawer-group-toggle", "jss-drawer-entry", open ? "open" : "", activeInGroup ? "active" : "", disabled ? "is-disabled" : "", tone ? `jss-drawer-tone-${tone}` : "", it.class]), style: it.style, "data-level": String(level), "aria-expanded": String(open), "aria-disabled": disabled ? "true" : null, onClick: (e) => {
             if (disabled) {
@@ -9685,10 +9712,12 @@
             setOpen(!open);
           } }, ...renderEntryNodes(it, groupCtx, { start: uiUnwrap(it.iconSidePosition || it.openIconSide || it.closeIconSide || it.openIconPosition || it.closeIconPosition || "right") === "left" ? [toggleIconEl] : [], end: uiUnwrap(it.iconSidePosition || it.openIconSide || it.closeIconSide || it.openIconPosition || it.closeIconPosition || "right") === "right" ? [toggleIconEl] : [] }));
           const customGroupHeader = renderSlotToArray(slots, "group", groupCtx, null);
-          const groupItems = _.div({ class: "jss-drawer-group-items" }, ...renderItems(childItems, level + 1, path.concat(keyPart)));
+          const groupItems = _.div({ class: "jss-drawer-group-items", id: `jss-drawer-group-${++uiDrawerGroupId}`, hidden: !open }, ...renderItems(childItems, level + 1, path.concat(keyPart)));
+          toggleBtn.setAttribute("aria-controls", groupItems.id);
           const groupWrap = _.div({ class: uiClass(["jss-drawer-group", open ? "open" : "", activeInGroup ? "active" : "", tone ? `jss-drawer-tone-${tone}` : ""]), "data-level": String(level) }, ...customGroupHeader.length ? customGroupHeader : [toggleBtn], groupItems);
           const setOpen = (value) => {
             open = !!value;
+            groupItems.hidden = !open;
             groupWrap.classList.toggle("open", open);
             toggleBtn.classList.toggle("open", open);
             toggleBtn.setAttribute("aria-expanded", String(open));
@@ -9726,6 +9755,8 @@
             return;
           }
           if (!invokeItemHandler(it, itemCtx, e)) return;
+          setActiveItem(itemStateKey);
+          if (!href) e.preventDefault();
           if (!external && it.to && ((_a4 = app.router) == null ? void 0 : _a4.navigate)) {
             e.preventDefault();
             app.router.navigate(it.to);
@@ -9747,7 +9778,7 @@
     const footerNodes = renderArea(["footer"], rawProps.footer);
     const finalBodyNodes = bodyNodes.length ? bodyNodes : renderArea(["empty"], emptyFallback);
     const p = JSswift.omit(props, ["items", "header", "footer", "before", "beforeItems", "after", "afterItems", "title", "subtitle", "eyebrow", "icon", "content", "meta", "actions", "empty", "emptyText", "closeOnSelect", "groupOpenIcon", "groupCloseIcon", "stateKey", "sticky", "slots", "headerClass", "bodyClass", "footerClass", "emptyClass", "itemIconSize", "gap", "indent", "padding", "minHeight", "maxHeight", "width", "onSelect"]);
-    p.class = uiClass(["jss-panel", "jss-drawer", drawerOpen ? "open" : "", uiWhen(rawProps.sticky, "sticky"), props.class]);
+    p.class = uiClass(["jss-panel", "jss-drawer", "jss-singularity", drawerOpen ? "open" : "", uiWhen(rawProps.sticky, "sticky"), props.class]);
     p.style = { ...props.style || {} };
     if (rawProps.gap != null) p.style["--jss-drawer-gap"] = toCssSize(uiUnwrap(rawProps.gap));
     if (rawProps.indent != null) p.style["--jss-drawer-indent"] = toCssSize(uiUnwrap(rawProps.indent));

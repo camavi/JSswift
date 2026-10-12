@@ -1729,3 +1729,35 @@ test("Table redesign keeps sorting, search, pagination and contrast in both them
     assert.ok((Math.max(text,background)+0.05)/(Math.min(text,background)+0.05)>=4.5,JSON.stringify(result));
   }
 });
+
+test("Drawer navigation groups, palette and density work in both themes", {
+  skip: !findChrome() ? "Chrome unavailable" : false
+}, async () => {
+  const tmp = await mkdtemp(path.join(os.tmpdir(), 'jss-drawer-design-'));
+  const html = path.join(tmp, 'index.html');
+  const asset = name => pathToFileURL(path.join(ROOT_DIR,name)).href;
+  await writeFile(html, `<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"><main id="host"></main><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><script>
+  const results=[];
+  for(const theme of ['light','dark']){
+    _.setTheme(theme,{persist:false});
+    const make=(extra={})=>_.Drawer({stateKey:'test-'+theme+'-'+Math.random(),closeOnSelect:false,title:'Workspace',subtitle:'Navigation',style:{height:'auto'},items:[{id:'one',label:'One'},{id:'group',label:'Group',items:[{id:'child',label:'Child'}]}],...extra});
+    const drawer=make({color:'warning',glass:true}),dense=make({color:'warning',dense:true}),light=make({color:'light'});
+    document.querySelector('#host').replaceChildren(drawer,dense,light);
+    for(const d of [drawer,dense,light])d.openDrawer();
+    const toggle=drawer.querySelector('.jss-drawer-group-toggle'),group=drawer.querySelector('.jss-drawer-group-items');
+    const closed=group.hidden && getComputedStyle(group).display==='none';
+    toggle.click(); const opened=!group.hidden && toggle.getAttribute('aria-expanded')==='true';
+    const child=group.querySelector('a');child.click();
+    const selected=child.getAttribute('aria-current')==='page' && child.classList.contains('active');
+    const glass=getComputedStyle(child,'::before').backgroundImage.includes('radial-gradient');
+    toggle.click();const reclosed=group.hidden && toggle.getAttribute('aria-expanded')==='false';
+    results.push({theme,closed,opened,selected,glass,reclosed,controls:toggle.getAttribute('aria-controls')===group.id,svg:!!toggle.querySelector('svg'),common:drawer.classList.contains('jss-state-warning')&&drawer.classList.contains('jss-singularity'),dense:dense.querySelector('.jss-drawer-entry').getBoundingClientRect().height<drawer.querySelector('.jss-drawer-entry').getBoundingClientRect().height,light:getComputedStyle(light).backgroundColor,overflow:document.documentElement.scrollWidth>innerWidth});
+  }
+  document.body.dataset.result=encodeURIComponent(JSON.stringify(results));</script>`);
+  const results=readBrowserResult(await runChrome(findChrome(),html,{width:390,height:900}));
+  for(const result of results){
+    for(const key of ['closed','opened','selected','glass','reclosed','controls','svg','common','dense'])assert.equal(result[key],true,JSON.stringify(result));
+    assert.equal(result.light,'rgb(241, 245, 249)',JSON.stringify(result));
+    assert.equal(result.overflow,false,JSON.stringify(result));
+  }
+});

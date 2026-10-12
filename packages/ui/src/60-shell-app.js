@@ -178,10 +178,12 @@ UI.Header = (...args) => {
 };
 
 
+let uiDrawerGroupId = 0;
 UI.Drawer = (...args) => {
   const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
   const slots = rawProps.slots || {};
   const props = { ...rawProps };
+  applyCommonProps(props);
   const hasOwn = (key) => Object.prototype.hasOwnProperty.call(rawProps, key);
   const currentStateKey = rawProps.stateKey ?? drawerStateKey;
   if (currentStateKey) {
@@ -240,8 +242,8 @@ UI.Drawer = (...args) => {
   const closeOnSelect = rawProps.closeOnSelect ?? true;
   const shouldClose = (it) => !!closeOnSelect && uiUnwrap(it.keepOpen) !== true;
   const itemIconSize = rawProps.itemIconSize ?? rawProps.size ?? "md";
-  const groupOpenIcon = rawProps.groupOpenIcon ?? "arrow_drop_up";
-  const groupCloseIcon = rawProps.groupCloseIcon ?? "arrow_drop_down";
+  const groupOpenIcon = rawProps.groupOpenIcon ?? null;
+  const groupCloseIcon = rawProps.groupCloseIcon ?? null;
 
   const isStoredActive = (key) => !!key && activeItemKey === key;
   const isBranchActive = (key) => !!key && !!activeItemKey && (activeItemKey === key || activeItemKey.startsWith(`${key}::`));
@@ -499,7 +501,20 @@ UI.Drawer = (...args) => {
           ) === "left" ? "left" : "right";
           toggleIconEl.innerHTML = "";
           toggleIconEl.className = `jss-drawer-group-icon ${side}`;
-          iconNodes(icon, { ...groupCtx, as: "toggleIcon" }).forEach((node) => toggleIconEl.appendChild(node));
+          toggleIconEl.setAttribute("aria-hidden", "true");
+          if (icon != null) iconNodes(icon, { ...groupCtx, as: "toggleIcon" }).forEach((node) => toggleIconEl.appendChild(node));
+          else {
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("viewBox", "0 0 20 20");
+            svg.setAttribute("width", "18"); svg.setAttribute("height", "18");
+            svg.setAttribute("fill", "none"); svg.setAttribute("focusable", "false");
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            path.setAttribute("d", "m7 4 6 6-6 6");
+            path.setAttribute("stroke", "currentColor"); path.setAttribute("stroke-width", "1.6");
+            path.setAttribute("stroke-linecap", "round"); path.setAttribute("stroke-linejoin", "round");
+            svg.appendChild(path); toggleIconEl.appendChild(svg);
+            toggleIconEl.classList.add("is-chevron");
+          }
         };
         const toggleBtn = _.button({
           type: "button",
@@ -529,7 +544,8 @@ UI.Drawer = (...args) => {
           end: uiUnwrap(it.iconSidePosition || it.openIconSide || it.closeIconSide || it.openIconPosition || it.closeIconPosition || "right") === "right" ? [toggleIconEl] : []
         }));
         const customGroupHeader = renderSlotToArray(slots, "group", groupCtx, null);
-        const groupItems = _.div({ class: "jss-drawer-group-items" }, ...renderItems(childItems, level + 1, path.concat(keyPart)));
+        const groupItems = _.div({ class: "jss-drawer-group-items", id: `jss-drawer-group-${++uiDrawerGroupId}`, hidden: !open }, ...renderItems(childItems, level + 1, path.concat(keyPart)));
+        toggleBtn.setAttribute("aria-controls", groupItems.id);
         const groupWrap = _.div({
           class: uiClass([
             "jss-drawer-group",
@@ -541,6 +557,7 @@ UI.Drawer = (...args) => {
         }, ...(customGroupHeader.length ? customGroupHeader : [toggleBtn]), groupItems);
         const setOpen = (value) => {
           open = !!value;
+          groupItems.hidden = !open;
           groupWrap.classList.toggle("open", open);
           toggleBtn.classList.toggle("open", open);
           toggleBtn.setAttribute("aria-expanded", String(open));
@@ -609,6 +626,8 @@ UI.Drawer = (...args) => {
             return;
           }
           if (!invokeItemHandler(it, itemCtx, e)) return;
+          setActiveItem(itemStateKey);
+          if (!href) e.preventDefault();
           if (!external && it.to && app.router?.navigate) {
             e.preventDefault();
             app.router.navigate(it.to);
@@ -645,6 +664,7 @@ UI.Drawer = (...args) => {
   p.class = uiClass([
     "jss-panel",
     "jss-drawer",
+    "jss-singularity",
     drawerOpen ? "open" : "",
     uiWhen(rawProps.sticky, "sticky"),
     props.class
