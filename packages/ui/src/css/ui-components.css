@@ -6956,9 +6956,14 @@ select {
   vertical-align: middle;
   margin: -3px 2px 0 2px;
   box-sizing: border-box;
-  width: var(--set-icon-size, 20px);
-  height: var(--set-icon-size, 20px);
-  font-size: var(--set-icon-size);
+  width: var(--jss-icon-render-size, var(--set-icon-size, 20px));
+  height: var(--jss-icon-render-size, var(--set-icon-size, 20px));
+  font-size: var(--jss-icon-render-size, var(--set-icon-size, 20px));
+}
+
+.jss-icon.jss-singularity:not(.jss-border, .jss-outline) {
+  --set-border-width: 0px;
+  border-width: 0;
 }
 
 .jss-icon.material-icons {
@@ -6983,11 +6988,66 @@ select {
 
 .jss-icon>svg {
   display: inline-block;
-  width: var(--set-icon-size, 20px);
-  height: var(--set-icon-size, 20px);
+  width: var(--jss-icon-render-size, var(--set-icon-size, 20px));
+  height: var(--jss-icon-render-size, var(--set-icon-size, 20px));
   stroke-width: var(--jss-icon-stroke-width, 0.1rem);
   stroke: currentColor;
   fill: none;
+}
+
+.jss-icon.jss-dense {
+  --jss-icon-render-size: calc(var(--set-icon-size, 20px) * .75);
+  margin: 0;
+}
+
+.jss-icon.material-icons.jss-dense { display: inline-flex; }
+
+/* Icon effects are sized for a glyph, independently of larger surfaces. */
+.jss-icon.jss-singularity.jss-outline {
+  --set-border-width: 0px;
+  border-width: 0;
+  --set-color: var(--set-hover, var(--jss-text));
+  color: var(--set-color);
+}
+
+.jss-icon.jss-singularity.jss-border {
+  --set-border-width: 1px;
+  border: 1px solid color-mix(in srgb, var(--set-hover, var(--jss-text)) 55%, var(--jss-bg));
+}
+
+.jss-icon.jss-singularity.jss-shadow {
+  --set-shadow-active: 0 3px 5px rgb(15 23 42 / 35%), 0 7px 12px rgb(15 23 42 / 20%);
+}
+
+:root[data-theme="dark"] .jss-icon.jss-singularity.jss-shadow {
+  --set-shadow-active: 0 3px 5px rgb(0 0 0 / 65%), 0 7px 12px rgb(0 0 0 / 45%);
+}
+
+.jss-icon.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 3px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 50%, transparent),
+    0 0 9px 2px color-mix(in srgb, var(--set-hover, var(--jss-text)) 40%, transparent);
+  text-shadow: none;
+}
+
+.jss-icon.jss-singularity.jss-glass {
+  --set-color: var(--set-hover, var(--jss-text));
+  color: var(--set-color);
+  background-color: color-mix(in srgb, var(--set-color) 12%, transparent);
+  isolation: isolate;
+}
+
+.jss-icon.jss-glass::before { z-index: -1; pointer-events: none; }
+
+.jss-icon.jss-singularity:is(.jss-outline, .jss-glass).jss-state-light {
+  --set-color: #94a3b8;
+}
+
+.jss-icon.jss-singularity:is(.jss-outline, .jss-glass).jss-state-dark {
+  --set-color: #334155;
+}
+
+:root[data-theme="dark"] .jss-icon.jss-singularity:is(.jss-outline, .jss-glass).jss-state-dark {
+  --set-color: #64748b;
 }
 
 .jss-scroll-locked {

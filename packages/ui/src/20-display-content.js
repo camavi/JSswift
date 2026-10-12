@@ -71,11 +71,14 @@
     const cls = uiClass([
       "jss-icon",
       "material-icons",
+      uiComputed(props.fill, () =>
+        typeof name === "string" && !name.includes("#") && uiUnwrap(props.fill)
+          ? "material-icons-fill" : ""),
       ...(hasVisualSurface ? ["jss-clear-set", "jss-singularity"] : []),
       sizeClass,
       props.class
     ]);
-    const p = JSswift.omit(props, ["name", "size", "class", "style", "label", "border", "color", "icon", "iconRight", "removable", "onRemove", "dense", "flat", "glossy", "outline", "slots", "spriteUrl", "tooltip", "tooltipProps"]);
+    const p = JSswift.omit(props, ["name", "size", "class", "style", "label", "border", "color", "icon", "iconRight", "removable", "onRemove", "dense", "flat", "glossy", "outline", "slots", "spriteUrl", "tooltip", "tooltipProps", "fill"]);
     p.class = cls;
     if (Object.keys(style).length) p.style = style;
 

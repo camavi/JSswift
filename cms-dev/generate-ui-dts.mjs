@@ -202,6 +202,7 @@ function emitIconTypes(lines, iconIds, indent = 4) {
   lines.push(`${pad}type IconName = \`#\${IconId}\` | (string & {});`);
   lines.push(`${pad}type IconProps = {`);
   lines.push(`${pad}  name?: IconName | object | Function | any[] | null | undefined;`);
+  lines.push(`${pad}  fill?: boolean | (() => boolean);`);
   lines.push(`${pad}  size?: number | string;`);
   lines.push(`${pad}  color?: string;`);
   lines.push(`${pad}  slots?: { default?: any };`);

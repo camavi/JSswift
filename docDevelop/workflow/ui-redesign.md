@@ -872,3 +872,23 @@ Adjusted dark Tabs Glass after feedback: restored visible nav reflections and sh
 - Layout audit found disposition and custom grid areas resolved only the current device object, dropping tablet values on desktop. Reused cumulative responsive resolution for both properties. Browser regression at 390/820/1200 in light/dark verifies inheritance, regions, controlled rods, panel open/close/toggle, Escape behavior, runtime updates, preserved child colors and no overflow. UI build, 72 unit tests, Layout audit plus AppShell composition and Layout watcher cleanup regressions passed. Public contract clarified; awaiting review, no commit requested.
 
 - User accepted and closed Layout and requested commit. Build, 72 unit tests, Layout responsive audit, AppShell composition and watcher cleanup checks passed. Next component Icon; local palette/effects fixture prepared.
+
+- Icon Glass glyphs inherited filled-surface foregrounds and became unreadable on pale glass. Added Icon-specific contrasting foreground, dedicated Light/Dark surfaces, dark-theme veil dimming and isolated background layering. Preserved shared Glass texture. UI build, browser regression for eight colors with/without Outline in both themes, light visual inspection and diff check passed. Awaiting review; no commit requested.
+
+- Expanded the local Icon demo after comparison with Button: all 20 decorative variants/combinations across eight colors, plus no-color inheritance, named/numeric sizes, built-in SVG and clickable samples. Button-only loading/disabled behavior is not part of the Icon contract. Local fixture remains ignored.
+
+- Icon Dense had no component styling and matched default dimensions. Added a local rendered-size variable: Dense scales configured size to 75%, removes outer margin and uses flex centering for font/SVG glyphs. SVG fits the inner surface; semantic foregrounds and effects remain consistent. Public Dense prop documented. UI build, 72 unit tests, Dense matrix and Glass browser regressions, desktop screenshot review and diff check passed. Awaiting review; no commit requested.
+
+- Removed implicit Icon surface border width, retaining explicitly requested Border and Outline variants. Expanded Dense/Glass browser audit to include Border, Glossy and Gradient; both regression checks passed.
+
+2026-10-12 — Icon review: explicit visible border, stronger shadow, reduced glow, palette-colored Glass, borderless Outline and distinct Light/Dark. Refreshed local lab CSS version. Verification: 72 unit tests, two Icon browser tests across themes, light lab screenshot inspected. Awaiting user review.
+
+2026-10-12 — Icon Glow follow-up: replaced the nearly invisible 5px/28% halo with two colored layers, 3px/50% and 9px/40%, preserving a moderate effect. Local lab CSS version refreshed. CSS rebuild, 72 unit tests and both focused Icon browser tests passed; visual acceptance pending.
+
+2026-10-12 — Icon fill:true: use the existing material-icons-fill class (Material Symbols FILL axis 1) only for text glyphs; false/default remains axis 0. Reactive getters supported; prop is consumed rather than leaked to DOM. SVG/custom content and legacy SVG -fill names preserved. Updated component contract, UI reference, type generator/output and local Icon lab with static/outline/comparison/reactive examples. UI build, 72 unit tests and three Icon browser tests passed; raster comparisons of the configured font confirm different default/filled forms for home/favorite/star/person/settings. User visual acceptance pending.
+
+2026-10-12 — Icon lab examples: added six interactive Fill cards before the visual matrix, with concise source snippets, dynamic action labels, pressed state and explicit current values. Includes independent favorite/bookmark/notification/playback state, 1–5 star selection/reset and three effects driven by one signal. Chrome QA clicked every control in both themes, checked filled classes/labels/reset/shared state and found no page errors; desktop screenshot inspected. Framework implementation unchanged.
+
+2026-10-12 — User accepted and closed Icon and requested commit. Includes Dense, explicit Border, borderless Outline, palette Glass, visible moderate Glow/Shadow, neutral glyph fixes and static/reactive Material Symbols fill:true with updated contracts/types and regressions. Local interactive labs remain ignored. Next visual component Alert; preparing palette/effects, action/dismissal and reactive-copy fixture.
+
+- Icon final commit verification: umbrella build, 72 unit tests, all 47 browser tests and diff check passed. Alert local fixture opens with 128 palette/effect examples; reactive copy, dismissal and prevented dismissal smoke checks pass. Alert styling/props audit and user visual acceptance remain pending.

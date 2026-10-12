@@ -1908,3 +1908,61 @@ test("Layout regions, responsive inheritance and panel controls work in both the
  for(const r of results){assert.equal(r.initial.header,'Header');assert.equal(r.initial.footer,'Footer');assert.equal(r.initial.mobile,width<1024);assert.equal(r.initial.disposition,width>=768?'classicright':'',JSON.stringify(r));if(width>=768)assert.ok(r.initial.areas.includes('main main main'),JSON.stringify(r));assert.equal(r.initial.color,true);assert.equal(r.opened.drawer,true);assert.equal(r.opened.nav,true);assert.equal(r.opened.aria,'false');assert.equal(r.opened.floating,width<1024);assert.deepEqual(r.escaped,width<1024?[false,false]:[true,true]);assert.equal(r.toggled,true);assert.deepEqual(r.updated,{header:'New header',page:'New page',footerHidden:true,asideHidden:true});assert.equal(r.overflow,false);}
  }
 });
+
+test("Icon Glass keeps palette-colored glyphs and the glass surface across themes",{skip:!findChrome()?"Chrome unavailable":false},async()=>{
+ const tmp=await mkdtemp(path.join(os.tmpdir(),'jss-icon-glass-')),html=path.join(tmp,'index.html'),asset=n=>pathToFileURL(path.join(ROOT_DIR,n)).href;
+ await writeFile(html,`<!doctype html><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><body><script>const results=[];for(const theme of ['light','dark']){_.setTheme(theme,{persist:false});for(const color of ['primary','secondary','warning','danger','success','info','light','dark'])for(const outline of [false,true]){const icon=_.Icon({name:'#chevron-down',color,glass:true,outline,size:32});document.body.append(icon);const s=getComputedStyle(icon),p=getComputedStyle(icon,'::before');results.push({theme,color,outline,fg:s.color,surface:s.backgroundColor,layer:p.zIndex,glass:p.backgroundImage,stroke:getComputedStyle(icon.querySelector('svg')).stroke});icon.remove();}}document.body.dataset.result=encodeURIComponent(JSON.stringify(results));</script>`);
+ const rows=readBrowserResult(await runChrome(findChrome(),html));for(const r of rows){const values=r.fg.match(/[\d.]+/g).map(Number);let rgb=values;if(r.fg.startsWith('color(srgb'))rgb=values.slice(0,3).map(v=>v*255);const brightness=rgb.slice(0,3).reduce((a,b)=>a+b,0)/3;if(!['light','dark','secondary'].includes(r.color))assert.ok(Math.max(...rgb.slice(0,3))-Math.min(...rgb.slice(0,3))>35,JSON.stringify(r));if(r.color==='light')assert.ok(brightness>140,JSON.stringify(r));if(r.color==='dark')assert.ok(brightness<140,JSON.stringify(r));assert.equal(r.layer,'-1');assert.match(r.glass,/gradient/);assert.equal(r.stroke,r.fg);}
+});
+
+test("Icon Dense scales glyph and surface together across sizes and themes",{skip:!findChrome()?"Chrome unavailable":false},async()=>{
+ const tmp=await mkdtemp(path.join(os.tmpdir(),'jss-icon-dense-')),html=path.join(tmp,'index.html'),asset=n=>pathToFileURL(path.join(ROOT_DIR,n)).href;
+ await writeFile(html,`<!doctype html><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><body><script>const rows=[];for(const theme of ['light','dark']){_.setTheme(theme,{persist:false});for(const name of ['home','#chevron-down'])for(const size of [undefined,'xs','md','xl',16,32,48])for(const color of ['primary','secondary','success','warning','danger','info','light','dark'])for(const effect of [{},{flat:true},{outline:true},{border:true},{glass:true},{glossy:true},{gradient:true}]){const normal=_.Icon({name,size,color,...effect}),dense=_.Icon({name,size,color,...effect,dense:true});document.body.append(normal,dense);const n=normal.getBoundingClientRect(),d=dense.getBoundingClientRect(),s=getComputedStyle(dense),svg=dense.querySelector('svg');rows.push({theme,name,size,color,effect,normal:n.width,width:d.width,height:d.height,font:parseFloat(s.fontSize),margin:s.margin,border:parseFloat(s.borderTopWidth),display:s.display,svg:svg?svg.getBoundingClientRect().width:null,inner:d.width-parseFloat(s.paddingLeft)-parseFloat(s.paddingRight)-parseFloat(s.borderLeftWidth)-parseFloat(s.borderRightWidth),foreground:s.color,normalForeground:getComputedStyle(normal).color});normal.remove();dense.remove();}}document.body.dataset.result=encodeURIComponent(JSON.stringify(rows));</script>`);
+ for(const r of readBrowserResult(await runChrome(findChrome(),html))){assert.ok(Math.abs(r.width-r.normal*.75)<.1,JSON.stringify(r));assert.ok(Math.abs(r.height-r.width)<.1,JSON.stringify(r));assert.ok(Math.abs(r.font-r.width)<.1,JSON.stringify(r));assert.equal(r.margin,'0px');if(!r.effect.border&&!r.effect.outline)assert.equal(r.border,0,JSON.stringify(r));assert.equal(r.display,'inline-flex');if(r.svg!==null)assert.ok(Math.abs(r.svg-r.inner)<.1,JSON.stringify(r));assert.equal(r.foreground,r.normalForeground);}
+});
+
+test("Icon Fill toggles Material Symbols without changing sprite or custom content", { skip: !findChrome() ? "Chrome unavailable" : false }, async () => {
+  const tmp = await mkdtemp(path.join(os.tmpdir(), "jss-icon-fill-"));
+  const html = path.join(tmp, "index.html");
+  const asset = name => pathToFileURL(path.join(ROOT_DIR, name)).href;
+  await writeFile(html, `<!doctype html><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><style>.jss-icon{transition:none!important}</style><body><script>
+    const results = [];
+    for (const theme of ['light', 'dark']) {
+      _.setTheme(theme, {persist:false});
+      for (const effect of [{}, {outline:true}, {glass:true}, {glow:true}]) {
+        const [getFill, setFill] = _.signal(false);
+        const reactive = _.Icon({name:'home', fill:getFill, color:'primary', ...effect});
+        const standard = _.Icon({name:'home', color:'primary', ...effect});
+        const filled = _.Icon({name:'home', fill:true, color:'primary', ...effect});
+        const sprite = _.Icon({name:'#chevron-down', fill:true});
+        const customContent = _.span('Custom');
+        const custom = _.Icon({name:customContent, fill:true});
+        const legacy = _.Icon({name:'#legacy-fill', fill:false});
+        document.body.append(standard, filled, reactive, sprite, custom, legacy);
+        const read = icon => ({axis:getComputedStyle(icon).fontVariationSettings, text:icon.textContent, leaked:icon.hasAttribute('fill'), filled:icon.classList.contains('material-icons-fill')});
+        const states = [read(reactive)];
+        setFill(true); states.push(read(reactive));
+        setFill(false); states.push(read(reactive));
+        results.push({theme, effect, standard:read(standard), filled:read(filled), states, sprite:read(sprite), svgFill:sprite.querySelector('svg').style.fill, custom:read(custom), customKept:custom.contains(customContent), legacyFill:legacy.querySelector('svg').style.fill});
+        for (const icon of [standard, filled, reactive, sprite, custom, legacy]) icon.remove();
+      }
+    }
+    document.body.dataset.result = encodeURIComponent(JSON.stringify(results));
+  </script>`);
+  const rows = readBrowserResult(await runChrome(findChrome(), html));
+  assert.equal(rows.length, 8);
+  for (const row of rows) {
+    assert.match(row.standard.axis, /"FILL" 0/);
+    assert.match(row.filled.axis, /"FILL" 1/);
+    assert.equal(row.filled.text, 'home');
+    assert.deepEqual(row.states.map(state => state.filled), [false, true, false]);
+    assert.match(row.states[1].axis, /"FILL" 1/);
+    assert.match(row.states[2].axis, /"FILL" 0/);
+    for (const state of [row.standard, row.filled, ...row.states, row.sprite, row.custom]) assert.equal(state.leaked, false);
+    assert.equal(row.sprite.filled, false);
+    assert.equal(row.svgFill, '');
+    assert.equal(row.custom.filled, false);
+    assert.equal(row.customKept, true);
+    assert.equal(row.legacyFill, 'currentcolor');
+  }
+});

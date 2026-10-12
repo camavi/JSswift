@@ -209,6 +209,7 @@ Practical generation rules:
 ### Content
 
 - `Icon`
+  - `fill: true` selects the filled Material Symbols glyph; defaults to false, supports a reactive getter, and leaves SVG/custom content unchanged.
   - supports `tooltip` shorthand, e.g. `_.Icon({ name: "home", tooltip: "Home" })`
 - `Badge`
 - `Avatar`

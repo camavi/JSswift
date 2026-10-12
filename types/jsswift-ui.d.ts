@@ -5996,6 +5996,7 @@ declare global {
     type IconName = `#${IconId}` | (string & {});
     type IconProps = {
       name?: IconName | object | Function | any[] | null | undefined;
+      fill?: boolean | (() => boolean);
       size?: number | string;
       color?: string;
       slots?: { default?: any };
