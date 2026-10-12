@@ -2093,3 +2093,18 @@ test("EmptyState shares Alert palette and effects with readable actions across t
     }
   }
 });
+
+test("Form binds native controls, resets, validates edits and cleans up submitting effects", { skip: !findChrome() ? "Chrome unavailable" : false }, async () => {
+ const tmp=await mkdtemp(path.join(os.tmpdir(),'jss-form-')),html=path.join(tmp,'index.html');
+ const asset=name=>pathToFileURL(path.join(ROOT_DIR,name)).href;
+ await writeFile(html,`<!doctype html><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><body><main id="host"></main><script>
+ (async()=>{const tick=()=>new Promise(r=>setTimeout(r,0)),model=_.rod({name:'Ada'}),form=_.useForm({model,validateOn:'input',rules:{name:v=>v==='Good'||'Nome non valido'}}),field=form.field('name');let submitted=null;
+ const root=_.Form({form,padding:24,width:300,onSubmit:values=>submitted=values.name,slots:{default:()=>[_.Input({label:'Nome',...field}),_.Button({type:'submit',label:'Salva'}),_.Button({type:'reset',label:'Reset'})]}});document.querySelector('#host').append(root);
+ const input=root.querySelector('input'),initial=input.value;form.setValue('name','Programmatic');await tick();const programmatic=input.value;
+ input.value='Bad';input.dispatchEvent(new Event('input',{bubbles:true}));await tick();const bad=form.getError('name');input.value='Good';input.dispatchEvent(new Event('input',{bubbles:true}));await tick();const good=form.getError('name');root.requestSubmit();await tick();const result=submitted;
+ root.querySelector('button[type=reset]').click();await tick();const reset={value:input.value,model:form.getValue('name')};const size={padding:getComputedStyle(root).padding,width:getComputedStyle(root).width};
+ _.mount(document.querySelector('#host'),_.span('Replacement'));form.submitting.value=true;await tick();const cleanup=!root.classList.contains('is-submitting');field.dispose();
+ document.body.dataset.result=encodeURIComponent(JSON.stringify({initial,programmatic,bad,good,result,reset,size,cleanup}));})().catch(e=>document.body.dataset.result=encodeURIComponent(JSON.stringify({error:String(e)})));
+ </script>`);
+ const row=readBrowserResult(await runChrome(findChrome(),html));assert.equal(row.error,undefined,JSON.stringify(row));assert.equal(row.initial,'Ada');assert.equal(row.programmatic,'Programmatic');assert.equal(row.bad,'Nome non valido');assert.equal(row.good,null);assert.equal(row.result,'Good');assert.deepEqual(row.reset,{value:'Ada',model:'Ada'});assert.deepEqual(row.size,{padding:'24px',width:'300px'});assert.equal(row.cleanup,true);
+});

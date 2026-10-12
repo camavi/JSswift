@@ -36,7 +36,23 @@
     const model = options.model || {};
     const rules = JSswift.form._normalizeRules(options.rules || {});
     const validateOn = options.validateOn || "submit"; // "input" | "blur" | "submit"
-    const initial = options.initial || null;
+    const cloneValues = (value) => {
+      if (Array.isArray(value)) return value.map(cloneValues);
+      if (value instanceof Date) return new Date(value.getTime());
+      if (value && Object.getPrototypeOf(value) === Object.prototype)
+        return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, cloneValues(item)]));
+      return value;
+    };
+    const initial = cloneValues(options.initial ?? (model && "value" in model ? model.value : model));
+    const bindings = new Set();
+    const validationVersions = new Map();
+    let resetVersion = 0;
+    const syncFields = () => {
+      for (const binding of bindings) {
+        const value = getFieldValue(binding.name);
+        if (!Object.is(binding.rod.value, value)) binding.rod.value = value;
+      }
+    };
 
     // errors: { field: string|null }
     const errors = _.rod({});
@@ -68,7 +84,10 @@
     const setFieldValue = (name, value) => {
       const obj = { ...(getModelObj() || {}) };
       obj[name] = value;
+      if (Object.is(getFieldValue(name), value)) return;
+      validationVersions.set(name, (validationVersions.get(name) || 0) + 1);
       setModelObj(obj);
+      syncFields();
     };
 
     const setError = (name, msg) => {
@@ -87,22 +106,28 @@
     const isTouched = (name) => !!(touched.value || {})[name];
 
     const validateField = async (name) => {
+      const version = (validationVersions.get(name) || 0) + 1;
+      validationVersions.set(name, version);
+      const resetAtStart = resetVersion;
+      const value = getFieldValue(name);
+      const isCurrent = () => resetAtStart === resetVersion && validationVersions.get(name) === version && Object.is(getFieldValue(name), value);
       const list = rules[name] || [];
       if (!list.length) {
         setError(name, null);
         return true;
       }
-      const value = getFieldValue(name);
       const ctx = { name, value, model: getModelObj(), form: api };
 
       for (const rule of list) {
         if (!rule) continue;
         const msg = await JSswift.form._runRule(rule, value, ctx);
+        if (!isCurrent()) return false;
         if (msg) {
           setError(name, msg);
           return false;
         }
       }
+      if (!isCurrent()) return false;
       setError(name, null);
       return true;
     };
@@ -119,23 +144,28 @@
     };
 
     const reset = () => {
+      resetVersion++;
       submitError.value = null;
       errors.value = {};
       touched.value = {};
-      if (initial) setModelObj({ ...(initial || {}) });
+      setModelObj(cloneValues(initial || {}));
+      syncFields();
     };
 
     const submit = async (fn) => {
+      if (submitting.value) return { ok: false, reason: "submitting" };
+      const resetAtStart = resetVersion;
       submitting.value = true;
       submitError.value = null;
       try {
         const ok = await validate();
+        if (resetAtStart !== resetVersion) return { ok: false, reason: "reset" };
         if (!ok) return { ok: false, reason: "validation" };
         const res = await fn?.(getModelObj(), api);
         return { ok: true, result: res };
       } catch (e) {
         console.error("[useForm] submit error:", e);
-        submitError.value = (e && e.message) ? e.message : String(e);
+        if (resetAtStart === resetVersion) submitError.value = (e && e.message) ? e.message : String(e);
         return { ok: false, reason: "exception", error: e };
       } finally {
         submitting.value = false;
@@ -144,7 +174,14 @@
 
     // Field binding factory for UI components
     const field = (name, fieldOpts = {}) => {
-      const r = _.rod("");
+      const r = _.rod(getFieldValue(name));
+      const binding = { name, rod: r };
+      bindings.add(binding);
+      const stopSync = model && typeof model === "object" && "value" in model
+        ? JSswift.reactive.effect(() => {
+          const value = getFieldValue(name);
+          JSswift.reactive.untracked(() => { if (!Object.is(r.value, value)) r.value = value; });
+        }, "useForm:field") : null;
       // keep rod synced with form model
       // when r changes -> update model
       r.action?.((v) => {
@@ -159,13 +196,16 @@
       let activeEl = null;
       let blurHandled = false;
       let watchingOutside = false;
+      let disposed = false;
+      let blurTimer = null;
+      const cleanupTargets = new WeakSet();
 
       const runBlur = async () => {
-        if (blurHandled) return;
+        if (disposed || blurHandled) return;
         blurHandled = true;
         touch(name);
         if (validateOn === "blur" || validateOn === "input") await validateField(name);
-        setTimeout(() => { blurHandled = false; }, 0);
+        if (!disposed) blurTimer = setTimeout(() => { blurHandled = false; }, 0);
       };
 
       const onDocPointerDown = (e) => {
@@ -185,10 +225,20 @@
         document.addEventListener("pointerdown", onDocPointerDown, true);
       };
 
-      const onInput = async () => {
+      const onInput = async (event) => {
+        if (disposed) return;
+        const control = event?.currentTarget;
+        if (control && !cleanupTargets.has(control)) {
+          cleanupTargets.add(control);
+          JSswift._registerCleanup(control, () => r.dispose());
+        }
         activeEl = document.activeElement;
         blurHandled = false;
         ensureOutsideWatch();
+        // Native handlers update the control rod later in the same event dispatch.
+        await Promise.resolve();
+        if (disposed) return;
+        setFieldValue(name, r.value);
         if (validateOn === "input") await validateField(name);
       };
 
@@ -200,6 +250,14 @@
           document.removeEventListener("pointerdown", onDocPointerDown, true);
         }
       };
+      r.onDispose(() => {
+        disposed = true;
+        bindings.delete(binding);
+        stopSync?.();
+        clearTimeout(blurTimer);
+        document.removeEventListener("pointerdown", onDocPointerDown, true);
+        activeEl = null;
+      });
       return {
         name,
         model: r,
@@ -213,6 +271,7 @@
         validate: () => validateField(name),
         onInput,
         onBlur,
+        dispose: () => r.dispose(),
         // allow passing through custom hints
         hint: fieldOpts.hint || null
       };
@@ -249,11 +308,17 @@
     const onSubmit = props.onSubmit; // async (model, form) => ...
     const cls = uiClass(["jss-form", props.class]);
 
-    const p = JSswift.omit(props, ["form", "onSubmit"]);
+    const p = JSswift.omit(props, ["form", "onSubmit", "slots"]);
     p.class = cls;
 
     const el = _.form({
       ...p,
+      onReset: (e) => {
+        if (!form) return;
+        e.preventDefault();
+        props.onReset?.(e);
+        form.reset();
+      },
       onSubmit: async (e) => {
         e.preventDefault();
         if (!form) return;
@@ -263,7 +328,8 @@
 
     // children can be nodes or function(form)->nodes
     const content = [];
-    for (const ch of (children || [])) {
+    const formChildren = props.slots?.default ? [props.slots.default] : children;
+    for (const ch of (formChildren || [])) {
       const v = (typeof ch === "function") ? ch(form) : ch;
       const out = JSswift.ui.slot(v);
       if (!out) continue;
@@ -275,11 +341,13 @@
 
     // disable fields/buttons while submitting (optional UX)
     if (form && form.submitting) {
-      JSswift.reactive.effect(() => {
+      const stop = JSswift.reactive.effect(() => {
         el.classList.toggle("is-submitting", !!form.submitting.value);
       }, "UI.Form:submitting");
+      JSswift._registerCleanup(el, stop);
     }
 
+    setPropertyProps(el, props);
     return el;
   };
 
