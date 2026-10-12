@@ -8416,216 +8416,67 @@ select {
 }
 
 .jss-alert {
-  --jss-alert-accent: color-mix(in srgb, var(--jss-border-color) 70%, white);
-  --jss-alert-bg: color-mix(in srgb, var(--jss-panel) 92%, white 4%);
-  --jss-alert-border: var(--jss-border-color);
   display: flex;
   align-items: flex-start;
-  gap: var(--jss-s-sm);
+  gap: var(--jss-alert-gap, 12px);
   width: 100%;
   min-width: 0;
-  padding: 10px 12px;
+  padding: 12px 16px;
   position: relative;
+  box-sizing: border-box;
+  font-size: var(--jss-font-size, 14px);
+  isolation: isolate;
 }
-
-.jss-alert::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 3px;
-  background: var(--jss-alert-accent);
-}
-
-.jss-alert-body {
-  min-width: 0;
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.jss-alert-title {
-  font-weight: 700;
-  line-height: 1.25;
-}
-
-.jss-alert-message,
-.jss-alert-description,
-.jss-alert-meta {
-  line-height: 1.45;
-}
-
-.jss-alert-description,
-.jss-alert-meta {
-  color: var(--jss-theme-color-5);
-}
-
-.jss-alert-side,
-.jss-alert-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.jss-alert-side {
-  margin-left: auto;
-  justify-content: flex-end;
-}
-
-.jss-alert-close {
-  min-width: 34px;
-  padding-left: 7px;
-  padding-right: 7px;
-}
-
-.jss-alert.jss-state-success {
-  --jss-alert-accent: var(--jss-success);
-  --jss-alert-border: color-mix(in srgb, var(--jss-success) 32%, var(--jss-border-color));
-  --set-background-color: color-mix(in srgb, var(--jss-success) 32%, var(--jss-theme-color-1));
-}
-
-.jss-alert.jss-state-warning {
-  --jss-alert-accent: var(--jss-warning);
-  --jss-alert-border: color-mix(in srgb, var(--jss-warning) 50%, var(--jss-border-color));
-  --set-background-color: color-mix(in srgb, var(--jss-warning) 50%, var(--jss-theme-color-1));
-}
-
-.jss-alert.jss-state-danger {
-  --jss-alert-accent: var(--jss-danger);
-  --jss-alert-border: color-mix(in srgb, var(--jss-danger) 50%, var(--jss-border-color));
-  --set-background-color: color-mix(in srgb, var(--jss-danger) 50%, var(--jss-theme-color-1));
-}
-
-.jss-alert.jss-state-info {
-  --jss-alert-accent: var(--jss-info);
-  --jss-alert-border: color-mix(in srgb, var(--jss-info) 50%, var(--jss-border-color));
-  --set-background-color: color-mix(in srgb, var(--jss-info) 50%, var(--jss-theme-color-1));
-}
-
-.jss-alert.jss-state-primary {
-  --jss-alert-accent: var(--jss-primary);
-  --jss-alert-border: color-mix(in srgb, var(--jss-primary) 50%, var(--jss-border-color));
-  --set-background-color: color-mix(in srgb, var(--jss-primary) 50%, var(--jss-theme-color-1));
-}
-
-.jss-alert.jss-state-secondary {
-  --jss-alert-accent: var(--jss-secondary);
-  --jss-alert-border: color-mix(in srgb, var(--jss-secondary) 50%, var(--jss-border-color));
-  --set-background-color: color-mix(in srgb, var(--jss-secondary) 50%, var(--jss-theme-color-1));
-}
-
-.jss-alert.jss-state-dark {
-  --jss-alert-accent: var(--jss-dark);
-  --jss-alert-border: color-mix(in srgb, var(--jss-dark) 50%, var(--jss-border-color));
-  --set-background-color: color-mix(in srgb, var(--jss-dark) 50%, var(--jss-theme-color-1));
-}
-
-.jss-alert.jss-state-light {
-  --jss-alert-accent: var(--jss-light);
-  --jss-alert-border: color-mix(in srgb, var(--jss-light) 50%, var(--jss-border-color));
-  --set-background-color: color-mix(in srgb, var(--jss-light) 50%, var(--jss-theme-color-1));
-}
+.jss-alert-body { min-width: 0; flex: 1 1 auto; display: flex; flex-direction: column; gap: 5px; overflow-wrap: anywhere; }
+.jss-alert-title { font-size: 1.125em; font-weight: 700; line-height: 1.25; }
+.jss-alert-message, .jss-alert-description, .jss-alert-meta { line-height: 1.45; }
+.jss-alert-side, .jss-alert-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; }
+.jss-alert-side { margin-left: auto; justify-content: flex-end; }
+.jss-alert-icon { display: flex; align-items: center; flex: 0 0 auto; }
+.jss-alert-close { min-width: 28px; padding-left: 7px; padding-right: 7px; }
 
 .jss-empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: var(--jss-s-md);
+  gap: var(--jss-empty-gap, 12px);
   width: 100%;
   min-width: 0;
   padding: 28px 18px;
   box-sizing: border-box;
+  position: relative;
+  isolation: isolate;
+  font-size: var(--jss-font-size, 14px);
+  overflow-wrap: anywhere;
 }
-
-.jss-empty-state.inline {
-  padding: 20px 16px;
-}
-
-.jss-empty-state.compact {
-  gap: var(--jss-s-sm);
-  padding: 18px 14px;
-}
-
-.jss-empty-state-icon,
-.jss-empty-state-illustration {
+.jss-empty-state.inline { padding: 20px 16px; }
+.jss-empty-state.compact { --jss-empty-gap: 8px; padding: 18px 14px; }
+.jss-empty-state-icon, .jss-empty-state-illustration {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--jss-empty-accent);
+  color: inherit;
+  max-width: 100%;
 }
-
 .jss-empty-state-icon {
-  width: 64px;
-  height: 64px;
+  min-width: 64px;
+  min-height: 64px;
+  padding: 10px;
+  box-sizing: border-box;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--jss-empty-accent) 12%, transparent);
+  background: color-mix(in srgb, currentColor 12%, transparent);
 }
-
-.jss-empty-state-eyebrow {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, currentColor 58%, transparent);
-}
-
-.jss-empty-state-title {
-  font-size: clamp(1.15rem, 2vw, 1.5rem);
-  font-weight: 800;
-  line-height: 1.15;
-}
-
-.jss-empty-state-message {
-  font-weight: 600;
-  line-height: 1.45;
-}
-
-.jss-empty-state-description,
-.jss-empty-state-meta {
-  color: var(--jss-muted);
-  line-height: 1.45;
-}
-
-.jss-empty-state-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.jss-empty-state.jss-state-success {
-  --set-background-color: color-mix(in srgb, var(--jss-success) 50%, var(--jss-theme-color-1));
-}
-
-.jss-empty-state.jss-state-warning {
-  --set-background-color: color-mix(in srgb, var(--jss-warning) 50%, var(--jss-theme-color-1));
-}
-
-.jss-empty-state.jss-state-danger {
-  --set-background-color: color-mix(in srgb, var(--jss-danger) 50%, var(--jss-theme-color-1));
-}
-
-.jss-empty-state.jss-state-info {
-  --set-background-color: color-mix(in srgb, var(--jss-info) 50%, var(--jss-theme-color-1));
-}
-
-.jss-empty-state.jss-state-primary {
-  --set-background-color: color-mix(in srgb, var(--jss-primary) 50%, var(--jss-theme-color-1));
-}
-
-.jss-empty-state.jss-state-secondary {
-  --set-background-color: color-mix(in srgb, var(--jss-secondary) 50%, var(--jss-theme-color-1));
-}
-
-.jss-empty-state.jss-state-dark {
-  --set-background-color: color-mix(in srgb, var(--jss-dark) 50%, var(--jss-theme-color-1));
-}
-
-.jss-empty-state.jss-state-light {
-  --set-background-color: color-mix(in srgb, var(--jss-light) 50%, var(--jss-theme-color-1));
-}
+.jss-empty-state-illustration>img { max-width: 100%; height: auto; }
+.jss-empty-state-eyebrow { font-size: .8em; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.jss-empty-state-title { font-size: 1.4em; font-weight: 800; line-height: 1.15; }
+.jss-empty-state-message { font-weight: 600; line-height: 1.45; }
+.jss-empty-state-description, .jss-empty-state-meta, .jss-empty-state-extra { line-height: 1.45; }
+.jss-empty-state-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; max-width: 100%; }
+.jss-empty-state.jss-dense { --jss-empty-gap: 6px; padding: 12px; margin: 0; }
+.jss-empty-state.jss-dense .jss-empty-state-title { font-size: 1.15em; }
+.jss-empty-state.jss-dense .jss-empty-state-icon { min-width: 44px; min-height: 44px; padding: 4px; }
+.jss-empty-state.jss-dense .jss-btn { min-height: 28px; padding: 4px 10px; font-size: 12px; }
 
 .jss-t-nowrap {
   white-space: nowrap;
@@ -13328,27 +13179,27 @@ a.jss-breadcrumb {
 .jss-table-card.jss-glass.jss-state-dark .jss-table thead { --set-sec-color: rgb(15 23 42 / 80%); background-blend-mode: soft-light; }
 
 /* Shared Stat/Kpi/Header elevation: contact shadow plus a broad, directional ambient shadow. */
-:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax).jss-singularity.jss-shadow {
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-shadow {
   --set-shadow-active: 0 3px 7px rgb(15 23 42 / 22%),
     0 14px 28px -5px rgb(15 23 42 / 32%);
 }
-:root[data-theme="dark"] :is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax).jss-singularity.jss-shadow:not(.jss-state-light),
-:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax).jss-singularity.jss-shadow.jss-state-dark {
+:root[data-theme="dark"] :is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-shadow:not(.jss-state-light),
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-shadow.jss-state-dark {
   --set-shadow-active: inset 0 1px 0 rgb(255 255 255 / 12%),
     0 4px 8px rgb(0 0 0 / 55%), 0 16px 30px -4px rgb(0 0 0 / 80%);
 }
 
 /* Metric surfaces have no implicit contour; Border and Outline stay opt-in. */
-:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax).jss-singularity:not(.jss-border):not(.jss-outline) { border: 0; }
-:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax).jss-singularity.jss-light-shadow {
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity:not(.jss-border):not(.jss-outline) { border: 0; }
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-light-shadow {
   background-image: radial-gradient(ellipse at 0% 0%, rgb(255 255 255 / 30%), transparent 65%),
     linear-gradient(135deg, transparent 35%, rgb(15 23 42 / 18%));
   --set-shadow-active: inset 0 1px 2px rgb(255 255 255 / 32%),
     -3px -4px 12px rgb(255 255 255 / 45%),
     0 3px 6px rgb(15 23 42 / 16%), 7px 11px 22px -5px rgb(15 23 42 / 30%);
 }
-:root[data-theme="dark"] :is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax).jss-singularity.jss-light-shadow:not(.jss-state-light),
-:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax).jss-singularity.jss-light-shadow.jss-state-dark {
+:root[data-theme="dark"] :is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-light-shadow:not(.jss-state-light),
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-light-shadow.jss-state-dark {
   background-image: radial-gradient(ellipse at 0% 0%, rgb(255 255 255 / 17%), transparent 65%),
     linear-gradient(135deg, transparent 35%, rgb(0 0 0 / 30%));
   --set-shadow-active: inset 0 1px 2px rgb(255 255 255 / 18%),
@@ -13357,27 +13208,27 @@ a.jss-breadcrumb {
 }
 
 /* Supporting metric text follows its surface foreground, not page-muted text. */
-:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax).jss-singularity :is(.jss-stat-note, .jss-stat-meta, .jss-stat-footer-copy, .jss-stat-aside, .jss-kpi-note, .jss-kpi-meta, .jss-kpi-footer-copy, .jss-kpi-aside, .jss-header-subtitle, .jss-header-content, .jss-header-meta, .jss-footer-subtitle, .jss-footer-content, .jss-footer-meta, .jss-toolbar-subtitle, .jss-toolbar-meta) {
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity :is(.jss-stat-note, .jss-stat-meta, .jss-stat-footer-copy, .jss-stat-aside, .jss-kpi-note, .jss-kpi-meta, .jss-kpi-footer-copy, .jss-kpi-aside, .jss-header-subtitle, .jss-header-content, .jss-header-meta, .jss-footer-subtitle, .jss-footer-content, .jss-footer-meta, .jss-toolbar-subtitle, .jss-toolbar-meta, .jss-alert-message, .jss-alert-description, .jss-alert-meta, .jss-empty-state-message, .jss-empty-state-description, .jss-empty-state-meta, .jss-empty-state-extra) {
   color: inherit;
 }
-:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax).jss-singularity :is(.jss-stat-eyebrow, .jss-kpi-eyebrow, .jss-header-eyebrow, .jss-footer-eyebrow) {
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity :is(.jss-stat-eyebrow, .jss-kpi-eyebrow, .jss-header-eyebrow, .jss-footer-eyebrow, .jss-empty-state-eyebrow) {
   color: color-mix(in srgb, currentColor 85%, transparent);
 }
 
 /* Outline has no dark fill: neutral foreground must follow the page theme. */
-:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax).jss-singularity.jss-outline.jss-state-dark {
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-outline.jss-state-dark {
   --set-color: var(--jss-text);
   color: var(--jss-text);
 }
 
 /* Glass is translucent: use theme foreground rather than text-on-solid-fill. */
-:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax).jss-singularity.jss-glass {
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-glass {
   --set-color: var(--jss-text);
   color: var(--jss-text);
 }
 
 /* Slightly softer metric halo, preserving the existing colored glow. */
-:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax).jss-singularity.jss-glow {
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-glow {
   --set-glow-active: var(--set-sc-inset),
     0 0 1px 1px color-mix(in srgb, var(--set-border-color) 45%, transparent),
     0 0 3px 2px color-mix(in srgb, var(--set-color-2) 45%, transparent),
@@ -13386,20 +13237,20 @@ a.jss-breadcrumb {
 }
 
 /* A neutral metric still owns a surface when no semantic color is selected. */
-:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax).jss-singularity:not([class*="jss-state-"]) {
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity:not([class*="jss-state-"]) {
   --set-background-color: color-mix(in srgb, var(--jss-text) 5%, var(--jss-bg));
   --set-color: var(--jss-text);
   color: var(--jss-text);
 }
-:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax).jss-singularity.jss-outline:not([class*="jss-state-"]) {
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-outline:not([class*="jss-state-"]) {
   --set-background-color: transparent;
 }
 
 /* Dark Glass retains translucency without the shared bright silver wash. */
-:root[data-theme="dark"] :is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax).jss-singularity.jss-glass:not(.jss-state-light) {
+:root[data-theme="dark"] :is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-glass:not(.jss-state-light) {
   background-color: color-mix(in srgb, var(--set-color-3) 12%, rgb(15 23 42 / 55%));
 }
-:root[data-theme="dark"] :is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax).jss-singularity.jss-glass:not(.jss-state-light)::before {
+:root[data-theme="dark"] :is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-glass:not(.jss-state-light)::before {
   filter: brightness(.6);
   opacity: .5;
 }
@@ -13823,43 +13674,43 @@ a.jss-breadcrumb {
 .jss-footer.jss-panel:is(.jss-outline,.jss-border) { border-width: 1px; }
 
 /* Text Gradient uses a quiet surface so the title owns the color. */
-:is(.jss-header,.jss-footer,.jss-toolbar).jss-panel.jss-singularity.jss-text-gradient {
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-panel.jss-singularity.jss-text-gradient {
   background: color-mix(in srgb,var(--set-border-color,var(--jss-text)) 8%,var(--jss-bg));
   --set-color: var(--jss-text); color: var(--jss-text);
   background-clip: border-box; -webkit-background-clip: border-box; -webkit-text-fill-color: currentColor;
 }
-:is(.jss-header,.jss-footer,.jss-toolbar).jss-text-gradient :is(.jss-header-title,.jss-footer-title,.jss-toolbar-title) {
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-text-gradient :is(.jss-header-title,.jss-footer-title,.jss-toolbar-title,.jss-alert-title,.jss-empty-state-title) {
   background-image: linear-gradient(110deg,color-mix(in srgb,var(--set-border-color,var(--jss-text)) 70%,var(--jss-text)),var(--jss-text));
   background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
-:is(.jss-header,.jss-footer,.jss-toolbar).jss-text-gradient:is(.jss-state-light,.jss-state-dark) :is(.jss-header-title,.jss-footer-title,.jss-toolbar-title) {
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-text-gradient:is(.jss-state-light,.jss-state-dark) :is(.jss-header-title,.jss-footer-title,.jss-toolbar-title,.jss-alert-title,.jss-empty-state-title) {
   background-image: linear-gradient(110deg,var(--jss-text),color-mix(in srgb,var(--jss-text) 75%,var(--jss-bg)));
 }
-:is(.jss-header,.jss-footer,.jss-toolbar).jss-text-gradient.jss-outline { background: transparent; }
-:is(.jss-header,.jss-footer,.jss-toolbar).jss-singularity.jss-text-gradient .jss-btn:not([class*="jss-state-"]) { background-image: none; background-clip: border-box; -webkit-background-clip: border-box; -webkit-text-fill-color: currentColor; }
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-text-gradient.jss-outline { background: transparent; }
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-singularity.jss-text-gradient .jss-btn:not([class*="jss-state-"]) { background-image: none; background-clip: border-box; -webkit-background-clip: border-box; -webkit-text-fill-color: currentColor; }
 
 /* Light Glass owns a pale surface even when Outline is also enabled. */
-:is(.jss-header,.jss-footer,.jss-toolbar).jss-panel.jss-singularity.jss-outline.jss-glass.jss-state-light,
-:root[data-theme="dark"] :is(.jss-header,.jss-footer,.jss-toolbar).jss-panel.jss-singularity.jss-outline.jss-glass.jss-state-light {
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-panel.jss-singularity.jss-outline.jss-glass.jss-state-light,
+:root[data-theme="dark"] :is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-panel.jss-singularity.jss-outline.jss-glass.jss-state-light {
   --set-color: #1f2937; color: #1f2937;
   --set-border-color: #cbd5e1;
   background-color: rgb(241 245 249 / 70%);
 }
 
 /* Light Text Gradient keeps its light identity in either page theme. */
-:is(.jss-header,.jss-footer,.jss-toolbar).jss-panel.jss-singularity.jss-text-gradient.jss-state-light:not(.jss-outline) {
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-panel.jss-singularity.jss-text-gradient.jss-state-light:not(.jss-outline) {
   background: #f1f5f9; --set-color: #1f2937; color: #1f2937;
 }
-:is(.jss-header,.jss-footer,.jss-toolbar).jss-text-gradient.jss-state-light:not(.jss-outline) :is(.jss-header-title,.jss-footer-title,.jss-toolbar-title) {
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-text-gradient.jss-state-light:not(.jss-outline) :is(.jss-header-title,.jss-footer-title,.jss-toolbar-title,.jss-alert-title,.jss-empty-state-title) {
   background-image: linear-gradient(110deg,#334155,#64748b);
 }
 
 /* Combined Light keeps a pale surface and a light contour in both themes. */
-:is(.jss-header,.jss-footer,.jss-toolbar).jss-panel.jss-singularity.jss-outline.jss-text-gradient.jss-state-light {
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-panel.jss-singularity.jss-outline.jss-text-gradient.jss-state-light {
   background: rgb(241 245 249 / 92%); --set-border-color: #cbd5e1;
   --set-color: #1f2937; color: #1f2937;
 }
-:is(.jss-header,.jss-footer,.jss-toolbar).jss-outline.jss-text-gradient.jss-state-light :is(.jss-header-title,.jss-footer-title,.jss-toolbar-title) {
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-outline.jss-text-gradient.jss-state-light :is(.jss-header-title,.jss-footer-title,.jss-toolbar-title,.jss-alert-title,.jss-empty-state-title) {
   background-image: linear-gradient(110deg,#334155,#64748b);
 }
 
@@ -13926,6 +13777,38 @@ a.jss-breadcrumb {
 }
 
 .jss-toolbar.jss-panel.jss-singularity.jss-text-gradient { background-image: none; }
+
+/* Alert shares Header surfaces while keeping message and dismiss composition. */
+:is(.jss-alert, .jss-empty-state).jss-panel.jss-singularity:not(.jss-light-shadow, .jss-text-gradient) {
+  background-image: var(--set-glossy-active, none), var(--set-gradient-active, none);
+}
+:is(.jss-alert, .jss-empty-state).jss-panel:is(.jss-outline, .jss-border) { border: 1px solid var(--set-border-color); }
+:is(.jss-alert, .jss-empty-state).elevated { box-shadow: var(--jss-shadow-md); }
+.jss-alert.jss-dense { padding: 8px 12px; --jss-alert-gap: 8px; margin: 0; }
+.jss-alert.jss-dense .jss-alert-body { gap: 3px; }
+.jss-alert.jss-dense .jss-alert-title { font-size: 1em; }
+.jss-alert.jss-dense :is(.jss-alert-side, .jss-alert-actions) { gap: 6px; }
+:is(.jss-alert, .jss-empty-state).jss-singularity .jss-btn:not([class*="jss-state-"]) {
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none;
+}
+:is(.jss-alert, .jss-empty-state).jss-singularity .jss-btn:not([class*="jss-state-"]):hover { background: color-mix(in srgb, currentColor 23%, transparent); }
+.jss-alert.jss-dense .jss-btn { min-height: 28px; padding: 4px 10px; font-size: 12px; }
+.jss-alert.stack { flex-wrap: wrap; }
+.jss-alert.stack .jss-alert-side { flex-basis: 100%; margin-left: 0; justify-content: flex-start; }
+:is(.jss-alert, .jss-empty-state).jss-singularity.jss-glass.jss-state-light { --set-color: #1f2937; color: #1f2937; background-color: rgb(241 245 249 / 70%); }
+:is(.jss-alert, .jss-empty-state).jss-glass.jss-state-light::before { --set-sec-color: rgb(241 245 249 / 50%); --set-color-1: #fff; --set-color-2: #e2e8f0; --set-color-3: #cbd5e1; }
+:is(.jss-alert, .jss-empty-state).jss-singularity.jss-glass.jss-state-dark { --set-color: #f1f5f9; color: #f1f5f9; background-color: rgb(15 23 42 / 65%); }
+:is(.jss-alert, .jss-empty-state).jss-glass.jss-state-dark::before { filter: brightness(.6); opacity: .5; }
+:root[data-theme="dark"] :is(.jss-alert, .jss-empty-state).jss-singularity.jss-outline.jss-state-light:not(.jss-glass, .jss-text-gradient) { --set-color: var(--jss-text); --set-border-color: #cbd5e1; color: var(--jss-text); }
+@media(max-width:600px) { .jss-alert { flex-wrap: wrap; } .jss-alert-side { max-width: 100%; } }
+
+:is(.jss-alert, .jss-empty-state).jss-panel.jss-singularity { color: var(--set-color, var(--jss-text)); }
+
+:is(.jss-alert, .jss-empty-state).jss-outline.jss-state-secondary { --set-color: var(--jss-text); color: var(--jss-text); }
 
 /* AUTO-GENERATED FILE – DO NOT EDIT */
 /* JSswift responsive – CSS classes */

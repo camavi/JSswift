@@ -6,6 +6,18 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
 {
   "signature": "_.EmptyState(...children) | _.EmptyState(props, ...children)",
   "props": {
+    "dense": {"type": "boolean", "description": "Compact padding, title, icon surface and actions.", "default": false, "values": [true, false], "category": "layout"},
+    "gap": {"type": "number|string", "description": "Spacing between content regions.", "default": null, "values": null, "category": "layout"},
+    "elevated": {"type": "boolean", "description": "Use Alert medium elevation.", "default": false, "values": [true, false], "category": "style"},
+    "iconSize": {"type": "number|string", "description": "Leading icon size override; otherwise uses size or xl.", "default": null, "values": null, "category": "style"},
+    "flat": {"type": "boolean", "description": "Remove border and shadow.", "default": false, "values": [true, false], "category": "style"},
+    "border": {"type": "boolean", "description": "Draw an explicit contour.", "default": false, "values": [true, false], "category": "style"},
+    "glossy": {"type": "boolean", "description": "Apply the shared reflective surface.", "default": false, "values": [true, false], "category": "style"},
+    "glow": {"type": "boolean", "description": "Apply the shared colored halo.", "default": false, "values": [true, false], "category": "style"},
+    "glass": {"type": "boolean", "description": "Apply the shared translucent surface.", "default": false, "values": [true, false], "category": "style"},
+    "gradient": {"type": "boolean", "description": "Apply a palette gradient surface.", "default": false, "values": [true, false], "category": "style"},
+    "textGradient": {"type": "boolean", "description": "Apply a gradient to the title only.", "default": false, "values": [true, false], "category": "style"},
+    "lightShadow": {"type": "boolean", "description": "Apply shared light shadow treatment.", "default": false, "values": [true, false], "category": "style"},
     "eyebrow": {"type": "String|Node|Function|Array", "description": "Component configuration for \"eyebrow\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
     "title": {"type": "String|Node|Function|Array", "description": "Title text or node.", "default": null, "values": null, "category": "general"},
     "message": {"type": "String|Node|Function|Array", "description": "Message text shown in banners/alerts.", "default": null, "values": null, "category": "general"},
@@ -39,3 +51,7 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["size", "color", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "mobile", "tablet", "pc", "class", "style"]}
 }
 ```
+
+EmptyState uses the approved Alert/Header surface and effect contract, with readable supporting copy and uncolored action buttons. Text Gradient affects only the title. Light/Dark Glass retain dedicated surface/foreground colors. `state` takes precedence over `color`; without either it uses the theme-neutral surface. State/color and effect getters are reactive.
+
+The centered vertical composition remains intact: `compact` reduces its padding/gap; `inline` uses smaller insets; `dense` also tightens title, icon surface and action buttons. `size` scales text and the default leading icon; `iconSize` overrides that icon. `gap`, `radius`, root spacing/dimensions and responsive overrides are supported. Illustration/media, icon:false, content slots, default children and reactive messages/actions remain available.

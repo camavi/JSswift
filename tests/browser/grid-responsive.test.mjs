@@ -1966,3 +1966,130 @@ test("Icon Fill toggles Material Symbols without changing sprite or custom conte
     assert.equal(row.legacyFill, 'currentcolor');
   }
 });
+
+test("Alert shares Header palette and effects with readable actions across themes and widths", { skip: !findChrome() ? "Chrome unavailable" : false }, async () => {
+  const tmp = await mkdtemp(path.join(os.tmpdir(), 'jss-alert-surfaces-'));
+  const html = path.join(tmp, 'index.html');
+  const asset = name => pathToFileURL(path.join(ROOT_DIR, name)).href;
+  await writeFile(html, `<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"><style>*{transition:none!important}</style><main id="host"></main><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><script>
+    const rows=[],host=document.querySelector('#host');
+    for(const theme of ['light','dark']){
+      _.setTheme(theme,{persist:false});
+      for(const color of ['primary','secondary','success','warning','danger','info','light','dark'])
+      for(const effect of [{},{dense:true},{flat:true},{border:true},{shadow:true},{lightShadow:true},{glow:true},{glossy:true},{glass:true},{gradient:true},{textGradient:true},{outline:true},{outline:true,glass:true},{outline:true,textGradient:true},{outline:true,glow:true},{outline:true,glossy:true}]){
+        const a=_.Alert({color,...effect,title:'Titolo',message:'Messaggio',description:'Descrizione',meta:'Dettagli',dismissible:true,actions:_.Button({label:'Azione'})});
+        const h=_.Header({color,...effect,title:'Titolo',left:false,sticky:false});host.replaceChildren(a,h);
+        const s=getComputedStyle(a),hs=getComputedStyle(h),button=getComputedStyle(a.querySelector('.jss-alert-actions button'));
+        rows.push({theme,color,effect,classes:a.className,surface:s.backgroundColor,headerSurface:hs.backgroundColor,text:s.color,headerText:hs.color,sub:getComputedStyle(a.querySelector('.jss-alert-description')).color,button:button.color,buttonSurface:button.backgroundColor,shadow:s.boxShadow,headerShadow:hs.boxShadow,image:s.backgroundImage,headerImage:hs.backgroundImage,clip:getComputedStyle(a.querySelector('.jss-alert-title')).backgroundClip,glass:getComputedStyle(a,'::before').backgroundImage,border:s.borderTopWidth,overflow:document.documentElement.scrollWidth>innerWidth});
+      }
+      const content={title:'Titolo',message:'Messaggio',description:'Descrizione',actions:_.Button({label:'Azione'})};
+      const normal=_.Alert(content),dense=_.Alert({...content,actions:_.Button({label:'Azione'}),dense:true}),large=_.Alert({...content,actions:_.Button({label:'Azione'}),size:24}),gap=_.Alert({...content,actions:_.Button({label:'Azione'}),gap:24});
+      host.replaceChildren(normal,dense,large,gap);
+      rows.push({theme,density:dense.getBoundingClientRect().height<normal.getBoundingClientRect().height,font:parseFloat(getComputedStyle(large).fontSize),normalFont:parseFloat(getComputedStyle(normal).fontSize),icon:parseFloat(getComputedStyle(large.querySelector('.jss-icon')).fontSize),gap:getComputedStyle(gap).gap});
+    }
+    document.body.dataset.result=encodeURIComponent(JSON.stringify(rows));
+  </script>`);
+  for (const width of [1200,390]) {
+    for (const row of readBrowserResult(await runChrome(findChrome(), html, {width}))) {
+      if ('density' in row) {
+        assert.equal(row.density,true,JSON.stringify(row));
+        assert.equal(row.font,24); assert.ok(row.font>row.normalFont); assert.equal(row.icon,24); assert.equal(row.gap,'24px');
+        continue;
+      }
+      for (const key of Object.keys(row.effect)) {
+        const name=key==='lightShadow'?'light-shadow':key==='textGradient'?'text-gradient':key;
+        assert.ok(row.classes.split(' ').includes('jss-'+name),JSON.stringify(row));
+      }
+      if (!row.effect.glass) {
+        assert.equal(row.surface,row.headerSurface,JSON.stringify(row));
+        assert.equal(row.text,row.headerText,JSON.stringify(row));
+      }
+      if (row.effect.shadow || row.effect.lightShadow || row.effect.glow) assert.equal(row.shadow,row.headerShadow,JSON.stringify(row));
+      if (row.effect.glossy || row.effect.gradient || row.effect.lightShadow) assert.equal(row.image,row.headerImage,JSON.stringify(row));
+      if (row.effect.glass) assert.match(row.glass,/gradient/,JSON.stringify(row));
+      if (row.effect.glass && row.color==='light') assert.equal(row.text,'rgb(31, 41, 55)',JSON.stringify(row));
+      if (row.effect.glass && row.color==='dark') assert.equal(row.text,'rgb(241, 245, 249)',JSON.stringify(row));
+      if (row.effect.textGradient) assert.equal(row.clip,'text',JSON.stringify(row));
+      if (row.effect.border || row.effect.outline) assert.equal(row.border,'1px',JSON.stringify(row));
+      else assert.equal(row.border,'0px',JSON.stringify(row));
+      assert.equal(row.sub,row.text,JSON.stringify(row));
+      assert.equal(row.button,row.text,JSON.stringify(row));
+      assert.notEqual(row.buttonSurface,'rgba(0, 0, 0, 0)',JSON.stringify(row));
+      assert.equal(row.overflow,false,JSON.stringify(row));
+    }
+  }
+});
+
+test("Alert preserves tone precedence, reactive roles, slots and cancellable dismissal", { skip: !findChrome() ? "Chrome unavailable" : false }, async () => {
+  const tmp = await mkdtemp(path.join(os.tmpdir(), 'jss-alert-behavior-'));
+  const html = path.join(tmp, 'index.html');
+  const asset = name => pathToFileURL(path.join(ROOT_DIR,name)).href;
+  await writeFile(html, `<!doctype html><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><body><script>
+    const [getTone,setTone]=_.signal('info'),[getText,setText]=_.signal('Prima'),[getDense,setDense]=_.signal(false);
+    const a=_.Alert({color:getTone,dense:getDense,message:getText,slots:{title:()=>_.span('Titolo custom')},aside:_.span('Aside'),actions:_.Button({color:'success',label:'Azione'}),stack:true});
+    const explicit=_.Alert({color:'info',state:'success',type:'danger',message:'Precedenza'}),fixed=_.Alert({color:getTone,role:'note',message:'Ruolo esplicito'}),fallback=_.Alert({message:'Default'});
+    const cancelled=_.Alert({message:'Conserva',dismissible:true,onDismiss:event=>event.preventDefault()}),dismissed=_.Alert({message:'Chiudi',dismissible:true});
+    document.body.append(a,explicit,fixed,fallback,cancelled,dismissed);
+    const before=a.getAttribute('role');setTone('warning');setText('Dopo');setDense(true);
+    cancelled.querySelector('.jss-alert-close').click();dismissed.querySelector('.jss-alert-close').click();
+    document.body.dataset.result=encodeURIComponent(JSON.stringify({before,after:a.getAttribute('role'),text:a.querySelector('.jss-alert-message').textContent,title:a.querySelector('.jss-alert-title').textContent,dense:a.classList.contains('jss-dense'),state:a.classList.contains('jss-state-warning'),old:a.classList.contains('jss-state-info'),precedence:explicit.className,fixed:fixed.getAttribute('role'),defaultState:fallback.classList.contains('jss-state-warning'),kept:cancelled.isConnected,removed:!dismissed.isConnected,aside:a.querySelector('.jss-alert-side').textContent,stack:getComputedStyle(a.querySelector('.jss-alert-side')).flexBasis,child:a.querySelector('.jss-alert-actions button').classList.contains('jss-state-success')}));
+  </script>`);
+  const row=readBrowserResult(await runChrome(findChrome(),html));
+  assert.equal(row.before,'status');assert.equal(row.after,'alert');assert.equal(row.text,'Dopo');assert.equal(row.title,'Titolo custom');
+  assert.equal(row.dense,true);assert.equal(row.state,true);assert.equal(row.old,false);
+  assert.match(row.precedence,/jss-state-danger/);assert.doesNotMatch(row.precedence,/jss-state-(success|info)/);
+  assert.equal(row.fixed,'note');assert.equal(row.defaultState,true);assert.equal(row.kept,true);assert.equal(row.removed,true);assert.equal(row.aside,'Aside');assert.equal(row.stack,'100%');assert.equal(row.child,true);
+});
+
+test("EmptyState shares Alert palette and effects with readable actions across themes and widths", { skip: !findChrome() ? "Chrome unavailable" : false }, async () => {
+  const tmp = await mkdtemp(path.join(os.tmpdir(), 'jss-empty-surfaces-'));
+  const html = path.join(tmp, 'index.html');
+  const asset = name => pathToFileURL(path.join(ROOT_DIR, name)).href;
+  await writeFile(html, `<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"><style>*{transition:none!important}</style><main id="host"></main><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><script>
+    const rows=[],host=document.querySelector('#host');
+    for(const theme of ['light','dark']){
+      _.setTheme(theme,{persist:false});
+      for(const color of ['primary','secondary','success','warning','danger','info','light','dark'])
+      for(const effect of [{},{dense:true},{flat:true},{border:true},{shadow:true},{lightShadow:true},{glow:true},{glossy:true},{glass:true},{gradient:true},{textGradient:true},{outline:true},{outline:true,glass:true},{outline:true,textGradient:true},{outline:true,glow:true},{outline:true,glossy:true}]){
+        const a=_.EmptyState({color,...effect,title:'Titolo',message:'Messaggio',description:'Descrizione',meta:'Dettagli',dismissible:true,actions:_.Button({label:'Azione'})});
+        const h=_.Alert({color,...effect,title:'Titolo'});host.replaceChildren(a,h);
+        const s=getComputedStyle(a),hs=getComputedStyle(h),button=getComputedStyle(a.querySelector('.jss-empty-state-actions button'));
+        rows.push({theme,color,effect,classes:a.className,surface:s.backgroundColor,headerSurface:hs.backgroundColor,text:s.color,headerText:hs.color,sub:getComputedStyle(a.querySelector('.jss-empty-state-description')).color,button:button.color,buttonSurface:button.backgroundColor,shadow:s.boxShadow,headerShadow:hs.boxShadow,image:s.backgroundImage,headerImage:hs.backgroundImage,clip:getComputedStyle(a.querySelector('.jss-empty-state-title')).backgroundClip,glass:getComputedStyle(a,'::before').backgroundImage,border:s.borderTopWidth,overflow:document.documentElement.scrollWidth>innerWidth});
+      }
+      const content={title:'Titolo',message:'Messaggio',description:'Descrizione',actions:_.Button({label:'Azione'})};
+      const normal=_.EmptyState(content),dense=_.EmptyState({...content,actions:_.Button({label:'Azione'}),dense:true}),large=_.EmptyState({...content,actions:_.Button({label:'Azione'}),size:24}),gap=_.EmptyState({...content,actions:_.Button({label:'Azione'}),gap:24});
+      host.replaceChildren(normal,dense,large,gap);
+      rows.push({theme,density:dense.getBoundingClientRect().height<normal.getBoundingClientRect().height,font:parseFloat(getComputedStyle(large).fontSize),normalFont:parseFloat(getComputedStyle(normal).fontSize),icon:parseFloat(getComputedStyle(large.querySelector('.jss-icon')).fontSize),gap:getComputedStyle(gap).gap});
+    }
+    document.body.dataset.result=encodeURIComponent(JSON.stringify(rows));
+  </script>`);
+  for (const width of [1200,390]) {
+    for (const row of readBrowserResult(await runChrome(findChrome(), html, {width}))) {
+      if ('density' in row) {
+        assert.equal(row.density,true,JSON.stringify(row));
+        assert.equal(row.font,24); assert.ok(row.font>row.normalFont); assert.equal(row.icon,24); assert.equal(row.gap,'24px');
+        continue;
+      }
+      for (const key of Object.keys(row.effect)) {
+        const name=key==='lightShadow'?'light-shadow':key==='textGradient'?'text-gradient':key;
+        assert.ok(row.classes.split(' ').includes('jss-'+name),JSON.stringify(row));
+      }
+      {
+        assert.equal(row.surface,row.headerSurface,JSON.stringify(row));
+        assert.equal(row.text,row.headerText,JSON.stringify(row));
+      }
+      if (row.effect.shadow || row.effect.lightShadow || row.effect.glow) assert.equal(row.shadow,row.headerShadow,JSON.stringify(row));
+      if (row.effect.glossy || row.effect.gradient || row.effect.lightShadow) assert.equal(row.image,row.headerImage,JSON.stringify(row));
+      if (row.effect.glass) assert.match(row.glass,/gradient/,JSON.stringify(row));
+      if (row.effect.glass && row.color==='light') assert.equal(row.text,'rgb(31, 41, 55)',JSON.stringify(row));
+      if (row.effect.glass && row.color==='dark') assert.equal(row.text,'rgb(241, 245, 249)',JSON.stringify(row));
+      if (row.effect.textGradient) assert.equal(row.clip,'text',JSON.stringify(row));
+      if (row.effect.border || row.effect.outline) assert.equal(row.border,'1px',JSON.stringify(row));
+      else assert.equal(row.border,'0px',JSON.stringify(row));
+      assert.equal(row.sub,row.text,JSON.stringify(row));
+      assert.equal(row.button,row.text,JSON.stringify(row));
+      assert.notEqual(row.buttonSurface,'rgba(0, 0, 0, 0)',JSON.stringify(row));
+      assert.equal(row.overflow,false,JSON.stringify(row));
+    }
+  }
+});

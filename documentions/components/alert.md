@@ -6,6 +6,18 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
 {
   "signature": "_.Alert(...children) | _.Alert(props, ...children)",
   "props": {
+    "flat": {"type": "boolean", "description": "Remove border and elevation.", "default": false, "values": [true, false], "category": "style"},
+    "border": {"type": "boolean", "description": "Draw an explicit contour.", "default": false, "values": [true, false], "category": "style"},
+    "glossy": {"type": "boolean", "description": "Apply the Header reflective surface.", "default": false, "values": [true, false], "category": "style"},
+    "glow": {"type": "boolean", "description": "Apply the Header colored halo.", "default": false, "values": [true, false], "category": "style"},
+    "glass": {"type": "boolean", "description": "Apply the Header translucent glass surface.", "default": false, "values": [true, false], "category": "style"},
+    "gradient": {"type": "boolean", "description": "Apply a palette gradient surface.", "default": false, "values": [true, false], "category": "style"},
+    "textGradient": {"type": "boolean", "description": "Apply the gradient to the title only.", "default": false, "values": [true, false], "category": "style"},
+    "lightShadow": {"type": "boolean", "description": "Apply the Header light shadow treatment.", "default": false, "values": [true, false], "category": "style"},
+    "dense": {"type": "boolean", "description": "Compact padding, content gaps, title and action buttons.", "default": false, "values": [true, false], "category": "layout"},
+    "stack": {"type": "boolean", "description": "Place the aside/dismiss region on its own row.", "default": false, "values": [true, false], "category": "layout"},
+    "gap": {"type": "number|string", "description": "Spacing between the icon, body and aside.", "default": null, "values": null, "category": "layout"},
+    "elevated": {"type": "boolean", "description": "Use the Header-style medium elevation.", "default": false, "values": [true, false], "category": "style"},
     "title": {"type": "String|Node|Function|Array", "description": "Title text or node.", "default": null, "values": null, "category": "general"},
     "message": {"type": "String|Node|Function|Array", "description": "Message text shown in banners/alerts.", "default": null, "values": null, "category": "general"},
     "description": {"type": "String|Node|Function|Array", "description": "Component configuration for \"description\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
@@ -40,3 +52,7 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["size", "color", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "mobile", "tablet", "pc", "class", "style"]}
 }
 ```
+
+Alert uses the Header palette/surface contract: `flat`, `border`, `shadow`, `lightShadow`, `glow`, `glossy`, `glass`, `gradient`, `textGradient` and `outline` support the same shared effects. Semantic tone precedence is `type`, then `state`, then `color`; the default is warning. Tone/effect getters are reactive. `size` scales text and the default leading icon; `iconSize` overrides icon sizing. Common spacing, radius and responsive properties apply to the root.
+
+Supporting text and uncolored action/dismiss buttons inherit the surface foreground. Text Gradient affects the title only, with a quiet tinted surface; Light/Dark Glass use dedicated readable foregrounds. Explicit Outline/Border encloses the surface. Dismissal remains cancellable with `event.preventDefault()`, and an explicit `role` takes precedence over the tone-derived alert/status role.

@@ -159,30 +159,33 @@ UI.Banner = (...args) => {
 // Esempio: JSswift.ui.Banner({ type: "warning", title: "Pagamento in sospeso", message: "Aggiorna il batch entro le 18:00" })
 
 UI.Alert = (...args) => {
-  const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
+  const input = normalizeArgsBase(args);
+  const tone = uiComputed([input.props.type, input.props.state, input.props.color], () =>
+    uiUnwrap(input.props.type) || uiUnwrap(input.props.state) || uiUnwrap(input.props.color) || "warning");
+  const { props: rawProps, children } = JSswift.uiNormalizeArgs([{ ...input.props, color: tone }, ...input.children]);
   const slots = rawProps.slots || {};
 
   const resolveStateValue = () => normalizeState(uiUnwrap(rawProps.type) || uiUnwrap(rawProps.state) || uiUnwrap(rawProps.color) || "warning");
-  const stateClass = uiComputed([rawProps.type, rawProps.state, rawProps.color], () => {
-    const state = resolveStateValue();
-    return state ? `jss-state-${state}` : "";
-  });
-
   const props = { ...rawProps };
   const p = JSswift.omit(props, [
     "actions", "aside", "closeLabel", "description", "dismiss", "dismissible",
     "icon", "iconSize", "message", "meta", "onDismiss", "slots", "state",
-    "subtitle", "title", "type", "variant"
+    "subtitle", "title", "type", "variant", "stack", "gap", "elevated"
   ]);
   p.class = uiClass([
     "jss-clear-set",
+    "jss-panel",
     "jss-alert",
     "jss-singularity",
-    stateClass,
+    uiWhen(rawProps.stack, "stack"),
+    uiWhen(rawProps.elevated, "elevated"),
     uiWhen(rawProps.dismissible, "is-dismissible"),
     props.class
   ]);
   p.style = { ...(props.style || {}) };
+  if (rawProps.gap != null) p.style["--jss-alert-gap"] = uiStyleValue(rawProps.gap, toCssSize);
+  p.role = rawProps.role ?? uiComputed([rawProps.type, rawProps.state, rawProps.color], () =>
+    ["danger", "warning"].includes(resolveStateValue()) ? "alert" : "status");
 
   const autoIconMap = {
     success: "check_circle",
@@ -199,11 +202,11 @@ UI.Alert = (...args) => {
     if (rawProps.icon === false || rawProps.icon === null) return null;
     if (rawProps.icon != null) {
       return typeof rawProps.icon === "string"
-        ? UI.Icon({ name: rawProps.icon, size: rawProps.iconSize || "sm" })
+        ? UI.Icon({ name: rawProps.icon, size: rawProps.iconSize || rawProps.size || "md" })
         : JSswift.ui.slot(rawProps.icon, { as: "icon" });
     }
     const iconName = autoIconMap[resolveStateValue()] || autoIconMap.warning;
-    return UI.Icon({ name: iconName, size: rawProps.iconSize || "sm" });
+    return UI.Icon({ name: iconName, size: rawProps.iconSize || rawProps.size || "md" });
   })();
 
   const titleNodes = renderSlotToArray(slots, "title", {}, rawProps.title);
@@ -216,7 +219,7 @@ UI.Alert = (...args) => {
   const dismissNodes = renderSlotToArray(slots, "dismiss", {}, rawProps.dismiss);
 
   let alertEl = null;
-  const defaultDismissNode = rawProps.dismissible || rawProps.onDismiss
+  const defaultDismissNode = uiUnwrap(rawProps.dismissible) || rawProps.onDismiss
     ? UI.Btn({
       class: "jss-alert-close",
       outline: true,
@@ -250,7 +253,6 @@ UI.Alert = (...args) => {
       : null
   );
 
-  alertEl.setAttribute("role", resolveStateValue() === "danger" || resolveStateValue() === "warning" ? "alert" : "status");
   setPropertyProps(alertEl, rawProps);
   return alertEl;
 };
@@ -258,37 +260,36 @@ UI.Alert = (...args) => {
 // Esempio: JSswift.ui.Alert({ type: "warning", title: "Review richiesta", message: "Controlla il batch prima del go-live" })
 
 UI.EmptyState = (...args) => {
-  const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
+  const input = normalizeArgsBase(args);
+  const tone = uiComputed([input.props.state, input.props.color], () =>
+    uiUnwrap(input.props.state) || uiUnwrap(input.props.color) || "");
+  const { props: rawProps, children } = JSswift.uiNormalizeArgs([{ ...input.props, color: tone }, ...input.children]);
   const slots = rawProps.slots || {};
-  const resolveStateValue = () => normalizeState(uiUnwrap(rawProps.state) || uiUnwrap(rawProps.color) || "");
-  const stateClass = uiComputed([rawProps.state, rawProps.color], () => {
-    const state = resolveStateValue();
-    return state ? `jss-state-${state}` : "";
-  });
-
   const props = { ...rawProps };
   const p = JSswift.omit(props, [
     "actions", "description", "eyebrow", "icon", "iconSize", "illustration", "media",
-    "message", "meta", "slots", "state", "title"
+    "message", "meta", "slots", "state", "title", "compact", "inline", "gap", "elevated"
   ]);
   p.class = uiClass([
     "jss-clear-set",
+    "jss-panel",
     "jss-empty-state",
     "jss-singularity",
-    stateClass,
+    uiWhen(rawProps.elevated, "elevated"),
     uiWhen(rawProps.compact, "compact"),
     uiWhen(rawProps.inline, "inline"),
     props.class
   ]);
   p.style = { ...(props.style || {}) };
+  if (rawProps.gap != null) p.style["--jss-empty-gap"] = uiStyleValue(rawProps.gap, toCssSize);
 
   const iconFallback = rawProps.icon === false
     ? null
     : (rawProps.icon != null
       ? (typeof rawProps.icon === "string"
-        ? UI.Icon({ name: rawProps.icon, size: rawProps.iconSize || "xl" })
+        ? UI.Icon({ name: rawProps.icon, size: rawProps.iconSize || rawProps.size || "xl" })
         : JSswift.ui.slot(rawProps.icon, { as: "icon" }))
-      : UI.Icon({ name: "inbox", size: rawProps.iconSize || "xl" }));
+      : UI.Icon({ name: "inbox", size: rawProps.iconSize || rawProps.size || "xl" }));
 
   const illustrationNodes = renderSlotToArray(slots, "illustration", {}, rawProps.illustration ?? rawProps.media);
   const iconNodes = renderSlotToArray(slots, "icon", {}, iconFallback);
