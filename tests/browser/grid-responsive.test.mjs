@@ -1588,3 +1588,144 @@ test("Popover reopens on the same trigger after outside click and Escape", {
   const result = readBrowserResult(await runChrome(findChrome(), htmlFile));
   assert.deepEqual(result, { outsideClosed: true, reopened: true, escapeClosed: true, reopenedAgain: true });
 });
+
+test("Menu reopens on the same trigger after outside click and Escape", {
+  skip: !findChrome() ? "Chrome/Chromium is not available" : false
+}, async () => {
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-menu-reopen-"));
+  const htmlFile = path.join(tmpDir, "index.html");
+  const coreUrl = pathToFileURL(path.join(ROOT_DIR, "packages/core/dist/cms.js")).href;
+  const uiUrl = pathToFileURL(path.join(ROOT_DIR, "packages/ui/dist/ui.js")).href;
+  await writeFile(htmlFile, `<!doctype html><html><body>
+    <script src="${coreUrl}"></script><script src="${uiUrl}"></script>
+    <script>
+      const trigger = _.Button({ label: 'Open' });
+      document.body.append(trigger);
+      const popover = _.Menu({ content: 'Details', returnFocus: false });
+      trigger.addEventListener('click', () => popover.open(trigger));
+      const wait = () => new Promise(resolve => setTimeout(resolve, 100));
+      (async () => {
+        trigger.click(); await wait();
+        document.body.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+        await wait();
+        const outsideClosed = !popover.isOpen();
+        trigger.click(); await wait();
+        const reopened = !!document.querySelector('.jss-menu-panel') && popover.isOpen();
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+        await wait();
+        const escapeClosed = !popover.isOpen();
+        trigger.click(); await wait();
+        const reopenedAgain = !!document.querySelector('.jss-menu-panel') && popover.isOpen();
+        document.body.dataset.result = encodeURIComponent(JSON.stringify({ outsideClosed, reopened, escapeClosed, reopenedAgain }));
+      })();
+    </script></body></html>`);
+  const result = readBrowserResult(await runChrome(findChrome(), htmlFile));
+  assert.deepEqual(result, { outsideClosed: true, reopened: true, escapeClosed: true, reopenedAgain: true });
+});
+
+test("Menu applies Dense and surface effects to the overlay panel", {
+  skip: !findChrome() ? "Chrome/Chromium is not available" : false
+}, async () => {
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-menu-density-"));
+  const htmlFile = path.join(tmpDir, "index.html");
+  const coreUrl = pathToFileURL(path.join(ROOT_DIR, "packages/core/dist/cms.js")).href;
+  const uiUrl = pathToFileURL(path.join(ROOT_DIR, "packages/ui/dist/ui.js")).href;
+  const cssUrl = pathToFileURL(path.join(ROOT_DIR, "packages/ui/dist/css/ui.css")).href;
+  await writeFile(htmlFile, `<!doctype html><html><head><link rel="stylesheet" href="${cssUrl}"></head><body>
+  <script src="${coreUrl}"></script><script src="${uiUrl}"></script><script>
+    const button = _.Button({label:'Open'}); document.body.append(button);
+    const items = [{label:'Edit'},{label:'Duplicate'},{label:'Delete'}];
+    const normal = _.Menu({items}); const first = normal.open(button);
+    const normalHeight = first.panel.getBoundingClientRect().height; normal.close();
+    const compact = _.Menu({items,dense:true,glossy:true}); const second = compact.open(button);
+    const denseHeight = second.panel.getBoundingClientRect().height;
+    document.body.dataset.result = encodeURIComponent(JSON.stringify({normalHeight,denseHeight,
+      dense:second.panel.classList.contains('jss-dense'),glossy:second.panel.classList.contains('jss-glossy'),
+      shellEffect:second.panel.querySelector('.jss-menu-shell').classList.contains('jss-glossy')}));
+  </script></body></html>`);
+  const result = readBrowserResult(await runChrome(findChrome(), htmlFile));
+  assert.equal(result.dense, true);
+  assert.equal(result.glossy, true);
+  assert.equal(result.shellEffect, false);
+  assert.ok(result.denseHeight < result.normalHeight - 15, JSON.stringify(result));
+});
+
+test("Menu and Popover restore focus without moving page scroll", {
+  skip: !findChrome() ? "Chrome/Chromium is not available" : false
+}, async () => {
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-overlay-scroll-"));
+  const htmlFile = path.join(tmpDir, "index.html");
+  const coreUrl = pathToFileURL(path.join(ROOT_DIR, "packages/core/dist/cms.js")).href;
+  const uiUrl = pathToFileURL(path.join(ROOT_DIR, "packages/ui/dist/ui.js")).href;
+  await writeFile(htmlFile, `<!doctype html><html><body style="height:4000px">
+    <script src="${coreUrl}"></script><script src="${uiUrl}"></script><script>
+    (async () => {
+      const results = [];
+      const wait = () => new Promise(resolve => setTimeout(resolve, 250));
+      for (const component of ['Menu','Popover']) {
+        window.scrollTo(0,0);
+        const button = _.Button({label:component});document.body.prepend(button);button.focus();
+        const overlay = _[component]({content:'Details'});overlay.open(button);
+        window.scrollTo(0,1200);const before = window.scrollY;overlay.close();await wait();
+        results.push({component,before,after:window.scrollY,focusRestored:document.activeElement===button});button.remove();
+      }
+      document.body.dataset.result=encodeURIComponent(JSON.stringify(results));
+    })();
+    </script></body></html>`);
+  const results = readBrowserResult(await runChrome(findChrome(), htmlFile));
+  for (const result of results) {
+    assert.ok(result.before > 0, JSON.stringify(result));
+    assert.equal(result.after, result.before, JSON.stringify(result));
+    assert.equal(result.focusRestored, true, JSON.stringify(result));
+  }
+});
+
+test("Table redesign keeps sorting, search, pagination and contrast in both themes", {
+  skip: !findChrome() ? "Chrome/Chromium is not available" : false
+}, async () => {
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), "jsswift-table-design-"));
+  const htmlFile = path.join(tmpDir, "index.html");
+  const asset = name => pathToFileURL(path.join(ROOT_DIR, name)).href;
+  await writeFile(htmlFile, `<!doctype html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"></head><body style="margin:12px"><main id="host"></main>
+  <script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><script>
+  (async()=>{
+    const wait=()=>new Promise(r=>setTimeout(r,80));const results=[];
+    const columns=[{key:'name',label:'Nome',sortable:true},{key:'value',label:'Valore',sortable:true,align:'right'}];
+    const rows=Array.from({length:12},(_,i)=>({name:'Riga '+String(i+1).padStart(2,'0'),value:12-i}));
+    for(const theme of ['light','dark']){
+      _.setTheme(theme,{persist:false});
+      const table=_.Table({color:'primary',columns,rows,searchable:true,searchKeys:['name'],pageSize:5});document.querySelector('#host').replaceChildren(table);await wait();
+      const initial=table.querySelectorAll('tbody tr').length;
+      table.querySelector('.jss-table-page-next').click();await wait();
+      const next=table.querySelector('tbody').textContent.includes('Riga 06');
+      const input=table.querySelector('input[type="search"]');input.value='Riga 12';input.dispatchEvent(new Event('input',{bubbles:true}));await wait();
+      const filtered=table.querySelectorAll('tbody tr').length===1&&table.querySelector('tbody').textContent.includes('Riga 12');
+      input.value='';input.dispatchEvent(new Event('input',{bubbles:true}));await wait();
+      table.querySelectorAll('.jss-table-head-button')[1].click();await wait();
+      const sorted=table.querySelector('tbody tr').textContent.includes('Riga 12');
+      const sortAccessible=table.querySelectorAll('th')[1].getAttribute('aria-sort')==='ascending';
+      const cell=getComputedStyle(table.querySelector('td')),head=getComputedStyle(table.querySelector('th')),root=getComputedStyle(table);
+      const compact=_.Table({columns,rows:rows.slice(0,3),dense:true,pagination:false});const normal=_.Table({columns,rows:rows.slice(0,3),pagination:false});document.querySelector('#host').append(compact,normal);
+      const glassLight=_.Table({color:'light',glass:true,columns,rows:rows.slice(0,3),pagination:false});document.querySelector('#host').append(glassLight);
+      const lightGlassSurface=getComputedStyle(glassLight).backgroundColor;
+      const smaller=compact.querySelector('tbody tr').getBoundingClientRect().height<normal.querySelector('tbody tr').getBoundingClientRect().height;
+      const noPager=getComputedStyle(compact.querySelector('.jss-table-pager')).display==='none';
+      results.push({theme,initial,next,filtered,sorted,sortAccessible,smaller,noPager,lightGlassSurface,head:head.backgroundColor,surface:root.backgroundColor,text:cell.color,overflow:document.documentElement.scrollWidth>innerWidth});
+    }
+    document.body.dataset.result=encodeURIComponent(JSON.stringify(results));
+  })();</script></body></html>`);
+  const results = readBrowserResult(await runChrome(findChrome(), htmlFile, {width:390,height:900}));
+  const luminance = rgb => {
+    const channels = rgb.match(/[\d.]+/g).slice(0,3).map(Number).map(v=>{v/=255;return v<=0.04045?v/12.92:((v+0.055)/1.055)**2.4;});
+    return channels[0]*0.2126+channels[1]*0.7152+channels[2]*0.0722;
+  };
+  for(const result of results){
+    assert.equal(result.initial,5,JSON.stringify(result));
+    assert.equal(result.lightGlassSurface,'rgb(241, 245, 249)',JSON.stringify(result));
+    for(const key of ['next','filtered','sorted','sortAccessible','smaller','noPager'])assert.equal(result[key],true,JSON.stringify(result));
+    assert.equal(result.overflow,false,JSON.stringify(result));
+    assert.notEqual(result.head,result.surface,JSON.stringify(result));
+    const text=luminance(result.text),background=luminance(result.surface);
+    assert.ok((Math.max(text,background)+0.05)/(Math.min(text,background)+0.05)>=4.5,JSON.stringify(result));
+  }
+});

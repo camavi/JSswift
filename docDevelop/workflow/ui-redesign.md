@@ -716,3 +716,61 @@ Adjusted dark Tabs Glass after feedback: restored visible nav reflections and sh
 - Fixed Popover stale entry after overlay-managed closure: onClose clears only the matching current entry, so outside click/Escape can reopen on the same trigger without touching a newer overlay. Added Chrome regression covering both closure paths and repeated opening. UI build, 72 unit tests and targeted browser regression passed.
 
 - User accepted and closed Popover and requested commit. Completed Tooltip and Popover changes grouped, including Popover reopen regression. Latest checks: UI build, 72 unit tests, 27 browser tests plus targeted reopen test. Next visual review: Menu; local interactive fixture prepared.
+
+- Menu surface aligned with Popover through shared CSS declarations/selectors for palette, Outline, Flat, Border, Shadow, Light Shadow, Glossy title bar, Glow, Glass, Gradient and Text Gradient. Menu retains its item structure, keyboard behavior, dimensions and overlay placement. Shared/user radius replaces overlay radius; no implicit borders/elevation; compact density metrics; Light/Dark surface identity retained. Neutral surface and readable item foreground defined locally. UI build, all 72 unit tests and 3 Menu/ContextMenu browser tests passed.
+
+- Fixed the same stale-overlay entry bug in Menu: overlay-managed outside click/Escape now clears matching entry before callbacks, enabling reopening on the same button. Popover fix remains intact. Added Menu browser regression and reran both Menu/Popover reopening tests. UI build, 72 unit tests and both browser regressions passed.
+
+- Menu Dense now resets generic wrapper padding/margin, retains 4px inner gutter, uses compact 28px-minimum entries with 4px/8px padding and 2px list gaps, tighter group/header/footer spacing and corrected Glossy header margins. UI build, 72 unit tests and 4 Menu/ContextMenu browser tests passed.
+
+- Root cause of unchanged Menu Dense: common effect classes were mounted on inner shell instead of overlay panel. Moved class/style application to panel, matching Popover and avoiding nested effect surfaces. Added Chrome regression asserting effect classes on panel and Dense height reduction >15px. UI build, 72 unit tests, 4 existing Menu browser tests and new density regression passed.
+
+- Menu Outline refined with explicit semantic contour, matching title/icon accents, subtle semantic hover/focus fill and coordinated separators while retaining neutral base and readable item labels. Shared Glass/Glossy combinations retained. UI build and 72 tests passed.
+
+- Menu without color now uses opaque neutral surface mixed with 5% theme foreground, distinguishing it from page background without semantic tint, implicit border or elevation. UI build and 72 tests passed.
+
+- Menu dark-theme semantic base tint increased from 12% to 28% so palette colors remain visible on dark surfaces; Light/Dark keep their dedicated surfaces and theme foreground remains readable. UI build and 72 tests passed.
+
+- Menu and Popover focus restoration now uses preventScroll:true, preserving page scroll when closing after scrolling away from trigger. Added Chrome regression verifying scroll unchanged and focus restored for both; reran both reopen regressions. UI build, 72 unit tests and 3 targeted browser tests passed.
+
+- User accepted and closed Menu. Next visual review: ContextMenu; interactive fixture prepared with right-click, keyboard binding and click preview. Menu and scroll-restoration changes remain uncommitted pending a commit request.
+
+- User accepted and closed ContextMenu. Next component: Table; local fixture prepared with palette/effects matrix, sortable columns, search/pagination and empty/loading states. Completed Menu work remains uncommitted pending request.
+
+- Table redesigned for both themes: neutral data surface, semantic header accents, compact independent search/pagination controls, readable numeric alignment, explicit density and effect surfaces, theme-independent Light/Dark identity and user/default radius. Removed inherited internal palette/effect wrappers and redundant pagination metadata; pagination:false hides navigation and page-size controls. Added search/pager accessible labels and sortable header aria-sort. Updated Table contract and CRUD custom header surface token. Visual Chrome review covered both themes, palette, effects and narrow layouts. UI build and 72 unit tests passed; browser suite passed 31/32 initially, with the CRUD custom-white-header example corrected and its failing test passing on rerun. New Table browser regression passes sorting, search, pagination, density, contrast and mobile overflow checks. Table remains open for user visual review; no commit requested.
+
+- Table Glass now reuses the shared Button radial reflection pseudo-layer, inset optical edge and 1px backdrop blur, with a 40% translucent semantic surface. Removed flat frosted wash and opaque header fill; dark theme uses a deep translucent base and attenuated reflections, preserving Light identity. Applies to Outline + Glass too. UI build, 72 unit tests and Chrome screenshot review in both themes passed; diff check clean.
+
+- Per user review, Table Glass moved to the column header band only: shared Button radial reflections and translucent semantic fill now belong to thead; Card root uses the normal surface with no Glass pseudo-layer or backdrop blur. Body, status and footer remain neutral. Dark reflection attenuation follows the header. UI build and Chrome light-theme screenshot review passed; diff check clean.
+
+- Table heading and hover separated after user review: normal semantic header tint increased to 16% (26% on dark surfaces), row hover reduced to 5%. Applies across semantic palette without flattening specialized heading effects. UI build, targeted Table browser regression (both themes, contrast and interactions) and diff check passed.
+
+- Fixed dark-theme Card Glass rule overriding Table root background: component-specific dark selector now preserves local Table surface, including Light. Extended Table browser regression to assert Light Glass remains rgb(241,245,249) in both themes. UI build, targeted browser regression and diff check passed.
+
+- Light Glass heading now uses pale slate-gray base and fixed white/pale-gray reflection colors, independent of global dark palette. UI build, Table browser regression and diff check passed.
+
+- Adjusted Light Glass heading after review: previous pale-gray correction was too bright. Set medium cool-gray base with restrained silver radial reflections, closer to original gray while slightly lighter. UI build and diff check passed.
+
+- User accepted and closed Table. Next visual review: Stat; local palette/effects fixture prepared with metric, trend, note and footer in both themes. Pending changes remain uncommitted; no commit requested.
+
+- Stat Shadow strengthened with 3px/7px contact and 14px/28px ambient shadow at 22%/32%; dark surfaces use 55%/80% depth and subtle top inset reflection. Changes scoped to explicit Shadow. UI build, Chrome visual review and diff check passed.
+
+- Stat Light Shadow refined: soft upper-left light, restrained top reflection and layered lower-right shade; dedicated dark-surface intensities avoid white halo. Removed implicit Stat border, retaining explicit Border/Outline. UI build, Chrome screenshot review and diff check passed.
+
+- Stat Light Shadow now visibly lights the surface itself: broad upper-left radial highlight and diagonal lower-right shade, retaining directional exterior elevation and no border. Dark surfaces use reduced highlight and deeper shade. UI build, Chrome visual review and diff check passed.
+
+- Stat supporting text (note/subtitle, meta, footer and aside) now inherits component foreground instead of global page-muted color; eyebrow opacity increased to 85%. Fix follows semantic surface foreground across themes and effects. UI build, Chrome screenshot review and diff check passed.
+
+- Stat Dark Outline foreground now follows theme text because its surface is transparent, fixing white-on-light title, value and supporting text. Explicit dark outline contour retained. UI build and diff check passed.
+
+- Stat Glass foreground now uses theme text rather than semantic text-on-fill, correcting washed-out title, value and supporting text on translucent Primary/Warning surfaces. Applies to Glass combinations. UI build, Chrome screenshot review and diff check passed.
+
+- Stat Glow slightly attenuated: outer halo 15px/2px full color reduced to 13px/1px at 80%; near halo reduced to 2px spread at 45%, text glow reduced to 2px/55%. Inner lighting retained. UI build and diff check passed.
+
+- Uncolored Stat now owns a neutral surface mixed with 5% theme foreground, preserving readable theme text, trend semantics and no implicit border/elevation. Outline stays transparent. UI build, Chrome visual review and diff check passed.
+
+- Dark-theme Stat Glass darkened with translucent deep-slate base and 12% semantic tint; shared radial reflection layer dimmed to 35% brightness at 50% opacity. Light explicitly excluded; applies to Outline + Glass. UI build, Chrome dark-theme visual review and diff check passed.
+
+- Per explicit user setting, Stat dark Glass reflection brightness increased from .35 to .6; opacity remains .5 and Light stays excluded. UI build and diff check passed.
+
+- User accepted and closed Stat and requested commit. Grouped approved Menu/ContextMenu, Table and Stat refinements with generated mirrors and documentation. Final checks: UI build, 72 unit tests, all 32 browser tests and diff check passed. Next component Kpi; local palette/effects/trend fixture prepared.

@@ -64,7 +64,7 @@ const filter = _.Select({label:'Filtro categoria',options:[{value:'',label:'Tutt
 function render() {
  const found = rows.filter(r => r.name.toLowerCase().includes(query.trim().toLowerCase()) && (!category || r.category === category));
  const pages = Math.max(1,Math.ceil(found.length/5)); page = Math.min(page,pages);
- _.mount(host, _.Table({rows:found.slice((page-1)*5,page*5),rowKey:'id',pagination:false,hideFooter:true,hideStatus:true,minTableWidth:600,shadow:'none',radius:'12px',style:{background:'#fff'},tableStyle:{background:'#fff','--set-color-1':'#fff'},emptyText:'Nessun prodotto trovato',
+ _.mount(host, _.Table({rows:found.slice((page-1)*5,page*5),rowKey:'id',pagination:false,hideFooter:true,hideStatus:true,minTableWidth:600,shadow:'none',radius:'12px',style:{background:'#fff'},tableStyle:{background:'#fff','--jss-table-head':'#fff'},emptyText:'Nessun prodotto trovato',
  columns:[{key:'name',sortable:false,label:'Nome'},{key:'category',sortable:false,label:'Categoria'},{key:'price',sortable:false,label:'Prezzo',format:value => priceFormat.format(value)},{key:'quantity',sortable:false,label:'Quantità'},
  {key:'actions',label:'Azioni',render:r => _.Button({id:`edit-${r.id}`,onClick:() => edit(r)},'Modifica')}] }));
  _.mount(pager, [_.span(`${found.length} prodotti — pagina ${page}/${pages}`),

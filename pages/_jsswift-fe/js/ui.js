@@ -11452,13 +11452,13 @@ transition: width 200ms ease;
     if (searchSlotNodes.length) {
       searchSlotNodes.forEach((node) => toolbarSide.appendChild(node));
     } else if (searchable) {
-      searchInput = _.input({ type: "search", class: "jss-input", placeholder: typeof props.searchable === "string" ? props.searchable : props.searchPlaceholder || "Cerca nella tabella", value: String(getQuery() || "") });
+      searchInput = _.input({ type: "search", class: "jss-input", "aria-label": props.searchPlaceholder || "Cerca nella tabella", placeholder: typeof props.searchable === "string" ? props.searchable : props.searchPlaceholder || "Cerca nella tabella", value: String(getQuery() || "") });
       searchInput.addEventListener("input", () => setQuery(searchInput.value));
       const clearSearch = UI.Btn({ class: "jss-table-search-clear", outline: true, onClick: () => {
         if (searchInput) searchInput.value = "";
         setQuery("");
       } }, "Reset");
-      toolbarSide.appendChild(_.div({ class: "jss-singularity jss-table-search" }, _.span({ class: "jss-table-search-icon", "aria-hidden": "true" }, "\u2315"), searchInput, clearSearch));
+      toolbarSide.appendChild(_.div({ class: "jss-table-search" }, _.span({ class: "jss-table-search-icon", "aria-hidden": "true" }, "\u2315"), searchInput, clearSearch));
     }
     toolbarEndNodes.forEach((node) => toolbarSide.appendChild(node));
     if (toolbarMain.childNodes.length || toolbarSide.childNodes.length) {
@@ -11466,9 +11466,9 @@ transition: width 200ms ease;
       toolbar.appendChild(toolbarSide);
       shell.appendChild(toolbar);
     }
-    const statusSummary = _.div({ class: "jss-singularity jss-table-chip" }, "");
-    const statusFilter = _.div({ class: "jss-singularity jss-table-chip" }, "");
-    const statusSort = _.div({ class: "jss-singularity jss-table-chip" }, "");
+    const statusSummary = _.div({ class: "jss-table-chip" }, "");
+    const statusFilter = _.div({ class: "jss-table-chip" }, "");
+    const statusSort = _.div({ class: "jss-table-chip" }, "");
     const statusExtraNodes = renderSlotToArray(slots, "status", {}, props.status);
     const status = _.div({ class: "jss-table-status" }, statusSummary, statusFilter, statusSort, ...statusExtraNodes);
     if (props.hideStatus !== true) shell.appendChild(status);
@@ -11481,13 +11481,13 @@ transition: width 200ms ease;
     const tableStyle = { ...props.tableStyle || {} };
     if (props.minTableWidth != null) tableStyle["--jss-table-min-width"] = toCssSize(props.minTableWidth);
     const table = _.table({ class: tableClass, style: tableStyle }, thead, tbody);
-    const wrapTable = _.div({ class: "jss-singularity jss-table-wrap" }, table);
+    const wrapTable = _.div({ class: "jss-table-wrap" }, table);
     shell.appendChild(wrapTable);
-    const pagerInfo = _.div({ class: "jss-singularity jss-table-chip" }, "");
-    const pagerMeta = _.div({ class: "jss-singularity jss-table-chip" }, "");
-    const btnPrev = UI.Btn({ outline: true, onClick: () => setPage(Math.max(1, getPage() - 1)) }, "\u2039");
-    const btnNext = UI.Btn({ outline: true, onClick: () => setPage(getPage() + 1) }, "\u203A");
-    const pageChip = _.div({ class: "jss-singularity jss-table-chip" }, "");
+    const pagerInfo = _.div({ class: "jss-table-chip" }, "");
+    const pagerMeta = _.div({ class: "jss-table-chip" }, "");
+    const btnPrev = UI.Btn({ class: "jss-table-page-prev", "aria-label": "Pagina precedente", outline: true, onClick: () => setPage(Math.max(1, getPage() - 1)) }, "\u2039");
+    const btnNext = UI.Btn({ class: "jss-table-page-next", "aria-label": "Pagina successiva", outline: true, onClick: () => setPage(getPage() + 1) }, "\u203A");
+    const pageChip = _.div({ class: "jss-table-chip" }, "");
     const sizeSelect = _.select({ class: "jss-input jss-table-size-select" }, ...pageSizes.map((size) => uiOptionNode({ value: String(size) }, String(size))));
     sizeSelect.value = String(getPageSize());
     sizeSelect.addEventListener("change", () => setPageSize(sizeSelect.value));
@@ -11515,7 +11515,7 @@ transition: width 200ms ease;
         const sortKey = tableColumnSortKey(col, colIndex);
         const isSortable = (col == null ? void 0 : col.sortable) !== false && ((col == null ? void 0 : col.key) != null || typeof (col == null ? void 0 : col.get) === "function" || typeof (col == null ? void 0 : col.compare) === "function");
         const isActive = !!currentSort && (currentSort.key === sortKey || currentSort.key === (col == null ? void 0 : col.key));
-        const th = _.th({ class: uiClass(["jss-table-head-cell", uiWhen(col == null ? void 0 : col.nowrap, "is-nowrap"), uiWhen(isSortable, "jss-table-sortable"), uiWhen(isActive, "is-sorted"), col == null ? void 0 : col.headerClass]), style: thStyle });
+        const th = _.th({ scope: "col", "aria-sort": isActive ? currentSort.dir === "asc" ? "ascending" : "descending" : isSortable ? "none" : null, class: uiClass(["jss-table-head-cell", uiWhen(col == null ? void 0 : col.nowrap, "is-nowrap"), uiWhen(isSortable, "jss-table-sortable"), uiWhen(isActive, "is-sorted"), col == null ? void 0 : col.headerClass]), style: thStyle });
         if (isSortable) {
           th.appendChild(_.button({ type: "button", class: "jss-table-head-button", onClick: () => toggleSort(col, colIndex) }, _.span({ class: "jss-table-head-label" }, ...headerNodes), _.span({ class: "jss-table-head-arrow", "aria-hidden": "true" }, isActive ? currentSort.dir === "asc" ? "\u2191" : "\u2193" : "\u2195")));
         } else {
@@ -11595,7 +11595,9 @@ transition: width 200ms ease;
         statusSort.style.display = "none";
       }
       pagerInfo.textContent = filteredTotal ? `${start + 1}-${Math.min(end, filteredTotal)} di ${filteredTotal}` : "0 risultati";
-      pagerMeta.textContent = filteredTotal !== datasetTotal ? `Dataset totale ${datasetTotal}` : `Page size ${currentPageSize}`;
+      pagerMeta.textContent = filteredTotal !== datasetTotal ? `su ${datasetTotal} totali` : "";
+      pagerMeta.style.display = filteredTotal !== datasetTotal ? "" : "none";
+      pageChip.parentNode.style.display = paginationEnabled ? "" : "none";
       pageChip.textContent = paginationEnabled ? `Pagina ${page} / ${pages}` : "Tutte le righe";
       btnPrev.disabled = !paginationEnabled || page <= 1;
       btnNext.disabled = !paginationEnabled || page >= pages;
@@ -11880,7 +11882,7 @@ transition: width 200ms ease;
       } else if (iconNodes.length || eyebrowNodes.length || titleNodes.length || subtitleNodes.length) {
         headerEl = _.div({ class: uiClass(["jss-menu-head", opts.headerClass]) }, iconNodes.length ? _.div({ class: "jss-menu-head-icon" }, ...iconNodes) : null, _.div({ class: "jss-menu-head-main" }, eyebrowNodes.length ? _.div({ class: "jss-menu-eyebrow" }, ...eyebrowNodes) : null, titleNodes.length ? _.div({ class: "jss-menu-title" }, ...titleNodes) : null, subtitleNodes.length ? _.div({ class: "jss-menu-subtitle" }, ...subtitleNodes) : null));
       }
-      return _.div({ class: uiClass(["jss-menu", "jss-menu-shell", uiWhen(opts.dense, "dense"), uiWhen(itemNodes.length > 0, "has-items"), uiWhen(footerNodes.length > 0 || statusNodes.length > 0, "has-footer"), opts.class]), style: opts.style || {}, role: opts.role || "menu", "aria-label": opts.ariaLabel || null }, beforeNodes.length ? _.div({ class: "jss-menu-before" }, ...beforeNodes) : null, headerEl, contentNodes.length ? _.div({ class: uiClass(["jss-menu-content", opts.contentClass]) }, ...contentNodes) : null, itemNodes.length ? _.div({ class: uiClass(["jss-menu-items", opts.itemsClass]) }, ...itemNodes) : null, !itemNodes.length && emptyNodes.length ? _.div({ class: "jss-menu-empty" }, ...emptyNodes) : null, afterNodes.length ? _.div({ class: "jss-menu-after" }, ...afterNodes) : null, statusNodes.length || footerNodes.length ? _.div({ class: uiClass(["jss-menu-footer", opts.footerClass]) }, statusNodes.length ? _.div({ class: "jss-menu-status" }, ...statusNodes) : null, footerNodes.length ? _.div({ class: "jss-menu-footer-actions" }, ...footerNodes) : null) : null);
+      return _.div({ class: uiClass(["jss-menu", "jss-menu-shell", uiWhen(opts.dense, "dense"), uiWhen(itemNodes.length > 0, "has-items"), uiWhen(footerNodes.length > 0 || statusNodes.length > 0, "has-footer")]), role: opts.role || "menu", "aria-label": opts.ariaLabel || null }, beforeNodes.length ? _.div({ class: "jss-menu-before" }, ...beforeNodes) : null, headerEl, contentNodes.length ? _.div({ class: uiClass(["jss-menu-content", opts.contentClass]) }, ...contentNodes) : null, itemNodes.length ? _.div({ class: uiClass(["jss-menu-items", opts.itemsClass]) }, ...itemNodes) : null, !itemNodes.length && emptyNodes.length ? _.div({ class: "jss-menu-empty" }, ...emptyNodes) : null, afterNodes.length ? _.div({ class: "jss-menu-after" }, ...afterNodes) : null, statusNodes.length || footerNodes.length ? _.div({ class: uiClass(["jss-menu-footer", opts.footerClass]) }, statusNodes.length ? _.div({ class: "jss-menu-status" }, ...statusNodes) : null, footerNodes.length ? _.div({ class: "jss-menu-footer-actions" }, ...footerNodes) : null) : null);
     };
     const applyEntryOptions = (currentEntry) => {
       var _a2;
@@ -11888,7 +11890,7 @@ transition: width 200ms ease;
       const opts = getOptions();
       const stateClass = getStateClass(opts);
       const sizeClass = getSizeClass(opts);
-      setTrackedClasses(currentEntry.panel, "_menuClassTokens", ["jss-menu-panel", "jss-clear-set", "jss-singularity", sizeClass ? `jss-menu-${sizeClass}` : "", stateClass ? `jss-state-${stateClass}` : "", uiUnwrap(opts.outline) ? "outline" : "", ...splitClasses(opts.panelClass)]);
+      setTrackedClasses(currentEntry.panel, "_menuClassTokens", ["jss-menu-panel", "jss-clear-set", "jss-singularity", sizeClass ? `jss-menu-${sizeClass}` : "", stateClass ? `jss-state-${stateClass}` : "", uiUnwrap(opts.outline) ? "outline" : "", ...splitClasses(opts.class), ...splitClasses(opts.panelClass)]);
       setTrackedClasses(currentEntry.overlay, "_menuOverlayClassTokens", [...splitClasses(opts.overlayClass)]);
       currentEntry.panel.dataset.placement = getPlacement(opts);
       setStyleValue(currentEntry.panel, "--jss-menu-width", uiUnwrap(opts.width), toCssSize);
@@ -11896,6 +11898,7 @@ transition: width 200ms ease;
       setStyleValue(currentEntry.panel, "--jss-menu-max-width", uiUnwrap(opts.maxWidth), toCssSize);
       setStyleValue(currentEntry.panel, "--jss-menu-max-height", uiUnwrap(opts.maxHeight), toCssSize);
       setStyleValue(currentEntry.panel, "--jss-menu-body-max-height", uiUnwrap((_a2 = opts.bodyMaxHeight) != null ? _a2 : opts.contentMaxHeight), toCssSize);
+      if (opts.style) Object.assign(currentEntry.panel.style, opts.style);
       if (opts.panelStyle) Object.assign(currentEntry.panel.style, opts.panelStyle);
       setPropertyProps(currentEntry.panel, opts);
     };
@@ -11944,9 +11947,10 @@ transition: width 200ms ease;
       entry = JSswift.overlay.open(() => buildContent(), { type: "menu", anchorEl: anchor, placement: getPlacement(opts), offsetX: (_e = opts.offsetX) != null ? _e : 0, offsetY: (_g = (_f = opts.offsetY) != null ? _f : opts.offset) != null ? _g : 8, backdrop: opts.backdrop === true, lockScroll: opts.lockScroll === true, trapFocus: opts.trapFocus === true, autoFocus: false, closeOnOutside: opts.closeOnOutside !== false, closeOnBackdrop: (_h = opts.closeOnBackdrop) != null ? _h : opts.backdrop === true, closeOnEsc: opts.closeOnEsc !== false, className: uiClassStatic(["jss-menu-panel"]), onClose: () => {
         var _a3, _b2, _c2;
         (_a3 = currentRef == null ? void 0 : currentRef._menuCleanup) == null ? void 0 : _a3.call(currentRef);
+        if (entry === currentRef) entry = null;
         (_c2 = (_b2 = getOptions()).onClose) == null ? void 0 : _c2.call(_b2, currentRef);
         if (getOptions().returnFocus !== false && lastActive && typeof lastActive.focus === "function") {
-          setTimeout(() => lastActive.focus(), 0);
+          setTimeout(() => lastActive.focus({ preventScroll: true }), 0);
         }
       } });
       if (!(entry == null ? void 0 : entry.panel)) return entry;
@@ -12325,7 +12329,7 @@ transition: width 200ms ease;
         if (entry === currentRef) entry = null;
         (_c2 = (_b2 = getOptions()).onClose) == null ? void 0 : _c2.call(_b2, currentRef);
         if (getOptions().returnFocus !== false && lastActive && typeof lastActive.focus === "function") {
-          setTimeout(() => lastActive.focus(), 0);
+          setTimeout(() => lastActive.focus({ preventScroll: true }), 0);
         }
       } });
       if (!(entry == null ? void 0 : entry.panel)) return entry;

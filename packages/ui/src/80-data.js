@@ -87,6 +87,7 @@
       searchInput = _.input({
         type: "search",
         class: "jss-input",
+        "aria-label": props.searchPlaceholder || "Cerca nella tabella",
         placeholder: typeof props.searchable === "string" ? props.searchable : (props.searchPlaceholder || "Cerca nella tabella"),
         value: String(getQuery() || "")
       });
@@ -100,7 +101,7 @@
         }
       }, "Reset");
       toolbarSide.appendChild(
-        _.div({ class: "jss-singularity jss-table-search" },
+        _.div({ class: "jss-table-search" },
           _.span({ class: "jss-table-search-icon", "aria-hidden": "true" }, "⌕"),
           searchInput,
           clearSearch
@@ -114,9 +115,9 @@
       shell.appendChild(toolbar);
     }
 
-    const statusSummary = _.div({ class: "jss-singularity jss-table-chip" }, "");
-    const statusFilter = _.div({ class: "jss-singularity jss-table-chip" }, "");
-    const statusSort = _.div({ class: "jss-singularity jss-table-chip" }, "");
+    const statusSummary = _.div({ class: "jss-table-chip" }, "");
+    const statusFilter = _.div({ class: "jss-table-chip" }, "");
+    const statusSort = _.div({ class: "jss-table-chip" }, "");
     const statusExtraNodes = renderSlotToArray(slots, "status", {}, props.status);
     const status = _.div({ class: "jss-table-status" },
       statusSummary,
@@ -146,14 +147,14 @@
     };
     if (props.minTableWidth != null) tableStyle["--jss-table-min-width"] = toCssSize(props.minTableWidth);
     const table = _.table({ class: tableClass, style: tableStyle }, thead, tbody);
-    const wrapTable = _.div({ class: "jss-singularity jss-table-wrap" }, table);
+    const wrapTable = _.div({ class: "jss-table-wrap" }, table);
     shell.appendChild(wrapTable);
 
-    const pagerInfo = _.div({ class: "jss-singularity jss-table-chip" }, "");
-    const pagerMeta = _.div({ class: "jss-singularity jss-table-chip" }, "");
-    const btnPrev = UI.Btn({ outline: true, onClick: () => setPage(Math.max(1, getPage() - 1)) }, "‹");
-    const btnNext = UI.Btn({ outline: true, onClick: () => setPage(getPage() + 1) }, "›");
-    const pageChip = _.div({ class: "jss-singularity jss-table-chip" }, "");
+    const pagerInfo = _.div({ class: "jss-table-chip" }, "");
+    const pagerMeta = _.div({ class: "jss-table-chip" }, "");
+    const btnPrev = UI.Btn({ class: "jss-table-page-prev", "aria-label": "Pagina precedente", outline: true, onClick: () => setPage(Math.max(1, getPage() - 1)) }, "‹");
+    const btnNext = UI.Btn({ class: "jss-table-page-next", "aria-label": "Pagina successiva", outline: true, onClick: () => setPage(getPage() + 1) }, "›");
+    const pageChip = _.div({ class: "jss-table-chip" }, "");
     const sizeSelect = _.select({ class: "jss-input jss-table-size-select" },
       ...pageSizes.map((size) => uiOptionNode({ value: String(size) }, String(size)))
     );
@@ -207,6 +208,8 @@
         const isSortable = col?.sortable !== false && (col?.key != null || typeof col?.get === "function" || typeof col?.compare === "function");
         const isActive = !!currentSort && (currentSort.key === sortKey || currentSort.key === col?.key);
         const th = _.th({
+          scope: "col",
+          "aria-sort": isActive ? (currentSort.dir === "asc" ? "ascending" : "descending") : (isSortable ? "none" : null),
           class: uiClass([
             "jss-table-head-cell",
             uiWhen(col?.nowrap, "is-nowrap"),
@@ -332,7 +335,9 @@
       pagerInfo.textContent = filteredTotal
         ? `${start + 1}-${Math.min(end, filteredTotal)} di ${filteredTotal}`
         : "0 risultati";
-      pagerMeta.textContent = filteredTotal !== datasetTotal ? `Dataset totale ${datasetTotal}` : `Page size ${currentPageSize}`;
+      pagerMeta.textContent = filteredTotal !== datasetTotal ? `su ${datasetTotal} totali` : "";
+      pagerMeta.style.display = filteredTotal !== datasetTotal ? "" : "none";
+      pageChip.parentNode.style.display = paginationEnabled ? "" : "none";
       pageChip.textContent = paginationEnabled ? `Pagina ${page} / ${pages}` : "Tutte le righe";
       btnPrev.disabled = !paginationEnabled || page <= 1;
       btnNext.disabled = !paginationEnabled || page >= pages;

@@ -6749,7 +6749,8 @@ select {
   margin: calc(var(--jss-s-lg) * -1);
 }
 
-.jss-dialog.jss-singularity.jss-outline {
+.jss-dialog.jss-singularity.jss-outline,
+.jss-menu-panel.jss-singularity.jss-outline {
   --set-background-color: var(--jss-bg);
   --set-text-color: var(--jss-text);
   --set-color: var(--jss-text);
@@ -6760,7 +6761,8 @@ select {
   backdrop-filter: none;
 }
 
-.jss-dialog.jss-outline:is(.light, .jss-state-light, .dark, .jss-state-dark) {
+.jss-dialog.jss-outline:is(.light, .jss-state-light, .dark, .jss-state-dark),
+.jss-menu-panel.jss-outline:is(.light, .jss-state-light, .dark, .jss-state-dark) {
   border-color: var(--jss-text);
 }
 
@@ -6770,11 +6772,13 @@ select {
   border-color: var(--jss-border-color);
 }
 
-.jss-dialog.jss-singularity.jss-glossy {
+.jss-dialog.jss-singularity.jss-glossy,
+.jss-menu-panel.jss-singularity.jss-glossy {
   background: var(--set-background-color, var(--jss-bg));
 }
 
-.jss-dialog.jss-glossy .jss-dialog-head {
+.jss-dialog.jss-glossy .jss-dialog-head,
+.jss-menu-panel.jss-glossy .jss-menu-head {
   background: linear-gradient(180deg,
     rgba(255, 255, 255, 0.55) 0%,
     rgba(255, 255, 255, 0.18) 49%,
@@ -6783,7 +6787,8 @@ select {
   padding-bottom: var(--jss-s-md);
 }
 
-:root[data-theme="dark"] .jss-dialog.jss-glossy .jss-dialog-head {
+:root[data-theme="dark"] .jss-dialog.jss-glossy .jss-dialog-head,
+:root[data-theme="dark"] .jss-menu-panel.jss-glossy .jss-menu-head {
   background: linear-gradient(180deg,
     rgba(255, 255, 255, 0.14) 0%,
     rgba(255, 255, 255, 0.04) 49%,
@@ -6791,14 +6796,16 @@ select {
     rgba(0, 0, 0, 0.22) 100%);
 }
 
-.jss-dialog.jss-singularity.jss-text-gradient {
+.jss-dialog.jss-singularity.jss-text-gradient,
+.jss-menu-panel.jss-singularity.jss-text-gradient {
   background: var(--set-background-color, var(--jss-bg));
   background-clip: border-box;
   -webkit-background-clip: border-box;
   -webkit-text-fill-color: currentColor;
 }
 
-.jss-dialog.jss-text-gradient :is(.jss-dialog-title, .jss-dialog-subtitle, .jss-dialog-body) {
+.jss-dialog.jss-text-gradient :is(.jss-dialog-title, .jss-dialog-subtitle, .jss-dialog-body),
+.jss-menu-panel.jss-text-gradient :is(.jss-menu-title, .jss-menu-subtitle, .jss-menu-entry-title) {
   background-image: linear-gradient(110deg,
     var(--jss-dialog-accent) 0%,
     color-mix(in srgb, var(--jss-dialog-accent) 55%, var(--jss-text)) 50%,
@@ -6808,19 +6815,22 @@ select {
   -webkit-text-fill-color: transparent;
 }
 
-.jss-dialog.jss-text-gradient :is(.jss-dialog-title, .jss-dialog-subtitle) {
+.jss-dialog.jss-text-gradient :is(.jss-dialog-title, .jss-dialog-subtitle),
+.jss-menu-panel.jss-text-gradient :is(.jss-menu-title, .jss-menu-subtitle) {
   width: fit-content;
   max-width: 100%;
 }
 
-.jss-dialog.jss-singularity.jss-text-gradient .jss-btn {
+.jss-dialog.jss-singularity.jss-text-gradient .jss-btn,
+.jss-menu-panel.jss-singularity.jss-text-gradient .jss-btn {
   background-image: none;
   background-clip: border-box;
   -webkit-background-clip: border-box;
   -webkit-text-fill-color: currentColor;
 }
 
-.jss-dialog.jss-singularity.jss-gradient {
+.jss-dialog.jss-singularity.jss-gradient,
+.jss-menu-panel.jss-singularity.jss-gradient {
   --set-text-color: var(--jss-text);
   --set-color: var(--jss-text);
   background: linear-gradient(var(--set-gradient-deg, 135deg),
@@ -6836,7 +6846,8 @@ select {
   border-color: var(--jss-border-color);
 }
 
-.jss-dialog.jss-singularity.jss-glass {
+.jss-dialog.jss-singularity.jss-glass,
+.jss-menu-panel.jss-singularity.jss-glass {
   --set-color: var(--jss-text);
   --set-text-color: var(--jss-text);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), transparent 55%),
@@ -6848,13 +6859,16 @@ select {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
-:root[data-theme="dark"] .jss-dialog.jss-singularity.jss-glass {
+:root[data-theme="dark"] .jss-dialog.jss-singularity.jss-glass,
+:root[data-theme="dark"] .jss-menu-panel.jss-singularity.jss-glass {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 55%),
     color-mix(in srgb, var(--jss-dialog-accent) 5%, color-mix(in srgb, var(--jss-bg) 68%, transparent));
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
-.jss-dialog.jss-singularity.jss-glass::before {
+.jss-dialog.jss-singularity.jss-glass::before,
+.jss-table-card.jss-glass .jss-table thead::before,
+.jss-menu-panel.jss-singularity.jss-glass::before {
   content: none;
 }
 
@@ -6864,36 +6878,43 @@ select {
   border-color: var(--jss-border-color);
 }
 
-.jss-dialog.jss-singularity.jss-glow {
+.jss-dialog.jss-singularity.jss-glow,
+.jss-menu-panel.jss-singularity.jss-glow {
   --set-glow-active: 0 0 4px 1px color-mix(in srgb, var(--jss-dialog-accent) 65%, transparent),
     0 0 14px 2px color-mix(in srgb, var(--jss-dialog-accent) 42%, transparent);
   box-shadow: var(--set-glow-active);
   text-shadow: none;
 }
 
-.jss-dialog.jss-singularity.jss-glow:is(.dark, .jss-state-dark) {
+.jss-dialog.jss-singularity.jss-glow:is(.dark, .jss-state-dark),
+.jss-menu-panel.jss-singularity.jss-glow:is(.dark, .jss-state-dark) {
   --set-glow-active: 0 0 4px 1px rgba(15, 23, 42, 0.8),
     0 0 14px 2px rgba(15, 23, 42, 0.55);
 }
 
-.jss-dialog.jss-singularity.jss-border {
+.jss-dialog.jss-singularity.jss-border,
+.jss-menu-panel.jss-singularity.jss-border {
   border: var(--set-border-width, 1px) solid var(--jss-dialog-accent);
 }
 
-.jss-dialog.jss-singularity.jss-border:is(.light, .jss-state-light, .dark, .jss-state-dark) {
+.jss-dialog.jss-singularity.jss-border:is(.light, .jss-state-light, .dark, .jss-state-dark),
+.jss-menu-panel.jss-singularity.jss-border:is(.light, .jss-state-light, .dark, .jss-state-dark) {
   border-color: var(--jss-text);
 }
 
-.jss-dialog.jss-singularity.jss-shadow {
+.jss-dialog.jss-singularity.jss-shadow,
+.jss-menu-panel.jss-singularity.jss-shadow {
   --set-shadow-active: 0 3px 8px rgba(0, 0, 0, 0.28), 0 18px 36px -6px rgba(0, 0, 0, 0.48);
   box-shadow: var(--set-shadow-active);
 }
 
-:root[data-theme="dark"] .jss-dialog.jss-singularity.jss-shadow {
+:root[data-theme="dark"] .jss-dialog.jss-singularity.jss-shadow,
+:root[data-theme="dark"] .jss-menu-panel.jss-singularity.jss-shadow {
   --set-shadow-active: 0 3px 8px rgba(0, 0, 0, 0.5), 0 18px 36px -6px rgba(0, 0, 0, 0.75);
 }
 
-.jss-dialog.jss-singularity.jss-light-shadow {
+.jss-dialog.jss-singularity.jss-light-shadow,
+.jss-menu-panel.jss-singularity.jss-light-shadow {
   --set-shadow-active: inset 1px 1px 0 rgba(255, 255, 255, 0.65),
     inset -1px -1px 0 rgba(0, 0, 0, 0.12),
     -2px -2px 5px rgba(255, 255, 255, 0.28),
@@ -6902,7 +6923,9 @@ select {
 }
 
 :root[data-theme="dark"] .jss-dialog.jss-singularity.jss-light-shadow,
-.jss-dialog.jss-singularity.jss-light-shadow:is(.dark, .jss-state-dark) {
+.jss-dialog.jss-singularity.jss-light-shadow:is(.dark, .jss-state-dark),
+:root[data-theme="dark"] .jss-menu-panel.jss-singularity.jss-light-shadow,
+.jss-menu-panel.jss-singularity.jss-light-shadow:is(.dark, .jss-state-dark) {
   --set-shadow-active: inset 1px 1px 0 rgba(226, 232, 240, 0.4),
     inset -1px -1px 0 rgba(0, 0, 0, 0.5),
     -3px -3px 9px -2px rgba(203, 213, 225, 0.22),
@@ -6911,7 +6934,8 @@ select {
   border-color: color-mix(in srgb, var(--jss-dialog-accent) 30%, var(--jss-border-color));
 }
 
-.jss-dialog.jss-singularity.jss-flat {
+.jss-dialog.jss-singularity.jss-flat,
+.jss-menu-panel.jss-singularity.jss-flat {
   background: var(--set-background-color, var(--jss-bg));
   border: 0;
   box-shadow: none;
@@ -7156,7 +7180,9 @@ select {
 }
 
 .jss-dialog.success,
-.jss-dialog.jss-state-success {
+.jss-dialog.jss-state-success,
+.jss-menu-panel.success,
+.jss-menu-panel.jss-state-success {
   --jss-dialog-accent: var(--jss-success);
   --set-background-color: color-mix(in srgb, var(--set-color-3) 10%, var(--jss-theme-color-1));
   --set-text-color: var(--set-color-2);
@@ -7164,7 +7190,9 @@ select {
 }
 
 .jss-dialog.warning,
-.jss-dialog.jss-state-warning {
+.jss-dialog.jss-state-warning,
+.jss-menu-panel.warning,
+.jss-menu-panel.jss-state-warning {
   --jss-dialog-accent: var(--jss-warning);
   --set-background-color: color-mix(in srgb, var(--set-color-3) 10%, var(--jss-theme-color-1));
   --set-text-color: var(--set-color-2);
@@ -7173,7 +7201,10 @@ select {
 
 .jss-dialog.error,
 .jss-dialog.danger,
-.jss-dialog.jss-state-danger {
+.jss-dialog.jss-state-danger,
+.jss-menu-panel.error,
+.jss-menu-panel.danger,
+.jss-menu-panel.jss-state-danger {
   --jss-dialog-accent: var(--jss-danger);
   --set-background-color: color-mix(in srgb, var(--set-color-3) 10%, var(--jss-theme-color-1));
   --set-text-color: var(--set-color-2);
@@ -7181,7 +7212,9 @@ select {
 }
 
 .jss-dialog.info,
-.jss-dialog.jss-state-info {
+.jss-dialog.jss-state-info,
+.jss-menu-panel.info,
+.jss-menu-panel.jss-state-info {
   --jss-dialog-accent: var(--jss-info);
   --set-background-color: color-mix(in srgb, var(--set-color-3) 10%, var(--jss-theme-color-1));
   --set-text-color: var(--set-color-2);
@@ -7189,7 +7222,9 @@ select {
 }
 
 .jss-dialog.primary,
-.jss-dialog.jss-state-primary {
+.jss-dialog.jss-state-primary,
+.jss-menu-panel.primary,
+.jss-menu-panel.jss-state-primary {
   --jss-dialog-accent: var(--jss-primary);
   --set-background-color: color-mix(in srgb, var(--set-color-3) 10%, var(--jss-theme-color-1));
   --set-text-color: var(--set-color-2);
@@ -7197,7 +7232,9 @@ select {
 }
 
 .jss-dialog.secondary,
-.jss-dialog.jss-state-secondary {
+.jss-dialog.jss-state-secondary,
+.jss-menu-panel.secondary,
+.jss-menu-panel.jss-state-secondary {
   --jss-dialog-accent: var(--jss-secondary);
   --set-background-color: color-mix(in srgb, var(--set-color-3) 10%, var(--jss-theme-color-1));
   --set-text-color: var(--jss-text);
@@ -7205,7 +7242,9 @@ select {
 }
 
 .jss-dialog.light,
-.jss-dialog.jss-state-light {
+.jss-dialog.jss-state-light,
+.jss-menu-panel.light,
+.jss-menu-panel.jss-state-light {
   --jss-bg: #f1f5f9;
   --jss-text: #1f2937;
   --jss-border-color: #94a3b8;
@@ -7232,7 +7271,9 @@ select {
 }
 
 .jss-dialog.dark,
-.jss-dialog.jss-state-dark {
+.jss-dialog.jss-state-dark,
+.jss-menu-panel.dark,
+.jss-menu-panel.jss-state-dark {
   --jss-bg: #1f2937;
   --jss-text: #f1f5f9;
   --jss-border-color: #64748b;
@@ -7256,18 +7297,21 @@ select {
   color: var(--jss-text);
 }
 
-.jss-popover.jss-dialog.jss-singularity:not(.jss-border):not(.jss-outline) {
+.jss-popover.jss-dialog.jss-singularity:not(.jss-border):not(.jss-outline),
+.jss-menu-panel.jss-singularity:not(.jss-border):not(.jss-outline) {
   border: 0;
 }
 
-.jss-popover.jss-dialog.jss-singularity.jss-glow {
+.jss-popover.jss-dialog.jss-singularity.jss-glow,
+.jss-menu-panel.jss-singularity.jss-glow {
   --set-glow-active: 0 0 3px 1px color-mix(in srgb, var(--jss-dialog-accent) 50%, transparent),
     0 0 11px 1px color-mix(in srgb, var(--jss-dialog-accent) 32%, transparent);
   box-shadow: var(--set-glow-active);
   text-shadow: none;
 }
 
-.jss-popover.jss-dialog.jss-singularity.jss-glow:is(.dark, .jss-state-dark) {
+.jss-popover.jss-dialog.jss-singularity.jss-glow:is(.dark, .jss-state-dark),
+.jss-menu-panel.jss-singularity.jss-glow:is(.dark, .jss-state-dark) {
   --set-glow-active: 0 0 3px 1px rgba(15, 23, 42, 0.65),
     0 0 11px 1px rgba(15, 23, 42, 0.42);
 }
@@ -13011,6 +13055,291 @@ a.jss-breadcrumb {
 
 .jss-select-menu.jss-outline.jss-glossy>.jss-select-filter .jss-input {
   color: var(--jss-text);
+}
+
+/* Menu shares overlay surface effects with Popover; its item layout stays independent. */
+.jss-menu-panel.jss-singularity {
+  --jss-dialog-accent: var(--jss-text);
+  --set-background-color: color-mix(in srgb, var(--jss-text) 5%, var(--jss-bg));
+  --set-color: var(--jss-text);
+  border-radius: var(--set-border-radius, var(--jss-b-radius-default, 2px));
+  color: var(--jss-text);
+}
+.jss-menu-panel.jss-singularity[class*="jss-state-"] {
+  --set-background-color: color-mix(in srgb, var(--jss-dialog-accent) 12%, var(--jss-bg));
+}
+:root[data-theme="dark"] .jss-menu-panel.jss-singularity[class*="jss-state-"]:not(.jss-state-light):not(.jss-state-dark) {
+  --set-background-color: color-mix(in srgb, var(--jss-dialog-accent) 28%, var(--jss-bg));
+}
+.jss-menu-panel.jss-singularity:not(.jss-shadow):not(.jss-light-shadow):not(.jss-glow) { box-shadow: none; }
+.jss-menu-panel .jss-menu-shell { background: transparent; }
+.jss-menu-panel .jss-menu-entry { color: var(--jss-text); border-radius: inherit; }
+.jss-menu-panel .jss-menu-subtitle { color: inherit; }
+.jss-menu-panel .jss-menu-head-icon { color: var(--jss-dialog-accent); }
+.jss-menu-panel.jss-singularity.jss-outline {
+  border: 1px solid var(--jss-dialog-accent);
+}
+.jss-menu-panel.jss-outline :is(.jss-menu-title, .jss-menu-head-icon, .jss-menu-entry-icon) {
+  color: color-mix(in srgb, var(--jss-dialog-accent) 70%, var(--jss-text));
+}
+.jss-menu-panel.jss-outline .jss-menu-entry:not(.is-disabled):hover,
+.jss-menu-panel.jss-outline .jss-menu-entry:focus-visible {
+  background: color-mix(in srgb, var(--jss-dialog-accent) 10%, var(--jss-bg));
+}
+.jss-menu-panel.jss-outline .jss-menu-divider {
+  background: color-mix(in srgb, var(--jss-dialog-accent) 20%, var(--jss-border-color));
+}
+.jss-menu-panel.jss-dense .jss-menu-shell { padding: 4px; gap: 4px; }
+.jss-menu-panel.jss-dense { padding: 0; margin: 0; }
+.jss-menu-panel.jss-dense .jss-menu-entry { min-height: 28px; padding: 4px 8px; gap: 6px; }
+.jss-menu-panel.jss-dense :is(.jss-menu-items, .jss-menu-group-items) { gap: 2px; }
+.jss-menu-panel.jss-dense .jss-menu-group { gap: 4px; }
+.jss-menu-panel.jss-dense .jss-menu-head { padding: 4px 8px; gap: 8px; }
+.jss-menu-panel.jss-dense .jss-menu-footer { padding-top: 4px; gap: 4px; }
+.jss-menu-panel.jss-dense.jss-glossy .jss-menu-head { margin: -4px -4px 0; padding: 8px 12px; }
+.jss-menu-panel.jss-flat .jss-menu-entry { border: 0; box-shadow: none; }
+.jss-menu-panel.jss-glossy .jss-menu-head { padding: 10px 12px; margin: -12px -12px 0; }
+.jss-menu-panel.jss-glass { isolation: isolate; }
+.jss-menu-panel.jss-state-primary { --jss-dialog-accent: var(--jss-primary); }
+.jss-menu-panel.jss-state-secondary { --jss-dialog-accent: var(--jss-secondary); }
+.jss-menu-panel.jss-state-success { --jss-dialog-accent: var(--jss-success); }
+.jss-menu-panel.jss-state-warning { --jss-dialog-accent: var(--jss-warning); }
+.jss-menu-panel.jss-state-danger { --jss-dialog-accent: var(--jss-danger); }
+.jss-menu-panel.jss-state-info { --jss-dialog-accent: var(--jss-info); }
+.jss-menu-panel.jss-state-light { --jss-dialog-accent: #64748b; }
+.jss-menu-panel.jss-state-dark { --jss-dialog-accent: #94a3b8; }
+
+/* Table: one surface, restrained semantic accents, independent data controls. */
+.jss-table-card.jss-card.jss-singularity {
+  --jss-table-accent: var(--jss-text);
+  --jss-table-surface: var(--jss-bg);
+  --jss-table-text: var(--jss-text);
+  --jss-table-muted: color-mix(in srgb, var(--jss-table-text) 75%, var(--jss-table-surface));
+  --jss-table-line: color-mix(in srgb, var(--jss-table-text) 12%, var(--jss-table-surface));
+  --jss-table-head: color-mix(in srgb, var(--jss-table-accent) 16%, var(--jss-table-surface));
+  background: var(--jss-table-surface);
+  color: var(--jss-table-text);
+  border: 0;
+  border-radius: var(--set-border-radius, var(--jss-b-radius-default, 2px));
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  text-shadow: none;
+  -webkit-text-fill-color: currentColor;
+}
+.jss-table-card.jss-card.jss-state-primary { --jss-table-accent: var(--jss-primary); }
+.jss-table-card.jss-card.jss-state-secondary { --jss-table-accent: var(--jss-secondary); }
+.jss-table-card.jss-card.jss-state-success { --jss-table-accent: var(--jss-success); }
+.jss-table-card.jss-card.jss-state-warning { --jss-table-accent: var(--jss-warning); }
+.jss-table-card.jss-card.jss-state-danger { --jss-table-accent: var(--jss-danger); }
+.jss-table-card.jss-card.jss-state-info { --jss-table-accent: var(--jss-info); }
+.jss-table-card.jss-card.jss-state-light {
+  --jss-table-surface: #f1f5f9;
+  --jss-table-text: #1f2937;
+  --jss-table-accent: #64748b;
+}
+.jss-table-card.jss-card.jss-state-dark {
+  --jss-table-surface: #1f2937;
+  --jss-table-text: #f1f5f9;
+  --jss-table-accent: #94a3b8;
+}
+.jss-table-card.jss-card.jss-singularity::before { content: none; }
+.jss-table-card.jss-card > .jss-card-body { padding: 0; background: transparent; }
+.jss-table-card .jss-table-shell { gap: 0; min-width: 0; }
+.jss-table-card :is(.jss-table-toolbar, .jss-table-status, .jss-table-caption, .jss-table-lead) { padding: 12px 16px; gap: 8px; }
+.jss-table-card .jss-table-status { font-size: 12px; color: var(--jss-table-muted); justify-content: flex-start; }
+.jss-table-card .jss-table-toolbar + .jss-table-status { padding-top: 0; }
+.jss-table-card .jss-table-chip {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--jss-table-muted);
+  padding: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+.jss-table-card .jss-table-wrap { background: transparent; border: 0; border-radius: 0; box-shadow: none; max-width: 100%; }
+.jss-table-card .jss-table { color: var(--jss-table-text); background: transparent; font-size: 13px; line-height: 1.5; }
+.jss-table-card .jss-table :is(th, td) { padding: 12px 16px; border-bottom: 1px solid var(--jss-table-line); font-variant-numeric: tabular-nums; }
+.jss-table-card .jss-table thead th { background: var(--jss-table-head); color: var(--jss-table-text); font-size: 12px; font-weight: 650; }
+.jss-table-card .jss-table tbody tr:last-child td { border-bottom: 0; }
+.jss-table-card .jss-table.striped tbody tr:nth-child(odd) { background: color-mix(in srgb, var(--jss-table-text) 3%, transparent); }
+.jss-table-card .jss-table.hover tbody tr:hover { background: color-mix(in srgb, var(--jss-table-accent) 5%, transparent); }
+.jss-table-card .jss-table-head-button { gap: 8px; min-height: 20px; }
+.jss-table-card .jss-table-head-button:focus-visible { outline: 2px solid var(--jss-table-accent); outline-offset: 4px; border-radius: 2px; }
+.jss-table-card .jss-table-head-arrow { color: var(--jss-table-muted); opacity: 0.5; }
+.jss-table-card .jss-table-head-cell.is-sorted .jss-table-head-arrow { color: var(--jss-table-accent); opacity: 1; }
+.jss-table-card .jss-table-state { color: var(--jss-table-muted); padding: 40px 16px !important; }
+.jss-table-card .jss-table-foot { padding: 12px 16px; border-top: 1px solid var(--jss-table-line); gap: 12px; }
+.jss-table-card :is(.jss-table-foot-main, .jss-table-foot-extra, .jss-table-pager) { gap: 10px; }
+.jss-table-card .jss-table-size { color: var(--jss-table-muted); font-size: 12px; }
+.jss-table-card .jss-table-size-select { min-width: 54px; width: auto; min-height: 30px; padding: 4px 8px; border: 1px solid var(--jss-table-line); border-radius: var(--set-border-radius, 2px); background: var(--jss-table-surface); color: var(--jss-table-text); box-shadow: none; font-size: 12px; }
+.jss-table-card .jss-table-pager > .jss-btn,
+.jss-table-card .jss-table-search-clear.jss-btn {
+  background: transparent;
+  color: var(--jss-table-text);
+  border: 1px solid var(--jss-table-line);
+  box-shadow: none;
+  min-width: 30px;
+  min-height: 30px;
+  padding: 4px 8px;
+  border-radius: var(--set-border-radius, 2px);
+  font-size: 13px;
+  -webkit-text-fill-color: currentColor;
+}
+.jss-table-card .jss-table-pager > .jss-btn:disabled { opacity: 0.35; }
+.jss-table-card .jss-table-pager > .jss-btn:not(:disabled):hover { background: var(--jss-table-head); }
+.jss-table-card .jss-table-search { width: min(100%, 360px); min-width: 0; background: var(--jss-table-surface); border: 1px solid var(--jss-table-line); border-radius: var(--set-border-radius, 2px); box-shadow: none; padding: 4px 6px 4px 10px; }
+.jss-table-card .jss-table-search-icon { color: var(--jss-table-muted); }
+.jss-table-card .jss-table-search .jss-input { min-width: 0; color: var(--jss-table-text); font-size: 13px; }
+.jss-table-card .jss-table-search .jss-input::placeholder { color: var(--jss-table-muted); }
+.jss-table-card.jss-dense .jss-table :is(th, td) { padding: 7px 12px; }
+.jss-table-card.jss-dense :is(.jss-table-status, .jss-table-toolbar, .jss-table-foot) { padding: 8px 12px; }
+.jss-table-card.jss-flat .jss-table thead th { background: transparent; border-bottom-color: var(--jss-table-accent); }
+.jss-table-card.jss-card.jss-singularity:is(.jss-border, .jss-outline) { border: 1px solid var(--jss-table-accent); }
+.jss-table-card.jss-outline .jss-table thead th { background: var(--jss-table-surface); color: color-mix(in srgb, var(--jss-table-accent) 70%, var(--jss-table-text)); }
+.jss-table-card.jss-card.jss-singularity.jss-shadow { box-shadow: 0 3px 8px rgb(0 0 0 / 14%), 0 12px 26px -6px rgb(0 0 0 / 24%); }
+.jss-table-card.jss-card.jss-singularity.jss-light-shadow { box-shadow: inset 1px 1px 0 rgb(255 255 255 / 70%), -2px -2px 6px rgb(255 255 255 / 25%), 5px 7px 16px -3px rgb(0 0 0 / 24%); }
+.jss-table-card.jss-card.jss-singularity.jss-glow { box-shadow: 0 0 4px 1px color-mix(in srgb, var(--jss-table-accent) 45%, transparent), 0 0 12px color-mix(in srgb, var(--jss-table-accent) 25%, transparent); }
+.jss-table-card.jss-glossy .jss-table thead th { background: linear-gradient(180deg, rgb(255 255 255 / 55%), rgb(255 255 255 / 18%) 49%, transparent 51%, color-mix(in srgb, var(--jss-table-accent) 12%, transparent)), var(--jss-table-head); }
+.jss-table-card.jss-card.jss-singularity.jss-gradient { background: linear-gradient(135deg, var(--jss-table-surface), color-mix(in srgb, var(--jss-table-accent) 14%, var(--jss-table-surface))); }
+/* Button Glass reflections belong only to the column heading band. */
+.jss-table-card.jss-card.jss-singularity.jss-glass,
+:root[data-theme="dark"] .jss-table-card.jss-card.jss-singularity.jss-glass {
+  background: var(--jss-table-surface);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.jss-table-card.jss-card.jss-singularity.jss-glass::before { content: none; }
+.jss-table-card.jss-glass .jss-table thead {
+  position: relative;
+  isolation: isolate;
+  --set-sec-color: color-mix(in srgb, var(--jss-theme-color-1) 40%, transparent);
+  box-shadow: inset 0 0 3px 2px color-mix(in srgb, var(--set-color-3) 40%, var(--set-sec-color));
+  --set-s-effect-1: radial-gradient(ellipse at center, color-mix(in srgb, var(--set-color-1) 60%, var(--set-sec-color)) 0%, color-mix(in srgb, var(--set-color-1) 20%, var(--set-sec-color)) 40%, color-mix(in srgb, var(--set-color-1) 0%, var(--set-sec-color)) 100%);
+  --set-s-effect-2: radial-gradient(ellipse at center, color-mix(in srgb, var(--set-color-2) 60%, var(--set-sec-color)) 0%, color-mix(in srgb, var(--set-color-1) 20%, var(--set-sec-color)) 20%, color-mix(in srgb, var(--set-color-1) 0%, var(--set-sec-color)) 80%);
+  --set-s-effect-3: radial-gradient(ellipse at center, color-mix(in srgb, var(--set-color-2) 60%, var(--set-sec-color)) 0%, color-mix(in srgb, var(--set-color-1) 20%, var(--set-sec-color)) 20%, color-mix(in srgb, var(--set-color-1) 0%, var(--set-sec-color)) 80%);
+  background-image: var(--set-s-effect-1), var(--set-s-effect-2), var(--set-s-effect-3);
+  background-position: 50% 20%, 50% 70%, 50% 75%;
+  background-size: 150% 400%, 80% 400%, 600% 200%;
+  background-repeat: no-repeat;
+  background-color: color-mix(in srgb, var(--jss-table-accent) 40%, transparent);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+}
+.jss-table-card.jss-glass .jss-table thead::before { content: none; }
+.jss-table-card.jss-glass .jss-table thead th { background: transparent; }
+.jss-table-card.jss-glass.jss-state-light .jss-table thead {
+  --set-sec-color: rgb(148 156 164 / 65%);
+  --set-color-1: #d1d5db;
+  --set-color-2: #a3aab2;
+  --set-color-3: #8b949e;
+  background-color: #a3aab2;
+}
+.jss-table-card.jss-text-gradient :is(.jss-table-head-label, .jss-table-cell:not(.jss-table-cell-actions)) { background-image: linear-gradient(110deg, var(--jss-table-accent), var(--jss-table-text)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+:root[data-theme="dark"] .jss-table-card:not(.jss-state-light),
+.jss-table-card.jss-state-dark { --jss-table-head: color-mix(in srgb, var(--jss-table-accent) 26%, var(--jss-table-surface)); }
+:root[data-theme="dark"] .jss-table-card.jss-card.jss-shadow:not(.jss-state-light),
+.jss-table-card.jss-card.jss-shadow.jss-state-dark { box-shadow: inset 0 1px 0 rgb(255 255 255 / 10%), 0 3px 8px rgb(0 0 0 / 40%), 0 12px 26px -6px rgb(0 0 0 / 70%); }
+:root[data-theme="dark"] .jss-table-card.jss-card.jss-light-shadow:not(.jss-state-light),
+.jss-table-card.jss-card.jss-light-shadow.jss-state-dark { box-shadow: inset 1px 1px 0 rgb(255 255 255 / 28%), -2px -2px 6px rgb(255 255 255 / 10%), 5px 7px 16px -3px rgb(0 0 0 / 65%); }
+:root[data-theme="dark"] .jss-table-card.jss-glossy:not(.jss-state-light) .jss-table thead th,
+.jss-table-card.jss-glossy.jss-state-dark .jss-table thead th { background: linear-gradient(180deg, rgb(255 255 255 / 12%), rgb(255 255 255 / 3%) 49%, transparent 51%, rgb(0 0 0 / 18%)), var(--jss-table-head); }
+@media (max-width: 600px) {
+  .jss-table-card .jss-table-foot { align-items: flex-start; }
+  .jss-table-card .jss-table-foot-extra { margin-left: auto; }
+  .jss-table-card .jss-table-search { width: 100%; }
+  .jss-table-card .jss-table :is(th, td) { padding: 10px 12px; }
+  .jss-table-card.jss-dense .jss-table :is(th, td) { padding: 6px 10px; }
+}
+
+.jss-table-card.jss-text-gradient .jss-btn { background-image: none; background-clip: border-box; -webkit-background-clip: border-box; -webkit-text-fill-color: currentColor; }
+:root[data-theme="dark"] .jss-table-card.jss-card.jss-glass:not(.jss-state-light) .jss-table thead,
+.jss-table-card.jss-card.jss-glass.jss-state-dark .jss-table thead { background-color: color-mix(in srgb, var(--jss-table-accent) 12%, rgb(15 23 42 / 55%)); }
+:root[data-theme="dark"] .jss-table-card.jss-card.jss-glass:not(.jss-state-light) .jss-table thead::before,
+.jss-table-card.jss-card.jss-glass.jss-state-dark .jss-table thead::before { filter: brightness(.35); opacity: .5; }
+
+:root[data-theme="dark"] .jss-table-card.jss-glass:not(.jss-state-light) .jss-table thead,
+.jss-table-card.jss-glass.jss-state-dark .jss-table thead { --set-sec-color: rgb(15 23 42 / 80%); background-blend-mode: soft-light; }
+
+/* Stat elevation: contact shadow plus a broad, directional ambient shadow. */
+.jss-stat.jss-singularity.jss-shadow {
+  --set-shadow-active: 0 3px 7px rgb(15 23 42 / 22%),
+    0 14px 28px -5px rgb(15 23 42 / 32%);
+}
+:root[data-theme="dark"] .jss-stat.jss-singularity.jss-shadow:not(.jss-state-light),
+.jss-stat.jss-singularity.jss-shadow.jss-state-dark {
+  --set-shadow-active: inset 0 1px 0 rgb(255 255 255 / 12%),
+    0 4px 8px rgb(0 0 0 / 55%), 0 16px 30px -4px rgb(0 0 0 / 80%);
+}
+
+/* Metric surfaces have no implicit contour; Border and Outline stay opt-in. */
+.jss-stat.jss-singularity:not(.jss-border):not(.jss-outline) { border: 0; }
+.jss-stat.jss-singularity.jss-light-shadow {
+  background-image: radial-gradient(ellipse at 0% 0%, rgb(255 255 255 / 30%), transparent 65%),
+    linear-gradient(135deg, transparent 35%, rgb(15 23 42 / 18%));
+  --set-shadow-active: inset 0 1px 2px rgb(255 255 255 / 32%),
+    -3px -4px 12px rgb(255 255 255 / 45%),
+    0 3px 6px rgb(15 23 42 / 16%), 7px 11px 22px -5px rgb(15 23 42 / 30%);
+}
+:root[data-theme="dark"] .jss-stat.jss-singularity.jss-light-shadow:not(.jss-state-light),
+.jss-stat.jss-singularity.jss-light-shadow.jss-state-dark {
+  background-image: radial-gradient(ellipse at 0% 0%, rgb(255 255 255 / 17%), transparent 65%),
+    linear-gradient(135deg, transparent 35%, rgb(0 0 0 / 30%));
+  --set-shadow-active: inset 0 1px 2px rgb(255 255 255 / 18%),
+    -3px -4px 12px rgb(255 255 255 / 5%),
+    0 3px 7px rgb(0 0 0 / 45%), 7px 12px 24px -4px rgb(0 0 0 / 75%);
+}
+
+/* Supporting metric text follows its surface foreground, not page-muted text. */
+.jss-stat.jss-singularity :is(.jss-stat-note, .jss-stat-meta, .jss-stat-footer-copy, .jss-stat-aside) {
+  color: inherit;
+}
+.jss-stat.jss-singularity .jss-stat-eyebrow {
+  color: color-mix(in srgb, currentColor 85%, transparent);
+}
+
+/* Outline has no dark fill: neutral foreground must follow the page theme. */
+.jss-stat.jss-singularity.jss-outline.jss-state-dark {
+  --set-color: var(--jss-text);
+  color: var(--jss-text);
+}
+
+/* Glass is translucent: use theme foreground rather than text-on-solid-fill. */
+.jss-stat.jss-singularity.jss-glass {
+  --set-color: var(--jss-text);
+  color: var(--jss-text);
+}
+
+/* Slightly softer metric halo, preserving the existing colored glow. */
+.jss-stat.jss-singularity.jss-glow {
+  --set-glow-active: var(--set-sc-inset),
+    0 0 1px 1px color-mix(in srgb, var(--set-border-color) 45%, transparent),
+    0 0 3px 2px color-mix(in srgb, var(--set-color-2) 45%, transparent),
+    0 0 13px 1px color-mix(in srgb, var(--set-color-2) 80%, transparent);
+  text-shadow: 0 0 2px color-mix(in srgb, var(--set-color-1) 55%, transparent);
+}
+
+/* A neutral metric still owns a surface when no semantic color is selected. */
+.jss-stat.jss-singularity:not([class*="jss-state-"]) {
+  --set-background-color: color-mix(in srgb, var(--jss-text) 5%, var(--jss-bg));
+  --set-color: var(--jss-text);
+  color: var(--jss-text);
+}
+.jss-stat.jss-singularity.jss-outline:not([class*="jss-state-"]) {
+  --set-background-color: transparent;
+}
+
+/* Dark Glass retains translucency without the shared bright silver wash. */
+:root[data-theme="dark"] .jss-stat.jss-singularity.jss-glass:not(.jss-state-light) {
+  background-color: color-mix(in srgb, var(--set-color-3) 12%, rgb(15 23 42 / 55%));
+}
+:root[data-theme="dark"] .jss-stat.jss-singularity.jss-glass:not(.jss-state-light)::before {
+  filter: brightness(.6);
+  opacity: .5;
 }
 
 /* AUTO-GENERATED FILE – DO NOT EDIT */

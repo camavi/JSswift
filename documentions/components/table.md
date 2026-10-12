@@ -132,3 +132,9 @@ _.Table({rows:products, columns:[{key:'name',label:'Nome'}],
 `radius`, `padding` and `shadow` act on the Card; `tableStyle` acts on the table, and `--set-color-1` supplies its header background. The inner scroll frame remains. This explicitly fixes a light surface; for theme switching use theme-dependent values instead. Do not remove focus outlines to change a surface.
 
 Use `embedded:true` when an enclosing application surface owns the border and spacing. Default standalone Table appearance remains unchanged.
+
+## Visual surfaces and pagination
+
+Semantic colors accent the column headings and interactive states while the data surface keeps readable theme text. `light` and `dark` retain their surface identity in either theme. Radius uses the shared default or explicit `radius`/`borderRadius`. Border, shadow and glow are opt-in; Dense reduces cell and control spacing.
+
+With `pagination: false`, all matching rows render and page navigation/page-size controls are hidden. The footer count and custom footer remain available unless `hideFooter: true`. Search results include the original dataset count only when filtering changes the result count.

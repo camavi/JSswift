@@ -297,10 +297,8 @@
             "jss-menu-shell",
             uiWhen(opts.dense, "dense"),
             uiWhen(itemNodes.length > 0, "has-items"),
-            uiWhen(footerNodes.length > 0 || statusNodes.length > 0, "has-footer"),
-            opts.class
+            uiWhen(footerNodes.length > 0 || statusNodes.length > 0, "has-footer")
           ]),
-          style: opts.style || {},
           role: opts.role || "menu",
           "aria-label": opts.ariaLabel || null
         },
@@ -331,6 +329,7 @@
         sizeClass ? `jss-menu-${sizeClass}` : "",
         stateClass ? `jss-state-${stateClass}` : "",
         uiUnwrap(opts.outline) ? "outline" : "",
+        ...splitClasses(opts.class),
         ...splitClasses(opts.panelClass)
       ]);
       setTrackedClasses(currentEntry.overlay, "_menuOverlayClassTokens", [
@@ -342,6 +341,7 @@
       setStyleValue(currentEntry.panel, "--jss-menu-max-width", uiUnwrap(opts.maxWidth), toCssSize);
       setStyleValue(currentEntry.panel, "--jss-menu-max-height", uiUnwrap(opts.maxHeight), toCssSize);
       setStyleValue(currentEntry.panel, "--jss-menu-body-max-height", uiUnwrap(opts.bodyMaxHeight ?? opts.contentMaxHeight), toCssSize);
+      if (opts.style) Object.assign(currentEntry.panel.style, opts.style);
       if (opts.panelStyle) Object.assign(currentEntry.panel.style, opts.panelStyle);
       setPropertyProps(currentEntry.panel, opts);
     };
@@ -411,9 +411,10 @@
         className: uiClassStatic(["jss-menu-panel"]),
         onClose: () => {
           currentRef?._menuCleanup?.();
+          if (entry === currentRef) entry = null;
           getOptions().onClose?.(currentRef);
           if (getOptions().returnFocus !== false && lastActive && typeof lastActive.focus === "function") {
-            setTimeout(() => lastActive.focus(), 0);
+            setTimeout(() => lastActive.focus({ preventScroll: true }), 0);
           }
         }
       });
@@ -882,7 +883,7 @@
           if (entry === currentRef) entry = null;
           getOptions().onClose?.(currentRef);
           if (getOptions().returnFocus !== false && lastActive && typeof lastActive.focus === "function") {
-            setTimeout(() => lastActive.focus(), 0);
+            setTimeout(() => lastActive.focus({ preventScroll: true }), 0);
           }
         }
       });
