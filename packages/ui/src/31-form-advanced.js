@@ -169,10 +169,11 @@
 
     if (model) {
       setInputState(model.get());
-      model.watch((v) => {
+      const stopModel = model.watch((v) => {
         setInputState(v);
         syncIndicator();
       }, isRadio ? "UI.Radio:watch" : "UI.Checkbox:watch");
+      JSswift._registerCleanup(wrap, stopModel);
       input.addEventListener("change", (e) => {
         if (isRadio) {
           if (input.checked) {
@@ -625,11 +626,12 @@
 
     if (model) {
       setSliderValue(model.get(), { fromModel: true });
-      model.watch((v) => { setSliderValue(v, { fromModel: true }); }, "UI.Slider:watch");
+      JSswift._registerCleanup(wrap, model.watch((v) => { setSliderValue(v, { fromModel: true }); }, "UI.Slider:watch"));
     } else if (uiIsReactive(props.value)) {
-      JSswift.reactive.effect(() => {
+      const stopValue = JSswift.reactive.effect(() => {
         setSliderValue(uiUnwrap(props.value), { fromModel: true });
       }, "UI.Slider:value");
+      JSswift._registerCleanup(wrap, stopValue);
     } else {
       setSliderValue(props.value ?? props.min ?? 0, { fromModel: true });
     }
@@ -651,13 +653,14 @@
       props.onChange?.(next, e);
     });
 
-    JSswift.reactive.effect(() => {
+    const stopRender = JSswift.reactive.effect(() => {
       renderHeader();
       renderAddons();
       renderThumb();
       renderMarkers();
       syncVisualState();
     }, "UI.Slider:render");
+    JSswift._registerCleanup(wrap, stopRender);
 
     wrap._input = input;
     wrap._getValue = getValue;
@@ -989,22 +992,24 @@
     wrap._setValue = (value) => setRatingValue(value, null, { emit: false });
 
     if (model) {
-      model.watch((next) => {
+      const stopModel = model.watch((next) => {
         const normalized = normalizeValue(next);
-        if (serializeValue(normalized) === serializeValue(localValue)) return;
+        if (Object.is(normalized, localValue)) return;
         localValue = normalized;
         hoverValue = null;
         updateInputValue(localValue);
         syncVisualState();
       }, "UI.Rating:watch");
+      JSswift._registerCleanup(wrap, stopModel);
     }
 
-    JSswift.reactive.effect(() => {
+    const stopRender = JSswift.reactive.effect(() => {
       if (!model && props.value != null) {
         localValue = normalizeValue(uiUnwrap(props.value));
       }
       syncVisualState();
     }, "UI.Rating:render");
+    JSswift._registerCleanup(wrap, stopRender);
 
     return wrap;
   };
@@ -2610,12 +2615,14 @@
       uiCenterTimeColumnsToSelection(panelRoot, options);
     };
     const jumpToNow = () => {
+      if (uiUnwrap(props.disabled) || uiUnwrap(props.readonly)) return;
       const scrollState = uiCaptureTimeColumnScrollState(panelRoot);
       setTimeState(new Date(), null, { commit: !uiUnwrap(props.confirm) });
       scrollTimeColumnsToSelection({ scrollState });
       if (!uiUnwrap(props.confirm) && props.closeOnSelect === true) closePanel();
     };
     const applyWorkingValue = () => {
+      if (uiUnwrap(props.disabled) || uiUnwrap(props.readonly)) return;
       if (!uiUnwrap(props.confirm)) return;
       setTimeState(workingValue, null, { commit: true });
       if (props.closeOnSelect !== false) closePanel();
@@ -2672,7 +2679,7 @@
         _.div({ class: "jss-time-actions" },
           _.button({ type: "button", class: "jss-time-action", onClick: jumpToNow }, uiUnwrap(props.nowLabel) || "Ora"),
           uiUnwrap(props.clearable) !== false
-            ? _.button({ type: "button", class: "jss-time-action", onClick: () => setTimeState(null, null, { commit: !uiUnwrap(props.confirm) }) }, uiUnwrap(props.clearLabel) || "Reset")
+            ? _.button({ type: "button", class: "jss-time-action", onClick: () => { if (!uiUnwrap(props.disabled) && !uiUnwrap(props.readonly)) setTimeState(null, null, { commit: !uiUnwrap(props.confirm) }); } }, uiUnwrap(props.clearLabel) || "Reset")
             : null,
           uiUnwrap(props.confirm)
             ? _.button({ type: "button", class: "jss-time-action is-primary", onClick: applyWorkingValue }, uiUnwrap(props.applyLabel) || "Applica")
@@ -2745,6 +2752,7 @@
       openPanel();
     });
     displayInput.addEventListener("keydown", (event) => {
+      if (uiUnwrap(props.disabled) || uiUnwrap(props.readonly)) return;
       if (event.key === "Escape") {
         if (entry) {
           event.preventDefault();
@@ -2763,9 +2771,10 @@
     });
     if (uiUnwrap(props.manualInput)) {
       displayInput.addEventListener("input", (event) => props.onTyping?.(displayInput.value, event));
-      displayInput.addEventListener("change", (event) => setTimeState(displayInput.value, event));
+      displayInput.addEventListener("change", (event) => { if (!uiUnwrap(props.disabled) && !uiUnwrap(props.readonly)) setTimeState(displayInput.value, event); });
       displayInput.addEventListener("blur", (event) => {
         props.onBlur?.(event);
+        if (uiUnwrap(props.disabled) || uiUnwrap(props.readonly)) return;
         if (displayInput.value === "") setTimeState(null, event);
         else setTimeState(displayInput.value, event);
       });
@@ -2774,7 +2783,7 @@
     }
 
     if (model) {
-      model.watch((next) => {
+      const stopModel = model.watch((next) => {
         const normalized = uiCloneTimeParts(parseTypedValue(next));
         if (serializeValue(normalized) === serializeValue(localValue)) return;
         localValue = uiCloneTimeParts(normalized);
@@ -2782,9 +2791,10 @@
         syncDisplay();
         renderPanel();
       }, "UI.Time:watch");
+      JSswift._registerCleanup(field, stopModel);
     }
 
-    JSswift.reactive.effect(() => {
+    const stopRender = JSswift.reactive.effect(() => {
       if (!model && props.value != null) {
         localValue = uiCloneTimeParts(parseTypedValue(uiUnwrap(props.value)));
         workingValue = uiCloneTimeParts(localValue);
@@ -2793,6 +2803,10 @@
       renderPanel();
       if (entry && uiUnwrap(props.disabled)) closePanel();
     }, "UI.Time:render");
+    JSswift._registerCleanup(field, () => {
+      stopRender();
+      if (entry) JSswift.overlay.close(entry.id);
+    });
 
     field._input = displayInput;
     field._time = displayInput;

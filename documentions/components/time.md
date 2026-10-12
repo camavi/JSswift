@@ -46,3 +46,6 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["size", "color", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "mobile", "tablet", "pc", "class", "style"]}
 }
 ```
+
+
+Readonly/disabled blocks keyboard deletion, manual commits and time actions. Programmatic model updates remain available. JSswift lifecycle cleanup removes model/render subscriptions and closes the field’s overlay without disposing caller-owned models.

@@ -942,3 +942,9 @@ Adjusted dark Tabs Glass after feedback: restored visible nav reflections and sh
 2026-10-12 — User authorized Calendar closure after bug audit. Functional browser regression covers single/range reversed endpoints/multiple toggle, weekday/min/max limits, disabled/readonly actions, external rod update and lifecycle. Found and fixed unguarded Reset/Today/Now/Apply actions and unregistered model/render disposers in shared Date/Calendar implementation. UI/umbrella builds, 77 unit tests, both Calendar browser regressions and diff check passed. Calendar accepted and closed; no commit requested. Next InputRaw standalone audit.
 
 2026-10-12 — User declared UI/CSS revision complete, excluded native InputRaw from palette work and requested commit before general bug research. Committing approved Upload/Calendar work and shared Card neutral refinements with tests/contracts/generated mirrors. Next full UI browser regression and focused functional/lifecycle audit.
+
+2026-10-12 — Commit 75b73e8 created. First general bug research pass complete: full browser suite 61/62 passed; isolated Table Glass surface regression reproduced. Dynamic audit confirmed leaked model watchers after mount replacement in Checkbox/Radio/Toggle/Slider/Rating/Time and Time readonly Delete clears value. Findings saved in ui-bug-audit.md; no source corrections made during research.
+
+2026-10-12 — Authorized UI audit fixes complete: Time readonly/disabled protection; choice/Slider/Rating/Time model and owned effect cleanup; Table-specific surfaces preserved against Card neutral effects. Also fixed undefined serializeValue in Rating signal watcher discovered by new regressions. UI/umbrella builds, 77 unit tests, all 64 browser tests and diff check passed. Fixes remain uncommitted.
+
+2026-10-12 — User accepted and closed the functional bug audit and requested commit. All confirmed findings corrected and verified with 77 unit and 64 browser tests; no remaining work in this audit.

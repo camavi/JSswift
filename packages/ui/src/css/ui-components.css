@@ -13218,15 +13218,15 @@ a.jss-breadcrumb {
 .jss-btn.jss-outline.jss-state-secondary { --set-color: var(--jss-text); color: var(--jss-text); }
 
 /* Light effects remain visibly neutral on both theme surfaces. */
-.jss-card.jss-state-light:is(.jss-outline, .jss-text-gradient) {
+.jss-card:not(.jss-table-card).jss-state-light:is(.jss-outline, .jss-text-gradient) {
   --set-border-color: #cbd5e1;
   border-color: var(--set-border-color);
 }
-.jss-card.jss-state-light.jss-text-gradient {
+.jss-card:not(.jss-table-card).jss-state-light.jss-text-gradient {
   --set-color-2: #64748b;
   --set-color-3: #94a3b8;
 }
-:root[data-theme="dark"] .jss-card.jss-state-light.jss-text-gradient {
+:root[data-theme="dark"] .jss-card:not(.jss-table-card).jss-state-light.jss-text-gradient {
   --set-color-2: #f8fafc;
   --set-color-3: #cbd5e1;
 }
@@ -13235,15 +13235,15 @@ a.jss-breadcrumb {
 }
 
 /* Light Glass keeps a pale surface, including on the dark theme. */
-.jss-card.jss-singularity.jss-glass.jss-state-light,
-:root[data-theme="dark"] .jss-card.jss-singularity.jss-glass.jss-state-light {
+.jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-light,
+:root[data-theme="dark"] .jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-light {
   --set-color: #1f2937;
   --set-border-color: #cbd5e1;
   color: #1f2937;
   background-color: rgb(241 245 249 / 28%);
 }
-.jss-card.jss-singularity.jss-glass.jss-state-light::before,
-:root[data-theme="dark"] .jss-card.jss-singularity.jss-glass.jss-state-light::before {
+.jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-light::before,
+:root[data-theme="dark"] .jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-light::before {
   --set-sec-color: rgb(241 245 249 / 8%);
   --set-color-1: #ffffff;
   --set-color-2: #e2e8f0;
@@ -13255,7 +13255,7 @@ a.jss-breadcrumb {
   color: inherit;
 }
 
-:root[data-theme="dark"] .jss-card.jss-singularity.jss-glass.jss-state-light {
+:root[data-theme="dark"] .jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-light {
   --set-color: #f1f5f9;
   color: #f1f5f9;
 }
@@ -13334,15 +13334,15 @@ a.jss-breadcrumb {
 }
 
 /* Dark Glass keeps its dark tint independently of the page theme. */
-.jss-card.jss-singularity.jss-glass.jss-state-dark,
-:root[data-theme="dark"] .jss-card.jss-singularity.jss-glass.jss-state-dark {
+.jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-dark,
+:root[data-theme="dark"] .jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-dark {
   --set-color: #f1f5f9;
   --set-border-color: #64748b;
   color: #f1f5f9;
   background-color: rgb(15 23 42 / 76%);
 }
-.jss-card.jss-singularity.jss-glass.jss-state-dark::before,
-:root[data-theme="dark"] .jss-card.jss-singularity.jss-glass.jss-state-dark::before {
+.jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-dark::before,
+:root[data-theme="dark"] .jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-dark::before {
   --set-sec-color: rgb(15 23 42 / 35%);
   --set-color-1: #cbd5e1;
   --set-color-2: #64748b;
@@ -13353,13 +13353,13 @@ a.jss-breadcrumb {
 .jss-card.jss-glass.jss-state-dark :is(.jss-card-eyebrow, .jss-card-subtitle, .jss-card-header-content) { color: inherit; }
 
 /* Dark Outline uses a defined slate edge and readable theme foreground. */
-.jss-card.jss-singularity.jss-outline.jss-state-dark:not(.jss-glass, .jss-text-gradient) {
+.jss-card:not(.jss-table-card).jss-singularity.jss-outline.jss-state-dark:not(.jss-glass, .jss-text-gradient) {
   --set-color: #1f2937;
   --set-border-color: #334155;
   color: #1f2937;
   border-color: #334155;
 }
-:root[data-theme="dark"] .jss-card.jss-singularity.jss-outline.jss-state-dark:not(.jss-glass, .jss-text-gradient) {
+:root[data-theme="dark"] .jss-card:not(.jss-table-card).jss-singularity.jss-outline.jss-state-dark:not(.jss-glass, .jss-text-gradient) {
   --set-color: #e2e8f0;
   --set-border-color: #64748b;
   color: #e2e8f0;
