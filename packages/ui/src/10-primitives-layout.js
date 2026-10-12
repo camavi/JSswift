@@ -564,7 +564,9 @@
     const p = JSswift.omit(props, ["slots"]);
     p.class = uiClass(["jss-spacer", props.class]);
     const content = renderSlotToArray(slots, "default", {}, children);
-    return _.div(p, ...content);
+    const el = _.div(p, ...content);
+    setPropertyProps(el, props);
+    return el;
   };
 
 

@@ -864,3 +864,7 @@ Adjusted dark Tabs Glass after feedback: restored visible nav reflections and sh
 - Row/Col final verification: UI build, all 72 unit tests, all 42 browser tests, desktop visual review and diff check passed. Responsive gap and half/third columns now fit as intended; tested explicit/inline/full sizing, alignment/reverse, reactive regions and child color preservation. No commit requested.
 
 - User accepted and closed Row/Col and requested commit. All 72 unit and 42 browser tests passed; next component Spacer, with a local horizontal/vertical flex fixture prepared.
+
+- Spacer audit found missing setPropertyProps, so documented common dimensions and responsive overrides were ignored. Added the shared property application without changing default transparent flex behavior. Chrome audit at 390/820/1200 in both themes verifies horizontal/vertical spacing, equal spacers, minimum responsive widths, reactive slot content, child colors and no overflow. UI build, 72 unit tests, targeted browser test and diff check passed. Awaiting review; no commit requested.
+
+- User accepted and closed Spacer and requested commit. UI build, 72 unit tests and targeted three-breakpoint/two-theme browser audit passed. Next component Layout; local composition fixture prepared.

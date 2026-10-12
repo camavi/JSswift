@@ -17,3 +17,5 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["size", "color", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "mobile", "tablet", "pc", "class", "style"]}
 }
 ```
+
+Spacer occupies available space along its flex parent’s main axis (Row horizontally, Col vertically). Its default surface is transparent; child components retain their own colors. Common dimensions and responsive overrides are applied, including minWidth/minHeight for minimum spacing. A vertical parent needs a defined height to provide free space.
