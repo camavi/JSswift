@@ -66,3 +66,9 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["color", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "mobile", "tablet", "pc", "class", "style"]}
 }
 ```
+
+## Surfaces and effects
+
+Toolbar applies reactive common color/effect props, following Header semantic surfaces, shadows, Glow and Glass reflections. Supporting text and uncolored actions follow the local foreground. Dense reduces padding, gaps, title and button sizing; explicit size/spacing and responsive props remain supported. Sticky remains sticky with Glass.
+
+Text Gradient uses a subtle tinted background and a gradient title. Light retains its pale surface, including Outline + Text Gradient. Light Outline + Glass uses dark text on its pale surface in either theme. Dark Flat retains a dark fill with light text. Structured start/center/end and before/after regions preserve their existing composition and wrapping.

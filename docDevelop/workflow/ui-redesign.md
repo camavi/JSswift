@@ -830,3 +830,31 @@ Adjusted dark Tabs Glass after feedback: restored visible nav reflections and sh
 - User accepted and closed Parallax and requested commit of approved Page/AppShell/Parallax work. Next visual component Footer, completing the shell composition. Made Parallax scroll regression self-contained so it does not depend on ignored lab fixtures.
 
 - Final approved shell batch checks: UI build, 72 unit tests, all 37 browser tests and diff check passed. Committing Page/AppShell/Parallax with public docs and generated mirrors; ignored labs remain local. Next Footer.
+
+- Footer aligned with Header shared semantic surfaces, elevation, Light Shadow, Glow and dark Glass reflections. Supporting text inherits local foreground; actions have visible fills/contours, Dense tightens all parts and Stack avoids flex-basis-driven excess height. Dedicated Light/Dark Glass foregrounds, theme-adapted neutral Flat/Outline and title-only Text Gradient. Default divider remains subtle; explicit Outline/Border encloses all sides. Contract updated. UI build, 72 unit tests, Footer browser comparison across both themes/palette/effects and desktop/mobile, visual inspections and diff check passed; awaits review.
+
+- Footer Flat Dark correction: removed inappropriate page-theme foreground override from filled neutral surfaces. Flat retains Header filled-surface text, restoring light copy/actions on Dark and dark copy on Light. Extended Footer browser matrix to Flat with Header foreground comparison in both themes and viewport widths. UI build, targeted browser regression, visual Flat Light/Dark inspection and diff check passed.
+
+- Header and Footer Text Gradient now use an 8% semantic tint on the theme background instead of a saturated gradient surface. Gradient is restricted to the title, with readable theme foreground for supporting copy/actions and neutral title treatment for Light/Dark. Outline stays transparent. Contracts updated. UI build, extended Header/Footer comparison including Text Gradient in both themes/viewports, light visual review and diff check passed.
+
+- Corrected Header/Footer Light Outline + Glass foreground precedence: pale Glass surfaces now retain dark text (#1f2937) even with dark-theme Outline rules. Action buttons inherit the corrected foreground. Extended browser matrix to Outline + Glass in both themes/viewports. UI build, targeted browser regression and diff check passed.
+
+- Header/Footer Text Gradient Light now retains a dedicated #f1f5f9 surface and #1f2937 foreground in both themes, with slate title gradient. Outline remains transparent. Browser regression asserts Light surface/foreground explicitly. UI build, targeted browser regression and diff check passed.
+
+- Header/Footer Light Outline + Text Gradient keeps a pale 92% translucent Light surface rather than page-dark fill, with dark foreground, slate title gradient and light contour. Contracts and browser assertions updated for the combination in both themes/viewports. UI build, targeted browser regression and diff check passed.
+
+- User accepted and closed Header follow-ups and Footer. Next visual component Toolbar; prepared local palette/effects fixture with title/subtitle/actions and neutral/stack examples. Footer and Header follow-ups remain uncommitted pending request.
+
+- Toolbar now applies common props and singularity/panel surface classes, enabling semantic color/effects while retaining structured and plain regions. Shared Header/Footer elevation, readable supporting text/actions, neutral Light/Dark Glass and combined Outline cases. Text Gradient uses a quiet surface with actual gradient title and dedicated Light treatment; corrected duplicate background-image precedence caught by visual review. Dense tightens padding/gaps/title/buttons without wrapper margin; explicit responsive spacing remains supported and Glass keeps sticky positioning. Contract and local composition example updated. UI build, 72 unit tests, Toolbar responsive + Footer comparison + Toolbar palette/effects browser regressions, light/dark visual inspection and diff check passed. Await user review; no commit requested.
+
+- User accepted and closed Toolbar. Next components Grid/GridCol; local fixture prepared for responsive columns, spacing, spans and nested grids. Header/Footer follow-ups and Toolbar remain uncommitted pending request.
+
+- Grid/GridCol functional audit complete without source changes. Four browser tests passed: responsive tracks, col alias, nested-span isolation plus new mobile/tablet/desktop coverage for full/responsive spans, row/column gaps, item slots, empty state, auto-fit and overflow. Next Container; local section/layout fixture prepared.
+
+- User accepted and closed Grid and GridCol after functional audit. Container is the active review component; existing local fixture covers width, padding, sections and grid layout.
+
+- Container behavioral audit found explicit body bypassed start/end rendering. Preserved side regions with body in a central main wrapper; body-only placement remains direct. Added self-contained Chrome regression at 390/820/1200 for constrained width, fluid mode, axis padding, grid/gap, responsive flex direction, reactive body, semantic tag, section gap, side regions, child colors and overflow. Contract updated. UI build, 72 unit tests, targeted browser audit and diff check passed. Await user review; no commit requested.
+
+- User requested commit after Container audit; Container accepted and closed. Grouping approved Header/Footer follow-ups, Toolbar, Grid/GridCol regressions and Container correction. Next layout components Row/Col.
+
+- Final commit checks: UI build, 72 unit tests, eight relevant browser regressions and diff check passed. Local Row/Col fixture prepared; no publication requested.

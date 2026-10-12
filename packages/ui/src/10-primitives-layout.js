@@ -734,7 +734,14 @@
     };
 
     const contentRoot = bodyNodes.length
-      ? _.div({ class: uiClass(["jss-container-body", hasStructuredLayout ? layoutClass : "", rawProps.bodyClass]) }, ...bodyNodes)
+      ? _.div(
+        { class: uiClass(["jss-container-body", hasStructuredLayout ? layoutClass : "", rawProps.bodyClass]) },
+        createSection("start", startNodes, rawProps.startClass),
+        ...(startNodes.length || endNodes.length
+          ? [_.div({ class: uiClass(["jss-container-main", rawProps.mainClass, rawProps.contentClass]) }, ...bodyNodes)]
+          : bodyNodes),
+        createSection("end", endNodes, rawProps.endClass)
+      )
       : (
         (startNodes.length || contentNodes.length || endNodes.length)
           ? _.div(
@@ -4485,7 +4492,9 @@
   };
 
   UI.Toolbar = (...args) => {
-    const { props, children } = JSswift.uiNormalizeArgs(args);
+    const { props: originalProps, children } = JSswift.uiNormalizeArgs(args);
+    const props = { ...originalProps };
+    applyCommonProps(props);
     const slots = props.slots || {};
     const renderArea = (names, fallback, ctx = {}) => {
       const list = Array.isArray(names) ? names : [names];
@@ -4522,6 +4531,8 @@
 
     const cls = uiClass([
       "jss-toolbar",
+      "jss-panel",
+      "jss-singularity",
       uiWhen(hasStructuredContent, "structured"),
       uiWhen(props.dense, "dense"),
       uiWhen(props.divider, "divider"),
@@ -4543,7 +4554,7 @@
     const align = uiStyleValue(props.align);
     const justify = uiStyleValue(props.justify);
     const wrap = uiStyleValue(props.wrap, (v) => typeof v === "boolean" ? (v ? "wrap" : "nowrap") : String(v), "wrap");
-    const gap = uiStyleValue(props.gap, toCssSize, "var(--jss-s-md)");
+    const gap = uiStyleValue(props.gap, toCssSize, uiComputed(props.dense, () => uiUnwrap(props.dense) ? "8px" : "var(--jss-s-md)"));
     const hasResponsiveGap = uiHasResponsiveOverride(props, "gap");
     style["--jss-toolbar-gap"] = gap != null ? gap : "var(--jss-s-md)";
     if (!hasResponsiveGap) style.gap = style.gap || "var(--jss-toolbar-gap)";

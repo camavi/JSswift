@@ -49,3 +49,7 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["size", "color", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "mobile", "tablet", "pc", "class", "style"]}
 }
 ```
+
+Text Gradient uses a subtle theme-adapted tinted background, applying the gradient to the title while supporting copy and actions keep the theme foreground. Outline remains transparent.
+
+Light with Outline + Text Gradient retains a pale translucent surface, dark foreground and a light contour in both themes.

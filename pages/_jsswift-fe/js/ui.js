@@ -1340,7 +1340,7 @@
       if (!nodes.length) return null;
       return _.div({ class: uiClass(["jss-container-section", `jss-container-${name}`, extraClass]) }, ...nodes);
     };
-    const contentRoot = bodyNodes.length ? _.div({ class: uiClass(["jss-container-body", hasStructuredLayout ? layoutClass : "", rawProps.bodyClass]) }, ...bodyNodes) : startNodes.length || contentNodes.length || endNodes.length ? _.div({ class: uiClass(["jss-container-body", hasStructuredLayout ? layoutClass : "", rawProps.bodyClass]) }, createSection("start", startNodes, rawProps.startClass), contentNodes.length ? _.div({ class: uiClass(["jss-container-main", rawProps.mainClass, rawProps.contentClass]) }, ...contentNodes) : null, createSection("end", endNodes, rawProps.endClass)) : null;
+    const contentRoot = bodyNodes.length ? _.div({ class: uiClass(["jss-container-body", hasStructuredLayout ? layoutClass : "", rawProps.bodyClass]) }, createSection("start", startNodes, rawProps.startClass), ...startNodes.length || endNodes.length ? [_.div({ class: uiClass(["jss-container-main", rawProps.mainClass, rawProps.contentClass]) }, ...bodyNodes)] : bodyNodes, createSection("end", endNodes, rawProps.endClass)) : startNodes.length || contentNodes.length || endNodes.length ? _.div({ class: uiClass(["jss-container-body", hasStructuredLayout ? layoutClass : "", rawProps.bodyClass]) }, createSection("start", startNodes, rawProps.startClass), contentNodes.length ? _.div({ class: uiClass(["jss-container-main", rawProps.mainClass, rawProps.contentClass]) }, ...contentNodes) : null, createSection("end", endNodes, rawProps.endClass)) : null;
     const creator = (() => {
       var _a3;
       const tag = String(uiUnwrap((_a3 = rawProps.tag) != null ? _a3 : rawProps.as) || "div").toLowerCase();
@@ -4232,7 +4232,9 @@
   };
   UI.Toolbar = (...args) => {
     var _a2, _b, _c, _d, _e, _f, _g, _h;
-    const { props, children } = JSswift.uiNormalizeArgs(args);
+    const { props: originalProps, children } = JSswift.uiNormalizeArgs(args);
+    const props = { ...originalProps };
+    applyCommonProps(props);
     const slots = props.slots || {};
     const renderArea = (names, fallback, ctx2 = {}) => {
       const list = Array.isArray(names) ? names : [names];
@@ -4257,7 +4259,7 @@
     const subtitleNodes = renderArea(["subtitle"], props.subtitle, ctx);
     const metaNodes = renderArea(["meta"], props.meta, ctx);
     const hasStructuredContent = !!(beforeNodes.length || startNodes.length || endNodes.length || afterNodes.length || titleNodes.length || subtitleNodes.length || metaNodes.length || props.before != null || props.start != null || props.left != null || props.end != null || props.right != null || props.actions != null || props.after != null || props.title != null || props.subtitle != null || props.meta != null || props.body != null || props.center != null || props.content != null || props.beforeClass || props.startClass || props.bodyClass || props.centerClass || props.contentClass || props.endClass || props.afterClass || props.titleClass || props.subtitleClass || props.metaClass || props.copyClass || hasArea(["before", "start", "left", "center", "body", "content", "end", "right", "actions", "after", "title", "subtitle", "meta"]));
-    const cls = uiClass(["jss-toolbar", uiWhen(hasStructuredContent, "structured"), uiWhen(props.dense, "dense"), uiWhen(props.divider, "divider"), uiWhen(props.elevated, "elevated"), uiWhen(props.sticky, "sticky"), props.class]);
+    const cls = uiClass(["jss-toolbar", "jss-panel", "jss-singularity", uiWhen(hasStructuredContent, "structured"), uiWhen(props.dense, "dense"), uiWhen(props.divider, "divider"), uiWhen(props.elevated, "elevated"), uiWhen(props.sticky, "sticky"), props.class]);
     const p = JSswift.omit(props, ["actions", "after", "afterClass", "align", "before", "beforeClass", "body", "bodyClass", "center", "centerClass", "content", "contentClass", "copyClass", "dense", "divider", "elevated", "end", "endClass", "gap", "justify", "left", "meta", "metaClass", "right", "size", "slots", "start", "startClass", "sticky", "subtitle", "subtitleClass", "title", "titleClass", "wrap"]);
     p.class = cls;
     const style = { ...props.style || {} };
@@ -4265,7 +4267,7 @@
     const align = uiStyleValue(props.align);
     const justify = uiStyleValue(props.justify);
     const wrap = uiStyleValue(props.wrap, (v) => typeof v === "boolean" ? v ? "wrap" : "nowrap" : String(v), "wrap");
-    const gap = uiStyleValue(props.gap, toCssSize, "var(--jss-s-md)");
+    const gap = uiStyleValue(props.gap, toCssSize, uiComputed(props.dense, () => uiUnwrap(props.dense) ? "8px" : "var(--jss-s-md)"));
     const hasResponsiveGap = uiHasResponsiveOverride(props, "gap");
     style["--jss-toolbar-gap"] = gap != null ? gap : "var(--jss-s-md)";
     if (!hasResponsiveGap) style.gap = style.gap || "var(--jss-toolbar-gap)";

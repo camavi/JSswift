@@ -51,3 +51,5 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["size", "color", "outline", "clickable", "margin", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "mobile", "tablet", "pc", "class", "style"]}
 }
 ```
+
+An explicit `body` remains the central content when `start`/`left` or `end`/`right` are also provided; side regions are preserved. Header and footer remain separate sections. Without side regions, body nodes keep their direct placement.

@@ -53,3 +53,11 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["size", "color", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "mobile", "tablet", "pc", "class", "style"]}
 }
 ```
+
+## Visual treatment
+
+Footer follows Header semantic surfaces, shadows, softened Glow and dark Glass reflections (brightness .6, except Light). Supporting text inherits the local foreground and uncolored actions use a visible button surface. Dense reduces padding, typography and action size. Neutral Outline adapts foreground to the page theme. Flat retains the filled surface foreground, including light text on Dark. Text Gradient applies to the title; Stack keeps natural content height. The default top divider remains subtle; use `divider: false` to hide it.
+
+Text Gradient uses a subtle theme-adapted tinted background, applying the gradient to the title while supporting copy and actions keep the theme foreground. Outline remains transparent.
+
+Light with Outline + Text Gradient retains a pale translucent surface, dark foreground and a light contour in both themes.
