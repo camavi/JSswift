@@ -9,3 +9,5 @@ Open only the component file you need. It contains exact generated metadata for 
 - Feedback: spinner, progress, loading-bar, notify
 - Overlays: dialog, menu, popover, context-menu, tooltip
 - Data: table; card helpers: card-header, card-body, card-footer
+
+- File selection and transfer: [Upload / BoxUpload](../ui/uploads.md)

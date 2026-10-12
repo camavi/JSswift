@@ -3166,6 +3166,9 @@
   };
   UI.Upload = (props = {}) => {
     var _a2;
+    const inputTone = props;
+    props = { ...props };
+    props.color = uiComputed([props.state, props.status, props.color], () => uiUnwrap(inputTone.state) || uiUnwrap(inputTone.status) || uiUnwrap(inputTone.color) || "");
     applyCommonProps(props);
     const slots = props.slots || {};
     const [getFiles, setFiles] = JSswift.reactive.signal([]);
@@ -3174,6 +3177,7 @@
     const [getError, setError] = JSswift.reactive.signal(null);
     let seq = 0;
     let disposed = false;
+    let selectionVersion = 0;
     const isDisabled = () => !!uiUnwrap(props.disabled) || !!uiUnwrap(props.readonly);
     const isMultiple = () => props.multiple !== false && props.single !== true;
     const isFormSubmitMode = () => {
@@ -3197,8 +3201,7 @@
       return uiUnwrap((_a3 = props.showFiles) != null ? _a3 : props.files) !== false;
     };
     const getStatusClass = () => {
-      const state = normalizeState(uiUnwrap(props.state) || uiUnwrap(props.status));
-      return state ? `jss-state-${state}` : "";
+      return "";
     };
     const getFieldName = () => props.fieldName || props.paramName || props.name || "file";
     const getParallel = () => {
@@ -3290,15 +3293,17 @@
     const createItem = (file) => ({ id: `upload_${Date.now()}_${++seq}`, file, name: (file == null ? void 0 : file.name) || "file", size: Number((file == null ? void 0 : file.size) || 0), type: (file == null ? void 0 : file.type) || "", status: "queued", progress: 0, bytesUploaded: 0, error: null, detail: null, attempts: 0, response: null, xhr: null });
     const addFiles = async (inputFiles, meta = {}) => {
       var _a3;
-      if (isDisabled()) return [];
+      if (disposed || isDisabled()) return [];
       setError(null);
       const incoming = toList(inputFiles);
       const added = [];
       if (!isMultiple() && incoming.length) {
         clear({ silent: true });
       }
+      const version = selectionVersion;
       for (const file of incoming) {
         const reason = await validateFile(file, activeFiles().length + 1);
+        if (disposed || isDisabled() || version !== selectionVersion) return [];
         if (reason) {
           rejectFile(file, reason);
           continue;
@@ -3315,6 +3320,7 @@
     };
     const clear = (opts = {}) => {
       var _a3;
+      selectionVersion++;
       for (const item of getFiles()) {
         if (item.status === "uploading") abort(item);
         item.status = "removed";
@@ -3520,26 +3526,26 @@
     const summaryEl = _.div({ class: "jss-upload-summary" });
     const actionsEl = _.div({ class: "jss-upload-actions" });
     let currentStatusClass = getStatusClass();
-    const root = _.div({ class: uiClass(["jss-upload", "jss-singularity", currentStatusClass, uiWhen(props.box || props.variant === "box", "jss-upload-box"), uiWhen(props.compact, "is-compact"), uiWhen(isFormSubmitMode(), "is-form-mode"), uiWhen(!showFiles(), "is-files-hidden"), props.class]), tabindex: isDisabled() ? "-1" : "0", role: "group", "aria-disabled": isDisabled() ? "true" : "false" });
+    const root = _.div({ class: uiClass(["jss-clear-set", "jss-card", "jss-upload", uiWhen(props.dense, "jss-card-dense"), "jss-singularity", currentStatusClass, uiWhen(props.box || props.variant === "box", "jss-upload-box"), uiWhen(props.compact, "is-compact"), uiWhen(isFormSubmitMode(), "is-form-mode"), uiWhen(!showFiles(), "is-files-hidden"), props.class]), tabindex: isDisabled() ? "-1" : "0", role: "group", style: props.style, "aria-disabled": isDisabled() ? "true" : "false" });
     const api = { addFiles, browse, upload, retry: retryUpload, retryAll: () => upload(getFiles().filter((item) => item.status === "error" || item.status === "canceled")), remove, clear, abort, abortAll, files: () => getFiles().slice(), state: () => ({ files: getFiles().slice(), busy: getBusy(), dragging: getDragging(), error: getError() }), reset: clear };
     const renderActions = () => {
       const ctx = { api, files: getFiles().slice(), busy: getBusy(), disabled: isDisabled(), submitMode: isFormSubmitMode() ? "form" : "upload" };
       const actionNodes = [];
       if (showBrowse()) {
-        actionNodes.push(JSswift.ui.renderSlot(slots, "browse", ctx, UI.Btn({ size: "sm", icon: "folder_open", label: props.browseText || "Browse", onClick: browse })));
+        actionNodes.push(JSswift.ui.renderSlot(slots, "browse", ctx, UI.Button({ size: "sm", color: "primary", disabled: isDisabled(), icon: "folder_open", label: props.browseText || "Browse", onClick: browse })));
       }
       if (showUpload()) {
-        actionNodes.push(JSswift.ui.renderSlot(slots, "upload", ctx, UI.Btn({ size: "sm", color: "primary", icon: "upload", label: props.uploadText || "Upload", loading: getBusy(), disabled: isDisabled() || !getFiles().some((item) => ["queued", "error", "canceled"].includes(item.status)), onClick: () => upload() })));
+        actionNodes.push(JSswift.ui.renderSlot(slots, "upload", ctx, UI.Button({ size: "sm", color: "primary", icon: "upload", label: props.uploadText || "Upload", loading: getBusy(), disabled: isDisabled() || !getFiles().some((item) => ["queued", "error", "canceled"].includes(item.status)), onClick: () => upload() })));
       }
       if (showClear()) {
-        actionNodes.push(JSswift.ui.renderSlot(slots, "clear", ctx, UI.Btn({ size: "sm", color: "secondary", outline: true, icon: "delete", label: props.clearText || "Clear", disabled: isDisabled() || !getFiles().length, onClick: () => clear() })));
+        actionNodes.push(JSswift.ui.renderSlot(slots, "clear", ctx, UI.Button({ size: "sm", class: "jss-upload-clear", outline: true, icon: "delete", label: props.clearText || "Clear", disabled: isDisabled() || !getFiles().length, onClick: () => clear() })));
       }
       return renderSlotToArray(slots, "actions", ctx, actionNodes);
     };
     const renderFile = (item, index) => {
       var _a3;
       const ctx = { item, file: item.file, index, api, remove: () => remove(item), retry: () => retryUpload(item), abort: () => abort(item) };
-      const fallback = _.div({ class: uiClass(["jss-upload-file", `is-${item.status}`]) }, _.div({ class: "jss-upload-file-icon" }, UI.Icon({ name: item.status === "done" ? "check_circle" : item.status === "error" || item.status === "rejected" ? "error" : "description" })), _.div({ class: "jss-upload-file-main" }, _.div({ class: "jss-upload-file-name" }, ...renderSlotToArray(slots, "fileName", ctx, item.name)), _.div({ class: "jss-upload-file-meta" }, ...renderSlotToArray(slots, "fileMeta", ctx, item.error ? String(((_a3 = item.error) == null ? void 0 : _a3.message) || item.error) : item.status === "queued" ? "Queued" : item.status)), _.div({ class: "jss-upload-progress", role: "progressbar", "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": String(item.progress || 0) }, _.div({ class: "jss-upload-progress-bar", style: { width: `${item.progress || 0}%` } }))), _.div({ class: "jss-upload-file-trailing" }, _.div({ class: "jss-upload-file-size" }, formatBytes(item.size)), _.div({ class: "jss-upload-file-actions" }, ...renderSlotToArray(slots, "fileActions", ctx, [item.status === "uploading" ? UI.Btn({ size: "sm", outline: true, icon: "close", "aria-label": "Cancel", onClick: () => abort(item) }) : null, item.status === "error" || item.status === "canceled" ? UI.Btn({ size: "sm", outline: true, icon: "refresh", "aria-label": "Retry", onClick: () => retryUpload(item) }) : null, UI.Btn({ size: "sm", dense: true, outline: true, icon: "delete", "aria-label": "Remove", onClick: () => remove(item) })]))));
+      const fallback = _.div({ class: uiClass(["jss-upload-file", `is-${item.status}`]) }, _.div({ class: "jss-upload-file-icon" }, UI.Icon({ name: item.status === "done" ? "check_circle" : item.status === "error" || item.status === "rejected" ? "error" : "description" })), _.div({ class: "jss-upload-file-main" }, _.div({ class: "jss-upload-file-name" }, ...renderSlotToArray(slots, "fileName", ctx, item.name)), _.div({ class: "jss-upload-file-meta" }, ...renderSlotToArray(slots, "fileMeta", ctx, item.error ? String(((_a3 = item.error) == null ? void 0 : _a3.message) || item.error) : item.status === "queued" ? "Queued" : item.status)), _.div({ class: "jss-upload-progress", role: "progressbar", "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": String(item.progress || 0) }, _.div({ class: "jss-upload-progress-bar", style: { width: `${item.progress || 0}%` } }))), _.div({ class: "jss-upload-file-trailing" }, _.div({ class: "jss-upload-file-size" }, formatBytes(item.size)), _.div({ class: "jss-upload-file-actions" }, ...renderSlotToArray(slots, "fileActions", ctx, [item.status === "uploading" ? UI.Button({ size: "sm", outline: true, icon: "close", "aria-label": "Cancel", onClick: () => abort(item) }) : null, item.status === "error" || item.status === "canceled" ? UI.Button({ size: "sm", outline: true, icon: "refresh", "aria-label": "Retry", onClick: () => retryUpload(item) }) : null, UI.Button({ size: "sm", dense: true, outline: true, icon: "delete", "aria-label": "Remove", onClick: () => remove(item) })]))));
       const custom = JSswift.ui.renderSlot(slots, "file", ctx, fallback);
       return _.div({ class: "jss-upload-file-wrap", "data-status": item.status, "data-id": item.id }, ...renderSlotToArray(null, "default", {}, custom));
     };
@@ -3590,10 +3596,10 @@
     renderSlotToArray(null, "default", {}, header).forEach((node) => root.appendChild(node));
     root.appendChild(input);
     renderSlotToArray(slots, "default", { api, dropzone }, dropzone).forEach((node) => root.appendChild(node));
-    JSswift.reactive.effect(() => {
+    const stopRender = JSswift.reactive.effect(() => {
       render();
     }, "UI.Upload:render");
-    JSswift.reactive.effect(() => {
+    const stopState = JSswift.reactive.effect(() => {
       root.classList.toggle("is-disabled", isDisabled());
       root.classList.toggle("is-form-mode", isFormSubmitMode());
       root.classList.toggle("is-files-hidden", !showFiles());
@@ -3604,6 +3610,7 @@
         currentStatusClass = nextStatusClass;
       }
       root.setAttribute("aria-disabled", isDisabled() ? "true" : "false");
+      root.tabIndex = isDisabled() ? -1 : 0;
       input.disabled = isDisabled();
       input.multiple = isMultiple();
       input.name = getFieldName();
@@ -3616,9 +3623,13 @@
     root._dispose = () => {
       if (disposed) return;
       disposed = true;
+      selectionVersion++;
+      stopRender();
+      stopState();
       abortAll();
     };
     (_a2 = JSswift._registerCleanup) == null ? void 0 : _a2.call(JSswift, root, root._dispose);
+    setPropertyProps(root, props);
     return root;
   };
   UI.BoxUpload = (props = {}) => UI.Upload({ ...props, box: true });
@@ -6584,7 +6595,7 @@
     });
   };
   const buildDateControl = (args, options = {}) => {
-    var _a2, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l;
+    var _a2, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k;
     const { props, children } = JSswift.uiNormalizeArgs(args);
     const isCalendar = options.calendar === true;
     const slots = props.slots || {};
@@ -6828,7 +6839,7 @@
       return false;
     };
     const isDateAllowed = (iso) => {
-      var _a3, _b2, _c2, _d2, _e2, _f2, _g2, _h2, _i2, _j2, _k2, _l2, _m;
+      var _a3, _b2, _c2, _d2, _e2, _f2, _g2, _h2, _i2, _j2, _k2, _l, _m;
       if (!iso) return false;
       const min = getMin();
       const max = getMax();
@@ -6850,7 +6861,7 @@
       if (pendingRange == null ? void 0 : pendingRange.from) {
         const nights = Math.abs(diffDays(pendingRange.from, iso));
         const minRange = Number(uiUnwrap((_k2 = (_j2 = props.minRange) != null ? _j2 : props.minDays) != null ? _k2 : props.minNights));
-        const maxRange = Number(uiUnwrap((_m = (_l2 = props.maxRange) != null ? _l2 : props.maxDays) != null ? _m : props.maxNights));
+        const maxRange = Number(uiUnwrap((_m = (_l = props.maxRange) != null ? _l : props.maxDays) != null ? _m : props.maxNights));
         if (Number.isFinite(minRange) && nights < minRange) return false;
         if (Number.isFinite(maxRange) && nights > maxRange) return false;
       }
@@ -7174,10 +7185,12 @@
       if (shouldCloseOnSelect()) closePanel();
     };
     const clearValue = () => {
+      if (uiUnwrap(props.disabled) || uiUnwrap(props.readonly)) return;
       mouseSelectedDate = null;
       setDateValue(emptyValue(), null, { timeValue: null });
     };
     const jumpToToday = () => {
+      if (uiUnwrap(props.disabled) || uiUnwrap(props.readonly)) return;
       const today = todayIso();
       if (!isDateAllowed(today)) {
         syncViewMonth(today);
@@ -7206,6 +7219,7 @@
       uiCenterTimeColumnsToSelection(panelRoot, options2);
     };
     const jumpToNow = () => {
+      if (uiUnwrap(props.disabled) || uiUnwrap(props.readonly)) return;
       if (!isTimeEnabled()) return;
       const scrollState = uiCaptureTimeColumnScrollState(panelRoot);
       setTimeValue(/* @__PURE__ */ new Date(), null, { commit: !uiUnwrap(props.confirm) });
@@ -7213,12 +7227,13 @@
       if (!uiUnwrap(props.confirm) && props.closeOnSelect === true) closePanel();
     };
     const applyWorkingValue = () => {
+      if (uiUnwrap(props.disabled) || uiUnwrap(props.readonly)) return;
       if (!uiUnwrap(props.confirm)) return;
       setDateValue(workingValue, null, { timeValue: workingTimeValue, preserveTime: true });
       if (props.closeOnSelect !== false) closePanel();
     };
     const renderPanel = () => {
-      var _a3, _b2, _c2, _d2, _e2, _f2, _g2, _h2, _i2, _j2, _k2, _l2, _m, _n, _o, _p, _q, _r, _s;
+      var _a3, _b2, _c2, _d2, _e2, _f2, _g2, _h2, _i2, _j2, _k2, _l, _m, _n, _o, _p, _q, _r, _s;
       if (!panelRoot) return;
       const locale = getLocale();
       const monthLabelFormatter = new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" });
@@ -7301,7 +7316,7 @@
       const inferredYearStart = (validYears.length ? Math.min(...validYears) : viewMonth.getFullYear()) - 100;
       const inferredYearEnd = (validYears.length ? Math.max(...validYears) : viewMonth.getFullYear()) + 50;
       const yearStart = Number(uiUnwrap((_j2 = (_i2 = props.yearStart) != null ? _i2 : min ? (_h2 = fromIsoDate(min)) == null ? void 0 : _h2.getFullYear() : null) != null ? _j2 : inferredYearStart));
-      const yearEnd = Number(uiUnwrap((_m = (_l2 = props.yearEnd) != null ? _l2 : max ? (_k2 = fromIsoDate(max)) == null ? void 0 : _k2.getFullYear() : null) != null ? _m : inferredYearEnd));
+      const yearEnd = Number(uiUnwrap((_m = (_l = props.yearEnd) != null ? _l : max ? (_k2 = fromIsoDate(max)) == null ? void 0 : _k2.getFullYear() : null) != null ? _m : inferredYearEnd));
       const monthSelect = _.select({ class: "jss-date-select", value: String(viewMonth.getMonth()), onChange: (event) => {
         var _a4;
         viewMonth = new Date(viewMonth.getFullYear(), Number(event.currentTarget.value), 1);
@@ -7364,6 +7379,15 @@
         }
       } }, header, shortcutList.length ? shortcuts : null, _.div({ class: "jss-data-time" }, months, contentTimer), footer));
     };
+    const createCalendarPanel = (standalone = false) => {
+      const fallback = mode === "range" || mode === "range-multiple" ? 2 : 1;
+      const root = _.div({ class: uiClass(["jss-clear-set", "jss-card", "jss-singularity", "jss-date-panel", standalone ? "jss-date-calendar" : "", sizeValue, uiWhen(props.dense, "jss-card-dense"), uiComputed(props.monthsToShow, () => {
+        var _a3;
+        return Number((_a3 = uiUnwrap(props.monthsToShow)) != null ? _a3 : fallback) > 1 ? "multi-month" : "";
+      }), props.panelClass, props.class]), style: { ...props.style || {}, ...props.panelStyle || {} } });
+      setPropertyProps(root, props);
+      return root;
+    };
     function openPanel() {
       var _a3, _b2, _c2, _d2;
       if (entry || uiUnwrap(props.disabled) || uiUnwrap(props.readonly)) return entry;
@@ -7376,7 +7400,7 @@
         var _a4;
         const fallback = mode === "range" || mode === "range-multiple" ? 2 : 1;
         const raw = Number((_a4 = uiUnwrap(props.monthsToShow)) != null ? _a4 : fallback);
-        panelRoot = _.div({ class: uiClassStatic(["jss-date-panel", uiUnwrap(sizeValue), uiWhen(raw > 1, "multi-month"), props.panelClass]) });
+        panelRoot = createCalendarPanel();
         renderPanel();
         return panelRoot;
       }, { type: "date", anchorEl: field._control || displayInput, placement: props.placement || "bottom-start", offsetX: (_a3 = props.offsetX) != null ? _a3 : 0, offsetY: (_c2 = (_b2 = props.offsetY) != null ? _b2 : props.offset) != null ? _c2 : 8, backdrop: false, lockScroll: false, trapFocus: false, closeOnOutside: props.closeOnOutside !== false, closeOnBackdrop: false, closeOnEsc: true, autoFocus: false, className: uiClassStatic(["jss-date-overlay", props.panelClass, uiWhen(isTimeEnabled(), "has-time")]), onClose: () => {
@@ -7402,11 +7426,7 @@
       const toClose = entry;
       overlayLeave(toClose, () => JSswift.overlay.close(toClose.id));
     }
-    if (isCalendar) {
-      const fallback = mode === "range" || mode === "range-multiple" ? 2 : 1;
-      const raw = Number((_l = uiUnwrap(props.monthsToShow)) != null ? _l : fallback);
-      panelRoot = _.div({ class: uiClassStatic(["jss-date-panel", "jss-date-calendar", uiUnwrap(sizeValue), uiWhen(raw > 1, "multi-month"), props.panelClass, props.class]), style: props.style });
-    }
+    if (isCalendar) panelRoot = createCalendarPanel(true);
     if (!isCalendar) displayInput.addEventListener("focus", (event) => {
       var _a3;
       (_a3 = props.onFocus) == null ? void 0 : _a3.call(props, event);
@@ -7456,8 +7476,9 @@
         return (_a3 = props.onBlur) == null ? void 0 : _a3.call(props, event);
       });
     }
+    let stopModel = null;
     if (model) {
-      model.watch((next) => {
+      stopModel = model.watch((next) => {
         const normalized = normalizeValue(next);
         const nextTime = resolveDateTimeTimeValue(next);
         if (serializeCurrentValue(normalized, nextTime) === serializeCurrentValue(localValue, localTimeValue)) return;
@@ -7471,7 +7492,7 @@
         renderPanel();
       }, isCalendar ? "UI.Calendar:watch" : "UI.Datepicker:watch");
     }
-    JSswift.reactive.effect(() => {
+    const stopRender = JSswift.reactive.effect(() => {
       if (!model && props.value != null) {
         localValue = normalizeValue(uiUnwrap(props.value));
         workingValue = cloneValue(localValue);
@@ -7485,6 +7506,11 @@
       renderPanel();
       if (entry && uiUnwrap(props.disabled)) closePanel();
     }, isCalendar ? "UI.Calendar:render" : "UI.Datepicker:render");
+    JSswift._registerCleanup(isCalendar ? panelRoot : field, () => {
+      stopModel == null ? void 0 : stopModel();
+      stopRender();
+      if (entry) JSswift.overlay.close(entry.id);
+    });
     if (isCalendar) {
       panelRoot._calendar = panelRoot;
       panelRoot._date = panelRoot;

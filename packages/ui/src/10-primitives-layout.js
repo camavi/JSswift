@@ -3110,6 +3110,10 @@
 
 
   UI.Upload = (props = {}) => {
+    const inputTone = props;
+    props = { ...props };
+    props.color = uiComputed([props.state, props.status, props.color], () =>
+      uiUnwrap(inputTone.state) || uiUnwrap(inputTone.status) || uiUnwrap(inputTone.color) || "");
     applyCommonProps(props);
     const slots = props.slots || {};
     const [getFiles, setFiles] = JSswift.reactive.signal([]);
@@ -3118,6 +3122,7 @@
     const [getError, setError] = JSswift.reactive.signal(null);
     let seq = 0;
     let disposed = false;
+    let selectionVersion = 0;
 
     const isDisabled = () => !!uiUnwrap(props.disabled) || !!uiUnwrap(props.readonly);
     const isMultiple = () => props.multiple !== false && props.single !== true;
@@ -3127,8 +3132,7 @@
     const showClear = () => uiUnwrap(props.showClear ?? props.clearButton) !== false;
     const showFiles = () => uiUnwrap(props.showFiles ?? props.files) !== false;
     const getStatusClass = () => {
-      const state = normalizeState(uiUnwrap(props.state) || uiUnwrap(props.status));
-      return state ? `jss-state-${state}` : "";
+      return "";
     };
     const getFieldName = () => props.fieldName || props.paramName || props.name || "file";
     const getParallel = () => Math.max(1, Number(uiUnwrap(props.parallelUploads ?? props.parallel) || 1));
@@ -3241,15 +3245,17 @@
       xhr: null
     });
     const addFiles = async (inputFiles, meta = {}) => {
-      if (isDisabled()) return [];
+      if (disposed || isDisabled()) return [];
       setError(null);
       const incoming = toList(inputFiles);
       const added = [];
       if (!isMultiple() && incoming.length) {
         clear({ silent: true });
       }
+      const version = selectionVersion;
       for (const file of incoming) {
         const reason = await validateFile(file, activeFiles().length + 1);
+        if (disposed || isDisabled() || version !== selectionVersion) return [];
         if (reason) {
           rejectFile(file, reason);
           continue;
@@ -3265,6 +3271,7 @@
       return added;
     };
     const clear = (opts = {}) => {
+      selectionVersion++;
       for (const item of getFiles()) {
         if (item.status === "uploading") abort(item);
         item.status = "removed";
@@ -3485,7 +3492,10 @@
     let currentStatusClass = getStatusClass();
     const root = _.div({
       class: uiClass([
+        "jss-clear-set",
+        "jss-card",
         "jss-upload",
+        uiWhen(props.dense, "jss-card-dense"),
         "jss-singularity",
         currentStatusClass,
         uiWhen(props.box || props.variant === "box", "jss-upload-box"),
@@ -3496,6 +3506,7 @@
       ]),
       tabindex: isDisabled() ? "-1" : "0",
       role: "group",
+      style: props.style,
       "aria-disabled": isDisabled() ? "true" : "false"
     });
     const api = {
@@ -3521,13 +3532,13 @@
       const ctx = { api, files: getFiles().slice(), busy: getBusy(), disabled: isDisabled(), submitMode: isFormSubmitMode() ? "form" : "upload" };
       const actionNodes = [];
       if (showBrowse()) {
-        actionNodes.push(JSswift.ui.renderSlot(slots, "browse", ctx, UI.Btn({ size: "sm", icon: "folder_open", label: props.browseText || "Browse", onClick: browse })));
+        actionNodes.push(JSswift.ui.renderSlot(slots, "browse", ctx, UI.Button({ size: "sm", color: "primary", disabled: isDisabled(), icon: "folder_open", label: props.browseText || "Browse", onClick: browse })));
       }
       if (showUpload()) {
-        actionNodes.push(JSswift.ui.renderSlot(slots, "upload", ctx, UI.Btn({ size: "sm", color: "primary", icon: "upload", label: props.uploadText || "Upload", loading: getBusy(), disabled: isDisabled() || !getFiles().some((item) => ["queued", "error", "canceled"].includes(item.status)), onClick: () => upload() })));
+        actionNodes.push(JSswift.ui.renderSlot(slots, "upload", ctx, UI.Button({ size: "sm", color: "primary", icon: "upload", label: props.uploadText || "Upload", loading: getBusy(), disabled: isDisabled() || !getFiles().some((item) => ["queued", "error", "canceled"].includes(item.status)), onClick: () => upload() })));
       }
       if (showClear()) {
-        actionNodes.push(JSswift.ui.renderSlot(slots, "clear", ctx, UI.Btn({ size: "sm", color: "secondary", outline: true, icon: "delete", label: props.clearText || "Clear", disabled: isDisabled() || !getFiles().length, onClick: () => clear() })));
+        actionNodes.push(JSswift.ui.renderSlot(slots, "clear", ctx, UI.Button({ size: "sm", class: "jss-upload-clear", outline: true, icon: "delete", label: props.clearText || "Clear", disabled: isDisabled() || !getFiles().length, onClick: () => clear() })));
       }
       return renderSlotToArray(slots, "actions", ctx, actionNodes);
     };
@@ -3556,9 +3567,9 @@
           _.div({ class: "jss-upload-file-size" }, formatBytes(item.size)),
           _.div({ class: "jss-upload-file-actions" },
             ...renderSlotToArray(slots, "fileActions", ctx, [
-              item.status === "uploading" ? UI.Btn({ size: "sm", outline: true, icon: "close", "aria-label": "Cancel", onClick: () => abort(item) }) : null,
-              item.status === "error" || item.status === "canceled" ? UI.Btn({ size: "sm", outline: true, icon: "refresh", "aria-label": "Retry", onClick: () => retryUpload(item) }) : null,
-              UI.Btn({ size: "sm", dense: true, outline: true, icon: "delete", "aria-label": "Remove", onClick: () => remove(item) })
+              item.status === "uploading" ? UI.Button({ size: "sm", outline: true, icon: "close", "aria-label": "Cancel", onClick: () => abort(item) }) : null,
+              item.status === "error" || item.status === "canceled" ? UI.Button({ size: "sm", outline: true, icon: "refresh", "aria-label": "Retry", onClick: () => retryUpload(item) }) : null,
+              UI.Button({ size: "sm", dense: true, outline: true, icon: "delete", "aria-label": "Remove", onClick: () => remove(item) })
             ])
           )
         )
@@ -3629,8 +3640,8 @@
     renderSlotToArray(null, "default", {}, header).forEach((node) => root.appendChild(node));
     root.appendChild(input);
     renderSlotToArray(slots, "default", { api, dropzone }, dropzone).forEach((node) => root.appendChild(node));
-    JSswift.reactive.effect(() => { render(); }, "UI.Upload:render");
-    JSswift.reactive.effect(() => {
+    const stopRender = JSswift.reactive.effect(() => { render(); }, "UI.Upload:render");
+    const stopState = JSswift.reactive.effect(() => {
       root.classList.toggle("is-disabled", isDisabled());
       root.classList.toggle("is-form-mode", isFormSubmitMode());
       root.classList.toggle("is-files-hidden", !showFiles());
@@ -3641,6 +3652,7 @@
         currentStatusClass = nextStatusClass;
       }
       root.setAttribute("aria-disabled", isDisabled() ? "true" : "false");
+      root.tabIndex = isDisabled() ? -1 : 0;
       input.disabled = isDisabled();
       input.multiple = isMultiple();
       input.name = getFieldName();
@@ -3653,9 +3665,13 @@
     root._dispose = () => {
       if (disposed) return;
       disposed = true;
+      selectionVersion++;
+      stopRender();
+      stopState();
       abortAll();
     };
     JSswift._registerCleanup?.(root, root._dispose);
+    setPropertyProps(root, props);
     return root;
   };
   UI.BoxUpload = (props = {}) => UI.Upload({ ...props, box: true });

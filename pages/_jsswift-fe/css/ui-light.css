@@ -13875,6 +13875,132 @@ a.jss-breadcrumb {
   color: #f1f5f9;
 }
 
+/* Upload composes on the same surface as Card. */
+.jss-upload.jss-card {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  color: var(--set-color, var(--jss-text));
+  font-size: var(--jss-font-size, 14px);
+}
+.jss-upload.jss-card:not([class*="jss-state-"]) { color: var(--jss-text); }
+.jss-upload .jss-upload-dropzone { min-width: 0; }
+.jss-upload .jss-upload-head { grid-template-columns: auto minmax(0, 1fr); }
+.jss-upload .jss-upload-icon {
+  color: inherit;
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+.jss-upload :is(.jss-upload-subtitle, .jss-upload-summary, .jss-upload-empty, .jss-upload-file-meta, .jss-upload-file-size, .jss-upload-file-icon) { color: inherit; }
+.jss-upload .jss-upload-title { font-size: 1em; }
+.jss-upload :is(.jss-upload-subtitle, .jss-upload-summary, .jss-upload-file-meta, .jss-upload-file-size) { font-size: .86em; }
+.jss-upload.jss-upload-box .jss-upload-dropzone {
+  background: color-mix(in srgb, currentColor 5%, transparent);
+  border-color: color-mix(in srgb, currentColor 35%, transparent);
+}
+.jss-upload :is(.jss-upload-empty, .jss-upload-file) {
+  border-color: color-mix(in srgb, currentColor 25%, transparent);
+  background: color-mix(in srgb, currentColor 5%, transparent);
+}
+.jss-upload .jss-upload-file { grid-template-columns: auto minmax(0, 1fr); }
+.jss-upload .jss-upload-file-trailing { grid-column: 1 / -1; min-width: 0; flex-wrap: wrap; }
+.jss-upload .jss-upload-file-name { white-space: normal; overflow-wrap: anywhere; }
+.jss-upload .jss-upload-progress { background: color-mix(in srgb, currentColor 20%, transparent); }
+.jss-upload .jss-upload-progress-bar { background: currentColor; }
+.jss-upload .jss-upload-file.is-done { border-color: var(--jss-success); }
+.jss-upload .jss-upload-file:is(.is-error,.is-rejected) { border-color: var(--jss-danger); }
+.jss-upload.jss-card.is-dragging .jss-upload-dropzone,
+.jss-upload.jss-card .jss-upload-dropzone:focus-within {
+  border-color: currentColor;
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, currentColor 40%, transparent);
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+.jss-upload.jss-text-gradient { background-clip: border-box; -webkit-background-clip: border-box; -webkit-text-fill-color: currentColor; background-image: none; }
+.jss-upload.jss-text-gradient .jss-upload-title { background-image: linear-gradient(120deg,var(--set-color-2),var(--set-color-3)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.jss-upload.jss-card-dense .jss-upload-dropzone { padding: 10px; gap: 6px; min-height: 0; }
+.jss-upload.jss-card-dense .jss-upload-head { gap: 8px; }
+.jss-upload.jss-card-dense .jss-upload-icon { width: 30px; height: 30px; }
+.jss-upload.jss-card-dense .jss-upload-empty { padding: 8px; }
+@container (min-width: 720px) {
+  .jss-upload .jss-upload-head { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .jss-upload .jss-upload-file { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .jss-upload .jss-upload-file-trailing { grid-column: auto; }
+}
+
+@container (max-width: 520px) {
+  .jss-upload .jss-upload-head { grid-template-columns: minmax(0, 1fr); }
+  .jss-upload .jss-upload-actions { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .jss-upload .jss-upload-head { grid-template-columns: minmax(0, 1fr); }
+  .jss-upload .jss-upload-actions { grid-column: 1 / -1; }
+}
+
+/* Clear is a surface action: retain contrast on every Upload palette. */
+.jss-upload .jss-upload-actions .jss-btn.jss-upload-clear {
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+  border: 1px solid color-mix(in srgb, currentColor 45%, transparent);
+  background: color-mix(in srgb, currentColor 12%, transparent);
+  background-image: none;
+}
+.jss-upload .jss-upload-actions .jss-btn.jss-upload-clear:disabled { opacity: .65; }
+.jss-upload .jss-upload-actions .jss-btn.jss-upload-clear:not(:disabled):hover {
+  background: color-mix(in srgb, currentColor 22%, transparent);
+}
+
+/* Dark Glass keeps its dark tint independently of the page theme. */
+.jss-card.jss-singularity.jss-glass.jss-state-dark,
+:root[data-theme="dark"] .jss-card.jss-singularity.jss-glass.jss-state-dark {
+  --set-color: #f1f5f9;
+  --set-border-color: #64748b;
+  color: #f1f5f9;
+  background-color: rgb(15 23 42 / 76%);
+}
+.jss-card.jss-singularity.jss-glass.jss-state-dark::before,
+:root[data-theme="dark"] .jss-card.jss-singularity.jss-glass.jss-state-dark::before {
+  --set-sec-color: rgb(15 23 42 / 35%);
+  --set-color-1: #cbd5e1;
+  --set-color-2: #64748b;
+  --set-color-3: #334155;
+  filter: brightness(.55);
+  opacity: .5;
+}
+.jss-card.jss-glass.jss-state-dark :is(.jss-card-eyebrow, .jss-card-subtitle, .jss-card-header-content) { color: inherit; }
+
+/* Dark Outline uses a defined slate edge and readable theme foreground. */
+.jss-card.jss-singularity.jss-outline.jss-state-dark:not(.jss-glass, .jss-text-gradient) {
+  --set-color: #1f2937;
+  --set-border-color: #334155;
+  color: #1f2937;
+  border-color: #334155;
+}
+:root[data-theme="dark"] .jss-card.jss-singularity.jss-outline.jss-state-dark:not(.jss-glass, .jss-text-gradient) {
+  --set-color: #e2e8f0;
+  --set-border-color: #64748b;
+  color: #e2e8f0;
+  border-color: #64748b;
+}
+
+/* Calendar and Date share Card surfaces and calendar control contrast. */
+.jss-date-panel.jss-card { isolation: isolate; color: var(--set-color, var(--jss-text)); min-width: 0; max-width: 100%; box-sizing: border-box; }
+.jss-date-panel.jss-card:not([class*="jss-state-"]) { color: var(--jss-text); }
+.jss-date-panel.jss-card :is(.jss-date-day,.jss-date-weekday,.jss-date-value,.jss-date-nav,.jss-date-action,.jss-date-shortcut,.jss-date-select) { color: inherit; }
+.jss-date-panel.jss-card :is(.jss-date-month,.jss-date-footer,.jss-date-nav,.jss-date-action,.jss-date-shortcut,.jss-date-select) { border-color: color-mix(in srgb,currentColor 25%,transparent); }
+.jss-date-panel.jss-card :is(.jss-date-month,.jss-date-nav,.jss-date-action,.jss-date-shortcut,.jss-date-select) { background: color-mix(in srgb,currentColor 5%,transparent); }
+.jss-date-panel.jss-card .jss-date-select option { color: var(--jss-text); background: var(--jss-panel); }
+.jss-date-panel.jss-card .jss-date-day:is(.is-selected,.is-range-start,.is-range-end),
+.jss-date-panel.jss-card .jss-date-action.is-primary { color: inherit; background: color-mix(in srgb,currentColor 22%,transparent); border-color: currentColor; box-shadow: inset 0 0 0 1px currentColor; font-weight: 700; }
+.jss-date-panel.jss-card .jss-date-day.is-in-range { background: color-mix(in srgb,currentColor 12%,transparent); }
+.jss-date-panel.jss-card .jss-date-day.is-today { border-color: currentColor; }
+.jss-date-panel.jss-card :is(.jss-date-day,.jss-date-nav,.jss-date-action,.jss-date-shortcut):not(:disabled):hover { color: inherit; background: color-mix(in srgb,currentColor 16%,transparent); }
+.jss-date-panel.jss-card :is(.jss-date-day,.jss-date-nav,.jss-date-action,.jss-date-select):focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.jss-date-panel.jss-card .jss-date-months { grid-template-columns: repeat(auto-fit,minmax(min(100%,var(--jss-date-month-min)),1fr)); }
+.jss-date-panel.jss-card .jss-date-header-center { min-width: 0; flex-wrap: wrap; }
+.jss-date-panel.jss-card .jss-date-select { min-width: 0; }
+.jss-date-panel.jss-card.jss-card-dense { --jss-date-panel-padding: 6px; --jss-date-panel-gap: 6px; --jss-date-month-padding: 6px; --jss-date-day-height: 24px; }
+.jss-date-panel.jss-card.jss-text-gradient { background-clip: border-box; -webkit-background-clip: border-box; -webkit-text-fill-color: currentColor; background-image: none; }
+.jss-date-panel.jss-card.jss-text-gradient .jss-date-month-title { background-image: linear-gradient(120deg,var(--set-color-2),var(--set-color-3)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
 /* AUTO-GENERATED FILE – DO NOT EDIT */
 /* JSswift responsive – CSS classes */
 

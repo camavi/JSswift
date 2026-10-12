@@ -1986,10 +1986,12 @@
       if (shouldCloseOnSelect()) closePanel();
     };
     const clearValue = () => {
+      if (uiUnwrap(props.disabled) || uiUnwrap(props.readonly)) return;
       mouseSelectedDate = null;
       setDateValue(emptyValue(), null, { timeValue: null });
     };
     const jumpToToday = () => {
+      if (uiUnwrap(props.disabled) || uiUnwrap(props.readonly)) return;
       const today = todayIso();
       if (!isDateAllowed(today)) {
         syncViewMonth(today);
@@ -2020,6 +2022,7 @@
       uiCenterTimeColumnsToSelection(panelRoot, options);
     };
     const jumpToNow = () => {
+      if (uiUnwrap(props.disabled) || uiUnwrap(props.readonly)) return;
       if (!isTimeEnabled()) return;
       const scrollState = uiCaptureTimeColumnScrollState(panelRoot);
       setTimeValue(new Date(), null, { commit: !uiUnwrap(props.confirm) });
@@ -2027,6 +2030,7 @@
       if (!uiUnwrap(props.confirm) && props.closeOnSelect === true) closePanel();
     };
     const applyWorkingValue = () => {
+      if (uiUnwrap(props.disabled) || uiUnwrap(props.readonly)) return;
       if (!uiUnwrap(props.confirm)) return;
       setDateValue(workingValue, null, { timeValue: workingTimeValue, preserveTime: true });
       if (props.closeOnSelect !== false) closePanel();
@@ -2304,6 +2308,20 @@
       );
     };
 
+    const createCalendarPanel = (standalone = false) => {
+      const fallback = (mode === "range" || mode === "range-multiple") ? 2 : 1;
+      const root = _.div({
+        class: uiClass(["jss-clear-set", "jss-card", "jss-singularity", "jss-date-panel",
+          standalone ? "jss-date-calendar" : "", sizeValue,
+          uiWhen(props.dense, "jss-card-dense"),
+          uiComputed(props.monthsToShow, () => Number(uiUnwrap(props.monthsToShow) ?? fallback) > 1 ? "multi-month" : ""),
+          props.panelClass, props.class]),
+        style: { ...(props.style || {}), ...(props.panelStyle || {}) }
+      });
+      setPropertyProps(root, props);
+      return root;
+    };
+
     function openPanel() {
       if (entry || uiUnwrap(props.disabled) || uiUnwrap(props.readonly)) return entry;
       workingValue = cloneValue(localValue);
@@ -2314,7 +2332,7 @@
       entry = JSswift.overlay.open(({ close }) => {
         const fallback = (mode === "range" || mode === "range-multiple") ? 2 : 1;
         const raw = Number(uiUnwrap(props.monthsToShow) ?? fallback);
-        panelRoot = _.div({ class: uiClassStatic(["jss-date-panel", uiUnwrap(sizeValue), uiWhen(raw > 1, "multi-month"), props.panelClass]) });
+        panelRoot = createCalendarPanel();
         renderPanel();
         return panelRoot;
       }, {
@@ -2357,21 +2375,7 @@
       overlayLeave(toClose, () => JSswift.overlay.close(toClose.id));
     }
 
-    if (isCalendar) {
-      const fallback = (mode === "range" || mode === "range-multiple") ? 2 : 1;
-      const raw = Number(uiUnwrap(props.monthsToShow) ?? fallback);
-      panelRoot = _.div({
-        class: uiClassStatic([
-          "jss-date-panel",
-          "jss-date-calendar",
-          uiUnwrap(sizeValue),
-          uiWhen(raw > 1, "multi-month"),
-          props.panelClass,
-          props.class
-        ]),
-        style: props.style
-      });
-    }
+    if (isCalendar) panelRoot = createCalendarPanel(true);
 
     if (!isCalendar) displayInput.addEventListener("focus", (event) => {
       props.onFocus?.(event);
@@ -2416,8 +2420,9 @@
       displayInput.addEventListener("blur", (event) => props.onBlur?.(event));
     }
 
+    let stopModel = null;
     if (model) {
-      model.watch((next) => {
+      stopModel = model.watch((next) => {
         const normalized = normalizeValue(next);
         const nextTime = resolveDateTimeTimeValue(next);
         if (serializeCurrentValue(normalized, nextTime) === serializeCurrentValue(localValue, localTimeValue)) return;
@@ -2432,7 +2437,7 @@
       }, isCalendar ? "UI.Calendar:watch" : "UI.Datepicker:watch");
     }
 
-    JSswift.reactive.effect(() => {
+    const stopRender = JSswift.reactive.effect(() => {
       if (!model && props.value != null) {
         localValue = normalizeValue(uiUnwrap(props.value));
         workingValue = cloneValue(localValue);
@@ -2446,6 +2451,12 @@
       renderPanel();
       if (entry && uiUnwrap(props.disabled)) closePanel();
     }, isCalendar ? "UI.Calendar:render" : "UI.Datepicker:render");
+
+    JSswift._registerCleanup(isCalendar ? panelRoot : field, () => {
+      stopModel?.();
+      stopRender();
+      if (entry) JSswift.overlay.close(entry.id);
+    });
 
     if (isCalendar) {
       panelRoot._calendar = panelRoot;

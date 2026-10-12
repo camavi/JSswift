@@ -74,3 +74,6 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["color", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "mobile", "tablet", "pc", "class", "style"]}
 }
 ```
+
+
+Calendar standalone (`_.Calendar(props)`) uses the same date selection implementation and panel as Date. Both panels use Card palette/effects: color, dense, flat, border, shadow, lightShadow, glow, glossy, glass, gradient, textGradient and outline. Panel classes are reactive; common sizing and responsive props apply to the panel. Text Gradient affects month titles only; days, selected/range states and actions keep readable foreground. Light/Dark neutral rules match Card. Use `model` for reactive selected dates and `monthsToShow` for visible months. Existing Date selection, range, time and callbacks remain shared.
