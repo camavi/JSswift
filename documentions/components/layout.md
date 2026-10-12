@@ -92,3 +92,5 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["size", "color", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "maxHeight", "radius", "borderRadius", "shadow", "class", "style"]}
 }
 ```
+
+Responsive disposition and custom grid areas follow the mobile-first cascade: tablet values remain active on desktop unless overridden by pc. Layout provides a neutral theme surface by default; nested components retain their own semantic colors.

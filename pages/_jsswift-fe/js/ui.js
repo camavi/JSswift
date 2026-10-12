@@ -3710,14 +3710,7 @@
       }
       return resolveProp(...keys);
     };
-    const resolveLayoutDeviceProp = (...keys) => {
-      const responsiveProps = JSswift.uiResponsivePropsFor(props, uiResponsiveDevice(getResponsiveDeviceKey())) || {};
-      for (const key of keys) {
-        if (hasOwn(responsiveProps, key)) return responsiveProps[key];
-      }
-      return resolveProp(...keys);
-    };
-    const getLayoutDisposition = () => normalizeLayoutDisposition(resolveLayoutDeviceProp("disposition", "layoutDisposition", "layout"));
+    const getLayoutDisposition = () => normalizeLayoutDisposition(resolveLayoutProp("disposition", "layoutDisposition", "layout"));
     const getLayoutMode = () => {
       const raw = uiUnwrap(resolveLayoutProp("mode", "layoutMode"));
       if (raw == null || raw === false || raw === "") return "";
@@ -4026,7 +4019,7 @@
       shell.style.gridTemplateColumns = [drawerColumn === "left" ? "minmax(0, var(--jss-layout-drawer-width))" : navColumn === "left" ? "minmax(0, var(--jss-layout-nav-width))" : "0px", "minmax(0, 1fr)", drawerColumn === "right" ? "minmax(0, var(--jss-layout-drawer-width))" : navColumn === "right" ? "minmax(0, var(--jss-layout-nav-width))" : "0px"].join(" ");
       const defaultAreas = ['"header header header"', `"${inlineDrawerVisible ? "aside" : "."} main ${inlineNavVisible ? "nav" : "."}"`, '"footer footer footer"'].join(" ");
       const dispositionAreas = createLayoutDispositionAreas(layoutDispositionMap[disposition], { header: hasHeaderContent, aside: inlineDrawerVisible, nav: inlineNavVisible, main: hasPageContent, footer: hasFooterContent });
-      shell.style.gridTemplateAreas = toLayoutGridTemplateAreas(resolveLayoutDeviceProp("areas", "gridTemplateAreas", "templateAreas")) || dispositionAreas || defaultAreas;
+      shell.style.gridTemplateAreas = toLayoutGridTemplateAreas(resolveLayoutProp("areas", "gridTemplateAreas", "templateAreas")) || dispositionAreas || defaultAreas;
     };
     const headerUpdate = (value, newUrl) => {
       hasHeaderContent = fillWrap(headerWrap, normalizeUpdateNodes(value));

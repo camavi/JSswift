@@ -3772,15 +3772,8 @@
       }
       return resolveProp(...keys);
     };
-    const resolveLayoutDeviceProp = (...keys) => {
-      const responsiveProps = JSswift.uiResponsivePropsFor(props, uiResponsiveDevice(getResponsiveDeviceKey())) || {};
-      for (const key of keys) {
-        if (hasOwn(responsiveProps, key)) return responsiveProps[key];
-      }
-      return resolveProp(...keys);
-    };
     const getLayoutDisposition = () => normalizeLayoutDisposition(
-      resolveLayoutDeviceProp("disposition", "layoutDisposition", "layout")
+      resolveLayoutProp("disposition", "layoutDisposition", "layout")
     );
     const getLayoutMode = () => {
       const raw = uiUnwrap(resolveLayoutProp("mode", "layoutMode"));
@@ -4213,7 +4206,7 @@
         footer: hasFooterContent
       });
       shell.style.gridTemplateAreas = toLayoutGridTemplateAreas(
-        resolveLayoutDeviceProp("areas", "gridTemplateAreas", "templateAreas")
+        resolveLayoutProp("areas", "gridTemplateAreas", "templateAreas")
       ) || dispositionAreas || defaultAreas;
     };
 

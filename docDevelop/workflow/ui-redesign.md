@@ -868,3 +868,7 @@ Adjusted dark Tabs Glass after feedback: restored visible nav reflections and sh
 - Spacer audit found missing setPropertyProps, so documented common dimensions and responsive overrides were ignored. Added the shared property application without changing default transparent flex behavior. Chrome audit at 390/820/1200 in both themes verifies horizontal/vertical spacing, equal spacers, minimum responsive widths, reactive slot content, child colors and no overflow. UI build, 72 unit tests, targeted browser test and diff check passed. Awaiting review; no commit requested.
 
 - User accepted and closed Spacer and requested commit. UI build, 72 unit tests and targeted three-breakpoint/two-theme browser audit passed. Next component Layout; local composition fixture prepared.
+
+- Layout audit found disposition and custom grid areas resolved only the current device object, dropping tablet values on desktop. Reused cumulative responsive resolution for both properties. Browser regression at 390/820/1200 in light/dark verifies inheritance, regions, controlled rods, panel open/close/toggle, Escape behavior, runtime updates, preserved child colors and no overflow. UI build, 72 unit tests, Layout audit plus AppShell composition and Layout watcher cleanup regressions passed. Public contract clarified; awaiting review, no commit requested.
+
+- User accepted and closed Layout and requested commit. Build, 72 unit tests, Layout responsive audit, AppShell composition and watcher cleanup checks passed. Next component Icon; local palette/effects fixture prepared.
