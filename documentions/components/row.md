@@ -46,3 +46,5 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["size", "color", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "class", "style"]}
 }
 ```
+
+When a sized Col is a direct child of Row, its 24-column width accounts for the horizontal gap. For example, two `col: 12` children fit on one row with a gap; three `col: 8` children do likewise. Responsive spans and gaps use the same calculation. Columns outside Row keep their normal percentage widths.

@@ -858,3 +858,9 @@ Adjusted dark Tabs Glass after feedback: restored visible nav reflections and sh
 - User requested commit after Container audit; Container accepted and closed. Grouping approved Header/Footer follow-ups, Toolbar, Grid/GridCol regressions and Container correction. Next layout components Row/Col.
 
 - Final commit checks: UI build, 72 unit tests, eight relevant browser regressions and diff check passed. Local Row/Col fixture prepared; no publication requested.
+
+- Row/Col audit found percentage columns ignored horizontal gap, wrapping two halves/three thirds prematurely. Generator now emits gap-aware direct Row child widths, preserving columns outside Row and auto columns. Row supplies base horizontal gap; token/arbitrary responsive gap rules update the inherited calculation. CSS build now regenerates canonical responsive source from the generator before bundling, preventing stale full-vs-light outputs. Added three-breakpoint browser coverage for spans/gaps, explicit/inline/full width, alignment, reverse, regions, reactive content and child colors. Final full checks running.
+
+- Row/Col final verification: UI build, all 72 unit tests, all 42 browser tests, desktop visual review and diff check passed. Responsive gap and half/third columns now fit as intended; tested explicit/inline/full sizing, alignment/reverse, reactive regions and child color preservation. No commit requested.
+
+- User accepted and closed Row/Col and requested commit. All 72 unit and 42 browser tests passed; next component Spacer, with a local horizontal/vertical flex fixture prepared.

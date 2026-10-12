@@ -140,6 +140,7 @@
     const gap = uiStyleValue(props.gap, rowSpaceValue);
     const rowGap = uiStyleValue(props.rowGap, rowSpaceValue);
     const columnGap = uiStyleValue(props.columnGap, rowSpaceValue);
+    style["--jss-row-base-gap"] = uiStyleValue(props.columnGap ?? props.gap, rowSpaceValue, "0px");
     const display = uiStyleValue(props.inline, (v) => v ? "inline-flex" : "flex");
     const width = uiStyleValue(props.width, rowWidthValue);
     const minWidth = uiStyleValue(props.minWidth, rowWidthValue);

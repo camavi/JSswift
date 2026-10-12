@@ -21,6 +21,7 @@ const MEDIA_BREAKPOINTS = [...PRIMARY_MEDIA_BREAKPOINTS, ...LEGACY_MEDIA_BREAKPO
 const OUT_FILES = BASE_ONLY ? [
   path.join(ROOT_DIR, "packages/ui/dist/css/responsive-base.css"),
 ] : [
+  path.join(ROOT_DIR, "packages/ui/src/css/responsive.css"),
   path.join(ROOT_DIR, "packages/ui/dist/css/responsive.css"),
   path.join(ROOT_DIR, "packages/jsswift/dist/css/responsive.css"),
 ];
@@ -537,14 +538,22 @@ function buildColumnWidths(count) {
 function addClassLines(lines, prefix, indent, templates) {
   for (const t of templates) {
     lines.push(`${indent}.${prefix}${t.suffix} { ${t.decl} }`);
+    if (/^gap-(?:x-)?(?:xxs|xs|sm|md|lg|xl|xxl|xxxl)$/.test(t.suffix)) {
+      const size = t.suffix.replace(/^gap-(?:x-)?/, "");
+      lines.push(`${indent}.jss-row.${prefix}${t.suffix} { --jss-row-column-gap: var(--jss-gap-${size}); }`);
+    }
   }
 }
 function addColumnLines(lines, prefix, indent, widths) {
   lines.push(`${indent}.${prefix}col-auto { max-width: 100%; flex: 0 0 auto; width: auto; }`);
+  lines.push(`${indent}.jss-row > .${prefix}col-auto { max-width: 100%; flex: 0 0 auto; width: auto; }`);
   for (let i = 0; i < widths.length; i++) {
     const n = i + 1;
     const w = widths[i];
     lines.push(`${indent}.${prefix}col-${n} { flex: 0 0 ${w}; max-width: ${w}; }`);
+    const remainder = Number((1 - n / COL_COUNT).toFixed(8));
+    const adjusted = `calc(${w} - var(--jss-row-column-gap, 0px) * ${remainder})`;
+    lines.push(`${indent}.jss-row > .${prefix}col-${n} { flex-basis: ${adjusted}; max-width: ${adjusted}; }`);
   }
 }
 function addGridColumnLines(lines, prefix, indent, count) {
@@ -567,6 +576,7 @@ function addResponsiveStyleLines(lines) {
 
   for (const [prop, key] of RESPONSIVE_STYLE_PROPS) {
     lines.push(`${selectorFor(key)} { ${prop}: var(--jss-rsp-${key}); }`);
+    if (prop === "gap" || prop === "column-gap") lines.push(`.jss-row${selectorFor(key)} { --jss-row-column-gap: var(--jss-rsp-${key}); }`);
   }
   lines.push("");
 
@@ -574,6 +584,7 @@ function addResponsiveStyleLines(lines) {
     lines.push(`@media (min-width: ${breakpoint.size}px) {`);
     for (const [prop, key] of RESPONSIVE_STYLE_PROPS) {
       lines.push(`  ${selectorFor(key, breakpoint.key)} { ${prop}: var(--jss-rsp-${breakpoint.key}-${key}); }`);
+      if (prop === "gap" || prop === "column-gap") lines.push(`  .jss-row${selectorFor(key, breakpoint.key)} { --jss-row-column-gap: var(--jss-rsp-${breakpoint.key}-${key}); }`);
     }
     lines.push("}");
     lines.push("");
@@ -595,7 +606,7 @@ function main() {
   lines.push("}");
   lines.push("");
 
-  lines.push(".jss-row { display: flex; align-items: stretch; flex-wrap: wrap; }");
+  lines.push(".jss-row { --jss-row-column-gap: var(--jss-row-base-gap, 0px); display: flex; align-items: stretch; flex-wrap: wrap; }");
   lines.push(".jss-col { flex-direction: column; gap: var(--jss-s-md); box-sizing: border-box; min-width: 0; }");
   lines.push(".jss-col-auto { max-width: 100%; flex: 0 0 auto; width: auto; }");
   lines.push(".jss-col-inline { display: inline-block; }");

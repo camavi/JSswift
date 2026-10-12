@@ -31,6 +31,8 @@ const BUNDLE_FILES = [
   "responsive.css",
 ];
 
+execFileSync(process.execPath, [path.join(ROOT, "cms-dev/make-responsive-css.mjs")], { stdio: "inherit" });
+
 fs.mkdirSync(DIST_DIR, { recursive: true });
 fs.mkdirSync(LEGACY_DIR, { recursive: true });
 

@@ -892,7 +892,7 @@
     return !props.includes("span") && !props.includes("gridColumn");
   });
   UI.Row = (...args) => {
-    var _a2, _b, _c, _d, _e;
+    var _a2, _b, _c, _d, _e, _f;
     const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const renderArea = (names, fallback, ctx2 = {}) => {
@@ -932,6 +932,7 @@
     const gap = uiStyleValue(props.gap, rowSpaceValue);
     const rowGap = uiStyleValue(props.rowGap, rowSpaceValue);
     const columnGap = uiStyleValue(props.columnGap, rowSpaceValue);
+    style["--jss-row-base-gap"] = uiStyleValue((_a2 = props.columnGap) != null ? _a2 : props.gap, rowSpaceValue, "0px");
     const display = uiStyleValue(props.inline, (v) => v ? "inline-flex" : "flex");
     const width = uiStyleValue(props.width, rowWidthValue);
     const minWidth = uiStyleValue(props.minWidth, rowWidthValue);
@@ -960,9 +961,9 @@
     if (Object.keys(style).length) p.style = style;
     JSswift.uiApplyResponsiveProps(p, props, JSswift.uiResponsiveStyleRules);
     const ctx = { props };
-    const startNodes = renderArea(["start", "left"], (_a2 = props.start) != null ? _a2 : props.left, ctx);
-    const bodyNodes = renderArea(["body", "center", "default"], (_c = (_b = props.body) != null ? _b : props.center) != null ? _c : children, ctx);
-    const endNodes = renderArea(["end", "right"], (_d = props.end) != null ? _d : props.right, ctx);
+    const startNodes = renderArea(["start", "left"], (_b = props.start) != null ? _b : props.left, ctx);
+    const bodyNodes = renderArea(["body", "center", "default"], (_d = (_c = props.body) != null ? _c : props.center) != null ? _d : children, ctx);
+    const endNodes = renderArea(["end", "right"], (_e = props.end) != null ? _e : props.right, ctx);
     const hasStructuredContent = startNodes.length || endNodes.length || props.body != null || props.center != null || props.startClass || props.bodyClass || props.centerClass || props.endClass || JSswift.ui.getSlot(slots, "start") != null || JSswift.ui.getSlot(slots, "left") != null || JSswift.ui.getSlot(slots, "body") != null || JSswift.ui.getSlot(slots, "center") != null || JSswift.ui.getSlot(slots, "end") != null || JSswift.ui.getSlot(slots, "right") != null;
     if (!hasStructuredContent) {
       const content = renderSlotToArray(slots, "default", ctx, children);
@@ -971,7 +972,7 @@
       return el2;
     }
     const regionStyle = { display: "flex", alignItems: "inherit", gap: "inherit", flexWrap: "inherit", minWidth: 0 };
-    const bodyClass = (_e = props.bodyClass) != null ? _e : props.centerClass;
+    const bodyClass = (_f = props.bodyClass) != null ? _f : props.centerClass;
     const endAutoMargin = uiComputed([props.direction, props.reverse], () => {
       const rawDirection = uiUnwrap(props.direction) || (uiUnwrap(props.reverse) ? "row-reverse" : "row");
       return rawDirection === "row" ? "auto" : "";
