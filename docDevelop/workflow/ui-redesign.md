@@ -806,3 +806,27 @@ Adjusted dark Tabs Glass after feedback: restored visible nav reflections and sh
 - Drawer Glow attenuation made visible after review: replaced inherited intense inner rim with 18% accent/3px inset, 35% near glow and 32%/8px ambient halo, removing broad spread. Chrome screenshot confirms softer optical edge. UI build and diff check passed.
 
 - User accepted and closed Drawer and requested commit. Grouped approved Kpi, Header and Drawer refinements, docs, generated mirrors and Drawer regression. Final UI build, 72 unit tests, all 33 browser tests and diff check passed. Next component Page; local palette/effects/composition fixture prepared.
+
+- Page aligned with Drawer: added missing common props/singularity, quiet 4% semantic surfaces, dedicated Light/Dark, theme-adapted neutral Outline/Flat, default/user radius, opt-in borders, readable supporting text and visible action buttons. Refined header/body/footer hierarchy, density, mobile aside and long-title wrapping. Shared Shadow/Light Shadow; attenuated Glow, subtle Gradient, actual title Text Gradient; Glass/Button radial reflections and Glossy on structured header only, dark Glass brightness .6 excluding Light. Corrected shared dark Glass root override caught by regression. Contract updated. UI build, 72 unit tests, 64 browser combinations (8 colors x 4 variants x 2 themes), light/dark visual review and diff check passed. Page awaits user review; no commit requested.
+
+- User accepted and closed Page. Next component AppShell; local composition fixture prepared with Header, Drawer, Page and layout variants in both themes. Page remains uncommitted pending request.
+
+- AppShell now supplies reactive default color to generated Header/Drawer/Page/Footer, respecting explicit color/state (including null opt-out), custom nodes, slots and nested component colors. Footer now applies common props. Fixed double Reverse inversion, full-width Stack regions and closed mobile Drawer visibility; shell uses theme background/text and Footer supporting text inherits its surface foreground. Public contract updated. UI build, 72 unit tests, browser regression across both themes and desktop/mobile widths, light/dark screenshots and diff check passed. AppShell awaits user review; no commit requested.
+
+- User accepted and closed AppShell. Next component in shell source order: Parallax. Prepared local light/dark palette/effects fixture; Page and AppShell remain uncommitted pending request.
+
+- Parallax now uses semantic common colors and shared Stat elevation/Glass/Glow/neutral treatments instead of interpreting color as foreground. Removed hard-coded fallback gradient; moving media and readability overlay remain separate from the semantic surface. Added explicit textColor contract, dedicated Light/Dark Glass, theme-adapted neutral Outline/Flat, title-only Text Gradient, visible actions, compact Dense and content-driven minimum height. Reduced-motion preference disables movement and cleans up its listener. UI build, 72 unit tests, browser palette/media/reactivity regression (both themes), light/dark visual inspection and diff check passed. Local fixture includes a moving background example. No commit requested; awaits review.
+
+- Parallax motion review: uniform palette samples could not show background displacement. Added prominent first showcase with local SVG mountain landscape, speed .38, 150px offset range and sufficient background overscan. Actual Chrome scroll regression confirms independent background movement and foreground scroll position. No runtime change required; diff check passed.
+
+- Corrected Parallax source URL quoting: SVG data URIs containing parentheses yielded invalid unquoted CSS URLs, leaving a moving but empty background. URLs now use quoted CSS strings. Extended actual-scroll regression to reject missing background images; screenshot confirms the landscape is rendered. UI build, 72 unit tests, both Parallax browser regressions and diff check passed. Earlier movement-only test did not detect missing media.
+
+- Parallax now places a visible semantic translucent veil above media, with a pale Light veil/dark text and explicit overlay override. Visual review also exposed uncovered bottom strips at maximum offset; background overscan now follows maxOffset. Updated contract and browser tint/override assertions.
+
+- Verification: UI build, 72 unit tests, both Parallax browser regressions (themes, media, tint, override and scroll) and diff check passed. Primary/Secondary/Warning media tint visually confirmed.
+
+- Parallax optical effects moved above media: stationary composed Light Shadow, Gradient and Glossy veils; shared Button Glass reflection raised above image, retaining dark brightness .6 except Light. Foreground remains above all veils; Glass text follows its surface foreground. Both-theme visual inspection, UI build, both Parallax browser regressions (including optical layer ordering) and diff check passed.
+
+- User accepted and closed Parallax and requested commit of approved Page/AppShell/Parallax work. Next visual component Footer, completing the shell composition. Made Parallax scroll regression self-contained so it does not depend on ignored lab fixtures.
+
+- Final approved shell batch checks: UI build, 72 unit tests, all 37 browser tests and diff check passed. Committing Page/AppShell/Parallax with public docs and generated mirrors; ignored labs remain local. Next Footer.

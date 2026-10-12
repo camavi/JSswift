@@ -4125,7 +4125,9 @@
   };
   UI.Footer = (...args) => {
     var _a2, _b, _c;
-    const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
+    const { props: originalProps, children } = JSswift.uiNormalizeArgs(args);
+    const rawProps = { ...originalProps };
+    applyCommonProps(rawProps);
     const slots = rawProps.slots || {};
     const hasOwn = (key) => Object.prototype.hasOwnProperty.call(rawProps, key);
     const ctx = { props: rawProps };
@@ -9805,6 +9807,7 @@
     const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
     const slots = rawProps.slots || {};
     const props = { ...rawProps };
+    applyCommonProps(props);
     const isSectionNode = (node, name) => {
       var _a3;
       return !!(node && node.nodeType === 1 && ((_a3 = node.classList) == null ? void 0 : _a3.contains(`jss-page-${name}`)));
@@ -9877,7 +9880,7 @@
     const hasHero = !!(heroNodes.length || sectionNodes.hero.length);
     const hasHeader = !!(hasStructuredHeader || sectionNodes.header.length);
     const p = JSswift.omit(props, ["actions", "aside", "asideClass", "banner", "body", "bodyClass", "centered", "content", "dense", "description", "eyebrow", "eyebrowClass", "flat", "footer", "footerClass", "gap", "header", "headerClass", "headerContentClass", "headerGap", "hero", "heroClass", "heroPadding", "icon", "iconClass", "iconSize", "kicker", "maxWidth", "minHeight", "narrow", "padding", "size", "slots", "subtitle", "subtitleClass", "title", "titleClass"]);
-    p.class = uiClass(["jss-panel", "jss-page", uiWhen(rawProps.dense, "dense"), uiWhen(rawProps.flat, "jss-page-flat"), uiWhen(rawProps.centered, "jss-page-centered"), uiWhen(rawProps.narrow, "jss-page-narrow"), uiWhen(hasHero, "jss-page-has-hero"), uiWhen(hasHeader, "jss-page-has-header"), props.class]);
+    p.class = uiClass(["jss-panel", "jss-page", "jss-singularity", uiWhen(rawProps.dense, "dense"), uiWhen(rawProps.flat, "jss-page-flat"), uiWhen(rawProps.centered, "jss-page-centered"), uiWhen(rawProps.narrow, "jss-page-narrow"), uiWhen(hasHero, "jss-page-has-hero"), uiWhen(hasHeader, "jss-page-has-header"), props.class]);
     p.style = { ...props.style || {} };
     if (rawProps.gap != null || uiIsReactive(rawProps.gap)) {
       p.style["--jss-page-gap"] = uiStyleValue(rawProps.gap, toCssSize);
@@ -9906,6 +9909,12 @@
     const { props, children } = JSswift.uiNormalizeArgs(args);
     const slots = props.slots || {};
     const hasOwn = (obj, key) => !!obj && Object.prototype.hasOwnProperty.call(obj, key);
+    const inheritColor = (childProps) => {
+      if (!hasOwn(childProps, "color") && !hasOwn(childProps, "state") && hasOwn(props, "color")) {
+        childProps.color = props.color;
+      }
+      return childProps;
+    };
     const noDrawer = uiUnwrap(props.noDrawer) === true || props.drawer === false;
     const reverse = uiUnwrap(props.reverse) === true;
     const stack = uiUnwrap(props.stack) === true;
@@ -9924,7 +9933,7 @@
       if (!hasOwn(headerProps, "right") && hasOwn(props, "right")) headerProps.right = props.right;
       if (!hasOwn(headerProps, "drawerStateKey")) headerProps.drawerStateKey = currentStateKey;
       if (noDrawer && !hasOwn(headerProps, "left")) headerProps.left = false;
-      headerFallback = UI.Header(headerProps);
+      headerFallback = UI.Header(inheritColor(headerProps));
     }
     const drawerProps = props.drawerProps && typeof props.drawerProps === "object" ? { ...props.drawerProps } : {};
     const drawerItems = hasOwn(props, "drawerItems") ? props.drawerItems : props.items;
@@ -9934,27 +9943,27 @@
       if (!hasOwn(drawerProps, "items") && drawerItems != null) drawerProps.items = drawerItems;
       if (!hasOwn(drawerProps, "header") && drawerHeader != null) drawerProps.header = drawerHeader;
       if (!hasOwn(drawerProps, "stateKey")) drawerProps.stateKey = currentStateKey;
-      drawerFallback = UI.Drawer(drawerProps);
+      drawerFallback = UI.Drawer(inheritColor(drawerProps));
     }
     const pageProps = props.pageProps && typeof props.pageProps === "object" ? { ...props.pageProps } : {};
     const pageContentFallback = hasOwn(props, "content") ? props.content : children;
     const defaultPageContent = renderSlotToArray(slots, "default", shellCtx, pageContentFallback);
     let pageFallback = props.page;
     if (!hasOwn(props, "page") && (Object.keys(pageProps).length || defaultPageContent.length)) {
-      pageFallback = UI.Page(pageProps, ...defaultPageContent);
+      pageFallback = UI.Page(inheritColor(pageProps), ...defaultPageContent);
     }
     const footerProps = props.footerProps && typeof props.footerProps === "object" ? { ...props.footerProps } : {};
     const footerContent = hasOwn(props, "footerContent") ? props.footerContent : void 0;
     let footerFallback = props.footer;
     if (!hasOwn(props, "footer") && (Object.keys(footerProps).length || footerContent != null)) {
-      footerFallback = UI.Footer(footerProps, ...renderSlotToArray(null, "default", shellCtx, footerContent));
+      footerFallback = UI.Footer(inheritColor(footerProps), ...renderSlotToArray(null, "default", shellCtx, footerContent));
     }
     const headerNodes = renderSlotToArray(slots, "header", shellCtx, headerFallback);
     const drawerNodes = noDrawer ? [] : renderSlotToArray(slots, "drawer", shellCtx, drawerFallback);
     const pageNodes = renderSlotToArray(slots, "page", shellCtx, pageFallback);
     const footerNodes = renderSlotToArray(slots, "footer", shellCtx, footerFallback);
     const cls = uiClass(["jss-app", "jss-app-shell", uiWhen(noDrawer, "no-drawer"), uiWhen(reverse, "is-reverse"), uiWhen(stack, "is-stack"), uiWhen(props.flush, "is-flush"), uiWhen(props.divider, "is-divider"), props.class]);
-    const p = JSswift.omit(props, ["header", "drawer", "page", "footer", "content", "title", "subtitle", "left", "right", "items", "drawerItems", "drawerHeader", "headerProps", "drawerProps", "pageProps", "footerProps", "footerContent", "noDrawer", "reverse", "stack", "flush", "divider", "drawerStateKey", "stateKey", "drawerWidth", "gap", "padding", "slots"]);
+    const p = JSswift.omit(props, ["header", "drawer", "page", "footer", "content", "title", "subtitle", "left", "right", "items", "drawerItems", "drawerHeader", "headerProps", "drawerProps", "pageProps", "footerProps", "footerContent", "noDrawer", "reverse", "stack", "flush", "divider", "drawerStateKey", "stateKey", "drawerWidth", "gap", "padding", "slots", "color"]);
     p.class = cls;
     p.style = { ...props.style || {} };
     const drawerWidth = uiStyleValue(props.drawerWidth, toCssSize);
@@ -9967,7 +9976,7 @@
     const drawerWrap = drawerNodes.length ? _.div({ class: "jss-app-shell-drawer-slot" }, ...drawerNodes) : null;
     const pageWrap = pageNodes.length ? _.div({ class: "jss-app-shell-page-slot" }, ...pageNodes) : null;
     const footerWrap = footerNodes.length ? _.div({ class: "jss-app-shell-footer-slot" }, ...footerNodes) : null;
-    const bodyNodes = reverse ? [pageWrap, drawerWrap] : [drawerWrap, pageWrap];
+    const bodyNodes = [drawerWrap, pageWrap];
     const root = _.div(p, ...headerWrap ? [headerWrap] : [], _.div({ class: "jss-app-shell-body" }, ...bodyNodes.filter(Boolean)), ...footerWrap ? [footerWrap] : []);
     root.openDrawer = shellCtx.openDrawer;
     root.closeDrawer = shellCtx.closeDrawer;
@@ -9981,12 +9990,10 @@
     return root;
   };
   UI.Parallax = function Parallax(...args) {
-    var _a2, _b;
+    var _a2, _b, _c, _d, _e;
     const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
     const slots = rawProps.slots || {};
     const props = { ...rawProps };
-    if (props.color != null && props.textColor == null) props.textColor = props.color;
-    delete props.color;
     applyCommonProps(props);
     const stateClass = uiComputed(rawProps.state, () => {
       const state = normalizeState(uiUnwrap(rawProps.state));
@@ -10001,10 +10008,10 @@
       const background = uiUnwrap(rawProps.background);
       if (background) return String(background);
       const source = uiUnwrap(rawProps.image) || uiUnwrap(rawProps.src) || "";
-      if (!source) return "linear-gradient(120deg, #1b2c5a, #2f6d8f, #2a8f5c)";
+      if (!source) return "none";
       const text = String(source);
       if (/^url\(/i.test(text) || /gradient\(/i.test(text) || /^var\(/i.test(text)) return text;
-      return `url(${text})`;
+      return `url(${JSON.stringify(text)})`;
     };
     const getNumericValue = (value, fallback) => {
       const num = Number(uiUnwrap(value));
@@ -10034,7 +10041,7 @@
     const generatedBody = mergedBodyNodes.length ? _.div({ class: uiClass(["jss-parallax-body", rawProps.bodyClass]) }, ...mergedBodyNodes) : null;
     const generatedFooter = footerNodes.length || actionsNodes.length ? _.div({ class: uiClass(["jss-parallax-footer", rawProps.footerClass]) }, footerNodes.length ? _.div({ class: "jss-parallax-footer-content" }, ...footerNodes) : null, actionsNodes.length ? _.div({ class: "jss-parallax-actions" }, ...actionsNodes) : null) : null;
     const wrapProps = JSswift.omit(props, ["actions", "align", "aside", "asideClass", "background", "backgroundContent", "backgroundContentClass", "badge", "badgeClass", "bgClass", "bgPosition", "bgRepeat", "bgSize", "body", "bodyClass", "color", "content", "contentClass", "contentMaxWidth", "disabled", "eyebrow", "eyebrowClass", "footer", "footerClass", "gap", "header", "headerClass", "headerContentClass", "height", "image", "imageAlt", "imageClass", "innerClass", "justify", "kicker", "maxOffset", "media", "mediaClass", "minHeight", "overlay", "padding", "slots", "speed", "src", "startTop", "state", "subtitle", "subtitleClass", "textColor", "title", "titleClass"]);
-    wrapProps.class = uiClass(["jss-parallax", "jss-singularity", stateClass, uiWhen(rawProps.disabled, "jss-parallax-static"), uiWhen(generatedBadge, "jss-parallax-has-badge"), uiWhen(hasStructuredHeader, "jss-parallax-has-header"), props.class]);
+    wrapProps.class = uiClass(["jss-parallax", "jss-singularity", stateClass, uiWhen(rawProps.disabled, "jss-parallax-static"), uiWhen(() => !!(uiUnwrap(rawProps.background) || uiUnwrap(rawProps.image) || uiUnwrap(rawProps.src) || rawProps.backgroundContent), "jss-parallax-has-image"), uiWhen(generatedBadge, "jss-parallax-has-badge"), uiWhen(hasStructuredHeader, "jss-parallax-has-header"), props.class]);
     wrapProps.style = { ...props.style || {} };
     if (rawProps.height != null) wrapProps.style["--jss-parallax-height"] = uiStyleValue(rawProps.height, toCssSize);
     if (rawProps.minHeight != null) wrapProps.style["--jss-parallax-min-height"] = uiStyleValue(rawProps.minHeight, toCssSize);
@@ -10043,27 +10050,31 @@
     if (rawProps.contentMaxWidth != null) wrapProps.style["--jss-parallax-content-max-width"] = uiStyleValue(rawProps.contentMaxWidth, toCssSize);
     if (rawProps.justify != null) wrapProps.style["--jss-parallax-justify"] = uiStyleValue(rawProps.justify);
     if (rawProps.align != null) wrapProps.style["--jss-parallax-align"] = uiStyleValue(rawProps.align);
-    if (rawProps.color != null) wrapProps.style["--jss-parallax-color"] = uiStyleValue(rawProps.color, mapColorValue);
+    if (rawProps.textColor != null) wrapProps.style["--jss-parallax-color"] = uiStyleValue(rawProps.textColor, mapColorValue);
     if (rawProps.overlay != null) wrapProps.style["--jss-parallax-overlay"] = uiStyleValue(rawProps.overlay);
     if (rawProps.bgPosition != null) wrapProps.style["--jss-parallax-position"] = uiStyleValue(rawProps.bgPosition);
     if (rawProps.bgSize != null) wrapProps.style["--jss-parallax-size"] = uiStyleValue(rawProps.bgSize);
     if (rawProps.bgRepeat != null) wrapProps.style["--jss-parallax-repeat"] = uiStyleValue(rawProps.bgRepeat);
     wrapProps.style["--jss-parallax-image"] = uiIsReactive(rawProps.background) || uiIsReactive(rawProps.image) || uiIsReactive(rawProps.src) ? () => getBackgroundImage() : getBackgroundImage();
+    wrapProps.style["--jss-parallax-offset"] = "0px";
+    wrapProps.style["--jss-parallax-bleed"] = uiStyleValue((_c = rawProps.maxOffset) != null ? _c : 96, (value) => `${Math.abs(Number(value) || 96) + 2}px`);
     const bg = _.div({ class: uiClass(["jss-parallax-bg", rawProps.bgClass]) }, backgroundNodes.length ? _.div({ class: uiClass(["jss-parallax-bg-content", rawProps.backgroundContentClass]) }, ...backgroundNodes) : null);
     const content = _.div({ class: uiClass(["jss-parallax-content", rawProps.contentClass, rawProps.innerClass]) }, generatedBadge, generatedHeader, generatedMedia, generatedBody, generatedFooter);
     const wrap = _.div(wrapProps, bg, content);
     let disposed = false;
     let ticking = false;
     let resizeObserver = null;
+    const motionPreference = typeof window !== "undefined" ? (_d = window.matchMedia) == null ? void 0 : _d.call(window, "(prefers-reduced-motion: reduce)") : null;
     const cleanup = () => {
-      var _a3;
+      var _a3, _b2;
       if (disposed) return;
       disposed = true;
       if (typeof window !== "undefined") {
         window.removeEventListener("scroll", scheduleUpdate);
         window.removeEventListener("resize", scheduleUpdate);
       }
-      (_a3 = resizeObserver == null ? void 0 : resizeObserver.disconnect) == null ? void 0 : _a3.call(resizeObserver);
+      (_a3 = motionPreference == null ? void 0 : motionPreference.removeEventListener) == null ? void 0 : _a3.call(motionPreference, "change", scheduleUpdate);
+      (_b2 = resizeObserver == null ? void 0 : resizeObserver.disconnect) == null ? void 0 : _b2.call(resizeObserver);
       resizeObserver = null;
     };
     const update = () => {
@@ -10072,7 +10083,7 @@
         cleanup();
         return;
       }
-      if (uiUnwrap(rawProps.disabled)) {
+      if (uiUnwrap(rawProps.disabled) || (motionPreference == null ? void 0 : motionPreference.matches)) {
         bg.style.transform = "translate3d(0, 0, 0)";
         wrap.style.setProperty("--jss-parallax-offset", "0px");
         return;
@@ -10096,6 +10107,7 @@
       });
     }
     if (typeof window !== "undefined") {
+      (_e = motionPreference == null ? void 0 : motionPreference.addEventListener) == null ? void 0 : _e.call(motionPreference, "change", scheduleUpdate);
       window.addEventListener("scroll", scheduleUpdate, { passive: true });
       window.addEventListener("resize", scheduleUpdate);
       if (typeof ResizeObserver !== "undefined") {

@@ -48,3 +48,13 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["size", "color", "outline", "clickable", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "mobile", "tablet", "pc", "class", "style"]}
 }
 ```
+
+## Color inheritance and composition
+
+`color` supplies the default color for the Header, Drawer, Page and Footer created by AppShell. Each generated component keeps its own visual treatment: for example, Page and Drawer use subtle semantic surfaces while Header uses its normal filled surface.
+
+An explicit `color` or `state` in `headerProps`, `drawerProps`, `pageProps` or `footerProps` takes priority. Use `color: null` to opt out of inheritance. A reactive color getter is passed through, so generated components update when its value changes.
+
+Custom nodes supplied through `header`, `drawer`, `page`, `footer` or named slots retain their own props. Color does not recursively overwrite components inside the page, and effects such as Glass or Outline are configured on the individual generated components through their props objects.
+
+`reverse` places the drawer after the page; `stack` gives both regions the full available width. On mobile, the drawer remains hidden until opened through the header control or `openDrawer()`.

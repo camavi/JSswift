@@ -4314,7 +4314,9 @@
   // Esempio: JSswift.ui.Layout({ header, aside, page, footer })
 
   UI.Footer = (...args) => {
-    const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
+    const { props: originalProps, children } = JSswift.uiNormalizeArgs(args);
+    const rawProps = { ...originalProps };
+    applyCommonProps(rawProps);
     const slots = rawProps.slots || {};
     const hasOwn = (key) => Object.prototype.hasOwnProperty.call(rawProps, key);
     const ctx = { props: rawProps };

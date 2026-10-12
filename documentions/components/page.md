@@ -46,3 +46,9 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["size", "color", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "mobile", "tablet", "pc", "class", "style"]}
 }
 ```
+
+## Visual surfaces
+
+Page uses the subtle semantic background tint shared with Drawer. Light and Dark colors preserve their surface identity in either theme; Outline and Flat adapt neutral text to the page theme. Outer borders are enabled by Border or Outline, and radius follows the common default or user setting.
+
+Glass and Glossy decorate the structured header rather than the whole content surface. Glass uses the shared Button reflections with reduced brightness in dark mode, except Light. Shadow, Light Shadow, Glow, Gradient and Text Gradient are supported; Dense tightens padding and gaps. Uncolored action buttons use a visible neutral surface and readable local text.

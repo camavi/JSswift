@@ -1761,3 +1761,81 @@ test("Drawer navigation groups, palette and density work in both themes", {
     assert.equal(result.overflow,false,JSON.stringify(result));
   }
 });
+
+test("Page surfaces preserve theme contrast, Glass and common props", {
+ skip: !findChrome() ? "Chrome unavailable" : false
+}, async()=>{
+ const tmp=await mkdtemp(path.join(os.tmpdir(),'jss-page-design-'));const html=path.join(tmp,'index.html');
+ const asset=name=>pathToFileURL(path.join(ROOT_DIR,name)).href;
+ await writeFile(html,`<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"><main id="host"></main><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><script>
+ const results=[];
+ for(const theme of ['light','dark']){
+ _.setTheme(theme,{persist:false});
+ for(const color of ['primary','secondary','warning','danger','success','info','light','dark']){
+ for(const effect of [{},{outline:true},{flat:true},{glass:true}]){
+ const p=_.Page({color,...effect,title:'Panoramica',subtitle:'Informazioni',body:'Contenuto',style:{minHeight:'0'},actions:_.Button({label:'Azione'})});document.querySelector('#host').replaceChildren(p);
+ const s=getComputedStyle(p);const sub=getComputedStyle(p.querySelector('.jss-page-subtitle'));
+ results.push({theme,color,effect,common:p.classList.contains('jss-state-'+color)&&p.classList.contains('jss-singularity'),surface:s.backgroundColor,text:s.color,sub:sub.color,glass:!effect.glass||getComputedStyle(p.querySelector('.jss-page-header'),'::before').backgroundImage.includes('radial-gradient'),overflow:document.documentElement.scrollWidth>innerWidth});
+ }}}
+ document.body.dataset.result=encodeURIComponent(JSON.stringify(results));</script>`);
+ const results=readBrowserResult(await runChrome(findChrome(),html,{width:390,height:900}));
+ for(const r of results){assert.equal(r.common,true,JSON.stringify(r));assert.equal(r.glass,true,JSON.stringify(r));assert.equal(r.overflow,false,JSON.stringify(r));
+ if(r.color==='light'&&!r.effect.outline&&!r.effect.flat){assert.equal(r.surface,'rgb(241, 245, 249)',JSON.stringify(r));assert.equal(r.text,'rgb(31, 41, 55)',JSON.stringify(r));}
+ if(r.color==='dark'&&!r.effect.outline&&!r.effect.flat){assert.equal(r.surface,'rgb(31, 41, 55)',JSON.stringify(r));assert.equal(r.text,'rgb(241, 245, 249)',JSON.stringify(r));}
+ }
+});
+
+test("AppShell inherits reactive color, respects overrides and composes responsive layouts", {
+ skip: !findChrome() ? "Chrome unavailable" : false
+}, async()=>{
+ const tmp=await mkdtemp(path.join(os.tmpdir(),'jss-shell-design-'));const html=path.join(tmp,'index.html');
+ const asset=name=>pathToFileURL(path.join(ROOT_DIR,name)).href;
+ await writeFile(html,`<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"><main id="host"></main><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><script>
+ (async()=>{const wait=()=>new Promise(r=>setTimeout(r,100));const results=[];let index=0;
+ for(const theme of ['light','dark']){
+ _.setTheme(theme,{persist:false});const [color,setColor]=_.signal('primary');
+ const opts=()=>({color,stateKey:'shell-test-'+index++,title:'Workspace',headerProps:{sticky:false},drawerItems:[{label:'Home'}],pageProps:{title:'Page'},content:_.Button({color:'danger',label:'Delete'}),footerContent:'Footer'});
+ const shell=_.AppShell(opts());document.querySelector('#host').replaceChildren(shell);await wait();
+ const components=()=>[shell.header.firstElementChild,shell.drawer.firstElementChild,shell.page.firstElementChild,shell.footer.firstElementChild];
+ const initial=components().every(n=>n.classList.contains('jss-state-primary'));
+ setColor('warning');await wait();const reactive=components().every(n=>n.classList.contains('jss-state-warning')&&!n.classList.contains('jss-state-primary'));
+ const nested=shell.page.querySelector('.jss-btn').classList.contains('jss-state-danger');
+ shell.openDrawer();await wait();const opened=shell.isDrawerOpen()&&shell.drawer.firstElementChild.classList.contains('open');shell.closeDrawer();await wait();
+ const mobile=innerWidth<=900,closed=!shell.isDrawerOpen()&&(!mobile||getComputedStyle(shell.drawer.firstElementChild).visibility==='hidden');
+ const ownHeader=_.Header({color:'success',title:'Custom'});
+ const custom=_.AppShell({...opts(),header:ownHeader,drawerProps:{color:'dark'},pageProps:{color:null,title:'Page'},footerProps:{color:'light'}});document.querySelector('#host').replaceChildren(custom);await wait();
+ setColor('info');await wait();
+ const overrides=custom.header.firstElementChild===ownHeader&&ownHeader.classList.contains('jss-state-success')&&custom.drawer.firstElementChild.classList.contains('jss-state-dark')&&!custom.page.firstElementChild.classList.contains('jss-state-info')&&custom.footer.firstElementChild.classList.contains('jss-state-light');
+ const slotted=_.Page({color:'danger',title:'Slot'});const slotShell=_.AppShell({...opts(),slots:{page:()=>slotted}});document.querySelector('#host').replaceChildren(slotShell);const slots=slotShell.page.firstElementChild===slotted&&slotted.classList.contains('jss-state-danger');
+ const reverse=_.AppShell({...opts(),reverse:true});document.querySelector('#host').replaceChildren(reverse);await wait();const reversed=mobile||reverse.drawer.getBoundingClientRect().x>reverse.page.getBoundingClientRect().x;
+ const stack=_.AppShell({...opts(),stack:true});document.querySelector('#host').replaceChildren(stack);await wait();const stacked=stack.drawer.getBoundingClientRect().width>=stack.page.getBoundingClientRect().width-1;
+ const no=_.AppShell({...opts(),noDrawer:true});document.querySelector('#host').replaceChildren(no);const noDrawer=no.drawer===null&&!no.querySelector('.jss-header-toggle');
+ results.push({theme,initial,reactive,nested,opened,closed,overrides,slots,reversed,stacked,noDrawer,overflow:document.documentElement.scrollWidth>innerWidth});}
+ document.body.dataset.result=encodeURIComponent(JSON.stringify(results));})();</script>`);
+ for(const width of [1200,390]){
+ const results=readBrowserResult(await runChrome(findChrome(),html,{width,height:900}));
+ for(const result of results){for(const key of ['initial','reactive','nested','opened','closed','overrides','slots','reversed','stacked','noDrawer'])assert.equal(result[key],true,JSON.stringify({width,...result}));assert.equal(result.overflow,false,JSON.stringify({width,...result}));}
+ }
+});
+
+test("Parallax semantic surfaces, media and reactive colors", {skip:!findChrome()?"Chrome unavailable":false},async()=>{
+ const tmp=await mkdtemp(path.join(os.tmpdir(),'jss-parallax-'));const html=path.join(tmp,'index.html');const asset=n=>pathToFileURL(path.join(ROOT_DIR,n)).href;
+ await writeFile(html,`<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"><main id="host"></main><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><script>
+ (async()=>{const host=document.querySelector('#host');const results=[];for(const theme of ['light','dark']){_.setTheme(theme,{persist:false});for(const color of ['primary','secondary','warning','danger','success','info','light','dark'])for(const effect of [{},{outline:true},{glass:true}]){
+ const p=_.Parallax({color,...effect,title:'Nuove prospettive',subtitle:'Informazioni',actions:_.Button({label:'Esplora'})});host.replaceChildren(p);const s=getComputedStyle(p),c=getComputedStyle(p.querySelector('.jss-parallax-content'));results.push({theme,color,effect,common:p.classList.contains('jss-state-'+color),text:s.color,content:c.color,bg:s.backgroundColor,media:getComputedStyle(p.querySelector('.jss-parallax-bg'),'::before').backgroundImage,glass:!effect.glass||getComputedStyle(p,'::before').backgroundImage.includes('radial-gradient'),overflow:document.documentElement.scrollWidth>innerWidth});}
+ const [color,setColor]=_.signal('primary');const reactive=_.Parallax({color,title:'Live'});host.replaceChildren(reactive);setColor('danger');await new Promise(r=>setTimeout(r,50));results.push({reactive:reactive.classList.contains('jss-state-danger')&&!reactive.classList.contains('jss-state-primary')});
+ const photo=_.Parallax({background:'linear-gradient(120deg,#345,#789)',textColor:'#ffffff',title:'Media',disabled:true});host.replaceChildren(photo);await new Promise(r=>setTimeout(r,150));results.push({photo:photo.classList.contains('jss-parallax-has-image'),photoText:getComputedStyle(photo.querySelector('.jss-parallax-content')).color,offset:photo.style.getPropertyValue('--jss-parallax-offset')});
+ for(const color of ['primary','warning','light','dark']){const p=_.Parallax({color,background:'linear-gradient(#345,#789)',title:'Tint'});host.replaceChildren(p);results.push({tint:color,overlay:getComputedStyle(p.querySelector('.jss-parallax-bg'),'::after').backgroundImage,text:getComputedStyle(p.querySelector('.jss-parallax-content')).color});}
+ for(const effect of ['lightShadow','gradient','glossy','glass']){const p=_.Parallax({color:'primary',[effect]:true,background:'linear-gradient(#345,#789)',title:'Optics'});host.replaceChildren(p);const optics=getComputedStyle(p,effect==='glass'?'::before':'::after');results.push({optical:effect,z:optics.zIndex,image:optics.backgroundImage,contentZ:getComputedStyle(p.querySelector('.jss-parallax-content')).zIndex});}
+ const custom=_.Parallax({color:'primary',background:'linear-gradient(#345,#789)',overlay:'rgba(255,0,0,.3)'});host.replaceChildren(custom);results.push({customOverlay:getComputedStyle(custom.querySelector('.jss-parallax-bg'),'::after').backgroundColor});
+ }document.body.dataset.result=encodeURIComponent(JSON.stringify(results));})();</script>`);
+ const results=readBrowserResult(await runChrome(findChrome(),html,{width:390}));for(const r of results){if('optical'in r){assert.ok(Number(r.z)>0&&Number(r.z)<Number(r.contentZ),JSON.stringify(r));assert.ok(r.image.includes('gradient'),JSON.stringify(r));continue;}if('tint'in r){assert.ok(r.overlay.includes('gradient'),JSON.stringify(r));if(r.tint==='primary'||r.tint==='warning')assert.ok(r.overlay.includes('color(srgb'),JSON.stringify(r));if(r.tint==='light')assert.equal(r.text,'rgb(31, 41, 55)');continue;}if('customOverlay'in r){assert.equal(r.customOverlay,'rgba(255, 0, 0, 0.3)');continue;}if('reactive'in r){assert.equal(r.reactive,true);continue;}if('photo'in r){assert.equal(r.photo,true);assert.equal(r.photoText,'rgb(255, 255, 255)');assert.equal(r.offset,'0px');continue;}assert.equal(r.common,true,JSON.stringify(r));assert.equal(r.glass,true,JSON.stringify(r));assert.equal(r.overflow,false,JSON.stringify(r));assert.equal(r.media,'none');assert.equal(r.content,r.text,JSON.stringify(r));if(!r.effect.glass&&!r.effect.outline&&r.color==='light')assert.equal(r.text,'rgb(31, 41, 55)',JSON.stringify(r));}
+});
+
+test("Parallax background moves independently during page scroll",{skip:!findChrome()||!hasDevtoolsWebSocket()?"Chrome/WebSocket unavailable":false},async()=>{
+ const tmp=await mkdtemp(path.join(os.tmpdir(),'jss-parallax-scroll-'));const html=path.join(tmp,'index.html');const asset=n=>pathToFileURL(path.join(ROOT_DIR,n)).href;
+ await writeFile(html,`<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="${asset('packages/ui/dist/css/ui.css')}"><div style="height:300px"></div><main id="host"></main><div style="height:2000px"></div><script src="${asset('packages/core/dist/cms.js')}"></script><script src="${asset('packages/ui/dist/ui.js')}"></script><script>const src='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><defs><linearGradient id="sky"><stop stop-color="#123"/><stop offset="1" stop-color="#789"/></linearGradient></defs><path fill="url(#sky)" d="M0 0h800v600H0z"/><circle cx="600" cy="120" r="80" fill="#fea"/></svg>');document.querySelector('#host').append(_.Parallax({src,height:460,speed:.38,maxOffset:150,title:'Scroll test'}));</script>`);
+ const result=await runChromeMobileEval(findChrome(),pathToFileURL(html).href,`(async()=>{const wait=()=>new Promise(r=>setTimeout(r,150));const p=document.querySelector('.jss-parallax');p.scrollIntoView();await wait();const bg=p.querySelector('.jss-parallax-bg');const before=new DOMMatrix(getComputedStyle(bg).transform).m42;const title=p.querySelector('.jss-parallax-title');const y=title.getBoundingClientRect().top;scrollBy(0,180);await wait();return {image:getComputedStyle(bg,'::before').backgroundImage,raw:p.style.getPropertyValue('--jss-parallax-image'),before,after:new DOMMatrix(getComputedStyle(bg).transform).m42,titleDelta:title.getBoundingClientRect().top-y,scroll:scrollY};})()`,{width:1100,height:800,deviceScaleFactor:1});
+ assert.notEqual(result.image,'none',JSON.stringify(result));
+ assert.ok(Math.abs(result.after-result.before)>30,JSON.stringify(result));assert.ok(Math.abs(result.titleDelta+180)<2,JSON.stringify(result));
+});

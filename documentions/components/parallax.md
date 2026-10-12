@@ -10,7 +10,8 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
     "image": {"type": "string", "description": "Component configuration for \"image\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
     "background": {"type": "string", "description": "Component configuration for \"background\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
     "backgroundContent": {"type": "Node|Function|Array", "description": "Component configuration for \"backgroundContent\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
-    "speed": {"type": "number", "description": "Animation speed or duration in milliseconds.", "default": null, "values": null, "category": "general"},
+    "textColor": {"type": "string|Function", "description": "Explicit foreground color; color selects the semantic surface.", "default": null, "values": null, "category": "style"},
+    "speed": {"type": "number", "description": "Scroll displacement multiplier (default 0.18).", "default": null, "values": null, "category": "general"},
     "maxOffset": {"type": "number", "description": "Component configuration for \"maxOffset\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
     "startTop": {"type": "number", "description": "Starting scroll offset for parallax effects.", "default": null, "values": null, "category": "general"},
     "state": {"type": "success|warning|danger|info|primary|secondary|dark|light|string", "description": "Component configuration for \"state\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
@@ -61,3 +62,13 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["size", "color", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "mobile", "tablet", "pc", "class", "style"]}
 }
 ```
+
+## Semantic surfaces and moving media
+
+`color` selects the semantic surface, following Stat colors and effects. Use `textColor` for an explicit foreground override. Without an image, the background uses the selected surface; without a color, it uses a subtle neutral surface. Light and Dark retain dedicated filled surfaces, while their Outline/Flat text adapts to the page theme.
+
+`src`, `image`, `background` and `backgroundContent` belong to the independently moving background layer. With media present, content defaults to a light foreground and the background receives a translucent semantic tint above the image and a readability gradient (neutral dark when no color is set). Light uses a pale veil with dark text; override these through `textColor` and `overlay` for your image. Glass uses the shared optical reflection, with darker reflections in the dark theme except for Light.
+
+Dense reduces padding, gaps and title size. Height is a minimum so long content can grow without clipping. Text Gradient applies to the title. Shadow, Light Shadow, Glow and optional Border follow the Stat treatment. Background movement is disabled when the user requests reduced motion; foreground content remains stationary.
+
+With media, Glass, Glossy, Gradient and Light Shadow are stationary translucent veils above the moving background and below the content. Their reflections and shading remain visible over the image; combined effects compose on separate layers.

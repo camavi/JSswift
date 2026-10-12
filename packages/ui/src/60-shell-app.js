@@ -702,6 +702,7 @@ UI.Page = (...args) => {
   const { props: rawProps, children } = JSswift.uiNormalizeArgs(args);
   const slots = rawProps.slots || {};
   const props = { ...rawProps };
+  applyCommonProps(props);
 
   const isSectionNode = (node, name) => {
     return !!(node && node.nodeType === 1 && node.classList?.contains(`jss-page-${name}`));
@@ -829,6 +830,7 @@ UI.Page = (...args) => {
   p.class = uiClass([
     "jss-panel",
     "jss-page",
+    "jss-singularity",
     uiWhen(rawProps.dense, "dense"),
     uiWhen(rawProps.flat, "jss-page-flat"),
     uiWhen(rawProps.centered, "jss-page-centered"),
@@ -880,6 +882,13 @@ UI.AppShell = (...args) => {
   const slots = props.slots || {};
   const hasOwn = (obj, key) => !!obj && Object.prototype.hasOwnProperty.call(obj, key);
 
+  const inheritColor = (childProps) => {
+    if (!hasOwn(childProps, "color") && !hasOwn(childProps, "state") && hasOwn(props, "color")) {
+      childProps.color = props.color;
+    }
+    return childProps;
+  };
+
   const noDrawer = uiUnwrap(props.noDrawer) === true || props.drawer === false;
   const reverse = uiUnwrap(props.reverse) === true;
   const stack = uiUnwrap(props.stack) === true;
@@ -915,7 +924,7 @@ UI.AppShell = (...args) => {
     if (!hasOwn(headerProps, "right") && hasOwn(props, "right")) headerProps.right = props.right;
     if (!hasOwn(headerProps, "drawerStateKey")) headerProps.drawerStateKey = currentStateKey;
     if (noDrawer && !hasOwn(headerProps, "left")) headerProps.left = false;
-    headerFallback = UI.Header(headerProps);
+    headerFallback = UI.Header(inheritColor(headerProps));
   }
 
   const drawerProps = (props.drawerProps && typeof props.drawerProps === "object") ? { ...props.drawerProps } : {};
@@ -930,7 +939,7 @@ UI.AppShell = (...args) => {
     if (!hasOwn(drawerProps, "items") && drawerItems != null) drawerProps.items = drawerItems;
     if (!hasOwn(drawerProps, "header") && drawerHeader != null) drawerProps.header = drawerHeader;
     if (!hasOwn(drawerProps, "stateKey")) drawerProps.stateKey = currentStateKey;
-    drawerFallback = UI.Drawer(drawerProps);
+    drawerFallback = UI.Drawer(inheritColor(drawerProps));
   }
 
   const pageProps = (props.pageProps && typeof props.pageProps === "object") ? { ...props.pageProps } : {};
@@ -938,14 +947,14 @@ UI.AppShell = (...args) => {
   const defaultPageContent = renderSlotToArray(slots, "default", shellCtx, pageContentFallback);
   let pageFallback = props.page;
   if (!hasOwn(props, "page") && (Object.keys(pageProps).length || defaultPageContent.length)) {
-    pageFallback = UI.Page(pageProps, ...defaultPageContent);
+    pageFallback = UI.Page(inheritColor(pageProps), ...defaultPageContent);
   }
 
   const footerProps = (props.footerProps && typeof props.footerProps === "object") ? { ...props.footerProps } : {};
   const footerContent = hasOwn(props, "footerContent") ? props.footerContent : undefined;
   let footerFallback = props.footer;
   if (!hasOwn(props, "footer") && (Object.keys(footerProps).length || footerContent != null)) {
-    footerFallback = UI.Footer(footerProps, ...renderSlotToArray(null, "default", shellCtx, footerContent));
+    footerFallback = UI.Footer(inheritColor(footerProps), ...renderSlotToArray(null, "default", shellCtx, footerContent));
   }
 
   const headerNodes = renderSlotToArray(slots, "header", shellCtx, headerFallback);
@@ -973,7 +982,7 @@ UI.AppShell = (...args) => {
     "noDrawer", "reverse", "stack", "flush", "divider",
     "drawerStateKey", "stateKey",
     "drawerWidth", "gap", "padding",
-    "slots"
+    "slots", "color"
   ]);
   p.class = cls;
   p.style = { ...(props.style || {}) };
@@ -998,9 +1007,7 @@ UI.AppShell = (...args) => {
     ? _.div({ class: "jss-app-shell-footer-slot" }, ...footerNodes)
     : null;
 
-  const bodyNodes = reverse
-    ? [pageWrap, drawerWrap]
-    : [drawerWrap, pageWrap];
+  const bodyNodes = [drawerWrap, pageWrap];
 
   const root = _.div(
     p,
@@ -1028,8 +1035,6 @@ UI.Parallax = function Parallax(...args) {
   const slots = rawProps.slots || {};
   const props = { ...rawProps };
 
-  if (props.color != null && props.textColor == null) props.textColor = props.color;
-  delete props.color;
   applyCommonProps(props);
 
   const stateClass = uiComputed(rawProps.state, () => {
@@ -1045,10 +1050,10 @@ UI.Parallax = function Parallax(...args) {
     const background = uiUnwrap(rawProps.background);
     if (background) return String(background);
     const source = uiUnwrap(rawProps.image) || uiUnwrap(rawProps.src) || "";
-    if (!source) return "linear-gradient(120deg, #1b2c5a, #2f6d8f, #2a8f5c)";
+    if (!source) return "none";
     const text = String(source);
     if (/^url\(/i.test(text) || /gradient\(/i.test(text) || /^var\(/i.test(text)) return text;
-    return `url(${text})`;
+    return `url(${JSON.stringify(text)})`;
   };
   const getNumericValue = (value, fallback) => {
     const num = Number(uiUnwrap(value));
@@ -1123,6 +1128,7 @@ UI.Parallax = function Parallax(...args) {
     "jss-singularity",
     stateClass,
     uiWhen(rawProps.disabled, "jss-parallax-static"),
+    uiWhen(() => !!(uiUnwrap(rawProps.background) || uiUnwrap(rawProps.image) || uiUnwrap(rawProps.src) || rawProps.backgroundContent), "jss-parallax-has-image"),
     uiWhen(generatedBadge, "jss-parallax-has-badge"),
     uiWhen(hasStructuredHeader, "jss-parallax-has-header"),
     props.class
@@ -1135,7 +1141,7 @@ UI.Parallax = function Parallax(...args) {
   if (rawProps.contentMaxWidth != null) wrapProps.style["--jss-parallax-content-max-width"] = uiStyleValue(rawProps.contentMaxWidth, toCssSize);
   if (rawProps.justify != null) wrapProps.style["--jss-parallax-justify"] = uiStyleValue(rawProps.justify);
   if (rawProps.align != null) wrapProps.style["--jss-parallax-align"] = uiStyleValue(rawProps.align);
-  if (rawProps.color != null) wrapProps.style["--jss-parallax-color"] = uiStyleValue(rawProps.color, mapColorValue);
+  if (rawProps.textColor != null) wrapProps.style["--jss-parallax-color"] = uiStyleValue(rawProps.textColor, mapColorValue);
   if (rawProps.overlay != null) wrapProps.style["--jss-parallax-overlay"] = uiStyleValue(rawProps.overlay);
   if (rawProps.bgPosition != null) wrapProps.style["--jss-parallax-position"] = uiStyleValue(rawProps.bgPosition);
   if (rawProps.bgSize != null) wrapProps.style["--jss-parallax-size"] = uiStyleValue(rawProps.bgSize);
@@ -1143,6 +1149,9 @@ UI.Parallax = function Parallax(...args) {
   wrapProps.style["--jss-parallax-image"] = (uiIsReactive(rawProps.background) || uiIsReactive(rawProps.image) || uiIsReactive(rawProps.src))
     ? () => getBackgroundImage()
     : getBackgroundImage();
+
+  wrapProps.style["--jss-parallax-offset"] = "0px";
+  wrapProps.style["--jss-parallax-bleed"] = uiStyleValue(rawProps.maxOffset ?? 96, value => `${Math.abs(Number(value) || 96) + 2}px`);
 
   const bg = _.div(
     { class: uiClass(["jss-parallax-bg", rawProps.bgClass]) },
@@ -1164,6 +1173,7 @@ UI.Parallax = function Parallax(...args) {
   let disposed = false;
   let ticking = false;
   let resizeObserver = null;
+  const motionPreference = typeof window !== "undefined" ? window.matchMedia?.("(prefers-reduced-motion: reduce)") : null;
 
   const cleanup = () => {
     if (disposed) return;
@@ -1172,6 +1182,7 @@ UI.Parallax = function Parallax(...args) {
       window.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
     }
+    motionPreference?.removeEventListener?.("change", scheduleUpdate);
     resizeObserver?.disconnect?.();
     resizeObserver = null;
   };
@@ -1182,7 +1193,7 @@ UI.Parallax = function Parallax(...args) {
       cleanup();
       return;
     }
-    if (uiUnwrap(rawProps.disabled)) {
+    if (uiUnwrap(rawProps.disabled) || motionPreference?.matches) {
       bg.style.transform = "translate3d(0, 0, 0)";
       wrap.style.setProperty("--jss-parallax-offset", "0px");
       return;
@@ -1210,6 +1221,7 @@ UI.Parallax = function Parallax(...args) {
   }
 
   if (typeof window !== "undefined") {
+    motionPreference?.addEventListener?.("change", scheduleUpdate);
     window.addEventListener("scroll", scheduleUpdate, { passive: true });
     window.addEventListener("resize", scheduleUpdate);
     if (typeof ResizeObserver !== "undefined") {
