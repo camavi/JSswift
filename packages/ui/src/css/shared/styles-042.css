@@ -1,0 +1,33 @@
+.jss-outline.jss-glow {
+  --set-glow-active: inset 0 0 7px 2px var(--set-color-1), 0 0 3px 3px var(--set-color-1), 0 0 15px color-mix(in srgb, var(--set-color-1) 100%, transparent);
+}
+
+.jss-outline.jss-glossy {
+  --set-glossy-active: linear-gradient(to bottom, color-mix(in srgb, var(--set-color-1) 20%, transparent) 0%, color-mix(in srgb, var(--set-color-1) 30%, transparent) 50%, color-mix(in srgb, var(--set-color-2) 20%, transparent) 51%, color-mix(in srgb, var(--set-color-2) 50%, transparent) 100%);
+  background-size: 100% 110%;
+  background-position: 0 -1px;
+}
+
+.jss-outline.jss-glass:not(.jss-tooltip) {
+  position: relative;
+  --set-background-color: transparent;
+}
+
+.jss-outline.jss-glass:not(.jss-tooltip)::before {
+  box-shadow: inset 0 0 2px 1px color-mix(in srgb, var(--set-color-3) 50%, transparent);
+  --set-s-effect-1: radial-gradient(ellipse at center, color-mix(in srgb, var(--set-color-1) 60%, transparent) 0%, color-mix(in srgb, var(--set-color-1) 20%, transparent) 40%, color-mix(in srgb, var(--set-color-1) 0%, transparent) 100%);
+  --set-s-effect-2: radial-gradient(ellipse at center, color-mix(in srgb, var(--set-color-2) 60%, transparent) 0%, color-mix(in srgb, var(--set-color-1) 20%, transparent) 20%, color-mix(in srgb, var(--set-color-1) 0%, transparent) 80%);
+  --set-s-effect-3: radial-gradient(ellipse at center, color-mix(in srgb, var(--set-color-2) 60%, transparent) 0%, color-mix(in srgb, var(--set-color-1) 20%, transparent) 20%, color-mix(in srgb, var(--set-color-1) 0%, transparent) 80%);
+}
+
+.jss-gradient {
+  --set-gradient-active: linear-gradient(var(--set-gradient-deg), var(--set-color-2), var(--set-color-3));
+}
+
+.jss-singularity.jss-text-gradient,
+.jss-singularity-check.jss-text-gradient .jss-choice-mark {
+  --set-gradient-active: linear-gradient(var(--set-gradient-deg), var(--set-color-2), var(--set-color-3));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

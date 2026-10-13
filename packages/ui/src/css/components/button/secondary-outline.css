@@ -1,0 +1,2 @@
+/* Secondary Outline owns its foreground instead of inheriting a surface tone. */
+.jss-btn.jss-outline.jss-state-secondary { --set-color: var(--jss-text); color: var(--jss-text); }

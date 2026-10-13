@@ -1,0 +1,34 @@
+@media (max-width: 640px) {
+  .jss-date-panel {
+    min-width: min(100vw - 16px, 100%);
+    padding: 10px;
+  }
+
+  .jss-date-header {
+    flex-wrap: wrap;
+  }
+
+  .jss-date-header-center {
+    order: 3;
+    width: 100%;
+  }
+
+  .jss-date-months,
+  .jss-date-footer.has-time {
+    grid-template-columns: 1fr;
+  }
+
+  .jss-date-footer.has-time .jss-time-section.is-embedded,
+  .jss-date-footer.has-time .jss-date-actions {
+    justify-self: stretch;
+  }
+
+  .jss-time-panel {
+    min-width: min(100vw - 16px, 100%);
+  }
+
+  .jss-time-columns,
+  .jss-time-section.has-seconds .jss-time-columns {
+    grid-template-columns: 1fr;
+  }
+}

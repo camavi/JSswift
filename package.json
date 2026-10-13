@@ -1,7 +1,7 @@
 {
   "name": "jsswift",
   "private": true,
-  "version": "2.1.1",
+  "version": "2.2.0-split.3",
   "description": "JSswift UI + reactive runtime framework",
   "author": "Carlos Malleux",
   "license": "MIT",
@@ -34,7 +34,9 @@
     "test": "node --test tests/*.test.mjs",
     "test:browser": "node --test tests/browser/*.test.mjs",
     "gen:ui-dts": "node cms-dev/generate-ui-dts.mjs",
-    "gen:ui-dts:watch": "node cms-dev/generate-ui-dts.mjs --watch"
+    "gen:ui-dts:watch": "node cms-dev/generate-ui-dts.mjs --watch",
+    "ui:registry:check": "node tools/update-ui-registry.mjs",
+    "ui:registry:refresh": "node tools/update-ui-registry.mjs --write"
   },
   "devDependencies": {
     "esbuild": "^0.28.2",

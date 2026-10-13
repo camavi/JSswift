@@ -1,0 +1,9 @@
+@keyframes nav-pos-x {
+  from {
+    transform: translateX(var(--nav-pos-x, 0));
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}

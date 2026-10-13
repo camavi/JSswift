@@ -1,0 +1,15 @@
+/* Keep field labels, addons and clear readable; clip only editable text. */
+.jss-singularity-field.jss-text-gradient>.jss-control {
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-singularity-field.jss-text-gradient>.jss-control>.jss-mid input,
+.jss-singularity-field.jss-text-gradient>.jss-control>.jss-mid textarea {
+  background-image: linear-gradient(var(--set-gradient-deg),
+    color-mix(in srgb, var(--jss-text) 75%, var(--set-color-3)),
+    color-mix(in srgb, var(--jss-text) 75%, var(--set-color-4)));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  caret-color: var(--jss-text);
+}

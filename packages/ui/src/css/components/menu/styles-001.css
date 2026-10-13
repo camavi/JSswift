@@ -1,0 +1,226 @@
+.jss-menu {
+  min-width: 180px;
+  padding: var(--jss-s-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.jss-menu-panel {
+  --set-background-color: var(--jss-bg-default);
+  width: var(--jss-menu-width, auto);
+  min-width: var(--jss-menu-min-width, 200px);
+  max-width: var(--jss-menu-max-width, min(420px, calc(100vw - 16px)));
+  max-height: var(--jss-menu-max-height, min(80vh, 560px));
+  overflow: hidden;
+  background: var(--set-background-color, var(--jss-bg-default));
+  color: var(--set-color, var(--jss-text));
+  border-color: var(--set-border-color, var(--jss-border-color));
+}
+
+.jss-menu-shell {
+  gap: 12px;
+  width: 100%;
+  min-width: inherit;
+  max-width: 100%;
+  max-height: inherit;
+  padding: 12px;
+  background: inherit;
+  border-radius: inherit;
+  box-sizing: border-box;
+}
+
+.jss-menu-shell.dense {
+  gap: 8px;
+  padding: 10px;
+}
+
+.jss-menu-before,
+.jss-menu-after,
+.jss-menu-content,
+.jss-menu-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.jss-menu-content {
+  max-height: var(--jss-menu-body-max-height, none);
+  overflow: auto;
+}
+
+.jss-menu-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.jss-menu-head-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.jss-menu-head-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(127, 127, 127, 0.12);
+  color: inherit;
+  flex: 0 0 auto;
+}
+
+.jss-menu-eyebrow {
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--jss-muted);
+}
+
+.jss-menu-title {
+  font-size: 14px;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.jss-menu-subtitle,
+.jss-menu-status,
+.jss-menu-empty,
+.jss-menu-group-label,
+.jss-menu-entry-subtitle,
+.jss-menu-entry-shortcut {
+  font-size: 12px;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--set-color-2) 50%, var(--jss-text));
+}
+
+.jss-menu-items,
+.jss-menu-group-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.jss-menu-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.jss-menu-group-label {
+  padding: 0 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.jss-menu-item {
+  padding: 6px 10px;
+  border-radius: var(--jss-r-sm);
+  cursor: pointer;
+}
+
+.jss-menu-entry {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  text-align: left;
+  text-decoration: none;
+  transition: background 140ms ease, transform 140ms ease, color 140ms ease;
+}
+
+.jss-menu-shell.dense .jss-menu-entry {
+  padding: 8px 10px;
+  gap: 8px;
+}
+
+.jss-menu-entry:focus-visible {
+  outline: 0;
+  background: rgba(127, 127, 127, 0.14);
+}
+
+.jss-menu-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.jss-menu-entry:hover,
+.jss-menu-entry.is-active,
+.jss-menu-entry.is-checked {
+  background: rgba(127, 127, 127, 0.1);
+}
+
+.jss-menu-entry.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.jss-menu-entry-icon,
+.jss-menu-entry-aside,
+.jss-menu-entry-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.jss-menu-entry-icon {
+  width: 18px;
+  min-width: 18px;
+}
+
+.jss-menu-entry-aside {
+  gap: 8px;
+  margin-left: auto;
+}
+
+.jss-menu-entry-main {
+  min-width: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.jss-menu-entry-title {
+  font-size: 13px;
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+.jss-menu-entry-shortcut {
+  white-space: nowrap;
+}
+
+.jss-menu-divider {
+  height: 1px;
+  margin: 2px 4px;
+  background: var(--jss-border-color);
+  opacity: 0.8;
+}
+
+.jss-menu-empty {
+  padding: 4px 8px;
+}
+
+.jss-menu-footer {
+  padding-top: 10px;
+  border-top: 1px solid rgba(127, 127, 127, 0.12);
+}
+
+.jss-menu-footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

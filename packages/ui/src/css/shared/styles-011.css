@@ -1,0 +1,41 @@
+.jss-stat.jss-state-success,
+.jss-kpi.jss-state-success {
+  --jss-metric-accent: var(--jss-success);
+  --jss-metric-border: color-mix(in srgb, var(--jss-success) 32%, var(--jss-border-color));
+  --jss-metric-bg: var(--jss-success-soft);
+}
+
+.jss-stat.jss-state-warning,
+.jss-kpi.jss-state-warning {
+  --jss-metric-accent: var(--jss-warning);
+  --jss-metric-border: color-mix(in srgb, var(--jss-warning) 32%, var(--jss-border-color));
+  --jss-metric-bg: var(--jss-warning-soft);
+}
+
+.jss-stat.jss-state-danger,
+.jss-kpi.jss-state-danger {
+  --jss-metric-accent: var(--jss-danger);
+  --jss-metric-border: color-mix(in srgb, var(--jss-danger) 32%, var(--jss-border-color));
+  --jss-metric-bg: var(--jss-danger-soft);
+}
+
+.jss-stat.jss-state-info,
+.jss-kpi.jss-state-info {
+  --jss-metric-accent: var(--jss-info);
+  --jss-metric-border: color-mix(in srgb, var(--jss-info) 32%, var(--jss-border-color));
+  --jss-metric-bg: var(--jss-info-soft);
+}
+
+.jss-stat.jss-state-primary,
+.jss-kpi.jss-state-primary {
+  --jss-metric-accent: var(--jss-primary);
+  --jss-metric-border: color-mix(in srgb, var(--jss-primary) 32%, var(--jss-border-color));
+  --jss-metric-bg: var(--jss-primary-soft);
+}
+
+.jss-stat.jss-state-secondary,
+.jss-kpi.jss-state-secondary {
+  --jss-metric-accent: var(--jss-secondary);
+  --jss-metric-border: color-mix(in srgb, var(--jss-secondary) 32%, var(--jss-border-color));
+  --jss-metric-bg: var(--jss-secondary-soft);
+}

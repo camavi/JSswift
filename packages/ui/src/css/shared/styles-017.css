@@ -1,0 +1,12 @@
+.jss-dialog.dark,
+.jss-dialog.jss-state-dark,
+.jss-menu-panel.dark,
+.jss-menu-panel.jss-state-dark {
+  --jss-bg: #1f2937;
+  --jss-text: #f1f5f9;
+  --jss-border-color: #64748b;
+  --jss-dialog-accent: #94a3b8;
+  --set-background-color: var(--jss-bg);
+  --set-text-color: var(--jss-text);
+  --set-color: var(--set-text-color);
+}

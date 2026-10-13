@@ -1,0 +1,41 @@
+.jss-loading-bar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.jss-loading-bar.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.jss-loading-bar.is-inline {
+  transform: none;
+}
+
+.jss-loading-bar .jss-progress-wrap,
+.jss-loading-bar .jss-progress-body {
+  gap: 0;
+}
+
+.jss-loading-bar .jss-progress {
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.jss-loading-bar.has-track .jss-progress {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.jss-loading-bar .jss-progress-buffer,
+.jss-loading-bar .jss-progress-bar {
+  transition: width 220ms ease, transform 220ms ease, opacity 180ms ease;
+}

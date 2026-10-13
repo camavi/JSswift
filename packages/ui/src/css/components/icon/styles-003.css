@@ -1,0 +1,6 @@
+[class*='jss-state-'].jss-singularity-check.jss-choice-wrap.is-checked .jss-choice-mark .jss-icon {
+  color: var(--set-color-1);
+}
+[class*='jss-state-light'].jss-singularity-check.jss-choice-wrap.is-checked .jss-choice-mark .jss-icon {
+  color: black;
+}

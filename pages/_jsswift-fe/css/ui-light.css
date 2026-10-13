@@ -4300,7 +4300,7 @@ select {
   flex-direction: column;
   gap: 12px;
   min-height: 180px;
-  padding: 16px; 
+  padding: 16px;
   box-sizing: border-box;
 }
 

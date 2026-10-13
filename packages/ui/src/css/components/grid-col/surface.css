@@ -1,0 +1,13 @@
+.jss-grid-col-surface {
+  position: relative;
+  border: 1px solid var(--set-border-color, transparent);
+  border-radius: var(--set-border-radius, var(--jss-r-md));
+  background-color: var(--set-background-color, transparent);
+}
+
+.jss-grid-col-panel {
+  --set-background-color: var(--jss-panel);
+  --set-border-color: var(--jss-border-color);
+  --set-shadow-active: var(--jss-shadow-sm);
+  padding: var(--jss-grid-col-panel-padding, var(--jss-s-lg));
+}

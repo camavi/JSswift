@@ -1,0 +1,15 @@
+.jss-dialog:is(.light, .jss-state-light) .jss-dialog-icon {
+  color: var(--jss-text);
+  background: color-mix(in srgb, var(--jss-text) 8%, transparent);
+  border-color: color-mix(in srgb, var(--jss-text) 24%, transparent);
+}
+
+.jss-dialog:is(.light, .jss-state-light) .jss-dialog-close.jss-btn {
+  color: var(--jss-text);
+  background: transparent;
+  border-color: var(--jss-border-color);
+}
+
+.jss-dialog:is(.light, .jss-state-light) .jss-dialog-actions .jss-btn.jss-flat {
+  color: var(--jss-text);
+}

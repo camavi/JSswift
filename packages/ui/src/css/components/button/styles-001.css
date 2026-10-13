@@ -1,0 +1,39 @@
+.jss-btn.jss-size-xxs {
+  padding: 1px 1px;
+  font-size: var(--jss-font-size-xxs);
+}
+
+.jss-btn.jss-size-xs {
+  padding: 4px 6px;
+  font-size: var(--jss-font-size-xs);
+}
+
+.jss-btn.jss-size-sm {
+  padding: 6px 10px;
+  font-size: var(--jss-font-size-sm);
+}
+
+.jss-btn.jss-size-md {
+  padding: 10px 14px;
+  font-size: var(--jss-font-size-md);
+}
+
+.jss-btn.jss-size-lg {
+  padding: 12px 18px;
+  font-size: var(--jss-font-size-lg);
+}
+
+.jss-btn.jss-size-xl {
+  padding: 14px 22px;
+  font-size: var(--jss-font-size-xl);
+}
+
+.jss-btn.jss-size-xxl {
+  padding: 18px 26px;
+  font-size: var(--jss-font-size-xxl);
+}
+
+.jss-btn.jss-size-xxxl {
+  padding: 22px 30px;
+  font-size: var(--jss-font-size-xxxl);
+}

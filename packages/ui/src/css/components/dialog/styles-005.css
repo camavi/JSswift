@@ -1,0 +1,236 @@
+.jss-dialog.jss-flat .jss-dialog-shell.with-divider > :is(.jss-dialog-head, .jss-dialog-actions) {
+  border: 0;
+}
+
+.jss-dialog.jss-singularity.jss-flat .jss-dialog-icon {
+  color: inherit;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.jss-dialog.jss-flat .jss-dialog-close.jss-btn {
+  color: inherit;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.jss-dialog-head,
+.jss-dialog-body,
+.jss-dialog-actions {
+  padding-left: var(--jss-s-lg);
+  padding-right: var(--jss-s-lg);
+}
+
+.jss-dialog-shell.has-head .jss-dialog-head {
+  padding-top: var(--jss-s-lg);
+}
+
+.jss-dialog-shell.has-head.with-divider .jss-dialog-head {
+  border-bottom: 1px solid color-mix(in srgb, var(--jss-dialog-border) 82%, transparent);
+}
+
+.jss-dialog-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.jss-dialog-head-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.jss-dialog-icon {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--jss-dialog-accent) 14%, transparent);
+  color: var(--jss-dialog-accent);
+  border: 1px solid color-mix(in srgb, var(--jss-dialog-accent) 22%, transparent);
+  flex: 0 0 auto;
+}
+
+.jss-dialog-eyebrow {
+  font-size: 11px;
+  line-height: 1.3;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--jss-dialog-accent);
+}
+
+.jss-dialog-title {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.jss-dialog-subtitle {
+  color: inherit;
+  line-height: 1.5;
+}
+
+.jss-dialog-close-wrap {
+  flex: 0 0 auto;
+}
+
+.jss-dialog-close {
+  min-width: 40px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 12px;
+}
+
+.jss-dialog-body {
+  padding-top: var(--jss-s-lg);
+  padding-bottom: var(--jss-s-lg);
+  overflow: auto;
+  min-height: 0;
+  line-height: 1.55;
+}
+
+.jss-dialog-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--jss-s-sm);
+  justify-content: flex-end;
+  margin-top: 0;
+  padding-top: var(--jss-s-md);
+  padding-bottom: var(--jss-s-lg);
+}
+
+.jss-dialog-shell.has-footer.with-divider .jss-dialog-actions {
+  border-top: 1px solid color-mix(in srgb, var(--jss-dialog-border) 82%, transparent);
+}
+
+.jss-dialog-actions.is-start {
+  justify-content: flex-start;
+}
+
+.jss-dialog-actions.is-center {
+  justify-content: center;
+}
+
+.jss-dialog-actions.is-between {
+  justify-content: space-between;
+}
+
+.jss-dialog-actions.is-stretch>* {
+  flex: 1 1 0;
+}
+
+.jss-dialog-actions.is-stacked {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.jss-dialog.scrollable .jss-dialog-body,
+.jss-dialog.sticky-head .jss-dialog-body,
+.jss-dialog.sticky-actions .jss-dialog-body {
+  flex: 1 1 auto;
+  max-height: var(--jss-dialog-body-max-height, min(60vh, 680px));
+}
+
+.jss-dialog.sticky-head .jss-dialog-head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: color-mix(in srgb, var(--jss-panel) 92%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.jss-dialog.sticky-actions .jss-dialog-actions {
+  position: sticky;
+  bottom: -15px;
+  z-index: 2;
+  background-color: color-mix(in srgb, var(--set-background-color) 90%, var(--set-color-3));
+  backdrop-filter: blur(12px);
+}
+
+.jss-dialog.jss-dialog-xs {
+  --jss-dialog-width: min(360px, 100%);
+}
+
+.jss-dialog.jss-dialog-sm {
+  --jss-dialog-width: min(440px, 100%);
+}
+
+.jss-dialog.jss-dialog-md {
+  --jss-dialog-width: min(560px, 100%);
+}
+
+.jss-dialog.jss-dialog-lg {
+  --jss-dialog-width: min(720px, 100%);
+}
+
+.jss-dialog.jss-dialog-xl {
+  --jss-dialog-width: min(920px, 100%);
+}
+
+.jss-dialog.jss-dialog-full,
+.jss-dialog.fullscreen {
+  --jss-dialog-width: var(--jss-dialog-fullscreen-width, 100vw);
+  --jss-dialog-max-width: var(--jss-dialog-fullscreen-width, 100vw);
+  --jss-dialog-max-height: var(--jss-dialog-fullscreen-height, 100dvh);
+  position: fixed;
+  inset: 0;
+  top: var(--jss-dialog-fullscreen-top, 0px);
+  left: var(--jss-dialog-fullscreen-left, 0px);
+  right: auto;
+  bottom: auto;
+  width: var(--jss-dialog-fullscreen-width, 100vw);
+  height: var(--jss-dialog-fullscreen-height, 100vh);
+  height: var(--jss-dialog-fullscreen-height, 100dvh);
+  min-width: 0;
+  min-height: var(--jss-dialog-fullscreen-height, 100dvh);
+  max-width: var(--jss-dialog-fullscreen-width, 100vw);
+  max-height: var(--jss-dialog-fullscreen-height, 100vh);
+  max-height: var(--jss-dialog-fullscreen-height, 100dvh);
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-sizing: border-box;
+  box-shadow: none;
+  overflow: hidden;
+  transform: none;
+}
+
+.jss-dialog.jss-dialog-full .jss-dialog-shell,
+.jss-dialog.fullscreen .jss-dialog-shell,
+.jss-dialog.jss-dialog-full .jss-dialog-body,
+.jss-dialog.fullscreen .jss-dialog-body {
+  flex: 1 1 auto;
+}
+
+.jss-overlay-panel.jss-dialog.jss-dialog-full.enter,
+.jss-overlay-panel.jss-dialog.jss-dialog-full.entered,
+.jss-overlay-panel.jss-dialog.jss-dialog-full.leave,
+.jss-overlay-panel.jss-dialog.fullscreen.enter,
+.jss-overlay-panel.jss-dialog.fullscreen.entered,
+.jss-overlay-panel.jss-dialog.fullscreen.leave {
+  transform: none;
+}
+
+.jss-overlay.jss-dialog-align-top {
+  align-items: flex-start;
+  padding-top: 24px;
+}
+
+.jss-overlay.jss-dialog-align-bottom {
+  align-items: flex-end;
+  padding-bottom: 24px;
+}
+
+.jss-overlay.jss-dialog-overlay-blur .jss-overlay-backdrop {
+  backdrop-filter: blur(10px);
+}

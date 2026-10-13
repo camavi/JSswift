@@ -1,0 +1,89 @@
+/* - NATIVE */
+*{
+  box-sizing: border-box;
+}
+input,
+select,
+button {
+  background-color: var(--jss-theme-color-1);
+  border-color: var(--jss-theme-color-2);
+  border-width: 1px;
+  border-radius: var(--jss-b-radius-default, 4px);
+  padding: 2px 8px;
+  min-height: calc(var(--jss-input-height-default, 32px) + 5px);
+  color: var(--jss-text);
+}
+
+select {
+  min-height: calc(var(--jss-input-height-default, 32px) + 9px);
+}
+
+/* - CSS BASE */
+.jss-d-flex {
+  display: flex;
+}
+
+.jss-d-block {
+  display: block;
+}
+
+.jss-overlay-root {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1010;
+}
+
+.jss-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.jss-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: opacity 160ms ease;
+  pointer-events: auto;
+}
+
+.jss-overlay.entered .jss-overlay-backdrop {
+  opacity: 1;
+}
+
+.jss-overlay.leave .jss-overlay-backdrop {
+  opacity: 0;
+}
+
+.jss-overlay-panel {
+  pointer-events: auto;
+  background: var(--jss-panel);
+  border: 1px solid var(--jss-border);
+  border-radius: var(--jss-r-md);
+  box-shadow: var(--jss-shadow-sm);
+  color: var(--jss-text);
+  --set-background-color: var(--jss-panel);
+}
+
+.jss-overlay-panel.enter {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.jss-overlay-panel.entered {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 160ms ease, transform 160ms ease;
+  --set-background-color: var(--jss-panel);
+}
+
+.jss-overlay-panel.leave {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 140ms ease, transform 140ms ease;
+}

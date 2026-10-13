@@ -1,0 +1,5 @@
+.jss-select-empty {
+  padding: 10px 12px;
+  color: var(--jss-muted);
+  font-size: 13px;
+}

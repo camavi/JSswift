@@ -1,0 +1,5 @@
+.jss-dialog.jss-gradient .jss-dialog-close.jss-btn {
+  color: var(--jss-text);
+  background: transparent;
+  border-color: var(--jss-border-color);
+}

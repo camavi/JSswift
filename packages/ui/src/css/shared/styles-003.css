@@ -1,0 +1,7 @@
+.jss-panel {
+  background: var(--jss-panel);
+  border: 1px solid var(--jss-border-color);
+  box-shadow: var(--jss-shadow-sm);
+  flex: 1;
+  z-index: 1;
+}

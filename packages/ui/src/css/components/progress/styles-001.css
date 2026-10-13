@@ -1,0 +1,39 @@
+.jss-progress-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.jss-progress-wrap:is(.dense, .jss-dense) {
+  gap: 4px;
+  font-size: 12px;
+}
+
+.jss-progress-wrap:is(.dense, .jss-dense) .jss-progress-heading {
+  gap: 1px;
+}
+
+.jss-progress-wrap.jss-flat,
+.jss-progress-wrap.jss-flat .jss-progress,
+.jss-progress-wrap.jss-flat .jss-progress-bar {
+  border: 0;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.jss-progress-wrap.jss-flat .jss-progress {
+  border-radius: 0;
+}
+
+.jss-progress-wrap:is(.jss-outline, .jss-shadow) {
+  border: 0;
+  outline: none;
+  box-shadow: none;
+}
+
+.jss-progress-wrap .jss-progress-bar.jss-outline {
+  box-sizing: border-box;
+  border: 1px solid var(--set-hover, var(--jss-text));
+  background-color: transparent;
+}

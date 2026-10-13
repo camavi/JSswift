@@ -1,0 +1,19 @@
+/* Calendar and Date share Card surfaces and calendar control contrast. */
+.jss-date-panel.jss-card { isolation: isolate; color: var(--set-color, var(--jss-text)); min-width: 0; max-width: 100%; box-sizing: border-box; }
+.jss-date-panel.jss-card:not([class*="jss-state-"]) { color: var(--jss-text); }
+.jss-date-panel.jss-card :is(.jss-date-day,.jss-date-weekday,.jss-date-value,.jss-date-nav,.jss-date-action,.jss-date-shortcut,.jss-date-select) { color: inherit; }
+.jss-date-panel.jss-card :is(.jss-date-month,.jss-date-footer,.jss-date-nav,.jss-date-action,.jss-date-shortcut,.jss-date-select) { border-color: color-mix(in srgb,currentColor 25%,transparent); }
+.jss-date-panel.jss-card :is(.jss-date-month,.jss-date-nav,.jss-date-action,.jss-date-shortcut,.jss-date-select) { background: color-mix(in srgb,currentColor 5%,transparent); }
+.jss-date-panel.jss-card .jss-date-select option { color: var(--jss-text); background: var(--jss-panel); }
+.jss-date-panel.jss-card .jss-date-day:is(.is-selected,.is-range-start,.is-range-end),
+.jss-date-panel.jss-card .jss-date-action.is-primary { color: inherit; background: color-mix(in srgb,currentColor 22%,transparent); border-color: currentColor; box-shadow: inset 0 0 0 1px currentColor; font-weight: 700; }
+.jss-date-panel.jss-card .jss-date-day.is-in-range { background: color-mix(in srgb,currentColor 12%,transparent); }
+.jss-date-panel.jss-card .jss-date-day.is-today { border-color: currentColor; }
+.jss-date-panel.jss-card :is(.jss-date-day,.jss-date-nav,.jss-date-action,.jss-date-shortcut):not(:disabled):hover { color: inherit; background: color-mix(in srgb,currentColor 16%,transparent); }
+.jss-date-panel.jss-card :is(.jss-date-day,.jss-date-nav,.jss-date-action,.jss-date-select):focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.jss-date-panel.jss-card .jss-date-months { grid-template-columns: repeat(auto-fit,minmax(min(100%,var(--jss-date-month-min)),1fr)); }
+.jss-date-panel.jss-card .jss-date-header-center { min-width: 0; flex-wrap: wrap; }
+.jss-date-panel.jss-card .jss-date-select { min-width: 0; }
+.jss-date-panel.jss-card.jss-card-dense { --jss-date-panel-padding: 6px; --jss-date-panel-gap: 6px; --jss-date-month-padding: 6px; --jss-date-day-height: 24px; }
+.jss-date-panel.jss-card.jss-text-gradient { background-clip: border-box; -webkit-background-clip: border-box; -webkit-text-fill-color: currentColor; background-image: none; }
+.jss-date-panel.jss-card.jss-text-gradient .jss-date-month-title { background-image: linear-gradient(120deg,var(--set-color-2),var(--set-color-3)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }

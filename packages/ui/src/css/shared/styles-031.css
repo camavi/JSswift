@@ -1,0 +1,13 @@
+.jss-state-success,
+.jss-state-success>.jss-control {
+  --set-color: var(--jss-success-text);
+  --set-border-color: var(--jss-success-hover);
+  --set-background-color: var(--jss-success);
+  --set-shadow: 0 3px 6px color-mix(in srgb, var(--jss-success-950) 40%, transparent);
+  --set-hover: var(--jss-success-hover);
+  --set-color-0: var(--jss-success-50);
+  --set-color-1: var(--jss-success-100);
+  --set-color-2: var(--jss-success-400);
+  --set-color-3: var(--jss-success-700);
+  --set-color-4: var(--jss-success-900);
+}

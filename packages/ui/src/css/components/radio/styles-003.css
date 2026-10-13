@@ -1,0 +1,9 @@
+.jss-singularity-check.jss-choice-wrap.jss-radio-wrap.jss-glass > .jss-choice-radio-mark .jss-icon {
+  position: relative;
+  z-index: 1;
+  color: color-mix(in srgb, var(--jss-text) 70%, var(--set-hover, var(--jss-text)));
+}
+
+.jss-radio-wrap.jss-glass > .jss-choice-radio-mark::before {
+  pointer-events: none;
+}

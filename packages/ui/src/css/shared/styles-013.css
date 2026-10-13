@@ -1,0 +1,67 @@
+.jss-dialog.jss-singularity.jss-glossy,
+.jss-menu-panel.jss-singularity.jss-glossy {
+  background: var(--set-background-color, var(--jss-bg));
+}
+
+.jss-dialog.jss-glossy .jss-dialog-head,
+.jss-menu-panel.jss-glossy .jss-menu-head {
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.18) 49%,
+    color-mix(in srgb, var(--jss-dialog-accent) 8%, transparent) 51%,
+    color-mix(in srgb, var(--jss-dialog-accent) 16%, transparent) 100%);
+  padding-bottom: var(--jss-s-md);
+}
+
+:root[data-theme="dark"] .jss-dialog.jss-glossy .jss-dialog-head,
+:root[data-theme="dark"] .jss-menu-panel.jss-glossy .jss-menu-head {
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.04) 49%,
+    rgba(0, 0, 0, 0.08) 51%,
+    rgba(0, 0, 0, 0.22) 100%);
+}
+
+.jss-dialog.jss-singularity.jss-text-gradient,
+.jss-menu-panel.jss-singularity.jss-text-gradient {
+  background: var(--set-background-color, var(--jss-bg));
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-dialog.jss-text-gradient :is(.jss-dialog-title, .jss-dialog-subtitle, .jss-dialog-body),
+.jss-menu-panel.jss-text-gradient :is(.jss-menu-title, .jss-menu-subtitle, .jss-menu-entry-title) {
+  background-image: linear-gradient(110deg,
+    var(--jss-dialog-accent) 0%,
+    color-mix(in srgb, var(--jss-dialog-accent) 55%, var(--jss-text)) 50%,
+    var(--jss-text) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.jss-dialog.jss-text-gradient :is(.jss-dialog-title, .jss-dialog-subtitle),
+.jss-menu-panel.jss-text-gradient :is(.jss-menu-title, .jss-menu-subtitle) {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.jss-dialog.jss-singularity.jss-text-gradient .jss-btn,
+.jss-menu-panel.jss-singularity.jss-text-gradient:not(.jss-card) .jss-btn {
+  background-image: none;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-dialog.jss-singularity.jss-gradient,
+.jss-menu-panel.jss-singularity.jss-gradient {
+  --set-text-color: var(--jss-text);
+  --set-color: var(--jss-text);
+  background: linear-gradient(var(--set-gradient-deg, 135deg),
+    color-mix(in srgb, var(--jss-dialog-accent) 10%, var(--jss-bg)) 0%,
+    color-mix(in srgb, var(--jss-dialog-accent) 20%, var(--jss-bg)) 55%,
+    color-mix(in srgb, var(--jss-dialog-accent) 32%, var(--jss-bg)) 100%);
+  color: var(--jss-text);
+}

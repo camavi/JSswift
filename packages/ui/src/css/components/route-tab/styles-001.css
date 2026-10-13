@@ -1,0 +1,291 @@
+.jss-route-tab {
+  --jss-route-tab-accent: var(--jss-primary);
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: 10px 14px;
+  border: 1px solid var(--jss-border-color);
+  border-radius: var(--set-border-radius, var(--jss-r-lg));
+  background: color-mix(in srgb, var(--jss-panel) 92%, transparent);
+  color: var(--jss-text);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, opacity 160ms ease;
+}
+
+.jss-route-tab:hover,
+.jss-route-tab:focus-visible {
+  background: color-mix(in srgb, var(--jss-route-tab-accent) 8%, transparent);
+  border-color: color-mix(in srgb, var(--jss-route-tab-accent) 24%, var(--jss-border-color));
+  color: color-mix(in srgb, var(--jss-route-tab-accent) 78%, var(--jss-text) 22%);
+}
+
+.jss-route-tab:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--jss-route-tab-accent) 22%, transparent);
+}
+
+.jss-route-tab.active {
+  background: color-mix(in srgb, var(--jss-route-tab-accent) 12%, transparent);
+  border-color: color-mix(in srgb, var(--jss-route-tab-accent) 34%, var(--jss-border-color));
+  color: color-mix(in srgb, var(--jss-route-tab-accent) 82%, var(--jss-text) 18%);
+}
+
+.jss-route-tab::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--jss-route-tab-accent);
+  opacity: 0;
+  transform: scaleX(0.35);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.jss-route-tab.active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.jss-route-tab.variant-pills::after {
+  display: none;
+}
+
+.jss-route-tab.variant-pills.active {
+  background: color-mix(in srgb, var(--jss-route-tab-accent) 18%, transparent);
+  border-color: color-mix(in srgb, var(--jss-route-tab-accent) 40%, var(--jss-border-color));
+}
+
+.jss-route-tab.variant-soft {
+  background: transparent;
+  border-style: dashed;
+}
+
+.jss-route-tab.variant-soft:hover,
+.jss-route-tab.variant-soft.active {
+  background: color-mix(in srgb, var(--jss-route-tab-accent) 6%, transparent);
+}
+
+.jss-route-tab.block {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.jss-route-tab.dense {
+  padding: 8px 12px;
+}
+
+.jss-route-tab.jss-singularity:not(.jss-border):not(.jss-outline) {
+  border: 0;
+}
+
+.jss-route-tab.jss-singularity.jss-outline.jss-state-dark {
+  color: var(--jss-text);
+}
+
+.jss-route-tab.jss-singularity.jss-glass:not(.jss-text-gradient) {
+  color: var(--jss-text);
+}
+
+.jss-route-tab.jss-singularity.jss-glass.active:not(.jss-text-gradient) {
+  color: color-mix(in srgb, var(--jss-route-tab-accent) 65%, var(--jss-text));
+}
+
+:root[data-theme="dark"] .jss-route-tab.jss-singularity.jss-glass:not(.jss-state-light)::before {
+  filter: brightness(0.65);
+}
+
+:root[data-theme="dark"] .jss-route-tab.jss-singularity.jss-glass:is(.jss-state-light, .jss-state-dark).active:not(.jss-text-gradient) {
+  color: var(--jss-text);
+}
+
+:root[data-theme="dark"] .jss-route-tab.jss-singularity.jss-glass:is(.jss-state-light, .jss-state-dark).active::after {
+  background: var(--jss-text);
+}
+
+.jss-route-tab.jss-singularity.jss-text-gradient {
+  background-image: none;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+  color: color-mix(in srgb, var(--jss-route-tab-accent) 65%, var(--jss-text));
+}
+
+.jss-route-tab.jss-text-gradient :is(.jss-route-tab-label, .jss-route-tab-note) {
+  background-image: linear-gradient(var(--set-gradient-deg, 135deg),
+    color-mix(in srgb, var(--jss-route-tab-accent) 75%, var(--jss-text)),
+    color-mix(in srgb, var(--jss-route-tab-accent) 25%, var(--jss-text)));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.jss-route-tab.jss-singularity.jss-shadow {
+  --set-shadow-active: 0 1px 2px rgb(0 0 0 / 10%),
+    0 3px 6px rgb(0 0 0 / 12%);
+}
+
+.jss-route-tab.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 3px color-mix(in srgb, var(--jss-route-tab-accent) 40%, transparent),
+    0 0 8px color-mix(in srgb, var(--jss-route-tab-accent) 28%, transparent);
+  text-shadow: none;
+}
+
+:root[data-theme="dark"] .jss-route-tab.jss-singularity.jss-shadow {
+  --set-shadow-active: 0 1px 2px rgb(0 0 0 / 25%),
+    0 3px 6px rgb(0 0 0 / 30%);
+}
+
+.jss-route-tab.jss-singularity.jss-flat {
+  background: transparent;
+  box-shadow: none;
+  color: var(--jss-text);
+}
+
+.jss-route-tab.jss-singularity:is(.variant-line, .variant-pills, .variant-soft):not(.active):not(.jss-glass):not(.jss-gradient):not(.jss-text-gradient) {
+  background-color: transparent;
+  color: var(--jss-text);
+}
+
+.jss-route-tab.jss-singularity.variant-pills {
+  border-radius: 999px;
+}
+
+.jss-route-tab.jss-singularity.variant-soft::after {
+  display: none;
+}
+
+.jss-route-tab.jss-singularity.variant-solid::after {
+  display: none;
+}
+
+.jss-route-tab.jss-singularity.variant-solid {
+  background-color: transparent;
+  color: var(--jss-text);
+}
+
+.jss-route-tab.jss-singularity.variant-solid.active {
+  background-color: var(--jss-route-tab-accent);
+  color: #fff;
+}
+
+.jss-route-tab.jss-singularity.variant-solid.jss-state-light.active {
+  background-color: #f1f5f9;
+  color: #1f2937;
+}
+
+.jss-route-tab.jss-singularity.variant-solid.jss-state-dark.active {
+  background-color: #1f2937;
+  color: #f1f5f9;
+}
+
+.jss-route-tab.jss-singularity.variant-soft.active {
+  background-color: color-mix(in srgb, var(--jss-route-tab-accent) 12%, transparent);
+  color: color-mix(in srgb, var(--jss-route-tab-accent) 75%, var(--jss-text));
+}
+
+.jss-route-tab.jss-singularity.jss-flat.active,
+.jss-route-tab.jss-singularity.jss-flat:hover {
+  color: color-mix(in srgb, var(--jss-route-tab-accent) 82%, var(--jss-text) 18%);
+}
+
+.jss-route-tab.is-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.jss-route-tab.jss-size-xs {
+  padding: 7px 10px;
+  font-size: 12px;
+}
+
+.jss-route-tab.jss-size-sm {
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.jss-route-tab.jss-size-md {
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+.jss-route-tab.jss-size-lg {
+  padding: 12px 16px;
+  font-size: 15px;
+}
+
+.jss-route-tab.jss-size-xl {
+  padding: 14px 18px;
+  font-size: 16px;
+}
+
+.jss-route-tab-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
+
+.jss-route-tab-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.jss-route-tab-label,
+.jss-route-tab-note,
+.jss-route-tab-extra {
+  display: block;
+  min-width: 0;
+}
+
+.jss-route-tab-label {
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.jss-route-tab-note {
+  color: var(--jss-muted);
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.jss-route-tab-extra {
+  color: color-mix(in srgb, var(--jss-text) 76%, transparent);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.jss-route-tab.active .jss-route-tab-note {
+  color: color-mix(in srgb, var(--jss-route-tab-accent) 68%, var(--jss-text) 32%);
+}
+
+.jss-route-tab-icon,
+.jss-route-tab-badge,
+.jss-route-tab-aside {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.jss-route-tab-aside {
+  color: var(--jss-muted);
+}
+
+.jss-route-tab .jss-icon {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+}

@@ -1,0 +1,216 @@
+.jss-item.jss-item-surface .jss-item-row {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+}
+
+.jss-item.jss-singularity:not([class*="jss-state-"]) {
+  --set-background-color: var(--jss-bg);
+  background-color: var(--jss-bg);
+}
+
+.jss-item:not([class*="jss-state-"]) > .jss-item-row {
+  background-color: var(--jss-bg);
+}
+
+.jss-item.jss-item-surface > .jss-item-row {
+  background: transparent;
+}
+
+.jss-item.jss-singularity .jss-item-subtitle,
+.jss-item.jss-singularity .jss-item-meta,
+.jss-item.jss-singularity .jss-item-aside {
+  color: inherit;
+}
+
+.jss-item.jss-singularity .jss-item-subtitle {
+  opacity: .85;
+}
+
+.jss-item.jss-item-surface.jss-dense {
+  padding: 8px 10px;
+  margin: 0;
+}
+
+.jss-item.jss-dense .jss-item-row {
+  gap: 8px;
+}
+
+.jss-item.jss-singularity.jss-flat {
+  background: transparent;
+  border-width: 0;
+  box-shadow: none;
+  color: var(--set-hover, var(--jss-text));
+}
+
+.jss-item.jss-singularity.jss-flat.jss-state-light {
+  color: #64748b;
+}
+
+.jss-item.jss-singularity.jss-flat.jss-state-dark {
+  color: #1f2937;
+}
+
+:root[data-theme="dark"] .jss-item.jss-singularity.jss-flat.jss-state-light {
+  color: #f1f5f9;
+}
+
+:root[data-theme="dark"] .jss-item.jss-singularity.jss-flat.jss-state-dark {
+  color: #94a3b8;
+}
+
+.jss-item.jss-singularity.jss-outline:is(.jss-state-light, .jss-state-dark) {
+  --set-color: var(--jss-text);
+  color: var(--set-color);
+}
+
+.jss-item.jss-singularity.jss-glass,
+.jss-item.jss-singularity.jss-glass.jss-outline {
+  --set-color: color-mix(in srgb, var(--jss-text) 85%, var(--set-hover, var(--jss-text)));
+  color: var(--set-color);
+}
+
+.jss-item.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 3px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 30%, transparent),
+    0 0 8px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 16%, transparent);
+  text-shadow: none;
+}
+
+:root[data-theme="dark"] .jss-item.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 3px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 36%, transparent),
+    0 0 9px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 20%, transparent);
+}
+
+.jss-item.jss-singularity.jss-border {
+  border-style: solid;
+  border-width: var(--set-border-width, 1px);
+  border-color: color-mix(in srgb, var(--set-hover, var(--jss-text)) 65%, var(--jss-text));
+}
+
+.jss-item.jss-singularity.jss-light-shadow {
+  border-width: 0;
+}
+
+.jss-item.jss-singularity.jss-shadow {
+  --set-shadow-active: 0 2px 4px color-mix(in srgb, var(--jss-text) 14%, transparent),
+    0 5px 10px color-mix(in srgb, var(--jss-text) 16%, transparent);
+  box-shadow: var(--set-shadow-active), var(--set-glow-active, 0 0 0 0 transparent);
+}
+
+:root[data-theme="dark"] .jss-item.jss-singularity.jss-shadow {
+  --set-shadow-active: inset 0 1px 0 rgb(255 255 255 / 12%),
+    0 3px 5px rgb(0 0 0 / 50%),
+    0 6px 12px color-mix(in srgb, var(--set-hover, var(--jss-text)) 18%, transparent);
+}
+
+.jss-item.jss-item-clickable {
+  cursor: pointer;
+}
+
+.jss-item.jss-item-clickable:not(.is-disabled):hover {
+  transform: translateY(-1px);
+}
+
+.jss-item.jss-item-clickable:not(.jss-item-surface):not(.is-disabled):hover .jss-item-row {
+  border-color: color-mix(in srgb, var(--jss-primary) 22%, var(--jss-border-color));
+  background: color-mix(in srgb, var(--jss-panel) 88%, white 4%);
+}
+
+.jss-item.jss-item-clickable:focus-visible {
+  outline: none;
+}
+
+.jss-item.jss-item-clickable:not(.jss-item-surface):focus-visible .jss-item-row {
+  border-color: rgba(79, 124, 255, 0.72);
+  box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.14);
+}
+
+.jss-item.jss-item-surface.jss-item-clickable:focus-visible {
+  box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.14);
+}
+
+.jss-item.is-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.jss-item.is-active:not(.jss-item-surface) .jss-item-row {
+  border-color: rgba(79, 124, 255, 0.4);
+  background: rgba(79, 124, 255, 0.08);
+}
+
+.jss-item-icon,
+.jss-item-aside {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.jss-item-icon .jss-icon,
+.jss-item-aside .jss-icon {
+  margin: 0;
+}
+
+.jss-item-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.jss-item-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 1.2;
+  color: var(--jss-muted);
+}
+
+.jss-item-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.jss-item-subtitle {
+  color: var(--jss-muted);
+  line-height: 1.4;
+}
+
+.jss-item-body {
+  line-height: 1.45;
+  opacity: 0.92;
+}
+
+.jss-item-body.is-standalone {
+  opacity: 1;
+}
+
+.jss-item-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 2px;
+}
+
+.jss-item-aside {
+  gap: 8px;
+  color: var(--jss-muted);
+  margin-left: auto;
+  align-self: center;
+}
+
+.jss-item-empty .jss-item-row {
+  border-style: dashed;
+  color: var(--jss-muted);
+}

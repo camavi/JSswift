@@ -1,0 +1,165 @@
+/* Field metrics inherit the public size/font token, including numeric sizes. */
+.jss-field {
+  --jss-field-input-height: var(--jss-field-size-height, var(--jss-input-height-default, 32px));
+  --jss-field-label-size: clamp(8px, calc(var(--jss-font-size, 14px) * .78), 20px);
+  --set-icon-size: calc(var(--jss-font-size, 14px) + 4px);
+}
+
+.jss-field.jss-size-xxs { --jss-font-size: var(--jss-font-size-xxs); }
+.jss-field.jss-size-xs { --jss-font-size: var(--jss-font-size-xs); }
+.jss-field.jss-size-sm { --jss-font-size: var(--jss-font-size-sm); }
+.jss-field.jss-size-md { --jss-font-size: var(--jss-font-size-md); }
+.jss-field.jss-size-lg { --jss-font-size: var(--jss-font-size-lg); }
+.jss-field.jss-size-xl { --jss-font-size: var(--jss-font-size-xl); }
+.jss-field.jss-size-xxl { --jss-font-size: var(--jss-font-size-xxl); }
+.jss-field.jss-size-xxxl { --jss-font-size: var(--jss-font-size-xxxl); }
+
+/* ===== Field (Input wrapper) ===== */
+.jss-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.jss-field-label,
+.jss-field-toplabel {
+  font-size: 12px;
+  color: var(--jss-muted);
+}
+
+.jss-field-control {
+  position: relative;
+  border: 1px solid var(--jss-border-color);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--jss-r-md);
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 140ms ease, box-shadow 140ms ease, background 140ms ease;
+}
+
+.jss-field-control:focus-within {
+  border-color: rgba(79, 124, 255, 0.75);
+  box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.15);
+}
+
+.jss-field-control.disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.jss-field-control.error {
+  border-color: rgba(255, 79, 109, .65);
+  box-shadow: 0 0 0 3px rgba(255, 79, 109, .12);
+}
+
+.jss-field-control.success {
+  border-color: rgba(55, 210, 138, .7);
+  box-shadow: 0 0 0 3px rgba(55, 210, 138, .14);
+}
+
+.jss-field-control.warning {
+  border-color: rgba(251, 191, 36, .75);
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, .14);
+}
+
+.jss-field-control.note {
+  border-color: rgba(18, 100, 233, .7);
+  box-shadow: 0 0 0 3px rgba(18, 100, 233, .14);
+}
+
+.jss-field-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.jss-field-float {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  color: var(--jss-muted);
+  pointer-events: none;
+  transition: all 140ms ease;
+  opacity: .95;
+}
+
+.jss-field-control.has-value .jss-field-float,
+.jss-field-control:focus-within .jss-field-float {
+  top: 6px;
+  font-size: 11px;
+  opacity: .9;
+}
+
+.jss-field-addon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--jss-muted);
+}
+
+.jss-field-clear {
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+}
+
+.jss-field-clear:hover {
+  border-color: var(--jss-border-color);
+  background: rgba(255, 255, 255, .04);
+}
+
+.jss-field-hint {
+  font-size: 12px;
+  color: var(--jss-muted);
+}
+
+.jss-field-error {
+  font-size: 12px;
+  color: rgba(255, 79, 109, .9);
+}
+
+.jss-control {
+  position: relative;
+  border: 1px solid var(--jss-border-color);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--jss-r-md);
+  /*padding: 12px;*/
+  display: flex;
+  align-items: center;
+  transition: border-color 140ms ease, background 140ms ease, box-shadow 140ms ease;
+}
+
+.jss-control:focus-within {
+  border-color: rgba(79, 124, 255, 0.75);
+  box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.jss-control.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.jss-control.error {
+  border-color: rgba(255, 79, 109, 0.65);
+  box-shadow: 0 0 0 3px rgba(255, 79, 109, 0.12);
+}
+
+.jss-control.success {
+  border-color: rgba(55, 210, 138, 0.7);
+  box-shadow: 0 0 0 3px rgba(55, 210, 138, 0.14);
+}
+
+.jss-control.warning {
+  border-color: rgba(251, 191, 36, 0.75);
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.14);
+}
+
+.jss-control.note {
+  border-color: rgba(18, 100, 233, 0.7);
+  box-shadow: 0 0 0 3px rgba(18, 100, 233, 0.14);
+}

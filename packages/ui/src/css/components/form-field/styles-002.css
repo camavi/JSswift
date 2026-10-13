@@ -1,0 +1,36 @@
+.jss-field.jss-dense .jss-date-display {
+  min-height: var(--jss-field-input-height);
+  font-size: var(--jss-font-size, 14px);
+}
+
+.jss-field:has(.jss-date-display, .jss-time-display) > .jss-control > .jss-addon .jss-icon {
+  background: transparent;
+  border-width: 0;
+  box-shadow: none;
+  color: inherit;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  align-self: stretch;
+  min-width: 32px;
+}
+
+.jss-field:has(.jss-date-display, .jss-time-display) > .jss-control > .jss-addon {
+  align-self: stretch;
+  align-items: stretch;
+  min-height: 0;
+}
+
+.jss-field:has(.jss-date-display, .jss-time-display) > .jss-control > .jss-clear {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jss-field.jss-flat:has(.jss-date-display, .jss-time-display) > .jss-control > .jss-mid.jss-with-right,
+.jss-field.jss-flat:has(.jss-date-display, .jss-time-display) > .jss-control > .jss-mid.jss-with-left {
+  border-width: 0;
+}

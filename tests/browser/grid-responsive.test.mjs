@@ -1247,7 +1247,7 @@ test("Documented CRUD validates, edits, binds rod, restores focus and survives r
   const originalWrite = Storage.prototype.setItem;
   Storage.prototype.setItem = function() { throw new Error('storage blocked'); };
   let storageFailure;
-  try { click('save-product'); storageFailure = dialog.isOpen() && rows.length === 6 && notice.textContent === 'Salvataggio non riuscito'; }
+  try { click('save-product'); storageFailure = dialog.isOpen() && rows.length === 6 && document.querySelector('[role=dialog] [role=alert]')?.textContent === 'Salvataggio non riuscito'; }
   finally { Storage.prototype.setItem = originalWrite; }
   click('save-product'); await wait();
   const added = rows.length === 7 && rows[6].category === 'Casa';

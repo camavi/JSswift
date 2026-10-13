@@ -1,0 +1,12 @@
+/* CLEAR SET */
+.jss-clear-set,
+.jss-clear-field-set {
+  --set-border-color: transparent;
+  --set-background-color: none;
+  --set-glossy-active: none;
+  --set-gradient-active: none;
+  --set-shadow-active: 0 0 0 0;
+  --set-glow-active: 0 0 0 0;
+  --set-color: none;
+  --jss-font-size: var(--font-size, 0.9rem);
+}

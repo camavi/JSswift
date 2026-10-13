@@ -1,0 +1,109 @@
+.jss-toggle-wrap {
+  align-items: center;
+  vertical-align: middle;
+}
+
+.jss-toggle-wrap .jss-choice-mark.jss-toggle-mark {
+  --jss-toggle-width: calc(var(--jss-font-size, 16px) * 2.15);
+  --jss-toggle-height: calc(var(--jss-font-size, 16px) * 1.2);
+  --jss-toggle-thumb-size: calc(var(--jss-toggle-height) - 6px);
+  width: var(--jss-toggle-width);
+  min-width: var(--jss-toggle-width);
+  height: var(--jss-toggle-height);
+  padding: 2px;
+  border-radius: 999px;
+  justify-content: flex-start;
+  background: color-mix(in srgb, var(--set-background-color, var(--jss-surface-2)) 28%, var(--jss-theme-color-1));
+  filter: grayscale(.5);
+  box-sizing: content-box;
+}
+
+.jss-toggle-wrap .jss-toggle-thumb {
+  width: var(--jss-toggle-thumb-size);
+  height: var(--jss-toggle-thumb-size);
+  border-radius: 999px;
+  color: var(--set-color, var(--jss-text));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(3px);
+  transition: transform 180ms ease, background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+  background: transparent;
+}
+
+.jss-singularity-check.jss-toggle-wrap.jss-choice-wrap .jss-choice-mark.jss-toggle-mark .jss-toggle-thumb .jss-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--set-icon-size, 20px);
+  height: var(--set-icon-size, 20px);
+  font-size: var(--set-icon-size, 20px);
+  line-height: 1;
+  flex-shrink: 0;
+  color: color-mix(in srgb, var(--jss-text) 65%, var(--set-hover, var(--jss-text)));
+}
+
+.jss-toggle-wrap.toggle-default .jss-toggle-thumb {
+  background: color-mix(in srgb, var(--set-background-color, var(--jss-surface-2)) 40%, transparent);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+  transition: all 180ms ease;
+}
+
+.jss-toggle-wrap.is-checked .jss-choice-mark.jss-toggle-mark {
+  background: color-mix(in srgb, var(--set-background-color, var(--jss-primary, #2d6cdf)) 20%, white 12%);
+  border-color: color-mix(in srgb, var(--set-border-color, var(--jss-primary, #2d6cdf)) 90%, transparent);
+  filter: grayscale(0);
+}
+
+.jss-toggle-wrap.is-checked.toggle-default .jss-toggle-thumb {
+  background: color-mix(in srgb, var(--set-background-color, var(--jss-surface-2)) 90%, white);
+}
+
+.jss-toggle-wrap.jss-outline.toggle-default .jss-toggle-thumb {
+  background: color-mix(in srgb, var(--set-hover, var(--jss-text)) 65%, var(--jss-text));
+}
+
+.jss-toggle-wrap.jss-outline.is-checked.toggle-default .jss-toggle-thumb {
+  background: var(--set-hover, var(--jss-text));
+}
+
+.jss-toggle-wrap.jss-glass .jss-choice-mark.jss-toggle-mark {
+  filter: none;
+  isolation: isolate;
+}
+
+.jss-toggle-wrap.jss-glass .jss-choice-mark.jss-toggle-mark::before {
+  z-index: 0;
+  pointer-events: none;
+}
+
+.jss-toggle-wrap.jss-glass.toggle-default .jss-toggle-thumb {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(155deg,
+    color-mix(in srgb, var(--jss-gradient-surface, white) 75%, transparent),
+    transparent 55%),
+    color-mix(in srgb, var(--set-hover, var(--jss-text)) 42%, transparent);
+  box-shadow: inset 0 1px 2px color-mix(in srgb, var(--jss-gradient-surface, white) 65%, transparent),
+    inset 0 -1px 2px color-mix(in srgb, var(--set-hover, var(--jss-text)) 35%, transparent),
+    0 1px 3px color-mix(in srgb, var(--jss-text) 20%, transparent);
+}
+
+.jss-toggle-wrap.jss-glass.is-checked.toggle-default .jss-toggle-thumb {
+  background: linear-gradient(155deg,
+    color-mix(in srgb, var(--jss-gradient-surface, white) 75%, transparent),
+    transparent 55%),
+    color-mix(in srgb, var(--set-hover, var(--jss-text)) 60%, transparent);
+}
+
+.jss-toggle-wrap.is-checked .jss-toggle-thumb {
+  transform: translateX(calc(var(--jss-toggle-width) - var(--jss-toggle-thumb-size) - 3px));
+}
+
+.jss-toggle-wrap.is-disabled .jss-toggle-thumb {
+  box-shadow: none;
+}
+
+.jss-toggle-wrap .jss-choice-input:focus-visible+.jss-choice-mark.jss-toggle-mark {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--set-background-color, var(--jss-primary, #2d6cdf)) 25%, transparent);
+}

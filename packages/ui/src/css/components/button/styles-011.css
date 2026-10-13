@@ -1,0 +1,6 @@
+.jss-singularity.jss-text-gradient:not(.jss-card) .jss-btn {
+  background-image: linear-gradient(var(--set-gradient-deg), var(--set-color-2), var(--set-color-3));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

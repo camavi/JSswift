@@ -1,0 +1,7 @@
+/* Outline text sits on the theme surface, rather than the dark fill. */
+.jss-btn.jss-outline.jss-state-dark,
+.jss-btn.jss-outline.jss-state-light {
+  --set-color: var(--jss-text);
+  --set-border-color: var(--jss-text);
+  --set-hover: var(--jss-text);
+}

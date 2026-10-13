@@ -1,0 +1,270 @@
+/*** Layout Shell ***/
+.jss-layout {
+  --jss-layout-gap: var(--jss-s-xs);
+  --jss-layout-drawer-width: 280px;
+  --jss-layout-nav-width: 280px;
+  --jss-layout-drawer-peek: 20px;
+  --jss-layout-nav-peek: 20px;
+  position: relative;
+}
+
+.jss-layout-shell-grid {
+  display: grid;
+  min-height: var(--jss-layout-min-height, 100vh);
+  gap: var(--jss-layout-gap);
+  grid-template-areas:
+    "header header header"
+    "aside main nav"
+    "footer footer footer";
+  grid-template-columns: 0px minmax(0, 1fr) 0px;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  align-items: start;
+}
+
+.jss-layout-section {
+  min-width: 0;
+}
+
+.jss-layout-shell-grid>.jss-layout-header,
+.jss-layout-shell-grid>.header {
+  grid-area: header;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.jss-layout-shell-grid>.jss-layout-header>.jss-header,
+.jss-layout-shell-grid>.header>.jss-header {
+  border: 0 0 1px 0;
+  border-radius: 0;
+  background-color: var(--jss-panel);
+}
+
+.jss-layout-shell-grid>.jss-layout-main,
+.jss-layout-shell-grid>.main {
+  grid-area: main;
+  min-width: 0;
+  min-height: 0;
+  background-color: var(--jss-panel);
+}
+
+.jss-layout-shell-grid>.jss-layout-aside,
+.jss-layout-shell-grid>.aside {
+  grid-area: aside;
+  min-width: 0;
+  width: var(--jss-layout-drawer-width);
+  background-color: var(--jss-panel);
+  position: relative;
+}
+
+.jss-layout-shell-grid>.jss-layout-nav,
+.jss-layout-shell-grid>.nav {
+  grid-area: nav;
+  min-width: 0;
+  width: var(--jss-layout-nav-width);
+  background-color: var(--jss-panel);
+  position: relative;
+}
+
+.jss-layout.has-disposition.nav-top .jss-layout-shell-grid>.jss-layout-nav,
+.jss-layout.has-disposition.nav-top .jss-layout-shell-grid>.nav {
+  width: auto;
+}
+
+.jss-layout.has-disposition.mode-global.is-mobile .jss-layout-shell-grid {
+  padding-top: var(--layout-header-height, 0px);
+}
+
+.jss-layout.has-disposition.mode-global.is-mobile .jss-layout-shell-grid>.jss-layout-header,
+.jss-layout.has-disposition.mode-global.is-mobile .jss-layout-shell-grid>.header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 40;
+}
+
+.jss-layout-panel-body {
+  min-width: 0;
+}
+
+.jss-layout-resize-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  z-index: 6;
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.jss-layout-resize-handle::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 42px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--jss-border-color) 70%, transparent);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 140ms ease, background 140ms ease;
+}
+
+.jss-layout-aside.is-resizable:hover .jss-layout-resize-handle::after,
+.jss-layout-nav.is-resizable:hover .jss-layout-resize-handle::after,
+.jss-layout.is-resizing-layout .jss-layout-resize-handle::after {
+  opacity: 1;
+}
+
+.jss-layout-resize-handle-drawer {
+  right: -5px;
+}
+
+.jss-layout-resize-handle-nav {
+  left: -5px;
+}
+
+.jss-layout.is-resizing-layout,
+.jss-layout.is-resizing-layout * {
+  user-select: none;
+}
+
+.jss-layout-shell-grid>.jss-layout-aside.sticky,
+.jss-layout-shell-grid>.aside.sticky,
+.jss-layout-shell-grid>.jss-layout-nav.sticky,
+.jss-layout-shell-grid>.nav.sticky {
+  position: relative;
+  z-index: 10;
+  align-self: stretch;
+  min-height: 0;
+  overflow: visible;
+}
+
+.jss-layout-shell-grid>.jss-layout-aside.sticky>.jss-layout-panel-body,
+.jss-layout-shell-grid>.aside.sticky>.jss-layout-panel-body,
+.jss-layout-shell-grid>.jss-layout-nav.sticky>.jss-layout-panel-body,
+.jss-layout-shell-grid>.nav.sticky>.jss-layout-panel-body {
+  position: sticky;
+  top: calc(var(--layout-header-height, 0px) + var(--jss-layout-gap));
+  bottom: var(--jss-layout-gap);
+  padding-bottom: 10px;
+  max-height: calc(100vh - var(--layout-header-height, 0px) - (var(--jss-layout-gap) * 2));
+}
+
+.jss-layout-shell-grid>.jss-layout-footer,
+.jss-layout-shell-grid>.footer {
+  grid-area: footer;
+  z-index: 9;
+}
+
+.jss-aside-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.38);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease;
+  z-index: 39;
+}
+
+.jss-aside-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.jss-layout .jss-layout-aside.is-floating,
+.jss-layout .jss-layout-nav.is-floating {
+  position: fixed;
+  top: calc(var(--layout-header-height, 0px) - var(--jss-layout-gap));
+  bottom: var(--jss-layout-gap);
+  max-height: calc(100vh - var(--layout-header-height, 0px) - (var(--jss-layout-gap) * 2));
+  overflow: auto;
+  z-index: 40;
+  margin: 0;
+  transition: transform 180ms ease, opacity 180ms ease, box-shadow 180ms ease;
+  box-shadow: 0 22px 48px rgba(15, 23, 42, 0.22);
+}
+
+.jss-layout.has-disposition.mode-local .jss-layout-aside.is-floating,
+.jss-layout.has-disposition.mode-local .jss-layout-nav.is-floating {
+  position: absolute;
+}
+
+.jss-layout .jss-layout-aside.is-floating .jss-layout-resize-handle,
+.jss-layout .jss-layout-nav.is-floating .jss-layout-resize-handle {
+  display: none;
+}
+
+.jss-layout .jss-layout-aside.is-floating {
+  left: var(--jss-layout-gap);
+  width: var(--jss-layout-drawer-width);
+  transform: translateX(calc(-1 * (var(--jss-layout-drawer-width) - var(--jss-layout-drawer-peek))));
+}
+
+.jss-layout .jss-layout-aside.is-floating.open {
+  transform: translateX(0);
+}
+
+.jss-layout .jss-layout-nav.is-floating {
+  right: var(--jss-layout-gap);
+  width: var(--jss-layout-nav-width);
+  transform: translateX(calc(var(--jss-layout-nav-width) - var(--jss-layout-nav-peek)));
+}
+
+.jss-layout .jss-layout-nav.is-floating.open {
+  transform: translateX(0);
+}
+
+.jss-layout.is-mobile .jss-layout-shell-grid {
+  grid-template-columns: 0px minmax(0, 1fr) 0px;
+}
+
+.jss-layout.is-mobile .jss-layout-aside,
+.jss-layout.is-mobile .jss-layout-nav {
+  position: fixed;
+  top: calc(var(--layout-header-height, 0px) + var(--jss-layout-gap));
+  bottom: var(--jss-layout-gap);
+  max-height: calc(100vh - var(--layout-header-height, 0px) - (var(--jss-layout-gap) * 2));
+  overflow: auto;
+  z-index: 40;
+  margin: 0;
+  opacity: 0;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.jss-layout.is-mobile .jss-layout-resize-handle {
+  display: none;
+}
+
+.jss-layout.is-mobile .jss-layout-aside {
+  left: var(--jss-layout-gap);
+  width: min(92vw, var(--jss-layout-drawer-width));
+  max-width: calc(100vw - (var(--jss-layout-gap) * 2));
+  transform: translateX(calc(-100% - var(--jss-layout-gap)));
+}
+
+.jss-layout.has-disposition.is-mobile.drawer-right .jss-layout-aside {
+  left: auto;
+  right: var(--jss-layout-drawer-width);
+  transform: translateX(calc(100% + var(--jss-layout-gap)));
+}
+
+.jss-layout.is-mobile .jss-layout-nav {
+  right: var(--jss-layout-gap);
+  width: min(92vw, var(--jss-layout-nav-width));
+  max-width: calc(100vw - (var(--jss-layout-gap) * 2));
+  transform: translateX(calc(100% + var(--jss-layout-gap)));
+}
+
+.jss-layout.is-mobile .jss-layout-aside.open,
+.jss-layout.is-mobile .jss-layout-nav.open {
+  opacity: 1;
+  transform: translateX(0);
+  box-shadow: 0 22px 48px rgba(15, 23, 42, 0.22);
+}
+
+/*** Layout Shell end ***/

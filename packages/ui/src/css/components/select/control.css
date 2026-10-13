@@ -1,0 +1,116 @@
+.jss-select {
+  position: relative;
+  width: 100%;
+  font-family: var(--jss-font);
+}
+
+.jss-select.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.jss-select-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  user-select: none;
+  height: calc(var(--jss-field-input-height, var(--jss-input-height-default, 32px)) + 5px);
+  font-size: var(--jss-font-size, 14px);
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.jss-select.multiple .jss-select-control {
+  height: auto;
+  min-height: calc(var(--jss-field-input-height, var(--jss-input-height-default, 32px)) + 5px);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.jss-select.dense .jss-select-control {
+  padding: 8px 10px;
+}
+
+.jss-select-control:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.jss-select.open .jss-select-control {
+  border-color: rgba(79, 124, 255, 0.75);
+  box-shadow: 0 0 0 2px rgba(79, 124, 255, 0.15);
+}
+
+.jss-select.placeholder .jss-select-value {
+  color: var(--jss-muted);
+}
+
+.jss-select-value-multi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  margin-bottom: 0;
+}
+
+.jss-select-arrow {
+  font-size: 12px;
+  opacity: 0.7;
+  transition: transform 0.2s ease;
+  user-select: none;
+}
+
+.jss-select.multiple .jss-select-arrow {
+  margin-left: auto;
+}
+
+.jss-select.open .jss-select-arrow {
+  transform: rotate(180deg);
+}
+
+.jss-select-filter .jss-input {
+  padding: 8px 10px;
+  box-sizing: border-box;
+}
+
+.jss-select-options {
+  max-height: 220px;
+  overflow: auto;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.jss-select-option {
+  padding: 8px 10px;
+  border-radius: var(--jss-r-md);
+  cursor: pointer;
+  border: 1px solid transparent;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.jss-select-option:hover {
+  background-color: color-mix(in srgb, var(--set-background-color, color-mix(in srgb, var(--jss-theme-color-1) 20%, transparent)) 20%, transparent);
+  background-image: var(--set-glossy-active, none), var(--set-gradient-active, none);
+  box-shadow: var(--set-shadow-active, 0 0 0 0), var(--set-glow-active, 0 0 0 0);
+  color: var(--set-color);
+  border-color: var(--set-border-color);
+  transition: all 260ms ease;
+}
+
+.jss-select-option.selected {
+  background: rgba(79, 124, 255, 0.18);
+  border-color: rgba(79, 124, 255, 0.35);
+}
+
+.jss-select-option.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

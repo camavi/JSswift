@@ -1,0 +1,156 @@
+.jss-parallax {
+  position: relative;
+  overflow: hidden;
+  min-height: var(--jss-parallax-min-height, var(--jss-parallax-height, 220px));
+  height: var(--jss-parallax-height, 220px);
+  border-radius: var(--set-border-radius, var(--jss-r-lg));
+  border: 1px solid var(--jss-border-color);
+  isolation: isolate;
+  background: rgba(8, 12, 20, 0.18);
+}
+
+.jss-parallax-bg {
+  position: absolute;
+  inset: -12%;
+  transform: translate3d(0, var(--jss-parallax-offset, 0px), 0) scale(1.06);
+  will-change: transform;
+  z-index: 0;
+}
+
+.jss-parallax-bg::before,
+.jss-parallax-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.jss-parallax-bg::before {
+  background-image: var(--jss-parallax-image, linear-gradient(120deg, #1b2c5a, #2f6d8f, #2a8f5c));
+  background-size: var(--jss-parallax-size, cover);
+  background-position: var(--jss-parallax-position, center);
+  background-repeat: var(--jss-parallax-repeat, no-repeat);
+}
+
+.jss-parallax-bg::after {
+  background: var(--jss-parallax-overlay, linear-gradient(180deg, rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.58)));
+}
+
+.jss-parallax-bg-content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: var(--jss-parallax-padding, var(--jss-s-lg));
+  box-sizing: border-box;
+}
+
+.jss-parallax-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  min-height: inherit;
+  padding: var(--jss-parallax-padding, var(--jss-s-lg));
+  display: flex;
+  flex-direction: column;
+  justify-content: var(--jss-parallax-justify, flex-end);
+  align-items: var(--jss-parallax-align, flex-start);
+  gap: var(--jss-parallax-gap, 18px);
+  color: var(--jss-parallax-color, #fff);
+  box-sizing: border-box;
+}
+
+.jss-parallax-badge,
+.jss-parallax-header,
+.jss-parallax-media,
+.jss-parallax-body,
+.jss-parallax-footer {
+  width: min(100%, var(--jss-parallax-content-max-width, 760px));
+}
+
+.jss-parallax-badge {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-self: flex-start;
+}
+
+.jss-parallax-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.jss-parallax-head-main {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.jss-parallax-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.82;
+}
+
+.jss-parallax-title {
+  font-size: clamp(28px, 3vw, 44px);
+  line-height: 1.04;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.jss-parallax-subtitle {
+  font-size: clamp(14px, 1.35vw, 18px);
+  line-height: 1.55;
+  opacity: 0.94;
+  max-width: 72ch;
+}
+
+.jss-parallax-header-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.jss-parallax-aside {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.jss-parallax-media,
+.jss-parallax-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.jss-parallax-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.jss-parallax-footer-content,
+.jss-parallax-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.jss-parallax-static .jss-parallax-bg {
+  transform: translate3d(0, 0, 0) scale(1.03);
+}

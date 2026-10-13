@@ -1,0 +1,13 @@
+.jss-state-warning,
+.jss-state-warning>.jss-control {
+  --set-border-color: var(--jss-warning-hover);
+  --set-color: var(--jss-warning-text);
+  --set-background-color: color-mix(in srgb, var(--jss-warning) 80%, var(--jss-theme-color-1));
+  --set-shadow: 0 3px 6px color-mix(in srgb, var(--jss-warning-950) 40%, transparent);
+  --set-hover: var(--jss-warning-hover);
+  --set-color-0: var(--jss-warning-50);
+  --set-color-1: var(--jss-warning-100);
+  --set-color-2: var(--jss-warning-400);
+  --set-color-3: var(--jss-warning-700);
+  --set-color-4: var(--jss-warning-900);
+}

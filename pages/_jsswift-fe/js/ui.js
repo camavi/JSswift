@@ -11584,7 +11584,7 @@ transition: width 200ms ease;
         setPage(1);
       }, "UI.Table:queryWatch");
     }
-    const wrapProps = JSswift.omit(props, ["columns", "rows", "rowKey", "loading", "page", "pageSize", "pageSizeOptions", "pagination", "initialSort", "sortBy", "sortDir", "search", "query", "searchable", "searchPlaceholder", "searchKeys", "searchBy", "searchPredicate", "searchModel", "queryModel", "filter", "actions", "actionsLabel", "emptyText", "loadingText", "onRowClick", "onRowDblClick", "tableClass", "tableStyle", "cardClass", "dense", "striped", "hover", "stickyHeader", "toolbar", "toolbarStart", "toolbarEnd", "caption", "footer", "status", "rowClass", "rowAttrs", "embedded", "minTableWidth", "hideHeader", "hideFooter", "hideStatus", "slots", "body"]);
+    const wrapProps = JSswift.omit(props, ["scrollLabel", "columns", "rows", "rowKey", "loading", "page", "pageSize", "pageSizeOptions", "pagination", "initialSort", "sortBy", "sortDir", "search", "query", "searchable", "searchPlaceholder", "searchKeys", "searchBy", "searchPredicate", "searchModel", "queryModel", "filter", "actions", "actionsLabel", "emptyText", "loadingText", "onRowClick", "onRowDblClick", "tableClass", "tableStyle", "cardClass", "dense", "striped", "hover", "stickyHeader", "toolbar", "toolbarStart", "toolbarEnd", "caption", "footer", "status", "rowClass", "rowAttrs", "embedded", "minTableWidth", "hideHeader", "hideFooter", "hideStatus", "slots", "body"]);
     wrapProps.class = uiClass(["jss-table-card", props.embedded === true && "jss-table-embedded", props.class, props.cardClass]);
     if (props.dense != null) wrapProps.dense = props.dense;
     const shell = _.div({ class: "jss-table-shell" });
@@ -11631,7 +11631,7 @@ transition: width 200ms ease;
     const tableStyle = { ...props.tableStyle || {} };
     if (props.minTableWidth != null) tableStyle["--jss-table-min-width"] = toCssSize(props.minTableWidth);
     const table = _.table({ class: tableClass, style: tableStyle }, thead, tbody);
-    const wrapTable = _.div({ class: "jss-table-wrap" }, table);
+    const wrapTable = _.div({ class: "jss-table-wrap", role: "region", tabindex: 0, "aria-label": props.scrollLabel || "Tabella, scorrimento orizzontale" }, table);
     shell.appendChild(wrapTable);
     const pagerInfo = _.div({ class: "jss-table-chip" }, "");
     const pagerMeta = _.div({ class: "jss-table-chip" }, "");

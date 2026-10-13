@@ -1,0 +1,9 @@
+.jss-date-display {
+  cursor: pointer;
+  min-height: var(--jss-date-input-height, 32px);
+  font-size: var(--jss-date-input-font-size, inherit);
+}
+
+.jss-date-display.is-manual {
+  cursor: text;
+}

@@ -1,0 +1,43 @@
+/* Header keeps its composition while using the same surface contract. */
+.jss-header.jss-panel.jss-singularity {
+  border-radius: var(--set-border-radius, var(--jss-b-radius-default, 2px));
+}
+
+.jss-header.jss-panel.jss-singularity:not(.jss-light-shadow) {
+  background-image: var(--set-glossy-active, none), var(--set-gradient-active, none);
+}
+
+.jss-header.jss-singularity .jss-btn:not([class*="jss-state-"]) {
+  color: inherit;
+}
+
+/* Common props emit jss-dense; tighten the complete header composition. */
+.jss-header.jss-panel.jss-dense {
+  padding: 8px 12px;
+  --jss-header-gap: 8px;
+}
+.jss-header.jss-dense .jss-header-copy { gap: 2px; }
+.jss-header.jss-dense .jss-header-heading { gap: 8px; }
+.jss-header.jss-dense .jss-header-title { font-size: 16px; }
+.jss-header.jss-dense .jss-header-eyebrow { font-size: 10px; }
+.jss-header.jss-dense :is(.jss-header-actions, .jss-header-end) { gap: 6px; }
+/* Uncolored actions borrow the header foreground, with a visible button surface. */
+.jss-header.jss-singularity .jss-btn:not([class*="jss-state-"]) {
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none;
+}
+.jss-header.jss-singularity .jss-btn:not([class*="jss-state-"]):hover {
+  background: color-mix(in srgb, currentColor 23%, transparent);
+}
+.jss-header.jss-dense .jss-btn { min-height: 28px; padding: 4px 10px; font-size: 12px; }
+
+/* Light Outline sits on the dark page, so it needs a light foreground/contour. */
+:root[data-theme="dark"] .jss-header.jss-singularity.jss-outline.jss-state-light {
+  --set-color: var(--jss-text);
+  --set-border-color: #cbd5e1;
+  color: var(--jss-text);
+  border: 1px solid var(--set-border-color);
+}

@@ -610,7 +610,12 @@
       "summary": "Sprite- or text-based icon with configurable size/color.",
       "keywords": [
         "Icon",
-        "_.Icon"
+        "_.Icon",
+        "jsswift/icons",
+        "@jsswift/ui/icons",
+        "offline SVG",
+        "icone offline",
+        "SVG factories"
       ],
       "topics": [
         "composition"

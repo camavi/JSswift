@@ -1,0 +1,110 @@
+.jss-t-nowrap {
+  white-space: nowrap;
+}
+
+.jss-t-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jss-t-underline {
+  text-decoration: underline;
+}
+
+.jss-t-through {
+  text-decoration: line-through;
+}
+
+.jss-t-italic {
+  font-style: italic;
+}
+
+.jss-t-bold {
+  font-weight: bold;
+}
+
+.jss-t-uppercase {
+  text-transform: uppercase;
+}
+
+.jss-t-lowercase {
+  text-transform: lowercase;
+}
+
+.jss-t-capitalize {
+  text-transform: capitalize;
+}
+
+.jss-t-normal {
+  font-weight: normal;
+  font-style: normal;
+  text-transform: none;
+  text-decoration: none;
+}
+
+.jss-nowrap {
+  white-space: nowrap;
+}
+
+.jss-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jss-ellipsis-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.jss-ellipsis-3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.jss-ellipsis-4 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+/* Mobile: drawer overlay */
+@media (max-width: 900px) {
+
+  .jss-app-shell-body,
+  .jss-app-shell.is-reverse .jss-app-shell-body {
+    flex-direction: column;
+    padding: var(--jss-s-md);
+  }
+
+  .jss-app-shell-drawer-slot {
+    width: 100%;
+    flex-basis: auto;
+  }
+
+  .jss-drawer {
+    position: fixed;
+    left: 14px;
+    right: 14px;
+    top: 10px;
+    height: auto;
+    max-height: calc(100vh - var(--layout-header-height, 0px) - calc(var(--jss-layout-gap) * 10));
+    transform: translateY(-6px);
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+
+  .jss-drawer.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}

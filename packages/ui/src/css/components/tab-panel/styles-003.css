@@ -1,0 +1,392 @@
+.jss-tabpanel.vertical>.jss-tabpanel-nav,
+.jss-tabpanel.vertical>.jss-tabpanel-tabs {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.jss-tabpanel.vertical>.jss-tabpanel-nav {
+  min-width: 160px;
+}
+
+.jss-tabpanel.wrap>.jss-tabpanel-nav,
+.jss-tabpanel.wrap>.jss-tabpanel-tabs {
+  flex-wrap: wrap;
+}
+
+.jss-tabpanel-nav-btn {
+  position: relative;
+  display: flex;
+  min-width: 0;
+}
+
+.jss-tabpanel-tab {
+  background: transparent;
+  color: var(--jss-text);
+  text-align: left;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+  width: 100%;
+  min-width: 0;
+}
+
+.jss-tabpanel-tab-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
+
+.jss-tabpanel-tab-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.jss-tabpanel-tab-label {
+  display: block;
+  min-width: 0;
+}
+
+.jss-tabpanel-tab-note {
+  display: block;
+  color: var(--jss-muted);
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.jss-tabpanel-tab-icon,
+.jss-tabpanel-tab-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jss-tabpanel-tab:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--jss-border-color);
+}
+
+.jss-tabpanel-tab.active .jss-tabpanel-tab-note {
+  color: color-mix(in srgb, var(--jss-tabpanel-accent) 76%, var(--jss-text) 24%);
+}
+
+.jss-tabpanel-tab:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.jss-tabpanel.variant-pills>.jss-tabpanel-nav {
+  background-color: color-mix(in srgb, var(--jss-panel) 92%, transparent);
+}
+
+.jss-tabpanel.variant-pills>.jss-tabpanel-nav>.jss-tabpanel-nav-btn .tab-indicator {
+  display: none;
+}
+
+.jss-tabpanel.variant-soft>.jss-tabpanel-nav {
+  background-color: transparent;
+  border-style: dashed;
+}
+
+/* TabPanel palette baseline: component states own the navigation colors. */
+.jss-tabpanel.jss-singularity:not(.jss-border):not(.jss-outline),
+.jss-tabpanel.jss-singularity:not(.jss-border):not(.jss-outline) > .jss-tabpanel-nav {
+  border: 0;
+}
+
+.jss-tabpanel.jss-singularity:not(.jss-shadow):not(.jss-light-shadow) {
+  --set-shadow-active: 0 0 0 0;
+  box-shadow: none;
+}
+
+.jss-tabpanel.jss-singularity {
+  background: transparent;
+  color: var(--jss-text);
+  border-color: var(--jss-border-color);
+  --jss-tabpanel-foreground: color-mix(in srgb, var(--jss-text) 40%, var(--jss-tabpanel-accent));
+  --jss-tabpanel-indicator: var(--jss-tabpanel-accent);
+}
+
+.jss-tabpanel.jss-state-light,
+:root[data-theme="dark"] .jss-tabpanel.jss-state-dark {
+  --jss-tabpanel-foreground: var(--jss-text);
+  --jss-tabpanel-indicator: var(--jss-text);
+}
+
+.jss-tabpanel.jss-singularity > .jss-tabpanel-nav {
+  background: color-mix(in srgb, var(--jss-bg) 94%, var(--jss-tabpanel-accent));
+  border-color: var(--jss-border-color);
+}
+
+.jss-tabpanel.jss-singularity.jss-gradient > .jss-tabpanel-nav {
+  background-image: linear-gradient(var(--set-gradient-deg, 180deg),
+    color-mix(in srgb, var(--set-color-2) 16%, var(--jss-bg)),
+    color-mix(in srgb, var(--set-color-3) 30%, var(--jss-bg)));
+}
+
+.jss-tabpanel.jss-gradient:not(.jss-text-gradient) .jss-tabpanel-tab.jss-btn,
+.jss-tabpanel.jss-gradient:not(.jss-text-gradient) .jss-tabpanel-tab-note {
+  color: var(--jss-text);
+}
+
+.jss-tabpanel.jss-gradient.jss-state-light:not(.jss-text-gradient) .jss-tabpanel-tab.jss-btn {
+  color: #1f2937;
+}
+
+.jss-tabpanel.jss-gradient > .jss-tabpanel-nav > .jss-tabpanel-nav-btn .tab-indicator {
+  background-color: var(--jss-tabpanel-indicator);
+}
+
+.jss-tabpanel.jss-gradient.jss-state-light > .jss-tabpanel-nav > .jss-tabpanel-nav-btn .tab-indicator {
+  color: #1f2937;
+}
+
+.jss-tabpanel.jss-singularity.jss-text-gradient {
+  background-image: none;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-tabpanel.jss-text-gradient .jss-tabpanel-tab.jss-btn {
+  background-image: none;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-tabpanel.jss-text-gradient :is(.jss-tabpanel-tab-label, .jss-tabpanel-tab-note) {
+  background-image: linear-gradient(110deg,
+    color-mix(in srgb, var(--jss-tabpanel-accent) 85%, var(--jss-text)),
+    color-mix(in srgb, var(--jss-tabpanel-accent) 20%, var(--jss-text)));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.jss-tabpanel.jss-singularity.jss-outline,
+.jss-tabpanel.jss-singularity.jss-outline > .jss-tabpanel-nav {
+  border-color: var(--jss-tabpanel-indicator);
+}
+
+.jss-tabpanel.jss-singularity.jss-glass::before {
+  content: none;
+  display: none;
+}
+
+.jss-tabpanel.jss-singularity.jss-glass {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.jss-tabpanel.jss-singularity.jss-glass > .jss-tabpanel-nav {
+  position: relative;
+  isolation: isolate;
+  background: color-mix(in srgb, var(--jss-tabpanel-accent) 8%, transparent);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+}
+
+:root[data-theme="dark"] .jss-tabpanel.jss-singularity.jss-glass:not(.jss-state-light) > .jss-tabpanel-nav::before {
+  filter: brightness(0.6);
+}
+
+.jss-tabpanel.jss-singularity.jss-glossy > .jss-tabpanel-nav {
+  background-image: linear-gradient(to bottom,
+    rgb(255 255 255 / 28%) 0%, rgb(255 255 255 / 55%) 49%,
+    color-mix(in srgb, var(--jss-tabpanel-accent) 8%, transparent) 51%,
+    color-mix(in srgb, var(--jss-tabpanel-accent) 16%, transparent) 100%);
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 80%),
+    inset 0 -1px 2px color-mix(in srgb, var(--jss-tabpanel-accent) 20%, transparent);
+}
+
+:root[data-theme="dark"] .jss-tabpanel.jss-singularity.jss-glossy > .jss-tabpanel-nav {
+  background-image: linear-gradient(to bottom,
+    rgb(255 255 255 / 8%) 0%, rgb(255 255 255 / 20%) 49%,
+    rgb(0 0 0 / 8%) 51%, rgb(0 0 0 / 22%) 100%);
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 24%),
+    inset 0 -1px 2px rgb(0 0 0 / 25%);
+}
+
+.jss-tabpanel:not([class*="jss-state-"]) > .jss-tabpanel-nav {
+  background: var(--jss-bg);
+}
+
+.jss-tabpanel .jss-tabpanel-tab.jss-btn {
+  background: transparent;
+  color: var(--jss-text);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.jss-tabpanel .jss-tabpanel-tab.jss-btn:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--jss-tabpanel-accent) 8%, transparent);
+  color: var(--jss-tabpanel-foreground);
+}
+
+.jss-tabpanel .jss-tabpanel-tab.jss-btn:active:not(:disabled) {
+  background: color-mix(in srgb, var(--jss-tabpanel-accent) 18%, transparent);
+}
+
+.jss-tabpanel .jss-tabpanel-tab.jss-btn.active {
+  color: var(--jss-tabpanel-foreground);
+  font-weight: 600;
+}
+
+.jss-tabpanel.variant-pills .jss-tabpanel-tab.jss-btn.active,
+.jss-tabpanel.variant-soft .jss-tabpanel-tab.jss-btn.active {
+  background: color-mix(in srgb, var(--jss-tabpanel-accent) 15%, var(--jss-bg));
+}
+
+.jss-tabpanel .jss-tabpanel-tab.jss-btn:focus-visible {
+  outline: 2px solid var(--jss-tabpanel-indicator);
+  outline-offset: -2px;
+}
+
+.jss-tabpanel .jss-tabpanel-tab.jss-btn:disabled {
+  background: transparent;
+  color: var(--jss-muted);
+  border-color: transparent;
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.jss-tabpanel .jss-tabpanel-tab-note,
+.jss-tabpanel .jss-tabpanel-tab.active .jss-tabpanel-tab-note {
+  color: inherit;
+  opacity: .75;
+}
+
+.jss-tabpanel .jss-tabpanel-tab-icon .jss-icon { color: inherit; }
+
+.jss-tabpanel.horizontal > .jss-tabpanel-nav > .jss-tabpanel-nav-btn .tab-indicator,
+.jss-tabpanel.vertical > .jss-tabpanel-nav > .jss-tabpanel-nav-btn .tab-indicator {
+  background-color: var(--jss-tabpanel-indicator);
+}
+
+.jss-tabpanel-panels {
+  flex: 1 1 auto;
+  min-width: 0;
+  position: relative;
+}
+
+.jss-tabpanel.variant-pills .jss-tabpanel-tab.jss-btn {
+  border-radius: 999px;
+}
+
+.jss-tabpanel.variant-soft > .jss-tabpanel-nav > .jss-tabpanel-nav-btn .tab-indicator,
+.jss-tabpanel.variant-solid > .jss-tabpanel-nav > .jss-tabpanel-nav-btn .tab-indicator {
+  display: none;
+}
+
+.jss-tabpanel.variant-soft .jss-tabpanel-tab.jss-btn.active {
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--jss-tabpanel-accent) 12%, transparent);
+}
+
+.jss-tabpanel.variant-solid .jss-tabpanel-tab.jss-btn.active {
+  border-radius: 6px;
+  background: var(--jss-tabpanel-accent);
+  color: var(--jss-bg);
+}
+
+.jss-tabpanel.variant-solid[class*="jss-state-"] .jss-tabpanel-tab.jss-btn.active {
+  color: #fff;
+}
+
+.jss-tabpanel.variant-solid.jss-state-light .jss-tabpanel-tab.jss-btn.active {
+  background: #f1f5f9;
+  color: #1f2937;
+}
+
+.jss-tabpanel.variant-solid.jss-state-dark .jss-tabpanel-tab.jss-btn.active {
+  background: #1f2937;
+  color: #f1f5f9;
+}
+
+.jss-tabpanel.jss-singularity:is(.dense, .jss-dense) {
+  gap: 8px;
+}
+
+.jss-tabpanel:is(.dense, .jss-dense) > .jss-tabpanel-nav {
+  padding: 2px;
+  gap: 2px;
+}
+
+.jss-tabpanel:is(.dense, .jss-dense) .jss-tabpanel-tab.jss-btn {
+  min-height: 32px;
+  padding: 6px 10px;
+}
+
+.jss-tabpanel:is(.dense, .jss-dense) .jss-tabpanel-tab-inner {
+  gap: 6px;
+}
+
+.jss-tabpanel:is(.dense, .jss-dense) .jss-tabpanel-panel {
+  padding: 8px;
+}
+
+.jss-tabpanel.jss-singularity.jss-flat {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.jss-tabpanel.jss-singularity.jss-flat > .jss-tabpanel-nav {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.jss-tabpanel.jss-flat .jss-tabpanel-tab.jss-btn.active {
+  background: transparent;
+}
+
+.jss-tabpanel-panel {
+  display: none;
+}
+
+.jss-tabpanel-empty {
+  padding: 20px;
+  border: 1px dashed var(--jss-border-color);
+  border-radius: var(--set-border-radius, var(--jss-r-md));
+  color: var(--jss-muted);
+}
+
+.jss-tabpanel-panel.active,
+.jss-tabpanel-panel.leaving {
+  display: block;
+}
+
+.jss-tabpanel.animated .jss-tabpanel-panels {
+  overflow: hidden;
+}
+
+.jss-tabpanel.animated .jss-tabpanel-panel {
+  display: block;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(var(--jss-tabpanel-enter, 12px));
+  transition: opacity var(--jss-tabpanel-duration, 220ms) var(--jss-tabpanel-easing, ease),
+    transform var(--jss-tabpanel-duration, 220ms) var(--jss-tabpanel-easing, ease);
+  z-index: 0;
+}
+
+.jss-tabpanel.animated .jss-tabpanel-panel.active {
+  position: relative;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+  z-index: 1;
+}
+
+.jss-tabpanel.animated .jss-tabpanel-panel.leaving {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(var(--jss-tabpanel-leave, -12px));
+}

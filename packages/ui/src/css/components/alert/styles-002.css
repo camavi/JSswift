@@ -1,0 +1,4 @@
+.jss-alert.jss-dense { padding: 8px 12px; --jss-alert-gap: 8px; margin: 0; }
+.jss-alert.jss-dense .jss-alert-body { gap: 3px; }
+.jss-alert.jss-dense .jss-alert-title { font-size: 1em; }
+.jss-alert.jss-dense :is(.jss-alert-side, .jss-alert-actions) { gap: 6px; }

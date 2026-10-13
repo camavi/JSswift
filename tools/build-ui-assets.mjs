@@ -23,3 +23,5 @@ for (const target of targets) {
 }
 
 fs.copyFileSync(path.join(ROOT, "packages/ui/src/tabler.js"), path.join(ROOT, "packages/ui/dist/tabler.js"));
+
+for (const file of ['icons.js', 'icons.d.ts']) fs.copyFileSync(path.join(ROOT,'packages/ui/src',file),path.join(ROOT,'packages/ui/dist',file));

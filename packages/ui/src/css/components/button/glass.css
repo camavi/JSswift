@@ -1,0 +1,4 @@
+/* Glass has a translucent surface: use theme text instead of text-on-fill. */
+.jss-btn.jss-glass:not(.jss-text-gradient) {
+  color: var(--jss-text);
+}

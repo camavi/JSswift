@@ -1,0 +1,111 @@
+.jss-singularity-field>.jss-control {
+  box-shadow: var(--set-shadow-active, 0 0 0 0), var(--set-glow-active, 0 0 0 0);
+  border-color: var(--set-border-color, var(--jss-border-color));
+  border-radius: var(--set-border-radius, var(--jss-b-radius-default, 2px));
+  background-color: color-mix(in srgb, var(--set-background-color) 5%, transparent);
+  color: var(--set-color);
+  transition: all 0.2s ease-in-out;
+}
+
+/* The control owns the outline; the field wrapper also contains messages. */
+.jss-singularity-field.jss-outline {
+  border-width: 0;
+}
+
+.jss-singularity-field.jss-outline>.jss-control {
+  background-color: transparent;
+}
+
+.jss-singularity-field.jss-outline>.jss-control:focus-within {
+  box-shadow: var(--set-shadow-active, 0 0 0 0),
+    var(--set-glow-active, 0 0 0 0), 0 0 0 3px var(--jss-ring);
+}
+
+/* Gradient belongs on the control surface, not only on the field wrapper. */
+.jss-singularity-field.jss-gradient>.jss-control {
+  --jss-field-gradient-start: var(--jss-gradient-surface);
+  --jss-field-gradient-end: color-mix(in srgb, var(--jss-gradient-surface) 55%, var(--set-color-2));
+  background-image: var(--set-glossy-active, none),
+    linear-gradient(var(--set-gradient-deg), var(--jss-field-gradient-start), var(--jss-field-gradient-end));
+}
+
+:root[data-theme="dark"] .jss-singularity-field.jss-gradient>.jss-control {
+  --jss-field-gradient-start: color-mix(in srgb, var(--jss-panel) 90%, var(--set-color-2));
+  --jss-field-gradient-end: color-mix(in srgb, var(--jss-panel) 55%, var(--set-color-3));
+}
+
+:root[data-theme="dark"] .jss-singularity-field.jss-gradient.jss-state-dark>.jss-control {
+  --jss-field-gradient-end: color-mix(in srgb, var(--jss-panel) 65%, var(--set-color-2));
+}
+
+.jss-singularity-field.jss-gradient>.jss-control>.jss-mid,
+.jss-singularity-field.jss-gradient>.jss-control>.jss-mid input,
+.jss-singularity-field.jss-gradient>.jss-control>.jss-mid textarea,
+.jss-singularity-field.jss-gradient>.jss-control>.jss-clear {
+  --set-color: color-mix(in srgb, var(--jss-text) 90%, var(--set-color-2));
+  color: var(--set-color);
+  caret-color: var(--jss-text);
+}
+
+.jss-singularity-field.jss-gradient>.jss-control>.jss-mid>.jss-float-label {
+  color: color-mix(in srgb, var(--jss-text-2) 90%, var(--set-color-2));
+}
+
+/* Field Glow: defined edge, soft halo, stronger only while editing. */
+.jss-singularity-field.jss-glow {
+  text-shadow: none;
+}
+
+.jss-singularity-field.jss-glow>.jss-control {
+  --jss-field-glow: var(--set-color-2);
+  --set-glow-active: 0 0 0 1px color-mix(in srgb, var(--jss-field-glow) 40%, transparent),
+    0 0 6px 1px color-mix(in srgb, var(--jss-field-glow) 40%, transparent),
+    0 0 16px 2px color-mix(in srgb, var(--jss-field-glow) 24%, transparent),
+    var(--jss-field-glow-inner, inset 0 0 0 0 transparent);
+  border-color: color-mix(in srgb, var(--jss-field-glow) 65%, var(--jss-border-color));
+}
+
+.jss-singularity-field.jss-glow:not(.jss-outline)>.jss-control {
+  background-color: color-mix(in srgb, var(--jss-gradient-surface) 96%, var(--jss-field-glow));
+}
+
+:root[data-theme="dark"] .jss-singularity-field.jss-glow>.jss-control {
+  --set-glow-active: inset 0 1px 0 color-mix(in srgb, var(--jss-field-glow) 12%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--jss-field-glow) 50%, transparent),
+    0 0 7px 1px color-mix(in srgb, var(--jss-field-glow) 48%, transparent),
+    0 0 20px 2px color-mix(in srgb, var(--jss-field-glow) 30%, transparent),
+    var(--jss-field-glow-inner, inset 0 0 0 0 transparent);
+}
+
+:root[data-theme="dark"] .jss-singularity-field.jss-glow:not(.jss-outline)>.jss-control {
+  background-color: color-mix(in srgb, var(--jss-panel) 94%, var(--jss-field-glow));
+}
+
+.jss-singularity-field.jss-glow>.jss-control:focus-within,
+:root[data-theme="dark"] .jss-singularity-field.jss-glow>.jss-control:focus-within {
+  --set-glow-active: 0 0 0 2px color-mix(in srgb, var(--jss-field-glow) 55%, transparent),
+    0 0 8px 2px color-mix(in srgb, var(--jss-field-glow) 55%, transparent),
+    0 0 24px 3px color-mix(in srgb, var(--jss-field-glow) 35%, transparent),
+    var(--jss-field-glow-inner, inset 0 0 0 0 transparent);
+}
+
+.jss-singularity-field.jss-outline.jss-glow>.jss-control {
+  --jss-field-glow-inner: inset 0 0 10px 1px color-mix(in srgb, var(--jss-field-glow) 12%, transparent);
+}
+
+:root[data-theme="dark"] .jss-singularity-field.jss-outline.jss-glow>.jss-control {
+  --jss-field-glow-inner: inset 0 0 12px 1px color-mix(in srgb, var(--jss-field-glow) 16%, transparent);
+}
+
+.jss-singularity-field.jss-glow>.jss-control>.jss-mid,
+.jss-singularity-field.jss-glow>.jss-control>.jss-mid input,
+.jss-singularity-field.jss-glow>.jss-control>.jss-mid textarea,
+.jss-singularity-field.jss-glow>.jss-control>.jss-clear {
+  --set-color: color-mix(in srgb, var(--jss-text) 88%, var(--set-color-2));
+  color: var(--set-color);
+  caret-color: var(--jss-text);
+}
+
+.jss-singularity-field.jss-glow>.jss-control>.jss-mid>.jss-float-label {
+  color: color-mix(in srgb, var(--jss-text-2) 88%, var(--set-color-2));
+}

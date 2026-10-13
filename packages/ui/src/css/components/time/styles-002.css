@@ -1,0 +1,5 @@
+.has-time .jss-time-columns .jss-time-options .jss-time-option {
+  font-size: var(--jss-date-day-font);
+  height: var(--jss-date-day-height);
+  border-radius: var(--jss-date-day-radius);
+}

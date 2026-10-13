@@ -1,0 +1,7 @@
+.jss-choice-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  line-height: calc(var(--jss-font-size, 16px) + 6px);
+}

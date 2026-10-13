@@ -1,0 +1,30 @@
+.jss-textarea {
+  line-height: 1.4;
+  margin-top: 0;
+  padding-top: 10px;
+  padding-bottom: 8px;
+  resize: vertical;
+}
+
+.jss-textarea-field .jss-float-label {
+  top: 7px;
+  transform: translateY(0);
+  font-size: 11px;
+  opacity: 0.9;
+}
+
+.jss-textarea-field .jss-clear {
+  align-self: flex-start;
+  margin-top: 8px;
+}
+
+.jss-textarea-field[class*="jss-state-"] .jss-textarea {
+  color: color-mix(in srgb, var(--jss-text) 85%, var(--set-hover, var(--jss-text)));
+  caret-color: var(--jss-text);
+}
+
+@keyframes jss-autofill {
+  from {}
+
+  to {}
+}

@@ -1,0 +1,15 @@
+.jss-header.stack,
+.jss-header.stack .jss-header-main,
+.jss-header.stack .jss-header-heading {
+  align-items: stretch;
+}
+
+.jss-header.stack .jss-header-main,
+.jss-header.stack .jss-header-heading {
+  flex-direction: column;
+}
+
+.jss-header.stack .jss-header-meta {
+  justify-content: flex-start;
+  margin-left: 0;
+}

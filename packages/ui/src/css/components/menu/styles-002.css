@@ -1,0 +1,51 @@
+/* Menu shares overlay surface effects with Popover; its item layout stays independent. */
+.jss-menu-panel.jss-singularity {
+  --jss-dialog-accent: var(--jss-text);
+  --set-background-color: color-mix(in srgb, var(--jss-text) 5%, var(--jss-bg));
+  --set-color: var(--jss-text);
+  border-radius: var(--set-border-radius, var(--jss-b-radius-default, 2px));
+  color: var(--jss-text);
+}
+.jss-menu-panel.jss-singularity[class*="jss-state-"] {
+  --set-background-color: color-mix(in srgb, var(--jss-dialog-accent) 12%, var(--jss-bg));
+}
+:root[data-theme="dark"] .jss-menu-panel.jss-singularity[class*="jss-state-"]:not(.jss-state-light):not(.jss-state-dark) {
+  --set-background-color: color-mix(in srgb, var(--jss-dialog-accent) 28%, var(--jss-bg));
+}
+.jss-menu-panel.jss-singularity:not(.jss-shadow):not(.jss-light-shadow):not(.jss-glow) { box-shadow: none; }
+.jss-menu-panel .jss-menu-shell { background: transparent; }
+.jss-menu-panel .jss-menu-entry { color: var(--jss-text); border-radius: inherit; }
+.jss-menu-panel .jss-menu-subtitle { color: inherit; }
+.jss-menu-panel .jss-menu-head-icon { color: var(--jss-dialog-accent); }
+.jss-menu-panel.jss-singularity.jss-outline {
+  border: 1px solid var(--jss-dialog-accent);
+}
+.jss-menu-panel.jss-outline :is(.jss-menu-title, .jss-menu-head-icon, .jss-menu-entry-icon) {
+  color: color-mix(in srgb, var(--jss-dialog-accent) 70%, var(--jss-text));
+}
+.jss-menu-panel.jss-outline .jss-menu-entry:not(.is-disabled):hover,
+.jss-menu-panel.jss-outline .jss-menu-entry:focus-visible {
+  background: color-mix(in srgb, var(--jss-dialog-accent) 10%, var(--jss-bg));
+}
+.jss-menu-panel.jss-outline .jss-menu-divider {
+  background: color-mix(in srgb, var(--jss-dialog-accent) 20%, var(--jss-border-color));
+}
+.jss-menu-panel.jss-dense .jss-menu-shell { padding: 4px; gap: 4px; }
+.jss-menu-panel.jss-dense { padding: 0; margin: 0; }
+.jss-menu-panel.jss-dense .jss-menu-entry { min-height: 28px; padding: 4px 8px; gap: 6px; }
+.jss-menu-panel.jss-dense :is(.jss-menu-items, .jss-menu-group-items) { gap: 2px; }
+.jss-menu-panel.jss-dense .jss-menu-group { gap: 4px; }
+.jss-menu-panel.jss-dense .jss-menu-head { padding: 4px 8px; gap: 8px; }
+.jss-menu-panel.jss-dense .jss-menu-footer { padding-top: 4px; gap: 4px; }
+.jss-menu-panel.jss-dense.jss-glossy .jss-menu-head { margin: -4px -4px 0; padding: 8px 12px; }
+.jss-menu-panel.jss-flat .jss-menu-entry { border: 0; box-shadow: none; }
+.jss-menu-panel.jss-glossy .jss-menu-head { padding: 10px 12px; margin: -12px -12px 0; }
+.jss-menu-panel.jss-glass { isolation: isolate; }
+.jss-menu-panel.jss-state-primary { --jss-dialog-accent: var(--jss-primary); }
+.jss-menu-panel.jss-state-secondary { --jss-dialog-accent: var(--jss-secondary); }
+.jss-menu-panel.jss-state-success { --jss-dialog-accent: var(--jss-success); }
+.jss-menu-panel.jss-state-warning { --jss-dialog-accent: var(--jss-warning); }
+.jss-menu-panel.jss-state-danger { --jss-dialog-accent: var(--jss-danger); }
+.jss-menu-panel.jss-state-info { --jss-dialog-accent: var(--jss-info); }
+.jss-menu-panel.jss-state-light { --jss-dialog-accent: #64748b; }
+.jss-menu-panel.jss-state-dark { --jss-dialog-accent: #94a3b8; }

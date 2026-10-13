@@ -1,0 +1,236 @@
+.jss-avatar {
+  --set-border-width: 1px;
+  --set-border-color: color-mix(in srgb, var(--jss-border-color) 80%, transparent);
+  --set-background-color: color-mix(in srgb, var(--jss-primary-100) 72%, white);
+  --set-color: var(--jss-primary-800);
+  --set-border-radius: 999px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 4px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-width: var(--set-border-width);
+  vertical-align: middle;
+  isolation: isolate;
+  overflow: visible;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.jss-avatar.jss-dense {
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
+  margin: 2px;
+}
+
+.jss-avatar.jss-singularity.jss-flat {
+  background: transparent;
+  border-width: 0;
+  box-shadow: none;
+  color: var(--set-hover, var(--jss-text));
+}
+
+.jss-avatar.jss-singularity.jss-flat:is(.jss-state-light, .jss-state-dark),
+.jss-avatar.jss-singularity.jss-flat:not([class*="jss-state-"]) {
+  color: var(--jss-text);
+}
+
+.jss-avatar.jss-flat > .jss-avatar-body > .jss-avatar-media {
+  background: transparent;
+}
+
+.jss-avatar.jss-singularity.jss-outline:is(.jss-state-dark, .jss-state-light) {
+  --set-color: var(--jss-text);
+  color: var(--set-color);
+}
+
+.jss-avatar.jss-glass.jss-singularity,
+.jss-avatar.jss-glass.jss-singularity.jss-outline {
+  --set-color: color-mix(in srgb, var(--jss-text) 85%, var(--set-hover, var(--jss-text)));
+  color: var(--set-color);
+}
+
+.jss-avatar.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 4px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 55%, transparent),
+    0 0 12px 2px color-mix(in srgb, var(--set-hover, var(--jss-text)) 32%, transparent);
+  text-shadow: none;
+}
+
+:root[data-theme="dark"] .jss-avatar.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 5px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 60%, transparent),
+    0 0 14px 2px color-mix(in srgb, var(--set-hover, var(--jss-text)) 38%, transparent);
+}
+
+.jss-avatar.jss-singularity.jss-light-shadow {
+  border-width: 0;
+}
+
+.jss-avatar.elevated {
+  --set-shadow-active: var(--jss-shadow-md);
+}
+
+.jss-avatar.jss-avatar-square {
+  --set-border-radius: 14px;
+}
+
+.jss-avatar-body {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jss-avatar-media,
+.jss-avatar-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+}
+
+.jss-avatar-media {
+  background: color-mix(in srgb, var(--set-background-color) 12%, transparent);
+}
+
+.jss-avatar-fallback {
+  padding: 12%;
+  text-align: center;
+}
+
+.jss-avatar-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.jss-avatar-anchor {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 14px;
+  min-height: 14px;
+}
+
+.jss-avatar-anchor .jss-chip,
+.jss-avatar-anchor .jss-badge,
+.jss-avatar-anchor .jss-btn {
+  margin: 0;
+}
+
+.jss-avatar-anchor-top-left {
+  top: 0;
+  left: 0;
+  transform: translate(-18%, -18%);
+}
+
+.jss-avatar-anchor-top-right {
+  top: 0;
+  right: 0;
+  transform: translate(18%, -18%);
+}
+
+.jss-avatar-anchor-bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: translate(-18%, 18%);
+}
+
+.jss-avatar-anchor-bottom-right {
+  right: 0;
+  bottom: 0;
+  transform: translate(18%, 18%);
+}
+
+.jss-avatar-badge,
+.jss-avatar-status {
+  border-radius: 999px;
+  border: 2px solid var(--jss-background, #fff);
+  box-shadow: var(--jss-shadow-sm);
+}
+
+.jss-avatar-badge {
+  min-width: 16px;
+  min-height: 16px;
+  padding: 0 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--jss-danger);
+  color: var(--jss-danger-text);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.jss-avatar-status {
+  width: 12px;
+  height: 12px;
+  display: inline-flex;
+  background: var(--set-background-color, var(--jss-success));
+}
+
+.jss-avatar-status.jss-state-light {
+  background: var(--jss-light);
+}
+
+.jss-avatar-status.jss-state-dark {
+  background: var(--jss-dark);
+}
+
+.jss-avatar.jss-size-xxs {
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+}
+
+.jss-avatar.jss-size-xs {
+  width: 24px;
+  height: 24px;
+  font-size: 11px;
+}
+
+.jss-avatar.jss-size-sm {
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
+}
+
+.jss-avatar.jss-size-md {
+  width: 40px;
+  height: 40px;
+  font-size: 13px;
+}
+
+.jss-avatar.jss-size-lg {
+  width: 56px;
+  height: 56px;
+  font-size: 14px;
+}
+
+.jss-avatar.jss-size-xl {
+  width: 72px;
+  height: 72px;
+  font-size: 16px;
+}
+
+.jss-avatar.jss-size-xxl {
+  width: 88px;
+  height: 88px;
+  font-size: 20px;
+}

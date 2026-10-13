@@ -1,0 +1,43 @@
+.jss-singularity-menu-select>.jss-select-options>.jss-select-option {
+  color: var(--set-color-3);
+  border-radius: var(--set-border-radius, var(--jss-b-radius-default, 2px));
+}
+
+.jss-singularity-menu-select>.jss-select-options>.jss-select-option.selected {
+  border-color: var(--set-border-color, rgba(93, 95, 100, 0.35));
+  background-color: var(--set-background-color);
+  background-image: var(--set-glossy-active, none), var(--set-gradient-active, none);
+  box-shadow: var(--set-shadow-active, 0 0 0 0), var(--set-glow-active, 0 0 0 0);
+  color: var(--set-color);
+}
+
+.jss-singularity-menu-select>.jss-select-options>.jss-select-option.active {
+  outline: 2px solid color-mix(in srgb, var(--set-border-color) 50%, transparent);
+}
+
+.jss-glow.jss-singularity-menu-select>.jss-select-options>.jss-select-option {
+  box-shadow: none;
+}
+
+.jss-glass.jss-singularity-menu-select>.jss-select-options>.jss-select-option {
+  backdrop-filter: blur(2px);
+  background-color: var(--set-background-color);
+  background-image: var(--set-glossy-active, none), var(--set-gradient-active, none);
+}
+
+.jss-singularity-menu-select>.jss-select-options>.jss-select-option.selected {
+  outline: none;
+  box-shadow: none;
+}
+
+.jss-singularity-menu-select>.jss-select-filter {
+  border-bottom-color: var(--set-border-color);
+}
+
+.jss-singularity-menu-select>.jss-select-filter .jss-input {
+  color: var(--set-color-4);
+}
+
+.jss-singularity-menu-select>.jss-select-filter .jss-input::placeholder {
+  color: color-mix(in srgb, var(--set-color-3) 50%, transparent);
+}

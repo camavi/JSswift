@@ -1,0 +1,61 @@
+/* Footer keeps its composition while using the same surface contract. */
+.jss-footer.jss-panel.jss-singularity {
+  border-radius: var(--set-border-radius, var(--jss-b-radius-default, 2px));
+}
+
+.jss-footer.jss-panel.jss-singularity:not(.jss-light-shadow) {
+  background-image: var(--set-glossy-active, none), var(--set-gradient-active, none);
+}
+
+.jss-footer.jss-singularity .jss-btn:not([class*="jss-state-"]) {
+  color: inherit;
+}
+
+/* Common props emit jss-dense; tighten the complete footer composition. */
+.jss-footer.jss-panel.jss-dense {
+  padding: 8px 12px;
+  --jss-footer-gap: 8px;
+}
+.jss-footer.jss-dense .jss-footer-copy { gap: 2px; }
+.jss-footer.jss-dense .jss-footer-heading { gap: 8px; }
+.jss-footer.jss-dense .jss-footer-title { font-size: 16px; }
+.jss-footer.jss-dense .jss-footer-eyebrow { font-size: 10px; }
+.jss-footer.jss-dense :is(.jss-footer-actions, .jss-footer-end) { gap: 6px; }
+/* Uncolored actions borrow the footer foreground, with a visible button surface. */
+.jss-footer.jss-singularity .jss-btn:not([class*="jss-state-"]) {
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none;
+}
+.jss-footer.jss-singularity .jss-btn:not([class*="jss-state-"]):hover {
+  background: color-mix(in srgb, currentColor 23%, transparent);
+}
+.jss-footer.jss-dense .jss-btn { min-height: 28px; padding: 4px 10px; font-size: 12px; }
+
+/* Light Outline sits on the dark page, so it needs a light foreground/contour. */
+:root[data-theme="dark"] .jss-footer.jss-singularity.jss-outline.jss-state-light {
+  --set-color: var(--jss-text);
+  --set-border-color: #cbd5e1;
+  color: var(--jss-text);
+  border: 1px solid var(--set-border-color);
+}
+
+
+.jss-footer.jss-panel.jss-singularity { min-width: 0; box-sizing: border-box; }
+.jss-footer.jss-panel.jss-singularity.divider:not(.jss-outline):not(.jss-border) { border-top: 1px solid color-mix(in srgb,currentColor 16%,transparent); }
+.jss-footer-title { font-size: 18px; overflow-wrap: anywhere; }
+.jss-footer-copy { overflow-wrap: anywhere; }
+.jss-footer-icon { color: inherit; background: color-mix(in srgb,currentColor 12%,transparent); border-radius: var(--set-border-radius,4px); }
+.jss-footer.stack .jss-footer-main { flex-basis: auto; flex-direction: column; align-items: stretch; }
+.jss-footer.stack .jss-footer-body { flex-basis: auto; }
+.jss-footer.jss-singularity.jss-glass.jss-state-light { --set-color: #1f2937; color: #1f2937; background-color: rgb(241 245 249 / 70%); }
+.jss-footer.jss-glass.jss-state-light::before { --set-sec-color: rgb(241 245 249 / 50%); --set-color-1: #fff; --set-color-2: #e2e8f0; --set-color-3: #cbd5e1; }
+.jss-footer.jss-singularity.jss-glass.jss-state-dark { --set-color: #f1f5f9; color: #f1f5f9; background-color: rgb(15 23 42 / 65%); }
+.jss-footer.jss-glass.jss-state-dark::before { filter: brightness(.6); opacity: .5; }
+.jss-footer.jss-panel.jss-text-gradient { background-clip: border-box; -webkit-background-clip: border-box; -webkit-text-fill-color: currentColor; }
+.jss-footer.jss-text-gradient .jss-footer-title { background: linear-gradient(120deg,var(--set-color-1),var(--set-color-3)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+@media(max-width:600px) { .jss-footer .jss-footer-end { margin-left: 0; justify-content: flex-start; } }
+
+.jss-footer.jss-panel:is(.jss-outline,.jss-border) { border-width: 1px; }

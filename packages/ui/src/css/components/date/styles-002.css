@@ -1,0 +1,24 @@
+.jss-date-display.jss-size-xs {
+  --jss-date-input-height: 30px;
+  --jss-date-input-font-size: 12px;
+}
+
+.jss-date-display.jss-size-sm {
+  --jss-date-input-height: 34px;
+  --jss-date-input-font-size: 13px;
+}
+
+.jss-date-display.jss-size-md {
+  --jss-date-input-height: 40px;
+  --jss-date-input-font-size: 14px;
+}
+
+.jss-date-display.jss-size-lg {
+  --jss-date-input-height: 46px;
+  --jss-date-input-font-size: 15px;
+}
+
+.jss-date-display.jss-size-xl {
+  --jss-date-input-height: 52px;
+  --jss-date-input-font-size: 16px;
+}

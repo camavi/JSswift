@@ -51,14 +51,18 @@ setInterval(() => {
 console.log(`ui-css: watching ${path.relative(rootDir, sourceDir)} (polling every 250ms)`);
 
 function getSourceFingerprint() {
-  return fs.readdirSync(sourceDir)
-    .filter((fileName) => fileName.endsWith(".css"))
-    .sort()
-    .map((fileName) => {
-      const stat = fs.statSync(path.join(sourceDir, fileName));
-      return `${fileName}:${stat.mtimeMs}:${stat.size}`;
-    })
-    .join("|");
+  function collect(directory) {
+    return fs.readdirSync(directory, { withFileTypes: true })
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .flatMap(entry => {
+        const file = path.join(directory, entry.name);
+        if (entry.isDirectory()) return collect(file);
+        if (!entry.isFile() || !entry.name.endsWith('.css')) return [];
+        const stat = fs.statSync(file);
+        return [`${path.relative(sourceDir, file)}:${stat.mtimeMs}:${stat.size}`];
+      });
+  }
+  return collect(sourceDir).join('|');
 }
 
 function stop() {

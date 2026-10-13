@@ -1,0 +1,32 @@
+/* Dark Glass keeps its dark tint independently of the page theme. */
+.jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-dark,
+:root[data-theme="dark"] .jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-dark {
+  --set-color: #f1f5f9;
+  --set-border-color: #64748b;
+  color: #f1f5f9;
+  background-color: rgb(15 23 42 / 76%);
+}
+.jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-dark::before,
+:root[data-theme="dark"] .jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-dark::before {
+  --set-sec-color: rgb(15 23 42 / 35%);
+  --set-color-1: #cbd5e1;
+  --set-color-2: #64748b;
+  --set-color-3: #334155;
+  filter: brightness(.55);
+  opacity: .5;
+}
+.jss-card.jss-glass.jss-state-dark :is(.jss-card-eyebrow, .jss-card-subtitle, .jss-card-header-content) { color: inherit; }
+
+/* Dark Outline uses a defined slate edge and readable theme foreground. */
+.jss-card:not(.jss-table-card).jss-singularity.jss-outline.jss-state-dark:not(.jss-glass, .jss-text-gradient) {
+  --set-color: #1f2937;
+  --set-border-color: #334155;
+  color: #1f2937;
+  border-color: #334155;
+}
+:root[data-theme="dark"] .jss-card:not(.jss-table-card).jss-singularity.jss-outline.jss-state-dark:not(.jss-glass, .jss-text-gradient) {
+  --set-color: #e2e8f0;
+  --set-border-color: #64748b;
+  color: #e2e8f0;
+  border-color: #64748b;
+}

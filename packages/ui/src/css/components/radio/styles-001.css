@@ -1,0 +1,81 @@
+.jss-radio-wrap {
+  align-items: flex-start;
+}
+
+.jss-radio-wrap > .jss-choice-radio-mark {
+  width: calc(var(--jss-font-size, 16px) + 4px);
+  height: calc(var(--jss-font-size, 16px) + 4px);
+  margin-top: 1px;
+}
+
+.jss-radio-wrap > .jss-choice-label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.jss-radio-wrap > .jss-choice-radio-mark .jss-icon {
+  --set-icon-size: var(--jss-font-size, 16px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--set-icon-size);
+  height: var(--set-icon-size);
+  font-size: var(--set-icon-size);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.jss-radio-wrap.jss-dense {
+  align-items: flex-start;
+  gap: var(--set-gap, 6px);
+  padding: var(--set-padding, 1px 2px);
+}
+
+.jss-radio-wrap.jss-dense > .jss-choice-radio-mark {
+  width: calc(var(--jss-font-size, 16px) + 2px);
+  height: calc(var(--jss-font-size, 16px) + 2px);
+  margin-top: 2px;
+}
+
+.jss-radio-wrap.jss-dense > .jss-choice-radio-mark .jss-icon {
+  --set-icon-size: calc(var(--jss-font-size, 16px) - 2px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--set-icon-size);
+  height: var(--set-icon-size);
+  font-size: calc(var(--jss-font-size, 16px) - 2px);
+}
+
+.jss-radio-wrap.jss-flat > .jss-choice-radio-mark {
+  width: calc(var(--jss-font-size, 16px) + 4px);
+  height: calc(var(--jss-font-size, 16px) + 4px);
+  border-width: 0;
+  box-shadow: none;
+}
+
+.jss-radio-wrap.jss-flat.jss-dense > .jss-choice-radio-mark {
+  width: calc(var(--jss-font-size, 16px) + 2px);
+  height: calc(var(--jss-font-size, 16px) + 2px);
+}
+
+.jss-radio-wrap.jss-flat.toggle-default > .jss-choice-radio-mark .jss-icon {
+  display: none;
+}
+
+.jss-radio-wrap.jss-flat.toggle-default.is-checked > .jss-choice-radio-mark::after {
+  content: "";
+  width: 45%;
+  height: 45%;
+  border-radius: 50%;
+  background: var(--set-color-1, var(--jss-text));
+}
+
+.jss-radio-wrap.jss-flat.jss-state-light.is-checked > .jss-choice-radio-mark::after {
+  background: var(--jss-dark);
+}
+
+.jss-radio-wrap > .jss-choice-input:focus-visible + .jss-choice-radio-mark {
+  outline: 2px solid var(--set-border-color, var(--jss-primary));
+  outline-offset: 3px;
+}

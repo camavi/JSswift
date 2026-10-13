@@ -1,0 +1,14 @@
+.jss-input-raw {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--jss-r-md);
+  border: 1px solid var(--jss-border-color);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--jss-text);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.jss-input-raw:focus {
+  border-color: rgba(79, 124, 255, 0.75);
+}

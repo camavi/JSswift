@@ -1,0 +1,9 @@
+/* Flat applies to the actual field surface; focus remains visible. */
+.jss-singularity-field.jss-flat>.jss-control {
+  border-width: 0;
+  box-shadow: none;
+}
+
+.jss-singularity-field.jss-flat>.jss-control:focus-within {
+  box-shadow: 0 0 0 2px var(--jss-ring);
+}

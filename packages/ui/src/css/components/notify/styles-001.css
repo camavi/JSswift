@@ -1,0 +1,478 @@
+.jss-toast-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.jss-toast-wrap {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: min(420px, calc(100vw - 24px));
+  pointer-events: none;
+}
+
+.jss-toast-wrap.is-top-left {
+  top: 14px;
+  left: 14px;
+}
+
+.jss-toast-wrap.is-top-center {
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.jss-toast-wrap.is-top-right {
+  top: 14px;
+  right: 14px;
+}
+
+.jss-toast-wrap.is-bottom-left {
+  left: 14px;
+  bottom: 14px;
+}
+
+.jss-toast-wrap.is-bottom-center {
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+}
+
+.jss-toast-wrap.is-bottom-right {
+  right: 14px;
+  bottom: 14px;
+}
+
+.jss-toast {
+  --jss-toast-accent: var(--jss-info);
+  --jss-toast-bg: color-mix(in srgb, var(--jss-panel) 90%, var(--jss-toast-accent) 10%);
+  --jss-toast-border: color-mix(in srgb, var(--jss-toast-accent) 34%, var(--jss-border-color));
+  --jss-toast-title-color: var(--jss-text);
+  --jss-toast-message-color: var(--jss-text-2);
+  --jss-toast-meta-color: var(--jss-text-3);
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 14px;
+  min-width: 0;
+  padding: 16px;
+  border-radius: var(--set-border-radius, var(--jss-b-radius-default, 2px));
+  border: 1px solid var(--jss-toast-border);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, white 3%, transparent), transparent 28%),
+    var(--jss-toast-bg);
+  box-shadow: var(--jss-shadow-md);
+  backdrop-filter: blur(12px);
+  pointer-events: auto;
+  color: var(--jss-toast-title-color);
+  overflow: hidden;
+}
+
+.jss-toast:is(.dense, .jss-dense) {
+  padding: 4px;
+  gap: 8px;
+}
+
+.jss-toast:not(.jss-shadow):not(.jss-light-shadow):not(.jss-glow) {
+  box-shadow: none;
+}
+
+.jss-toast.jss-border {
+  border: 1px solid var(--jss-toast-accent);
+}
+
+.jss-toast.jss-text-gradient {
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-toast.jss-text-gradient :is(.jss-toast-title, .jss-toast-message, .jss-toast-description, .jss-toast-meta) {
+  width: fit-content;
+  max-width: 100%;
+  background-image: linear-gradient(110deg,
+    color-mix(in srgb, var(--jss-toast-accent) 85%, var(--jss-text)),
+    color-mix(in srgb, var(--jss-toast-accent) 20%, var(--jss-text)));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.jss-toast.jss-glow {
+  box-shadow: 0 0 3px color-mix(in srgb, var(--jss-toast-accent) 40%, transparent),
+    0 0 9px color-mix(in srgb, var(--jss-toast-accent) 25%, transparent);
+  text-shadow: none;
+}
+
+.jss-toast.jss-gradient {
+  background: linear-gradient(var(--set-gradient-deg, 135deg),
+    color-mix(in srgb, var(--jss-toast-accent) 12%, var(--jss-bg)),
+    color-mix(in srgb, var(--jss-toast-accent) 30%, var(--jss-bg)));
+  --jss-toast-title-color: var(--jss-text);
+  --jss-toast-message-color: var(--jss-text);
+}
+
+.jss-toast.jss-glass {
+  background:
+    radial-gradient(ellipse at 35% 20%, rgb(255 255 255 / 65%), transparent 65%),
+    radial-gradient(ellipse at 65% 85%, color-mix(in srgb, var(--jss-toast-accent) 22%, transparent), transparent 75%),
+    color-mix(in srgb, var(--jss-bg) 70%, transparent);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  --jss-toast-title-color: var(--jss-text);
+  --jss-toast-message-color: var(--jss-text);
+}
+
+:root[data-theme="dark"] .jss-toast.jss-glass:not(.jss-toast-light) {
+  background:
+    radial-gradient(ellipse at 35% 20%, rgb(255 255 255 / 12%), transparent 65%),
+    radial-gradient(ellipse at 65% 85%, color-mix(in srgb, var(--jss-toast-accent) 16%, transparent), transparent 75%),
+    color-mix(in srgb, var(--jss-bg) 75%, transparent);
+}
+
+.jss-toast.jss-glossy {
+  background-image: linear-gradient(to bottom,
+    rgb(255 255 255 / 28%) 0%, rgb(255 255 255 / 55%) 49%,
+    color-mix(in srgb, var(--jss-toast-accent) 8%, transparent) 51%,
+    color-mix(in srgb, var(--jss-toast-accent) 16%, transparent) 100%);
+  background-color: var(--jss-toast-bg);
+}
+
+:root[data-theme="dark"] .jss-toast.jss-glossy {
+  background-image: linear-gradient(to bottom,
+    rgb(255 255 255 / 8%) 0%, rgb(255 255 255 / 20%) 49%,
+    rgb(0 0 0 / 8%) 51%, rgb(0 0 0 / 22%) 100%);
+}
+
+.jss-toast.jss-shadow {
+  box-shadow: 0 2px 4px rgb(0 0 0 / 12%),
+    0 6px 14px -3px rgb(0 0 0 / 20%);
+}
+
+.jss-toast.jss-light-shadow {
+  box-shadow: inset 1px 1px 1px rgb(255 255 255 / 85%),
+    inset -1px -1px 1px rgb(0 0 0 / 12%),
+    -3px -3px 7px rgb(255 255 255 / 85%),
+    4px 5px 9px rgb(0 0 0 / 23%);
+}
+
+:root[data-theme="dark"] .jss-toast.jss-light-shadow {
+  box-shadow: inset 1px 1px 1px rgb(255 255 255 / 22%),
+    inset -1px -1px 1px rgb(0 0 0 / 35%),
+    -2px -2px 6px rgb(255 255 255 / 8%),
+    4px 5px 9px rgb(0 0 0 / 50%);
+}
+
+:root[data-theme="dark"] .jss-toast.jss-shadow {
+  box-shadow: 0 2px 4px rgb(0 0 0 / 30%),
+    0 6px 14px -3px rgb(0 0 0 / 45%);
+}
+
+.jss-toast.jss-flat {
+  background: color-mix(in srgb, var(--jss-toast-accent) 8%, var(--jss-bg));
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  --jss-toast-title-color: var(--jss-text);
+  --jss-toast-message-color: var(--jss-text);
+}
+
+.jss-toast.jss-flat .jss-toast-icon {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: var(--jss-toast-accent);
+}
+
+.jss-toast::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, color-mix(in srgb, white 12%, var(--jss-toast-accent)), var(--jss-toast-accent));
+}
+
+.jss-toast-soft {
+  --jss-toast-bg: color-mix(in srgb, var(--jss-bg) 90%, var(--jss-toast-accent) 10%);
+  --jss-toast-border: transparent;
+  --jss-toast-title-color: var(--jss-text);
+  --jss-toast-message-color: var(--jss-text);
+}
+
+.jss-toast.jss-outline,
+.jss-toast.jss-toast-outline {
+  background: var(--jss-bg);
+  border: 1px solid var(--jss-toast-accent);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.jss-toast.jss-outline .jss-toast-close.jss-btn,
+.jss-toast.jss-toast-outline .jss-toast-close.jss-btn {
+  color: var(--jss-text);
+  background: transparent;
+  border-color: var(--jss-border-color);
+}
+
+.jss-toast:is(.jss-outline, .jss-toast-outline).jss-glossy {
+  background-color: var(--jss-bg);
+  background-image: linear-gradient(to bottom,
+    rgb(255 255 255 / 30%) 0%, rgb(255 255 255 / 65%) 49%,
+    color-mix(in srgb, var(--jss-toast-accent) 5%, transparent) 51%,
+    color-mix(in srgb, var(--jss-toast-accent) 14%, transparent) 100%);
+}
+
+.jss-toast:is(.jss-outline, .jss-toast-outline).jss-glow {
+  box-shadow: 0 0 3px color-mix(in srgb, var(--jss-toast-accent) 40%, transparent),
+    0 0 9px color-mix(in srgb, var(--jss-toast-accent) 25%, transparent);
+  text-shadow: none;
+}
+
+.jss-toast:is(.jss-outline, .jss-toast-outline).jss-light-shadow {
+  box-shadow: inset 1px 1px 1px rgb(255 255 255 / 85%),
+    inset -1px -1px 1px rgb(0 0 0 / 12%),
+    -3px -3px 7px rgb(255 255 255 / 85%),
+    4px 5px 9px rgb(0 0 0 / 23%);
+}
+
+:root[data-theme="dark"] .jss-toast:is(.jss-outline, .jss-toast-outline).jss-light-shadow {
+  box-shadow: inset 1px 1px 1px rgb(255 255 255 / 22%),
+    inset -1px -1px 1px rgb(0 0 0 / 35%),
+    -2px -2px 6px rgb(255 255 255 / 8%),
+    4px 5px 9px rgb(0 0 0 / 50%);
+}
+
+.jss-toast:is(.jss-outline, .jss-toast-outline).jss-glass {
+  background:
+    radial-gradient(ellipse at 35% 20%, rgb(255 255 255 / 65%), transparent 65%),
+    radial-gradient(ellipse at 65% 85%, color-mix(in srgb, var(--jss-toast-accent) 22%, transparent), transparent 75%),
+    color-mix(in srgb, var(--jss-bg) 70%, transparent);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+}
+
+:root[data-theme="dark"] .jss-toast:is(.jss-outline, .jss-toast-outline).jss-glass:not(.jss-toast-light) {
+  background:
+    radial-gradient(ellipse at 35% 20%, rgb(255 255 255 / 12%), transparent 65%),
+    radial-gradient(ellipse at 65% 85%, color-mix(in srgb, var(--jss-toast-accent) 16%, transparent), transparent 75%),
+    color-mix(in srgb, var(--jss-bg) 75%, transparent);
+}
+
+:root[data-theme="dark"] .jss-toast:is(.jss-outline, .jss-toast-outline).jss-glossy {
+  background-image: linear-gradient(to bottom,
+    rgb(255 255 255 / 6%) 0%, rgb(255 255 255 / 16%) 49%,
+    rgb(0 0 0 / 5%) 51%, rgb(0 0 0 / 18%) 100%);
+}
+
+.jss-toast-solid {
+  --jss-toast-bg: var(--jss-toast-accent);
+  --jss-toast-border: var(--jss-toast-accent);
+  --jss-toast-title-color: #fff;
+  --jss-toast-message-color: #fff;
+  --jss-toast-meta-color: rgb(255 255 255 / 80%);
+}
+
+.jss-toast.jss-toast-solid:is(.jss-toast-light, .jss-toast-warning) {
+  --jss-toast-title-color: #1f2937;
+  --jss-toast-message-color: #1f2937;
+  --jss-toast-meta-color: #334155;
+}
+
+.jss-toast.jss-toast-solid .jss-toast-icon,
+.jss-toast.jss-toast-solid .jss-toast-close.jss-btn {
+  color: var(--jss-toast-title-color);
+  background: rgb(255 255 255 / 12%);
+  border-color: rgb(255 255 255 / 30%);
+}
+
+.jss-toast.jss-toast-outline .jss-toast-icon {
+  color: var(--jss-toast-accent);
+  background: transparent;
+  border-color: var(--jss-toast-accent);
+}
+
+.jss-toast-success {
+  --jss-toast-accent: var(--jss-success);
+}
+
+.jss-toast-warning {
+  --jss-toast-accent: var(--jss-warning);
+}
+
+.jss-toast-danger {
+  --jss-toast-accent: var(--jss-danger);
+}
+
+.jss-toast-info {
+  --jss-toast-accent: var(--jss-info);
+}
+
+.jss-toast-primary {
+  --jss-toast-accent: var(--jss-primary);
+}
+
+.jss-toast-secondary {
+  --jss-toast-accent: var(--jss-secondary);
+}
+
+.jss-toast-light {
+  --jss-toast-accent: var(--jss-light);
+}
+
+:root[data-theme="dark"] .jss-toast-light {
+  --jss-toast-accent: #e2e8f0;
+}
+
+.jss-toast.jss-toast-neutral {
+  --jss-toast-accent: var(--jss-text);
+  --jss-toast-bg: var(--jss-bg);
+  --jss-toast-border: var(--jss-border-color);
+}
+
+.jss-toast-dark {
+  --jss-toast-accent: var(--jss-dark);
+}
+
+.jss-toast-icon,
+.jss-toast-dismiss {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.jss-toast-icon {
+  color: color-mix(in srgb, var(--jss-toast-accent) 75%, white);
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--jss-toast-accent) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--jss-toast-accent) 32%, transparent);
+  align-items: center;
+  justify-content: center;
+  padding-top: 0;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 10%, transparent);
+}
+
+.jss-toast-main,
+.jss-toast-copy,
+.jss-toast-actions,
+.jss-toast-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.jss-toast-main,
+.jss-toast-copy {
+  gap: 10px;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.jss-toast-title {
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--jss-toast-title-color);
+}
+
+.jss-toast-message,
+.jss-toast-description,
+.jss-toast-body {
+  line-height: 1.45;
+  color: var(--jss-toast-message-color);
+}
+
+.jss-toast-message {
+  font-size: 0.98rem;
+}
+
+.jss-toast-description {
+  color: var(--jss-toast-meta-color);
+  font-size: 0.95em;
+}
+
+.jss-toast-meta {
+  gap: 8px;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  color: var(--jss-toast-meta-color);
+}
+
+.jss-toast-actions {
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.jss-toast-actions .jss-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.jss-toast-close {
+  min-width: auto;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 10px;
+  opacity: 0.88;
+}
+
+.jss-toast-close:hover {
+  opacity: 1;
+}
+
+.jss-toast-body> :first-child,
+.jss-toast-meta> :first-child,
+.jss-toast-actions> :first-child {
+  margin-top: 0;
+}
+
+.jss-toast-body> :last-child,
+.jss-toast-meta> :last-child,
+.jss-toast-actions> :last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  .jss-toast-wrap {
+    width: calc(100vw - 18px);
+  }
+
+  .jss-toast-wrap.is-top-left,
+  .jss-toast-wrap.is-top-center,
+  .jss-toast-wrap.is-top-right {
+    top: 9px;
+    left: 9px;
+    right: 9px;
+    transform: none;
+  }
+
+  .jss-toast-wrap.is-bottom-left,
+  .jss-toast-wrap.is-bottom-center,
+  .jss-toast-wrap.is-bottom-right {
+    bottom: 9px;
+    left: 9px;
+    right: 9px;
+    transform: none;
+  }
+
+  .jss-toast {
+    grid-template-columns: 36px minmax(0, 1fr) auto;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .jss-toast-icon {
+    width: 36px;
+    height: 36px;
+  }
+}

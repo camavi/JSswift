@@ -1,0 +1,5 @@
+.jss-singularity-menu-select.jss-glass {
+  backdrop-filter: blur(1px);
+  --set-background-color: color-mix(in srgb, var(--set-background-color) 40%, transparent);
+  --set-color: var(--jss-theme-color-6);
+}

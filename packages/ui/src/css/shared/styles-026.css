@@ -1,0 +1,43 @@
+.jss-choice-wrap {
+  display: inline-flex;
+  gap: var(--set-gap, 8px);
+  padding: var(--set-padding, var(--jss-p-xs) var(--jss-p-sm));
+  margin: 2px;
+  cursor: pointer;
+  box-sizing: border-box;
+  user-select: none;
+  border-color: transparent;
+}
+
+.jss-choice-wrap.is-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.jss-choice-input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  pointer-events: none;
+}
+
+.jss-choice-mark {
+  flex-shrink: 0;
+  border: 1px solid var(--jss-border-color, #7a7a7a3d);
+  color: var(--set-color, var(--jss-text));
+  background: color-mix(in srgb, var(--set-background-color, var(--jss-surface-2)) 20%, transparent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 160ms ease;
+  position: relative;
+
+}
+
+.jss-choice-checkbox-mark {
+  border-radius: var(--set-border-radius, 4px);
+  width: calc(var(--jss-font-size, 16px) + 4px);
+  height: calc(var(--jss-font-size, 16px) + 4px);
+}

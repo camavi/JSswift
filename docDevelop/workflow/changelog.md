@@ -1,5 +1,87 @@
 # Development changelog
 
+## Priorities after split.2: offline SVG, compact reports and traceable validation — 2026-10-13
+
+Implemented all requested priorities from the latest pilot analysis without publishing or modifying historical runs. Added tree-shakable named offline SVG factories at jsswift/icons and @jsswift/ui/icons with declarations: add/edit/search/save/close/check/inventory/grid/empty/euro/chevrons. Factories create fresh decorative native SVG nodes with currentColor, aria-hidden and focusable=false; no runtime catalog, font, sprite or network assets. The package consumer verifies only the imported drawing enters the Vite bundle. Browser tests verify SVG namespace, sizing and distinct nodes. Application string Material icons retain their existing meaning; offline configured applications use icons:false.
+
+Reports now default to compact, retaining selection/assets/sizes/CSS analysis and discovery counts. report:full restores reasons and absolute discovery files/roots. The same formatted report is returned/written; declarations and guides document the shape change. Reformatting the recorded pilot report reduces 8002 -> 1074 bytes, before any new generation. Added contrast-safe secondary text guidance, staged reading guidance and icon discovery keywords to the application docs/map/portable Skill.
+
+CSS pruning now recognizes only mandatory classes outside all selector functions/attributes, preserving alternatives inside :is/:where/:not/:has and escaped selectors conservatively. Tests include mixed alternatives and quoted attribute text. Same CSS input and pilot selection: 163458 -> 134563 raw bytes, gzip 23883 -> 20270; 28895 raw / 3613 gzip saved. Full CSS source unchanged. Both full/selective Chrome surfaces and temporary pilot screenshots inspected without observed layout regressions.
+
+Table's inner overflow region is keyboard-focusable and named; new scrollLabel prop customizes its name. Actual horizontal arrow-key scrolling is verified. Public Table contract updated.
+
+External laboratory tools now record unique selectors, computed foreground/fill, composed background layers, font metrics and exclusion reasons. Separate desktop/mobile/dialog-with-validation reports; modal results exclude underlying content, unsupported complex paint stays unmeasured. Inspector resets the page before initial screenshots and saves DOM markup for locating selectors. Field error checks require four controls and correct field-specific descriptions; new cases cover invalid stored schema, blocked reads and real keyboard scrolling. The unchanged temporary copy of the latest pilot passes 22/22; this is not a new measured generation. Its original app contrast failures remain, and default dialog complex paint is reported unmeasured rather than certified.
+
+Added opt-in --staged-knowledge runner mode: provides AI.md alone in the initial prompt, with a precise separate CRUD read path. Mode and guide hash recorded; initial-knowledge default preserved. This guarantees guide delivery, not later model compliance, and is not directly comparable with historical initial-knowledge runs. No model call added outside the recorded turn. Runner guards reject incompatible modes before DB/generation.
+
+Verification: 90 unit/package tests; 65 Chrome tests, zero skipped; knowledge/MCP 4+2; five benchmark-tool tests; four Python runner tests; builds/registry/whitespace checks. Initial browser SVG fixture requested an unallowed external file; corrected it to serve a copied asset from the temporary root. An unrelated Menu test initially missed its rAF result under concurrent Chrome load, then passed isolated and in the complete final suite; no Menu implementation change. Initial blocked-storage fixture navigated only the hash, so its init script did not execute; corrected to reload and all 22 pass.
+
+No version bump, npm publication, Git commit/push or site deployment. Historical source/logs/results untouched. Local public additions require a separately authorized release.
+
+
+## Third test preview published and verified — 2026-10-13
+
+User explicitly authorized another npm test publication. Published the exact inspected tarballs jsswift@2.2.0-split.2 and @jsswift/ui@2.0.3-split.2 with tag next. Direct public registry metadata and installed consumer lockfile integrity match the packed artifacts. Tags: jsswift latest=2.1.1, next=2.2.0-split.2; UI latest=2.0.2, next=2.0.3-split.2. Core and MCP unchanged. Ordinary metadata requests temporarily returned stale responses; an uncached public metadata request confirmed publication, followed by successful normal npm install of both exact versions.
+
+Includes dev directory-watcher correction, expanded CSS ownership and cssAnalysis reports, aligned automatic setup/CRUD docs and offline SVG guidance. Runtime build, 87 unit/package tests, knowledge/MCP 4+2, registry and whitespace checks pass. Implementation Chrome suite previously passed 65/65; release changes versions and documentation only.
+
+Installed both packages from npm into a fresh temporary consumer. CLI and production Vite verify default discovery, manual precedence, automatic icon CSS, offline override and matching CSS analysis. Real installed-package Vite 8.3.3 dev server verifies HTTP runtime/CSS loading and automatic source changes/additions/removals, including external roots initially empty. No HTTP500. Reviewed tarballs: /tmp/jss-split-preview2-release; consumer verification: /tmp/jss-preview2-consumer-ngki_sfx/verification.log. No Git commit/push or website deployment.
+
+
+## Benchmark priorities: dev watcher, validation and CSS — 2026-10-13
+
+Implemented the explicitly requested priorities following the split.1 pilot. Fixed the dev runtime by keeping discovery directory roots in server.watcher rather than addWatchFile load dependencies. Installed-tarball regression reproduced HTTP500 before the correction and passed afterward, including real HTTP runtime/CSS requests and watcher-driven changes/additions/removals. External roots initially empty are covered. The same package regression passed with the benchmark's locked Vite 8.3.3 through JSS_TEST_VITE_PATH.
+
+Added a real Vite/Chrome CRUD regression with native Tab/Shift+Tab/Escape, initial and replacement-trigger focus, four required-control error associations, write failure, corrupt/invalid/unavailable storage and reload persistence. Ten repeated editor openings explicitly dispose eighty temporary rods. These ownership assertions are not a heap-memory audit. Updated the traditional CRUD regression to assert the accessible storage error inside the dialog. Aligned getting-started/CRUD with automatic discovery, made the table region keyboard-focusable and named, retained its white header styling, and verified the inline SVG offline icon example in Chrome.
+
+Extended CSS ownership for Layout, RouteTab, choice controls, check-style controls and Select/Search singularity menus. Unknown/functional selectors remain conservative. Added cssAnalysis to CLI/Vite selective reports with input/output bytes and retained owned/shared-or-unknown/complex/keyframe rule groups; full/core-only reports null. On identical CSS input and the pilot selection: 178366 -> 163458 raw bytes, gzip 25924 -> 23883 (14908 raw / 2041 gzip saved). This is component CSS only, not a new generation or a measured token/time improvement.
+
+Updated the external laboratory's future jsswift-current validator, common inspector and documentation. HTTP/request/console/page exceptions are recorded; loading failure gates downstream checks as blocked. Ancillary failures remain diagnostic rather than failed application modules. Added separate solid-color text contrast measurement with explicit complex-paint/disabled exclusions. Three validator regressions pass, including an HTTP500 with zero pageerror events and end-to-end blocked results. Historical scripts, generated code, run artifacts and generation metrics unchanged.
+
+A temporary unchanged copy of the pilot app with the corrected local plugin passes 19/19 current checks. Desktop/mobile screenshots inspected: no observed layout regression, no page overflow. The limited separate contrast report identifies 9 below-threshold leaf texts from application styling, 46 passing, 10 complex/unmeasured and 1 disabled exclusion; this is not a complete accessibility audit and does not change historical results.
+
+Verification: runtime/umbrella/site builds; 87 unit/package tests; 65 Chrome tests, zero skipped; final offline SVG/CRUD focused regression; knowledge/MCP 4+2; registry and whitespace checks. First browser run exposed stale assertions for the updated CRUD alert and white-header example; corrected example styling and alert selector, then all 65 passed. No version bump, npm publication, Git commit/push or deployment.
+
+
+## Second test preview published and verified — 2026-10-13
+
+User explicitly requested another test publication. Published the inspected tarballs jsswift@2.2.0-split.1 and @jsswift/ui@2.0.3-split.1 with tag next. Both versions are visible and installable from npm; registry integrity matches the tarballs. Tags verified: jsswift latest=2.1.1, next=2.2.0-split.1; @jsswift/ui latest=2.0.2, next=2.0.3-split.1. Core and MCP versions unchanged.
+
+Includes automatic discovery defaults, manual-list precedence, automatic Material font CSS, offline opt-out, CSS ownership improvements and updated application guidance. Runtime builds, 86 unit/package tests, knowledge/MCP tests (4+2), registry and whitespace checks passed. Existing implementation browser verification remains 64/64; this publication changes versions and release documentation. Initial sandbox test attempts failed on npm cache access, then an empty-cache offline install; rerunning with the existing cache outside sandbox passed.
+
+Installed both published packages into a clean temporary consumer. Main-package CLI and Vite builds passed with implicit discovery, Button/Icon inclusion, Table exclusion, automatic Google font declaration, explicit-list discovery precedence and icons:false omission of remote font CSS. Verification checks declarations rather than external font-server availability. Tarballs and inspection metadata: /tmp/jss-split-preview1-release; consumer verification: /tmp/jss-preview1-consumer-c25a27oh/verification.log. No Git commit/push or website deployment performed.
+
+
+## 2026-10-13 — Default discovery and automatic Material assets (local)
+
+- Configured builds discover static components/services by default. Explicit lists select manual mode without auto:false; explicit auto enables merging. Custom build output is excluded from scanning/restarts.
+- Icon dependency inclusion automatically adds Material Symbols font-face CSS; icons:false supports offline/SVG-only apps. Explicit extras still apply. AI/Icon/configuration contracts include native icon examples and distinguish these local changes from the published preview.
+- Added missing TabPanel/EmptyState/Stat CSS ownership. Identical benchmark selection saves 13210 raw / 1626 gzip component-CSS bytes; generation timing/tokens were not remeasured. AI.md reduced from 11315 to 11062 characters with concise report inspection guidance.
+- Verification: UI/umbrella/site builds, 86 unit/package tests, all 64 Chrome tests, knowledge/MCP (4+2), registry and diff checks passed. No publication/version/tag change for this work.
+
+## 2026-10-13 — Installable split preview
+
+- Published and verified `jsswift@2.2.0-split.0` on npm tag `next`; `latest` remains 2.1.1. Fresh npm installation passed CLI/Vite automatic discovery, explicit dynamic inclusion, Button-only selection and Chrome rendering/model/click smoke tests. Registry tarball integrity matches the reviewed artifact.
+- npm accepted `@jsswift/ui@2.0.3-split.0` on `next`; registry processing still pending at the last check, with latest unchanged at 2.0.2. Core/MCP unchanged. No commit/push/deployment.
+
+## 2026-10-13 — Complete component/source split
+
+- All 66 public UI names now map to 63 component implementation files, with shared helpers and four dedicated services. Every component CSS rule is extracted; the ordered entry combines 198 component/shared sections and preserves the approved cascade. Upload migration is complete.
+- The manifest registers all assets/aliases and derived helper/dependency inventories, and supplies selective CSS ownership. Registry refresh/check commands and exhaustive source/installed-package coverage guard against stale or orphan assets.
+- Verification: full and all 70 component/service selections preserve JavaScript and dependency outputs; CSS rules and cascade match, with one inherited trailing space cleaned. UI/umbrella/site builds, 83 unit/package tests, all 64 Chrome tests, registry/knowledge/whitespace checks passed. Local only; no release or deployment.
+
+## 2026-10-12 — Layout-family extraction
+
+- Row, Col, Spacer, Container, Card, Layout, Footer, Toolbar, Grid and GridCol now have individual JS sources and registered CSS sections; shared responsive/model/disposition/children helpers preserve initialization order. Upload JS is isolated, with its CSS migration explicitly pending.
+- Full builds and all ten individual selective JS/CSS builds match the captured pre-migration output and dependency selections.
+- Verification: UI/umbrella builds, 82 unit/package tests, 18 targeted Chrome tests without skips, knowledge map and whitespace checks passed. Local only; display/content and advanced forms remain to migrate.
+
+## 2026-10-12 — Automatic discovery and component extraction pilot
+
+- Configured CLI/Vite builds support opt-in static application discovery with explicit dynamic inclusions and development invalidation.
+- Seven field/button components now own JS files and 23 ordered CSS sections; shared extracted helpers and component assets are registered in modules.json. Full generated runtime/CSS retain the accepted content; nested packaging and CSS watching are supported.
+- Verification: UI/umbrella builds, 82 unit/package tests and knowledge map passed; 63 of 64 Chrome tests passed initially, with the ContextMenu RAF measurement test passing in isolation. Remaining families and shared style ownership still need migration. Local only.
+
 ## 2026-10-08 — Release 2.0.1 and knowledge MCP 0.1.12
 
 - Publication: all four npm commands accepted; initial fresh-cache registry check returns E404 while npm processes the packages. Release commit 7c1fb74.
@@ -179,3 +261,7 @@ Record significant completed framework work: date, outcome, affected areas, and 
 - Outcome: made the Vite multi-page HTML inputs absolute so dependency scanning works with `root: "pages"`.
 - Areas: Vite configuration.
 - Verification: `npm run build` and a Vite development request to `/developers.html` complete without a dependency-scan error.
+
+## Fourth test preview verified — 2026-10-13
+
+Explicit user request: published jsswift@2.2.0-split.3 and @jsswift/ui@2.0.3-split.3 on next. latest unchanged at 2.1.1 and 2.0.2. Both installed from npm; consumer lockfile integrity matches inspected tarballs. Includes named offline SVG factories, compact/full report modes, safe functional CSS pruning and named keyboard table scrolling. Runtime builds, 90 unit/package and knowledge/MCP 4+2 passed; implementation browser suite already passed 65/65. Registry-installed consumer CLI/production/dev Vite 8.3.3 passed; imported add drawing present, unused edit drawing absent; compact report and no remote font confirmed. Dev source changes/additions/removals and external roots passed. Registry processing initially delayed availability; no duplicate publication. Artifacts: /tmp/jss-preview3-release; consumer verification: /tmp/jss-preview3-consumer-056deeyb/verification.log. No Git push or website deployment.

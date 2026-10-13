@@ -1,0 +1,13 @@
+/* AppShell composes independent surfaces; palette is passed through props. */
+.jss-app-shell { min-width: 0; color: var(--jss-text); background: var(--jss-bg); }
+.jss-app-shell-body { box-sizing: border-box; min-width: 0; }
+.jss-app-shell.is-stack .jss-app-shell-drawer-slot { width: 100%; flex: 0 0 auto; }
+.jss-app-shell :is(.jss-app-shell-header-slot,.jss-app-shell-footer-slot) { min-width: 0; }
+.jss-app-shell-footer-slot > .jss-footer :is(.jss-footer-subtitle,.jss-footer-meta,.jss-footer-note,.jss-footer-content) { color: inherit; }
+.jss-app-shell-footer-slot > .jss-footer .jss-btn:not([class*="jss-state-"]) { color: inherit; }
+@media (max-width: 900px) {
+  .jss-app-shell.is-reverse.is-stack .jss-app-shell-body { flex-direction: column-reverse; }
+  .jss-app-shell-drawer-slot { flex: 0 0 auto; }
+  .jss-app-shell-drawer-slot > .jss-drawer { z-index: 30; }
+  .jss-app-shell-drawer-slot > .jss-drawer:not(.open) { visibility: hidden; opacity: 0; pointer-events: none; }
+}

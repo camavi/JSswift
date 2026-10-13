@@ -1,0 +1,40 @@
+/* Text Gradient uses a quiet surface so the title owns the color. */
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-panel.jss-singularity.jss-text-gradient {
+  background: color-mix(in srgb,var(--set-border-color,var(--jss-text)) 8%,var(--jss-bg));
+  --set-color: var(--jss-text); color: var(--jss-text);
+  background-clip: border-box; -webkit-background-clip: border-box; -webkit-text-fill-color: currentColor;
+}
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-text-gradient :is(.jss-header-title,.jss-footer-title,.jss-toolbar-title,.jss-alert-title,.jss-empty-state-title) {
+  background-image: linear-gradient(110deg,color-mix(in srgb,var(--set-border-color,var(--jss-text)) 70%,var(--jss-text)),var(--jss-text));
+  background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-text-gradient:is(.jss-state-light,.jss-state-dark) :is(.jss-header-title,.jss-footer-title,.jss-toolbar-title,.jss-alert-title,.jss-empty-state-title) {
+  background-image: linear-gradient(110deg,var(--jss-text),color-mix(in srgb,var(--jss-text) 75%,var(--jss-bg)));
+}
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-text-gradient.jss-outline { background: transparent; }
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-singularity.jss-text-gradient .jss-btn:not([class*="jss-state-"]) { background-image: none; background-clip: border-box; -webkit-background-clip: border-box; -webkit-text-fill-color: currentColor; }
+
+/* Light Glass owns a pale surface even when Outline is also enabled. */
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-panel.jss-singularity.jss-outline.jss-glass.jss-state-light,
+:root[data-theme="dark"] :is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-panel.jss-singularity.jss-outline.jss-glass.jss-state-light {
+  --set-color: #1f2937; color: #1f2937;
+  --set-border-color: #cbd5e1;
+  background-color: rgb(241 245 249 / 70%);
+}
+
+/* Light Text Gradient keeps its light identity in either page theme. */
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-panel.jss-singularity.jss-text-gradient.jss-state-light:not(.jss-outline) {
+  background: #f1f5f9; --set-color: #1f2937; color: #1f2937;
+}
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-text-gradient.jss-state-light:not(.jss-outline) :is(.jss-header-title,.jss-footer-title,.jss-toolbar-title,.jss-alert-title,.jss-empty-state-title) {
+  background-image: linear-gradient(110deg,#334155,#64748b);
+}
+
+/* Combined Light keeps a pale surface and a light contour in both themes. */
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-panel.jss-singularity.jss-outline.jss-text-gradient.jss-state-light {
+  background: rgb(241 245 249 / 92%); --set-border-color: #cbd5e1;
+  --set-color: #1f2937; color: #1f2937;
+}
+:is(.jss-header,.jss-footer,.jss-toolbar,.jss-alert,.jss-empty-state).jss-outline.jss-text-gradient.jss-state-light :is(.jss-header-title,.jss-footer-title,.jss-toolbar-title,.jss-alert-title,.jss-empty-state-title) {
+  background-image: linear-gradient(110deg,#334155,#64748b);
+}

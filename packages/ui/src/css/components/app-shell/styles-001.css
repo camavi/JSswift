@@ -1,0 +1,60 @@
+.jss-app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.jss-app-shell-body {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: var(--jss-app-shell-gap, var(--jss-s-lg));
+  padding: var(--jss-app-shell-padding, var(--jss-s-lg));
+  align-items: stretch;
+}
+
+.jss-app-shell.is-flush .jss-app-shell-body {
+  gap: 0;
+  padding: 0;
+}
+
+.jss-app-shell.no-drawer .jss-app-shell-body,
+.jss-app-shell.is-stack .jss-app-shell-body {
+  flex-direction: column;
+}
+
+.jss-app-shell.is-reverse .jss-app-shell-body {
+  flex-direction: row-reverse;
+}
+
+.jss-app-shell.is-reverse.is-stack .jss-app-shell-body {
+  flex-direction: column-reverse;
+}
+
+.jss-app-shell.is-divider .jss-app-shell-body {
+  border-top: 1px solid var(--jss-border-color);
+}
+
+.jss-app-shell-drawer-slot,
+.jss-app-shell-page-slot {
+  min-width: 0;
+}
+
+.jss-app-shell-drawer-slot {
+  width: var(--jss-app-shell-drawer-width, 280px);
+  flex: 0 0 var(--jss-app-shell-drawer-width, 280px);
+  max-width: 100%;
+}
+
+.jss-app-shell-page-slot {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  flex-direction: column;
+  gap: var(--jss-app-shell-gap, var(--jss-s-lg));
+}
+
+.jss-app-shell-page-slot>.jss-page {
+  flex: 1 1 auto;
+  min-height: 0;
+}

@@ -57,6 +57,8 @@ test('knowledge routes realistic application requests to focused contracts', asy
     ['_.signal', 'guide:reactivity'],
     ['_.rod', 'guide:reactivity'],
     ['router HTTP', 'guide:platform'],
+    ['jsswift/icons', 'component:icon'],
+    ['icone offline', 'component:icon'],
     ['_.Input', 'component:input'],
     ['_.Toggle', 'component:toggle'],
     ['_.Button', 'component:btn'],

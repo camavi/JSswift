@@ -1,0 +1,5 @@
+.jss-choice-wrap .jss-choice-mark .jss-icon {
+  margin: 0;
+  border-color: transparent;
+  color: color-mix(in srgb, var(--set-hover), var(--jss-theme-color-5) 50%);
+}

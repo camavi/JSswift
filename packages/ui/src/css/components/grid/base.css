@@ -1,0 +1,19 @@
+.jss-grid {
+  --jss-grid-gap: var(--jss-s-md);
+  display: grid;
+  grid-template-columns: repeat(24, minmax(0, 1fr));
+  gap: var(--jss-grid-gap);
+}
+
+.jss-grid.dense {
+  grid-auto-flow: dense;
+}
+
+.jss-grid.jss-grid-inline {
+  display: inline-grid;
+}
+
+.jss-grid.jss-grid-debug>* {
+  outline: 1px dashed color-mix(in srgb, var(--jss-primary, #3b82f6) 35%, transparent);
+  outline-offset: -1px;
+}

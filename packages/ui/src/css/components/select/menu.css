@@ -1,0 +1,51 @@
+.jss-select-value {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: -5px;
+}
+
+.jss-select-menu {
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-top: 6px;
+  background: var(--jss-panel);
+  border: 1px solid var(--jss-border-color);
+  border-radius: var(--jss-b-radius-default);
+  box-shadow: var(--jss-shadow-sm);
+  display: none;
+  z-index: 20;
+}
+
+.jss-select-menu.portal {
+  position: fixed;
+  display: block;
+  z-index: 2000;
+  background-color: var(--jss-theme-color-1);
+  border-color: var(--set-border-color, var(--jss-border-color) rgba(93, 95, 100, 0.35));
+}
+
+.jss-select.open .jss-select-menu {
+  display: block;
+}
+
+.jss-select-filter {
+  padding: 10px;
+  border-bottom: 1px solid var(--jss-border-color);
+}
+
+.jss-select-option.active {
+  outline: 2px solid rgba(79, 124, 255, 0.35);
+  background: rgba(79, 124, 255, 0.10);
+}
+
+.jss-select-group {
+  padding: 10px 10px 6px;
+  font-size: 12px;
+  color: var(--jss-muted);
+  opacity: .9;
+}

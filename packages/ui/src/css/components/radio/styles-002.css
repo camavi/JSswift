@@ -1,0 +1,5 @@
+:root[data-theme="dark"] .jss-radio-wrap.jss-shadow > .jss-choice-radio-mark {
+  --set-shadow-active: inset 0 1px 0 color-mix(in srgb, var(--jss-text) 18%, transparent),
+    0 2px 4px color-mix(in srgb, var(--set-color-2) 30%, transparent),
+    0 5px 9px color-mix(in srgb, var(--set-color-2) 18%, transparent);
+}

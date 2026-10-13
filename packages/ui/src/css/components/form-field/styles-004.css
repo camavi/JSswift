@@ -1,0 +1,4 @@
+.jss-field>.jss-control {
+  --set-border-color: var(--jss-border-color, #7a7a7a3d);
+  --set-background-color: var(--jss-panel);
+}

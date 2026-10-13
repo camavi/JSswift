@@ -21,7 +21,13 @@ Component API contracts live in documentions/components and are verified against
 - generated runtime: `packages/ui/dist/ui.js`
 - minified runtime: `packages/ui/dist/min-ui.js`
 - modular source: `packages/ui/src/`
-- module manifest: `packages/ui/src/modules.json`
+- module manifest: `packages/ui/src/modules.json` (`buildOrder` and extracted `components` registry)
+- extracted component JS: `packages/ui/src/components/`
+- extracted helpers: `packages/ui/src/helpers/`
+- service implementations: `packages/ui/src/services/`
+- extracted CSS: `packages/ui/src/css/components/` and `css/shared/`; build expands the ordered source entry
+- selector ownership: `modules.json.cssOwnership`
+- derived dependency/helper maintenance: `npm run ui:registry:refresh` and `npm run ui:registry:check`
 
 Maintenance rules:
 
@@ -391,3 +397,23 @@ Repository build tools now support jss.config.js with ui.all, selective componen
 ### Choice, Slider, Rating and Time lifecycle
 
 Checkbox/Radio/Toggle, Slider, Rating and Time remove owned rod subscriptions and signal/render effects during JSswift lifecycle cleanup. Caller-owned models remain usable. Time also closes its open overlay when the field is disposed. Readonly/disabled Time prevents keyboard deletion and manual-change commits; programmatic model updates remain supported.
+
+## Configured runtime defaults
+
+The configured CLI/Vite builder from 2.2.0-split.1 discovers application components by default. Explicit components/services lists disable discovery unless auto is explicitly enabled; all:true selects the complete UI, while all:false or auto:false without lists retains core-only mode. icons:true automatically includes the Material Symbols font declaration when Icon is in the runtime dependency closure. icons:false disables automatic font assets for external-resource-free applications; explicit extras still apply. The browser fetches the remote font on glyph use. The earlier 2.2.0-split.0 preview retains the previous opt-in behavior.
+
+The selector ownership manifest includes TabPanel, EmptyState and Stat base selectors; unknown/shared and complex selectors are still retained conservatively. Full UI CSS is unchanged.
+
+
+## Dev discovery and CSS diagnostics
+
+Discovery directories are registered with the dev filesystem watcher, never as module-load dependencies. Real installed-package dev tests cover runtime/CSS HTTP loading, changes/additions/removals and external empty discovery roots; production builds alone cannot verify this path. This correction is included in the 2.2.0-split.2 preview; the earlier split.1 preview has the directory dependency defect.
+
+CSS ownership additionally covers Layout, RouteTab, shared choice controls, Slider singularity styles and Select/Search menu singularity styles. Conservative functional-selector handling is unchanged. CLI/Vite selective reports include cssAnalysis rule categories and component-CSS bytes; this describes pruning, not actual browser coverage. See configured-runtime.md for interpretation.
+
+
+## Improvements from split.3
+
+Offline icon factories are independent named ESM exports at jsswift/icons and @jsswift/ui/icons, with declarations and no network assets. They create fresh decorative SVG nodes and do not allocate a runtime catalog. Vite tree-shakes unimported drawings; icons:false still controls automatic Material CSS. Sources are packages/ui/src/icons.js and icons.d.ts, copied by build:ui:assets and build:jsswift.
+
+Configured reports default to compact; report:full preserves reasons and absolute discovery files/roots. Required outer component classes can prune selectors containing functional pseudo-classes, while function arguments and attributes are never treated as unconditional requirements. Table's inner scroll container is a named keyboard-focusable region; scrollLabel customizes its name.

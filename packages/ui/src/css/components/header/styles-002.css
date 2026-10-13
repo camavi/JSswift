@@ -1,0 +1,23 @@
+.jss-header-subtitle {
+  color: var(--jss-muted);
+  font-size: 12px;
+}
+
+.jss-header-content {
+  align-items: flex-start;
+}
+
+.jss-header-meta {
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.jss-header-toggle {
+  min-width: auto;
+}
+
+.jss-header-toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

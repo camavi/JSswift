@@ -1,0 +1,13 @@
+.jss-state-secondary:not(.jss-outline, .jss-dialog, .jss-menu-panel),
+.jss-state-secondary>.jss-control {
+  --set-border-color: var(--jss-secondary-hover);
+  --set-color: var(--set-color-1);
+  --set-background-color: var(--jss-secondary);
+  --set-shadow: 0 3px 6px color-mix(in srgb, var(--jss-gray-600) 40%, transparent);
+  --set-hover: var(--jss-secondary-hover);
+  --set-color-0: var(--jss-gray-50);
+  --set-color-1: var(--jss-gray-100);
+  --set-color-2: var(--jss-gray-400);
+  --set-color-3: var(--jss-gray-500);
+  --set-color-4: var(--jss-gray-900);
+}

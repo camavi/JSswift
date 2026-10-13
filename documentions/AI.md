@@ -10,28 +10,17 @@ If a required API is absent here, consult `knowledge-map.json` to find its exact
 
 The installed package exposes this same guide as `AI.md` at its root and through `jsswift/AI.md`. `package.json` includes `jsswiftDocumentation` discovery paths. Do not inspect runtime bundles to discover documented APIs.
 
-## Choose one starting route
-
-| Task | First read | Stop condition |
-| --- | --- | --- |
-| Small page with the six components below | This guide | Implement the supported subset without opening component contracts. |
-| Product CRUD with validation, persistence and focus | [CRUD example](examples/crud.md) | Reuse the example; do not also concatenate Input, Select, Dialog and Table contracts. |
-| jss.config.js, selective runtime, Vite plugin or optional extras | [Configured runtime](configured-runtime.md) (`guide:configured-runtime`) | Follow the existing app configuration; do not also import the complete runtime/CSS. |
-| One missing prop or callback | Map → exact document, or selective MCP read | Read only the needed section; do not search the runtime bundle. |
-| Custom appearance | Supported props below, then one relevant contract | Keep component styles; add CSS for page layout and task-specific visuals. |
-
-The map locates a contract; it does not replace it. Avoid reading all of `ui/common-props.md` just to confirm examples already covered here. Structural helpers used below (`div`, `p`, `span`, `strong`) do not require a separate HTML/SVG guide. Read that guide only for additional helper behavior.
+For a product CRUD with validation, persistence and focus, read [the executable CRUD example](examples/crud.md), then implement it without opening the Input/Select/Dialog/Table contracts. For the six components below, this guide is sufficient. Use [configured-runtime.md](configured-runtime.md) only for configuration beyond these defaults, and the knowledge map for a missing API. Structural helpers below need no separate guide.
 
 ## Import, create, mount
 
-For **new Vite apps with JSswift 2.1+**, use a selective runtime by default. Create these two files before implementing the page; this setup is sufficient without another guide.
+For **new Vite apps with JSswift 2.2.0-split.2 or newer**, component discovery is automatic by default. The published `2.2.0-split.0` preview still requires explicit `auto:true`; 2.1.x uses explicit lists. Create these two files before implementing the page; this setup is sufficient without another guide.
 
-`jss.config.js` (list all components called by the application; dependencies are automatic):
+`jss.config.js` (no component list is needed; dependencies are automatic):
 
 ```mjs
 export default {
- ui: {components:['Button','Input','Select','Card','Table'], services:['Dialog'], responsive:false},
- extras:[]
+ ui: {responsive:false}
 };
 ```
 
@@ -43,7 +32,7 @@ import { jssRuntime } from 'jsswift/vite';
 export default defineConfig({plugins:[jssRuntime()]});
 ```
 
-Use `responsive:true` for breakpoint utilities/props and add `Kpi` for the CRUD example. Include dynamically called components explicitly. Use `ui:{all:true}` only when the full catalog is required. Selection happens at build time, not by detecting calls in application code. Do not combine `jss:runtime` with complete runtime or UI CSS imports. Inspect `dist/jss-build-report.json` after building to verify selected components and extras.
+The builder detects static `_.Button`, `_.Input`, `_.Kpi`, `_.Dialog` and other component/service references in application sources. `ui.auto` defaults to true. Providing `components` or `services` disables automatic discovery unless you explicitly set `auto:true` (or source paths) to merge dynamic inclusions. `ui:{all:true}` selects the full catalog; `ui:{auto:false}` selects core only. Use `responsive:true` for breakpoint props. Do not combine `jss:runtime` with complete runtime/CSS imports. Reports default to a compact summary; use `report:'full'` only to debug dependencies. Inspect `components`, `services`, `config.extras` and sizes.
 
 For existing apps preserve their loading method. Traditional `import 'jsswift'` plus `import 'jsswift/css/ui-light.css'` loads the complete JavaScript UI. Older versions may require this method; check installed version/export availability before migrating. Advanced configuration is in [configured-runtime.md](configured-runtime.md).
 
@@ -88,6 +77,22 @@ Prefer `_.rod(initial)` for bidirectional fields: read/write `model.value`. `_.s
 
 Dialog returns an API object, not a node to mount: `open(overrides?)`, `close()`, `toggle(overrides?)`, `update(props)`, `isOpen()`, `entry()`, `props()`.
 
+## Icons: Google Material Symbols
+
+Use native icons instead of placeholder symbols: `_.Icon('inventory_2')`, `_.Button({icon:'add'}, 'Nuovo prodotto')`, or `_.Button({icon:'save'}, 'Salva')`. Plain names are Google Material Symbols Outlined; use names such as `search`, `edit`, `close` and `chevron_right`. Visible button labels provide their accessible name; add `ariaLabel` to an icon-only action.
+
+The updated configured builder includes the Material font CSS automatically when the runtime needs Icon, including component dependencies. There is no extra import or `extras` entry to write. The browser downloads the Google font when a Material glyph is rendered; including an optional Icon dependency alone does not force a font download. For tasks forbidding external resources set top-level `icons:false` and use inline SVG/custom Icon content or the built-in `_.Icon('#chevron-down')`. `icons:false` disables automatic inclusion; an explicit font extra remains explicit. Traditional full-runtime imports still need `fonts-material.css` for Material glyphs.
+
+Offline icons (available from 2.2.0-split.3): set `icons:false`, then import only names you use; no SVG paths to write. Vite includes imported drawings automatically and removes unused exports. Each call returns a fresh decorative SVG; label icon-only buttons.
+
+```js
+import {add, edit} from 'jsswift/icons';
+_.Button({icon:add()}, 'Nuovo prodotto');
+_.Button({icon:edit(16),ariaLabel:'Modifica prodotto'}, 'Modifica');
+```
+
+Available: `add`, `edit`, `search`, `save`, `close`, `check`, `inventory`, `grid`, `empty`, `euro`, `chevronLeft`, `chevronRight`, `chevronDown`. The same entry exists at `@jsswift/ui/icons`. Plain string icons still mean Google Material names.
+
 ## Existing CSS and optional assets
 
 The light import includes base tokens, colors, component styles, dense/outline and unprefixed layout utilities. Add `jsswift/css/responsive.css` **after** it for tablet/pc/desktop or legacy breakpoint classes. `ui.css` is the complete alternative; do not import full and light together. Component-specific mobile rules remain in light.
@@ -96,11 +101,13 @@ Prefer public props to rebuilding controls: `_.Button({color:'primary',outline:t
 
 Classes and theme variables use `jss-`; migrate old `cms-` overrides. Fonts are system defaults. Import `jsswift/css/fonts-nunito.css`, `fonts-material.css`, or `jsswift/tabler` only when required; Material Symbols downloads a remote font.
 
-With `jss:runtime`, choose assets in `jss.config.js` through `extras` instead of adding these imports. `ui: {all:true}` includes the complete UI and services. For a selective build, use `ui: {components:['Button','Input','Select','Card','Table'],services:['Dialog']}` for the example above; dependencies are automatic. Services also support Notify, Loading and Form (useForm). Add every component used through dynamic lookup explicitly. `responsive:false` retains base utilities and component mobile CSS but excludes breakpoint utilities; use true for tablet/pc props. Shared and complex CSS rules are retained conservatively.
+With `jss:runtime`, Material font CSS is automatic; select Nunito or Tabler through `extras` instead of imports. `responsive:false` omits breakpoint utilities while retaining base and component mobile styles. Shared/complex CSS is retained conservatively.
 
 ## Accessibility and verification
 
 String labels name Input/Select; set Dialog `ariaLabel`. Field errors are associated automatically. Dialog preserves focus assigned in `onOpen`. If rendering replaces the trigger, restore its current replacement in `onClose`; see CRUD.
+
+For secondary text on white or `#f5f7fb`, use `#536179` rather than pale grey (6.262:1 on white; recheck other backgrounds). Keep table headers, IDs, pager and footer at least 4.5:1 for small text. Mark decorative separators `aria-hidden:true`. Do not lighten library text with broad `!important` overrides. Contrast checks are separate from functional tests.
 
 Build is not a browser test. Verify initial focus after deferred autofocus, Tab/Shift+Tab containment, Escape, return focus, validation, persistence, mobile overflow and borders separately. Report unverified checks. Use this custom focus CSS:
 
@@ -111,11 +118,7 @@ Build is not a browser test. Verify initial focus after deferred autofocus, Tab/
 }
 ```
 
-Keep build, logic assertions and server startup in separate commands. Check tooling/permissions first; use an explicit Vite port with `--strictPort`. Environment failures are not application failures; HTTP alone does not verify interactions.
-
-## Additional APIs only
-
-Use the map for the missing API, then read its focused contract. Button is `components/btn.md` (`button.md` redirects). With configured MCP: `jsswift_read({id:"component:table",section:"props",keys:["pagination","hideFooter"]})`; sections include props/events/methods/slots and resolve inherited props. No MCP setup is required for local documentation.
+Keep build, logic assertions and server startup in separate commands. Check document, entrypoint and virtual-module HTTP responses as well as actual rendering; an empty `pageerror` list can accompany a failed module load. Check tooling/permissions first; use an explicit Vite port with `--strictPort`. Environment failures are not application failures; HTTP alone does not verify interactions.
 
 ## Catalogue surfaces and field styling
 

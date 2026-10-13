@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { readCSSSource } from "./ui-css-source.mjs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 
@@ -39,12 +40,12 @@ fs.mkdirSync(LEGACY_DIR, { recursive: true });
 for (const fileName of COPY_FILES) {
   const sourceFile = path.join(CSS_SOURCE_DIR, fileName);
   const distFile = path.join(DIST_DIR, fileName);
-  fs.copyFileSync(sourceFile, distFile);
+  fs.writeFileSync(distFile, readCSSSource(sourceFile));
 }
 
 const bundle = BUNDLE_FILES.map((fileName) => {
   const sourceFile = path.join(CSS_SOURCE_DIR, fileName);
-  const content = fs.readFileSync(sourceFile, "utf8").replace(/\r\n/g, "\n").trim();
+  const content = readCSSSource(sourceFile).replace(/\r\n/g, "\n").trim();
   return `/* >>> ${fileName} */\n${content}\n`;
 }).join("\n");
 
@@ -53,7 +54,7 @@ const bundle = BUNDLE_FILES.map((fileName) => {
 execFileSync(process.execPath, [path.join(ROOT, "cms-dev/make-responsive-css.mjs"), "--base-only"], { stdio: "inherit" });
 const responsiveBase = fs.readFileSync(path.join(DIST_DIR, "responsive-base.css"), "utf8");
 const lightBundle = BUNDLE_FILES.filter(name => name !== "responsive.css").map(name => {
-  const content = fs.readFileSync(path.join(CSS_SOURCE_DIR, name), "utf8").replace(/\r\n/g, "\n").trim();
+  const content = readCSSSource(path.join(CSS_SOURCE_DIR, name)).replace(/\r\n/g, "\n").trim();
   return `/* >>> ${name} */\n${content}\n`;
 }).join("\n") + "\n" + responsiveBase;
 const minifiedBundle = minifyCss(bundle);

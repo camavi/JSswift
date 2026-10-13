@@ -1,0 +1,31 @@
+/* Neutral light Select menus need a framed surface and theme foreground. */
+.jss-select-menu.jss-state-light {
+  --jss-select-menu-surface: var(--jss-gradient-surface);
+  background-color: var(--jss-select-menu-surface);
+  color: var(--jss-text);
+  border: 1px solid var(--jss-border-color);
+  border-radius: var(--set-border-radius, 8px);
+  box-shadow: var(--jss-shadow-md);
+}
+
+:root[data-theme="dark"] .jss-select-menu.jss-state-light {
+  --jss-select-menu-surface: var(--jss-panel);
+}
+
+.jss-select-menu.jss-state-light>.jss-select-options>.jss-select-option {
+  color: var(--jss-text);
+}
+
+.jss-select-menu.jss-state-light>.jss-select-options>.jss-select-option:hover,
+.jss-select-menu.jss-state-light>.jss-select-options>.jss-select-option.selected,
+.jss-select-menu.jss-state-light>.jss-select-options>.jss-select-option.active {
+  color: var(--jss-text);
+  background-color: color-mix(in srgb, var(--jss-text) 8%, var(--jss-select-menu-surface));
+  background-image: none;
+  border-color: var(--jss-border-color);
+  box-shadow: none;
+}
+
+.jss-select-menu.jss-state-light>.jss-select-filter .jss-input {
+  color: var(--jss-text);
+}

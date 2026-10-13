@@ -1,0 +1,30 @@
+/* SHADOW / STATE */
+.jss-singularity.jss-shadow-sm {
+  box-shadow: var(--jss-shadow-sm);
+}
+
+.jss-singularity.jss-shadow-none {
+  box-shadow: none;
+}
+
+.jss-singularity.jss-shadow-md {
+  box-shadow: var(--jss-shadow-md);
+}
+
+.jss-singularity.jss-shadow-lg {
+  box-shadow: var(--jss-shadow-lg);
+}
+
+.jss-state-primary,
+.jss-state-primary>.jss-control {
+  --set-border-color: var(--jss-primary-hover);
+  --set-color: var(--jss-primary-text);
+  --set-background-color: var(--jss-primary);
+  --set-shadow: 0 3px 6px color-mix(in srgb, var(--jss-primary-950) 40%, transparent);
+  --set-hover: var(--jss-primary-hover);
+  --set-color-0: var(--jss-primary-50);
+  --set-color-1: var(--jss-primary-100);
+  --set-color-2: var(--jss-primary-400);
+  --set-color-3: var(--jss-primary-700);
+  --set-color-4: var(--jss-primary-900);
+}

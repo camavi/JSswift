@@ -1,0 +1,9 @@
+.jss-menu-panel,
+.jss-card,
+.jss-card-body,
+.jss-tabpanel,
+.jss-layout-footer {
+  --set-background-color: var(--jss-bg-default);
+  --set-border-color: var(--jss-border-color);
+  --set-shadow-active: var(--jss-shadow-sm);
+}

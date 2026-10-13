@@ -1,0 +1,31 @@
+/* Field density changes control metrics, without adding wrapper spacing. */
+.jss-field.jss-dense {
+  --jss-field-input-height: calc(var(--jss-field-size-height, var(--jss-input-height-default, 32px)) - 6px);
+  padding: 0;
+  margin: 0;
+  gap: 4px;
+}
+
+.jss-field.jss-dense .jss-input {
+  margin-top: 6px;
+  padding-top: 3px;
+  padding-inline: 10px;
+}
+
+.jss-textarea-field.jss-dense .jss-textarea {
+  margin-top: 0;
+  padding: calc(var(--jss-field-label-size, 11px) + 3px) 10px 4px;
+  line-height: 1.2;
+}
+
+.jss-field.jss-dense .jss-float-label {
+  left: 10px;
+}
+
+.jss-field.jss-dense .jss-clear {
+  padding: 2px 4px;
+}
+
+.jss-field.jss-dense .jss-addon {
+  min-height: var(--jss-field-input-height);
+}

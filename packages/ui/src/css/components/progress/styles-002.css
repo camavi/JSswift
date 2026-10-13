@@ -1,0 +1,205 @@
+.jss-progress-wrap.jss-border {
+  border: 0;
+}
+
+.jss-progress-wrap.jss-glow,
+.jss-progress-wrap.jss-glow .jss-progress-header {
+  text-shadow: none;
+}
+
+:root[data-theme="dark"] .jss-progress-wrap.jss-glow .jss-progress-note {
+  color: color-mix(in srgb, var(--jss-text) 80%, var(--jss-bg));
+}
+
+:root[data-theme="dark"] .jss-progress-wrap.jss-state-light,
+:root[data-theme="dark"] .jss-progress-wrap .jss-progress-bar.jss-state-light {
+  --jss-progress-light: #e2e8f0;
+  --set-hover: #e2e8f0;
+  --set-border-color: #e2e8f0;
+  --set-background-color: #e2e8f0;
+  --set-color-2: #e2e8f0;
+  --set-color-3: #94a3b8;
+}
+
+.jss-progress-wrap.jss-text-gradient {
+  background: transparent;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-progress-wrap.jss-text-gradient :is(.jss-progress-label, .jss-progress-note, .jss-progress-value, .jss-progress-edge-label) {
+  width: fit-content;
+  max-width: 100%;
+  background-image: linear-gradient(110deg,
+    color-mix(in srgb, var(--set-hover, var(--jss-primary)) 85%, var(--jss-text)),
+    color-mix(in srgb, var(--set-hover, var(--jss-primary)) 20%, var(--jss-text)));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.jss-progress-wrap .jss-progress-bar.jss-border {
+  box-sizing: border-box;
+  border: 1px solid color-mix(in srgb, var(--set-hover, var(--jss-text)) 65%, var(--jss-text));
+}
+
+.jss-progress-wrap.jss-shadow .jss-progress {
+  overflow: visible;
+  box-shadow: none;
+}
+
+.jss-progress-wrap .jss-progress-bar.jss-shadow {
+  box-shadow: 0 2px 3px rgb(0 0 0 / 18%), 0 4px 7px rgb(0 0 0 / 16%);
+}
+
+:root[data-theme="dark"] .jss-progress-wrap .jss-progress-bar.jss-shadow {
+  box-shadow: 0 2px 3px rgb(0 0 0 / 35%), 0 4px 7px rgb(0 0 0 / 35%);
+}
+
+.jss-progress-header {
+  display: none;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.jss-progress-heading {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.jss-progress-label {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.jss-progress-label .jss-icon {
+  margin: 0;
+}
+
+.jss-progress-note {
+  display: none;
+  color: var(--jss-muted);
+  font-size: 0.9em;
+  line-height: 1.45;
+}
+
+.jss-progress-value {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  color: var(--jss-muted);
+  font-size: 0.88em;
+  line-height: 1.35;
+}
+
+.jss-progress-body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.jss-progress-edge-label {
+  display: none;
+  flex: 0 0 auto;
+  color: var(--jss-muted);
+  font-size: 0.82em;
+  line-height: 1.25;
+}
+
+.jss-progress {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: var(--jss-progress-height, 8px);
+  overflow: hidden;
+  border-radius: var(--jss-progress-radius, 999px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+
+.jss-progress-buffer,
+.jss-progress-bar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  max-width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  transition: width 220ms ease, transform 220ms ease;
+}
+
+.jss-progress-buffer {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.jss-progress-bar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--set-color, var(--jss-on-primary, #fff));
+}
+
+.jss-progress-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.28) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.28) 50%, rgba(255, 255, 255, 0.28) 75%, transparent 75%, transparent 100%);
+  background-size: 24px 24px;
+}
+
+.jss-progress-bar.is-striped::after,
+.jss-progress-wrap.is-indeterminate .jss-progress-bar::after {
+  opacity: 0.9;
+}
+
+.jss-progress-bar.is-animated::after,
+.jss-progress-wrap.is-indeterminate .jss-progress-bar::after {
+  animation: jss-progress-stripes 880ms linear infinite;
+}
+
+.jss-progress-bar-label {
+  position: relative;
+  z-index: 1;
+  display: none;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  min-width: 0;
+  padding: 0 10px;
+  font-size: 11px;
+  line-height: 1.2;
+  color: inherit;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.jss-progress-wrap.has-inside-label .jss-progress-bar-label {
+  display: inline-flex;
+}
+
+.jss-progress-wrap.is-reverse .jss-progress-buffer,
+.jss-progress-wrap.is-reverse .jss-progress-bar {
+  inset: 0 0 0 auto;
+}
+
+.jss-progress-wrap.is-indeterminate .jss-progress-bar {
+  width: 36%;
+  animation: jss-progress-indeterminate 1.35s ease-in-out infinite;
+}

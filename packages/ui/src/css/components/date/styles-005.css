@@ -1,0 +1,152 @@
+.has-time .jss-date-time {
+  border: 1px solid var(--jss-border-color);
+  border-radius: var(--jss-r-lg);
+  background: rgba(255, 255, 255, 0.025);
+  padding: var(--jss-date-month-padding);
+}
+
+.jss-date-months {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--jss-date-month-min), 1fr));
+  gap: var(--jss-date-panel-gap);
+}
+
+.jss-date-month {
+  border: 1px solid var(--jss-border-color);
+  border-radius: var(--jss-r-lg);
+  background: rgba(255, 255, 255, 0.025);
+  padding: var(--jss-date-month-padding);
+}
+
+.jss-date-month-title {
+  font-size: var(--jss-date-month-title-font);
+  font-weight: 700;
+  margin-bottom: calc(var(--jss-date-panel-gap) * 0.66);
+  text-transform: capitalize;
+}
+
+.jss-date-weekdays,
+.jss-date-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.jss-date-weekday {
+  text-align: center;
+  font-size: var(--jss-date-weekday-font);
+  color: var(--jss-muted);
+  text-transform: uppercase;
+  padding: 4px 0;
+}
+
+.jss-date-day {
+  position: relative;
+  min-height: var(--jss-date-day-height);
+  border: 1px solid transparent;
+  border-radius: var(--jss-date-day-radius);
+  background: transparent;
+  color: var(--jss-text);
+  font-size: var(--jss-date-day-font);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 140ms ease, background 140ms ease, color 140ms ease, opacity 140ms ease;
+}
+
+.jss-date-day:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.jss-date-day.is-outside {
+  opacity: 0.55;
+}
+
+.jss-date-day.is-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.jss-date-day.is-today {
+  border-color: rgba(79, 124, 255, 0.4);
+}
+
+.jss-date-day.is-in-range {
+  background: rgba(79, 124, 255, 0.14);
+}
+
+.jss-date-day.is-selected,
+.jss-date-day.is-range-start,
+.jss-date-day.is-range-end {
+  background: rgba(79, 124, 255, 0.28);
+  border-color: rgba(79, 124, 255, 0.5);
+}
+
+.jss-date-day-label {
+  line-height: 1;
+}
+
+.jss-date-day.has-point .jss-date-day-label {
+  transform: translateY(-2px);
+}
+
+.jss-date-day-point {
+  position: absolute;
+  right: var(--jss-date-day-point-right);
+  bottom: var(--jss-date-day-point-bottom);
+  font-size: 10px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jss-date-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--jss-date-panel-gap);
+  padding-top: var(--jss-date-panel-gap);
+  border-top: 1px solid var(--jss-border-color);
+  flex-wrap: wrap;
+}
+
+.jss-date-value {
+  font-size: 12px;
+  color: var(--jss-muted);
+  min-height: 18px;
+}
+
+.jss-date-footer-info {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--jss-date-panel-gap) * 0.66);
+  flex: 1;
+  min-width: min(260px, 100%);
+}
+
+.jss-date-footer.has-time {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: end;
+}
+
+.jss-date-footer.has-time .jss-date-footer-info {
+  min-width: 0;
+}
+
+.jss-date-footer.has-time .jss-date-value {
+  align-self: start;
+}
+
+.jss-date-footer.has-time .jss-time-section.is-embedded,
+.jss-date-footer.has-time .jss-date-actions {
+  justify-self: end;
+}
+
+.jss-date-actions {
+  display: flex;
+  gap: calc(var(--jss-date-panel-gap) * 0.66);
+  flex-wrap: wrap;
+}

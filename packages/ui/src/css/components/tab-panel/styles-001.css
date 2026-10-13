@@ -1,0 +1,96 @@
+.jss-tabpanel {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  border-style: solid;
+  border-width: 0;
+  border-radius: var(--jss-r-md);
+  --jss-tabpanel-accent: var(--jss-primary);
+}
+
+.jss-tabpanel.horizontal {
+  flex-direction: column;
+}
+
+.jss-tabpanel.vertical {
+  flex-direction: row;
+}
+
+.jss-tabpanel-nav {
+  display: flex;
+  gap: 6px;
+  padding: var(--jss-s-sm);
+  border: 1px solid var(--jss-border-color);
+  background-color: color-mix(in srgb, var(--jss-gray-500), transparent 80%);
+  flex-shrink: 0;
+  border-radius: var(--set-border-radius, var(--jss-b-radius-default, 2px));
+  min-width: 0;
+  overflow: auto;
+}
+
+.jss-tabpanel-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.jss-tabpanel.horizontal>.jss-tabpanel-nav {
+  background-color: color-mix(in srgb, var(--jss-gray-500), transparent 80%)
+}
+
+.jss-tabpanel.horizontal>.jss-tabpanel-nav,
+.jss-tabpanel.horizontal>.jss-tabpanel-tabs {
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+
+.jss-tabpanel.horizontal>.jss-tabpanel-nav>.jss-tabpanel-nav-btn {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.jss-tabpanel.horizontal>.jss-tabpanel-nav>.jss-tabpanel-nav-btn .jss-btn {
+  width: 100%;
+}
+
+.jss-tabpanel.horizontal.nav-fill>.jss-tabpanel-nav>.jss-tabpanel-nav-btn {
+  flex: 1 1 0;
+}
+
+.jss-tabpanel.vertical.nav-fill>.jss-tabpanel-nav>.jss-tabpanel-nav-btn {
+  flex: 0 0 auto;
+}
+
+.jss-tabpanel.horizontal>.jss-tabpanel-nav>.jss-tabpanel-nav-btn .tab-indicator {
+  height: 2px;
+  background-color: var(--jss-tabpanel-accent);
+  transform-origin: left center;
+  width: 100%;
+  opacity: 0;
+}
+
+.jss-tabpanel.vertical>.jss-tabpanel-nav>.jss-tabpanel-nav-btn {
+  display: flex;
+}
+
+.jss-tabpanel.vertical>.jss-tabpanel-nav>.jss-tabpanel-nav-btn .jss-btn {
+  width: 100%;
+}
+
+.jss-tabpanel.vertical>.jss-tabpanel-nav>.jss-tabpanel-nav-btn .tab-indicator {
+  width: 2px;
+  background-color: var(--jss-tabpanel-accent);
+  transform-origin: center top;
+  height: 100%;
+  opacity: 0;
+
+}
+
+.jss-tabpanel>.jss-tabpanel-nav>.jss-tabpanel-nav-btn.active .tab-indicator {
+  opacity: 1;
+  animation-fill-mode: forwards;
+}
+
+.jss-tabpanel.horizontal>.jss-tabpanel-nav>.jss-tabpanel-nav-btn.active .tab-indicator {
+  animation: nav-pos-x 360ms ease;
+}

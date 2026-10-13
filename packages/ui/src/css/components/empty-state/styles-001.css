@@ -1,0 +1,42 @@
+.jss-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--jss-empty-gap, 12px);
+  width: 100%;
+  min-width: 0;
+  padding: 28px 18px;
+  box-sizing: border-box;
+  position: relative;
+  isolation: isolate;
+  font-size: var(--jss-font-size, 14px);
+  overflow-wrap: anywhere;
+}
+.jss-empty-state.inline { padding: 20px 16px; }
+.jss-empty-state.compact { --jss-empty-gap: 8px; padding: 18px 14px; }
+.jss-empty-state-icon, .jss-empty-state-illustration {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  max-width: 100%;
+}
+.jss-empty-state-icon {
+  min-width: 64px;
+  min-height: 64px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+.jss-empty-state-illustration>img { max-width: 100%; height: auto; }
+.jss-empty-state-eyebrow { font-size: .8em; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.jss-empty-state-title { font-size: 1.4em; font-weight: 800; line-height: 1.15; }
+.jss-empty-state-message { font-weight: 600; line-height: 1.45; }
+.jss-empty-state-description, .jss-empty-state-meta, .jss-empty-state-extra { line-height: 1.45; }
+.jss-empty-state-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; max-width: 100%; }
+.jss-empty-state.jss-dense { --jss-empty-gap: 6px; padding: 12px; margin: 0; }
+.jss-empty-state.jss-dense .jss-empty-state-title { font-size: 1.15em; }
+.jss-empty-state.jss-dense .jss-empty-state-icon { min-width: 44px; min-height: 44px; padding: 4px; }
+.jss-empty-state.jss-dense .jss-btn { min-height: 28px; padding: 4px 10px; font-size: 12px; }

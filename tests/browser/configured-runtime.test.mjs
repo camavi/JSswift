@@ -15,14 +15,15 @@ test('selective application runtime renders styled controls and reactive fields 
   const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'jss-select-browser-'));
   try {
     const output = path.join(directory, 'runtime');
-    await buildConfiguredRuntime({ ui: { components: ['Button', 'Input', 'Table'], services: ['Dialog'], responsive: false } }, output);
+    await fs.writeFile(path.join(directory, 'app.js'), "_.Button({}); _.Input({}); _.Table({}); _.Dialog({});");
+    await buildConfiguredRuntime({ ui: { auto: ['app.js'], responsive: false } }, output, process.cwd(), directory);
     const runtime = await fs.readFile(path.join(output, 'runtime.js'), 'utf8');
     const html = `<!doctype html><link rel="stylesheet" href="./runtime/css/runtime.css"><div id="app"></div><script type="module">
       try {
         ${runtime}
         const model = _.rod('Initial');
         const input = _.Input({ label: 'Name', model });
-        const button = _.Button({ label: 'Save' });
+        const button = _.Button({ label: 'Save', icon: 'save' });
         const table = _.Table({ rows: [{ name: 'Visible row' }], columns: [{key:'name',label:'Name'}], pagination:false });
         _.mount('#app', _.div({}, input, button, table));
         model.value = 'Updated';
@@ -31,7 +32,7 @@ test('selective application runtime renders styled controls and reactive fields 
         const open = !!document.querySelector('.jss-dialog');
         dialog.close();
         setTimeout(() => {
-          document.body.dataset.result = JSON.stringify({ value: document.querySelector('input').value, button: button.tagName, table: !!table.querySelector('table'), text: table.textContent.includes('Visible row'), omitted: _.Select === undefined && _.Upload === undefined, styled: getComputedStyle(button).display !== 'inline', open, closed: !document.querySelector('.jss-dialog') });
+          document.body.dataset.result = JSON.stringify({ value: document.querySelector('input').value, button: button.tagName, table: !!table.querySelector('table'), text: table.textContent.includes('Visible row'), omitted: _.Select === undefined && _.Upload === undefined, styled: getComputedStyle(button).display !== 'inline', material: getComputedStyle(button.querySelector('.jss-icon')).fontFamily.includes('Material Symbols') && [...document.styleSheets].some(sheet => [...sheet.cssRules].some(rule => rule.type === CSSRule.FONT_FACE_RULE && rule.style.fontFamily.includes('Material Symbols'))), open, closed: !document.querySelector('.jss-dialog') });
         }, 500);
       } catch(error) { document.body.dataset.error = error.stack; }
     </script>`;
@@ -42,6 +43,6 @@ test('selective application runtime renders styled controls and reactive fields 
     const match = stdout.match(/data-result="([^"]*)"/);
     assert.ok(match, stdout.slice(-4000));
     const result = JSON.parse(match[1].replaceAll('&quot;', '"').replaceAll('&amp;', '&'));
-    assert.deepEqual(result, { value: 'Updated', button: 'BUTTON', table: true, text: true, omitted: true, styled: true, open: true, closed: true });
+    assert.deepEqual(result, { value: 'Updated', button: 'BUTTON', table: true, text: true, omitted: true, styled: true, material: true, open: true, closed: true });
   } finally { await fs.rm(directory, { recursive: true, force: true }); }
 });

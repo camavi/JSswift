@@ -1,0 +1,10 @@
+/* === SINGULARITY === */
+.jss-singularity {
+  background-color: var(--set-background-color);
+  background-image: var(--set-glossy-active, none), var(--set-gradient-active, none);
+  box-shadow: var(--set-shadow-active, 0 0 0 0), var(--set-glow-active, 0 0 0 0);
+  color: var(--set-color);
+  border-color: var(--set-border-color);
+  border-radius: var(--set-border-radius, var(--jss-b-radius-default, 2px));
+  transition: all 0.2s ease-in-out;
+}

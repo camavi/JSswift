@@ -1,0 +1,63 @@
+.jss-dialog.jss-singularity.jss-glow,
+.jss-menu-panel.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 4px 1px color-mix(in srgb, var(--jss-dialog-accent) 65%, transparent),
+    0 0 14px 2px color-mix(in srgb, var(--jss-dialog-accent) 42%, transparent);
+  box-shadow: var(--set-glow-active);
+  text-shadow: none;
+}
+
+.jss-dialog.jss-singularity.jss-glow:is(.dark, .jss-state-dark),
+.jss-menu-panel.jss-singularity.jss-glow:is(.dark, .jss-state-dark) {
+  --set-glow-active: 0 0 4px 1px rgba(15, 23, 42, 0.8),
+    0 0 14px 2px rgba(15, 23, 42, 0.55);
+}
+
+.jss-dialog.jss-singularity.jss-border,
+.jss-menu-panel.jss-singularity.jss-border {
+  border: var(--set-border-width, 1px) solid var(--jss-dialog-accent);
+}
+
+.jss-dialog.jss-singularity.jss-border:is(.light, .jss-state-light, .dark, .jss-state-dark),
+.jss-menu-panel.jss-singularity.jss-border:is(.light, .jss-state-light, .dark, .jss-state-dark) {
+  border-color: var(--jss-text);
+}
+
+.jss-dialog.jss-singularity.jss-shadow,
+.jss-menu-panel.jss-singularity.jss-shadow {
+  --set-shadow-active: 0 3px 8px rgba(0, 0, 0, 0.28), 0 18px 36px -6px rgba(0, 0, 0, 0.48);
+  box-shadow: var(--set-shadow-active);
+}
+
+:root[data-theme="dark"] .jss-dialog.jss-singularity.jss-shadow,
+:root[data-theme="dark"] .jss-menu-panel.jss-singularity.jss-shadow {
+  --set-shadow-active: 0 3px 8px rgba(0, 0, 0, 0.5), 0 18px 36px -6px rgba(0, 0, 0, 0.75);
+}
+
+.jss-dialog.jss-singularity.jss-light-shadow,
+.jss-menu-panel.jss-singularity.jss-light-shadow {
+  --set-shadow-active: inset 1px 1px 0 rgba(255, 255, 255, 0.65),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.12),
+    -2px -2px 5px rgba(255, 255, 255, 0.28),
+    6px 8px 20px -4px rgba(0, 0, 0, 0.32);
+  box-shadow: var(--set-shadow-active);
+}
+
+:root[data-theme="dark"] .jss-dialog.jss-singularity.jss-light-shadow,
+.jss-dialog.jss-singularity.jss-light-shadow:is(.dark, .jss-state-dark),
+:root[data-theme="dark"] .jss-menu-panel.jss-singularity.jss-light-shadow,
+.jss-menu-panel.jss-singularity.jss-light-shadow:is(.dark, .jss-state-dark) {
+  --set-shadow-active: inset 1px 1px 0 rgba(226, 232, 240, 0.4),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.5),
+    -3px -3px 9px -2px rgba(203, 213, 225, 0.22),
+    0 3px 6px rgba(0, 0, 0, 0.35),
+    9px 12px 28px -5px rgba(0, 0, 0, 0.8);
+  border-color: color-mix(in srgb, var(--jss-dialog-accent) 30%, var(--jss-border-color));
+}
+
+.jss-dialog.jss-singularity.jss-flat,
+.jss-menu-panel.jss-singularity.jss-flat {
+  background: var(--set-background-color, var(--jss-bg));
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+}

@@ -1,0 +1,13 @@
+.jss-state-danger,
+.jss-state-danger>.jss-control {
+  --set-border-color: var(--jss-danger-hover);
+  --set-color: var(--jss-danger-text);
+  --set-background-color: var(--jss-danger);
+  --set-shadow: 0 3px 6px color-mix(in srgb, var(--jss-danger-950) 40%, transparent);
+  --set-hover: var(--jss-danger-hover);
+  --set-color-0: var(--jss-danger-50);
+  --set-color-1: var(--jss-danger-100);
+  --set-color-2: var(--jss-danger-400);
+  --set-color-3: var(--jss-danger-700);
+  --set-color-4: var(--jss-danger-900);
+}

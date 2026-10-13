@@ -6,6 +6,7 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
 {
   "signature": "_.Table(props)",
   "props": {
+    "scrollLabel": {"type":"string","description":"Accessible name of the keyboard-focusable horizontal scrolling region.","default":"Tabella, scorrimento orizzontale","values":null,"category":"accessibility"},
     "columns": {"type": "Array<{ key, label?, sortable?, get?, value?, render?, format?, width?, minWidth?, maxWidth?, align?, compare?, style?, headerStyle?, thStyle?, cellStyle?, tdStyle?, cellClass?, headerClass?, nowrap?, searchable? }>", "description": "Column definitions for table-like components.", "default": null, "values": null, "category": "data"},
     "rows": {"type": "Array|() => Array", "description": "Row data array for table-like components.", "default": null, "values": null, "category": "data"},
     "rowKey": {"type": "string|((row)=>string)", "description": "Key or function used to derive unique row IDs.", "default": null, "values": null, "category": "general"},
@@ -138,3 +139,5 @@ Use `embedded:true` when an enclosing application surface owns the border and sp
 Semantic colors accent the column headings and interactive states while the data surface keeps readable theme text. `light` and `dark` retain their surface identity in either theme. Radius uses the shared default or explicit `radius`/`borderRadius`. Border, shadow and glow are opt-in; Dense reduces cell and control spacing.
 
 With `pagination: false`, all matching rows render and page navigation/page-size controls are hidden. The footer count and custom footer remain available unless `hideFooter: true`. Search results include the original dataset count only when filtering changes the result count.
+
+The inner scrolling region is named and keyboard-focusable. Focus it and use horizontal arrow keys to read wide tables; scrollLabel customizes its accessible name. Verify actual scrolling at narrow viewports.

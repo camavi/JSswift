@@ -1,6 +1,6 @@
 {
   "name": "jsswift",
-  "version": "2.1.1",
+  "version": "2.2.0-split.3",
   "description": "Umbrella package for JSswift core + UI",
   "license": "MIT",
   "repository": {
@@ -44,6 +44,10 @@
     "./build": {
       "types": "./dist/build/build-configured-runtime.d.mts",
       "import": "./dist/build/build-configured-runtime.mjs"
+    },
+    "./icons": {
+      "types": "./dist/icons.d.ts",
+      "import": "./dist/icons.js"
     }
   },
   "files": [

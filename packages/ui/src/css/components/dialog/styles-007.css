@@ -1,0 +1,13 @@
+.jss-dialog:is(.dark, .jss-state-dark) .jss-dialog-icon {
+  color: var(--jss-text);
+}
+
+.jss-dialog:is(.dark, .jss-state-dark) .jss-dialog-close.jss-btn {
+  color: var(--jss-text);
+  border-color: var(--jss-border-color);
+  background: transparent;
+}
+
+.jss-dialog:is(.dark, .jss-state-dark) .jss-dialog-actions .jss-btn.jss-flat {
+  color: var(--jss-text);
+}

@@ -1,0 +1,326 @@
+.jss-upload {
+  width: 100%;
+  font-family: var(--jss-font);
+  color: var(--jss-text);
+  border: 1px solid var(--jss-border-color);
+  border-radius: var(--jss-b-radius-default);
+  background: var(--jss-panel);
+  overflow: hidden;
+  box-sizing: border-box;
+  container-type: inline-size;
+}
+
+.jss-upload-input {
+  display: none;
+}
+
+.jss-upload-dropzone {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 180px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.jss-upload-box .jss-upload-dropzone {
+  min-height: 220px;
+  align-items: stretch;
+  justify-content: center;
+  border: 1px dashed color-mix(in srgb, var(--jss-border-color) 80%, var(--jss-text));
+  border-radius: var(--jss-r-lg, 8px);
+  margin: 12px;
+  background: color-mix(in srgb, var(--jss-panel) 92%, var(--jss-primary-100, #dbeafe));
+}
+
+.jss-upload.is-dragging .jss-upload-dropzone,
+.jss-upload-dropzone:focus-within {
+  border-color: rgba(79, 124, 255, 0.8);
+  box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.16);
+  background: color-mix(in srgb, var(--jss-panel) 84%, var(--jss-primary-100, #dbeafe));
+}
+
+.jss-upload.is-disabled {
+  opacity: 0.62;
+  pointer-events: none;
+}
+
+.jss-upload-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+@container (min-width: 720px) {
+  .jss-upload-head {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+}
+
+.jss-upload-icon {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--jss-r-md, 6px);
+  background: color-mix(in srgb, var(--jss-primary-500, #3b82f6) 12%, transparent);
+  color: var(--jss-primary, var(--jss-primary-600, #3c78f7));
+  flex: 0 0 auto;
+}
+
+.jss-upload-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.jss-upload-title {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.jss-upload-subtitle {
+  color: var(--jss-muted);
+  font-size: 12px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.jss-upload-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+@container (min-width: 720px) {
+  .jss-upload-actions {
+    grid-column: auto;
+    justify-content: flex-end;
+  }
+}
+
+.jss-upload-actions .jss-btn,
+.jss-upload-file-actions .jss-btn {
+  flex: 0 0 auto;
+  min-width: max-content;
+  white-space: nowrap;
+}
+
+.jss-upload-summary {
+  color: var(--jss-muted);
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.jss-upload-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: var(--jss-upload-list-max-height, 320px);
+  overflow: auto;
+}
+
+.jss-upload-empty {
+  padding: 16px 12px;
+  color: var(--jss-muted);
+  font-size: 13px;
+  text-align: center;
+  border: 1px dashed var(--jss-border-color);
+  border-radius: var(--jss-r-md, 6px);
+}
+
+.jss-upload-file-wrap {
+  min-width: 0;
+}
+
+.jss-upload-file {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border: 1px solid var(--jss-border-color);
+  border-radius: var(--jss-r-md, 6px);
+  background: color-mix(in srgb, var(--jss-panel) 86%, var(--jss-surface));
+}
+
+.jss-upload-file.is-done {
+  border-color: color-mix(in srgb, var(--jss-success) 50%, var(--jss-border-color));
+}
+
+.jss-upload-file.is-error,
+.jss-upload-file.is-rejected {
+  border-color: color-mix(in srgb, var(--jss-danger) 55%, var(--jss-border-color));
+}
+
+.jss-upload-file-icon {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--jss-r-sm, 4px);
+  color: var(--jss-muted);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.jss-upload-file.is-done .jss-upload-file-icon {
+  color: var(--jss-success);
+}
+
+.jss-upload-file.is-error .jss-upload-file-icon,
+.jss-upload-file.is-rejected .jss-upload-file-icon {
+  color: var(--jss-danger);
+}
+
+.jss-upload-file-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.jss-upload-file-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(74px, auto);
+  min-width: 0;
+  align-items: center;
+  gap: 14px;
+}
+
+.jss-upload-file-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.jss-upload-file-size,
+.jss-upload-file-meta {
+  color: var(--jss-muted);
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.jss-upload-file-size {
+  min-width: 68px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.jss-upload-file-meta {
+  overflow-wrap: anywhere;
+}
+
+.jss-upload-progress {
+  width: 100%;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.jss-upload-progress-bar {
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: var(--jss-primary, var(--jss-primary-600, #3c78f7));
+  transition: width 160ms ease;
+}
+
+.jss-upload-file.is-done .jss-upload-progress-bar {
+  background: var(--jss-success);
+}
+
+.jss-upload-file.is-error .jss-upload-progress-bar,
+.jss-upload-file.is-rejected .jss-upload-progress-bar {
+  background: var(--jss-danger);
+}
+
+.jss-upload-file-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 6px;
+}
+
+.jss-upload-file-trailing {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  min-width: 112px;
+}
+
+.jss-upload-file-actions .jss-btn {
+  width: 34px;
+  min-width: 34px;
+  height: 34px;
+  padding: 0;
+  justify-content: center;
+}
+
+.jss-upload.is-compact .jss-upload-dropzone {
+  min-height: 0;
+  padding: 10px;
+}
+
+.jss-upload.is-compact .jss-upload-head {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.jss-upload.is-compact .jss-upload-icon,
+.jss-upload.is-compact .jss-upload-subtitle,
+.jss-upload.is-compact .jss-upload-summary {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .jss-upload-head {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .jss-upload-icon {
+    display: none;
+  }
+
+  .jss-upload-actions,
+  .jss-upload-file-actions {
+    justify-content: flex-start;
+  }
+}
+
+@container (max-width: 520px) {
+  .jss-upload-head {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .jss-upload-icon {
+    display: none;
+  }
+
+  .jss-upload-copy,
+  .jss-upload-actions,
+  .jss-upload-file-actions {
+    grid-column: auto;
+  }
+
+  .jss-upload-actions,
+  .jss-upload-file-actions {
+    justify-content: flex-start;
+  }
+}

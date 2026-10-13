@@ -1,0 +1,20 @@
+/* Outline indicators sit on the theme surface, not on a filled marker. */
+.jss-checkbox-wrap.jss-outline,
+.jss-radio-wrap.jss-outline {
+  --jss-choice-outline-color: var(--set-hover, var(--jss-text));
+}
+
+.jss-checkbox-wrap.jss-outline:is(.jss-state-secondary, .jss-state-light, .jss-state-dark),
+.jss-radio-wrap.jss-outline:is(.jss-state-secondary, .jss-state-light, .jss-state-dark) {
+  --jss-choice-outline-color: var(--jss-text);
+}
+
+.jss-checkbox-wrap.jss-outline > .jss-choice-checkbox-mark,
+.jss-radio-wrap.jss-outline > .jss-choice-radio-mark {
+  border-color: var(--jss-choice-outline-color);
+}
+
+.jss-singularity-check.jss-checkbox-wrap.jss-outline:is(.is-checked, .is-indeterminate) > .jss-choice-checkbox-mark .jss-icon,
+.jss-singularity-check.jss-choice-wrap.jss-radio-wrap.jss-outline > .jss-choice-radio-mark .jss-icon {
+  color: var(--jss-choice-outline-color);
+}

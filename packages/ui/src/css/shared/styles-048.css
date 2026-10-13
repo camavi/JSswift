@@ -1,0 +1,5 @@
+.jss-glass.jss-singularity-check .jss-choice-mark {
+  --set-background-color: color-mix(in srgb, var(--set-background-color) 40%, transparent);
+  border-color: color-mix(in srgb, var(--set-border-color) 80%, transparent);
+  --set-color: var(--set-border-color);
+}

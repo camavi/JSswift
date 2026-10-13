@@ -1,0 +1,42 @@
+/* Light effects remain visibly neutral on both theme surfaces. */
+.jss-card:not(.jss-table-card).jss-state-light:is(.jss-outline, .jss-text-gradient) {
+  --set-border-color: #cbd5e1;
+  border-color: var(--set-border-color);
+}
+.jss-card:not(.jss-table-card).jss-state-light.jss-text-gradient {
+  --set-color-2: #64748b;
+  --set-color-3: #94a3b8;
+}
+:root[data-theme="dark"] .jss-card:not(.jss-table-card).jss-state-light.jss-text-gradient {
+  --set-color-2: #f8fafc;
+  --set-color-3: #cbd5e1;
+}
+.jss-card.jss-text-gradient .jss-btn:not(.jss-text-gradient) {
+  -webkit-text-fill-color: currentColor;
+}
+
+/* Light Glass keeps a pale surface, including on the dark theme. */
+.jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-light,
+:root[data-theme="dark"] .jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-light {
+  --set-color: #1f2937;
+  --set-border-color: #cbd5e1;
+  color: #1f2937;
+  background-color: rgb(241 245 249 / 28%);
+}
+.jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-light::before,
+:root[data-theme="dark"] .jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-light::before {
+  --set-sec-color: rgb(241 245 249 / 8%);
+  --set-color-1: #ffffff;
+  --set-color-2: #e2e8f0;
+  --set-color-3: #cbd5e1;
+  opacity: .45;
+  filter: none;
+}
+.jss-card.jss-glass.jss-state-light :is(.jss-card-eyebrow, .jss-card-subtitle, .jss-card-header-content) {
+  color: inherit;
+}
+
+:root[data-theme="dark"] .jss-card:not(.jss-table-card).jss-singularity.jss-glass.jss-state-light {
+  --set-color: #f1f5f9;
+  color: #f1f5f9;
+}

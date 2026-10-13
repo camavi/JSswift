@@ -1,0 +1,38 @@
+.jss-light-shadow {
+  --set-shadow-active: inset 2px 1px 4px 0 color-mix(in srgb, var(--set-color-1) 50%, var(--jss-theme-color-1)), -4px -4px 12px color-mix(in srgb, var(--set-color-2) 10%, var(--jss-theme-color-1)), 4px 4px 12px color-mix(in srgb, var(--set-color-4) 60%, var(--jss-theme-color-1));
+}
+
+.jss-outline.jss-light-shadow {
+  --set-border-color: var(--set-color-1) var(--set-color-2) var(--set-color-2) var(--set-color-1);
+}
+
+.jss-clickable {
+  cursor: pointer;
+}
+
+.jss-clickable:hover {
+  --set-background-color: color-mix(in srgb, var(--set-hover) 40%, transparent);
+}
+
+.jss-clickable.jss-gradient:hover {
+  --set-gradient-active: linear-gradient(var(--set-gradient-deg), color-mix(in srgb, var(--set-color-2) 85%, white), color-mix(in srgb, var(--set-color-3) 85%, white));
+}
+
+.jss-clickable.jss-glass:hover {
+  --set-background-color: color-mix(in srgb, var(--set-background-color) 40%, transparent);
+  --set-color: var(--set-border-color);
+}
+
+.jss-clickable.jss-glass:hover::before {
+  background-position: 50% 20%, 50% 90%, 50% 100%;
+}
+
+.jss-clickable.jss-outline:hover {
+  --set-background-color: color-mix(in srgb, var(--set-hover) 8%, transparent);
+  --set-color: var(--set-hover);
+  outline: solid 1px color-mix(in srgb, var(--set-hover) 30%, transparent);
+}
+
+.jss-clickable.jss-text-gradient:hover {
+  --set-gradient-active: linear-gradient(var(--set-gradient-deg), color-mix(in srgb, var(--set-color-2) 85%, white), color-mix(in srgb, var(--set-color-3) 85%, white));
+}

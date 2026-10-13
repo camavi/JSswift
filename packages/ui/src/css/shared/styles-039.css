@@ -1,0 +1,25 @@
+.jss-border {
+  border-width: var(--set-border-width);
+}
+
+.jss-glossy {
+  --set-glossy-active: linear-gradient(to bottom, color-mix(in srgb, var(--set-color-1) 20%, transparent) 0%, color-mix(in srgb, var(--set-color-1) 30%, transparent) 50%, color-mix(in srgb, var(--set-color-2) 30%, transparent) 51%, color-mix(in srgb, var(--set-color-4) 60%, transparent) 100%);
+  background-size: 100% 110%;
+  background-position: 0 -1px;
+}
+
+.jss-glow {
+  --set-sc-inset: inset 0 0 5px 0 color-mix(in srgb, var(--set-color-2) 70%, var(--jss-theme-color-1));
+  --set-sc-borde: 0 0 1px 1px color-mix(in srgb, var(--set-border-color) 50%, transparent), 0 0 3px 3px color-mix(in srgb, var(--set-color-2) 50%, transparent);
+  --set-glow-active: var(--set-sc-inset), var(--set-sc-borde), 0 0 15px 2px var(--set-color-2);
+  text-shadow: 0 0 3px color-mix(in srgb, var(--set-color-1) 70%, transparent);
+}
+
+
+.jss-singularity.jss-glass,
+.jss-singularity-field.jss-glass>.jss-control {
+  position: relative;
+  backdrop-filter: blur(1px);
+  --set-background-color: color-mix(in srgb, var(--set-background-color) 40%, transparent);
+  --set-color: var(--jss-theme-color-6);
+}

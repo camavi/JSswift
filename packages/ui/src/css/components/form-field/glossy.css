@@ -1,0 +1,38 @@
+/* Shared field Glossy: a distinct upper reflection on the control surface. */
+.jss-singularity-field.jss-glossy>.jss-control {
+  --set-glossy-active: linear-gradient(180deg,
+    color-mix(in srgb, var(--jss-gradient-surface) 85%, transparent) 0%,
+    color-mix(in srgb, var(--jss-gradient-surface) 50%, transparent) 48%,
+    transparent 50%, color-mix(in srgb, var(--set-color-3) 10%, transparent) 100%);
+  background-image: var(--set-glossy-active), var(--set-gradient-active, none);
+  background-size: 100% 100%;
+}
+
+.jss-singularity-field.jss-glossy:not(.jss-outline)>.jss-control {
+  background-color: color-mix(in srgb, var(--jss-gradient-surface) 75%, var(--set-color-2));
+}
+
+:root[data-theme="dark"] .jss-singularity-field.jss-glossy>.jss-control {
+  --set-glossy-active: linear-gradient(180deg,
+    color-mix(in srgb, var(--jss-gradient-surface) 22%, transparent) 0%,
+    color-mix(in srgb, var(--jss-gradient-surface) 8%, transparent) 48%,
+    transparent 50%, color-mix(in srgb, var(--set-color-2) 12%, transparent) 100%);
+}
+
+:root[data-theme="dark"] .jss-singularity-field.jss-glossy:not(.jss-outline)>.jss-control {
+  background-color: color-mix(in srgb, var(--jss-panel) 88%, var(--set-color-2));
+}
+
+.jss-singularity-field.jss-glossy>.jss-control>.jss-mid,
+.jss-singularity-field.jss-glossy>.jss-control>.jss-mid input,
+.jss-singularity-field.jss-glossy>.jss-control>.jss-mid textarea,
+.jss-singularity-field.jss-glossy>.jss-control>.jss-mid>.jss-select>.jss-select-control,
+.jss-singularity-field.jss-glossy>.jss-control>.jss-clear {
+  --set-color: color-mix(in srgb, var(--jss-text) 88%, var(--set-color-2));
+  color: var(--set-color);
+  caret-color: var(--jss-text);
+}
+
+.jss-singularity-field.jss-glossy>.jss-control>.jss-mid>.jss-float-label {
+  color: color-mix(in srgb, var(--jss-text-2) 88%, var(--set-color-2));
+}

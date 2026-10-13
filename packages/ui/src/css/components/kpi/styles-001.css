@@ -1,0 +1,11 @@
+.jss-kpi {
+  gap: var(--jss-s-lg);
+  padding: 18px 18px 16px;
+}
+
+.jss-kpi-value-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}

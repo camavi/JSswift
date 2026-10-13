@@ -1,0 +1,5 @@
+.jss-singularity.jss-glass:not(.jss-dialog, .jss-card) .jss-btn,
+.jss-singularity-field.jss-glass>.jss-control .jss-btn {
+  color: var(--jss-theme-color-6);
+  border-color: var(--jss-theme-color-6);
+}

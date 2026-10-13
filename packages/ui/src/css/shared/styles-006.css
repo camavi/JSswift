@@ -1,0 +1,17 @@
+.jss-shortcode {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.75em;
+  padding: 0.2em 0.55em;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--jss-border-color) 85%, transparent);
+  background: color-mix(in srgb, var(--jss-panel) 88%, transparent);
+  color: color-mix(in srgb, var(--jss-text) 82%, var(--jss-muted) 18%);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  white-space: nowrap;
+  box-sizing: border-box;
+}

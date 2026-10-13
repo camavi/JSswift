@@ -1,0 +1,16 @@
+.jss-dialog.jss-singularity.jss-outline,
+.jss-menu-panel.jss-singularity.jss-outline {
+  --set-background-color: var(--jss-bg);
+  --set-text-color: var(--jss-text);
+  --set-color: var(--jss-text);
+  background: var(--jss-bg);
+  color: var(--jss-text);
+  border: 1px solid var(--jss-dialog-accent);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.jss-dialog.jss-outline:is(.light, .jss-state-light, .dark, .jss-state-dark),
+.jss-menu-panel.jss-outline:is(.light, .jss-state-light, .dark, .jss-state-dark) {
+  border-color: var(--jss-text);
+}

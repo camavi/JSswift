@@ -1,0 +1,20 @@
+.jss-singularity-check .jss-choice-mark {
+  background-color: var(--set-background-color);
+  background-image: var(--set-glossy-active, none), var(--set-gradient-active, none);
+  box-shadow: var(--set-shadow-active, 0 0 0 0), var(--set-glow-active, 0 0 0 0);
+  color: var(--set-color);
+  border-color: var(--set-border-color);
+  transition: all 0.2s ease-in-out;
+}
+
+.jss-checkbox-wrap.jss-glow > .jss-choice-checkbox-mark,
+.jss-radio-wrap.jss-glow > .jss-choice-radio-mark {
+  --set-glow-active: 0 0 4px 1px color-mix(in srgb, var(--set-color-2) 46%, transparent),
+    0 0 10px 2px color-mix(in srgb, var(--set-color-2) 30%, transparent);
+}
+
+:root[data-theme="dark"] .jss-checkbox-wrap.jss-glow > .jss-choice-checkbox-mark,
+:root[data-theme="dark"] .jss-radio-wrap.jss-glow > .jss-choice-radio-mark {
+  --set-glow-active: 0 0 4px 1px color-mix(in srgb, var(--set-color-2) 50%, transparent),
+    0 0 11px 2px color-mix(in srgb, var(--set-color-2) 34%, transparent);
+}

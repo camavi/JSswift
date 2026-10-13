@@ -1,0 +1,239 @@
+.jss-table-card .jss-card-body,
+.jss-table-shell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--jss-s-md);
+}
+
+.jss-table-lead,
+.jss-table-caption {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.jss-table-caption {
+  color: var(--jss-muted);
+  font-size: 13px;
+}
+
+.jss-table-toolbar,
+.jss-table-status,
+.jss-table-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--jss-s-md);
+  flex-wrap: wrap;
+}
+
+.jss-table-toolbar-main,
+.jss-table-toolbar-side,
+.jss-table-foot-main,
+.jss-table-foot-extra,
+.jss-table-pager {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.jss-table-wrap,
+.jss-table-search,
+.jss-table-chip {
+  --set-border-color: color-mix(in srgb, var(--jss-border-color) 85%, rgba(255, 255, 255, 0.04));
+  --set-background-color: color-mix(in srgb, var(--jss-panel) 92%, transparent);
+  --set-color: var(--jss-text);
+  --set-hover: color-mix(in srgb, var(--jss-panel) 78%, white 8%);
+
+  --set-shadow-active: inset 0 1px 0 color-mix(in srgb, white 5%, transparent);
+}
+
+.jss-table-wrap {
+  --set-glossy-active: linear-gradient(180deg, color-mix(in srgb, white 3%, transparent), color-mix(in srgb, black 6%, transparent));
+}
+
+.jss-table-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: min(100%, 320px);
+  padding: 4px 4px 4px 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: var(--set-border-radius, calc(var(--jss-r-lg) + 2px));
+}
+
+.jss-table-search-icon {
+  color: var(--jss-muted);
+  font-size: 13px;
+}
+
+.jss-table-search .jss-input {
+  min-width: 220px;
+  width: 100%;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.jss-table-search-clear {
+  min-width: auto;
+}
+
+.jss-table-wrap {
+  overflow: auto;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--set-border-color);
+  border-radius: var(--set-border-radius, calc(var(--jss-r-lg) + 2px));
+}
+
+.jss-table {
+  width: 100%;
+  min-width: var(--jss-table-min-width, 100%);
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+}
+
+.jss-table th,
+.jss-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  text-align: left;
+  vertical-align: middle;
+  white-space: normal;
+}
+
+.jss-table.dense th,
+.jss-table.dense td {
+  padding: 10px 12px;
+}
+
+.jss-table th.is-nowrap,
+.jss-table td.is-nowrap,
+.jss-table-head-actions,
+.jss-table-cell-actions {
+  white-space: nowrap;
+}
+
+.jss-table thead th {
+  background: var(--set-color-1);
+  font-weight: 700;
+}
+
+.jss-table.sticky-head thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  backdrop-filter: blur(12px);
+}
+
+.jss-table.striped tbody tr:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.jss-table.hover tbody tr:hover {
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.jss-table-row.is-clickable {
+  cursor: pointer;
+}
+
+.jss-table-head-cell {
+  user-select: none;
+}
+
+.jss-table-head-button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  cursor: pointer;
+  color: inherit;
+}
+
+.jss-table-head-label {
+  min-width: 0;
+}
+
+.jss-table-head-arrow {
+  opacity: 0.62;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.jss-table-head-cell.is-sorted .jss-table-head-arrow,
+.jss-table-head-button:hover .jss-table-head-arrow {
+  opacity: 1;
+}
+
+.jss-table-state {
+  padding: 28px 16px !important;
+  text-align: center;
+  color: var(--jss-muted);
+}
+
+.jss-table-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 999px;
+  color: var(--jss-muted);
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.jss-table-size {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--jss-muted);
+  font-size: 12px;
+}
+
+.jss-table-size-select {
+  min-width: 86px;
+}
+
+.jss-table-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+
+  .jss-table-toolbar,
+  .jss-table-foot {
+    align-items: stretch;
+  }
+
+  .jss-table-toolbar-main,
+  .jss-table-toolbar-side,
+  .jss-table-foot-main,
+  .jss-table-foot-extra,
+  .jss-table-status,
+  .jss-table-search {
+    width: 100%;
+  }
+
+  .jss-table-search .jss-input {
+    min-width: 0;
+  }
+
+  .jss-table th,
+  .jss-table td {
+    padding: 12px;
+  }
+}

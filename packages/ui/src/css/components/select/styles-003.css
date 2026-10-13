@@ -1,0 +1,18 @@
+.jss-singularity-menu-select {
+  box-shadow: var(--set-shadow-active, 0 0 0 0), var(--set-glow-active, 0 0 0 0);
+  color: var(--set-color);
+  border-color: var(--set-border-color);
+  border-radius: var(--set-border-radius, var(--jss-b-radius-default, 2px));
+  background-color: color-mix(in srgb, var(--set-background-color) 4%, var(--jss-panel));
+  box-shadow: var(--set-shadow-active, 0 0 0 0), var(--set-glow-active, 0 0 0 0);
+}
+
+.jss-gradient.jss-singularity-menu-select.jss-select-menu-fill {
+  background-image: linear-gradient(var(--set-gradient-deg), color-mix(in srgb, var(--set-color-2) 15%, transparent), color-mix(in srgb, var(--set-color-2) 40%, transparent));
+}
+
+.jss-glass.jss-singularity-menu-select {
+  backdrop-filter: blur(1px);
+  --set-background-color: color-mix(in srgb, var(--set-background-color) 40%, transparent);
+  --set-color: var(--set-border-color);
+}

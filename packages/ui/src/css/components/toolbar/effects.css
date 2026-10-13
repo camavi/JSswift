@@ -1,0 +1,63 @@
+/* Toolbar keeps its composition while using the same surface contract. */
+.jss-toolbar.jss-panel.jss-singularity {
+  border-radius: var(--set-border-radius, var(--jss-b-radius-default, 2px));
+}
+
+.jss-toolbar.jss-panel.jss-singularity:not(.jss-light-shadow) {
+  background-image: var(--set-glossy-active, none), var(--set-gradient-active, none);
+}
+
+.jss-toolbar.jss-singularity .jss-btn:not([class*="jss-state-"]) {
+  color: inherit;
+}
+
+/* Common props emit jss-dense; tighten the complete toolbar composition. */
+.jss-toolbar.jss-panel.jss-dense {
+  padding: 8px 12px;
+  --jss-toolbar-gap: 8px;
+}
+.jss-toolbar.jss-dense .jss-toolbar-copy { gap: 2px; }
+.jss-toolbar.jss-dense .jss-toolbar-heading { gap: 8px; }
+.jss-toolbar.jss-dense .jss-toolbar-title { font-size: 16px; }
+.jss-toolbar.jss-dense .jss-toolbar-eyebrow { font-size: 10px; }
+.jss-toolbar.jss-dense :is(.jss-toolbar-actions, .jss-toolbar-end) { gap: 6px; }
+/* Uncolored actions borrow the toolbar foreground, with a visible button surface. */
+.jss-toolbar.jss-singularity .jss-btn:not([class*="jss-state-"]) {
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none;
+}
+.jss-toolbar.jss-singularity .jss-btn:not([class*="jss-state-"]):hover {
+  background: color-mix(in srgb, currentColor 23%, transparent);
+}
+.jss-toolbar.jss-dense .jss-btn { min-height: 28px; padding: 4px 10px; font-size: 12px; }
+
+/* Light Outline sits on the dark page, so it needs a light foreground/contour. */
+:root[data-theme="dark"] .jss-toolbar.jss-singularity.jss-outline.jss-state-light {
+  --set-color: var(--jss-text);
+  --set-border-color: #cbd5e1;
+  color: var(--jss-text);
+  border: 1px solid var(--set-border-color);
+}
+
+
+.jss-toolbar.jss-panel.jss-singularity { box-sizing: border-box; padding: 12px 16px; }
+.jss-toolbar.jss-panel.jss-dense { padding: 8px 12px; margin: 0; }
+.jss-toolbar-title { font-size: 18px; overflow-wrap: anywhere; }
+.jss-toolbar-copy { overflow-wrap: anywhere; }
+.jss-toolbar.jss-dense .jss-toolbar-copy { gap: 2px; }
+.jss-toolbar.jss-singularity.jss-glass.jss-state-light { --set-color: #1f2937; color: #1f2937; background-color: rgb(241 245 249 / 70%); }
+.jss-toolbar.jss-glass.jss-state-light::before { --set-sec-color: rgb(241 245 249 / 50%); --set-color-1: #fff; --set-color-2: #e2e8f0; --set-color-3: #cbd5e1; }
+.jss-toolbar.jss-singularity.jss-glass.jss-state-dark { --set-color: #f1f5f9; color: #f1f5f9; background-color: rgb(15 23 42 / 65%); }
+.jss-toolbar.jss-glass.jss-state-dark::before { filter: brightness(.6); opacity: .5; }
+.jss-toolbar.jss-panel.sticky { position: sticky; }
+.jss-toolbar.jss-panel.divider:not(.jss-outline):not(.jss-border) { border-bottom: 1px solid color-mix(in srgb,currentColor 16%,transparent); }
+@media(max-width:600px) { .jss-toolbar-main { align-items: flex-start; } }
+
+:root[data-theme="dark"] .jss-toolbar.jss-panel.jss-singularity.jss-outline.jss-state-light:is(.jss-glass,.jss-text-gradient) {
+  --set-color: #1f2937; color: #1f2937;
+}
+
+.jss-toolbar.jss-panel.jss-singularity.jss-text-gradient { background-image: none; }

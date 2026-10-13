@@ -1,0 +1,233 @@
+.jss-date-panel {
+  --jss-date-panel-min-width: min(calc(var(--time-width) + 280px), calc(100vw - 24px));
+  --jss-date-panel-max-width: min(calc(var(--time-width) + 680px), calc(100vw - 24px));
+  --jss-date-panel-padding: 8px;
+  --jss-date-panel-gap: 8px;
+  --jss-date-nav-size: 28px;
+  --jss-date-select-height: 28px;
+  --jss-date-action-height: 28px;
+  --jss-date-action-pad-x: 8px;
+  --jss-date-month-min: 230px;
+  --jss-date-month-padding: 8px;
+  --jss-date-month-title-font: 11px;
+  --jss-date-weekday-font: 9px;
+  --jss-date-day-height: 28px;
+  --jss-date-day-radius: 8px;
+  --jss-date-day-font: 11px;
+  --jss-date-day-point-right: 3px;
+  --jss-date-day-point-bottom: 2px;
+  min-width: var(--jss-date-panel-min-width);
+  max-width: var(--jss-date-panel-max-width);
+  padding: var(--jss-date-panel-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--jss-date-panel-gap);
+  color: var(--jss-text);
+}
+
+.jss-date-panel-root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--jss-date-panel-gap);
+}
+
+.jss-date-overlay {
+  background: color-mix(in srgb, var(--jss-panel) 94%, var(--jss-date-accent, var(--jss-primary)));
+  color: var(--jss-text);
+  border: 1px solid color-mix(in srgb, var(--jss-date-accent, var(--jss-primary)) 35%, var(--jss-border-color));
+}
+
+:root:not([data-theme="dark"]) .jss-date-overlay.jss-date-uncolored {
+  background: var(--jss-bg);
+}
+
+.jss-date-overlay .jss-date-day:is(.is-selected, .is-range-start, .is-range-end),
+.jss-date-overlay .jss-date-action.is-primary {
+  background: color-mix(in srgb, var(--jss-date-accent, var(--jss-primary)) 25%, var(--jss-panel));
+  border-color: var(--jss-date-accent, var(--jss-primary));
+  color: var(--jss-text);
+}
+
+.jss-date-overlay .jss-date-day:not(:disabled):not(.is-disabled):hover,
+.jss-date-overlay .jss-date-day.is-in-range {
+  background: color-mix(in srgb, var(--jss-date-accent, var(--jss-primary)) 14%, var(--jss-panel));
+  color: var(--jss-text);
+}
+
+.jss-date-overlay .jss-date-day.is-today {
+  border-color: var(--jss-date-accent, var(--jss-primary));
+}
+
+.jss-date-panel.multi-month {
+  --jss-date-panel-min-width: min(calc(var(--time-width) + 540px), calc(100vw - 24px));
+}
+
+.jss-date-panel.jss-size-xs {
+  --jss-date-panel-min-width: min(calc(var(--time-width) + 180px), calc(100vw - 24px));
+  --jss-date-panel-max-width: min(calc(var(--time-width) + 680px), calc(100vw - 24px));
+  --jss-date-panel-padding: 5px;
+  --jss-date-panel-gap: 5px;
+  --jss-date-nav-size: 22px;
+  --jss-date-select-height: 18px;
+  --jss-date-action-height: 18px;
+  --jss-date-action-pad-x: 8px;
+  --jss-date-month-min: 180px;
+  --jss-date-month-padding: 8px;
+  --jss-date-month-title-font: 11px;
+  --jss-date-weekday-font: 9px;
+  --jss-date-day-height: 18px;
+  --jss-date-day-radius: 5px;
+  --jss-date-day-font: 9px;
+}
+
+.jss-date-panel.jss-size-xs.multi-month {
+  --jss-date-panel-min-width: min(calc(var(--time-width) + 400px), calc(100vw - 24px));
+}
+
+.jss-date-panel.jss-size-sm {
+  --jss-date-panel-min-width: min(calc(var(--time-width) + 200px), calc(100vw - 24px));
+  --jss-date-panel-max-width: min(calc(var(--time-width) + 680px), calc(100vw - 24px));
+  --jss-date-panel-padding: 6px;
+  --jss-date-panel-gap: 6px;
+  --jss-date-nav-size: 26px;
+  --jss-date-select-height: 24px;
+  --jss-date-action-height: 24px;
+  --jss-date-action-pad-x: 8px;
+  --jss-date-month-min: 230px;
+  --jss-date-month-padding: 8px;
+  --jss-date-month-title-font: 11px;
+  --jss-date-weekday-font: 9px;
+  --jss-date-day-height: 24px;
+  --jss-date-day-radius: 8px;
+  --jss-date-day-font: 10px;
+}
+
+.jss-date-panel.jss-size-sm.multi-month {
+  --jss-date-panel-min-width: min(calc(var(--time-width) + 480px), calc(100vw - 24px));
+}
+
+.jss-date-panel.jss-size-lg {
+  --jss-date-panel-min-width: min(calc(var(--time-width) + 320px), calc(100vw - 24px));
+  --jss-date-panel-max-width: min(calc(var(--time-width) + 680px), calc(100vw - 24px));
+  --jss-date-panel-padding: 10px;
+  --jss-date-panel-gap: 9px;
+  --jss-date-nav-size: 28px;
+  --jss-date-select-height: 28px;
+  --jss-date-action-height: 28px;
+  --jss-date-action-pad-x: 10px;
+  --jss-date-month-min: 230px;
+  --jss-date-month-padding: 10px;
+  --jss-date-month-title-font: 13px;
+  --jss-date-weekday-font: 12px;
+  --jss-date-day-height: 34px;
+  --jss-date-day-radius: 8px;
+  --jss-date-day-font: 12px;
+}
+
+.jss-date-panel.jss-size-lg.multi-month {
+  --jss-date-panel-min-width: min(calc(var(--time-width) + 640px), calc(100vw - 24px));
+}
+
+.jss-date-panel.jss-size-xl {
+  --jss-date-panel-min-width: min(calc(var(--time-width) + 360px), calc(100vw - 24px));
+  --jss-date-panel-max-width: min(calc(var(--time-width) + 940px), calc(100vw - 24px));
+  --jss-date-panel-padding: 14px;
+  --jss-date-panel-gap: 14px;
+  --jss-date-nav-size: 38px;
+  --jss-date-select-height: 38px;
+  --jss-date-action-height: 36px;
+  --jss-date-action-pad-x: 12px;
+  --jss-date-month-min: 300px;
+  --jss-date-month-padding: 12px;
+  --jss-date-month-title-font: 14px;
+  --jss-date-weekday-font: 12px;
+  --jss-date-day-height: 42px;
+  --jss-date-day-radius: 14px;
+  --jss-date-day-font: 15px;
+}
+
+.jss-date-panel.jss-size-xl.multi-month {
+  --jss-date-panel-min-width: min(calc(var(--time-width) + 780px), calc(100vw - 24px));
+}
+
+.jss-date-header {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--jss-date-panel-gap) * 0.66);
+}
+
+.jss-date-header-center {
+  flex: 1;
+  display: flex;
+  gap: calc(var(--jss-date-panel-gap) * 0.66);
+}
+
+.jss-date-nav,
+.jss-date-shortcut,
+.jss-date-action,
+.jss-date-select {
+  border: 1px solid var(--jss-border-color);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--jss-text);
+  border-radius: var(--jss-r-md);
+  transition: border-color 140ms ease, background 140ms ease, transform 140ms ease;
+}
+
+.jss-date-nav,
+.jss-date-shortcut,
+.jss-date-action {
+  cursor: pointer;
+}
+
+.jss-date-nav:hover,
+.jss-date-shortcut:hover,
+.jss-date-action:hover,
+.jss-date-select:hover {
+  border-color: rgba(79, 124, 255, 0.45);
+  background: rgba(79, 124, 255, 0.1);
+}
+
+.jss-date-nav {
+  width: var(--jss-date-nav-size);
+  height: var(--jss-date-nav-size);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jss-date-select {
+  min-height: var(--jss-date-select-height);
+  padding: 0 var(--jss-date-action-pad-x);
+  flex: 1;
+}
+
+.jss-date-select-year {
+  flex: 0 0 92px;
+}
+
+.jss-date-shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--jss-date-panel-gap) * 0.66);
+}
+
+.jss-date-shortcut,
+.jss-date-action {
+  min-height: var(--jss-date-action-height);
+  padding: 0 var(--jss-date-action-pad-x);
+}
+
+.jss-date-action.is-primary {
+  background: rgba(79, 124, 255, 0.18);
+  border-color: rgba(79, 124, 255, 0.4);
+}
+
+.jss-date-panel-root .jss-data-time {
+  display: grid;
+  grid-template-columns: auto;
+  gap: var(--jss-date-panel-gap);
+}
+
+.has-time .jss-date-panel-root .jss-data-time {
+  grid-template-columns: auto var(--time-width, 100px);
+}

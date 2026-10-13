@@ -1,0 +1,23 @@
+.jss-item {
+  position: relative;
+  min-width: 0;
+  color: inherit;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.jss-item::marker {
+  color: color-mix(in srgb, var(--jss-text) 55%, transparent);
+  font-weight: 600;
+}
+
+.jss-item-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+  padding: 12px 14px;
+  border-radius: var(--jss-r-md);
+  border: 1px solid color-mix(in srgb, var(--jss-border-color) 40%, transparent);
+  background: color-mix(in srgb, var(--jss-panel) 84%, transparent);
+  transition: inherit;
+}

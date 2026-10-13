@@ -11,7 +11,7 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
     "dense": {"type": "boolean", "description": "Compact icon: renders at 75% of the configured size with centered content and no outer margin.", "default": false, "values": [true, false], "category": "layout"},
     "radius": {"type": "number|string", "description": "Border radius token or CSS length applied to the component.", "default": null, "values": ["number", "CSS units", "xxs", "xs", "sm", "md", "lg", "xl", "xxl", "xxxl"], "category": "style"},
     "shadow": {"type": "boolean|string", "description": "Shadow token or CSS box-shadow string applied to the component.", "default": null, "values": ["none", "xxs", "xs", "sm", "md", "lg", "xl", "xxl", "xxxl"], "category": "style"},
-    "name": {"type": "string|Node|Function", "description": "HTML name attribute for form submission.", "default": null, "values": null, "category": "general"},
+    "name": {"type": "string|Node|Function", "description": "Google Material Symbols name, SVG fragment href containing #, or custom Node/function content.", "default": null, "values": null, "category": "general"},
     "lightShadow": {"type": "boolean", "description": "Component configuration for \"lightShadow\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
     "border": {"type": "boolean", "description": "Component configuration for \"border\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
     "glossy": {"type": "boolean", "description": "Component configuration for \"glossy\". When not handled internally, it is forwarded to the root element.", "default": null, "values": null, "category": "general"},
@@ -36,4 +36,8 @@ Icon effects: `outline` colors the glyph without an outer border; `border: true`
 ```js
 _.Icon({ name: "home", fill: true, color: "primary", size: 32 });
 ```
-Requires the optional `fonts-material.css` (Material Symbols font with a variable FILL axis). `fill` changes the glyph, independently of visual effects such as `outline`, `glass` and `glow`. Existing SVG `-fill` names retain their behavior.
+The updated configured builder includes `fonts-material.css` automatically when Icon is selected directly or as a dependency. Disable automatic remote font inclusion with top-level `icons:false`; traditional imports still require the optional `fonts-material.css` (Material Symbols font with a variable FILL axis). `fill` changes the glyph, independently of visual effects such as `outline`, `glass` and `glow`. Existing SVG `-fill` names retain their behavior.
+
+## Offline SVG factories (available from 2.2.0-split.3)
+
+For offline drawings import named factories from `jsswift/icons` (or `@jsswift/ui/icons`): `add`, `edit`, `search`, `save`, `close`, `check`, `inventory`, `grid`, `empty`, `euro`, `chevronLeft`, `chevronRight`, `chevronDown`. Call with an optional numeric size, default 20: `_.Icon(add(24))` or `_.Button({icon:add()}, 'Nuovo')`. Each call creates a fresh SVG with currentColor, aria-hidden=true and focusable=false. Give icon-only actions an accessible name. No font, sprite, runtime initialization or network request is needed to create these nodes; they require a browser DOM. Named ESM imports support tree shaking. Configured apps use icons:false to omit automatic Material font CSS. Existing string icon names and sprite behavior are unchanged.

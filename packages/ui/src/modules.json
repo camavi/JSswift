@@ -1,212 +1,1607 @@
 {
-  "status": "phase-1-closed",
-  "sourceOfTruth": "packages/ui/src/* + generated packages/ui/dist/ui.js",
+  "status": "all-components-extracted",
+  "sourceOfTruth": "packages/ui/src (modules.json buildOrder) + generated packages/ui/dist/ui.js",
   "migrationRule": "Migrare una famiglia per volta, rigenerare il package UI con npm run build:ui e verificare demo/tutorial rilevanti.",
   "buildOrder": [
     "00-bootstrap.js",
     "01-foundation-helpers.js",
-    "10-primitives-layout.js",
-    "20-display-content.js",
-    "21-list-content.js",
-    "22-banner-content.js",
-    "23-tooltip.js",
-    "31-form-advanced.js",
-    "40-navigation.js",
-    "50-feedback.js",
-    "60-shell-app.js",
-    "51-feedback-service.js",
-    "61-form-service.js",
-    "70-dialog.js",
-    "41-tab-panel.js",
-    "80-data.js",
-    "71-menu-overlays.js"
+    "helpers/layout-responsive.js",
+    "components/row.js",
+    "helpers/reactive-ui.js",
+    "components/col.js",
+    "components/spacer.js",
+    "components/container.js",
+    "components/card.js",
+    "components/button.js",
+    "components/form-field.js",
+    "components/input-raw.js",
+    "helpers/field-control.js",
+    "components/input.js",
+    "components/textarea.js",
+    "helpers/subscriptions.js",
+    "components/search.js",
+    "components/select.js",
+    "components/upload.js",
+    "helpers/model-binding.js",
+    "helpers/layout-disposition.js",
+    "components/layout.js",
+    "components/footer.js",
+    "helpers/children-size.js",
+    "components/toolbar.js",
+    "helpers/grid-node.js",
+    "components/grid.js",
+    "components/grid-col.js",
+    "components/icon.js",
+    "components/badge.js",
+    "helpers/avatar.js",
+    "components/avatar.js",
+    "components/chip.js",
+    "components/stat.js",
+    "components/kpi.js",
+    "helpers/overlay-animation.js",
+    "components/list.js",
+    "components/item.js",
+    "components/separator.js",
+    "components/banner.js",
+    "components/alert.js",
+    "components/empty-state.js",
+    "helpers/drawer-state.js",
+    "components/tooltip.js",
+    "helpers/choice-control.js",
+    "components/checkbox.js",
+    "components/radio.js",
+    "components/toggle.js",
+    "components/slider.js",
+    "components/rating.js",
+    "helpers/time-picker.js",
+    "helpers/date-control.js",
+    "components/datepicker.js",
+    "components/calendar.js",
+    "components/date.js",
+    "components/time.js",
+    "components/tabs.js",
+    "components/route-tab.js",
+    "components/breadcrumbs.js",
+    "components/pagination.js",
+    "components/spinner.js",
+    "components/progress.js",
+    "components/loading-bar.js",
+    "helpers/notify-options.js",
+    "components/notify.js",
+    "components/header.js",
+    "helpers/drawer-id.js",
+    "components/drawer.js",
+    "components/page.js",
+    "components/app-shell.js",
+    "components/parallax.js",
+    "services/notify.js",
+    "services/form.js",
+    "components/form.js",
+    "services/dialog-init.js",
+    "components/card-header.js",
+    "components/card-body.js",
+    "components/card-footer.js",
+    "components/dialog.js",
+    "components/tab-panel.js",
+    "services/dialog-shortcuts.js",
+    "services/loading.js",
+    "helpers/table.js",
+    "components/table.js",
+    "components/menu.js",
+    "components/popover.js",
+    "components/context-menu.js",
+    "99-footer.js"
   ],
-  "plannedFamilies": [
-    {
-      "file": "00-bootstrap.js",
-      "status": "migrated",
-      "scope": [
-        "IIFE initJSswiftUI",
-        "rod path proxy",
-        "base helper UI",
-        "token sets iniziali"
-      ]
-    },
-    {
-      "file": "01-foundation-helpers.js",
-      "status": "migrated",
-      "scope": [
-        "normalize args UI",
-        "helper shared UI",
-        "slot/meta shared helpers base",
-        "utility functions usate dai componenti"
-      ]
-    },
-    {
-      "file": "10-primitives-layout.js",
-      "status": "migrated",
-      "scope": [
-        "Row",
-        "Col",
-        "Spacer",
-        "Container",
-        "Card",
-        "Footer",
-        "Toolbar",
-        "Grid",
-        "GridCol"
-      ]
-    },
-    {
-      "file": "20-display-content.js",
-      "status": "migrated",
-      "scope": [
+  "components": {
+    "Button": {
+      "js": "components/button.js",
+      "aliases": [
+        "Btn"
+      ],
+      "css": [
+        "css/components/button/base.css",
+        "css/components/button/shortcode.css",
+        "css/components/button/outline.css",
+        "css/components/button/glass.css",
+        "css/components/button/neutral.css",
+        "css/components/button/secondary-outline.css",
+        "css/components/button/styles-001.css",
+        "css/components/button/styles-002.css",
+        "css/components/button/styles-003.css",
+        "css/components/button/styles-004.css",
+        "css/components/button/styles-005.css",
+        "css/components/button/styles-006.css",
+        "css/components/button/styles-007.css",
+        "css/components/button/styles-008.css",
+        "css/components/button/styles-009.css",
+        "css/components/button/styles-010.css",
+        "css/components/button/styles-011.css",
+        "css/components/button/styles-012.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
         "Icon",
-        "Badge",
-        "Avatar",
-        "Chip"
+        "Tooltip",
+        "Spinner"
       ]
     },
-    {
-      "file": "21-list-content.js",
-      "status": "migrated",
-      "scope": [
-        "List",
-        "Item",
-        "Separator"
-      ]
-    },
-    {
-      "file": "22-banner-content.js",
-      "status": "migrated",
-      "scope": [
-        "Banner"
-      ]
-    },
-    {
-      "file": "23-tooltip.js",
-      "status": "migrated",
-      "scope": [
+    "FormField": {
+      "js": "components/form-field.js",
+      "aliases": [],
+      "css": [
+        "css/components/form-field/base.css",
+        "css/components/form-field/labels-addons.css",
+        "css/components/form-field/density.css",
+        "css/components/form-field/flat.css",
+        "css/components/form-field/surface-effects.css",
+        "css/components/form-field/fill-glass.css",
+        "css/components/form-field/glossy.css",
+        "css/components/form-field/styles-001.css",
+        "css/components/form-field/styles-002.css",
+        "css/components/form-field/styles-003.css",
+        "css/components/form-field/styles-004.css",
+        "css/components/form-field/styles-005.css",
+        "css/components/form-field/styles-006.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
         "Tooltip"
       ]
     },
-    {
-      "file": "30-form-core.js",
-      "status": "merged-into-10-primitives-layout.js",
-      "scope": [
+    "InputRaw": {
+      "js": "components/input-raw.js",
+      "aliases": [],
+      "css": [
+        "css/components/input-raw/base.css",
+        "css/components/input/autofill.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js"
+      ],
+      "dependencies": []
+    },
+    "Input": {
+      "js": "components/input.js",
+      "aliases": [],
+      "css": [
+        "css/components/input/base.css",
+        "css/components/input/autofill.css",
+        "css/components/form-field/base.css",
+        "css/components/form-field/labels-addons.css",
+        "css/components/form-field/density.css",
+        "css/components/form-field/flat.css",
+        "css/components/form-field/surface-effects.css",
+        "css/components/form-field/fill-glass.css",
+        "css/components/form-field/glossy.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/field-control.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
         "FormField",
-        "InputRaw",
-        "Input",
-        "Textarea",
-        "Select"
+        "Icon",
+        "Tooltip"
       ]
     },
-    {
-      "file": "31-form-advanced.js",
-      "status": "migrated",
-      "scope": [
-        "Checkbox",
-        "Radio",
-        "Toggle",
-        "Slider",
-        "Rating",
-        "Date",
-        "Time",
-        "Form"
+    "Textarea": {
+      "js": "components/textarea.js",
+      "aliases": [],
+      "css": [
+        "css/components/textarea/base.css",
+        "css/components/input/base.css",
+        "css/components/input/autofill.css",
+        "css/components/form-field/base.css",
+        "css/components/form-field/labels-addons.css",
+        "css/components/form-field/density.css",
+        "css/components/form-field/flat.css",
+        "css/components/form-field/surface-effects.css",
+        "css/components/form-field/fill-glass.css",
+        "css/components/form-field/glossy.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "FormField",
+        "Icon",
+        "Tooltip"
       ]
     },
-    {
-      "file": "40-navigation.js",
-      "status": "partial",
-      "scope": [
-        "Tabs",
-        "RouteTab",
-        "Breadcrumbs",
-        "Pagination"
+    "Search": {
+      "js": "components/search.js",
+      "aliases": [],
+      "css": [
+        "css/components/search/base.css",
+        "css/components/input/base.css",
+        "css/components/input/autofill.css",
+        "css/components/form-field/base.css",
+        "css/components/form-field/labels-addons.css",
+        "css/components/form-field/density.css",
+        "css/components/form-field/flat.css",
+        "css/components/form-field/surface-effects.css",
+        "css/components/form-field/fill-glass.css",
+        "css/components/form-field/glossy.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/subscriptions.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "FormField",
+        "Icon",
+        "Tooltip"
       ]
     },
-    {
-      "file": "41-tab-panel.js",
-      "status": "migrated",
-      "scope": [
-        "TabPanel"
+    "Select": {
+      "js": "components/select.js",
+      "aliases": [],
+      "css": [
+        "css/components/select/menu.css",
+        "css/components/select/control.css",
+        "css/components/select/density.css",
+        "css/components/select/light-menu.css",
+        "css/components/select/glass-menu.css",
+        "css/components/form-field/base.css",
+        "css/components/form-field/labels-addons.css",
+        "css/components/form-field/density.css",
+        "css/components/form-field/flat.css",
+        "css/components/form-field/surface-effects.css",
+        "css/components/form-field/fill-glass.css",
+        "css/components/form-field/glossy.css",
+        "css/components/select/styles-001.css",
+        "css/components/select/styles-002.css",
+        "css/components/select/styles-003.css",
+        "css/components/select/styles-004.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/field-control.js",
+        "helpers/subscriptions.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Button",
+        "FormField",
+        "Icon",
+        "Chip",
+        "Tooltip",
+        "Spinner"
       ]
     },
-    {
-      "file": "50-feedback.js",
-      "status": "partial",
-      "scope": [
+    "Row": {
+      "js": "components/row.js",
+      "aliases": [],
+      "css": [],
+      "helpers": [
+        "helpers/layout-responsive.js",
+        "helpers/reactive-ui.js"
+      ],
+      "styling": "generated-responsive-utilities",
+      "dependencies": []
+    },
+    "Col": {
+      "js": "components/col.js",
+      "aliases": [],
+      "css": [],
+      "helpers": [
+        "helpers/layout-responsive.js",
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js"
+      ],
+      "styling": "generated-responsive-utilities",
+      "dependencies": []
+    },
+    "Spacer": {
+      "js": "components/spacer.js",
+      "aliases": [],
+      "css": [
+        "css/components/spacer/base.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js"
+      ],
+      "dependencies": []
+    },
+    "Container": {
+      "js": "components/container.js",
+      "aliases": [],
+      "css": [
+        "css/components/container/base.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js"
+      ],
+      "dependencies": []
+    },
+    "Card": {
+      "js": "components/card.js",
+      "aliases": [],
+      "css": [
+        "css/components/card/base.css",
+        "css/components/card/sections.css",
+        "css/components/card/light-effects.css",
+        "css/components/card/dark-effects.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Layout": {
+      "js": "components/layout.js",
+      "aliases": [],
+      "css": [
+        "css/components/layout/base.css"
+      ],
+      "helpers": [
+        "helpers/layout-responsive.js",
+        "helpers/reactive-ui.js",
+        "helpers/model-binding.js",
+        "helpers/layout-disposition.js"
+      ],
+      "dependencies": []
+    },
+    "Footer": {
+      "js": "components/footer.js",
+      "aliases": [],
+      "css": [
+        "css/components/footer/base.css",
+        "css/components/footer/effects.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Toolbar": {
+      "js": "components/toolbar.js",
+      "aliases": [],
+      "css": [
+        "css/components/toolbar/base.css",
+        "css/components/toolbar/sizes.css",
+        "css/components/toolbar/effects.css"
+      ],
+      "helpers": [
+        "helpers/layout-responsive.js",
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js"
+      ],
+      "dependencies": []
+    },
+    "Grid": {
+      "js": "components/grid.js",
+      "aliases": [],
+      "css": [
+        "css/components/grid/base.css",
+        "css/components/grid-col/base.css",
+        "css/components/grid-col/surface.css"
+      ],
+      "helpers": [
+        "helpers/layout-responsive.js",
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/grid-node.js"
+      ],
+      "dependencies": [
+        "GridCol"
+      ]
+    },
+    "GridCol": {
+      "js": "components/grid-col.js",
+      "aliases": [],
+      "css": [
+        "css/components/grid-col/base.css",
+        "css/components/grid-col/surface.css"
+      ],
+      "helpers": [
+        "helpers/layout-responsive.js",
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js"
+      ],
+      "dependencies": []
+    },
+    "Upload": {
+      "js": "components/upload.js",
+      "aliases": [
+        "BoxUpload",
+        "boxUpload"
+      ],
+      "css": [
+        "css/components/upload/styles-001.css",
+        "css/components/upload/styles-002.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Button",
+        "Icon",
+        "Tooltip",
+        "Spinner"
+      ]
+    },
+    "Icon": {
+      "js": "components/icon.js",
+      "aliases": [],
+      "css": [
+        "css/components/icon/styles-001.css",
+        "css/components/icon/styles-002.css",
+        "css/components/icon/styles-003.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Tooltip"
+      ]
+    },
+    "Badge": {
+      "js": "components/badge.js",
+      "aliases": [],
+      "css": [
+        "css/components/badge/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Avatar": {
+      "js": "components/avatar.js",
+      "aliases": [],
+      "css": [
+        "css/components/avatar/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/avatar.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Chip": {
+      "js": "components/chip.js",
+      "aliases": [],
+      "css": [
+        "css/components/chip/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Button",
+        "Icon",
+        "Tooltip",
+        "Spinner"
+      ]
+    },
+    "Stat": {
+      "js": "components/stat.js",
+      "aliases": [],
+      "css": [
+        "css/components/stat/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Kpi": {
+      "js": "components/kpi.js",
+      "aliases": [],
+      "css": [
+        "css/components/kpi/styles-001.css",
+        "css/components/kpi/styles-002.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "List": {
+      "js": "components/list.js",
+      "aliases": [],
+      "css": [
+        "css/components/list/styles-001.css",
+        "css/components/list/styles-002.css",
+        "css/components/list/styles-003.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Item",
+        "Tooltip"
+      ]
+    },
+    "Item": {
+      "js": "components/item.js",
+      "aliases": [],
+      "css": [
+        "css/components/item/styles-001.css",
+        "css/components/item/styles-002.css",
+        "css/components/item/styles-003.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Separator": {
+      "js": "components/separator.js",
+      "aliases": [],
+      "css": [
+        "css/components/separator/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js"
+      ],
+      "dependencies": []
+    },
+    "Banner": {
+      "js": "components/banner.js",
+      "aliases": [],
+      "css": [
+        "css/components/banner/styles-001.css",
+        "css/components/banner/styles-002.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Button",
+        "Icon",
+        "Tooltip",
+        "Spinner"
+      ]
+    },
+    "Alert": {
+      "js": "components/alert.js",
+      "aliases": [],
+      "css": [
+        "css/components/alert/styles-001.css",
+        "css/components/alert/styles-002.css",
+        "css/components/alert/styles-003.css",
+        "css/components/alert/styles-004.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Button",
+        "Icon",
+        "Tooltip",
+        "Spinner"
+      ]
+    },
+    "EmptyState": {
+      "js": "components/empty-state.js",
+      "aliases": [],
+      "css": [
+        "css/components/empty-state/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Tooltip": {
+      "js": "components/tooltip.js",
+      "aliases": [],
+      "css": [
+        "css/components/tooltip/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon"
+      ]
+    },
+    "Checkbox": {
+      "js": "components/checkbox.js",
+      "aliases": [],
+      "css": [
+        "css/components/checkbox/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/model-binding.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js",
+        "helpers/choice-control.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Radio": {
+      "js": "components/radio.js",
+      "aliases": [],
+      "css": [
+        "css/components/radio/styles-001.css",
+        "css/components/radio/styles-002.css",
+        "css/components/radio/styles-003.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/model-binding.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js",
+        "helpers/choice-control.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Toggle": {
+      "js": "components/toggle.js",
+      "aliases": [],
+      "css": [
+        "css/components/toggle/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/model-binding.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js",
+        "helpers/choice-control.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Slider": {
+      "js": "components/slider.js",
+      "aliases": [],
+      "css": [
+        "css/components/slider/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/model-binding.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Item",
+        "Tooltip"
+      ]
+    },
+    "Rating": {
+      "js": "components/rating.js",
+      "aliases": [],
+      "css": [
+        "css/components/rating/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/model-binding.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Datepicker": {
+      "js": "components/datepicker.js",
+      "aliases": [],
+      "css": [
+        "css/components/date/styles-001.css",
+        "css/components/date/styles-002.css",
+        "css/components/date/styles-003.css",
+        "css/components/date/styles-004.css",
+        "css/components/date/styles-005.css",
+        "css/components/date/styles-006.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/model-binding.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js",
+        "helpers/time-picker.js",
+        "helpers/date-control.js"
+      ],
+      "dependencies": [
+        "FormField",
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Calendar": {
+      "js": "components/calendar.js",
+      "aliases": [],
+      "css": [
+        "css/components/date/styles-001.css",
+        "css/components/date/styles-002.css",
+        "css/components/date/styles-003.css",
+        "css/components/date/styles-004.css",
+        "css/components/date/styles-005.css",
+        "css/components/date/styles-006.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/model-binding.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js",
+        "helpers/time-picker.js",
+        "helpers/date-control.js"
+      ],
+      "dependencies": [
+        "FormField",
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Date": {
+      "js": "components/date.js",
+      "aliases": [],
+      "css": [
+        "css/components/date/styles-001.css",
+        "css/components/date/styles-002.css",
+        "css/components/date/styles-003.css",
+        "css/components/date/styles-004.css",
+        "css/components/date/styles-005.css",
+        "css/components/date/styles-006.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/model-binding.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js",
+        "helpers/time-picker.js",
+        "helpers/date-control.js"
+      ],
+      "dependencies": [
+        "FormField",
+        "Icon",
+        "Tooltip",
+        "Datepicker"
+      ]
+    },
+    "Time": {
+      "js": "components/time.js",
+      "aliases": [],
+      "css": [
+        "css/components/time/styles-001.css",
+        "css/components/time/styles-002.css",
+        "css/components/time/styles-003.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/model-binding.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js",
+        "helpers/time-picker.js"
+      ],
+      "dependencies": [
+        "FormField",
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Tabs": {
+      "js": "components/tabs.js",
+      "aliases": [],
+      "css": [
+        "css/components/tabs/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/model-binding.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Button",
+        "Icon",
+        "Tooltip",
+        "Spinner"
+      ]
+    },
+    "RouteTab": {
+      "js": "components/route-tab.js",
+      "aliases": [],
+      "css": [
+        "css/components/route-tab/styles-001.css",
+        "css/components/tabs/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Breadcrumbs": {
+      "js": "components/breadcrumbs.js",
+      "aliases": [],
+      "css": [
+        "css/components/breadcrumbs/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/model-binding.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Pagination": {
+      "js": "components/pagination.js",
+      "aliases": [],
+      "css": [
+        "css/components/pagination/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/model-binding.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Button",
+        "Icon",
+        "Tooltip",
+        "Spinner"
+      ]
+    },
+    "Spinner": {
+      "js": "components/spinner.js",
+      "aliases": [],
+      "css": [
+        "css/components/spinner/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js"
+      ],
+      "dependencies": []
+    },
+    "Progress": {
+      "js": "components/progress.js",
+      "aliases": [],
+      "css": [
+        "css/components/progress/styles-001.css",
+        "css/components/progress/styles-002.css",
+        "css/components/progress/styles-003.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/model-binding.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "LoadingBar": {
+      "js": "components/loading-bar.js",
+      "aliases": [],
+      "css": [
+        "css/components/loading-bar/styles-001.css",
+        "css/components/loading-bar/styles-002.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/model-binding.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip",
+        "Progress"
+      ]
+    },
+    "Notify": {
+      "js": "components/notify.js",
+      "aliases": [],
+      "css": [
+        "css/components/notify/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js",
+        "helpers/notify-options.js"
+      ],
+      "dependencies": [
+        "Button",
+        "Icon",
+        "Tooltip",
+        "Spinner"
+      ]
+    },
+    "Header": {
+      "js": "components/header.js",
+      "aliases": [],
+      "css": [
+        "css/components/header/styles-001.css",
+        "css/components/header/styles-002.css",
+        "css/components/header/styles-003.css",
+        "css/components/header/styles-004.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js",
+        "helpers/drawer-state.js"
+      ],
+      "dependencies": [
+        "Button",
+        "Icon",
+        "Tooltip",
+        "Spinner"
+      ]
+    },
+    "Drawer": {
+      "js": "components/drawer.js",
+      "aliases": [],
+      "css": [
+        "css/components/drawer/styles-001.css",
+        "css/components/drawer/styles-002.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js",
+        "helpers/drawer-state.js",
+        "helpers/drawer-id.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Page": {
+      "js": "components/page.js",
+      "aliases": [],
+      "css": [
+        "css/components/page/styles-001.css",
+        "css/components/page/styles-002.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "AppShell": {
+      "js": "components/app-shell.js",
+      "aliases": [],
+      "css": [
+        "css/components/app-shell/styles-001.css",
+        "css/components/app-shell/styles-002.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js",
+        "helpers/drawer-state.js",
+        "helpers/drawer-id.js"
+      ],
+      "dependencies": [
+        "Button",
+        "Footer",
+        "Icon",
+        "Tooltip",
         "Spinner",
-        "Progress",
-        "LoadingBar",
+        "Header",
+        "Drawer",
+        "Page"
+      ]
+    },
+    "Parallax": {
+      "js": "components/parallax.js",
+      "aliases": [],
+      "css": [
+        "css/components/parallax/styles-001.css",
+        "css/components/parallax/styles-002.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js"
+      ],
+      "dependencies": []
+    },
+    "Form": {
+      "js": "components/form.js",
+      "aliases": [],
+      "css": [],
+      "helpers": [
+        "helpers/reactive-ui.js"
+      ],
+      "styling": "shared-native",
+      "dependencies": []
+    },
+    "cardHeader": {
+      "js": "components/card-header.js",
+      "aliases": [],
+      "css": [
+        "css/components/card/base.css",
+        "css/components/card/sections.css",
+        "css/components/card/light-effects.css",
+        "css/components/card/dark-effects.css"
+      ],
+      "helpers": [
+        "helpers/layout-responsive.js",
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js"
+      ],
+      "dependencies": []
+    },
+    "cardBody": {
+      "js": "components/card-body.js",
+      "aliases": [],
+      "css": [
+        "css/components/card/base.css",
+        "css/components/card/sections.css",
+        "css/components/card/light-effects.css",
+        "css/components/card/dark-effects.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js"
+      ],
+      "dependencies": []
+    },
+    "cardFooter": {
+      "js": "components/card-footer.js",
+      "aliases": [],
+      "css": [
+        "css/components/card/base.css",
+        "css/components/card/sections.css",
+        "css/components/card/light-effects.css",
+        "css/components/card/dark-effects.css"
+      ],
+      "helpers": [
+        "helpers/layout-responsive.js",
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js"
+      ],
+      "dependencies": []
+    },
+    "Dialog": {
+      "js": "components/dialog.js",
+      "aliases": [],
+      "css": [
+        "css/components/dialog/styles-001.css",
+        "css/components/dialog/styles-002.css",
+        "css/components/dialog/styles-003.css",
+        "css/components/dialog/styles-004.css",
+        "css/components/dialog/styles-005.css",
+        "css/components/dialog/styles-006.css",
+        "css/components/dialog/styles-007.css",
+        "css/components/dialog/styles-008.css",
+        "css/components/dialog/styles-009.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Button",
+        "Icon",
+        "Tooltip",
+        "Spinner"
+      ]
+    },
+    "TabPanel": {
+      "js": "components/tab-panel.js",
+      "aliases": [],
+      "css": [
+        "css/components/tab-panel/styles-001.css",
+        "css/components/tab-panel/styles-002.css",
+        "css/components/tab-panel/styles-003.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/model-binding.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Button",
+        "Icon",
+        "Tooltip",
+        "Spinner"
+      ]
+    },
+    "Table": {
+      "js": "components/table.js",
+      "aliases": [],
+      "css": [
+        "css/components/table/styles-001.css",
+        "css/components/table/styles-002.css",
+        "css/components/table/styles-003.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/model-binding.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js",
+        "helpers/table.js"
+      ],
+      "dependencies": [
+        "Card",
+        "Button",
+        "Icon",
+        "Tooltip",
+        "Spinner"
+      ]
+    },
+    "Menu": {
+      "js": "components/menu.js",
+      "aliases": [],
+      "css": [
+        "css/components/menu/styles-001.css",
+        "css/components/menu/styles-002.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ]
+    },
+    "Popover": {
+      "js": "components/popover.js",
+      "aliases": [],
+      "css": [
+        "css/components/popover/styles-001.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Button",
+        "Icon",
+        "Tooltip",
+        "Spinner"
+      ]
+    },
+    "ContextMenu": {
+      "js": "components/context-menu.js",
+      "aliases": [],
+      "css": [
+        "css/components/menu/styles-001.css",
+        "css/components/menu/styles-002.css"
+      ],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Icon",
+        "Tooltip",
+        "Menu"
+      ]
+    }
+  },
+  "services": {
+    "Notify": {
+      "js": [
+        "services/notify.js"
+      ],
+      "css": [],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js",
+        "helpers/notify-options.js"
+      ],
+      "dependencies": [
+        "Button",
+        "Icon",
+        "Tooltip",
+        "Spinner",
         "Notify"
       ]
     },
-    {
-      "file": "51-feedback-service.js",
-      "status": "migrated",
-      "scope": [
-        "notify service wiring",
-        "toast root",
-        "toast timers",
-        "toast update/remove/clear/promise bridge"
-      ]
-    },
-    {
-      "file": "60-shell-app.js",
-      "status": "migrated",
-      "scope": [
-        "Header",
-        "Drawer",
-        "Page",
-        "AppShell",
-        "Parallax"
-      ]
-    },
-    {
-      "file": "61-form-service.js",
-      "status": "migrated",
-      "scope": [
-        "JSswift.form helpers",
-        "JSswift.useForm",
-        "Form",
-        "cardHeader",
-        "cardBody",
-        "cardFooter",
-        "dialog service bootstrap"
-      ]
-    },
-    {
-      "file": "70-dialog.js",
-      "status": "migrated",
-      "scope": [
+    "Dialog": {
+      "js": [
+        "services/dialog-init.js",
+        "services/dialog-shortcuts.js"
+      ],
+      "css": [],
+      "helpers": [
+        "helpers/reactive-ui.js",
+        "helpers/field-control.js",
+        "helpers/children-size.js",
+        "helpers/overlay-animation.js"
+      ],
+      "dependencies": [
+        "Button",
+        "FormField",
+        "Input",
+        "Icon",
+        "Tooltip",
+        "Spinner",
         "Dialog"
       ]
     },
-    {
-      "file": "80-data.js",
-      "status": "migrated",
-      "scope": [
-        "Table"
-      ]
+    "Loading": {
+      "js": [
+        "services/loading.js"
+      ],
+      "css": [],
+      "helpers": [],
+      "dependencies": [],
+      "styling": "inline-styles"
     },
-    {
-      "file": "71-menu-overlays.js",
-      "status": "migrated",
-      "scope": [
-        "Menu",
-        "Popover",
-        "ContextMenu",
-        "bundle footer"
-      ]
-    },
-    {
-      "file": "90-services-meta.js",
-      "status": "merged-into-51-feedback-service.js-and-61-form-service.js",
-      "scope": [
-        "notify service wiring",
-        "dialog helpers"
-      ]
+    "Form": {
+      "js": [
+        "services/form.js"
+      ],
+      "css": [],
+      "helpers": [],
+      "dependencies": []
     }
-  ]
+  },
+  "styles": {
+    "entry": "css/ui-components.css",
+    "shared": [
+      "css/shared/styles-001.css",
+      "css/shared/styles-002.css",
+      "css/shared/styles-003.css",
+      "css/shared/styles-004.css",
+      "css/shared/styles-005.css",
+      "css/shared/styles-006.css",
+      "css/shared/styles-007.css",
+      "css/shared/styles-008.css",
+      "css/shared/styles-009.css",
+      "css/shared/styles-010.css",
+      "css/shared/styles-011.css",
+      "css/shared/styles-012.css",
+      "css/shared/styles-013.css",
+      "css/shared/styles-014.css",
+      "css/shared/styles-015.css",
+      "css/shared/styles-016.css",
+      "css/shared/styles-017.css",
+      "css/shared/styles-018.css",
+      "css/shared/styles-019.css",
+      "css/shared/styles-020.css",
+      "css/shared/styles-021.css",
+      "css/shared/styles-022.css",
+      "css/shared/styles-023.css",
+      "css/shared/styles-024.css",
+      "css/shared/styles-025.css",
+      "css/shared/styles-026.css",
+      "css/shared/styles-027.css",
+      "css/shared/styles-028.css",
+      "css/shared/styles-029.css",
+      "css/shared/styles-030.css",
+      "css/shared/styles-031.css",
+      "css/shared/styles-032.css",
+      "css/shared/styles-033.css",
+      "css/shared/styles-034.css",
+      "css/shared/styles-035.css",
+      "css/shared/styles-036.css",
+      "css/shared/styles-037.css",
+      "css/shared/styles-038.css",
+      "css/shared/styles-039.css",
+      "css/shared/styles-040.css",
+      "css/shared/styles-041.css",
+      "css/shared/styles-042.css",
+      "css/shared/styles-043.css",
+      "css/shared/styles-044.css",
+      "css/shared/styles-045.css",
+      "css/shared/styles-046.css",
+      "css/shared/styles-047.css",
+      "css/shared/styles-048.css",
+      "css/shared/styles-049.css",
+      "css/shared/styles-050.css",
+      "css/shared/styles-051.css",
+      "css/shared/styles-052.css",
+      "css/shared/styles-053.css",
+      "css/shared/styles-054.css",
+      "css/shared/styles-055.css"
+    ]
+  },
+  "cssOwnership": {
+    "btn": [
+      "Btn",
+      "Button"
+    ],
+    "card": [
+      "Card",
+      "cardHeader",
+      "cardBody",
+      "cardFooter"
+    ],
+    "input": [
+      "Input",
+      "InputRaw",
+      "Textarea",
+      "FormField"
+    ],
+    "field": [
+      "FormField"
+    ],
+    "textarea": [
+      "Textarea"
+    ],
+    "select": [
+      "Select"
+    ],
+    "search": [
+      "Search"
+    ],
+    "upload": [
+      "Upload"
+    ],
+    "icon": [
+      "Icon"
+    ],
+    "badge": [
+      "Badge"
+    ],
+    "avatar": [
+      "Avatar"
+    ],
+    "chip": [
+      "Chip"
+    ],
+    "list": [
+      "List",
+      "Item"
+    ],
+    "item": [
+      "Item"
+    ],
+    "separator": [
+      "Separator"
+    ],
+    "tooltip": [
+      "Tooltip"
+    ],
+    "checkbox": [
+      "Checkbox"
+    ],
+    "radio": [
+      "Radio"
+    ],
+    "toggle": [
+      "Toggle"
+    ],
+    "slider": [
+      "Slider"
+    ],
+    "rating": [
+      "Rating"
+    ],
+    "date": [
+      "Date",
+      "Calendar",
+      "Datepicker"
+    ],
+    "calendar": [
+      "Date",
+      "Calendar"
+    ],
+    "time": [
+      "Time"
+    ],
+    "tabs": [
+      "Tabs",
+      "RouteTab"
+    ],
+    "tab": [
+      "Tabs",
+      "RouteTab",
+      "TabPanel"
+    ],
+    "breadcrumbs": [
+      "Breadcrumbs"
+    ],
+    "breadcrumb": [
+      "Breadcrumbs"
+    ],
+    "pagination": [
+      "Pagination"
+    ],
+    "spinner": [
+      "Spinner"
+    ],
+    "progress": [
+      "Progress"
+    ],
+    "loading-bar": [
+      "LoadingBar"
+    ],
+    "banner": [
+      "Banner"
+    ],
+    "alert": [
+      "Alert"
+    ],
+    "table": [
+      "Table"
+    ],
+    "menu": [
+      "Menu"
+    ],
+    "popover": [
+      "Popover"
+    ],
+    "dialog": [
+      "Dialog"
+    ],
+    "notify": [
+      "Notify"
+    ],
+    "toast": [
+      "Notify"
+    ],
+    "loading": [
+      "$Loading"
+    ],
+    "header": [
+      "Header",
+      "Layout"
+    ],
+    "drawer": [
+      "Drawer",
+      "Layout"
+    ],
+    "footer": [
+      "Footer",
+      "Layout"
+    ],
+    "page": [
+      "Page",
+      "Layout"
+    ],
+    "app-shell": [
+      "AppShell"
+    ],
+    "parallax": [
+      "Parallax"
+    ],
+    "toolbar": [
+      "Toolbar"
+    ],
+    "grid": [
+      "Grid",
+      "GridCol"
+    ],
+    "container": [
+      "Container"
+    ],
+    "form": [
+      "Form"
+    ],
+    "kpi": [
+      "Kpi"
+    ],
+    "tabpanel": [
+      "TabPanel"
+    ],
+    "empty-state": [
+      "EmptyState"
+    ],
+    "stat": [
+      "Stat"
+    ],
+    "layout": [
+      "Layout"
+    ],
+    "route-tab": [
+      "RouteTab"
+    ],
+    "choice": [
+      "Checkbox",
+      "Radio",
+      "Toggle",
+      "Rating"
+    ],
+    "singularity-check": [
+      "Checkbox",
+      "Radio",
+      "Toggle",
+      "Rating",
+      "Slider"
+    ],
+    "singularity-menu-select": [
+      "Select",
+      "Search"
+    ]
+  }
 }

@@ -1,0 +1,13 @@
+.jss-item.jss-item-inline .jss-item-row {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+}
+
+.jss-item.jss-item-surface {
+  padding: 12px 14px;
+  border-width: 1px;
+  border-style: solid;
+}

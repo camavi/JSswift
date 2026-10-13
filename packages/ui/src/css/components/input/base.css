@@ -1,0 +1,13 @@
+.jss-input {
+  border: 0;
+  outline: none;
+  width: 100%;
+  background: transparent;
+  color: var(--jss-text);
+  font-size: var(--jss-font-size, 14px);
+  min-width: 0;
+  min-height: var(--jss-field-input-height, var(--jss-input-height-default, 32px));
+  padding: 0 12px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}

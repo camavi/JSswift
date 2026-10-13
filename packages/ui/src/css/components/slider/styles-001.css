@@ -1,0 +1,343 @@
+.jss-slider-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.jss-slider-header {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+}
+
+.jss-slider-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.jss-slider-value {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88em;
+  color: var(--jss-muted);
+}
+
+.jss-slider-body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.jss-slider-icon {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.jss-slider-edge-label {
+  display: none;
+  flex: 0 0 auto;
+  color: var(--jss-muted);
+  font-size: 0.88em;
+}
+
+.jss-slider-main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.jss-slider-box {
+  position: relative;
+  width: 100%;
+  min-height: 36px;
+  min-width: 120px;
+}
+
+.jss-slider-rail,
+.jss-slider-selection {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 6px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+}
+
+.jss-slider-rail {
+  right: 0;
+  background: var(--jss-border);
+}
+
+.jss-slider-selection {
+  width: 0%;
+  background: var(--jss-primary);
+}
+
+.jss-slider-thumb {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  width: 24px;
+  height: 24px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--jss-surface, #fff);
+  border: 2px solid var(--jss-primary);
+  box-sizing: border-box;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .12);
+  pointer-events: none;
+}
+
+.jss-slider-thumb-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.jss-slider-wrap.jss-dense {
+  --jss-slider-size: 18px;
+  --jss-slider-track-size: 4px;
+  --jss-slider-box-height: 28px;
+  gap: 4px;
+  padding: 0;
+  margin: 0;
+}
+
+.jss-slider-wrap.jss-flat .jss-slider-thumb {
+  border-width: 0;
+  box-shadow: none;
+  background: currentColor;
+}
+
+.jss-slider-wrap.jss-outline {
+  border-width: 0;
+}
+
+.jss-slider-wrap.jss-outline .jss-slider-thumb {
+  background: var(--jss-bg);
+  box-shadow: none;
+}
+
+.jss-slider-wrap.jss-outline .jss-slider-selection {
+  background: transparent !important;
+  border: 1px solid var(--set-hover, var(--jss-primary));
+  box-sizing: border-box;
+}
+
+.jss-slider-wrap.jss-shadow .jss-slider-thumb {
+  box-shadow: 0 3px 5px color-mix(in srgb, currentColor 30%, transparent),
+    0 6px 12px color-mix(in srgb, var(--jss-text) 24%, transparent);
+}
+
+:root[data-theme="dark"] .jss-slider-wrap.jss-shadow .jss-slider-thumb {
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--jss-text) 18%, transparent),
+    0 3px 6px color-mix(in srgb, currentColor 38%, transparent),
+    0 6px 12px color-mix(in srgb, currentColor 26%, transparent);
+}
+
+.jss-slider-box:has(> .jss-slider-input:focus-visible) > .jss-slider-thumb {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.jss-slider-wrap.jss-light-shadow .jss-slider-thumb {
+  border-width: 0;
+  background: linear-gradient(145deg,
+    color-mix(in srgb, var(--jss-gradient-surface, white) 75%, currentColor),
+    color-mix(in srgb, var(--jss-bg) 40%, currentColor));
+  box-shadow: inset 1px 1px 2px color-mix(in srgb, var(--jss-gradient-surface, white) 90%, transparent),
+    inset -1px -1px 3px color-mix(in srgb, currentColor 20%, transparent),
+    -3px -3px 7px color-mix(in srgb, var(--jss-gradient-surface, white) 85%, transparent),
+    3px 4px 8px color-mix(in srgb, var(--jss-text) 24%, transparent);
+}
+
+.jss-slider-wrap.jss-glossy .jss-slider-thumb {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--jss-gradient-surface, white) 85%, currentColor) 0%,
+    color-mix(in srgb, var(--jss-gradient-surface, white) 55%, currentColor) 48%,
+    color-mix(in srgb, var(--jss-bg) 20%, currentColor) 51%,
+    color-mix(in srgb, var(--jss-gradient-surface, white) 35%, currentColor) 100%);
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 65%),
+    inset 0 -1px 2px color-mix(in srgb, currentColor 30%, transparent),
+    0 2px 5px color-mix(in srgb, var(--jss-text) 18%, transparent);
+}
+
+.jss-slider-wrap.jss-glossy .jss-slider-selection {
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 60%) 0%,
+    rgb(255 255 255 / 25%) 48%, transparent 51%, rgb(0 0 0 / 12%) 100%) !important;
+}
+
+.jss-slider-wrap.jss-gradient .jss-slider-selection,
+.jss-slider-wrap.jss-gradient .jss-slider-thumb {
+  background-image: linear-gradient(var(--set-gradient-deg, 135deg),
+    var(--set-color-2, var(--jss-primary-400)),
+    var(--set-color-3, var(--jss-primary-700))) !important;
+}
+
+.jss-slider-wrap.jss-text-gradient .jss-slider-label,
+.jss-slider-wrap.jss-text-gradient .jss-slider-value,
+.jss-slider-wrap.jss-text-gradient .jss-slider-edge-label {
+  background-image: linear-gradient(var(--set-gradient-deg, 180deg),
+    color-mix(in srgb, var(--jss-text) 65%, var(--set-color-2)),
+    color-mix(in srgb, var(--jss-text) 75%, var(--set-color-3)));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.jss-slider-wrap.jss-glow .jss-slider-thumb {
+  box-shadow: 0 0 4px 1px color-mix(in srgb, currentColor 45%, transparent),
+    0 0 11px 2px color-mix(in srgb, currentColor 28%, transparent);
+}
+
+.jss-slider-wrap.jss-glass .jss-slider-thumb {
+  background: radial-gradient(ellipse at 30% 20%, rgb(255 255 255 / 80%), transparent 60%),
+    linear-gradient(150deg, color-mix(in srgb, currentColor 18%, transparent),
+    color-mix(in srgb, currentColor 48%, transparent));
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 1px 1px 2px rgb(255 255 255 / 80%),
+    inset -1px -1px 3px color-mix(in srgb, currentColor 35%, transparent),
+    0 3px 7px color-mix(in srgb, var(--jss-text) 20%, transparent);
+}
+
+.jss-slider-wrap.jss-glass .jss-slider-selection {
+  opacity: .75;
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 60%), transparent 60%) !important;
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 65%);
+}
+
+:root[data-theme="dark"] .jss-slider-wrap.jss-glass .jss-slider-thumb {
+  background: radial-gradient(ellipse at 30% 20%, rgb(255 255 255 / 45%), transparent 60%),
+    linear-gradient(150deg, color-mix(in srgb, currentColor 25%, transparent),
+    color-mix(in srgb, currentColor 50%, var(--jss-panel)));
+  box-shadow: inset 1px 1px 2px rgb(255 255 255 / 45%),
+    inset -1px -1px 3px color-mix(in srgb, currentColor 40%, transparent),
+    0 3px 8px rgb(0 0 0 / 40%);
+}
+
+.jss-slider-wrap.jss-glow .jss-slider-selection {
+  box-shadow: 0 0 5px color-mix(in srgb, var(--jss-slider-glow-color, var(--jss-primary)) 32%, transparent);
+}
+
+:root[data-theme="dark"] .jss-slider-wrap.jss-glow .jss-slider-thumb {
+  box-shadow: 0 0 5px 1px color-mix(in srgb, currentColor 55%, transparent),
+    0 0 13px 2px color-mix(in srgb, currentColor 36%, transparent);
+}
+
+:root[data-theme="dark"] .jss-slider-wrap.jss-glow .jss-slider-selection {
+  box-shadow: 0 0 7px color-mix(in srgb, var(--jss-slider-glow-color, var(--jss-primary)) 42%, transparent);
+}
+
+:root[data-theme="dark"] .jss-slider-wrap.jss-glossy .jss-slider-thumb {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--jss-text) 55%, currentColor) 0%,
+    color-mix(in srgb, var(--jss-text) 30%, currentColor) 48%,
+    color-mix(in srgb, var(--jss-panel) 35%, currentColor) 51%,
+    currentColor 100%);
+}
+
+.jss-slider-wrap.jss-light-shadow .jss-slider-rail {
+  box-shadow: inset 0 1px 2px color-mix(in srgb, var(--jss-text) 22%, transparent),
+    0 1px 0 color-mix(in srgb, var(--jss-gradient-surface, white) 75%, transparent);
+}
+
+:root[data-theme="dark"] .jss-slider-wrap.jss-light-shadow .jss-slider-thumb {
+  background: linear-gradient(145deg,
+    color-mix(in srgb, currentColor 45%, var(--jss-text)),
+    color-mix(in srgb, var(--jss-panel) 35%, currentColor));
+  box-shadow: inset 1px 1px 2px color-mix(in srgb, var(--jss-text) 30%, transparent),
+    inset -1px -1px 3px color-mix(in srgb, currentColor 25%, transparent),
+    -2px -2px 6px color-mix(in srgb, var(--jss-text) 12%, transparent),
+    3px 4px 9px rgb(0 0 0 / 55%);
+}
+
+:root[data-theme="dark"] .jss-slider-wrap.jss-light-shadow .jss-slider-rail {
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 55%),
+    0 1px 0 color-mix(in srgb, var(--jss-text) 18%, transparent);
+}
+
+.jss-slider-thumb-label {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+  background: var(--jss-primary);
+  color: var(--jss-on-primary, #fff);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.jss-slider-markers {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+  display: none;
+}
+
+.jss-slider-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.jss-slider-wrap.is-disabled .jss-slider-input {
+  cursor: not-allowed;
+}
+
+.jss-slider-wrap.is-readonly .jss-slider-input {
+  cursor: default;
+  pointer-events: none;
+}
+
+.jss-slider-marker {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.jss-slider-marker-tick {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+}
+
+.jss-slider-marker-label {
+  font-size: 11px;
+  line-height: 1.2;
+  white-space: nowrap;
+}

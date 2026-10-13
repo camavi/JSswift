@@ -1,0 +1,257 @@
+@keyframes jss-spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.jss-spinner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--set-gap, var(--jss-s-sm));
+  vertical-align: middle;
+  min-width: 0;
+}
+
+.jss-spinner:is(.dense, .jss-dense) {
+  --jss-spinner-default-size: 14px;
+  gap: 4px;
+}
+
+.jss-spinner:is(.dense, .jss-dense) .jss-spinner-content {
+  gap: 0;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.jss-spinner:is(.dense, .jss-dense) .jss-spinner-note {
+  font-size: 11px;
+}
+
+.jss-spinner.jss-flat {
+  --jss-spinner-default-track: transparent;
+  background: transparent;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+:root[data-theme="dark"] .jss-spinner.jss-state-light {
+  --set-hover: #e2e8f0;
+}
+
+.jss-spinner.jss-text-gradient {
+  background: transparent;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-spinner.jss-text-gradient :is(.jss-spinner-label, .jss-spinner-copy, .jss-spinner-note) {
+  width: fit-content;
+  max-width: 100%;
+  background-image: linear-gradient(110deg,
+    color-mix(in srgb, var(--set-hover, var(--jss-primary)) 85%, var(--jss-text)),
+    color-mix(in srgb, var(--set-hover, var(--jss-primary)) 20%, var(--jss-text)));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.jss-spinner.jss-outline {
+  border: 0;
+  outline: none;
+  background: transparent;
+}
+
+.jss-spinner.jss-outline .jss-spinner-indicator::before {
+  border-width: 1px;
+  border-color: color-mix(in srgb, currentColor 55%, transparent);
+  border-top-color: currentColor;
+  border-right-color: currentColor;
+}
+
+.jss-spinner.jss-shadow {
+  box-shadow: none;
+}
+
+.jss-spinner:is(.jss-glow, .jss-glass) {
+  background: transparent;
+  box-shadow: none;
+  text-shadow: none;
+  backdrop-filter: none;
+}
+
+.jss-spinner.jss-glow .jss-spinner-indicator {
+  border-radius: 50%;
+  box-shadow: 0 0 3px color-mix(in srgb, var(--jss-spinner-color) 40%, transparent),
+    0 0 7px color-mix(in srgb, var(--jss-spinner-color) 25%, transparent);
+}
+
+.jss-spinner.jss-glass .jss-spinner-indicator {
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 35% 25%, rgb(255 255 255 / 75%), transparent 65%),
+    color-mix(in srgb, var(--jss-spinner-color) 12%, transparent);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  box-shadow: inset 0 1px 2px rgb(255 255 255 / 80%),
+    inset 0 -1px 2px color-mix(in srgb, var(--jss-spinner-color) 45%, transparent);
+}
+
+:root[data-theme="dark"] .jss-spinner.jss-glass .jss-spinner-indicator {
+  background: radial-gradient(ellipse at 35% 25%, rgb(255 255 255 / 22%), transparent 65%),
+    color-mix(in srgb, var(--jss-spinner-color) 12%, transparent);
+  box-shadow: inset 0 1px 2px rgb(255 255 255 / 30%),
+    inset 0 -1px 2px color-mix(in srgb, var(--jss-spinner-color) 40%, transparent);
+}
+
+.jss-spinner:is(.jss-light-shadow, .jss-border, .jss-glossy) {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.jss-spinner.jss-light-shadow .jss-spinner-indicator {
+  border-radius: 50%;
+  box-shadow: inset 1px 1px 1px rgb(255 255 255 / 80%),
+    -2px -2px 3px rgb(255 255 255 / 85%), 2px 2px 3px rgb(0 0 0 / 25%);
+}
+
+:root[data-theme="dark"] .jss-spinner.jss-light-shadow .jss-spinner-indicator {
+  box-shadow: inset 1px 1px 1px rgb(255 255 255 / 30%),
+    -1px -1px 3px rgb(255 255 255 / 12%), 2px 2px 3px rgb(0 0 0 / 50%);
+}
+
+.jss-spinner.jss-border .jss-spinner-indicator::before {
+  outline: 1px solid color-mix(in srgb, currentColor 65%, transparent);
+  outline-offset: 1px;
+}
+
+.jss-spinner.jss-glossy .jss-spinner-indicator {
+  border-radius: 50%;
+  background: linear-gradient(to bottom, rgb(255 255 255 / 75%) 0%,
+    rgb(255 255 255 / 35%) 49%, transparent 51%,
+    color-mix(in srgb, currentColor 20%, transparent) 100%);
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 90%),
+    inset 0 -1px 1px color-mix(in srgb, currentColor 35%, transparent);
+}
+
+:root[data-theme="dark"] .jss-spinner.jss-glossy .jss-spinner-indicator {
+  background: linear-gradient(to bottom, rgb(255 255 255 / 30%) 0%,
+    rgb(255 255 255 / 12%) 49%, transparent 51%, rgb(0 0 0 / 20%) 100%);
+}
+
+.jss-spinner.jss-shadow .jss-spinner-indicator {
+  filter: drop-shadow(0 2px 2px rgb(0 0 0 / 25%));
+}
+
+:root[data-theme="dark"] .jss-spinner.jss-shadow .jss-spinner-indicator {
+  filter: drop-shadow(0 2px 3px rgb(0 0 0 / 50%));
+}
+
+.jss-spinner.block,
+.jss-spinner.center {
+  width: 100%;
+}
+
+.jss-spinner.block {
+  display: flex;
+}
+
+.jss-spinner.center {
+  justify-content: center;
+}
+
+.jss-spinner.vertical {
+  flex-direction: column;
+  text-align: center;
+}
+
+.jss-spinner.reverse:not(.vertical) {
+  flex-direction: row-reverse;
+}
+
+.jss-spinner.vertical.reverse {
+  flex-direction: column-reverse;
+}
+
+.jss-spinner-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.jss-spinner-label,
+.jss-spinner-copy {
+  line-height: 1.3;
+}
+
+.jss-spinner-note {
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--jss-muted);
+}
+
+.jss-spinner-indicator {
+  --jss-spinner-size: 18px;
+  --jss-spinner-thickness: 2px;
+  --jss-spinner-speed: 900ms;
+  --jss-spinner-color: var(--set-hover, var(--jss-primary));
+  --jss-spinner-track: color-mix(in srgb, var(--jss-spinner-color) 18%, transparent);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--jss-spinner-size);
+  height: var(--jss-spinner-size);
+  flex: 0 0 auto;
+  color: var(--jss-spinner-color);
+  border-radius: 50%;
+}
+
+.jss-spinner-indicator::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border-radius: inherit;
+  border: var(--jss-spinner-thickness) solid var(--jss-spinner-track);
+  border-top-color: currentColor;
+  border-right-color: color-mix(in srgb, currentColor 45%, var(--jss-spinner-track));
+  animation: jss-spinner-rotate var(--jss-spinner-speed) linear infinite;
+}
+
+.jss-spinner.paused .jss-spinner-indicator::before {
+  animation-play-state: paused;
+}
+
+.jss-spinner.jss-size-xxs .jss-spinner-indicator {
+  --jss-spinner-size: 12px;
+}
+
+.jss-spinner.jss-size-xs .jss-spinner-indicator {
+  --jss-spinner-size: 14px;
+}
+
+.jss-spinner.jss-size-sm .jss-spinner-indicator {
+  --jss-spinner-size: 16px;
+}
+
+.jss-spinner.jss-size-md .jss-spinner-indicator {
+  --jss-spinner-size: 18px;
+}
+
+.jss-spinner.jss-size-lg .jss-spinner-indicator {
+  --jss-spinner-size: 24px;
+}
+
+.jss-spinner.jss-size-xl .jss-spinner-indicator {
+  --jss-spinner-size: 28px;
+}
+
+.jss-spinner.jss-size-xxl .jss-spinner-indicator {
+  --jss-spinner-size: 34px;
+}
+
+.jss-spinner.jss-size-xxxl .jss-spinner-indicator {
+  --jss-spinner-size: 40px;
+}

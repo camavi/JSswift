@@ -1,0 +1,26 @@
+.jss-scroll-locked {
+  overflow: hidden;
+}
+
+.jss-t-center {
+  text-align: center;
+}
+
+.jss-t-right {
+  text-align: right;
+}
+
+.jss-t-left {
+  text-align: left;
+}
+
+.jss-t-justify {
+  text-align: justify;
+}
+
+/* =============================
+   Common component utilities
+   ============================= */
+.jss-r-none {
+  border-radius: 0;
+}

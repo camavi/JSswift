@@ -1,7 +1,10 @@
 import fs from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { parseAst } from 'rolldown/parseAst';
 import postcss from 'postcss';
+import { readUIManifest } from './ui-manifest.mjs';
 import { runtimeLayout } from './runtime-layout.mjs';
 
 const services = {
@@ -11,7 +14,7 @@ const services = {
   Form: ['JSswift.useForm'],
 };
 
-function member(node) {
+export function member(node) {
   if (node?.type === 'ChainExpression') return member(node.expression);
   if (node?.type === 'Identifier') return node.name;
   if (node?.type !== 'MemberExpression') return null;
@@ -21,7 +24,7 @@ function member(node) {
   return `${object}.${property}`;
 }
 
-function walk(node, visit, parent = null, key = null) {
+export function walk(node, visit, parent = null, key = null) {
   if (!node || typeof node !== 'object') return;
   if (node.type) visit(node, parent, key);
   for (const [name, value] of Object.entries(node)) {
@@ -39,9 +42,21 @@ function canonical(name, components) {
   return name;
 }
 
+export async function componentNames(root) {
+  const directory = runtimeLayout(root).source;
+  const manifest = await readUIManifest(directory);
+  const source = (await Promise.all(manifest.buildOrder.map(file => fs.readFile(path.join(directory, file), 'utf8')))).join('\n');
+  const names = new Set();
+  walk(parseAst(source), node => {
+    const name = node.type === 'AssignmentExpression' ? member(node.left) : null;
+    if (name && /^UI\.[^.]+$/.test(name)) names.add(name.slice(3));
+  });
+  return names;
+}
+
 export async function selectUI(root, requested, requestedServices) {
   const directory = runtimeLayout(root).source;
-  const manifest = JSON.parse(await fs.readFile(path.join(directory, 'modules.json'), 'utf8'));
+  const manifest = await readUIManifest(directory);
   const files = await Promise.all(manifest.buildOrder.map(async file => ({ file, text: await fs.readFile(path.join(directory, file), 'utf8') })));
   let offset = 0;
   for (const file of files) { file.start = offset; offset += file.text.length + 1; file.end = offset; }
@@ -123,24 +138,28 @@ export async function selectUI(root, requested, requestedServices) {
 
 // Only rules with explicit component ownership are removed. Shared tokens,
 // utilities, native styles and unknown selectors are retained conservatively.
-const cssOwners = {
-  btn: ['Btn', 'Button'], card: ['Card', 'cardHeader', 'cardBody', 'cardFooter'],
-  input: ['Input', 'InputRaw', 'Textarea', 'FormField'], field: ['FormField'],
-  textarea: ['Textarea'], select: ['Select'], search: ['Search'], upload: ['Upload'],
-  icon: ['Icon'], badge: ['Badge'], avatar: ['Avatar'], chip: ['Chip'],
-  list: ['List', 'Item'], item: ['Item'], separator: ['Separator'], tooltip: ['Tooltip'],
-  checkbox: ['Checkbox'], radio: ['Radio'], toggle: ['Toggle'], slider: ['Slider'], rating: ['Rating'],
-  date: ['Date', 'Calendar', 'Datepicker'], calendar: ['Date', 'Calendar'], time: ['Time'],
-  tabs: ['Tabs', 'RouteTab'], tab: ['Tabs', 'RouteTab', 'TabPanel'], breadcrumbs: ['Breadcrumbs'], breadcrumb: ['Breadcrumbs'],
-  pagination: ['Pagination'], spinner: ['Spinner'], progress: ['Progress'], 'loading-bar': ['LoadingBar'],
-  banner: ['Banner'], alert: ['Alert'], table: ['Table'], menu: ['Menu'], popover: ['Popover'],
-  dialog: ['Dialog'], notify: ['Notify'], toast: ['Notify'], loading: ['$Loading'],
-  header: ['Header', 'Layout'], drawer: ['Drawer', 'Layout'], footer: ['Footer', 'Layout'],
-  page: ['Page', 'Layout'], 'app-shell': ['AppShell'], parallax: ['Parallax'],
-  toolbar: ['Toolbar'], grid: ['Grid', 'GridCol'], container: ['Container'], form: ['Form'], kpi: ['Kpi'],
-};
+const cssManifest = path.join(runtimeLayout(fileURLToPath(new URL('../', import.meta.url))).source, 'modules.json');
+
+// Only classes outside functions/attributes are unconditional requirements.
+// Never infer ownership from :not/:is/:has arguments or quoted attribute text.
+function requiredClasses(selector) {
+  if (selector.includes('\\')) return [];
+  let depth = 0, attribute = 0, quote = '', outer = '';
+  for (const char of selector) {
+    if (quote) { if (char === quote) quote = ''; continue; }
+    if (char === '"' || char === "'") { quote = char; continue; }
+    if (char === '[') { attribute++; continue; }
+    if (char === ']') { attribute--; continue; }
+    if (attribute) continue;
+    if (char === '(') { depth++; outer += ' '; continue; }
+    if (char === ')') { depth--; continue; }
+    if (!depth) outer += char;
+  }
+  return [...outer.matchAll(/\.jss-([a-zA-Z0-9_-]+)/g)].map(match => match[1]);
+}
 
 export function selectComponentCSS(css, components, selectedServices = []) {
+  const cssOwners = JSON.parse(readFileSync(cssManifest, 'utf8')).cssOwnership;
   const selected = new Set([...components, ...selectedServices.map(name => `$${name}`)]);
   const prefixes = Object.keys(cssOwners).sort((a, b) => b.length - a.length);
   const ast = postcss.parse(css);
@@ -148,10 +167,7 @@ export function selectComponentCSS(css, components, selectedServices = []) {
   ast.walkRules(rule => {
     if (rule.parent.type === 'atrule' && /keyframes$/i.test(rule.parent.name)) return;
     const selectors = postcss.list.comma(rule.selector).filter(selector => {
-      // Functional selector lists can mix owners; preserve them rather than
-      // risk changing :is/:not/:has semantics without a selector AST.
-      if (/:(?:is|where|not|has)\(/.test(selector)) return true;
-      const classes = [...selector.matchAll(/\.jss-([a-zA-Z0-9_-]+)/g)].map(match => match[1]);
+      const classes = requiredClasses(selector);
       const omitted = classes.some(name => {
         const prefix = prefixes.find(prefix => name === prefix || name.startsWith(prefix + '-'));
         return prefix && !cssOwners[prefix].some(owner => selected.has(owner));
@@ -163,5 +179,16 @@ export function selectComponentCSS(css, components, selectedServices = []) {
     else rule.remove();
   });
   ast.walkAtRules(rule => { if (rule.nodes && !rule.nodes.length) rule.remove(); });
-  return { css: ast.toString(), removedSelectors };
+  const retainedRules = { owned: 0, sharedOrUnknown: 0, complex: 0, keyframes: 0 };
+  const retainedRuleBytes = { owned: 0, sharedOrUnknown: 0, complex: 0, keyframes: 0 };
+  ast.walkRules(rule => {
+    const classes = [...rule.selector.matchAll(/\.jss-([a-zA-Z0-9_-]+)/g)].map(match => match[1]);
+    const category = rule.parent.type === 'atrule' && /keyframes$/i.test(rule.parent.name) ? 'keyframes'
+      : /:(?:is|where|not|has)\(/.test(rule.selector) ? 'complex'
+      : classes.some(name => prefixes.some(prefix => name === prefix || name.startsWith(prefix + '-'))) ? 'owned' : 'sharedOrUnknown';
+    retainedRules[category]++;
+    retainedRuleBytes[category] += Buffer.byteLength(rule.toString());
+  });
+  const output = ast.toString();
+  return { css: output, removedSelectors, analysis: { inputBytes: Buffer.byteLength(css), outputBytes: Buffer.byteLength(output), removedSelectors, retainedRules, retainedRuleBytes } };
 }

@@ -1,0 +1,12 @@
+.jss-d-none {
+  display: none;
+}
+
+/* - END CSS BASE */
+
+.jss-app {
+  font-family: var(--jss-font);
+  background: var(--jss-bg);
+  color: var(--jss-text);
+  min-height: 100vh;
+}

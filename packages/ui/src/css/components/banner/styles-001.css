@@ -1,0 +1,360 @@
+.jss-banner {
+  --jss-banner-bg: color-mix(in srgb, var(--jss-panel) 88%, white 4%);
+  --jss-banner-border: var(--jss-border-color);
+  --jss-banner-color: inherit;
+  --jss-banner-accent: color-mix(in srgb, var(--jss-border-color) 65%, white);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--jss-s-md);
+  width: 100%;
+  min-width: 0;
+  padding: 10px 14px;
+  font-size: var(--jss-font-size, 14px);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--jss-banner-border);
+  border-radius: var(--set-border-radius, var(--jss-r-md));
+  background: var(--jss-banner-bg);
+  color: var(--jss-banner-color);
+}
+
+.jss-banner.jss-singularity.jss-outline.jss-glossy,
+.jss-banner.jss-singularity.jss-outline.jss-text-gradient {
+  --set-border-color: var(--jss-banner-accent);
+  border-style: solid;
+  border-width: var(--set-border-width, 1px);
+  border-color: var(--jss-banner-accent);
+}
+
+.jss-banner.jss-singularity.jss-border {
+  border-style: solid;
+  border-width: var(--set-border-width, 1px);
+  border-color: var(--jss-banner-accent);
+}
+
+.jss-banner.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 4px 1px color-mix(in srgb, var(--jss-banner-accent) 55%, transparent),
+    0 0 14px 2px color-mix(in srgb, var(--jss-banner-accent) 30%, transparent);
+  box-shadow: var(--set-shadow-active, 0 0 0 0 transparent), var(--set-glow-active);
+  text-shadow: none;
+}
+
+:root[data-theme="dark"] .jss-banner.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 5px 1px color-mix(in srgb, var(--jss-banner-accent) 60%, transparent),
+    0 0 16px 2px color-mix(in srgb, var(--jss-banner-accent) 38%, transparent);
+}
+
+.jss-banner.jss-singularity.jss-glass {
+  background-color: color-mix(in srgb, var(--jss-bg) 45%, transparent);
+  background-image: linear-gradient(135deg, rgb(255 255 255 / 45%), transparent 55%),
+    radial-gradient(ellipse at 80% 0%, color-mix(in srgb, var(--jss-banner-accent) 18%, transparent), transparent 75%);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  color: var(--jss-text);
+  border: 1px solid color-mix(in srgb, var(--jss-banner-accent) 22%, transparent);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 65%),
+    inset 0 -1px 0 color-mix(in srgb, var(--jss-banner-accent) 12%, transparent),
+    0 4px 12px color-mix(in srgb, var(--jss-text) 12%, transparent);
+}
+
+.jss-banner.jss-singularity.jss-glass::before {
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--jss-banner-accent);
+  opacity: .65;
+  filter: none;
+}
+
+:root[data-theme="dark"] .jss-banner.jss-singularity.jss-glass {
+  background-color: color-mix(in srgb, var(--jss-panel) 65%, transparent);
+  background-image: linear-gradient(135deg, rgb(255 255 255 / 9%), transparent 55%),
+    radial-gradient(ellipse at 80% 0%, color-mix(in srgb, var(--jss-banner-accent) 14%, transparent), transparent 75%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 16%),
+    inset 0 -1px 0 rgb(0 0 0 / 20%), 0 4px 14px rgb(0 0 0 / 35%);
+}
+
+.jss-banner.jss-singularity.jss-gradient {
+  --set-gradient-active: linear-gradient(var(--set-gradient-deg, 180deg),
+    color-mix(in srgb, var(--jss-bg) 96%, var(--jss-banner-accent)),
+    color-mix(in srgb, var(--jss-bg) 82%, var(--jss-banner-accent)));
+  background-image: var(--set-gradient-active);
+  background-color: var(--jss-bg);
+  color: var(--jss-text);
+}
+
+:root[data-theme="dark"] .jss-banner.jss-singularity.jss-gradient {
+  --set-gradient-active: linear-gradient(var(--set-gradient-deg, 180deg),
+    color-mix(in srgb, var(--jss-panel) 96%, var(--jss-banner-accent)),
+    color-mix(in srgb, var(--jss-panel) 84%, var(--jss-banner-accent)));
+}
+
+.jss-banner.jss-singularity.jss-text-gradient {
+  --set-gradient-active: none;
+  --set-background-color: var(--jss-bg);
+  background: var(--jss-bg);
+  color: var(--jss-text);
+  -webkit-text-fill-color: currentColor;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+}
+
+.jss-banner.jss-text-gradient :is(.jss-banner-title, .jss-banner-message, .jss-banner-description, .jss-banner-meta) {
+  background-image: linear-gradient(var(--set-gradient-deg, 180deg),
+    color-mix(in srgb, var(--jss-text) 40%, var(--jss-banner-accent)),
+    color-mix(in srgb, var(--jss-text) 70%, var(--jss-banner-accent)));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 1;
+}
+
+.jss-banner.jss-text-gradient .jss-banner-icon {
+  color: var(--jss-banner-accent);
+}
+
+.jss-banner.jss-singularity.jss-text-gradient:not(.jss-card) .jss-btn {
+  background-image: none;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-banner.jss-glossy {
+  --set-glossy-active: linear-gradient(to bottom,
+    color-mix(in srgb, var(--jss-banner-accent) 5%, rgb(255 255 255 / 55%)) 0%,
+    color-mix(in srgb, var(--jss-banner-accent) 7%, transparent) 48%,
+    color-mix(in srgb, var(--jss-banner-accent) 12%, transparent) 51%,
+    color-mix(in srgb, var(--jss-banner-accent) 18%, transparent) 100%);
+  background-color: color-mix(in srgb, var(--jss-bg) 94%, var(--jss-banner-accent));
+  background-image: var(--set-glossy-active);
+}
+
+:root[data-theme="dark"] .jss-banner.jss-glossy {
+  --set-glossy-active: linear-gradient(to bottom,
+    color-mix(in srgb, var(--jss-banner-accent) 8%, rgb(255 255 255 / 12%)) 0%,
+    color-mix(in srgb, var(--jss-banner-accent) 6%, transparent) 48%,
+    color-mix(in srgb, var(--jss-banner-accent) 10%, transparent) 51%,
+    color-mix(in srgb, var(--jss-banner-accent) 16%, transparent) 100%);
+}
+
+.jss-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--jss-banner-accent);
+  opacity: 0.95;
+}
+
+.jss-banner-icon {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--jss-banner-accent) 16%, transparent);
+  color: var(--jss-banner-accent);
+  flex-shrink: 0;
+}
+
+.jss-banner-body {
+  min-width: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--jss-s-sm);
+}
+
+.jss-banner-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.jss-banner-title {
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.jss-banner-message {
+  line-height: 1.45;
+}
+
+.jss-banner-description,
+.jss-banner-meta {
+  line-height: 1.45;
+  color: color-mix(in srgb, currentColor 72%, transparent);
+}
+
+.jss-banner-extra {
+  display: flex;
+  flex-direction: column;
+  gap: var(--jss-s-sm);
+}
+
+.jss-banner-actions,
+.jss-banner-side {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.jss-banner-side {
+  margin-left: auto;
+  justify-content: flex-end;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.jss-banner-actions .jss-btn,
+.jss-banner-side .jss-btn {
+  margin: 0;
+}
+
+.jss-banner-close {
+  min-width: 34px;
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+.jss-banner.jss-banner-actions-bottom .jss-banner-side {
+  align-self: stretch;
+}
+
+.jss-banner.jss-banner-actions-bottom .jss-banner-side .jss-banner-actions {
+  width: 100%;
+}
+
+.jss-banner.jss-banner-stack {
+  flex-direction: column;
+}
+
+.jss-banner.jss-banner-stack::before {
+  inset: 0 0 auto 0;
+  width: auto;
+  height: 4px;
+}
+
+.jss-banner.jss-banner-stack .jss-banner-side {
+  margin-left: 0;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.jss-banner.jss-banner-outline {
+  --jss-banner-bg: transparent;
+  --jss-banner-border: color-mix(in srgb, var(--jss-banner-accent) 42%, var(--jss-border-color));
+}
+
+.jss-banner.jss-dense {
+  gap: var(--jss-s-sm);
+  padding: 8px 10px;
+}
+
+.jss-banner.jss-dense .jss-banner-icon {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+}
+
+.jss-banner.jss-banner-ghost {
+  --jss-banner-bg: color-mix(in srgb, var(--jss-banner-accent) 10%, transparent);
+  --jss-banner-border: transparent;
+}
+
+.jss-banner.jss-banner-solid {
+  --jss-banner-bg: var(--jss-banner-accent);
+  --jss-banner-border: color-mix(in srgb, var(--jss-banner-accent) 84%, black);
+  --jss-banner-color: var(--jss-banner-solid-text, #fff);
+}
+
+.jss-banner.jss-banner-solid .jss-banner-icon {
+  background: color-mix(in srgb, var(--jss-banner-color) 14%, transparent);
+  color: var(--jss-banner-color);
+}
+
+.jss-banner.jss-singularity:not(.jss-banner-solid, .jss-banner-outline, .jss-banner-ghost, .jss-border, .jss-glossy, .jss-glass, .jss-gradient, .jss-text-gradient) {
+  background: color-mix(in srgb, var(--jss-bg) 92%, var(--jss-banner-accent));
+  color: var(--jss-text);
+  border: 1px solid color-mix(in srgb, var(--jss-banner-accent) 18%, transparent);
+}
+
+.jss-banner.jss-singularity.jss-banner-solid {
+  --jss-banner-color: #fff;
+  background: var(--jss-banner-accent);
+  color: var(--jss-banner-color);
+  border: 1px solid color-mix(in srgb, var(--jss-banner-accent) 84%, black);
+}
+
+.jss-banner.jss-singularity:is(.light, .jss-state-light) {
+  --jss-banner-accent: #f1f5f9;
+}
+
+.jss-banner.jss-singularity.jss-banner-solid:is(.light, .jss-state-light) {
+  --jss-banner-color: #1f2937;
+}
+
+.jss-banner.jss-singularity.jss-banner-outline {
+  background: transparent;
+  color: var(--jss-text);
+  border: 1px solid color-mix(in srgb, var(--jss-banner-accent) 55%, var(--jss-border-color));
+}
+
+.jss-banner.jss-singularity.jss-banner-ghost {
+  background: transparent;
+  color: var(--jss-text);
+  border: 0;
+}
+
+.jss-banner.jss-singularity.jss-banner-ghost::before {
+  content: none;
+}
+
+.jss-banner:is(.light, .dark, .jss-state-light, .jss-state-dark):not(.jss-banner-solid) .jss-banner-icon {
+  color: var(--jss-text);
+  background: color-mix(in srgb, var(--jss-text) 12%, transparent);
+}
+
+.jss-banner.jss-singularity.jss-banner-solid .jss-banner-close {
+  color: var(--jss-banner-color);
+  border-color: color-mix(in srgb, currentColor 40%, transparent);
+}
+
+.jss-banner.jss-size-xxs {
+  padding: 6px 10px;
+  font-size: 11px;
+}
+
+.jss-banner.jss-size-xs {
+  padding: 7px 11px;
+  font-size: 12px;
+}
+
+.jss-banner.jss-size-sm {
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.jss-banner.jss-size-md {
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+.jss-banner.jss-size-lg {
+  padding: 12px 16px;
+  font-size: 15px;
+}
+
+.jss-banner.jss-size-xl {
+  padding: 14px 18px;
+  font-size: 16px;
+}
+
+.jss-banner.jss-size-xxl {
+  padding: 16px 20px;
+  font-size: 17px;
+}

@@ -1,0 +1,3 @@
+.jss-btn:not([class*='jss-state-']):not(.jss-outline, .jss-state-secondary, .jss-dialog, .jss-menu-panel) {
+  --set-color: var(--jss-text);
+}

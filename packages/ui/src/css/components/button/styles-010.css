@@ -1,0 +1,5 @@
+.jss-outline:not(.jss-dialog, .jss-card) .jss-btn {
+  color: var(--set-border-color);
+  border-color: var(--set-border-color);
+  transition: all 0.2s ease-in-out;
+}

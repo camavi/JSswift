@@ -1,0 +1,11 @@
+[class*='jss-state-']:not(.jss-outline, .jss-state-secondary, .jss-dialog, .jss-menu-panel) {
+  --set-color: var(--set-color-1);
+}
+[class*='jss-state-light']:not(.jss-outline, .jss-state-secondary, .jss-dialog, .jss-menu-panel) {
+  --set-color: var(--jss-dark);
+}
+
+.jss-singularity-check:not([class*='jss-state-']) .jss-choice-mark {
+  color: var(--set-color);
+  background-color: var(--jss-theme-color-3);
+}

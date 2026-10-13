@@ -1,0 +1,25 @@
+.jss-checkbox-wrap.jss-dense {
+  align-items: center;
+  gap: var(--set-gap, 6px);
+  padding: var(--set-padding, 1px 2px);
+}
+
+.jss-checkbox-wrap.jss-dense > .jss-choice-checkbox-mark {
+  width: calc(var(--jss-font-size, 16px) + 2px);
+  height: calc(var(--jss-font-size, 16px) + 2px);
+}
+
+.jss-checkbox-wrap.jss-flat > .jss-choice-checkbox-mark {
+  border-width: 0;
+  box-shadow: none;
+}
+
+.jss-checkbox-wrap.jss-light-shadow:not(.jss-outline) > .jss-choice-checkbox-mark,
+.jss-checkbox-wrap.jss-glass:not(.jss-outline) > .jss-choice-checkbox-mark {
+  border-width: 0;
+}
+
+.jss-checkbox-wrap > .jss-choice-input:focus-visible + .jss-choice-checkbox-mark {
+  outline: 2px solid var(--set-border-color, var(--jss-primary));
+  outline-offset: 3px;
+}

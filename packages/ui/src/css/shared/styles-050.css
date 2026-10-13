@@ -1,0 +1,76 @@
+/* Shared Stat/Kpi/Header elevation: contact shadow plus a broad, directional ambient shadow. */
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-shadow {
+  --set-shadow-active: 0 3px 7px rgb(15 23 42 / 22%),
+    0 14px 28px -5px rgb(15 23 42 / 32%);
+}
+:root[data-theme="dark"] :is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-shadow:not(.jss-state-light),
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-shadow.jss-state-dark {
+  --set-shadow-active: inset 0 1px 0 rgb(255 255 255 / 12%),
+    0 4px 8px rgb(0 0 0 / 55%), 0 16px 30px -4px rgb(0 0 0 / 80%);
+}
+
+/* Metric surfaces have no implicit contour; Border and Outline stay opt-in. */
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity:not(.jss-border):not(.jss-outline) { border: 0; }
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-light-shadow {
+  background-image: radial-gradient(ellipse at 0% 0%, rgb(255 255 255 / 30%), transparent 65%),
+    linear-gradient(135deg, transparent 35%, rgb(15 23 42 / 18%));
+  --set-shadow-active: inset 0 1px 2px rgb(255 255 255 / 32%),
+    -3px -4px 12px rgb(255 255 255 / 45%),
+    0 3px 6px rgb(15 23 42 / 16%), 7px 11px 22px -5px rgb(15 23 42 / 30%);
+}
+:root[data-theme="dark"] :is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-light-shadow:not(.jss-state-light),
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-light-shadow.jss-state-dark {
+  background-image: radial-gradient(ellipse at 0% 0%, rgb(255 255 255 / 17%), transparent 65%),
+    linear-gradient(135deg, transparent 35%, rgb(0 0 0 / 30%));
+  --set-shadow-active: inset 0 1px 2px rgb(255 255 255 / 18%),
+    -3px -4px 12px rgb(255 255 255 / 5%),
+    0 3px 7px rgb(0 0 0 / 45%), 7px 12px 24px -4px rgb(0 0 0 / 75%);
+}
+
+/* Supporting metric text follows its surface foreground, not page-muted text. */
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity :is(.jss-stat-note, .jss-stat-meta, .jss-stat-footer-copy, .jss-stat-aside, .jss-kpi-note, .jss-kpi-meta, .jss-kpi-footer-copy, .jss-kpi-aside, .jss-header-subtitle, .jss-header-content, .jss-header-meta, .jss-footer-subtitle, .jss-footer-content, .jss-footer-meta, .jss-toolbar-subtitle, .jss-toolbar-meta, .jss-alert-message, .jss-alert-description, .jss-alert-meta, .jss-empty-state-message, .jss-empty-state-description, .jss-empty-state-meta, .jss-empty-state-extra) {
+  color: inherit;
+}
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity :is(.jss-stat-eyebrow, .jss-kpi-eyebrow, .jss-header-eyebrow, .jss-footer-eyebrow, .jss-empty-state-eyebrow) {
+  color: color-mix(in srgb, currentColor 85%, transparent);
+}
+
+/* Outline has no dark fill: neutral foreground must follow the page theme. */
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-outline.jss-state-dark {
+  --set-color: var(--jss-text);
+  color: var(--jss-text);
+}
+
+/* Glass is translucent: use theme foreground rather than text-on-solid-fill. */
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-glass {
+  --set-color: var(--jss-text);
+  color: var(--jss-text);
+}
+
+/* Slightly softer metric halo, preserving the existing colored glow. */
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-glow {
+  --set-glow-active: var(--set-sc-inset),
+    0 0 1px 1px color-mix(in srgb, var(--set-border-color) 45%, transparent),
+    0 0 3px 2px color-mix(in srgb, var(--set-color-2) 45%, transparent),
+    0 0 13px 1px color-mix(in srgb, var(--set-color-2) 80%, transparent);
+  text-shadow: 0 0 2px color-mix(in srgb, var(--set-color-1) 55%, transparent);
+}
+
+/* A neutral metric still owns a surface when no semantic color is selected. */
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity:not([class*="jss-state-"]) {
+  --set-background-color: color-mix(in srgb, var(--jss-text) 5%, var(--jss-bg));
+  --set-color: var(--jss-text);
+  color: var(--jss-text);
+}
+:is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-outline:not([class*="jss-state-"]) {
+  --set-background-color: transparent;
+}
+
+/* Dark Glass retains translucency without the shared bright silver wash. */
+:root[data-theme="dark"] :is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-glass:not(.jss-state-light) {
+  background-color: color-mix(in srgb, var(--set-color-3) 12%, rgb(15 23 42 / 55%));
+}
+:root[data-theme="dark"] :is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-glass:not(.jss-state-light)::before {
+  filter: brightness(.6);
+  opacity: .5;
+}

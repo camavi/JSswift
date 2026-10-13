@@ -1,0 +1,33 @@
+.jss-time-display {
+  cursor: pointer;
+  font-size: var(--jss-time-input-font-size, inherit);
+}
+
+.jss-time-display.is-manual {
+  cursor: text;
+}
+
+.jss-time-display.jss-size-xs {
+  --jss-time-input-height: 30px;
+  --jss-time-input-font-size: 12px;
+}
+
+.jss-time-display.jss-size-sm {
+  --jss-time-input-height: 34px;
+  --jss-time-input-font-size: 13px;
+}
+
+.jss-time-display.jss-size-md {
+  --jss-time-input-height: 40px;
+  --jss-time-input-font-size: 14px;
+}
+
+.jss-time-display.jss-size-lg {
+  --jss-time-input-height: 46px;
+  --jss-time-input-font-size: 15px;
+}
+
+.jss-time-display.jss-size-xl {
+  --jss-time-input-height: 52px;
+  --jss-time-input-font-size: 16px;
+}

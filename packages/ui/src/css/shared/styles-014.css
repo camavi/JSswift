@@ -1,0 +1,25 @@
+.jss-dialog.jss-singularity.jss-glass,
+.jss-menu-panel.jss-singularity.jss-glass {
+  --set-color: var(--jss-text);
+  --set-text-color: var(--jss-text);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), transparent 55%),
+    color-mix(in srgb, var(--jss-dialog-accent) 5%, color-mix(in srgb, var(--jss-bg) 68%, transparent));
+  color: var(--jss-text);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-color: color-mix(in srgb, var(--jss-text) 22%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+:root[data-theme="dark"] .jss-dialog.jss-singularity.jss-glass,
+:root[data-theme="dark"] .jss-menu-panel.jss-singularity.jss-glass {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 55%),
+    color-mix(in srgb, var(--jss-dialog-accent) 5%, color-mix(in srgb, var(--jss-bg) 68%, transparent));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.jss-dialog.jss-singularity.jss-glass::before,
+.jss-table-card.jss-glass .jss-table thead::before,
+.jss-menu-panel.jss-singularity.jss-glass::before {
+  content: none;
+}

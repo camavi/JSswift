@@ -1,6 +1,6 @@
 # Compact verified CRUD
 
-For a new Vite app follow the selective setup in [AI.md](../AI.md#import-create-mount), use `components:['Button','Input','Select','Table','Kpi']`, `services:['Dialog']`, and import `jss:runtime` in the entrypoint. For an existing app preserve its loading method. Then run the following code with an `#app` element. Uses public field APIs; selectors below identify application-owned buttons only. Persistence failures keep the editor open. Filtering applies to names and category; five rows per page. Create fresh fields for each opening; closing an overlay cleans up its mounted content and explicitly disposes the eight caller-owned field/error rods.
+For a new Vite app follow the automatic setup in [AI.md](../AI.md#import-create-mount), omit component/service lists, and import `jss:runtime` in the entrypoint. For an existing app preserve its loading method. Then run the following code with an `#app` element. Uses public field APIs; selectors below identify application-owned buttons only. Persistence failures keep the editor open. Filtering applies to names and category; five rows per page. Create fresh fields for each opening; closing an overlay cleans up its mounted content and explicitly disposes the eight caller-owned field/error rods.
 
 ```js
 const _ = window._;
@@ -10,7 +10,7 @@ const priceFormat = new Intl.NumberFormat('it-IT', {style:'currency', currency:'
 const initial = () => Array.from({length: 6}, (_, i) => ({id:i+1, name:`Prodotto ${i+1}`, category:categories[i%2], price:10, quantity:2}));
 const valid = rows => Array.isArray(rows) && new Set(rows.map(r => r?.id)).size === rows.length && rows.every(r => r && Number.isSafeInteger(r.id) && r.id > 0 && typeof r.name === 'string' && r.name.trim() && categories.includes(r.category) && Number.isFinite(r.price) && r.price >= 0 && Number.isSafeInteger(r.quantity) && r.quantity >= 0);
 let rows = initial(), editing = null, origin = 'add-product', query = '', category = '', page = 1;
-const notice = _.p({role:'status'});
+const notice = _.p({role:'status','aria-live':'polite'});
 try { const stored = localStorage.getItem(key); if (stored) { const data = JSON.parse(stored); if (valid(data)) rows = data; else notice.textContent = 'Archivio non valido'; } } catch { notice.textContent = 'Archivio non disponibile'; }
 let models, errors, fields, dialog, save;
 function edit(record) {
@@ -24,8 +24,9 @@ fields = {
  price: _.Input({label:'Prezzo', type:'number', required:true, min:0, step:'any', model:models.price, error:errors.price}),
  quantity: _.Input({label:'Quantità', type:'number', required:true, min:0, step:1, model:models.quantity, error:errors.quantity})
 };
+const saveError = _.p({role:'alert'});
 dialog = _.Dialog({title:'Prodotto', ariaLabel:'Prodotto', trapFocus:true, autoFocus:true, closeOnEsc:true,
- content:_.div({}, ...Object.values(fields)), onOpen:() => fields.name.focus(),
+ content:_.div({}, ...Object.values(fields), saveError), onOpen:() => fields.name.focus(),
  onClose:() => { ownedModels.forEach(model => model.dispose());
  requestAnimationFrame(() => (document.getElementById(returnFocus) ?? add).focus()); }});
 save = _.Button({id:'save-product', onClick:() => {
@@ -40,14 +41,14 @@ save = _.Button({id:'save-product', onClick:() => {
  let freeId = 1; while (usedIds.has(freeId)) freeId++;
  const record = {id:editing ?? freeId,...value};
  const next = editing == null ? [...rows,record] : rows.map(r => r.id === editing ? record : r);
- try { localStorage.setItem(key, JSON.stringify(next)); } catch { notice.textContent = 'Salvataggio non riuscito'; return; }
+ try { localStorage.setItem(key, JSON.stringify(next)); } catch { saveError.textContent = 'Salvataggio non riuscito'; return; }
  rows = next; renderStats(); render(); dialog.close(); notice.textContent = 'Salvato';
 }}, 'Salva');
 dialog.update({actions:[_.Button({onClick:() => dialog.close()},'Annulla'),save]});
  for (const k of Object.keys(models)) models[k].value = String(record?.[k] ?? '');
  dialog.open();
 }
-const host = _.div({style:{maxWidth:'100%',overflowX:'auto'}}), pager = _.div(), stats = _.div();
+const host = _.div({role:'region','aria-label':'Tabella prodotti',tabindex:0,style:{maxWidth:'100%',overflowX:'auto'}}), pager = _.div(), stats = _.div();
 function renderStats() {
  const available = rows.filter(r => r.quantity > 0).length;
  _.mount(stats, [_.Kpi({title:'Prodotti totali',value:rows.length}), _.Kpi({title:'Disponibili',value:available}), _.Kpi({title:'Esauriti',value:rows.length-available}), _.Kpi({title:'Valore magazzino',value:priceFormat.format(rows.reduce((sum,r) => sum+r.price*r.quantity,0))})]);
@@ -64,9 +65,9 @@ const filter = _.Select({label:'Filtro categoria',options:[{value:'',label:'Tutt
 function render() {
  const found = rows.filter(r => r.name.toLowerCase().includes(query.trim().toLowerCase()) && (!category || r.category === category));
  const pages = Math.max(1,Math.ceil(found.length/5)); page = Math.min(page,pages);
- _.mount(host, _.Table({rows:found.slice((page-1)*5,page*5),rowKey:'id',pagination:false,hideFooter:true,hideStatus:true,minTableWidth:600,shadow:'none',radius:'12px',style:{background:'#fff'},tableStyle:{background:'#fff','--jss-table-head':'#fff'},emptyText:'Nessun prodotto trovato',
+ _.mount(host, _.Table({rows:found.slice((page-1)*5,page*5),rowKey:'id',embedded:true,pagination:false,hideFooter:true,hideStatus:true,minTableWidth:600,shadow:'none',radius:'12px',style:{background:'#fff'},tableStyle:{background:'#fff','--set-color-1':'#fff','--jss-table-head':'#fff'},emptyText:'Nessun prodotto trovato',
  columns:[{key:'name',sortable:false,label:'Nome'},{key:'category',sortable:false,label:'Categoria'},{key:'price',sortable:false,label:'Prezzo',format:value => priceFormat.format(value)},{key:'quantity',sortable:false,label:'Quantità'},
- {key:'actions',label:'Azioni',render:r => _.Button({id:`edit-${r.id}`,onClick:() => edit(r)},'Modifica')}] }));
+ {key:'actions',sortable:false,label:'Azioni',render:r => _.Button({id:`edit-${r.id}`,onClick:() => edit(r)},'Modifica')}] }));
  _.mount(pager, [_.span(`${found.length} prodotti — pagina ${page}/${pages}`),
  _.Button({id:'previous',disabled:page===1,onClick:() => changePage(-1,'previous')},'Precedente'),
  _.Button({id:'next',disabled:page===pages,onClick:() => changePage(1,'next')},'Successiva')]);

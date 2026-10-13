@@ -1,0 +1,72 @@
+.jss-banner.success,
+.jss-banner.jss-state-success {
+  --jss-banner-accent: var(--jss-success);
+  --jss-banner-border: color-mix(in srgb, var(--jss-success) 32%, var(--jss-border-color));
+  --jss-banner-bg: var(--jss-success-soft);
+  --jss-banner-color: var(--jss-success-text);
+  --jss-banner-solid-text: var(--jss-success-text);
+}
+
+.jss-banner.warning,
+.jss-banner.jss-state-warning {
+  --jss-banner-accent: var(--jss-warning);
+  --jss-banner-border: color-mix(in srgb, var(--jss-warning) 32%, var(--jss-border-color));
+  --jss-banner-bg: var(--jss-warning-soft);
+  --jss-banner-color: var(--jss-warning-text);
+  --jss-banner-solid-text: var(--jss-warning-text);
+}
+
+.jss-banner.error,
+.jss-banner.danger,
+.jss-banner.jss-state-danger {
+  --jss-banner-accent: var(--jss-danger);
+  --jss-banner-border: color-mix(in srgb, var(--jss-danger) 32%, var(--jss-border-color));
+  --jss-banner-bg: var(--jss-danger-soft);
+  --jss-banner-color: var(--jss-danger-text);
+  --jss-banner-solid-text: var(--jss-danger-text);
+}
+
+.jss-banner.info,
+.jss-banner.jss-state-info {
+  --jss-banner-accent: var(--jss-info);
+  --jss-banner-border: color-mix(in srgb, var(--jss-info) 32%, var(--jss-border-color));
+  --jss-banner-bg: var(--jss-info-soft);
+  --jss-banner-color: var(--jss-info-text);
+  --jss-banner-solid-text: var(--jss-info-text);
+}
+
+.jss-banner.primary,
+.jss-banner.jss-state-primary {
+  --jss-banner-accent: var(--jss-primary);
+  --jss-banner-border: color-mix(in srgb, var(--jss-primary) 32%, var(--jss-border-color));
+  --jss-banner-bg: var(--jss-primary-soft);
+  --jss-banner-color: var(--jss-primary-text);
+  --jss-banner-solid-text: var(--jss-primary-text);
+}
+
+.jss-banner.secondary,
+.jss-banner.jss-state-secondary {
+  --jss-banner-accent: var(--jss-secondary);
+  --jss-banner-border: color-mix(in srgb, var(--jss-secondary) 32%, var(--jss-border-color));
+  --jss-banner-bg: var(--jss-secondary-soft);
+  --jss-banner-color: var(--jss-secondary-text);
+  --jss-banner-solid-text: var(--jss-secondary-text);
+}
+
+.jss-banner.light,
+.jss-banner.jss-state-light {
+  --jss-banner-accent: var(--jss-light);
+  --jss-banner-border: color-mix(in srgb, var(--jss-light) 70%, var(--jss-border-color));
+  --jss-banner-bg: color-mix(in srgb, var(--jss-light) 18%, var(--jss-panel));
+  --jss-banner-color: var(--jss-light-text);
+  --jss-banner-solid-text: var(--jss-light-text);
+}
+
+.jss-banner.dark,
+.jss-banner.jss-state-dark {
+  --jss-banner-accent: var(--jss-dark);
+  --jss-banner-border: color-mix(in srgb, var(--jss-dark) 52%, var(--jss-border-color));
+  --jss-banner-bg: color-mix(in srgb, var(--jss-dark) 18%, var(--jss-panel));
+  --jss-banner-color: var(--jss-dark-text);
+  --jss-banner-solid-text: var(--jss-dark-text);
+}

@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import { readUIManifest } from "./ui-manifest.mjs";
 import path from "node:path";
 import { transform } from "esbuild";
 
@@ -6,7 +7,6 @@ const rootDir = path.resolve("packages/ui/src");
 const outputFile = path.resolve("packages/ui/dist/ui.js");
 const minOutputFile = path.resolve("packages/ui/dist/min-ui.js");
 const minAliasOutputFile = path.resolve("packages/ui/dist/ui.min.js");
-const manifestFile = path.join(rootDir, "modules.json");
 const legacyOutputFile = path.resolve("pages/_jsswift-fe/js/ui.js");
 const legacyMinOutputFile = path.resolve("pages/_jsswift-fe/js/min-ui.js");
 const legacyMinAliasOutputFile = path.resolve("pages/_jsswift-fe/js/ui.min.js");
@@ -17,7 +17,7 @@ async function readModule(name) {
 }
 
 async function main() {
-  const manifest = JSON.parse(await fs.readFile(manifestFile, "utf8"));
+  const manifest = await readUIManifest(rootDir);
   const modules = Array.isArray(manifest?.buildOrder) ? manifest.buildOrder : null;
   if (!modules || !modules.length) {
     throw new Error("Invalid ui module manifest");

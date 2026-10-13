@@ -1,0 +1,13 @@
+.jss-state-info,
+.jss-state-info>.jss-control {
+  --set-border-color: var(--jss-info-hover);
+  --set-color: var(--jss-info-text);
+  --set-background-color: var(--jss-info);
+  --set-shadow: 0 3px 6px color-mix(in srgb, var(--jss-info-950) 40%, transparent);
+  --set-hover: var(--jss-info-hover);
+  --set-color-0: var(--jss-info-50);
+  --set-color-1: var(--jss-info-100);
+  --set-color-2: var(--jss-info-400);
+  --set-color-3: var(--jss-info-700);
+  --set-color-4: var(--jss-info-900);
+}

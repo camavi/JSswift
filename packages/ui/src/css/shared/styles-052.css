@@ -1,0 +1,6 @@
+/* Alert shares Header surfaces while keeping message and dismiss composition. */
+:is(.jss-alert, .jss-empty-state).jss-panel.jss-singularity:not(.jss-light-shadow, .jss-text-gradient) {
+  background-image: var(--set-glossy-active, none), var(--set-gradient-active, none);
+}
+:is(.jss-alert, .jss-empty-state).jss-panel:is(.jss-outline, .jss-border) { border: 1px solid var(--set-border-color); }
+:is(.jss-alert, .jss-empty-state).elevated { box-shadow: var(--jss-shadow-md); }

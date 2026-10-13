@@ -1,0 +1,74 @@
+.jss-dialog.success,
+.jss-dialog.jss-state-success,
+.jss-menu-panel.success,
+.jss-menu-panel.jss-state-success {
+  --jss-dialog-accent: var(--jss-success);
+  --set-background-color: color-mix(in srgb, var(--set-color-3) 10%, var(--jss-theme-color-1));
+  --set-text-color: var(--set-color-2);
+  --set-color: var(--set-text-color);
+}
+
+.jss-dialog.warning,
+.jss-dialog.jss-state-warning,
+.jss-menu-panel.warning,
+.jss-menu-panel.jss-state-warning {
+  --jss-dialog-accent: var(--jss-warning);
+  --set-background-color: color-mix(in srgb, var(--set-color-3) 10%, var(--jss-theme-color-1));
+  --set-text-color: var(--set-color-2);
+  --set-color: var(--set-text-color);
+}
+
+.jss-dialog.error,
+.jss-dialog.danger,
+.jss-dialog.jss-state-danger,
+.jss-menu-panel.error,
+.jss-menu-panel.danger,
+.jss-menu-panel.jss-state-danger {
+  --jss-dialog-accent: var(--jss-danger);
+  --set-background-color: color-mix(in srgb, var(--set-color-3) 10%, var(--jss-theme-color-1));
+  --set-text-color: var(--set-color-2);
+  --set-color: var(--set-text-color);
+}
+
+.jss-dialog.info,
+.jss-dialog.jss-state-info,
+.jss-menu-panel.info,
+.jss-menu-panel.jss-state-info {
+  --jss-dialog-accent: var(--jss-info);
+  --set-background-color: color-mix(in srgb, var(--set-color-3) 10%, var(--jss-theme-color-1));
+  --set-text-color: var(--set-color-2);
+  --set-color: var(--set-text-color);
+}
+
+.jss-dialog.primary,
+.jss-dialog.jss-state-primary,
+.jss-menu-panel.primary,
+.jss-menu-panel.jss-state-primary {
+  --jss-dialog-accent: var(--jss-primary);
+  --set-background-color: color-mix(in srgb, var(--set-color-3) 10%, var(--jss-theme-color-1));
+  --set-text-color: var(--set-color-2);
+  --set-color: var(--set-text-color);
+}
+
+.jss-dialog.secondary,
+.jss-dialog.jss-state-secondary,
+.jss-menu-panel.secondary,
+.jss-menu-panel.jss-state-secondary {
+  --jss-dialog-accent: var(--jss-secondary);
+  --set-background-color: color-mix(in srgb, var(--set-color-3) 10%, var(--jss-theme-color-1));
+  --set-text-color: var(--jss-text);
+  --set-color: var(--set-text-color);
+}
+
+.jss-dialog.light,
+.jss-dialog.jss-state-light,
+.jss-menu-panel.light,
+.jss-menu-panel.jss-state-light {
+  --jss-bg: #f1f5f9;
+  --jss-text: #1f2937;
+  --jss-border-color: #94a3b8;
+  --jss-dialog-accent: #64748b;
+  --set-background-color: var(--jss-bg);
+  --set-text-color: var(--jss-text);
+  --set-color: var(--set-text-color);
+}

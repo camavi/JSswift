@@ -1,6 +1,6 @@
 {
   "name": "@jsswift/ui",
-  "version": "2.0.2",
+  "version": "2.0.3-split.3",
   "description": "JSswift UI layer built on top of @jsswift/core",
   "license": "MIT",
   "repository": {
@@ -33,7 +33,11 @@
     "./css/docs.css": "./dist/css/docs.css",
     "./tabler": "./dist/tabler.js",
     "./css/fonts-nunito.css": "./dist/css/fonts-nunito.css",
-    "./css/fonts-material.css": "./dist/css/fonts-material.css"
+    "./css/fonts-material.css": "./dist/css/fonts-material.css",
+    "./icons": {
+      "types": "./dist/icons.d.ts",
+      "import": "./dist/icons.js"
+    }
   },
   "files": [
     "dist",

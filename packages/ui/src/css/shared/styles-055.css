@@ -1,0 +1,3 @@
+:is(.jss-alert, .jss-empty-state).jss-panel.jss-singularity { color: var(--set-color, var(--jss-text)); }
+
+:is(.jss-alert, .jss-empty-state).jss-outline.jss-state-secondary { --set-color: var(--jss-text); color: var(--jss-text); }

@@ -1,0 +1,430 @@
+/* COMPONENTS */
+.jss-tabs {
+  --jss-tabs-gap: 12px;
+  --jss-tabs-tab-gap: 6px;
+  --jss-tabs-accent: var(--jss-primary);
+}
+
+.jss-tabs-bar {
+  display: flex;
+  gap: var(--jss-tabs-gap);
+  min-width: 0;
+  background-color: color-mix(in srgb, var(--set-background-color) 60%, var(--jss-theme-color-1));
+}
+
+.jss-tabs.horizontal .jss-tabs-bar {
+  flex-wrap: wrap;
+}
+
+.jss-tabs.vertical .jss-tabs-bar {
+  align-items: stretch;
+}
+
+.jss-tabs-nav {
+  display: flex;
+  gap: var(--jss-tabs-tab-gap);
+  padding: var(--jss-s-sm);
+  background-color: color-mix(in srgb, var(--set-background-color) 60%, var(--jss-theme-color-1));
+  min-width: 0;
+  overflow: auto;
+  flex: 1 1 auto;
+}
+
+.jss-tabs.wrap .jss-tabs-nav {
+  flex-wrap: wrap;
+}
+
+.jss-tabs.vertical .jss-tabs-nav {
+  flex-direction: column;
+  align-items: stretch;
+  min-width: min(240px, 100%);
+}
+
+.jss-tabs.fill .jss-tabs-item {
+  flex: 1 1 0;
+}
+
+.jss-tabs-extra {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.jss-tabs.vertical .jss-tabs-extra {
+  align-content: flex-start;
+}
+
+.jss-tabs-item {
+  --jss-tabs-item-accent: var(--jss-tabs-accent);
+  position: relative;
+  display: flex;
+  min-width: 0;
+}
+
+.jss-tabs-tab {
+  width: 100%;
+  min-width: 0;
+  text-align: left;
+  background: transparent;
+  color: var(--jss-text);
+  box-shadow: none;
+  transform: none;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, opacity 160ms ease;
+}
+
+.jss-tabs-tab:hover,
+.jss-tabs-tab:active {
+  transform: none;
+  box-shadow: none;
+}
+
+.jss-tabs-tab:hover {
+  background: color-mix(in srgb, var(--jss-tabs-item-accent) 8%, transparent);
+  border-color: color-mix(in srgb, var(--jss-tabs-item-accent) 22%, var(--jss-border-color));
+}
+
+.jss-tabs-tab.active {
+  background: color-mix(in srgb, var(--jss-tabs-item-accent) 30%, transparent);
+  border-color: color-mix(in srgb, var(--jss-tabs-item-accent) 28%, var(--jss-border-color));
+}
+
+.jss-tabs-tab:disabled,
+.jss-tabs-item.disabled .jss-tabs-tab {
+  opacity: 0.6;
+}
+
+.jss-tabs-tab-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
+
+.jss-tabs-tab-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.jss-tabs-tab-label {
+  display: block;
+  min-width: 0;
+}
+
+.jss-tabs-tab-note {
+  display: block;
+  color: var(--jss-text);
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.jss-tabs-tab.active .jss-tabs-tab-note {
+  color: var(--set-color-2);
+}
+
+.jss-tabs-tab-icon,
+.jss-tabs-tab-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.jss-tabs-item .tab-indicator {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 160ms ease, transform 160ms ease;
+  background-color: var(--jss-tabs-item-accent);
+}
+
+.jss-tabs.horizontal .jss-tabs-item .tab-indicator {
+  left: 10px;
+  right: 10px;
+  bottom: 2px;
+  height: 2px;
+  transform: scaleX(0.35);
+}
+
+.jss-tabs.vertical .jss-tabs-item .tab-indicator {
+  left: 2px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  transform: scaleY(0.35);
+}
+
+.jss-tabs-item.active .tab-indicator {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.jss-tabs.variant-pills .jss-tabs-nav {
+  background-color: color-mix(in srgb, var(--jss-panel) 92%, transparent);
+}
+
+.jss-tabs.variant-pills .jss-tabs-item .tab-indicator {
+  display: none;
+}
+
+.jss-tabs.variant-pills .jss-tabs-tab.active {
+  background: color-mix(in srgb, var(--jss-tabs-item-accent) 18%, transparent);
+  color: color-mix(in srgb, var(--jss-tabs-item-accent) 82%, var(--jss-text) 18%);
+  border-color: color-mix(in srgb, var(--jss-tabs-item-accent) 38%, var(--jss-border-color));
+}
+
+.jss-tabs.variant-soft .jss-tabs-nav {
+  background-color: transparent;
+  border: 1px dashed var(--set-color-2);
+}
+
+.jss-tabs.dense .jss-tabs-nav {
+  padding: 6px;
+}
+
+.jss-tabs.dense .jss-tabs-tab {
+  padding: 8px 12px;
+}
+
+.jss-tabs.jss-singularity {
+  min-width: 0;
+  max-width: 100%;
+  background: transparent;
+  color: var(--jss-text);
+  border-width: 0;
+}
+
+.jss-tabs.jss-singularity.jss-shadow {
+  border-radius: 8px;
+  border: 0;
+  --set-shadow-active: 0 2px 4px color-mix(in srgb, var(--jss-text) 12%, transparent),
+    0 5px 10px color-mix(in srgb, var(--jss-text) 14%, transparent);
+  box-shadow: var(--set-shadow-active);
+}
+
+:root[data-theme="dark"] .jss-tabs.jss-singularity.jss-shadow {
+  --set-shadow-active: 0 3px 5px rgb(0 0 0 / 50%),
+    0 6px 12px color-mix(in srgb, var(--jss-tabs-accent) 16%, transparent);
+}
+
+.jss-tabs.jss-shadow .jss-tabs-nav {
+  border-bottom: 0;
+}
+
+.jss-tabs.jss-singularity.jss-light-shadow {
+  border: 0;
+  border-radius: 8px;
+  --set-shadow-active: -3px -3px 8px rgb(255 255 255 / 75%),
+    4px 5px 10px color-mix(in srgb, var(--jss-text) 22%, transparent);
+  box-shadow: var(--set-shadow-active);
+}
+
+.jss-tabs.jss-light-shadow .jss-tabs-nav {
+  border: 0;
+  box-shadow: inset 0 1px 2px rgb(255 255 255 / 60%),
+    inset 0 -1px 2px color-mix(in srgb, var(--jss-text) 10%, transparent);
+}
+
+:root[data-theme="dark"] .jss-tabs.jss-singularity.jss-light-shadow {
+  --set-shadow-active: -3px -3px 8px rgb(255 255 255 / 7%),
+    4px 5px 12px rgb(0 0 0 / 55%);
+}
+
+:root[data-theme="dark"] .jss-tabs.jss-light-shadow .jss-tabs-nav {
+  box-shadow: inset 0 1px 2px rgb(255 255 255 / 15%), inset 0 -1px 2px rgb(0 0 0 / 25%);
+}
+
+.jss-tabs .jss-tabs-bar {
+  max-width: 100%;
+  background: transparent;
+}
+
+.jss-tabs .jss-tabs-nav {
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 4px;
+  gap: 4px;
+  background: color-mix(in srgb, var(--jss-bg) 90%, var(--jss-tabs-accent));
+  border-radius: 8px;
+  border-bottom: 1px solid var(--jss-border-color);
+}
+
+.jss-tabs:not([class*="jss-state-"]) .jss-tabs-nav {
+  background-color: var(--jss-bg);
+}
+
+.jss-tabs .jss-tabs-tab.jss-btn {
+  padding: 10px 12px;
+  margin: 0;
+  min-height: 42px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--jss-text);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.jss-tabs .jss-tabs-tab.jss-btn:hover {
+  background: color-mix(in srgb, var(--jss-tabs-item-accent) 7%, transparent);
+}
+
+.jss-tabs .jss-tabs-tab.jss-btn.active {
+  background: color-mix(in srgb, var(--jss-tabs-item-accent) 10%, transparent);
+  color: color-mix(in srgb, var(--jss-text) 40%, var(--jss-tabs-item-accent));
+  font-weight: 600;
+}
+
+.jss-tabs .jss-tabs-tab-icon .jss-icon {
+  color: inherit;
+  margin: 0;
+  font-size: 18px;
+}
+
+.jss-tabs .jss-tabs-tab-inner { gap: 8px; }
+.jss-tabs .jss-tabs-tab-note { color: inherit; opacity: .75; }
+.jss-tabs .tab-indicator { border-radius: 2px; }
+.jss-tabs.horizontal .jss-tabs-item .tab-indicator { bottom: -4px; left: 12px; right: 12px; }
+
+.jss-tabs.dense .jss-tabs-tab.jss-btn {
+  min-height: 34px;
+  padding: 6px 10px;
+}
+
+.jss-tabs.jss-flat .jss-tabs-nav { border: 0; background: transparent; }
+.jss-tabs.jss-flat .jss-tabs-tab.jss-btn.active { background: transparent; }
+
+.jss-tabs.variant-pills .jss-tabs-nav {
+  border: 0;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--jss-text) 5%, transparent);
+}
+
+.jss-tabs.variant-soft .jss-tabs-nav {
+  border: 0;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--jss-tabs-accent) 5%, transparent);
+}
+
+.jss-tabs.vertical .jss-tabs-nav { border-bottom: 0; border-right: 1px solid var(--jss-border-color); }
+
+.jss-tabs.jss-singularity.jss-glow {
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  --set-glow-active: 0 0 3px 1px color-mix(in srgb, var(--jss-tabs-accent) 30%, transparent),
+    0 0 8px 1px color-mix(in srgb, var(--jss-tabs-accent) 16%, transparent);
+  box-shadow: var(--set-glow-active);
+  text-shadow: none;
+}
+
+.jss-tabs.jss-glow .jss-tabs-nav {
+  border: 0;
+}
+
+:root[data-theme="dark"] .jss-tabs.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 3px 1px color-mix(in srgb, var(--jss-tabs-accent) 36%, transparent),
+    0 0 9px 1px color-mix(in srgb, var(--jss-tabs-accent) 20%, transparent);
+}
+
+.jss-tabs.jss-singularity.jss-glass {
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--jss-text);
+}
+
+/* Keep the shared Button Glass reflections visible beneath the navigation. */
+:root[data-theme="dark"] .jss-tabs.jss-singularity.jss-glass:not(.jss-state-light)::before {
+  filter: brightness(.72);
+}
+
+.jss-tabs.jss-glass .jss-tabs-nav {
+  border: 0;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+:root[data-theme="dark"] .jss-tabs.jss-glass .jss-tabs-nav {
+  background: #00000057;
+}
+
+.jss-tabs.jss-singularity.jss-text-gradient {
+  --set-gradient-active: none;
+  background: transparent;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-tabs.jss-singularity.jss-text-gradient .jss-tabs-tab.jss-btn {
+  background-image: none;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-tabs.jss-text-gradient :is(.jss-tabs-tab-label, .jss-tabs-tab-note) {
+  background-image: linear-gradient(var(--set-gradient-deg, 135deg),
+    color-mix(in srgb, var(--jss-text) 35%, var(--jss-tabs-item-accent)),
+    color-mix(in srgb, var(--jss-text) 75%, var(--jss-tabs-item-accent)));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.jss-tabs.jss-glossy .jss-tabs-nav {
+  border: 0;
+  background-image: linear-gradient(to bottom, rgb(255 255 255 / 28%) 0%,
+    rgb(255 255 255 / 55%) 49%,
+    color-mix(in srgb, var(--jss-tabs-accent) 8%, transparent) 51%,
+    color-mix(in srgb, var(--jss-tabs-accent) 16%, transparent) 100%);
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 80%),
+    inset 0 -1px 2px color-mix(in srgb, var(--jss-tabs-accent) 20%, transparent);
+}
+
+:root[data-theme="dark"] .jss-tabs.jss-glossy .jss-tabs-nav {
+  background-image: linear-gradient(to bottom, rgb(255 255 255 / 8%) 0%,
+    rgb(255 255 255 / 20%) 49%, rgb(0 0 0 / 8%) 51%, rgb(0 0 0 / 22%) 100%);
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 24%), inset 0 -1px 2px rgb(0 0 0 / 25%);
+}
+
+.jss-tabs.variant-line .jss-tabs-tab.jss-btn.active { background: transparent; }
+
+.jss-tabs.variant-pills .jss-tabs-tab.jss-btn { border-radius: 999px; }
+.jss-tabs.variant-pills .jss-tabs-tab.jss-btn.active {
+  background: color-mix(in srgb, var(--jss-tabs-item-accent) 15%, var(--jss-bg));
+}
+
+.jss-tabs.variant-soft .tab-indicator,
+.jss-tabs.variant-solid .tab-indicator { display: none; }
+
+.jss-tabs.variant-soft .jss-tabs-tab.jss-btn.active {
+  background: color-mix(in srgb, var(--jss-tabs-item-accent) 14%, transparent);
+}
+
+.jss-tabs.variant-solid .jss-tabs-nav {
+  border: 0;
+  background: color-mix(in srgb, var(--jss-text) 5%, var(--jss-bg));
+}
+
+.jss-tabs.variant-solid .jss-tabs-tab.jss-btn.active {
+  background: var(--jss-tabs-item-accent);
+  color: var(--jss-bg);
+}
+
+.jss-tabs.variant-solid[class*="jss-state-"] .jss-tabs-tab.jss-btn.active { color: #fff; }
+.jss-tabs.variant-solid.jss-state-light .jss-tabs-tab.jss-btn.active { background: #f1f5f9; color: #1f2937; }
+.jss-tabs.variant-solid.jss-state-dark .jss-tabs-tab.jss-btn.active { background: #1f2937; color: #f1f5f9; }
+
+.jss-tabs-empty {
+  color: var(--jss-muted);
+  font-size: 13px;
+  padding: 8px 4px;
+}

@@ -5,7 +5,7 @@ This folder contains the modular source structure of the JSswift UI layer.
 Current status:
 
 - a dedicated build exists: `npm run build:ui`
-- the old `ui.js` monolith has been split into modules under `packages/ui/src/*`
+- source modules and extracted component files live under `packages/ui/src/`
 - `99-legacy-ui.js` is no longer used in the build
 - public runtime output is generated into `packages/ui/dist/`
 - a compatibility mirror remains in `pages/_jsswift-fe/js/`
@@ -88,72 +88,27 @@ Implementation notes:
 - generic/shared props use `JSswift.uiResponsiveCommonStyleRules` through
   `setPropertyProps`
 
-Recommended module order:
+## Source organization
 
-- `00-bootstrap.js`
-- `01-foundation-helpers.js`
-- `10-primitives-layout.js`
-- `20-display-content.js`
-- `21-list-content.js`
-- `22-banner-content.js`
-- `23-tooltip.js`
-- `31-form-advanced.js`
-- `40-navigation.js`
-- `41-tab-panel.js`
-- `50-feedback.js`
-- `51-feedback-service.js`
-- `60-shell-app.js`
-- `61-form-service.js`
-- `70-dialog.js`
-- `71-menu-overlays.js`
-- `80-data.js`
+- `modules.json.buildOrder` is the exact initialization order. All source fragments remain inside the original UI IIFE; applications consume generated builds.
+- `components/` contains one implementation file per canonical component: 63 entries cover all 66 public UI names, including Button/Btn and Upload/BoxUpload/boxUpload.
+- `helpers/` contains shared rendering/reactivity, field, choice, date/time, notification, drawer, overlay, layout and table support.
+- `services/` contains Notify, Form/useForm, Dialog initialization/shortcuts and Loading.
+- `00-bootstrap.js`, `01-foundation-helpers.js` and `99-footer.js` retain the shared runtime envelope/foundation. The previous numbered component-family files have been removed.
 
-Planned families:
+`modules.json.components` registers JS, aliases, CSS sections, helper sources and conservative transitive component dependencies. `services` registers service entry files and their dependencies; `styles` registers the CSS entry and shared sections. `cssOwnership` is the single selector-ownership table used by the selective CSS builder. `uiSourceFiles` enumerates assets consistently for validation and package copying.
 
-- bootstrap/helpers:
-  rod path proxy, argument normalization, shared helpers, meta/dev wrapping
-- primitives/layout:
-  `Row`, `Col`, `Spacer`, `Container`, `Card`, `Footer`, `Toolbar`, `Grid`, `GridCol`, `FormField`, `InputRaw`, `Input`, `Textarea`, `Select`
-- display/content:
-  `Icon`, `Badge`, `Avatar`, `Chip`
-- list/content:
-  `List`, `Item`, `Separator`
-- banner/content:
-  `Banner`
-- tooltip:
-  `Tooltip`
-- advanced form:
-  `Checkbox`, `Radio`, `Toggle`, `Slider`, `Rating`, `Date`, `Time`
-- navigation:
-  `Tabs`, `RouteTab`, `Breadcrumbs`, `Pagination`
-- tab panel:
-  `TabPanel`
-- docs:
-  `ComponentDocs`
-- feedback:
-  `Spinner`, `Progress`, `LoadingBar`, `Notify`
-- feedback service:
-  toast root, timers, update/remove/clear, notify shortcuts
-- shell/app:
-  `Header`, `Drawer`, `Page`, `AppShell`, `Parallax`
-- form/service:
-  `JSswift.form`, `JSswift.useForm`, `Form`, `cardHeader`, `cardBody`, `cardFooter`, dialog bootstrap
-- dialog:
-  `Dialog`
-- menu/overlays:
-  `Menu`, `Popover`, `ContextMenu`
-- data:
-  `Table`
+Runtime dependencies continue to be resolved from the JavaScript AST for both configured CLI and Vite builds. The cached registry dependencies/helpers are derived from that same resolver, including optional branches; they are not a manually maintained alternative graph. Dependency cycles from valid references are handled by the resolver's visited set. CSS import cycles fail the build.
 
-Rules:
+After changing component exports/dependencies, run:
 
-- migrate one family at a time
-- rebuild the UI package
-- verify against the relevant demos
-- update `docDevelop/reference/ui.md`
+```bash
+npm run ui:registry:refresh
+npm run ui:registry:check
+npm run build:ui
+npm run build:jsswift
+```
 
-Notes:
+`ui:registry:refresh` updates derived dependency/helper lists. Add or remove component/service entries and actual assets in the manifest when implementing APIs; the refresh command rejects missing or stale public names. The source registry test checks every public definition's owning file and all extracted assets, while packaging tests verify their presence in the installed tarball.
 
-- `packages/ui/src/` is the source of truth
-- `99-legacy-ui.js` has been removed; the bundle is built only from the manifest modules
-- when a family was not contiguous in the legacy file, the migration followed the real source order
+Component-specific CSS sections live in `css/components/`, shared selectors/utilities/effects in `css/shared/`. Read [css/README.md](css/README.md) before moving styles; CSS source import order preserves the approved cascade.

@@ -1,0 +1,385 @@
+.jss-breadcrumbs {
+  --jss-breadcrumb-accent: var(--jss-text);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+}
+
+.jss-breadcrumbs-before,
+.jss-breadcrumbs-after {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.jss-breadcrumbs-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.jss-breadcrumbs.no-wrap .jss-breadcrumbs-list {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.jss-breadcrumbs-entry,
+.jss-breadcrumbs-separator-item {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  flex: 0 0 auto;
+}
+
+.jss-breadcrumbs-separator-item {
+  padding: 0 4px;
+}
+
+.jss-breadcrumbs-separator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--jss-muted);
+  font-size: 13px;
+  line-height: 1;
+}
+
+.jss-breadcrumb {
+  --jss-breadcrumb-bg: transparent;
+  --jss-breadcrumb-border: transparent;
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  max-width: 100%;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: var(--set-border-radius, var(--jss-r-md));
+  border: 1px solid var(--jss-breadcrumb-border);
+  background: var(--jss-breadcrumb-bg);
+  color: var(--jss-text);
+  text-decoration: none;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, opacity 160ms ease;
+}
+
+button.jss-breadcrumb {
+  appearance: none;
+  cursor: pointer;
+}
+
+a.jss-breadcrumb {
+  cursor: pointer;
+}
+
+.jss-breadcrumb:hover,
+.jss-breadcrumb:focus-visible {
+  color: color-mix(in srgb, var(--jss-breadcrumb-accent) 78%, var(--jss-text) 22%);
+}
+
+.jss-breadcrumb:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--jss-breadcrumb-accent) 18%, transparent);
+}
+
+.jss-breadcrumbs.variant-line .jss-breadcrumb {
+  --jss-breadcrumb-bg: transparent;
+  --jss-breadcrumb-border: transparent;
+}
+
+.jss-breadcrumbs.variant-line .jss-breadcrumb:hover,
+.jss-breadcrumbs.variant-line .jss-breadcrumb:focus-visible {
+  --jss-breadcrumb-bg: color-mix(in srgb, var(--jss-breadcrumb-accent) 7%, transparent);
+  --jss-breadcrumb-border: color-mix(in srgb, var(--jss-breadcrumb-accent) 12%, transparent);
+}
+
+.jss-breadcrumbs.variant-line .jss-breadcrumb.is-current {
+  --jss-breadcrumb-bg: color-mix(in srgb, var(--jss-breadcrumb-accent) 12%, transparent);
+  --jss-breadcrumb-border: color-mix(in srgb, var(--jss-breadcrumb-accent) 20%, transparent);
+  color: color-mix(in srgb, var(--jss-breadcrumb-accent) 82%, var(--jss-text) 18%);
+}
+
+.jss-breadcrumbs.variant-pills .jss-breadcrumb {
+  --jss-breadcrumb-bg: color-mix(in srgb, var(--jss-panel) 92%, transparent);
+  --jss-breadcrumb-border: var(--jss-border-color);
+}
+
+.jss-breadcrumbs.variant-pills .jss-breadcrumb:hover,
+.jss-breadcrumbs.variant-pills .jss-breadcrumb:focus-visible {
+  --jss-breadcrumb-bg: color-mix(in srgb, var(--jss-breadcrumb-accent) 7%, var(--jss-panel) 93%);
+  --jss-breadcrumb-border: color-mix(in srgb, var(--jss-breadcrumb-accent) 24%, var(--jss-border-color));
+}
+
+.jss-breadcrumbs.variant-pills .jss-breadcrumb.is-current {
+  --jss-breadcrumb-bg: color-mix(in srgb, var(--jss-breadcrumb-accent) 14%, transparent);
+  --jss-breadcrumb-border: color-mix(in srgb, var(--jss-breadcrumb-accent) 30%, var(--jss-border-color));
+  color: color-mix(in srgb, var(--jss-breadcrumb-accent) 82%, var(--jss-text) 18%);
+}
+
+.jss-breadcrumbs.variant-soft .jss-breadcrumb {
+  --jss-breadcrumb-bg: color-mix(in srgb, var(--jss-breadcrumb-accent) 5%, transparent);
+  --jss-breadcrumb-border: color-mix(in srgb, var(--jss-breadcrumb-accent) 10%, transparent);
+}
+
+.jss-breadcrumbs.variant-soft .jss-breadcrumb:hover,
+.jss-breadcrumbs.variant-soft .jss-breadcrumb:focus-visible {
+  --jss-breadcrumb-bg: color-mix(in srgb, var(--jss-breadcrumb-accent) 9%, transparent);
+  --jss-breadcrumb-border: color-mix(in srgb, var(--jss-breadcrumb-accent) 18%, transparent);
+}
+
+.jss-breadcrumbs.variant-soft .jss-breadcrumb.is-current {
+  --jss-breadcrumb-bg: color-mix(in srgb, var(--jss-breadcrumb-accent) 14%, transparent);
+  --jss-breadcrumb-border: color-mix(in srgb, var(--jss-breadcrumb-accent) 26%, transparent);
+  color: color-mix(in srgb, var(--jss-breadcrumb-accent) 82%, var(--jss-text) 18%);
+}
+
+.jss-breadcrumbs.jss-singularity {
+  box-sizing: border-box;
+  padding: 6px;
+  border: 0;
+  border-radius: 8px;
+  background-color: var(--jss-bg);
+  color: var(--jss-text);
+}
+
+.jss-breadcrumbs.jss-singularity[class*="jss-state-"] {
+  background-color: color-mix(in srgb, var(--jss-breadcrumb-accent) 10%, var(--jss-bg));
+}
+
+.jss-breadcrumbs.jss-singularity .jss-breadcrumb {
+  border: 0;
+  border-radius: 6px;
+  color: var(--jss-text);
+}
+
+.jss-breadcrumbs.jss-singularity .jss-breadcrumb.is-current {
+  background: color-mix(in srgb, var(--jss-breadcrumb-accent) 12%, transparent);
+  color: color-mix(in srgb, var(--jss-breadcrumb-accent) 60%, var(--jss-text));
+}
+
+.jss-breadcrumbs.jss-singularity .jss-breadcrumb-separator {
+  color: color-mix(in srgb, var(--jss-breadcrumb-accent) 35%, var(--jss-text));
+}
+
+.jss-breadcrumbs.jss-singularity.dense { padding: 3px; }
+
+:root[data-theme="dark"] .jss-breadcrumbs.jss-singularity.jss-glass:not(.jss-state-light)::before {
+  filter: brightness(0.6);
+}
+
+:root[data-theme="dark"] .jss-breadcrumbs.jss-singularity:is(.jss-state-light, .jss-state-dark):not(.variant-solid) .jss-breadcrumb.is-current {
+  color: var(--jss-text);
+}
+
+:root[data-theme="dark"] .jss-breadcrumbs.jss-singularity:is(.jss-state-light, .jss-state-dark).variant-line .jss-breadcrumb.is-current {
+  box-shadow: inset 0 -2px 0 var(--jss-text);
+}
+
+.jss-breadcrumbs.jss-singularity.variant-line .jss-breadcrumb.is-current {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: inset 0 -2px 0 var(--jss-breadcrumb-accent);
+}
+
+.jss-breadcrumbs.jss-singularity.variant-pills .jss-breadcrumb {
+  background: transparent;
+  border-radius: 999px;
+}
+
+.jss-breadcrumbs.jss-singularity.variant-pills .jss-breadcrumb.is-current {
+  background: color-mix(in srgb, var(--jss-breadcrumb-accent) 18%, transparent);
+}
+
+.jss-breadcrumbs.jss-singularity.variant-soft .jss-breadcrumb {
+  background: transparent;
+}
+
+.jss-breadcrumbs.jss-singularity.variant-soft .jss-breadcrumb.is-current {
+  background: color-mix(in srgb, var(--jss-breadcrumb-accent) 12%, transparent);
+}
+
+.jss-breadcrumbs.jss-singularity.variant-solid .jss-breadcrumb.is-current {
+  background: var(--jss-breadcrumb-accent);
+  color: var(--jss-bg);
+}
+
+.jss-breadcrumbs.jss-singularity.variant-solid[class*="jss-state-"] .jss-breadcrumb.is-current {
+  color: #fff;
+}
+
+.jss-breadcrumbs.jss-singularity.variant-solid.jss-state-light .jss-breadcrumb.is-current {
+  background: #f1f5f9;
+  color: #1f2937;
+}
+
+.jss-breadcrumbs.jss-singularity.variant-solid.jss-state-dark .jss-breadcrumb.is-current {
+  background: #1f2937;
+  color: #f1f5f9;
+}
+
+.jss-breadcrumbs.jss-singularity.jss-text-gradient {
+  background-image: none;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+  color: var(--jss-text);
+}
+
+.jss-breadcrumbs.jss-text-gradient .jss-breadcrumb {
+  background-image: none;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.jss-breadcrumbs.jss-text-gradient :is(.jss-breadcrumb-label, .jss-breadcrumb-note) {
+  background-image: linear-gradient(110deg,
+    color-mix(in srgb, var(--jss-breadcrumb-accent) 85%, var(--jss-text)),
+    color-mix(in srgb, var(--jss-breadcrumb-accent) 20%, var(--jss-text)));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:root[data-theme="dark"] .jss-breadcrumbs.jss-text-gradient:is(.jss-state-light, .jss-state-dark) :is(.jss-breadcrumb-label, .jss-breadcrumb-note) {
+  background-image: linear-gradient(110deg, var(--jss-text),
+    color-mix(in srgb, var(--jss-text) 75%, var(--jss-breadcrumb-accent)));
+}
+
+.jss-breadcrumbs.jss-singularity.jss-gradient:not(.jss-text-gradient),
+.jss-breadcrumbs.jss-singularity.jss-gradient:not(.jss-text-gradient) .jss-breadcrumb,
+.jss-breadcrumbs.jss-singularity.jss-gradient:not(.jss-text-gradient) .jss-breadcrumb-separator {
+  color: #fff;
+}
+
+.jss-breadcrumbs.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 3px color-mix(in srgb, var(--jss-breadcrumb-accent) 40%, transparent),
+    0 0 8px color-mix(in srgb, var(--jss-breadcrumb-accent) 25%, transparent);
+  text-shadow: none;
+}
+
+.jss-breadcrumbs.jss-singularity.jss-flat {
+  background: transparent;
+  box-shadow: none;
+}
+
+.jss-breadcrumbs.jss-singularity.jss-flat .jss-breadcrumb.is-current {
+  background: transparent;
+}
+
+.jss-breadcrumb.is-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.jss-breadcrumb-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  width: 100%;
+}
+
+.jss-breadcrumb-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.jss-breadcrumb-label,
+.jss-breadcrumb-note,
+.jss-breadcrumb-extra {
+  display: block;
+  min-width: 0;
+}
+
+.jss-breadcrumb-label {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.jss-breadcrumb-note,
+.jss-breadcrumb-extra {
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--jss-muted);
+}
+
+.jss-breadcrumb.is-current .jss-breadcrumb-note,
+.jss-breadcrumb.is-current .jss-breadcrumb-extra {
+  color: color-mix(in srgb, var(--jss-breadcrumb-accent) 62%, var(--jss-text) 38%);
+}
+
+.jss-breadcrumb-icon,
+.jss-breadcrumb-badge,
+.jss-breadcrumb-aside {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.jss-breadcrumb-aside {
+  color: var(--jss-muted);
+}
+
+.jss-breadcrumb .jss-icon {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.jss-breadcrumb-collapsed {
+  --jss-breadcrumb-bg: color-mix(in srgb, var(--jss-panel) 88%, transparent);
+  --jss-breadcrumb-border: color-mix(in srgb, var(--jss-border-color) 80%, transparent);
+  color: var(--jss-muted);
+}
+
+.jss-breadcrumbs.dense {
+  gap: 8px;
+}
+
+.jss-breadcrumbs.dense .jss-breadcrumb {
+  padding: 5px 8px;
+  gap: 8px;
+}
+
+.jss-breadcrumbs.jss-size-xs .jss-breadcrumb {
+  padding: 4px 7px;
+  font-size: 12px;
+}
+
+.jss-breadcrumbs.jss-size-sm .jss-breadcrumb {
+  padding: 5px 8px;
+  font-size: 13px;
+}
+
+.jss-breadcrumbs.jss-size-md .jss-breadcrumb {
+  padding: 7px 10px;
+  font-size: 14px;
+}
+
+.jss-breadcrumbs.jss-size-lg .jss-breadcrumb {
+  padding: 9px 12px;
+  font-size: 15px;
+}
+
+.jss-breadcrumbs.jss-size-xl .jss-breadcrumb {
+  padding: 11px 14px;
+  font-size: 16px;
+}
+
+.jss-breadcrumbs.is-empty .jss-breadcrumbs-list {
+  flex: 0 1 auto;
+}

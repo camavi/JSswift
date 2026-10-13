@@ -1,0 +1,8 @@
+:is(.jss-alert, .jss-empty-state).jss-singularity .jss-btn:not([class*="jss-state-"]) {
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none;
+}
+:is(.jss-alert, .jss-empty-state).jss-singularity .jss-btn:not([class*="jss-state-"]):hover { background: color-mix(in srgb, currentColor 23%, transparent); }

@@ -1,0 +1,14 @@
+.jss-input:-webkit-autofill,
+.jss-input-raw:-webkit-autofill,
+.jss-input:-webkit-autofill:hover,
+.jss-input-raw:-webkit-autofill:hover,
+.jss-input:-webkit-autofill:focus,
+.jss-input-raw:-webkit-autofill:focus {
+  box-shadow: 0 0 0 1000px var(--jss-panel) inset;
+  -webkit-box-shadow: 0 0 0 1000px var(--jss-panel) inset;
+  -webkit-text-fill-color: var(--jss-text);
+  caret-color: var(--jss-text);
+  background-color: transparent;
+  animation-name: jss-autofill;
+  animation-duration: 1ms;
+}

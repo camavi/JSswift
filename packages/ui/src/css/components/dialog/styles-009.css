@@ -1,0 +1,51 @@
+.jss-dialog h3 {
+  margin: 0 0 6px 0;
+  font-size: 18px;
+}
+
+.jss-dialog p {
+  margin: 0 0 14px 0;
+  color: var(--jss-muted);
+}
+
+.jss-dialog-input {
+  width: 100%;
+  margin-top: 8px;
+}
+
+@media (max-width: 640px) {
+  .jss-dialog {
+    --jss-dialog-max-width: calc(100vw - 18px);
+    --jss-dialog-max-height: calc(100vh - 18px);
+    --jss-dialog-min-width: 0px;
+    padding: var(--jss-s-md);
+  }
+
+  .jss-dialog-shell {
+    margin: calc(var(--jss-s-md) * -1);
+  }
+
+  .jss-dialog-head,
+  .jss-dialog-body,
+  .jss-dialog-actions {
+    padding-left: var(--jss-s-md);
+    padding-right: var(--jss-s-md);
+  }
+
+  .jss-dialog-shell.has-head .jss-dialog-head {
+    padding-top: var(--jss-s-md);
+  }
+
+  .jss-dialog-body {
+    padding-top: var(--jss-s-md);
+    padding-bottom: var(--jss-s-md);
+  }
+
+  .jss-dialog-actions {
+    padding-bottom: var(--jss-s-md);
+  }
+
+  .jss-dialog-actions>* {
+    flex: 1 1 100%;
+  }
+}

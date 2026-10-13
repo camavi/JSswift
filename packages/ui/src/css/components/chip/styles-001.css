@@ -1,0 +1,100 @@
+.jss-chip {
+  display: var(--set-display, inline-flex);
+  width: var(--set-width, fit-content);
+  max-width: var(--set-max-width, 100%);
+  flex-grow: 0;
+  align-self: flex-start;
+  justify-self: start;
+  align-items: var(--set-align, center);
+  gap: var(--set-gap, var(--jss-s-sm));
+  padding: var(--set-padding, var(--jss-p-xs) var(--jss-p-sm));
+  font-size: var(--set-font-size, var(--jss-font-size, 13px));
+  vertical-align: middle;
+  box-sizing: border-box;
+  margin: 4px;
+  border-width: 0px;
+  border-style: solid;
+  border-color: #9c9c9c3d;
+  transition: all 260ms ease;
+}
+
+.jss-chip.jss-size-xxs {
+  padding: var(--set-padding, var(--jss-p-xxs) var(--jss-p-xs));
+}
+
+.jss-chip.jss-size-xs {
+  padding: var(--set-padding, var(--jss-p-xs) var(--jss-p-xs));
+}
+
+.jss-chip.jss-size-sm {
+  padding: var(--set-padding, var(--jss-p-xs) var(--jss-p-sm));
+}
+
+.jss-chip.jss-size-md {
+  padding: var(--set-padding, var(--jss-p-xs) var(--jss-p-md));
+}
+
+.jss-chip.jss-size-lg {
+  padding: var(--set-padding, var(--jss-p-sm) var(--jss-p-lg));
+}
+
+.jss-chip.jss-size-xl {
+  padding: var(--set-padding, var(--jss-p-md) var(--jss-p-xl));
+}
+
+.jss-chip.jss-size-xxl {
+  padding: var(--set-padding, var(--jss-p-lg) var(--jss-p-xxl));
+}
+
+.jss-chip .jss-icon {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.jss-chip .jss-btn {
+  margin: -2px;
+}
+
+.jss-chip .jss-chip-remove {
+  padding: 1px 2px;
+  aspect-ratio: 1/1;
+  min-height: 0;
+}
+
+.jss-chip.jss-singularity .jss-chip-remove.jss-singularity {
+  --set-color: inherit;
+  color: inherit;
+}
+
+.jss-chip .jss-chip-remove .jss-icon {
+  color: inherit;
+}
+
+.jss-chip.jss-singularity.jss-outline:is(.jss-state-dark, .jss-state-light) {
+  --set-color: var(--jss-text);
+  color: var(--set-color);
+}
+
+.jss-chip.jss-glass.jss-singularity {
+  --set-color: color-mix(in srgb, var(--jss-text) 85%, var(--set-hover, var(--jss-text)));
+  color: var(--set-color);
+}
+
+:root[data-theme="dark"] .jss-chip.jss-singularity.jss-shadow {
+  --set-shadow-active: inset 0 1px 0 rgb(255 255 255 / 16%),
+    0 3px 5px rgb(0 0 0 / 65%),
+    0 5px 12px color-mix(in srgb, var(--set-hover, var(--jss-text)) 30%, transparent);
+  box-shadow: var(--set-shadow-active), var(--set-glow-active, 0 0 0 0 transparent);
+}
+
+.jss-chip.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 4px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 55%, transparent),
+    0 0 12px 2px color-mix(in srgb, var(--set-hover, var(--jss-text)) 32%, transparent);
+  text-shadow: none;
+}
+
+:root[data-theme="dark"] .jss-chip.jss-singularity.jss-glow {
+  --set-glow-active: 0 0 5px 1px color-mix(in srgb, var(--set-hover, var(--jss-text)) 60%, transparent),
+    0 0 14px 2px color-mix(in srgb, var(--set-hover, var(--jss-text)) 38%, transparent);
+}

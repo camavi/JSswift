@@ -1,0 +1,5 @@
+:is(.jss-alert, .jss-empty-state).jss-singularity.jss-glass.jss-state-light { --set-color: #1f2937; color: #1f2937; background-color: rgb(241 245 249 / 70%); }
+:is(.jss-alert, .jss-empty-state).jss-glass.jss-state-light::before { --set-sec-color: rgb(241 245 249 / 50%); --set-color-1: #fff; --set-color-2: #e2e8f0; --set-color-3: #cbd5e1; }
+:is(.jss-alert, .jss-empty-state).jss-singularity.jss-glass.jss-state-dark { --set-color: #f1f5f9; color: #f1f5f9; background-color: rgb(15 23 42 / 65%); }
+:is(.jss-alert, .jss-empty-state).jss-glass.jss-state-dark::before { filter: brightness(.6); opacity: .5; }
+:root[data-theme="dark"] :is(.jss-alert, .jss-empty-state).jss-singularity.jss-outline.jss-state-light:not(.jss-glass, .jss-text-gradient) { --set-color: var(--jss-text); --set-border-color: #cbd5e1; color: var(--jss-text); }

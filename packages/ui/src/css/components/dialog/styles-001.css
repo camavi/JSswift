@@ -1,0 +1,45 @@
+.jss-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 14px;
+}
+
+.jss-dialog {
+  --jss-dialog-accent: var(--jss-primary);
+  --jss-dialog-border: color-mix(in srgb, var(--jss-dialog-accent) 22%, var(--jss-border-color));
+  --jss-dialog-soft: color-mix(in srgb, var(--jss-dialog-accent) 14%, transparent);
+  --jss-dialog-width: min(560px, 100%);
+  --jss-dialog-min-width: 320px;
+  --jss-dialog-max-width: calc(100vw - 32px);
+  --jss-dialog-max-height: calc(100vh - 32px);
+  min-width: 320px;
+  width: var(--jss-dialog-width);
+  min-width: var(--jss-dialog-min-width);
+  max-width: var(--jss-dialog-max-width);
+  max-height: var(--jss-dialog-max-height);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  gap: var(--jss-s-md);
+  padding: var(--jss-s-lg);
+  border-radius: calc(var(--set-border-radius, var(--jss-r-lg)) + 2px);
+  border: 1px solid var(--jss-dialog-border);
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--jss-dialog-soft) 80%, transparent), transparent 44%),
+    linear-gradient(180deg, color-mix(in srgb, var(--jss-panel) 96%, var(--jss-dialog-soft)) 0%, var(--jss-panel) 100%);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+  color: var(--jss-text);
+}
+
+.jss-dialog-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  margin: calc(var(--jss-s-lg) * -1);
+}

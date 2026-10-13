@@ -1,0 +1,43 @@
+.jss-grid>.jss-grid-col {
+  min-width: 0;
+  grid-column: var(--jss-grid-col-base, auto);
+  box-sizing: border-box;
+}
+
+.jss-grid-col-stack {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.jss-grid-col-inline {
+  display: inline-flex;
+}
+
+.jss-grid-col-start,
+.jss-grid-col-body,
+.jss-grid-col-end {
+  min-width: 0;
+}
+
+.jss-grid-col-center {
+  text-align: center;
+}
+
+@media (min-width: 600px) {
+  .jss-grid>.jss-grid-col {
+    grid-column: var(--jss-grid-col-sm, var(--jss-grid-col-base, auto));
+  }
+}
+
+@media (min-width: 900px) {
+  .jss-grid>.jss-grid-col {
+    grid-column: var(--jss-grid-col-md, var(--jss-grid-col-sm, var(--jss-grid-col-base, auto)));
+  }
+}
+
+@media (min-width: 1200px) {
+  .jss-grid>.jss-grid-col {
+    grid-column: var(--jss-grid-col-lg, var(--jss-grid-col-md, var(--jss-grid-col-sm, var(--jss-grid-col-base, auto))));
+  }
+}
