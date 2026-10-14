@@ -202,7 +202,7 @@ const applyCommonProps = (props = {}) => {
     uiWhen(props.glossy, "jss-glossy"),
     uiWhen(props.glow, "jss-glow"),
     uiWhen(props.glass, "jss-glass"),
-    uiWhen(props.shadow, "jss-shadow"),
+    uiComputed(props.shadow, () => { const value = uiUnwrap(props.shadow); return value && value !== "none" ? "jss-shadow" : ""; }),
     uiWhen(props.outline, "jss-outline"),
     uiWhen(props.rounded, "jss-rounded"),
     uiWhen(props.gradient, "jss-gradient"),

@@ -234,3 +234,35 @@
 .jss-overlay.jss-dialog-overlay-blur .jss-overlay-backdrop {
   backdrop-filter: blur(10px);
 }
+/* Opt-in opaque paint for applications that need reproducible text contrast. */
+.jss-dialog.jss-singularity.jss-dialog-solid {
+  --jss-dialog-solid-bg: #fff;
+  --jss-dialog-solid-text: #14243b;
+  --jss-dialog-solid-muted: #536179;
+  --jss-dialog-solid-error: #b42318;
+  background: var(--jss-dialog-solid-bg) !important;
+  color: var(--jss-dialog-solid-text) !important;
+  backdrop-filter: none !important;
+}
+:root[data-theme="dark"] .jss-dialog.jss-dialog-solid {
+  --jss-dialog-solid-bg: #14243b;
+  --jss-dialog-solid-text: #fff;
+  --jss-dialog-solid-muted: #bdc9da;
+  --jss-dialog-solid-error: #ffb4ab;
+}
+.jss-dialog.jss-dialog-solid :is(.jss-control, .jss-field-control, .jss-btn) {
+  background: var(--jss-dialog-solid-bg) !important;
+  color: var(--jss-dialog-solid-text) !important;
+  backdrop-filter: none !important;
+}
+.jss-dialog.jss-dialog-solid :is(.jss-dialog-title, .jss-field-input, .jss-select-value) { color: var(--jss-dialog-solid-text); }
+.jss-dialog.jss-dialog-solid :is(.jss-float-label, .jss-hint, .jss-field-float, .jss-field-label, .jss-field-toplabel, .jss-field-hint) {
+  color: var(--jss-dialog-solid-muted) !important;
+  opacity: 1;
+}
+.jss-dialog.jss-dialog-solid :is(.jss-field-error, .jss-error) { color: var(--jss-dialog-solid-error) !important; }
+
+.jss-dialog.jss-dialog-solid .jss-btn.primary:not(.outline) {
+  background: #2563eb !important;
+  color: #fff !important;
+}

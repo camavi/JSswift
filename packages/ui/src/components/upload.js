@@ -458,7 +458,7 @@
           _.div({ class: "jss-upload-file-size" }, formatBytes(item.size)),
           _.div({ class: "jss-upload-file-actions" },
             ...renderSlotToArray(slots, "fileActions", ctx, [
-              item.status === "uploading" ? UI.Button({ size: "sm", outline: true, icon: "close", "aria-label": "Cancel", onClick: () => abort(item) }) : null,
+              item.status === "uploading" ? UI.Button({ size: "sm", outline: true, icon: "#close", "aria-label": "Cancel", onClick: () => abort(item) }) : null,
               item.status === "error" || item.status === "canceled" ? UI.Button({ size: "sm", outline: true, icon: "refresh", "aria-label": "Retry", onClick: () => retryUpload(item) }) : null,
               UI.Button({ size: "sm", dense: true, outline: true, icon: "delete", "aria-label": "Remove", onClick: () => remove(item) })
             ])

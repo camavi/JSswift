@@ -135,7 +135,7 @@
           outline: true,
           "aria-label": opts.closeLabel || "Chiudi popover",
           "data-popover-close": true
-        }, UI.Icon({ name: opts.closeIcon || "close", size: "sm" })))
+        }, UI.Icon({ name: opts.closeIcon || "#close", size: "sm" })))
         : [];
 
       let bodyRaw = opts.content ?? opts.body ?? opts.message ?? opts.text;

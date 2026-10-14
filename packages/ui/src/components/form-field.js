@@ -84,7 +84,7 @@
         class: "jss-clear",
         title: "Clear",
         onClick: clear
-      }, UI.Icon({ name: "close" })) : null;
+      }, UI.Icon({ name: "#close" })) : null;
 
       const clearNode = JSswift.ui.renderSlot(slots, "clear", {
 

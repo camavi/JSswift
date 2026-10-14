@@ -10,7 +10,7 @@ If a required API is absent here, consult `knowledge-map.json` to find its exact
 
 The installed package exposes this same guide as `AI.md` at its root and through `jsswift/AI.md`. `package.json` includes `jsswiftDocumentation` discovery paths. Do not inspect runtime bundles to discover documented APIs.
 
-For a product CRUD with validation, persistence and focus, read [the executable CRUD example](examples/crud.md), then implement it without opening the Input/Select/Dialog/Table contracts. For the six components below, this guide is sufficient. Use [configured-runtime.md](configured-runtime.md) only for configuration beyond these defaults, and the knowledge map for a missing API. Structural helpers below need no separate guide.
+For a product CRUD with validation, persistence and focus, skip all six component contracts and read [the executable CRUD example](examples/crud.md), then implement it without opening the Input/Select/Dialog/Table contracts. For the six components below, this guide is sufficient. Use [configured-runtime.md](configured-runtime.md) only for configuration beyond these defaults, and the knowledge map for a missing API. Structural helpers below need no separate guide.
 
 ## Import, create, mount
 
@@ -81,7 +81,7 @@ Dialog returns an API object, not a node to mount: `open(overrides?)`, `close()`
 
 Use native icons instead of placeholder symbols: `_.Icon('inventory_2')`, `_.Button({icon:'add'}, 'Nuovo prodotto')`, or `_.Button({icon:'save'}, 'Salva')`. Plain names are Google Material Symbols Outlined; use names such as `search`, `edit`, `close` and `chevron_right`. Visible button labels provide their accessible name; add `ariaLabel` to an icon-only action.
 
-The updated configured builder includes the Material font CSS automatically when the runtime needs Icon, including component dependencies. There is no extra import or `extras` entry to write. The browser downloads the Google font when a Material glyph is rendered; including an optional Icon dependency alone does not force a font download. For tasks forbidding external resources set top-level `icons:false` and use inline SVG/custom Icon content or the built-in `_.Icon('#chevron-down')`. `icons:false` disables automatic inclusion; an explicit font extra remains explicit. Traditional full-runtime imports still need `fonts-material.css` for Material glyphs.
+The updated configured builder includes the Material font CSS automatically when the runtime needs Icon, including component dependencies. There is no extra import or `extras` entry to write. The browser downloads the Google font when a Material glyph is rendered; including an optional Icon dependency alone does not force a font download. For tasks forbidding external resources set top-level `icons:false` and use inline SVG/custom Icon content or built-in `_.Icon('#close')` / `_.Icon('#chevron-down')`. `icons:false` disables automatic inclusion; an explicit font extra remains explicit. Traditional full-runtime imports still need `fonts-material.css` for Material glyphs.
 
 Offline icons (available from 2.2.0-split.3): set `icons:false`, then import only names you use; no SVG paths to write. Vite includes imported drawings automatically and removes unused exports. Each call returns a fresh decorative SVG; label icon-only buttons.
 
@@ -122,7 +122,7 @@ Keep build, logic assertions and server startup in separate commands. Check docu
 
 ## Catalogue surfaces and field styling
 
-`_.Kpi({title:'Disponibili',value:9,note:'Con quantità maggiore di zero'})` supplies dashboard metrics. Update KPI when inventory changes, not on each filter; see CRUD. Read the Kpi contract only for additional options.
+`_.Kpi({title:'Disponibili',value:9,note:'Con quantità maggiore di zero'})` supplies dashboard metrics. Update KPI when inventory changes, not on each filter; see CRUD. Prefer Kpi for standard metrics; Card is for custom layouts. Read the Kpi contract only for additional options.
 
 Table returns a Card; use a structural container. When an enclosing surface already has a frame, set `embedded:true` to remove Table’s outer and inner frames; `shadow:'none'` alone only removes elevation. Card props include `shadow:'none'`, `radius:'12px'`, and `padding`. For a fixed light surface: `style:{background:'#fff'}`, `tableStyle:{background:'#fff','--set-color-1':'#fff'}`. This does not provide automatic dark theming.
 
@@ -144,3 +144,25 @@ base.css is already included. Use `_.setTheme('dark')` or `_.setTheme('light')`;
 Replace component subtrees with `_.mount(host, nextContent)` (default clear:true), which cleans up previous effects and subscriptions. Native `replaceChildren`/`innerHTML` alone do not run JSswift cleanup. Keep shared models owned by the application alive.
 
 Dispose caller-owned temporary rods explicitly with `model.dispose()` after their editor closes; overlay cleanup removes subscriptions, not application ownership. Keep shared models alive until their owner is destroyed.
+
+## Mobile pagination
+
+Keep text visible alongside icons. For an external pager use a dedicated two-column row rather than zero-basis flex items sharing a line with the page count:
+
+```css
+.pager-controls { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; width:100%; }
+.page-count { grid-column:1 / -1; }
+.pager-controls > button { min-height:40px; }
+```
+
+Check label bounds and icon visibility after viewport changes. Button animates feedback colors/shadow/transform, not flex sizing. Table scrollLabel may be any meaningful accessible name; tests must not require a particular word. Embedded Table removes elevation; shadow:'none' disables shadow effects.
+
+## Verification and solid dialogs
+
+Before attempting browser checks, resolve the available browser runner and confirm that local sockets are allowed. Keep HTTP checks separate from CSS searches; preserve a failed exit code. A sandbox EPERM is unverified loading, not an application HTTP error. Use an external browser verifier when the environment cannot connect.
+
+Table already supplies a named focusable scrolling region. Use a plain structural host and set `scrollLabel` on Table; do not add another role=region, tabindex or overflow layer to its host.
+
+For reproducible solid-color dialog paint use `_.Dialog({class:'jss-dialog-solid', ...})`. This opt-in variant uses opaque light/dark surfaces, labels and errors and removes gradient paint from its buttons and field controls. Use it for forms where simple text contrast must be measured. The default decorative surface remains available; unsupported paint must be reported as unmeasured. Custom styles/slots still need verification, and this is not an accessibility audit.
+
+Default close controls in Dialog, Popover, Alert, Banner, Chip and FormField and date navigation use built-in SVG, with no Material font requirement. Custom plain string icon names still require the Material font. Use the existing offline factories for application icons.

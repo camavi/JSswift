@@ -41,3 +41,5 @@ The updated configured builder includes `fonts-material.css` automatically when 
 ## Offline SVG factories (available from 2.2.0-split.3)
 
 For offline drawings import named factories from `jsswift/icons` (or `@jsswift/ui/icons`): `add`, `edit`, `search`, `save`, `close`, `check`, `inventory`, `grid`, `empty`, `euro`, `chevronLeft`, `chevronRight`, `chevronDown`. Call with an optional numeric size, default 20: `_.Icon(add(24))` or `_.Button({icon:add()}, 'Nuovo')`. Each call creates a fresh SVG with currentColor, aria-hidden=true and focusable=false. Give icon-only actions an accessible name. No font, sprite, runtime initialization or network request is needed to create these nodes; they require a browser DOM. Named ESM imports support tree shaking. Configured apps use icons:false to omit automatic Material font CSS. Existing string icon names and sprite behavior are unchanged.
+
+Built-in sprite names #close, #chevron-left, #chevron-right and #chevron-down render inline decorative SVG without external font or sprite requests. Plain names continue to select Material Symbols.

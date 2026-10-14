@@ -141,3 +141,7 @@ Semantic colors accent the column headings and interactive states while the data
 With `pagination: false`, all matching rows render and page navigation/page-size controls are hidden. The footer count and custom footer remain available unless `hideFooter: true`. Search results include the original dataset count only when filtering changes the result count.
 
 The inner scrolling region is named and keyboard-focusable. Focus it and use horizontal arrow keys to read wide tables; scrollLabel customizes its accessible name. Verify actual scrolling at narrow viewports.
+
+Embedded Table suppresses its Card elevation even when shadow/glow effects are requested; the application surface owns the frame. shadow:'none' does not activate the generic shadow effect class. A custom scrollLabel need not contain “Table” or “Tabella”; validators should identify a named scroll region that contains a table.
+
+Use a structural host without role, tabindex or overflow-x; Table owns its named keyboard scrolling region. Configure its accessible name through scrollLabel. Adding a second scroll/focus layer can create redundant keyboard stops.

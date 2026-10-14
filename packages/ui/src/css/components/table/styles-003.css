@@ -153,3 +153,7 @@
 
 :root[data-theme="dark"] .jss-table-card.jss-glass:not(.jss-state-light) .jss-table thead,
 .jss-table-card.jss-glass.jss-state-dark .jss-table thead { --set-sec-color: rgb(15 23 42 / 80%); background-blend-mode: soft-light; }
+/* The application owns elevation when embedding, including dark/effect rules. */
+.jss-table-card.jss-card.jss-singularity.jss-table-embedded {
+  box-shadow: none !important;
+}

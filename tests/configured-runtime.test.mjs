@@ -288,3 +288,9 @@ test('build reports default to compact and full diagnostics remain opt-in', asyn
   assert.throws(()=>validateConfig({report:'unknown'}),/report must/);
  }finally{await fs.rm(dir,{recursive:true,force:true});}
 });
+
+test('FormField owns generic control CSS without retaining it in Button-only builds', () => {
+ const css='.jss-control{padding:1px}.jss-control:hover{color:red}.shared{color:black}';
+ assert.equal(selectComponentCSS(css,['Button']).css,'.shared{color:black}');
+ assert.match(selectComponentCSS(css,['FormField']).css,/\.jss-control:hover/);
+});

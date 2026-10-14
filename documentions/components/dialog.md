@@ -86,3 +86,9 @@ Check Escape, Tab, focus restoration, and the accessible dialog name in the rend
 ## Initial focus ordering
 
 `onOpen(entry)` runs synchronously after mounting. Deferred autofocus selects the first control only when focus is outside the panel; focus assigned inside `onOpen` is preserved. Use `autoFocus: false` to disable automatic placement entirely. Closed overlays do not run pending autofocus.
+
+### Solid paint and offline close control
+
+The default close control uses the decorative built-in SVG #close; closeIcon still accepts a custom icon name and slots.close remains an override. No Material font is needed for the default close glyph.
+
+Use class:'jss-dialog-solid' for an opt-in opaque light/dark surface. It provides solid text/label/error colors and field/button backgrounds; decorative gradient paint is suppressed for those surfaces. Primary filled actions keep solid blue/white paint; other actions use the opaque surface. Custom colors must be remeasured. Other custom slots and paints are outside this guarantee. Measure settled text contrast separately from behavior and non-text accessibility.

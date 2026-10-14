@@ -34,7 +34,7 @@
     const iconRightNodes = renderSlotToArray(null, "default", {}, iconRightNode);
     const wrap = _.span(p, ...iconNodes, ...(labelNode.length ? labelNode : [""]), ...iconRightNodes);
     if (props.removable) {
-      const btn = UI.Btn({ class: "jss-chip-remove", onClick: props.onRemove, size: props?.size ?? null }, UI.Icon({ size: props?.size ?? null, name: "close" }));
+      const btn = UI.Btn({ class: "jss-chip-remove", onClick: props.onRemove, size: props?.size ?? null }, UI.Icon({ size: props?.size ?? null, name: "#close" }));
       wrap.appendChild(btn);
       btn.onclick = () => {
         if (props.onRemove) {

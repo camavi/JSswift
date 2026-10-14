@@ -118,7 +118,7 @@ UI.Banner = (...args) => {
         if (e.defaultPrevented) return;
         bannerEl?.remove();
       }
-    }, UI.Icon({ name: "close", size: rawProps.size || "sm" }))
+    }, UI.Icon({ name: "#close", size: rawProps.size || "sm" }))
     : null;
 
   const sideNodes = [

@@ -417,3 +417,12 @@ CSS ownership additionally covers Layout, RouteTab, shared choice controls, Slid
 Offline icon factories are independent named ESM exports at jsswift/icons and @jsswift/ui/icons, with declarations and no network assets. They create fresh decorative SVG nodes and do not allocate a runtime catalog. Vite tree-shakes unimported drawings; icons:false still controls automatic Material CSS. Sources are packages/ui/src/icons.js and icons.d.ts, copied by build:ui:assets and build:jsswift.
 
 Configured reports default to compact; report:full preserves reasons and absolute discovery files/roots. Required outer component classes can prune selectors containing functional pseudo-classes, while function arguments and attributes are never treated as unconditional requirements. Table's inner scroll container is a named keyboard-focusable region; scrollLabel customizes its name.
+
+
+## Post split.3 corrections
+
+Button uses feedback-only transitions rather than inheriting transition:all from singularity; flex-grow no longer animates after resize. Common props shadow:'none' no longer activates jss-shadow, including reactive transitions. Embedded Table overrides its own elevation in both themes; caller-owned surfaces are unaffected. These corrections are local until separately released.
+
+## Post split.4 local improvements
+
+Internal close glyphs and date navigation use Icon built-in SVG names. Explicit string overrides preserve Material behavior. Dialog has an opt-in jss-dialog-solid class for opaque theme-aware paint and text/error colors. CSS ownership maps jss-control to FormField based on its sole source constructor, preserving field dependency closure while pruning those rules from builds without fields.

@@ -7178,6 +7178,39 @@ select {
 .jss-overlay.jss-dialog-overlay-blur .jss-overlay-backdrop {
   backdrop-filter: blur(10px);
 }
+/* Opt-in opaque paint for applications that need reproducible text contrast. */
+.jss-dialog.jss-singularity.jss-dialog-solid {
+  --jss-dialog-solid-bg: #fff;
+  --jss-dialog-solid-text: #14243b;
+  --jss-dialog-solid-muted: #536179;
+  --jss-dialog-solid-error: #b42318;
+  background: var(--jss-dialog-solid-bg) !important;
+  color: var(--jss-dialog-solid-text) !important;
+  backdrop-filter: none !important;
+}
+:root[data-theme="dark"] .jss-dialog.jss-dialog-solid {
+  --jss-dialog-solid-bg: #14243b;
+  --jss-dialog-solid-text: #fff;
+  --jss-dialog-solid-muted: #bdc9da;
+  --jss-dialog-solid-error: #ffb4ab;
+}
+.jss-dialog.jss-dialog-solid :is(.jss-control, .jss-field-control, .jss-btn) {
+  background: var(--jss-dialog-solid-bg) !important;
+  color: var(--jss-dialog-solid-text) !important;
+  backdrop-filter: none !important;
+}
+.jss-dialog.jss-dialog-solid :is(.jss-dialog-title, .jss-field-input, .jss-select-value) { color: var(--jss-dialog-solid-text); }
+.jss-dialog.jss-dialog-solid :is(.jss-float-label, .jss-hint, .jss-field-float, .jss-field-label, .jss-field-toplabel, .jss-field-hint) {
+  color: var(--jss-dialog-solid-muted) !important;
+  opacity: 1;
+}
+.jss-dialog.jss-dialog-solid :is(.jss-field-error, .jss-error) { color: var(--jss-dialog-solid-error) !important; }
+
+.jss-dialog.jss-dialog-solid .jss-btn.primary:not(.outline) {
+  background: #2563eb !important;
+  color: #fff !important;
+}
+
 
 .jss-dialog.success,
 .jss-dialog.jss-state-success,
@@ -12316,6 +12349,12 @@ a.jss-breadcrumb {
   border-color: var(--set-border-color);
   transition: all 0.2s ease-in-out;
 }
+/* Animate feedback, never flex sizing during viewport changes. */
+.jss-btn.jss-singularity {
+  transition: transform 120ms ease, box-shadow 160ms ease,
+    background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
 
 .jss-outline.jss-glow {
   --set-glow-active: inset 0 0 7px 2px var(--set-color-1), 0 0 3px 3px var(--set-color-1), 0 0 15px color-mix(in srgb, var(--set-color-1) 100%, transparent);
@@ -13177,6 +13216,11 @@ a.jss-breadcrumb {
 
 :root[data-theme="dark"] .jss-table-card.jss-glass:not(.jss-state-light) .jss-table thead,
 .jss-table-card.jss-glass.jss-state-dark .jss-table thead { --set-sec-color: rgb(15 23 42 / 80%); background-blend-mode: soft-light; }
+/* The application owns elevation when embedding, including dark/effect rules. */
+.jss-table-card.jss-card.jss-singularity.jss-table-embedded {
+  box-shadow: none !important;
+}
+
 
 /* Shared Stat/Kpi/Header elevation: contact shadow plus a broad, directional ambient shadow. */
 :is(.jss-stat, .jss-kpi, .jss-header, .jss-footer, .jss-toolbar, .jss-drawer, .jss-page, .jss-parallax, .jss-alert, .jss-empty-state).jss-singularity.jss-shadow {

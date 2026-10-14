@@ -45,6 +45,9 @@
 
     const hasVisualSurface = !!(props.color || props.clickable || props.border || props.glossy || props.glow || props.glass || props.shadow || props.outline || props.gradient || props.textGradient || props.lightShadow || props.radius);
     const builtInSpriteIcons = {
+      "close": { viewBox: "0 0 24 24", paths: [{ d: "m6 6 12 12M6 18 18 6", fill: "none", stroke: "currentColor", "stroke-width": 2, "stroke-linecap": "round" }] },
+      "chevron-left": { viewBox: "0 0 24 24", paths: [{ d: "m15 5-7 7 7 7", fill: "none", stroke: "currentColor", "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round" }] },
+      "chevron-right": { viewBox: "0 0 24 24", paths: [{ d: "m9 5 7 7-7 7", fill: "none", stroke: "currentColor", "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round" }] },
       "chevron-down": {
         viewBox: "0 0 24 24",
         paths: [{ d: "M6 9l6 6l6 -6", fill: "none", stroke: "currentColor", "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round" }]
@@ -70,7 +73,7 @@
 
     const cls = uiClass([
       "jss-icon",
-      "material-icons",
+      typeof name === "string" && !name.includes("#") ? "material-icons" : "",
       uiComputed(props.fill, () =>
         typeof name === "string" && !name.includes("#") && uiUnwrap(props.fill)
           ? "material-icons-fill" : ""),

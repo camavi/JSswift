@@ -465,7 +465,10 @@
     var _a2;
     const classTokens = [];
     const style = {};
-    classTokens.push(uiWhen(props.clickable, "jss-clickable"), uiWhen(props.dense, "jss-dense"), uiWhen(props.flat, "jss-flat"), uiWhen(props.border, "jss-border"), uiWhen(props.glossy, "jss-glossy"), uiWhen(props.glow, "jss-glow"), uiWhen(props.glass, "jss-glass"), uiWhen(props.shadow, "jss-shadow"), uiWhen(props.outline, "jss-outline"), uiWhen(props.rounded, "jss-rounded"), uiWhen(props.gradient, "jss-gradient"), uiWhen(props.textGradient, "jss-text-gradient"), uiWhen(props.lightShadow, "jss-light-shadow"));
+    classTokens.push(uiWhen(props.clickable, "jss-clickable"), uiWhen(props.dense, "jss-dense"), uiWhen(props.flat, "jss-flat"), uiWhen(props.border, "jss-border"), uiWhen(props.glossy, "jss-glossy"), uiWhen(props.glow, "jss-glow"), uiWhen(props.glass, "jss-glass"), uiComputed(props.shadow, () => {
+      const value = uiUnwrap(props.shadow);
+      return value && value !== "none" ? "jss-shadow" : "";
+    }), uiWhen(props.outline, "jss-outline"), uiWhen(props.rounded, "jss-rounded"), uiWhen(props.gradient, "jss-gradient"), uiWhen(props.textGradient, "jss-text-gradient"), uiWhen(props.lightShadow, "jss-light-shadow"));
     if (uiIsReactive(props.color)) {
       classTokens.push(() => {
         const v = uiUnwrap(props.color);
@@ -1591,7 +1594,7 @@
         mid.appendChild(floatLabel);
       }
       control.appendChild(mid);
-      const defaultClear = props.clearable ? _.div({ class: "jss-clear", title: "Clear", onClick: clear }, UI.Icon({ name: "close" })) : null;
+      const defaultClear = props.clearable ? _.div({ class: "jss-clear", title: "Clear", onClick: clear }, UI.Icon({ name: "#close" })) : null;
       const clearNode = JSswift.ui.renderSlot(slots, "clear", { disabled: !!props.disabled, readonly: !!props.readonly, hasValue: getHasValueUntracked() }, defaultClear);
       if (clearNode) {
         clearNode.onclick = (e) => {
@@ -3545,7 +3548,7 @@
     const renderFile = (item, index) => {
       var _a3;
       const ctx = { item, file: item.file, index, api, remove: () => remove(item), retry: () => retryUpload(item), abort: () => abort(item) };
-      const fallback = _.div({ class: uiClass(["jss-upload-file", `is-${item.status}`]) }, _.div({ class: "jss-upload-file-icon" }, UI.Icon({ name: item.status === "done" ? "check_circle" : item.status === "error" || item.status === "rejected" ? "error" : "description" })), _.div({ class: "jss-upload-file-main" }, _.div({ class: "jss-upload-file-name" }, ...renderSlotToArray(slots, "fileName", ctx, item.name)), _.div({ class: "jss-upload-file-meta" }, ...renderSlotToArray(slots, "fileMeta", ctx, item.error ? String(((_a3 = item.error) == null ? void 0 : _a3.message) || item.error) : item.status === "queued" ? "Queued" : item.status)), _.div({ class: "jss-upload-progress", role: "progressbar", "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": String(item.progress || 0) }, _.div({ class: "jss-upload-progress-bar", style: { width: `${item.progress || 0}%` } }))), _.div({ class: "jss-upload-file-trailing" }, _.div({ class: "jss-upload-file-size" }, formatBytes(item.size)), _.div({ class: "jss-upload-file-actions" }, ...renderSlotToArray(slots, "fileActions", ctx, [item.status === "uploading" ? UI.Button({ size: "sm", outline: true, icon: "close", "aria-label": "Cancel", onClick: () => abort(item) }) : null, item.status === "error" || item.status === "canceled" ? UI.Button({ size: "sm", outline: true, icon: "refresh", "aria-label": "Retry", onClick: () => retryUpload(item) }) : null, UI.Button({ size: "sm", dense: true, outline: true, icon: "delete", "aria-label": "Remove", onClick: () => remove(item) })]))));
+      const fallback = _.div({ class: uiClass(["jss-upload-file", `is-${item.status}`]) }, _.div({ class: "jss-upload-file-icon" }, UI.Icon({ name: item.status === "done" ? "check_circle" : item.status === "error" || item.status === "rejected" ? "error" : "description" })), _.div({ class: "jss-upload-file-main" }, _.div({ class: "jss-upload-file-name" }, ...renderSlotToArray(slots, "fileName", ctx, item.name)), _.div({ class: "jss-upload-file-meta" }, ...renderSlotToArray(slots, "fileMeta", ctx, item.error ? String(((_a3 = item.error) == null ? void 0 : _a3.message) || item.error) : item.status === "queued" ? "Queued" : item.status)), _.div({ class: "jss-upload-progress", role: "progressbar", "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": String(item.progress || 0) }, _.div({ class: "jss-upload-progress-bar", style: { width: `${item.progress || 0}%` } }))), _.div({ class: "jss-upload-file-trailing" }, _.div({ class: "jss-upload-file-size" }, formatBytes(item.size)), _.div({ class: "jss-upload-file-actions" }, ...renderSlotToArray(slots, "fileActions", ctx, [item.status === "uploading" ? UI.Button({ size: "sm", outline: true, icon: "#close", "aria-label": "Cancel", onClick: () => abort(item) }) : null, item.status === "error" || item.status === "canceled" ? UI.Button({ size: "sm", outline: true, icon: "refresh", "aria-label": "Retry", onClick: () => retryUpload(item) }) : null, UI.Button({ size: "sm", dense: true, outline: true, icon: "delete", "aria-label": "Remove", onClick: () => remove(item) })]))));
       const custom = JSswift.ui.renderSlot(slots, "file", ctx, fallback);
       return _.div({ class: "jss-upload-file-wrap", "data-status": item.status, "data-id": item.id }, ...renderSlotToArray(null, "default", {}, custom));
     };
@@ -4649,7 +4652,7 @@
       return typeof v === "string" && sizeMap[v] ? v : "";
     });
     const hasVisualSurface = !!(props.color || props.clickable || props.border || props.glossy || props.glow || props.glass || props.shadow || props.outline || props.gradient || props.textGradient || props.lightShadow || props.radius);
-    const builtInSpriteIcons = { "chevron-down": { viewBox: "0 0 24 24", paths: [{ d: "M6 9l6 6l6 -6", fill: "none", stroke: "currentColor", "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round" }] } };
+    const builtInSpriteIcons = { "close": { viewBox: "0 0 24 24", paths: [{ d: "m6 6 12 12M6 18 18 6", fill: "none", stroke: "currentColor", "stroke-width": 2, "stroke-linecap": "round" }] }, "chevron-left": { viewBox: "0 0 24 24", paths: [{ d: "m15 5-7 7 7 7", fill: "none", stroke: "currentColor", "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round" }] }, "chevron-right": { viewBox: "0 0 24 24", paths: [{ d: "m9 5 7 7-7 7", fill: "none", stroke: "currentColor", "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round" }] }, "chevron-down": { viewBox: "0 0 24 24", paths: [{ d: "M6 9l6 6l6 -6", fill: "none", stroke: "currentColor", "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round" }] } };
     const createBuiltInSpriteIcon = (id) => {
       const def = builtInSpriteIcons[id];
       if (!def) return null;
@@ -4662,7 +4665,7 @@
       if (isPlainObject(props.tooltipProps)) Object.assign(tooltipProps, props.tooltipProps);
       return UI.Tooltip({ ...tooltipProps, target: icon2 });
     };
-    const cls = uiClass(["jss-icon", "material-icons", uiComputed(props.fill, () => typeof name === "string" && !name.includes("#") && uiUnwrap(props.fill) ? "material-icons-fill" : ""), ...hasVisualSurface ? ["jss-clear-set", "jss-singularity"] : [], sizeClass, props.class]);
+    const cls = uiClass(["jss-icon", typeof name === "string" && !name.includes("#") ? "material-icons" : "", uiComputed(props.fill, () => typeof name === "string" && !name.includes("#") && uiUnwrap(props.fill) ? "material-icons-fill" : ""), ...hasVisualSurface ? ["jss-clear-set", "jss-singularity"] : [], sizeClass, props.class]);
     const p = JSswift.omit(props, ["name", "size", "class", "style", "label", "border", "color", "icon", "iconRight", "removable", "onRemove", "dense", "flat", "glossy", "outline", "slots", "spriteUrl", "tooltip", "tooltipProps", "fill"]);
     p.class = cls;
     if (Object.keys(style).length) p.style = style;
@@ -4924,7 +4927,7 @@
     const iconRightNodes = renderSlotToArray(null, "default", {}, iconRightNode);
     const wrap = _.span(p, ...iconNodes, ...labelNode.length ? labelNode : [""], ...iconRightNodes);
     if (props.removable) {
-      const btn = UI.Btn({ class: "jss-chip-remove", onClick: props.onRemove, size: (_c = props == null ? void 0 : props.size) != null ? _c : null }, UI.Icon({ size: (_d = props == null ? void 0 : props.size) != null ? _d : null, name: "close" }));
+      const btn = UI.Btn({ class: "jss-chip-remove", onClick: props.onRemove, size: (_c = props == null ? void 0 : props.size) != null ? _c : null }, UI.Icon({ size: (_d = props == null ? void 0 : props.size) != null ? _d : null, name: "#close" }));
       wrap.appendChild(btn);
       btn.onclick = () => {
         if (props.onRemove) {
@@ -5296,7 +5299,7 @@
       (_a3 = rawProps.onDismiss) == null ? void 0 : _a3.call(rawProps, e);
       if (e.defaultPrevented) return;
       bannerEl == null ? void 0 : bannerEl.remove();
-    } }, UI.Icon({ name: "close", size: rawProps.size || "sm" })) : null;
+    } }, UI.Icon({ name: "#close", size: rawProps.size || "sm" })) : null;
     const sideNodes = [...asideNodes, ...!hasBottomActions ? actionsNodes : [], ...dismissNodes.length ? dismissNodes : defaultDismissNode ? [defaultDismissNode] : []];
     bannerEl = _.div(p, iconNodes.length ? _.div({ class: "jss-banner-icon" }, ...iconNodes) : null, _.div({ class: "jss-banner-body" }, _.div({ class: "jss-banner-copy" }, titleNodes.length ? _.div({ class: "jss-banner-title" }, ...titleNodes) : null, messageNodes.length ? _.div({ class: "jss-banner-message" }, ...messageNodes) : null, descriptionNodes.length ? _.div({ class: "jss-banner-description" }, ...descriptionNodes) : null, bodyNodes.length ? _.div({ class: "jss-banner-extra" }, ...bodyNodes) : null, metaNodes.length ? _.div({ class: "jss-banner-meta" }, ...metaNodes) : null), hasBottomActions && actionsNodes.length ? _.div({ class: "jss-banner-actions" }, ...actionsNodes) : null), sideNodes.length ? _.div({ class: "jss-banner-side" }, ...sideNodes) : null);
     const role = p.role || (() => {
@@ -5343,7 +5346,7 @@
       (_a3 = rawProps.onDismiss) == null ? void 0 : _a3.call(rawProps, e);
       if (e.defaultPrevented) return;
       alertEl == null ? void 0 : alertEl.remove();
-    } }, UI.Icon({ name: "close", size: "sm" })) : null;
+    } }, UI.Icon({ name: "#close", size: "sm" })) : null;
     alertEl = _.div(p, iconNodes.length ? _.div({ class: "jss-alert-icon" }, ...iconNodes) : null, _.div({ class: "jss-alert-body" }, titleNodes.length ? _.div({ class: "jss-alert-title" }, ...titleNodes) : null, messageNodes.length ? _.div({ class: "jss-alert-message" }, ...messageNodes) : null, descriptionNodes.length ? _.div({ class: "jss-alert-description" }, ...descriptionNodes) : null, metaNodes.length ? _.div({ class: "jss-alert-meta" }, ...metaNodes) : null, actionsNodes.length ? _.div({ class: "jss-alert-actions" }, ...actionsNodes) : null), asideNodes.length || dismissNodes.length || defaultDismissNode ? _.div({ class: "jss-alert-side" }, ...asideNodes, ...dismissNodes.length ? dismissNodes : defaultDismissNode ? [defaultDismissNode] : []) : null);
     setPropertyProps(alertEl, rawProps);
     return alertEl;
@@ -7342,12 +7345,12 @@
         viewMonth = shiftMonths(viewMonth, -1);
         (_a4 = props.onNavigate) == null ? void 0 : _a4.call(props, { month: viewMonth.getMonth() + 1, year: viewMonth.getFullYear() });
         renderPanel();
-      } }, UI.Icon({ name: "chevron_left", size: 16 })), _.div({ class: "jss-date-header-center" }, monthSelect, yearSelect), _.button({ type: "button", class: "jss-date-nav", onClick: () => {
+      } }, UI.Icon({ name: "#chevron-left", size: 16 })), _.div({ class: "jss-date-header-center" }, monthSelect, yearSelect), _.button({ type: "button", class: "jss-date-nav", onClick: () => {
         var _a4;
         viewMonth = shiftMonths(viewMonth, 1);
         (_a4 = props.onNavigate) == null ? void 0 : _a4.call(props, { month: viewMonth.getMonth() + 1, year: viewMonth.getFullYear() });
         renderPanel();
-      } }, UI.Icon({ name: "chevron_right", size: 16 })));
+      } }, UI.Icon({ name: "#chevron-right", size: 16 })));
       const shortcuts = _.div({ class: "jss-date-shortcuts" });
       const shortcutList = uiUnwrap((_n = props.shortcuts) != null ? _n : props.presets) || [];
       shortcutList.forEach((item, index) => {
@@ -10792,7 +10795,7 @@
       const subtitleNodes = renderSlotToArray(slots, "subtitle", ctx, resolveRender((_c = opts.subtitle) != null ? _c : opts.description, ctx));
       const iconNodes = renderSlotToArray(slots, "icon", ctx, iconFallback);
       const customHeaderNodes = renderSlotToArray(slots, "header", ctx, resolveRender((_d = opts.headerContent) != null ? _d : opts.head, ctx));
-      const closeSlotNodes = isClosable(opts) ? renderSlotToArray(slots, "close", ctx, UI.Btn({ class: "jss-dialog-close", size: "sm", outline: true, "aria-label": opts.closeLabel || "Chiudi dialog", "data-dialog-close": true }, UI.Icon({ name: opts.closeIcon || "close", size: "sm" }))) : [];
+      const closeSlotNodes = isClosable(opts) ? renderSlotToArray(slots, "close", ctx, UI.Btn({ class: "jss-dialog-close", size: "sm", outline: true, "aria-label": opts.closeLabel || "Chiudi dialog", "data-dialog-close": true }, UI.Icon({ name: opts.closeIcon || "#close", size: "sm" }))) : [];
       const bodyRaw = (_g = (_f = (_e = opts.content) != null ? _e : opts.body) != null ? _f : opts.message) != null ? _g : children && children.length ? children : null;
       let contentNodes = renderSlotToArray(slots, "content", ctx, resolveRender(bodyRaw, ctx));
       if (!contentNodes.length) contentNodes = renderSlotToArray(slots, "body", ctx, resolveRender(bodyRaw, ctx));
@@ -12386,7 +12389,7 @@ transition: width 200ms ease;
       const subtitleNodes = renderSlotToArray(slots, "subtitle", ctx, resolveRender((_c = opts.subtitle) != null ? _c : opts.description, ctx));
       const iconNodes = renderSlotToArray(slots, "icon", ctx, iconFallback);
       const headerNodes = renderSlotToArray(slots, "header", ctx, resolveRender((_e = (_d = opts.headerContent) != null ? _d : opts.head) != null ? _e : opts.header, ctx));
-      const closeSlotNodes = isClosable(opts) ? renderSlotToArray(slots, "close", ctx, UI.Btn({ class: "jss-dialog-close", size: "sm", outline: true, "aria-label": opts.closeLabel || "Chiudi popover", "data-popover-close": true }, UI.Icon({ name: opts.closeIcon || "close", size: "sm" }))) : [];
+      const closeSlotNodes = isClosable(opts) ? renderSlotToArray(slots, "close", ctx, UI.Btn({ class: "jss-dialog-close", size: "sm", outline: true, "aria-label": opts.closeLabel || "Chiudi popover", "data-popover-close": true }, UI.Icon({ name: opts.closeIcon || "#close", size: "sm" }))) : [];
       let bodyRaw = (_h = (_g = (_f = opts.content) != null ? _f : opts.body) != null ? _g : opts.message) != null ? _h : opts.text;
       if (bodyRaw == null && children && children.length) bodyRaw = children;
       let contentNodes = renderSlotToArray(slots, "content", ctx, resolveRender(bodyRaw, ctx));

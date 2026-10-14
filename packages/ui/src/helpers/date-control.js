@@ -900,7 +900,7 @@
             props.onNavigate?.({ month: viewMonth.getMonth() + 1, year: viewMonth.getFullYear() });
             renderPanel();
           }
-        }, UI.Icon({ name: "chevron_left", size: 16 })),
+        }, UI.Icon({ name: "#chevron-left", size: 16 })),
         _.div({ class: "jss-date-header-center" }, monthSelect, yearSelect),
         _.button({
           type: "button",
@@ -910,7 +910,7 @@
             props.onNavigate?.({ month: viewMonth.getMonth() + 1, year: viewMonth.getFullYear() });
             renderPanel();
           }
-        }, UI.Icon({ name: "chevron_right", size: 16 }))
+        }, UI.Icon({ name: "#chevron-right", size: 16 }))
       );
 
       const shortcuts = _.div({ class: "jss-date-shortcuts" });

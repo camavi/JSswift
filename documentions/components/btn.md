@@ -32,3 +32,5 @@ Exact JSswift UI contract. Shared definitions listed in `commonProps` are in [co
   "commonProps": {"path": "ui/common-props.md", "keys": ["size", "outline", "clickable", "padding", "margin", "width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "radius", "borderRadius", "shadow", "mobile", "tablet", "pc", "class", "style"]}
 }
 ```
+
+Button feedback transitions exclude layout properties (width, padding and flex), so responsive resizing does not animate through clipped labels. External pagers should give text and icons sufficient space; see the AI mobile pager example.

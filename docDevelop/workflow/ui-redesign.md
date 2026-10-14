@@ -1058,3 +1058,33 @@ No version bump, npm publication, Git commit/push or site deployment. Historical
 ## Fourth test preview verified — 2026-10-13
 
 Explicit user request: published jsswift@2.2.0-split.3 and @jsswift/ui@2.0.3-split.3 on next. latest unchanged at 2.1.1 and 2.0.2. Both installed from npm; consumer lockfile integrity matches inspected tarballs. Includes named offline SVG factories, compact/full report modes, safe functional CSS pruning and named keyboard table scrolling. Runtime builds, 90 unit/package and knowledge/MCP 4+2 passed; implementation browser suite already passed 65/65. Registry-installed consumer CLI/production/dev Vite 8.3.3 passed; imported add drawing present, unused edit drawing absent; compact report and no remote font confirmed. Dev source changes/additions/removals and external roots passed. Registry processing initially delayed availability; no duplicate publication. Artifacts: /tmp/jss-preview3-release; consumer verification: /tmp/jss-preview3-consumer-056deeyb/verification.log. No Git push or website deployment.
+
+## Post split.3 corrections after baseline commit — 2026-10-13
+
+User explicitly requested a commit before corrections. Created baseline commit 99153415 with the completed split/runtime/offline-icon work and preview versions, then applied this separate uncommitted correction set. No push or publication.
+
+Reproduced pager with the installed split.3 runtime and Playwright full-page screenshot path on an unchanged temporary pilot copy. Button transition:all inherited from singularity animates flex-grow from zero to one after desktop/mobile resize; intermediate button widths were about 22.5px and settled at 154px after the 200ms transition. The previously suggested flex basis explanation was incomplete: library layout animation caused the transient screenshot failure. Buttons now animate feedback transform/shadow/colors only, preserving layout changes instantly.
+
+Measured Table Card shadow despite shadow:none. Common props activated jss-shadow for the truthy none token, allowing Table's more specific effect rules to add elevation. none now avoids the generic effect class, including reactive models. Embedded Table suppresses its elevation even when effect props are enabled, in both themes. Focused Chrome regression covers full/selective outputs, resize label bounds, normal vs disabled/embedded shadows and reactive class transitions.
+
+Future laboratory validator identifies named role=region with table content and real overflow without requiring the word tabella. It verifies actual ArrowRight scrolling for customized Elenco prodotti. Added geometry-stabilization wait to screenshots and visual pager test. Current selectors accept public Input names and either custom metric-value or native KPI values. Historical scripts, source and result files untouched; the run moved externally from runs to archive during verification and was located there without mutation.
+
+Seven validator tests pass, including custom-name acceptance, unnamed-region rejection and transient layout settling. An unchanged temporary copy of the archived pilot with local runtime passes 23/23; desktop/mobile screenshots inspected with readable pager and no Table shadow. Added a documented two-column external pager and Kpi guidance, clarified selection/reading budget and documented staged-knowledge as a distinct mode for future comparisons. No new generation or measured token/time claim. Existing conservative CSS pruning remains; no unsupported unused-CSS removal was made. Contrast scope/exclusions remain explicit.
+
+Verification: runtime/site/umbrella builds, 90 unit/package tests, 66 Chrome tests (zero skips), knowledge/MCP 4+2, registry and whitespace checks passed. Corrections are local and uncommitted, separate from baseline commit, ready for review.
+
+## 2026-10-13 — split.4 preview publication
+
+Published jsswift 2.2.0-split.4 and @jsswift/ui 2.0.3-split.4 under next, preserving stable latest tags. Includes Button feedback-only transitions, shadow:none handling, embedded Table elevation suppression and focused application guidance. Verified runtime build, 90 tests, knowledge/MCP 4+2 and focused Chrome regression; fresh registry installation matches packed integrity, Vite 8.3.3 production and dev discovery checks passed. External benchmark validator changes are separate tooling and historical runs remain unchanged. No push/site deployment.
+
+## 2026-10-13 — post split.4 supported improvements
+
+Internal close controls (Dialog/Popover/Alert/Banner/Chip/FormField/Upload cancel) and date navigation now use built-in SVG. Explicit custom Material names and sprite configuration remain supported. Sprite/custom Icon nodes omit the Material font class. Dialog adds opt-in class jss-dialog-solid: opaque theme-aware surfaces, labels/errors, primary blue/white actions; the default decorative contract is unchanged. Docs retain AI.md -> CRUD, discourage duplicate table regions, and require separate HTTP checks and explicit sandbox limitations.
+
+CSS ownership adds jss-control -> FormField from its sole constructor. Button/Btn/Icon/Tooltip component-CSS selection drops 12,355 bytes versus an equal-length unowned spelling; no reduction claimed for FormField/CRUD builds. Unknown/functional-selector policy remains conservative.
+
+Verified 91 unit/package and 67 Chrome tests, zero skips; knowledge/MCP 4+2, registry, runtime/site builds, whitespace. Solid dialog light/dark full/selected screenshots inspected and sampled leaf text contrast >=4.5; offline default close and custom override verified. This is not a complete accessibility or heap audit. Changes are local and require separate release authorization.
+
+## 2026-10-13 — split.5 preview publication
+
+Published jsswift 2.2.0-split.5 and @jsswift/ui 2.0.3-split.5 under next, preserving latest. Includes internal close/calendar SVG, solid dialog opt-in, control CSS ownership and focused documentation. Runtime rebuild, 91 tests, knowledge/MCP 4+2 and tarball inspection passed; prior 67 Chrome tests passed. Fresh registry install integrities match artifacts and Vite 8.3.3 production/dev HTTP/discovery checks passed. No push or site deployment.

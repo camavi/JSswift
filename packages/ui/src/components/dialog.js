@@ -176,7 +176,7 @@
           outline: true,
           "aria-label": opts.closeLabel || "Chiudi dialog",
           "data-dialog-close": true
-        }, UI.Icon({ name: opts.closeIcon || "close", size: "sm" })))
+        }, UI.Icon({ name: opts.closeIcon || "#close", size: "sm" })))
         : [];
       const bodyRaw = opts.content ?? opts.body ?? opts.message ?? (children && children.length ? children : null);
       let contentNodes = renderSlotToArray(slots, "content", ctx, resolveRender(bodyRaw, ctx));

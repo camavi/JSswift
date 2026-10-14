@@ -71,7 +71,7 @@ UI.Alert = (...args) => {
         if (e.defaultPrevented) return;
         alertEl?.remove();
       }
-    }, UI.Icon({ name: "close", size: "sm" }))
+    }, UI.Icon({ name: "#close", size: "sm" }))
     : null;
 
   alertEl = _.div(

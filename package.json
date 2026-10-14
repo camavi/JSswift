@@ -1,7 +1,7 @@
 {
   "name": "jsswift",
   "private": true,
-  "version": "2.2.0-split.3",
+  "version": "2.2.0-split.5",
   "description": "JSswift UI + reactive runtime framework",
   "author": "Carlos Malleux",
   "license": "MIT",

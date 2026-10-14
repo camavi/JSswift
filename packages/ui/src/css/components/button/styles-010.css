@@ -3,3 +3,8 @@
   border-color: var(--set-border-color);
   transition: all 0.2s ease-in-out;
 }
+/* Animate feedback, never flex sizing during viewport changes. */
+.jss-btn.jss-singularity {
+  transition: transform 120ms ease, box-shadow 160ms ease,
+    background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
